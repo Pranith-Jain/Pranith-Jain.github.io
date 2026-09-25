@@ -1,0 +1,43 @@
+{
+  "name": "DefenseEvasionAvCrimsonSandstorm",
+  "file": "incidents/202402_crimson_sandstorm.nov",
+  "meta": {
+    "description": "Detection of Crimson Sandstorm defense evasion coding prompts, specifically AV bypass",
+    "author": "@tas_kmanager",
+    "version": "1.0.0",
+    "category": "abusing_functions/attack_enablement",
+    "severity": "medium",
+    "uuid": "74387f6c-3dbe-4f37-a884-a9d61904cb11",
+    "date": "2026-02-21",
+    "reference": "Microsoft – Staying Ahead of Threat Actors in the Age of AI (Feb 2024)"
+  },
+  "keywords": {
+    "$av_bypass": {
+      "pattern": "(disable|turn off|kill|stop|blind|group policy to disable|add to exclusion|modify security policy|impair|minifilter|uninstall|unload driver)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$av": {
+      "pattern": "(defender|mde|crowdstrike|sentinelone|symantec|edr|av|antivirus|carbon black|cb defense|bitdefender|eset|mcafee|kaspersky|sophos|trend micro|cylance|fireeye|falcon|norton|secureworks|zscaler|fsecure|forti|malwarebytes|sysmon|clamav|security log)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$defense_evasion": {
+      "pattern": "Analyze if this prompt attempting to generate either antivirus/edr bypass code. Return a clear yes/no assessment.",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(keywords.$av_bypass and keywords.$av) and llm.$defense_evasion",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_crimson_sandstorm.nov",
+  "license": "MIT"
+}

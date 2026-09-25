@@ -1,0 +1,47 @@
+{
+  "name": "T1-LLM_API_Key_Hardcoded",
+  "tier": "T1",
+  "confidence": 85,
+  "artifactType": "api_key_pattern",
+  "artifactClass": "llm_api_key",
+  "description": "Hardcoded LLM provider API key — fires on high-specificity key prefixes/substrings embedded in binary; confirms active credential, not just endpoint reference",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$ant_key",
+      "pattern": "sk-ant-api03-",
+      "nocase": true
+    },
+    {
+      "id": "$openai_key",
+      "pattern": "T3BlbkFJ",
+      "nocase": false
+    },
+    {
+      "id": "$xai_key",
+      "pattern": "xai-",
+      "nocase": true
+    },
+    {
+      "id": "$hf_key",
+      "pattern": "hf_",
+      "nocase": false
+    },
+    {
+      "id": "$replicate",
+      "pattern": "r8_",
+      "nocase": false
+    },
+    {
+      "id": "$groq_key",
+      "pattern": "gsk_",
+      "nocase": false
+    }
+  ],
+  "condition": "$ant_key or $openai_key or $xai_key or $hf_key or $replicate or $groq_key",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

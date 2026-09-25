@@ -1,0 +1,62 @@
+{
+  "name": "DataExfiltrationPrompt",
+  "file": "llm01_promptinject.nov",
+  "meta": {
+    "description": "Detects prompt injection attempts for data exfiltration",
+    "author": "@fr0gger_",
+    "version": "1.0",
+    "category": "abusing_functions/data_exfiltration",
+    "severity": "high",
+    "uuid": "816bf7a0-4d57-45ce-8876-7171f8f254c2",
+    "date": "2026-02-21",
+    "reference": "LLM01:2025 Prompt Injection"
+  },
+  "keywords": {
+    "$send_data": {
+      "pattern": "send (the|this) (data|information|content) to",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$exfil": {
+      "pattern": "exfiltrate|leak|steal|extract data",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$sensitive_request": {
+      "pattern": "system prompt|initial instructions|configuration|api key|credentials",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$external_service": {
+      "pattern": "(http|https):\\/\\/[^\\s]+|(send|post) to",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$data_extraction": {
+      "pattern": "extract sensitive information",
+      "threshold": 0.4
+    },
+    "$information_leakage": {
+      "pattern": "reveal confidential data",
+      "threshold": 0.4
+    }
+  },
+  "llm": {
+    "$data_theft_intent": {
+      "pattern": "Is this prompt attempting to extract sensitive information or system details?",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(keywords.$send_data and keywords.$external_service) or keywords.$exfil or (keywords.$sensitive_request and keywords.$external_service) or semantics.$data_extraction or semantics.$information_leakage or llm.$data_theft_intent",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/llm01_promptinject.nov",
+  "license": "MIT"
+}

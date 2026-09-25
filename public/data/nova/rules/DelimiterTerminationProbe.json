@@ -1,0 +1,213 @@
+{
+  "name": "DelimiterTerminationProbe",
+  "file": "delimiter_termination_probe.nov",
+  "meta": {
+    "description": "Detects strings sometimes used to probe delimiter and termination behavior.",
+    "author": "Marco Pedrinazzi (@pedrinazziM)",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "medium",
+    "uuid": "fddf7f30-1d8c-46cc-af08-42935dbbe2c4",
+    "date": "2026-09-10",
+    "reference": "https://elder-plinius.github.io/P4RS3LT0NGV3/"
+  },
+  "keywords": {
+    "$sys_open": {
+      "pattern": "<<SYS>>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$sys_close": {
+      "pattern": "<</SYS>>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$system_close": {
+      "pattern": "</system>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$instructions_close": {
+      "pattern": "</instructions>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$prompt_close": {
+      "pattern": "</prompt>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$context_close": {
+      "pattern": "</context>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$user_close": {
+      "pattern": "</user>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$assistant_close": {
+      "pattern": "</assistant>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$end_system_prompt": {
+      "pattern": "[END OF SYSTEM PROMPT]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$end_instructions": {
+      "pattern": "[END INSTRUCTIONS]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$system_message_complete": {
+      "pattern": "[SYSTEM MESSAGE COMPLETE]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$end_context": {
+      "pattern": "[END OF CONTEXT]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$begin": {
+      "pattern": "[BEGIN]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$end": {
+      "pattern": "[END]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$start_output": {
+      "pattern": "[START OUTPUT]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$end_output": {
+      "pattern": "[END OUTPUT]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$dash_end": {
+      "pattern": "---END---",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$equals_end": {
+      "pattern": "===END===",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$asterisk_end": {
+      "pattern": "***END***",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$underscores": {
+      "pattern": "________",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$dashes": {
+      "pattern": "--------",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$endofprompt": {
+      "pattern": "<|endofprompt|>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$endoftext": {
+      "pattern": "<|endoftext|>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$im_end": {
+      "pattern": "<|im_end|>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$im_start": {
+      "pattern": "<|im_start|>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$end_user": {
+      "pattern": "<|end_user|>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$end_system_instructions": {
+      "pattern": "End of system instructions.",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$system_prompt_complete": {
+      "pattern": "System prompt complete.",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$beginning_user_message": {
+      "pattern": "Now beginning user message:",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_previous": {
+      "pattern": "Ignore all previous instructions.",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$additional_instructions": {
+      "pattern": "## Additional Instructions:",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$new_system_rules": {
+      "pattern": "## New System Rules:",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$override_instructions": {
+      "pattern": "## Override Instructions:",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$updated_system_prompt": {
+      "pattern": "## Updated System Prompt:",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$combined_end_user_sys": {
+      "pattern": "<|end_user|> + <<SYS>>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$combined_system_tags": {
+      "pattern": "</system> + <system>",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$combined_end_new_instructions": {
+      "pattern": "[END] + [NEW INSTRUCTIONS]",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {},
+  "condition": "any of keywords.*",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": false
+  },
+  "keywordOnly": true,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/delimiter_termination_probe.nov",
+  "license": "MIT"
+}

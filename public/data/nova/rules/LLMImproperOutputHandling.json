@@ -1,0 +1,86 @@
+{
+  "name": "LLMImproperOutputHandling",
+  "file": "llm05_ImproperOutput.nov",
+  "meta": {
+    "description": "Detects potential exploitation of unsafe LLM output handling such as code execution, XSS, SQLi, or injection into downstream systems without validation.",
+    "author": "@fr0gger_",
+    "version": "1.0.0",
+    "category": "abnormal_outputs/malicious_content",
+    "severity": "high",
+    "uuid": "2d5d267e-a991-4400-92fb-e40b02395339",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$shell_exec": {
+      "pattern": "(exec|eval|os\\.system|subprocess\\.run)",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$js_payload": {
+      "pattern": "<script>|onerror=|javascript:|<iframe",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$sql_keywords": {
+      "pattern": "\\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$markdown_exec": {
+      "pattern": "```(js|javascript|bash|sh|sql)",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$email_template": {
+      "pattern": "email template|HTML email|marketing (content|campaign)",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$path_traversal": {
+      "pattern": "\\.\\.\\/|\\/etc\\/passwd",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$output_unsanitized": {
+      "pattern": "(unsanitized|raw|unescaped) output",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$output_injection": {
+      "pattern": "inject.*(into|via).*LLM output",
+      "isRegex": true,
+      "caseSensitive": true
+    }
+  },
+  "semantics": {
+    "$unsafe_output": {
+      "pattern": "LLM output may be used without validation or sanitization",
+      "threshold": 0.2
+    },
+    "$exec_or_inject": {
+      "pattern": "output content may result in code execution or injection",
+      "threshold": 0.2
+    }
+  },
+  "llm": {
+    "$direct_passthrough": {
+      "pattern": "LLM output sent directly to backend or UI without filtering",
+      "threshold": 0
+    },
+    "$disable_safety": {
+      "pattern": "prompt suggests skipping validation or escaping of model output",
+      "threshold": 0
+    }
+  },
+  "condition": "any of keywords.* or any of semantics.* or any of llm.*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/llm05_ImproperOutput.nov",
+  "license": "MIT"
+}

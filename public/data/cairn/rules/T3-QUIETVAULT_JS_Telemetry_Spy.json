@@ -1,0 +1,37 @@
+{
+  "name": "T3-QUIETVAULT_JS_Telemetry_Spy",
+  "tier": "T3",
+  "confidence": 90,
+  "artifactType": "c2_comms",
+  "artifactClass": "llm_api_backdoor",
+  "description": "Detects QUIETVAULT — JavaScript stealer masquerading as npm package telemetry module (package/telemetry.js); drops edb.chk; TrendMicro/Microsoft consensus on QVAULT/QuietVault family",
+  "family": "QUIETVAULT",
+  "archetypes": null,
+  "reference": "VT SHA256 8eea1f65e468b515020e3e2854805f1ef5c611342fa23c4b31d8ed3374286a90; Node.js 6.6KB; likely npm supply-chain vector; geofencing + anti-debug + long-sleep evasion",
+  "strings": [
+    {
+      "id": "$av_trend",
+      "pattern": "TrojanSpy.JS.QVAULT",
+      "nocase": true
+    },
+    {
+      "id": "$av_ms",
+      "pattern": "QuietVault",
+      "nocase": true
+    },
+    {
+      "id": "$path",
+      "pattern": "package/telemetry.js",
+      "nocase": true
+    },
+    {
+      "id": "$dropped",
+      "pattern": "edb.chk",
+      "nocase": true
+    }
+  ],
+  "condition": "$av_trend or $av_ms or ($path and $dropped)",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

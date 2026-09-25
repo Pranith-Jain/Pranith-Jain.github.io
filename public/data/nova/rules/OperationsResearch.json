@@ -1,0 +1,53 @@
+{
+  "name": "OperationsResearch",
+  "file": "incidents/202402_forest_blizzard.nov",
+  "meta": {
+    "description": "Detects reference of sensitive but not classified satellite, radar, or radio protocols",
+    "author": "@bees@infosec.exchange",
+    "version": "1.0.0",
+    "category": "abusing_functions/reconnaissance",
+    "severity": "high",
+    "uuid": "193459c9-dceb-484f-bca8-01ce2d072fcd",
+    "date": "2026-02-21",
+    "reference": "OpenAI + Microsoft Report 202402 - Forest Blizzard Recon"
+  },
+  "keywords": {
+    "$satellite_abbreviations": {
+      "pattern": "(CCSDS|DAMA|DVB-S2|SPP|SCID|SCPS|SCTP|SDLP)",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$satellite_terms": {
+      "pattern": "(mission phase|space link|transfer frame|data link|spacecraft identifier|service data unit|operational control field)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$radar_abbreviations": {
+      "pattern": "(ADSI|ARTAS|ASTERIX|EATCHIP|FSPEC|JREAP|JTIDS|JTRS|MIDS|STFRDE)",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$radar_terms": {
+      "pattern": "(radar data exchange|data terminal equipment|tactical radio system)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$sensitive": {
+      "pattern": "Is this prompt attempting to glean details of classified or sensitive technical protocols?",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(any of keywords.*) and (any of llm.*)",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_forest_blizzard.nov",
+  "license": "MIT"
+}

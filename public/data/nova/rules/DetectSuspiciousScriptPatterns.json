@@ -1,0 +1,210 @@
+{
+  "name": "DetectSuspiciousScriptPatterns",
+  "file": "skill_rules.nov",
+  "meta": {
+    "description": "Detects suspicious patterns in bundled scripts that may indicate malicious intent",
+    "author": "Thomas Roccia (@fr0gger_)",
+    "version": "1.0.0",
+    "category": "abusing_functions/supply_chain",
+    "severity": "high",
+    "uuid": "f22c8dda-3827-458c-aebb-dee2dbb86414",
+    "date": "2026-03-25",
+    "reference": null
+  },
+  "keywords": {
+    "$eval": {
+      "pattern": "eval(",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$exec": {
+      "pattern": "exec(",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$compile": {
+      "pattern": "compile(",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$code_object": {
+      "pattern": "__code__",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$curl_pipe": {
+      "pattern": "curl | bash",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$curl_pipe2": {
+      "pattern": "curl|bash",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$wget_pipe": {
+      "pattern": "wget | sh",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$wget_pipe2": {
+      "pattern": "wget|sh",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$remote_exec": {
+      "pattern": "remote_exec",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$env_access": {
+      "pattern": "os.environ",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$getenv": {
+      "pattern": "getenv(",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$env_vars": {
+      "pattern": "process.env",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$credentials": {
+      "pattern": "credentials",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$api_key": {
+      "pattern": "api_key",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$secret_key": {
+      "pattern": "secret_key",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$password": {
+      "pattern": "password",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$token_access": {
+      "pattern": "access_token",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$base64_decode": {
+      "pattern": "base64 -d",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$base64_decode2": {
+      "pattern": "base64.b64decode",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$base64_decode3": {
+      "pattern": "atob(",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$hex_decode": {
+      "pattern": "bytes.fromhex",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$rot13": {
+      "pattern": "rot13",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$encode_decode": {
+      "pattern": ".encode().decode()",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$reverse_shell": {
+      "pattern": "reverse shell",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bind_shell": {
+      "pattern": "bind shell",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$socket_connect": {
+      "pattern": "socket.connect",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$paramiko": {
+      "pattern": "paramiko",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$fabric": {
+      "pattern": "fabric",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$pexpect": {
+      "pattern": "pexpect",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$pickle_load": {
+      "pattern": "pickle.load",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$pickle_loads": {
+      "pattern": "pickle.loads",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$marshal_load": {
+      "pattern": "marshal.load",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$yaml_load": {
+      "pattern": "yaml.load(",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$exfiltration": {
+      "pattern": "send data to external server or endpoint",
+      "threshold": 0.4
+    },
+    "$backdoor": {
+      "pattern": "establish persistent access or reverse shell",
+      "threshold": 0.4
+    },
+    "$obfuscation": {
+      "pattern": "obfuscate or hide malicious code",
+      "threshold": 0.3
+    },
+    "$rce": {
+      "pattern": "execute arbitrary code from remote source",
+      "threshold": 0.4
+    }
+  },
+  "llm": {},
+  "condition": "any of keywords.* or any of semantics.*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/skill_rules.nov",
+  "license": "MIT"
+}

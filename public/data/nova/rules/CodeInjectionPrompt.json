@@ -1,0 +1,67 @@
+{
+  "name": "CodeInjectionPrompt",
+  "file": "llm01_promptinject.nov",
+  "meta": {
+    "description": "Detects code injection through prompt engineering",
+    "author": "@fr0gger_",
+    "version": "1.0",
+    "category": "prompt_manipulation/hidden_instructions",
+    "severity": "high",
+    "uuid": "25040029-10a1-4322-9b0a-520b5890a807",
+    "date": "2026-02-21",
+    "reference": "LLM01:2025 Prompt Injection"
+  },
+  "keywords": {
+    "$execute": {
+      "pattern": "execute (this|the following) code",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$run": {
+      "pattern": "run (this|the following) code",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$evaluate": {
+      "pattern": "eval|evaluate (this|the following) code",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$code_block": {
+      "pattern": "```(python|javascript|bash|sh|ruby|php)",
+      "isRegex": true,
+      "caseSensitive": true
+    },
+    "$system_access": {
+      "pattern": "system\\(|exec\\(|subprocess|os\\.system|child_process",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$code_execution": {
+      "pattern": "execute this code",
+      "threshold": 0.5
+    },
+    "$command_run": {
+      "pattern": "run this command",
+      "threshold": 0.5
+    }
+  },
+  "llm": {
+    "$code_execution_intent": {
+      "pattern": "Is this prompt trying to get the system to execute code or commands?",
+      "threshold": 0.3
+    }
+  },
+  "condition": "(keywords.$execute or keywords.$run or keywords.$evaluate) or (keywords.$code_block and keywords.$system_access) or semantics.$code_execution or semantics.$command_run or llm.$code_execution_intent",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/llm01_promptinject.nov",
+  "license": "MIT"
+}

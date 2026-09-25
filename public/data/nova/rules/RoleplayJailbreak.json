@@ -1,0 +1,53 @@
+{
+  "name": "RoleplayJailbreak",
+  "file": "jailbreak.nov",
+  "meta": {
+    "description": "Detects roleplay-based jailbreak attempts using only semantics and LLM",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/jailbreak",
+    "severity": "medium",
+    "uuid": "72ad2310-3a07-40e7-89b1-04544bf670e1",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {},
+  "semantics": {
+    "$harmful_roleplay": {
+      "pattern": "instructions for roleplaying scenarios designed to elicit harmful content",
+      "threshold": 0.35
+    },
+    "$character_bypass": {
+      "pattern": "using character impersonation to bypass content restrictions",
+      "threshold": 0.35
+    },
+    "$fictional_persona": {
+      "pattern": "adopting a fictional character that ignores ethical guidelines",
+      "threshold": 0.35
+    },
+    "$roleplaying_request": {
+      "pattern": "request to act as a character with harmful intentions",
+      "threshold": 0.35
+    },
+    "$impersonation": {
+      "pattern": "asking the model to impersonate a person or entity",
+      "threshold": 0.35
+    }
+  },
+  "llm": {
+    "$roleplay_check": {
+      "pattern": "Analyze if this prompt is asking the model to adopt a fictional persona or roleplay as a specific character that might lead to generating harmful or policy-violating content",
+      "threshold": 0.6
+    }
+  },
+  "condition": "(any of semantics.*) and llm.$roleplay_check",
+  "needs": {
+    "keywords": false,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/jailbreak.nov",
+  "license": "MIT"
+}

@@ -1,0 +1,415 @@
+{
+  "source": "github.com/transilienceai/denali",
+  "sourceUrl": "https://github.com/transilienceai/denali",
+  "license": "Apache-2.0",
+  "replicatedAt": "2026-09-25",
+  "tagline": "Evidence-led, provider-neutral AI security platform.",
+  "edgeNote": "Collectors, connectors, and snapshot evaluators require Postgres + provider credentials and are reference-only here. The edge evaluate surface covers the self-contained sliding-window rules.",
+  "counts": {
+    "rules": 9,
+    "issueRules": 3,
+    "runtimeRules": 6,
+    "assetKinds": 16,
+    "docs": 38
+  },
+  "rules": [
+    {
+      "uid": "DENALI-RUNTIME-ENTRA-FAILURES-001",
+      "kind": "runtime_detection",
+      "title": "Repeated failed AI sign-ins",
+      "description": "Detect repeated failures for the same exact actor and AI application."
+    },
+    {
+      "uid": "DENALI-RUNTIME-ENTRA-CONSENT-001",
+      "kind": "runtime_detection",
+      "title": "High-impact AI app consent grant",
+      "description": "Detect successful consent changes for exact, active, unreviewed AI apps."
+    },
+    {
+      "uid": "DENALI-RUNTIME-UNREVIEWED-MODEL-001",
+      "kind": "runtime_detection",
+      "title": "Unreviewed model invocation",
+      "description": "Detect successful invocation of an exact model still awaiting governance review."
+    },
+    {
+      "uid": "DENALI-RUNTIME-AWS-UNDECLARED-MODEL-001",
+      "kind": "runtime_detection",
+      "title": "AWS undeclared model invocation",
+      "description": "Detect an exact AWS model used by an agent without declared evidence."
+    },
+    {
+      "uid": "DENALI-RUNTIME-AWS-UNAPPROVED-TOOL-001",
+      "kind": "runtime_detection",
+      "title": "AWS unapproved tool invocation",
+      "description": "Detect observed AWS tool execution that is not explicitly approved."
+    },
+    {
+      "uid": "DENALI-RUNTIME-AWS-RISKY-SEQUENCE-001",
+      "kind": "runtime_detection",
+      "title": "AWS risky action sequence",
+      "description": "Detect a retrieval followed by a mutation-like tool call in one AWS session."
+    },
+    {
+      "uid": "DENALI-ISSUE-AGENT-WRITE-001",
+      "kind": "issue",
+      "title": "Agent sensitive-data write path",
+      "description": "Correlate independently supported agent-to-sensitive-data write paths."
+    },
+    {
+      "uid": "DENALI-ISSUE-SHADOW-AI-CONSENT-USE-001",
+      "kind": "issue",
+      "title": "Unreviewed AI consent then use",
+      "description": "Correlate high-impact consent with later exact use of the same AI app."
+    },
+    {
+      "uid": "DENALI-ISSUE-DEPLOYED-BEDROCK-GOVERNANCE-001",
+      "kind": "issue",
+      "title": "Deployed Bedrock governance gap",
+      "description": "Correlate an included unguarded Bedrock call with broad runtime authority."
+    }
+  ],
+  "docs": [
+    {
+      "slug": "0001-standalone-product",
+      "file": "0001-standalone-product.md",
+      "kind": "adr",
+      "title": "ADR 0001: Denali is a standalone product",
+      "summary": "Status: accepted — 2026-08-26 Decision Denali owns its user experience, authentication boundary, canonical store, domain model, API, deployment, and release lifecycle. Prowler is the first reference CSPM integration. It is not Denali's application shell, identity provider, database, or required runtime. Other CSPMs and cloud-security services connect through the same public connector boundary. Pro",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0001-standalone-product.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0002-ocsf-boundary",
+      "file": "0002-ocsf-boundary.md",
+      "kind": "adr",
+      "title": "ADR 0002: OCSF is an interchange format, not Denali's internal graph",
+      "summary": "Status: accepted — 2026-08-26 Decision Denali accepts and emits OCSF for findings and activity wherever an appropriate OCSF class exists. Denali does not force durable inventory, source reconciliation, governance, or permission relationships into an OCSF Detection Finding. Every connector declares four independent capabilities: | Capability | Meaning | | --- | --- | | Findings | Detection, complia",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0002-ocsf-boundary.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0003-aws-bedrock-inventory",
+      "file": "0003-aws-bedrock-inventory.md",
+      "kind": "adr",
+      "title": "ADR 0003: AWS Bedrock inventory is native, regional, and evidence-scoped",
+      "summary": "Status: accepted — 2026-08-26 Decision Denali discovers AWS AI inventory directly through read-only AWS control-plane APIs. It does not require Prowler to make an agent, model, tool, guardrail, identity, or knowledge base exist in Denali. Prowler may independently assert the same assets and remains the first reference source for cloud configuration findings. The first AWS connector covers Amazon B",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0003-aws-bedrock-inventory.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0004-agentcore-inventory",
+      "file": "0004-agentcore-inventory.md",
+      "kind": "adr",
+      "title": "ADR 0004: AgentCore is the primary AWS agent inventory path",
+      "summary": "Status: accepted — 2026-08-27 Context AWS now describes Amazon Bedrock Agents as Agents Classic, does not open it to new customers, and directs new agent deployments to Amazon Bedrock AgentCore. Denali keeps the Classic connector for existing estates, but new AWS inventory work targets AgentCore first. This prevents the product model from becoming an increasingly detailed representation of a legac",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0004-agentcore-inventory.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0005-evidence-bearing-issues",
+      "file": "0005-evidence-bearing-issues.md",
+      "kind": "adr",
+      "title": "ADR 0005: Evidence-bearing issue correlation",
+      "summary": "Status Accepted. Decision Denali issues are deterministic projections over separately persisted findings, inventory assertions, and relationship assertions. Issue records retain foreign-key links to every contributing finding, asset, and relationship. They do not copy a finding resource reference into inventory and do not manufacture graph edges. The initial rule confirms an agent-to-sensitive-dat",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0005-evidence-bearing-issues.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0006-sbom-first-vulnerability-model",
+      "file": "0006-sbom-first-vulnerability-model.md",
+      "kind": "adr",
+      "title": "ADR 0006: SBOM-first, scanner-neutral vulnerability model",
+      "summary": "Status Accepted. Decision Denali uses Syft plus Grype as its native, self-contained software inventory and vulnerability pipeline. Trivy remains a first-class source, both directly and through Prowler. Neither scanner's output is Denali's domain model. Software components are durable inventory assets. A component occurrence is identified within a target by its PURL when available, otherwise its ec",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0006-sbom-first-vulnerability-model.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0007-custom-aws-ai-workloads",
+      "file": "0007-custom-aws-ai-workloads.md",
+      "kind": "adr",
+      "title": "ADR 0007: Discover custom AWS AI workloads from an explicit stack boundary",
+      "summary": "Status Accepted for the Anna live pilot. Context Many production agents are ordinary Lambda functions or ECS tasks that call a model API. They are not resources in Bedrock Agents Classic or AgentCore. Treating a successful empty managed-agent scan as proof that no AI system exists would be a material visibility error. Anna is the first concrete example: its CloudFormation stack contains a model-ca",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0007-custom-aws-ai-workloads.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0008-custom-aws-ai-posture",
+      "file": "0008-custom-aws-ai-posture.md",
+      "kind": "adr",
+      "title": "ADR 0008: Custom AWS AI posture is a separate evidence source",
+      "summary": "Status Accepted Context Custom Lambda and ECS applications that call foundation models do not expose the same control plane as managed Bedrock Agents. Applying managed-agent checks to those systems would produce false assurance and false findings. Denali nevertheless needs posture facts that can be reconciled, explained, and resolved independently of inventory. Decision denali.aws_stack_posture ev",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0008-custom-aws-ai-posture.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0009-repository-ai-posture",
+      "file": "0009-repository-ai-posture.md",
+      "kind": "adr",
+      "title": "ADR 0009: Repository AI posture is a separate evidence plane",
+      "summary": "Status Accepted. Decision Denali evaluates source-level AI configuration in a connector and coverage plane that are separate from repository inventory and AWS control-plane posture. The first supported check reads TypeScript and JavaScript ES-module imports from @aws-sdk/client-bedrock-runtime. For a literal ConverseCommand, ConverseStreamCommand, InvokeModelCommand, or InvokeModelWithResponseStre",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0009-repository-ai-posture.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0010-evidence-led-code-to-cloud",
+      "file": "0010-evidence-led-code-to-cloud.md",
+      "kind": "adr",
+      "title": "ADR 0010: Code-to-cloud lineage requires independent identifiers",
+      "summary": "Status Accepted. Decision Denali correlates a source repository to a deployed AI workload only when independent code and cloud observations agree on deployment-specific identifiers. The common provider/runtime/identifier contract is defined by ADR 00230023-provider-neutral-deployment-identity.md. This ADR retains the exact identifier rules for the first AWS adapter. For the first AWS CDK slice, a ",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0010-evidence-led-code-to-cloud.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0011-static-artifact-inclusion",
+      "file": "0011-static-artifact-inclusion.md",
+      "kind": "adr",
+      "title": "ADR 0011: Static artifact inclusion is not runtime execution",
+      "summary": "Status Accepted. Decision Denali may classify a repository finding as artifact_included only when it can trace the finding's exact source file from a literal, declared artifact entry through a bounded graph of local module imports. The first supported build contracts are: - an AWS CDK NodejsFunction with a literal entry; and - an ECS image with a literal CDK asset context and Dockerfile whose buil",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0011-static-artifact-inclusion.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0012-deployment-artifact-provenance",
+      "file": "0012-deployment-artifact-provenance.md",
+      "kind": "adr",
+      "title": "ADR 0012: Deployment artifact identity is separate from source revision",
+      "summary": "Status Accepted. Decision Denali represents three code-to-cloud claims independently: 1. a source declaration correlates to an observed workload through exact deployment identifiers; 2. a source call-site module is included in that declaration's supported artifact graph; 3. the live deployment artifact has a particular identity and, separately, may or may not attest a source-control revision. The ",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0012-deployment-artifact-provenance.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0013-artifact-vulnerability-correlation",
+      "file": "0013-artifact-vulnerability-correlation.md",
+      "kind": "adr",
+      "title": "ADR 0013: Artifact vulnerabilities require an exact scanner-subject match",
+      "summary": "Status Accepted. Decision Denali correlates vulnerability observations to a deployed workload only when the scanner's own report identifies the artifact and that identity exactly matches the artifact observed in the live workload configuration. Every vulnerability collection therefore stores a scan subject independently from its user-supplied Denali target: - target kind and natural key say where ",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0013-artifact-vulnerability-correlation.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0014-package-occurrence-identity",
+      "file": "0014-package-occurrence-identity.md",
+      "kind": "adr",
+      "title": "ADR 0014: Package locations are evidence, not component identity",
+      "summary": "Status Accepted on 2026-08-27. Context Syft and Grype can attach several filesystem evidence paths to one installed package. Denali initially treated each path as a separate software-component occurrence. A Debian package represented by its status record and seven package metadata files therefore produced eight component and vulnerability occurrences, even though the scanner reported one artifact ",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0014-package-occurrence-identity.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0015-provider-neutral-runtime-activity",
+      "file": "0015-provider-neutral-runtime-activity.md",
+      "kind": "adr",
+      "title": "ADR 0015: Runtime activity is an observation, not a security conclusion",
+      "summary": "Status: accepted — 2026-08-27 Decision Denali stores provider-neutral AI runtime activity as an append-only evidence stream. The bounded adapters cover AWS Bedrock CloudTrail management activity, metadata-only AWS AgentCore OpenTelemetry/OpenInference spans, Google Cloud Vertex AI audit logs, Google Workspace Gemini audit activity, and Microsoft Entra AI-application sign-ins. An activity record an",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0015-provider-neutral-runtime-activity.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0016-entra-shadow-ai-and-runtime",
+      "file": "0016-entra-shadow-ai-and-runtime.md",
+      "kind": "adr",
+      "title": "ADR 0016: Entra AI application discovery and runtime observations",
+      "summary": "Status Accepted for the first Microsoft 365 runtime vertical slice. Context Microsoft Entra exposes several different facts that are easy to collapse into one overstated conclusion: - an enterprise application exists in a tenant; - an OAuth grant or application-role assignment exists; - a user or workload signed in to that application; - an administrator changed the application; - the application ",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0016-entra-shadow-ai-and-runtime.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0017-evidence-led-runtime-detections",
+      "file": "0017-evidence-led-runtime-detections.md",
+      "kind": "adr",
+      "title": "ADR 0017: Evidence-led runtime detections",
+      "summary": "Status Accepted for the first runtime-detection vertical slice. Context Runtime telemetry describes what a source observed. A failed sign-in, successful consent change, model invocation, or tool call is not automatically a security verdict. At the same time, preserving activity without evaluating well-defined harmful patterns would leave Denali as a log viewer rather than an AI security platform. ",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0017-evidence-led-runtime-detections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0018-self-service-aws-connections",
+      "file": "0018-self-service-aws-connections.md",
+      "kind": "adr",
+      "title": "ADR 0018: Self-service connections start with bounded AWS role onboarding",
+      "summary": "Status Accepted for the first self-service connection slice. Decision Denali represents a provider connection independently from the inventory, findings, activity, detections, and issues collected through it. A connection records its provider, lifecycle, credential reference, declared scopes, coverage plan, last validation, and health state. Deleting connection configuration never deletes previous",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0018-self-service-aws-connections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0019-self-service-azure-connections",
+      "file": "0019-self-service-azure-connections.md",
+      "kind": "adr",
+      "title": "ADR 0019: Azure onboarding uses a multi-tenant app and customer-selected subscriptions",
+      "summary": "Status Accepted for the first self-service Azure connection slice. Decision Denali uses one operator-owned Microsoft Entra application configured as multi-tenant. Customer onboarding creates that application's local enterprise application in the customer tenant, then assigns Azure Reader only at subscription scopes explicitly selected by the customer. Denali never asks for or stores a customer cli",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0019-self-service-azure-connections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0020-self-service-gcp-connections",
+      "file": "0020-self-service-gcp-connections.md",
+      "kind": "adr",
+      "title": "ADR 0020: Google Cloud onboarding uses a Denali service account and selected projects",
+      "summary": "Status Accepted for the first self-service Google Cloud connection slice. Decision Denali creates a unique service account in its operator-owned Google Cloud project for every connection. That immutable, connection-specific identity is the customer-visible runtime principal. Customers never create or upload a service-account key and never give Denali a user OAuth token or refresh token. In product",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0020-self-service-gcp-connections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0021-self-service-github-connections",
+      "file": "0021-self-service-github-connections.md",
+      "kind": "adr",
+      "title": "ADR 0021: GitHub onboarding uses an App and exact repository boundaries",
+      "summary": "Status Accepted for the first self-service GitHub connection slice. Decision Denali uses a Denali-owned GitHub App instead of accepting a customer personal access token, OAuth refresh token, deploy key, or GitHub password. The App requests only repository Metadata read, Contents read, and Actions read. It requests no organization, enterprise, administration, secret, webhook, or write permission. T",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0021-self-service-github-connections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0022-github-source-collection",
+      "file": "0022-github-source-collection.md",
+      "kind": "adr",
+      "title": "ADR 0022: GitHub source collection uses immutable, bounded snapshots",
+      "summary": "Status Accepted for the first GitHub-backed repository-to-runtime correlation slice. Decision Source collection is an explicit operation after GitHub App onboarding and validation. It is not implied by connection health. For every recorded repository, Denali: 1. revalidates the installation account and exact repository ID, node ID, and full name; 2. mints a short-lived installation token restricte",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0022-github-source-collection.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0023-provider-neutral-deployment-identity",
+      "file": "0023-provider-neutral-deployment-identity.md",
+      "kind": "adr",
+      "title": "ADR 0023: Deployment correlation uses provider-neutral identity requirements",
+      "summary": "Status Accepted. Context The first code-to-cloud slice encoded AWS CDK Lambda and ECS matching directly in the correlator. Google Cloud, Azure, and Kubernetes need different independently observed identifiers, but they must share the same evidence and disposition behavior. Copying the correlator per provider would make ambiguity, provenance, and coverage semantics diverge. Decision A deployment id",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0023-provider-neutral-deployment-identity.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0024-gcp-code-to-cloud",
+      "file": "0024-gcp-code-to-cloud.md",
+      "kind": "adr",
+      "title": "ADR 0024: GCP code-to-cloud uses Cloud Asset resource snapshots",
+      "summary": "Status Accepted for Cloud Run services and Cloud Run functions Gen2. Live-project control-plane acceptance passed on 2026-08-31 using an independently observed Cloud Run service and an exact exported-YAML identity join. Decision Denali reads Cloud Run services and Cloud Run functions through the project-scoped Cloud Asset Inventory assets.list endpoint with contentType=RESOURCE. Collection is expl",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0024-gcp-code-to-cloud.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0025-azure-code-to-cloud",
+      "file": "0025-azure-code-to-cloud.md",
+      "kind": "adr",
+      "title": "ADR 0025: Azure code-to-cloud uses bounded Resource Graph inventory",
+      "summary": "Status Accepted for Azure Container Apps and Azure Functions. Live subscription, PostgreSQL, reporting, and connected-browser acceptance passed on 2026-08-31 using an independently observed Container App and an exact Azure resource-export identity join. Decision Denali reads Container Apps and Function Apps through Azure Resource Graph using the existing multi-tenant connection identity and each e",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0025-azure-code-to-cloud.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0026-aws-deployment-code-to-cloud",
+      "file": "0026-aws-deployment-code-to-cloud.md",
+      "kind": "adr",
+      "title": "ADR 0026: AWS deployment inventory uses service-specific identity contracts",
+      "summary": "Status Accepted and live-provider verified on 2026-08-31. Automated connector, API, PostgreSQL, production-web, exact account/Region validation, and eight-plane collection verification pass. See the live acceptance record../product/aws-code-to-cloud-live-acceptance-2026-08-31.md. Decision The aws.code_to_cloud connection scope validates and collects four independent regional planes: Lambda functio",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0026-aws-deployment-code-to-cloud.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0027-shared-kubernetes-code-to-cloud",
+      "file": "0027-shared-kubernetes-code-to-cloud.md",
+      "kind": "adr",
+      "title": "ADR 0027: Kubernetes code-to-cloud uses one exact workload identity",
+      "summary": "Status Accepted, implemented, and live-accepted through EKS on 2026-08-31. Automated connector and correlation verification also passes for GKE and AKS identity shapes. See the live acceptance record../product/kubernetes-code-to-cloud-live-acceptance-2026-08-31.md. Decision Denali uses one provider-neutral Kubernetes workload contract above the cloud cluster inventory. AWS, Google Cloud, and Azure",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0027-shared-kubernetes-code-to-cloud.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0028-hosted-multi-tenant-runtime",
+      "file": "0028-hosted-multi-tenant-runtime.md",
+      "kind": "adr",
+      "title": "ADR 0028: Hosted multi-tenant runtime uses Vercel, Clerk, Modal, and Neon",
+      "summary": "Status Accepted and deployed for the invitation-only pilot on 2026-09-01, with the current production schema and runtime updated through migration 020 on 2026-09-14. The web application, same-origin API proxy, Clerk Organization authorization, Modal API, durable connection-validation worker, durable provider-collection workers, and Neon schema are live. Provider integrations still require individu",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0028-hosted-multi-tenant-runtime.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0029-self-service-entra-connections",
+      "file": "0029-self-service-entra-connections.md",
+      "kind": "adr",
+      "title": "ADR 0029: Microsoft Entra onboarding uses tenant-bound admin consent",
+      "summary": "Status Accepted for the first hosted Microsoft Entra customer onboarding slice. Decision Denali uses one operator-owned, multi-tenant Microsoft Entra application with application-only Microsoft Graph permissions. A customer never supplies a client secret, user password, refresh token, access token, or service-principal credential. The customer supplies only the exact Entra tenant UUID and a Global",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0029-self-service-entra-connections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0030-hosted-evidence-orchestration",
+      "file": "0030-hosted-evidence-orchestration.md",
+      "kind": "adr",
+      "title": "ADR 0030: Healthy provider connections automatically collect and refresh derived evidence",
+      "summary": "Date: 2026-09-08 Status: accepted Context Connection validation and evidence collection were independently durable, but they were also independently initiated. A connection could therefore remain visibly healthy while it had never collected evidence. Cloud deployment collection could also finish after GitHub source analysis, leaving exact code-to-cloud dispositions stale until an operator happened",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0030-hosted-evidence-orchestration.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0031-hosted-vulnerability-evidence-import",
+      "file": "0031-hosted-vulnerability-evidence-import.md",
+      "kind": "adr",
+      "title": "ADR 0031: Hosted vulnerability evidence imports are tenant-scoped durable jobs",
+      "summary": "Date: 2026-09-08 Status: accepted Context Syft and Grype adapters existed only as database-connected command-line importers. Hosted users could inspect vulnerability evidence but had no authenticated way to attach CI-generated reports to an observed workload. Processing reports inside an API request or retaining raw reports in PostgreSQL would violate the hosted durability and bounded-evidence con",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0031-hosted-vulnerability-evidence-import.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0032-github-oidc-vulnerability-evidence",
+      "file": "0032-github-oidc-vulnerability-evidence.md",
+      "kind": "adr",
+      "title": "ADR 0032: Deployment workflows submit vulnerability evidence with GitHub OIDC",
+      "summary": "Date: 2026-09-08 Status: accepted Context ADR 0031 introduced a safe hosted import boundary, but its manual workload selector and JSON file upload are an operational fallback rather than an acceptable primary experience. A deployment workflow already knows the immutable image it built and scanned. Denali already knows which repositories a tenant selected through its GitHub App installation and whi",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0032-github-oidc-vulnerability-evidence.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0033-self-service-google-workspace-connections",
+      "file": "0033-self-service-google-workspace-connections.md",
+      "kind": "adr",
+      "title": "ADR 0033: Self-service Google Workspace connections",
+      "summary": "- Status: Accepted - Date: 2026-09-08 Context Denali needs the Google Workspace equivalent of Microsoft Entra application discovery and activity evidence. Treating an unconfigured or forbidden audit source as an empty source would create a false zero. Storing a customer service-account key, OAuth refresh token, or exported audit file would also conflict with the hosted provider identity model. The",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0033-self-service-google-workspace-connections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0034-self-service-azure-repos-connections",
+      "file": "0034-self-service-azure-repos-connections.md",
+      "kind": "adr",
+      "title": "ADR 0034: Azure Repos uses delegated proof and app-only collection",
+      "summary": "Status Accepted for the first hosted Azure Repos source and code-to-cloud slice. Decision Azure Repos is a separate provider connection from Azure Resource Manager and Microsoft Entra. The customer records one Entra tenant UUID and one dev.azure.com organization, authorizes a short Microsoft user session, selects exact repository UUIDs, and grants Denali's enterprise application read access in Azu",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0034-self-service-azure-repos-connections.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0035-aws-agentcore-runtime-detection-and-response",
+      "file": "0035-aws-agentcore-runtime-detection-and-response.md",
+      "kind": "adr",
+      "title": "ADR 0035: AWS AIDR uses metadata-only AgentCore span evidence",
+      "summary": "Date: 2026-09-11 Status: accepted Context Denali already correlates source declarations with AWS workloads, execution identities, models, and declared tool/action surfaces. That graph describes what an agent is configured to do, but it does not establish what happened during one execution. CloudTrail Event History supplies bounded Bedrock management activity; it does not supply the ordered AgentCo",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0035-aws-agentcore-runtime-detection-and-response.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "0036-azure-foundry-runtime-detection-and-response",
+      "file": "0036-azure-foundry-runtime-detection-and-response.md",
+      "kind": "adr",
+      "title": "ADR 0036: Azure AIDR uses metadata-only Foundry trace evidence",
+      "summary": "Date: 2026-09-14 Status: accepted and deployed Context Denali correlates source declarations with Azure workloads, execution identities, models, and declared tool/action surfaces. That graph describes what an agent is configured to do, but it does not establish what happened during an execution. Microsoft Foundry hosted agents can emit OpenTelemetry-compatible agent, model, and tool spans to an Ap",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/0036-azure-foundry-runtime-detection-and-response.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "agent-security-roadmap",
+      "file": "agent-security-roadmap.md",
+      "kind": "guide",
+      "title": "Denali agent security roadmap",
+      "summary": "Date: 2026-09-15 Last updated: 2026-09-17 Product direction Denali is the independent evidence, detection, and containment layer for autonomous AI activity across source, cloud, identity, workload, runtime, and response systems. It makes activity attributable, independently observable, coverage-aware, investigable, and containable without claiming to solve model alignment or prevent unknown vulner",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/product/agent-security-roadmap.md",
+      "license": "Apache-2.0"
+    },
+    {
+      "slug": "codebase-and-system-map",
+      "file": "codebase-and-system-map.md",
+      "kind": "guide",
+      "title": "Denali codebase and system map",
+      "summary": "This is the living, descriptive map of the Denali repository. It answers “where does this behavior live?” and “how does data move through the product?” The numbered architecture decision records remain authoritative for why individual boundaries were chosen. Read these documents first when joining the project: 1. AGENTS.md../../AGENTS.md for repository-wide safety and contribution constraints. 2. ",
+      "sourceUrl": "https://github.com/transilienceai/denali/blob/main/docs/architecture/codebase-and-system-map.md",
+      "license": "Apache-2.0"
+    }
+  ]
+}

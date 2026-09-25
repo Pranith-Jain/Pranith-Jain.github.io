@@ -1,0 +1,42 @@
+{
+  "name": "T1-Prompt_Residue",
+  "tier": "T1",
+  "confidence": 82,
+  "artifactType": "prompt",
+  "artifactClass": "prompt_residue",
+  "description": "Primitive prompt residue or role-framed instruction text",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$system_prompt",
+      "pattern": "system prompt",
+      "nocase": true
+    },
+    {
+      "id": "$you_are",
+      "pattern": "You are",
+      "nocase": true
+    },
+    {
+      "id": "$assistant",
+      "pattern": "assistant:",
+      "nocase": true
+    },
+    {
+      "id": "$developer",
+      "pattern": "developer message",
+      "nocase": true
+    },
+    {
+      "id": "$ignore",
+      "pattern": "ignore previous instructions",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "T2-Discord_C2_Webhook",
+  "tier": "T2",
+  "confidence": 78,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "discord_c2_webhook",
+  "description": "Discord webhook-based C2 or exfiltration pattern visible in sigma ScriptBlockText. Co-occurrence of Discord references with webhook parameter passing and offensive execution indicators.",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$discord",
+      "pattern": "discord",
+      "nocase": true
+    },
+    {
+      "id": "$webhook_param",
+      "pattern": "-webhook",
+      "nocase": true
+    },
+    {
+      "id": "$out_string",
+      "pattern": "Out-String",
+      "nocase": true
+    },
+    {
+      "id": "$exec_bypass",
+      "pattern": "ExecutionPolicy bypass",
+      "nocase": true
+    }
+  ],
+  "condition": "$discord and $webhook_param and ($out_string or $exec_bypass)",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

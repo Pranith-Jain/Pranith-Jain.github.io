@@ -1,0 +1,72 @@
+{
+  "name": "ReceiveCommandExecPrompt",
+  "file": "promptintel/ReceiveCommandExecPrompt.nov",
+  "meta": {
+    "description": "Detects prompts requesting code that listens on a socket, executes received commands via subprocess, and returns the output (indicative of reverse shells or remote command execution).",
+    "author": "benything",
+    "version": "1.0.0",
+    "category": "abusing_functions/malware_generation",
+    "severity": "high",
+    "uuid": "97a15a75-45e3-4d86-aa1d-a7b1a5e830d1",
+    "date": "2025-11-05",
+    "reference": null
+  },
+  "keywords": {
+    "$receive_fn": {
+      "pattern": "receive_command",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$subprocess": {
+      "pattern": "subprocess",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$exec_words": {
+      "pattern": "execute",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$socket": {
+      "pattern": "socket",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$connection": {
+      "pattern": "connection",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$send_output": {
+      "pattern": "send",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$remote_exec": {
+      "pattern": "listen for commands on a socket and execute them, returning output",
+      "threshold": 0.2
+    },
+    "$reverse_shell": {
+      "pattern": "implement a reverse shell or remote command executor",
+      "threshold": 0.2
+    }
+  },
+  "llm": {
+    "$analyze_remote_exec": {
+      "pattern": "Analyze if this prompt requests code to listen on a network socket, accept commands, execute them using subprocess or equivalent, and send command output back over the socket.",
+      "threshold": 0.2
+    }
+  },
+  "condition": "(keywords.$socket and (keywords.$receive_fn or keywords.$subprocess or keywords.$connection) and (keywords.$exec_words or keywords.$send_output)) and (semantics.$remote_exec or semantics.$reverse_shell or llm.$analyze_remote_exec)",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/promptintel/ReceiveCommandExecPrompt.nov",
+  "license": "MIT"
+}

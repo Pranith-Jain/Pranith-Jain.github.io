@@ -1,0 +1,48 @@
+{
+  "name": "DirectInstructionManipulationDetection",
+  "file": "injection.nov",
+  "meta": {
+    "description": "Detects direct prompt injection attempts aiming to change model instructions",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "high",
+    "uuid": "3aa029a7-64b7-4882-9adb-6e7debb88fce",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$bypass_filters": {
+      "pattern": "bypass filters",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$manipulate_instructions": {
+      "pattern": "manipulate instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_guidelines": {
+      "pattern": "ignore guidelines",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$alter_behavior": {
+      "pattern": "change behavior",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {},
+  "condition": "2 of keywords.*",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": false
+  },
+  "keywordOnly": true,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
+  "license": "MIT"
+}

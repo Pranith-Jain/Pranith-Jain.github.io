@@ -1,0 +1,52 @@
+{
+  "name": "T2-Local_Inference_Persistence",
+  "tier": "T2",
+  "confidence": 80,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "local_inference_persistence",
+  "description": "Behavioral local inference references combined with persistence language",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$ollama",
+      "pattern": "ollama",
+      "nocase": true
+    },
+    {
+      "id": "$llamacpp",
+      "pattern": "llama.cpp",
+      "nocase": true
+    },
+    {
+      "id": "$vllm_mod",
+      "pattern": "vllm.",
+      "nocase": true
+    },
+    {
+      "id": "$vllm_imp",
+      "pattern": "import vllm",
+      "nocase": true
+    },
+    {
+      "id": "$run_key",
+      "pattern": "CurrentVersion\\Run",
+      "nocase": true
+    },
+    {
+      "id": "$startup",
+      "pattern": "Startup",
+      "nocase": true
+    },
+    {
+      "id": "$scheduled_task",
+      "pattern": "schtasks",
+      "nocase": true
+    }
+  ],
+  "condition": "1 of ($ollama, $llamacpp, $vllm_mod, $vllm_imp) and 1 of ($run_key, $startup, $scheduled_task)",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

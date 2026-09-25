@@ -1,0 +1,191 @@
+{
+  "name": "DetectSkillPromptInjection",
+  "file": "skill_rules.nov",
+  "meta": {
+    "description": "Detects prompt injection attempts in skill definitions",
+    "author": "Thomas Roccia (@fr0gger_), Marco Pedrinazzi (@pedrinazziM)",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "critical",
+    "uuid": "7faacd23-457f-4c7b-87c7-38198c4d5e60",
+    "date": "2026-03-25",
+    "reference": null
+  },
+  "keywords": {
+    "$ignore_previous": {
+      "pattern": "ignore previous",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_above": {
+      "pattern": "ignore above",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_all": {
+      "pattern": "ignore all",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$disregard": {
+      "pattern": "disregard your instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$disregard_prev": {
+      "pattern": "disregard previous",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$forget": {
+      "pattern": "forget everything",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$forget_instructions": {
+      "pattern": "forget your instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$new_role": {
+      "pattern": "you are now",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$new_identity": {
+      "pattern": "your new identity",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$pretend": {
+      "pattern": "pretend to be",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$act_as": {
+      "pattern": "act as if",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$roleplay": {
+      "pattern": "roleplay as",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$system_prompt": {
+      "pattern": "system prompt",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$override_system": {
+      "pattern": "override system",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bypass_safety": {
+      "pattern": "bypass safety",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bypass_restrictions": {
+      "pattern": "bypass restrictions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_safety": {
+      "pattern": "ignore safety",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$ignore_guidelines": {
+      "pattern": "ignore guidelines",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$dan_mode": {
+      "pattern": "DAN mode",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$developer_mode": {
+      "pattern": "developer mode",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$jailbreak": {
+      "pattern": "jailbreak",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$unlock": {
+      "pattern": "unlock your",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$unrestricted": {
+      "pattern": "unrestricted mode",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$no_limits": {
+      "pattern": "no limits",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$no_restrictions": {
+      "pattern": "no restrictions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$hidden_instruction": {
+      "pattern": "[HIDDEN]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$secret_instruction": {
+      "pattern": "[SECRET]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$admin_only": {
+      "pattern": "[ADMIN]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$invisible": {
+      "pattern": "<!-- ",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$markdown_reference_link": {
+      "pattern": "\\[[^\\]]*\\]:\\s*(?:#|<>)\\s*(?:\"[^\"]*\"|\\([^)]*\\))",
+      "isRegex": true,
+      "caseSensitive": true
+    }
+  },
+  "semantics": {
+    "$override_intent": {
+      "pattern": "override or bypass system instructions",
+      "threshold": 0.4
+    },
+    "$manipulation": {
+      "pattern": "manipulate the AI into ignoring its guidelines",
+      "threshold": 0.4
+    },
+    "$jailbreak_attempt": {
+      "pattern": "attempt to remove safety restrictions",
+      "threshold": 0.4
+    }
+  },
+  "llm": {},
+  "condition": "any of keywords.* or any of semantics.*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/skill_rules.nov",
+  "license": "MIT"
+}

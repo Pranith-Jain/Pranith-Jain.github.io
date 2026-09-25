@@ -1,0 +1,52 @@
+{
+  "name": "T2-Local_Inference_Deploy",
+  "tier": "T2",
+  "confidence": 82,
+  "artifactType": "model_reference",
+  "artifactClass": "local_model_deploy",
+  "description": "Deployment-level local LLM signals — model download, serve, or API calls to local inference runtime",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$hf_resolve",
+      "pattern": "huggingface.co/resolve/main",
+      "nocase": true
+    },
+    {
+      "id": "$ollama_serve",
+      "pattern": "ollama serve",
+      "nocase": true
+    },
+    {
+      "id": "$ollama_pull",
+      "pattern": "ollama pull",
+      "nocase": true
+    },
+    {
+      "id": "$llama_server",
+      "pattern": "llama-server",
+      "nocase": true
+    },
+    {
+      "id": "$local_api",
+      "pattern": "127.0.0.1:11434",
+      "nocase": true
+    },
+    {
+      "id": "$local_api2",
+      "pattern": "localhost:11434",
+      "nocase": true
+    },
+    {
+      "id": "$llamafile",
+      "pattern": "llamafile",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

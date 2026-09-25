@@ -1,0 +1,127 @@
+{
+  "name": "DetectMaliciousToolPermissions",
+  "file": "skill_rules.nov",
+  "meta": {
+    "description": "Detects dangerous allowed-tools patterns that grant excessive permissions",
+    "author": "Thomas Roccia (@fr0gger_)",
+    "version": "1.0.0",
+    "category": "abusing_functions/agentic_misuse",
+    "severity": "high",
+    "uuid": "f9eca781-816b-481a-8975-9ca4d136821f",
+    "date": "2026-03-25",
+    "reference": null
+  },
+  "keywords": {
+    "$bash_wildcard1": {
+      "pattern": "Bash(*)",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bash_wildcard2": {
+      "pattern": "Bash:*",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$bash_wildcard3": {
+      "pattern": "Bash: *",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$write_wildcard1": {
+      "pattern": "Write(*)",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$write_wildcard2": {
+      "pattern": "Write:*",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$edit_wildcard1": {
+      "pattern": "Edit(*)",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$edit_wildcard2": {
+      "pattern": "Edit:*",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$read_wildcard1": {
+      "pattern": "Read(*)",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$read_wildcard2": {
+      "pattern": "Read:*",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$execute_wildcard": {
+      "pattern": "Execute(*)",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$rm_rf": {
+      "pattern": "rm -rf",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$sudo": {
+      "pattern": "sudo",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$chmod_777": {
+      "pattern": "chmod 777",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$curl_bash": {
+      "pattern": "curl | bash",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$wget_sh": {
+      "pattern": "wget | sh",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$netcat": {
+      "pattern": "netcat",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$nc_listen": {
+      "pattern": "nc -l",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$reverse_shell": {
+      "pattern": "reverse shell",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$unrestricted_access": {
+      "pattern": "unrestricted file system access",
+      "threshold": 0.4
+    },
+    "$arbitrary_execution": {
+      "pattern": "execute arbitrary commands",
+      "threshold": 0.4
+    }
+  },
+  "llm": {},
+  "condition": "any of keywords.* or any of semantics.*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/skill_rules.nov",
+  "license": "MIT"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "BindShellPrompt",
+  "file": "promptintel/BindShellPrompt.nov",
+  "meta": {
+    "description": "Detects attempts to describe or define a Python function that connects back to a remote host using sockets, indicative of reverse shell or backconnect behavior.",
+    "author": "benything",
+    "version": "1.0.0",
+    "category": "abusing_functions/malware_generation",
+    "severity": "high",
+    "uuid": "075ae0fa-12d5-44d5-b27b-6db93708f67b",
+    "date": "2025-11-05",
+    "reference": null
+  },
+  "keywords": {
+    "$socket_ref": {
+      "pattern": "socket",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$connect_func": {
+      "pattern": "connect_back",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$tcp_ref": {
+      "pattern": "TCP",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$host_ip": {
+      "pattern": "host_ip",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$host_port": {
+      "pattern": "host_port",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$reverse_connection": {
+      "pattern": "create a function to connect back to a remote host or attacker",
+      "threshold": 0.2
+    },
+    "$exfil_behavior": {
+      "pattern": "reverse shell or remote access function definition",
+      "threshold": 0.2
+    }
+  },
+  "llm": {
+    "$analyze_reverse_connection": {
+      "pattern": "Analyze if this text is describing or requesting code that connects back to a remote system or host, similar to a reverse shell or backconnect.",
+      "threshold": 0.2
+    }
+  },
+  "condition": "(keywords.$socket_ref and (keywords.$connect_func or keywords.$tcp_ref)) and (semantics.$reverse_connection or semantics.$exfil_behavior or llm.$analyze_reverse_connection)",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/promptintel/BindShellPrompt.nov",
+  "license": "MIT"
+}

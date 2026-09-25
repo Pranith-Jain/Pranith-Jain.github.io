@@ -1,0 +1,38 @@
+{
+  "name": "DeveloperModeJailbreak1",
+  "file": "jailbreak.nov",
+  "meta": {
+    "description": "Detects Developer Mode jailbreak attempts using only keywords and LLM",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/jailbreak",
+    "severity": "medium",
+    "uuid": "81611b76-aa8b-4196-8ca4-6d0b798c3d61",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$dev_mode": {
+      "pattern": "Developer Mode",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$dev_mode_check": {
+      "pattern": "Analyze if this text contains instructions to enable a Developer Mode",
+      "threshold": 0.6
+    }
+  },
+  "condition": "keywords.$dev_mode and llm.$dev_mode_check",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/jailbreak.nov",
+  "license": "MIT"
+}

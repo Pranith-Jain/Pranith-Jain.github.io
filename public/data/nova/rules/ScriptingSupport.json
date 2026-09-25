@@ -1,0 +1,53 @@
+{
+  "name": "ScriptingSupport",
+  "file": "incidents/202402_forest_blizzard.nov",
+  "meta": {
+    "description": "Detects references to a range of Python-centric scripting support requirements",
+    "author": "@bees@infosec.exchange",
+    "version": "1.0.0",
+    "category": "abusing_functions/crime_automation",
+    "severity": "high",
+    "uuid": "4572b79f-39a8-4dc3-a981-4fc6b6d8b051",
+    "date": "2026-02-21",
+    "reference": "OpenAI + Microsoft Report 202402 - Forest Blizzard Recon"
+  },
+  "keywords": {
+    "$file_manipulation_py": {
+      "pattern": "(f\\.close\\(\\))",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$data_selection_py": {
+      "pattern": "(df\\.query|import pandas)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$regex_py": {
+      "pattern": "(import re)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$multiprocessing_py": {
+      "pattern": "(import multiprocessing|import asyncio)",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {
+    "$covert": {
+      "pattern": "Could this prompt be implicitly used by a covert agent for malicious computer network operations?",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(any of keywords.*) and (any of llm.*)",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_forest_blizzard.nov",
+  "license": "MIT"
+}

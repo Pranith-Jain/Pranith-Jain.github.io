@@ -1,0 +1,77 @@
+{
+  "name": "DirectPromptInjection",
+  "file": "llm01_promptinject.nov",
+  "meta": {
+    "description": "Detects direct prompt injection attempts",
+    "author": "@fr0gger_",
+    "version": "1.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "high",
+    "uuid": "e3b474c5-2145-4a47-8c39-c3fe752b6935",
+    "date": "2026-02-21",
+    "reference": "LLM01:2025 Prompt Injection"
+  },
+  "keywords": {
+    "$ignore": {
+      "pattern": "ignore (previous|above|earlier) (instructions|guidelines|prompt)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$overwrite": {
+      "pattern": "overwrite (previous|above|earlier) (instructions|guidelines|prompt)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$disregard": {
+      "pattern": "disregard (previous|above|earlier) (instructions|guidelines|prompt)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$forget": {
+      "pattern": "forget (previous|above|earlier) (instructions|guidelines|prompt)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$system_prompt": {
+      "pattern": "system prompt",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$new_instructions": {
+      "pattern": "new instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$role_change": {
+      "pattern": "you are now|become a|act as",
+      "isRegex": true,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$bypass_instructions": {
+      "pattern": "ignore your instructions",
+      "threshold": 0.5
+    },
+    "$change_behavior": {
+      "pattern": "change your behavior",
+      "threshold": 0.5
+    }
+  },
+  "llm": {
+    "$instruction_override": {
+      "pattern": "Is this prompt attempting to override or modify previous instructions given to the AI?",
+      "threshold": 0.35
+    }
+  },
+  "condition": "(any of keywords.*) or semantics.$bypass_instructions or semantics.$change_behavior or llm.$instruction_override",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/llm01_promptinject.nov",
+  "license": "MIT"
+}

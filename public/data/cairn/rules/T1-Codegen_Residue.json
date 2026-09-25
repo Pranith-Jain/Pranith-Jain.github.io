@@ -1,0 +1,42 @@
+{
+  "name": "T1-Codegen_Residue",
+  "tier": "T1",
+  "confidence": 72,
+  "artifactType": "prompt",
+  "artifactClass": "codegen_residue",
+  "description": "LLM-generated code assistant residue phrases embedded as strings",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$as_an_ai",
+      "pattern": "As an AI",
+      "nocase": true
+    },
+    {
+      "id": "$cannot_assist",
+      "pattern": "I cannot assist",
+      "nocase": true
+    },
+    {
+      "id": "$as_an_assistant",
+      "pattern": "As an AI assistant",
+      "nocase": true
+    },
+    {
+      "id": "$iam_an_ai",
+      "pattern": "I am an AI assistant",
+      "nocase": true
+    },
+    {
+      "id": "$ai_language_model",
+      "pattern": "I am a large language model",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

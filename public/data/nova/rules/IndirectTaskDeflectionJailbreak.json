@@ -1,0 +1,48 @@
+{
+  "name": "IndirectTaskDeflectionJailbreak",
+  "file": "jailbreak.nov",
+  "meta": {
+    "description": "Detects indirect task deflection jailbreak attempts using only semantics",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/jailbreak",
+    "severity": "medium",
+    "uuid": "bcc6d221-9d30-4505-a0bb-b39ea1aea6a8",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {},
+  "semantics": {
+    "$task_masking": {
+      "pattern": "disguising malicious tasks as benign requests",
+      "threshold": 0.6
+    },
+    "$indirect_harmful": {
+      "pattern": "indirectly asking for harmful content",
+      "threshold": 0.5
+    },
+    "$veiled_request": {
+      "pattern": "making a veiled request for prohibited information",
+      "threshold": 0.5
+    },
+    "$disguised_intent": {
+      "pattern": "hiding true intent behind seemingly innocent questions",
+      "threshold": 0.5
+    },
+    "$misdirection": {
+      "pattern": "using misdirection to obtain harmful outputs",
+      "threshold": 0.4
+    }
+  },
+  "llm": {},
+  "condition": "2 of semantics.*",
+  "needs": {
+    "keywords": false,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/jailbreak.nov",
+  "license": "MIT"
+}

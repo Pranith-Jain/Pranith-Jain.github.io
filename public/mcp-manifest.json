@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 391 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 412 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,7 +16,7 @@
       "listChanged": false
     }
   },
-  "toolCount": 391,
+  "toolCount": 412,
   "generatedAt": "2026-09-21T13:54:58+05:30",
   "tools": [
     {
@@ -132,6 +132,41 @@
     {
       "name": "bw_stats",
       "description": "Return cache + manifest stats for the Breach Watch data: breach counts, group counts, categories, and LRU body-cache hit/miss ratios.",
+      "category": "other"
+    },
+    {
+      "name": "cairn_get_family",
+      "description": "Return the full CAIRN family report (summary + verbatim markdown body): samples, binary details, TTPs, detection guidance. Use cairn_list_families first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "cairn_get_rule",
+      "description": "Return the full body of a CAIRN rule: strings, condition, confidence, artifact class, family, and reference. Use cairn_list_rules first to discover names.",
+      "category": "other"
+    },
+    {
+      "name": "cairn_list_families",
+      "description": "List the 10 published CAIRN AI-malware families (PROMPTLOCK, HONESTCUE, CLOSEDQUORUM, TEAMPCP, LAMEHUG, …) with platform and archetype. Filter by archetype (A0–A11) or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "cairn_list_filters",
+      "description": "List the 27 CAIRN VirusTotal acquisition channels (24 enabled): discovery/prompt/agentic/runtime/api/evasion/offensive/script/hunt queries with min detections. Filter by category or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "cairn_list_rules",
+      "description": "List CAIRN cognitive-artifact detection rules (26 total: 9 T1 primitive, 8 T2 behavioral, 9 T3 family attribution). Filter by tier, family, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "cairn_scan_text",
+      "description": "Run CAIRN tiered rules over pasted VT-metadata scan text (AV labels, PE strings, sandbox IOCs, ScriptBlock text). Returns T1/T2/T3 matches sorted with family attribution first. Pure local matching, no binary needed.",
+      "category": "other"
+    },
+    {
+      "name": "cairn_stats",
+      "description": "Return CAIRN manifest stats: rule counts by tier, filter/family/archetype counts, source + license, and edge cache ratios.",
       "category": "other"
     },
     {
@@ -252,6 +287,36 @@
     {
       "name": "dehash_lookup",
       "description": "Look up a cryptographic hash (md5/sha1/sha256/sha384/sha512) against Dehash.lt to find its plaintext value. Useful for cracking password hashes or identifying known hash values. No API key required.",
+      "category": "other"
+    },
+    {
+      "name": "denali_evaluate_activity",
+      "description": "Run Denali stateless checks over runtime activity JSON: repeated failed AI sign-ins (≥3/24h per actor+app), high-impact consent grants, retrieval→mutation sequences (5-min window). Proves sequence + identity only — never intent.",
+      "category": "other"
+    },
+    {
+      "name": "denali_get_doc",
+      "description": "Return a verbatim Denali ADR/guide body (markdown): onboarding contracts, correlation semantics, runtime detection design. Use denali_list_docs first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "denali_get_rule",
+      "description": "Return the full semantics of one Denali rule: inputs, thresholds/windows/scopes, and what the evidence does NOT prove. Use denali_list_rules first to discover UIDs.",
+      "category": "other"
+    },
+    {
+      "name": "denali_list_docs",
+      "description": "List the 38 Denali architecture ADRs + guides (onboarding contracts, code-to-cloud, runtime AIDR, hosted multi-tenancy). Filter by kind or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "denali_list_rules",
+      "description": "List the 9 deterministic Denali correlation rules (3 issue + 6 runtime detection) with exact UIDs, thresholds, and evidence bounds. Filter by kind or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "denali_stats",
+      "description": "Return Denali manifest stats: rule/taxonomy/doc counts, evidence principles, source + license, and edge cache ratios.",
       "category": "other"
     },
     {
@@ -685,6 +750,16 @@
       "category": "other"
     },
     {
+      "name": "flowviz_list_techniques",
+      "description": "Search the FlowViz ATT&CK technique index (MITRE enterprise techniques with tactic names) used for attack-flow action nodes and autocomplete. Filter by keyword (id or name) and/or tactic id (e.g. TA0001). Upstream: davidljohnson/flowviz (MIT).",
+      "category": "other"
+    },
+    {
+      "name": "flowviz_validate_graph",
+      "description": "Validate a FlowViz attack-flow graph ({nodes[], edges[]}) structurally: node types, technique-id shape, dangling edges, source-excerpt grounding. Returns errors + warnings without calling any LLM.",
+      "category": "other"
+    },
+    {
       "name": "frameworks_list",
       "description": "List integrated security frameworks (TID-CMM and UTIOM): ids, versions, homepage, licence, and domain/phase counts. Data replicated from tid-cmm.com (CC BY 4.0) and utiom.de (CC BY-SA 4.0).",
       "category": "other"
@@ -1015,6 +1090,31 @@
       "category": "notebook"
     },
     {
+      "name": "nova_get_rule",
+      "description": "Return the full body of a NOVA rule: keyword/regex patterns, semantic prompts + thresholds, LLM prompts + thresholds, and the condition. Use nova_list_rules first to discover names.",
+      "category": "other"
+    },
+    {
+      "name": "nova_list_rules",
+      "description": "List NOVA prompt-hunting rules (69 total across jailbreak, injection, encoding, exfiltration, incidents). Filter by category (e.g. \"prompt_manipulation/jailbreak\"), severity, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "nova_scan_prompt",
+      "description": "Scan a prompt against NOVA rules on the edge (keyword/regex stage with Unicode normalization). Rules gated on semantics/LLM evaluation return needs-semantics/needs-llm instead of a false negative. Never sends the prompt anywhere.",
+      "category": "other"
+    },
+    {
+      "name": "nova_stats",
+      "description": "Return NOVA manifest stats: rule/pattern counts, severity mix, keyword-only coverage, source + license, and edge cache ratios.",
+      "category": "other"
+    },
+    {
+      "name": "nova_taxonomy",
+      "description": "Return the NOVA threat taxonomy: 4 categories (prompt manipulation, abusing legitimate functions, suspicious prompt patterns, abnormal outputs) with 38 threat types and examples.",
+      "category": "other"
+    },
+    {
       "name": "onion_lookup",
       "description": "Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.",
       "category": "other"
@@ -1137,6 +1237,11 @@
     {
       "name": "poc_scan",
       "description": "Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.",
+      "category": "other"
+    },
+    {
+      "name": "proc_list_rules",
+      "description": "List learned procedure-extraction rules (analyst corrections promoted to guardrails): technique-grounding, exploit-mapping, provenance. Optionally rank by relevance to a report excerpt. Upstream design: netandneedle/procedure-extraction-pipeline (Apache-2.0).",
       "category": "other"
     },
     {

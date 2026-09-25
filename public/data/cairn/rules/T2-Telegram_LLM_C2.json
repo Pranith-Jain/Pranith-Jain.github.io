@@ -1,0 +1,72 @@
+{
+  "name": "T2-Telegram_LLM_C2",
+  "tier": "T2",
+  "confidence": 82,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "telegram_llm_c2",
+  "description": "Telegram Bot API C2 channel co-occurring with an LLM provider endpoint — async exfil or operator coordination via Telegram combined with hosted model calls",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$tg_bot",
+      "pattern": "api.telegram.org/bot",
+      "nocase": true
+    },
+    {
+      "id": "$openai",
+      "pattern": "api.openai.com",
+      "nocase": true
+    },
+    {
+      "id": "$anthropic",
+      "pattern": "api.anthropic.com",
+      "nocase": true
+    },
+    {
+      "id": "$gemini",
+      "pattern": "generativelanguage.googleapis.com",
+      "nocase": true
+    },
+    {
+      "id": "$deepseek",
+      "pattern": "api.deepseek.com",
+      "nocase": true
+    },
+    {
+      "id": "$mistral",
+      "pattern": "api.mistral.ai",
+      "nocase": true
+    },
+    {
+      "id": "$openrouter",
+      "pattern": "openrouter.ai",
+      "nocase": true
+    },
+    {
+      "id": "$groq",
+      "pattern": "api.groq.com",
+      "nocase": true
+    },
+    {
+      "id": "$bigmodel",
+      "pattern": "open.bigmodel.cn",
+      "nocase": true
+    },
+    {
+      "id": "$moonshot",
+      "pattern": "api.moonshot.cn",
+      "nocase": true
+    },
+    {
+      "id": "$dashscope",
+      "pattern": "dashscope.aliyuncs.com",
+      "nocase": true
+    }
+  ],
+  "condition": "$tg_bot and 1 of ($openai, $anthropic, $gemini, $deepseek, $mistral, $openrouter, $groq, $bigmodel, $moonshot, $dashscope)",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

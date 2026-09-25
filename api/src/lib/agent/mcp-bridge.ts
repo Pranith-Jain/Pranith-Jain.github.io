@@ -95,6 +95,45 @@ import { loadCtiIndex, getCtiSkill, filterCtiSkills, pickCtiSkillForQuery } from
 // WinReg manifest (292 Windows registry forensic artifacts)
 import { loadWinRegIndex, getWinRegArtifact, filterArtifacts } from '../winreg-manifest';
 
+// CAIRN (Cisco-Talos cognitive artifact intel, MIT): tiered YARA rules + scan engine
+import {
+  loadCairnIndex,
+  listCairnRules,
+  getCairnRule,
+  listCairnFamilies,
+  getCairnFamily,
+  loadCairnFilters,
+  filterCairnFilters,
+  scanCairnText,
+  cairnCacheStats,
+} from '../cairn-manifest';
+
+// NOVA (prompt pattern matching, MIT): keyword engine + condition evaluator
+import {
+  loadNovaIndex,
+  listNovaRules,
+  getNovaRule,
+  loadNovaTaxonomy,
+  scanNovaPrompt,
+  novaCacheStats,
+} from '../nova-manifest';
+
+// Denali (evidence-led AI security, Apache-2.0): rules, taxonomy, stateless checks
+import {
+  loadDenaliIndex,
+  loadDenaliRules,
+  listDenaliRules,
+  getDenaliRule,
+  loadDenaliTaxonomy,
+  listDenaliDocs,
+  getDenaliDoc,
+  evaluateFailedSignins,
+  classifyConsent,
+  evaluateRiskySequences,
+  denaliCacheStats,
+  type DenaliActivity,
+} from '../denali-manifest';
+
 // Traceix (SHA-256 AV reputation lookup)
 import { traceixLookup } from '../traceix';
 import { malwareAnalyzerLookup } from '../malwareanalyzer';
@@ -3455,6 +3494,347 @@ export function bridgeMcpTools(
       if (!assets) throw new Error('ASSETS binding unavailable');
       const idx = await loadWinRegIndex(assets);
       return idx.counts;
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  CAIRN — Cisco-Talos cognitive artifact intel (cairn_*)
+  //  Tiered YARA rules (T1/T2/T3) + edge scan engine. No binary needed.
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'cairn_list_rules',
+    description:
+      'List CAIRN cognitive-artifact detection rules (26 total: 9 T1 primitive, 8 T2 behavioral, 9 T3 family attribution). Filter by tier, family, or keyword.',
+    params: [
+      { name: 'tier', type: 'string', description: 'T1, T2, or T3', required: false },
+      { name: 'family', type: 'string', description: 'Attributed family, e.g. PromptLock', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against name / class / description',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max rules (default 50, max 26)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCairnIndex(assets);
+      return {
+        total: idx.counts.rules,
+        rules: listCairnRules(idx, {
+          tier: args.tier as string | undefined,
+          family: args.family as string | undefined,
+          keyword: args.keyword as string | undefined,
+          limit: (args.limit as number) ?? 50,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'cairn_get_rule',
+    description:
+      'Return the full CAIRN rule body: strings, condition, confidence, artifact class, family, reference. Use cairn_list_rules first to discover names.',
+    params: [{ name: 'name', type: 'string', description: 'Rule name', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getCairnRule(assets, args.name as string);
+    },
+  });
+
+  add({
+    name: 'cairn_scan_text',
+    description:
+      'Run CAIRN tiered rules over VT-metadata scan text (AV labels, PE strings, sandbox IOCs). Returns T1/T2/T3 matches with family attribution first. Pure local matching.',
+    params: [
+      { name: 'text', type: 'string', description: 'Scan text (up to 200KB)', required: true },
+      { name: 'tier', type: 'string', description: 'Only evaluate T1, T2, or T3', required: false },
+      { name: 'rule', type: 'string', description: 'Only evaluate a single rule', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCairnIndex(assets);
+      const tier = args.tier as string | undefined;
+      const rule = args.rule as string | undefined;
+      let names = idx.rules.map((r) => r.name);
+      if (rule) names = names.filter((n) => n.toLowerCase() === (rule as string).toLowerCase());
+      if (tier) names = names.filter((n) => idx.rules.find((r) => r.name === n)?.tier === tier);
+      const full = (await Promise.all(names.map((n) => getCairnRule(assets, n)))).filter((r) => r !== null);
+      return { rulesEvaluated: full.length, matches: scanCairnText(full, args.text as string) };
+    },
+  });
+
+  add({
+    name: 'cairn_list_families',
+    description:
+      'List the 10 published CAIRN AI-malware families with platform and archetype. Filter by archetype (A0–A11) or keyword.',
+    params: [
+      { name: 'archetype', type: 'string', description: 'e.g. A1', required: false },
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return listCairnFamilies(assets, {
+        archetype: args.archetype as string | undefined,
+        keyword: args.keyword as string | undefined,
+      });
+    },
+  });
+
+  add({
+    name: 'cairn_get_family',
+    description:
+      'Return the full CAIRN family report (summary + markdown body). Use cairn_list_families first to discover slugs.',
+    params: [{ name: 'slug', type: 'string', description: 'Family slug, e.g. promptlock', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getCairnFamily(assets, args.slug as string);
+    },
+  });
+
+  add({
+    name: 'cairn_list_filters',
+    description:
+      'List the 27 CAIRN VirusTotal acquisition channels with queries and min detections. Filter by category or keyword.',
+    params: [
+      {
+        name: 'category',
+        type: 'string',
+        description: 'discovery, prompt, agentic, runtime, api, evasion, offensive, script, hunt',
+        required: false,
+      },
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const data = await loadCairnFilters(assets);
+      return {
+        total: data.total,
+        enabled: data.enabled,
+        filters: filterCairnFilters(data, {
+          category: args.category as string | undefined,
+          keyword: args.keyword as string | undefined,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'cairn_stats',
+    description: 'CAIRN manifest stats: rule counts by tier, filter/family/archetype counts, cache ratios.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCairnIndex(assets);
+      return { counts: idx.counts, cache: cairnCacheStats() };
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  NOVA — prompt pattern matching (nova_*)
+  //  Edge keyword/regex stage; semantics/llm are fail-closed gates.
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'nova_list_rules',
+    description:
+      'List NOVA prompt-hunting rules (69 total). Filter by category (e.g. prompt_manipulation/jailbreak), severity, keyword, or keyword_only (fully edge-evaluable).',
+    params: [
+      { name: 'category', type: 'string', description: 'Category slug', required: false },
+      { name: 'severity', type: 'string', description: 'critical, high, medium, low', required: false },
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+      { name: 'keyword_only', type: 'boolean', description: 'Only fully edge-evaluable rules', required: false },
+      { name: 'limit', type: 'number', description: 'Max rules (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadNovaIndex(assets);
+      return {
+        total: idx.counts.rules,
+        rules: listNovaRules(idx, {
+          category: args.category as string | undefined,
+          severity: args.severity as string | undefined,
+          keyword: args.keyword as string | undefined,
+          keywordOnly: args.keyword_only as boolean | undefined,
+          limit: (args.limit as number) ?? 50,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'nova_get_rule',
+    description:
+      'Return the full NOVA rule body: keyword/regex patterns, semantic + LLM prompts, condition. Use nova_list_rules first.',
+    params: [{ name: 'name', type: 'string', description: 'Rule name', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getNovaRule(assets, args.name as string);
+    },
+  });
+
+  add({
+    name: 'nova_scan_prompt',
+    description:
+      'Scan a prompt against NOVA rules on the edge (keyword/regex stage with Unicode normalization). Gated rules return needs-semantics/needs-llm instead of false negatives. The prompt never leaves the isolate.',
+    params: [
+      { name: 'prompt', type: 'string', description: 'Prompt text (up to 50KB)', required: true },
+      { name: 'rule', type: 'string', description: 'Single rule name', required: false },
+      { name: 'category', type: 'string', description: 'Only scan this category', required: false },
+      { name: 'keyword_only', type: 'boolean', description: 'Only fully edge-evaluable rules', required: false },
+      { name: 'limit', type: 'number', description: 'Max rules to evaluate', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadNovaIndex(assets);
+      let slim = idx.rules;
+      if (args.rule) slim = slim.filter((r) => r.name.toLowerCase() === (args.rule as string).toLowerCase());
+      if (args.category)
+        slim = slim.filter((r) => (r.category ?? '').toLowerCase() === (args.category as string).toLowerCase());
+      if (args.keyword_only) slim = slim.filter((r) => r.keywordOnly);
+      if (args.limit) slim = slim.slice(0, args.limit as number);
+      const full = (await Promise.all(slim.map((r) => getNovaRule(assets, r.name)))).filter((r) => r !== null);
+      const results = full.map((r) => scanNovaPrompt(r, args.prompt as string));
+      return {
+        matched: results.some((r) => r.matched),
+        rulesEvaluated: full.length,
+        matches: results
+          .filter((r) => r.matched)
+          .map((m) => ({ rule: m.ruleName, matchingKeywords: m.matchingKeywords })),
+        gated: results
+          .filter((r) => r.verdict === 'needs-semantics' || r.verdict === 'needs-llm')
+          .map((g) => ({ rule: g.ruleName, verdict: g.verdict })),
+      };
+    },
+  });
+
+  add({
+    name: 'nova_taxonomy',
+    description: 'NOVA threat taxonomy: 4 categories with 38 threat types and examples.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return loadNovaTaxonomy(assets);
+    },
+  });
+
+  add({
+    name: 'nova_stats',
+    description: 'NOVA manifest stats: rule/pattern counts, severity mix, keyword-only coverage, cache ratios.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadNovaIndex(assets);
+      return { counts: idx.counts, bySeverity: idx.bySeverity, cache: novaCacheStats() };
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  DENALI — evidence-led AI security (denali_*)
+  //  Rule reference + taxonomy + stateless sliding-window checks.
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'denali_list_rules',
+    description:
+      'List the 9 deterministic Denali rules (3 issue + 6 runtime detection) with UIDs, thresholds, and evidence bounds. Filter by kind or keyword.',
+    params: [
+      { name: 'kind', type: 'string', description: 'issue or runtime_detection', required: false },
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const data = await loadDenaliRules(assets);
+      return {
+        total: data.total,
+        rules: listDenaliRules(data, {
+          kind: args.kind as string | undefined,
+          keyword: args.keyword as string | undefined,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'denali_get_rule',
+    description:
+      'Return one Denali rule: inputs, thresholds/windows/scopes, and what the evidence does NOT prove. Use denali_list_rules first.',
+    params: [{ name: 'uid', type: 'string', description: 'Rule UID', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const data = await loadDenaliRules(assets);
+      return getDenaliRule(data, args.uid as string);
+    },
+  });
+
+  add({
+    name: 'denali_evaluate_activity',
+    description:
+      'Run Denali stateless checks over runtime activity JSON: repeated failed AI sign-ins (≥3/24h), high-impact consent grants, retrieval→mutation sequences (5m). Proves sequence + identity only — never intent.',
+    params: [
+      {
+        name: 'activities',
+        type: 'string',
+        description:
+          'JSON array of activities (max 500): category/outcome/occurredAt + actorUid/appId/session/operation/scopes',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      const raw = args.activities as unknown;
+      const acts = (typeof raw === 'string' ? JSON.parse(raw) : raw) as DenaliActivity[];
+      if (!Array.isArray(acts) || acts.length > 500)
+        throw new Error('activities must be a JSON array of max 500 entries');
+      const signins = evaluateFailedSignins(acts);
+      const consents = acts.map((a) => classifyConsent(a)).filter((v) => v.isHighImpactConsent);
+      const sequences = evaluateRiskySequences(acts);
+      return {
+        activitiesEvaluated: acts.length,
+        findingCount: signins.candidates.length + consents.length + sequences.candidates.length,
+        failedSignins: signins,
+        highImpactConsents: consents.length,
+        riskySequences: sequences,
+      };
+    },
+  });
+
+  add({
+    name: 'denali_list_docs',
+    description:
+      'List the 38 Denali ADRs + guides (onboarding, code-to-cloud, runtime AIDR, hosted tenancy). Filter by kind or keyword.',
+    params: [
+      { name: 'kind', type: 'string', description: 'adr or guide', required: false },
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return listDenaliDocs(assets, {
+        kind: args.kind as string | undefined,
+        keyword: args.keyword as string | undefined,
+      });
+    },
+  });
+
+  add({
+    name: 'denali_get_doc',
+    description: 'Return a verbatim Denali ADR/guide body (markdown). Use denali_list_docs first to discover slugs.',
+    params: [{ name: 'slug', type: 'string', description: 'Doc slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getDenaliDoc(assets, args.slug as string);
+    },
+  });
+
+  add({
+    name: 'denali_stats',
+    description: 'Denali manifest stats: rule/taxonomy/doc counts, evidence principles, cache ratios.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadDenaliIndex(assets);
+      const tax = await loadDenaliTaxonomy(assets);
+      return { counts: idx.counts, evidencePrinciples: tax.evidencePrinciples, cache: denaliCacheStats() };
     },
   });
 

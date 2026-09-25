@@ -617,3 +617,51 @@ token, defensive v2 parse — live verification pending keys); FireHOL L1/L2/
 WebServer appended in `scripts/build-oss-feeds.mjs`; X-Force (EOL 2026),
 OnionTree (dead), Yeti (self-hosted) kept as `ExternalResources` reference
 entries only — no live integration is possible.
+
+## AI-security verticals — CAIRN, NOVA, Denali
+
+Three AI-security reference + detection verticals, all following the osint
+pattern (build script → `public/data/<name>/` → manifest loader + edge
+engine → edge routes → MCP tools + agent-bridge mirror → SPA page).
+All data is static via `env.ASSETS`; the scan/evaluate endpoints are pure
+local computation (no LLM, no upstream calls, no secrets).
+
+| Vertical | Source (license)                                   | Data                                                                    | Edge engine (TS port)                             | MCP tools      | Page                  |
+| -------- | -------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------- | -------------- | --------------------- |
+| `cairn`  | Cisco-Talos CAIRN (MIT)                            | 26 YARA rules (9 T1/8 T2/9 T3), 27 filters, A0–A11, 10 families         | `cairn/rules.py` substring + condition subset     | `cairn_*` (7)  | `/threatintel/cairn`  |
+| `nova`   | Nova-Hunting nova-rules + framework taxonomy (MIT) | 69 `.nov` rules (518 kw / 97 sem / 51 llm), 4-cat taxonomy (38 threats) | `keywords.py` + `condition.py` + NFKC/confusables | `nova_*` (5)   | `/threatintel/nova`   |
+| `denali` | transilienceai/denali (Apache-2.0)                 | 9 deterministic rules, 16-kind taxonomy, 38 ADRs                        | sliding-window checks (3/24h, 5m, scope/token)    | `denali_*` (6) | `/threatintel/denali` |
+
+**Edge boundaries (enforced in code, mirrored in docs)**:
+
+- CAIRN is fully evaluable (substring matching needs no models).
+- NOVA evaluates `keywords` only; `semantics` (sentence-transformers) and
+  `llm` (provider APIs) are fail-closed gates (`needs-semantics`/`needs-llm`,
+  `matched: false`) — same verdict upstream `NovaMatcher` reaches with no
+  evaluator. Short-circuit + `can_*_change_outcome` brute-force ported.
+- Denali collectors/connectors/snapshot evaluators need Postgres + provider
+  credentials and are reference-only; the evaluate surface covers the
+  self-contained rules (`DENALI-RUNTIME-ENTRA-FAILURES-001`,
+  `-ENTRA-CONSENT-001` scope lists, `-AWS-RISKY-SEQUENCE-001` 5m window,
+  mutating-tool tokens). Sequence + identity only, never intent.
+
+**Files**: `scripts/build-{cairn,nova,denali}-manifest.mjs` (each supports
+`--source <dir>` for offline builds; live mode hits raw.githubusercontent +
+GitHub tree API), `worker/lib/{cairn,nova,denali}-manifest.ts`
+(+ `.test.ts`: 15 + 18 + 9, + `api/` symlink — symlink target is
+`../../../worker/lib/`, not `../../`),
+`api/src/routes/{cairn,nova,denali}-edge-tools.ts`
+(`api/test/routes/cairn-nova-denali.test.ts`, 9 tests — run locally with the
+sandbox disabled, CI skips `test/routes/`),
+`src/pages/threatintel/{Cairn,Nova,Denali}.tsx` (Rules/Families|Taxonomy|Docs +
+Scanner/Evaluate tabs; family/ADR bodies render via `renderMarkdown`).
+
+**REST** (all under `/api/v1/`, key-gated): `/cairn/` `/cairn/rules*`
+`/cairn/families*` `/cairn/filters` `/cairn/archetypes` `POST /cairn/scan`
+(text ≤200KB); `/nova/` `/nova/rules*` `/nova/taxonomy` `POST /nova/scan`
+(prompt ≤50KB); `/denali/` `/denali/rules*` `/denali/taxonomy`
+`/denali/docs*` `POST /denali/evaluate/activity` (≤500 activities).
+
+**Weekly sync**: `.github/workflows/ai-security-verticals-sync.yml`
+(Tue 07:30 UTC, each step `continue-on-error`, PR + auto-merge +
+self-deploy). Count floors: cairn 26/27/10, nova 69, denali 9/38.

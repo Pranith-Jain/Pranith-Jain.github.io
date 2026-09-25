@@ -1,0 +1,281 @@
+{
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT",
+  "replicatedAt": "2026-09-25",
+  "total": 27,
+  "enabled": 24,
+  "categories": ["agentic", "api", "discovery", "evasion", "hunt", "offensive", "prompt", "runtime", "script"],
+  "filters": [
+    {
+      "name": "Broad Discovery",
+      "slug": "broad-discovery",
+      "category": "discovery",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 5,
+      "description": "High-recall sweep for executables containing AI, LLM, provider, model, prompt, or agent-framework references. NOTE 2026-08-06: bare content:\"gemini\" removed — it matched the GetLargePageMinimum import name and accounted for 92 of this filter's 732 acquisitions with no AI content at all. Replaced with delimiter-anchored model-name forms plus the AIzaSy Google API key prefix (which is what actually identifies a hardcoded Gemini key).",
+      "queryText": "(type:peexe OR type:pedll) AND positives:5+ AND (\ncontent:\"openai\" OR\ncontent:\"chatgpt\" OR\ncontent:\"anthropic\" OR\ncontent:\"claude\" OR\ncontent:\"gemini-1.5\" OR\ncontent:\"gemini-2\" OR\ncontent:\"generativelanguage\" OR\ncontent:\"AIzaSy\" OR\ncontent:\"llama.cpp\" OR\ncontent:\"mistral\" OR\ncontent:\"deepseek\" OR\ncontent:\"ollama\" OR\ncontent:\"huggingface\" OR\ncontent:\"langchain\" OR\ncontent:\"autogen\" OR\ncontent:\"crewai\" OR\ncontent:\"tool_call\" OR\ncontent:\"assistant:\" OR\ncontent:\"system prompt\"\n)"
+    },
+    {
+      "name": "Prompt Residue",
+      "slug": "prompt-residue",
+      "category": "prompt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 5,
+      "description": "Prompt role-markers and task-instruction residue embedded in executable samples. For explicit jailbreak patterns (WormGPT, DAN, etc.), see `llm-jailbreak-prompts`.",
+      "queryText": "(type:peexe OR type:pedll) AND positives:5+ AND (\ncontent:\"system prompt\" OR\ncontent:\"assistant:\" OR\ncontent:\"developer message\" OR\ncontent:\"As an AI\" OR\ncontent:\"I cannot assist\" OR\ncontent:\"role: system\" OR\ncontent:\"role: user\"\n)"
+    },
+    {
+      "name": "Agentic Tooling",
+      "slug": "agentic-tooling",
+      "category": "agentic",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 5,
+      "description": "Named agent framework references and specific orchestration terms in executable and script samples. Exact framework names only — autogen and function_call removed (fire on compiler artifacts).",
+      "queryText": "(type:peexe OR type:pedll OR type:ps1 OR tag:python OR type:js) AND positives:5+ AND (\ncontent:\"langchain\" OR\ncontent:\"crewai\" OR\ncontent:\"smolagents\" OR\ncontent:\"pydantic_ai\" OR\ncontent:\"langgraph\" OR\ncontent:\"tool_call\" OR\ncontent:\"agent loop\" OR\ncontent:\"fallback provider\"\n)"
+    },
+    {
+      "name": "Local LLM Runtime",
+      "slug": "local-llm-runtime",
+      "category": "runtime",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 5,
+      "description": "Local or open-weight inference runtime references such as Ollama, llama.cpp, vLLM, GGUF, and safetensors. NOTE 2026-08-06: bare content:\"vllm\" removed — all 234 corpus samples containing those bytes carry them inside packed/encoded blobs, with zero genuine vLLM references; it accounted for the bulk of this filter's 50 collision-only acquisitions. Replaced with path- and module-anchored forms. content:\"gguf\" is RETAINED and verified clean: its 181 corpus hits are all real llama.cpp symbols (gguf_init_from_file, gguf_get_n_tensors, gguf_find_key).",
+      "queryText": "(type:peexe OR type:pedll) AND positives:5+ AND (\ncontent:\"ollama\" OR\ncontent:\"llama.cpp\" OR\ncontent:\"vllm.entrypoints\" OR\ncontent:\"vllm/\" OR\ncontent:\"vllm.engine\" OR\ncontent:\"text-generation-inference\" OR\ncontent:\"from_pretrained\" OR\ncontent:\"gguf\" OR\ncontent:\"safetensors\" OR\ncontent:\"huggingface\"\n)"
+    },
+    {
+      "name": "Provider/API Integration",
+      "slug": "provider-api-integration",
+      "category": "api",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 5,
+      "description": "Hosted LLM provider endpoints, SDK calls, OpenAI-compatible routes, and model API references.",
+      "queryText": "(type:peexe OR type:pedll OR type:vba) AND positives:5+ AND (\ncontent:\"api.openai.com\" OR\ncontent:\"chat.completions\" OR\ncontent:\"responses.create\" OR\ncontent:\"api.anthropic.com\" OR\ncontent:\"generativelanguage.googleapis.com\" OR\ncontent:\"api.deepseek.com\" OR\ncontent:\"api.mistral.ai\" OR\ncontent:\"openrouter.ai\"\n)"
+    },
+    {
+      "name": "AI Analysis Evasion",
+      "slug": "ai-analysis-evasion",
+      "category": "evasion",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 5,
+      "description": "Strings that appear to deceive AI-assisted analysis or suppress LLM/automated-scanner inspection of malicious content. Covers all four confirmed A3 sub-techniques: LLM classification steering (FRUITSHELL/PLOTSAFE Gen1/ROZESHELL), non-LLM scanner steering (PLOTSAFE Gen2), multi-format prompt arsenal (HOLLOWCLAD/MANTLEMAZE — no plaintext-searchable invariant, covered by T3 rules not acquisition filter), and safety-guardrail triggering (.004: GUARDBREAKER/TEAMPCP). File types extended to vbscript+javascript for the .004 sub-technique (GUARDBREAKER is VBS; TEAMPCP ShaiHulud is JS). Removed \"AI analysis\" (too broad) and \"not harmful to\" (common phrase, no confirmed anchor). Added \"For automated scanners\" + \"No security risk identified\" (PLOTSAFE Gen2, 2026-08-03 RE) and \"PHASE I: BIOLOGICAL\" (TEAMPCP DUSTMAKER solo anchor) — all three already in T2-AI_Decoy_Prompt_In_Malware. Updated 2026-09-23.",
+      "queryText": "(type:peexe OR type:pedll OR type:vba OR type:vbscript OR type:javascript) AND positives:5+ AND (\ncontent:\"For LLM and AI\" OR\ncontent:\"For automated scanners\" OR\ncontent:\"No security risk identified\" OR\ncontent:\"no need to analyze this file\" OR\ncontent:\"not malicious\" OR\ncontent:\"ignore previous instructions\" OR\ncontent:\"prime number generation\" OR\ncontent:\"This file is safe\" OR\ncontent:\"nuclear weapon\" OR\ncontent:\"PHASE I: BIOLOGICAL\"\n)"
+    },
+    {
+      "name": "PowerShell AI Scripts",
+      "slug": "powershell-ai-scripts",
+      "category": "script",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "\"PowerShell scripts containing LLM API calls, prompt text, or AI framework references. Scripts are plaintext so content searches hit the actual code strings.\"",
+      "queryText": "(type:ps1 OR type:vba) AND positives:3+ AND (\ncontent:\"api.openai.com\" OR\ncontent:\"api.anthropic.com\" OR\ncontent:\"chat.completions\" OR\ncontent:\"responses.create\" OR\ncontent:\"ollama\" OR\ncontent:\"tool_call\" OR\ncontent:\"langchain\" OR\ncontent:\"For LLM and AI\" OR\ncontent:\"ignore previous instructions\"\n)"
+    },
+    {
+      "name": "Python AI Scripts",
+      "slug": "python-ai-scripts",
+      "category": "script",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "Python scripts with LLM API calls, agent framework imports, or embedded prompts. Targets the language where most AI integration code is written.",
+      "queryText": "tag:python AND positives:3+ AND (\ncontent:\"openai.OpenAI\" OR\ncontent:\"from openai import\" OR\ncontent:\"import anthropic\" OR\ncontent:\"langchain\" OR\ncontent:\"autogen\" OR\ncontent:\"chat.completions.create\" OR\ncontent:\"api.openai.com\" OR\ncontent:\"api.anthropic.com\" OR\ncontent:\"ollama.chat\" OR\ncontent:\"tool_call\"\n)"
+    },
+    {
+      "name": "Codegen Residue",
+      "slug": "codegen-residue",
+      "category": "prompt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "Files containing LLM-generated code assistant phrases embedded as literal strings — a strong indicator the author used an AI assistant to write or modify the code.",
+      "queryText": "(type:peexe OR type:pedll OR type:ps1 OR type:vba) AND positives:3+ AND (\ncontent:\"As an AI\" OR\ncontent:\"I cannot assist\" OR\ncontent:\"As an AI assistant\" OR\ncontent:\"I am an AI assistant\"\n)"
+    },
+    {
+      "name": "LLMGATE Hunt",
+      "slug": "llmgate-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "Targeted hunt for LLMGATE family variants — sysupdsvc binary identity, TechSoft Solutions cert (thumbprint B1F936CFA5DCCB6B2D0D2DE55B0BA91B1B6E2965), local port-7778 agent registration pattern, and ip.sb geoip telemetry. The sigcheck modifier catches low-detection signed variants that fall below the content-search retrieval threshold.",
+      "queryText": "type:peexe AND positives:3+ AND (\ncontent:\"TechSoft Solutions\" OR\ncontent:\"sysupdsvc\" OR\ncontent:\"7778/register\" OR\ncontent:\"api.ip.sb/geoip\" OR\nsigcheck:B1F936CFA5DCCB6B2D0D2DE55B0BA91B1B6E2965\n)"
+    },
+    {
+      "name": "LLMGATE Gen3 Hunt",
+      "slug": "llmgate-gen3-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 25,
+      "minDetections": 3,
+      "description": "Targeted hunt for LLMGATE third-generation variants using rotated cover names (sysmntsvc, wupdmgr) instead of sysupdsvc. These variants dropped the TechSoft/AceSoft cert chain and gained detect-debug-environment / OBFUSCATED sandbox tags. Searching by cover name to recover content snippets that may reveal new cert company names or shared compile artefacts for rule extension.",
+      "queryText": "type:peexe AND positives:3+ AND (\nname:sysmntsvc.exe OR\ncontent:\"sysmntsvc\" OR\n(name:wupdmgr.exe AND (content:\"openai\" OR content:\"ip.sb\" OR content:\"TechSoft\" OR content:\"AceSoft\" OR content:\"sysupdsvc\"))\n)"
+    },
+    {
+      "name": "Sangfor Lure Watch",
+      "slug": "sangfor-lure-watch",
+      "category": "hunt",
+      "enabled": false,
+      "defaultLimit": 50,
+      "minDetections": 3,
+      "description": "Passive watch for Sangfor Technologies product impersonators (SFIAG, SFNGAF, SFEDR) that share vhash structure and single-submitter pattern with LLMGATE. Disabled by default — enable to check for LLM API string acquisition in this cluster. Not confirmed AI-related.",
+      "queryText": "type:peexe AND positives:3+ AND (\nname:SFIAG.exe OR\nname:SFNGAF.exe OR\nname:SFEDR.exe OR\n(content:\"Sangfor\" AND (content:\"api.openai.com\" OR content:\"api.deepseek.com\" OR content:\"ollama\"))\n)"
+    },
+    {
+      "name": "PromptLock Hunt",
+      "slug": "promptlock-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "Targeted hunt for PromptLock ransomware — hard-coded LLM prompts for Lua-based SPECK encryption embedded in binary string table; target_file_list.log is a unique artifact.",
+      "queryText": "(type:peexe OR type:pedll OR type:lua) AND positives:3+ AND (\ncontent:\"target_file_list.log\" OR\ncontent:\"SPECK 128bit\" OR\ncontent:\"PromptLock\"\n)"
+    },
+    {
+      "name": "Local Inference Deploy Hunt",
+      "slug": "local-inference-deploy-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 2,
+      "description": "Hunt for malware that deploys or uses local LLM inference infrastructure — ollama, llama.cpp, llamafile, or huggingface model downloads. Uses deployment-level signals (API port 11434, serve/pull subcommands, llama-server, HF resolve URLs) rather than blunt runtime name strings to reduce fscan/go.sum noise.",
+      "queryText": "(type:peexe OR type:pedll OR type:ps1 OR type:py OR type:elf OR tag:python) AND positives:2+ AND (\ncontent:\"127.0.0.1:11434\" OR\ncontent:\"localhost:11434\" OR\ncontent:\"/api/generate\" OR\ncontent:\"/api/chat\" OR\ncontent:\"ollama serve\" OR\ncontent:\"ollama pull\" OR\ncontent:\"llama-server\" OR\ncontent:\"huggingface.co/resolve/main\" OR\ncontent:\"llamafile\"\n)"
+    },
+    {
+      "name": "Local Model Deployment Hunt",
+      "slug": "local-model-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 2,
+      "description": "Targeted hunt for Python malware that interacts with locally-hosted inference servers — \"bring your own AI\" tradecraft where the victim's own Ollama/LM Studio/KoboldCpp instance is abused, or where the malware deploys/spawns a local model server. Python scripts are plaintext so port bindings and API path strings are directly searchable without binary extraction. Distinct from local-llm-runtime (model file formats) and python-ai-scripts (hosted provider API calls). Covers: Ollama (port 11434, /api/generate, /api/chat), LM Studio (lmstudio, port 1234/v1, lms.getlm), llamafile, GPT4All, KoboldCpp, LocalAI, text-generation-webui (oobabooga), Jan.ai, TabbyML, Msty, AnythingLLM.",
+      "queryText": "tag:python AND positives:2+ AND (\ncontent:\"localhost:11434\" OR\ncontent:\"127.0.0.1:11434\" OR\ncontent:\"ollama/api\" OR\ncontent:\"/api/generate\" OR\ncontent:\"lmstudio\" OR\ncontent:\"lms.getlm\" OR\ncontent:\"localhost:1234/v1\" OR\ncontent:\"127.0.0.1:1234/v1\" OR\ncontent:\"llamafile\" OR\ncontent:\"gpt4all\" OR\ncontent:\"koboldcpp\" OR\ncontent:\"kobold.cpp\" OR\ncontent:\"KoboldAI\" OR\ncontent:\"localai.io\" OR\ncontent:\"text-generation-webui\" OR\ncontent:\"oobabooga\" OR\ncontent:\"jan.ai\" OR\ncontent:\"tabbyml\" OR\ncontent:\"tabby-server\" OR\ncontent:\"msty.app\" OR\ncontent:\"anythingllm\"\n)"
+    },
+    {
+      "name": "HONESTCUE Hunt",
+      "slug": "honestcue-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "Targeted hunt for HONESTCUE downloader — 'class named AITask' is a unique phrase from the hard-coded Gemini API probe prompt embedded as a binary string literal; CSharpCodeProvider is the in-memory C# compilation class used for fileless stage2 execution.",
+      "queryText": "(type:peexe OR type:pedll) AND positives:3+ AND (\ncontent:\"class named AITask\" OR\ncontent:\"Hello from AI-generated C#\" OR\ncontent:\"class named 'Stage2'\" OR\ncontent:\"HONESTCUE\"\n)"
+    },
+    {
+      "name": "Vozdyhan Hunt",
+      "slug": "vozdyhan-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 2,
+      "description": "Targeted hunt for Vozdyhan WebRAT — actor-named Node.js/pkg-compiled Windows RAT with Railway.app C2 (vozdyhan.up.railway.app). min_detections lowered to 2 to catch early dev builds (Discord Update.exe lure submitted with 2 detections). content:\"vozdyhan\" is byte-level and confirmed present in all pkg-compiled agent binaries and node.exe bundled runtime samples. content:\"telemetrysystem\" targets the fake persistence subdirectory dropped to %APPDATA%\\Microsoft\\Protect\\telemetrysystem\\.",
+      "queryText": "type:peexe AND positives:2+ AND (\ncontent:\"vozdyhan\" OR\ncontent:\"telemetrysystem\"\n)"
+    },
+    {
+      "name": "Chinese LLM APIs",
+      "slug": "chinese-llm-apis",
+      "category": "api",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "Chinese LLM provider API endpoints in executables and scripts — BigModel/ChatGLM, Moonshot/Kimi, Alibaba Qwen (Dashscope), Yi, Baidu ERNIE.",
+      "queryText": "(type:peexe OR type:pedll OR type:ps1 OR type:py) AND positives:3+ AND (\ncontent:\"open.bigmodel.cn\" OR\ncontent:\"api.moonshot.cn\" OR\ncontent:\"dashscope.aliyuncs.com\" OR\ncontent:\"api.lingyiwanwu.com\" OR\ncontent:\"ernie.baidubce.com\"\n)"
+    },
+    {
+      "name": "CONVAGENT Hunt (retracted)",
+      "slug": "convagent-hunt",
+      "category": "hunt",
+      "enabled": false,
+      "defaultLimit": 100,
+      "minDetections": 2,
+      "description": "RETRACTED 2026-08-04 — do not re-enable. Targeted CONVAGENT Go agent kit; static RE established the family does not exist and all five query arms match benign software (fan-translation tool, game macro with HWID licensing, two products' auto-updaters).",
+      "queryText": "type:peexe AND positives:2+ AND (\ncontent:\"terim.baldurgecidi.com\" OR\ncontent:\"Stealer.Convagent\" OR\ncontent:\"Trojan-PSW.Win32.Convagent\" OR\ncontent:\"ClusterEyeAgentUpdater\" OR\ncontent:\"efficio_updater\"\n)"
+    },
+    {
+      "name": "PLOTSAFE Hunt",
+      "slug": "plotsafe-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 2,
+      "description": "Targeted hunt for PLOTSAFE GoKrypt-packed ACRStealer campaign — C2 domain plotsafe.icu (sandbox DNS/HTTP), secondary C2 overexert.systemstatus.info, and GoKrypt+ACRStealer AV label co-occurrence. Go 1.25.0 DLLs, 38+ samples, burst 2026-03-21 to 2026-03-27. Min detections lowered to 2 to catch early low-detection Gen 1 named DLL variants.",
+      "queryText": "type:pedll AND positives:2+ AND (\ncontent:\"plotsafe.icu\" OR\ncontent:\"overexert.systemstatus.info\"\n)"
+    },
+    {
+      "name": "HOLLOWCLAD Hunt (was AIREFUSAL Hunt A)",
+      "slug": "airefusal-hunt-a",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 50,
+      "minDetections": 3,
+      "description": "Targeted hunt for HOLLOWCLAD (was AIREFUSAL Group A) — PE malware embedding copyright-framed LLM-refusal strings and [INSTRUCTION] prompt-injection format to evade AI analysis. Gen:Variant.Zariza.6 attribution; protection-license.exe / uploaded-file naming. Slug retained across the rename.",
+      "queryText": "(type:peexe OR type:pedll) AND positives:3+ AND (\ncontent:\"I cannot assist with circumvent\" OR\ncontent:\"[INSTRUCTION] As an AI assistant\"\n)"
+    },
+    {
+      "name": "MANTLEMAZE Hunt (was AIREFUSAL Hunt B)",
+      "slug": "airefusal-hunt-b",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 3,
+      "description": "Targeted hunt for MANTLEMAZE (was AIREFUSAL Group B) — PE malware embedding chat-turn simulation where an AI \"assistant\" refuses to engineer/reverse-engineer the code. Cert anchor: 1.A Connect GmbH (COMODO, thumbprint FC3F6D98724178B8A5BEE724858D22573B8DB97B, expired 2022-08-13) co-occurs with Intel Corporation cert (VeriSign, expired 2015) on all 16 confirmed samples. Campaign active 2026-04-04 through 2026-07-11+.",
+      "queryText": "(type:peexe OR type:pedll) AND positives:3+ AND (\nsigcheck:FC3F6D98724178B8A5BEE724858D22573B8DB97B OR\ncontent:\"Assistant: I cannot assist\" OR\ncontent:\"engineer this code\"\n)"
+    },
+    {
+      "name": "JADEPUFFER Hunt",
+      "slug": "jadepuffer-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 50,
+      "minDetections": 1,
+      "description": "Targeted hunt for JADEPUFFER Langflow ransomware (CVE-2025-3248). Linux/shell dropper or ELF; C2 45.131.66.106:4444, exfil 64.20.53.230. NARROWED 2026-08-06: content:\"e78393397\" removed — the email prefix is 9 hex-ish characters with no delimiter and all samples this filter acquired were unrelated academic ransomware simulations. Anchored on the two C2/exfil IPs only.",
+      "queryText": "(type:shell OR type:elf OR tag:linux OR type:ps1) AND positives:1+ AND (\ncontent:\"45.131.66.106\" OR\ncontent:\"64.20.53.230\"\n)"
+    },
+    {
+      "name": "CAGDASGPT Hunt",
+      "slug": "cagdasgpt-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 50,
+      "minDetections": 1,
+      "description": "Targeted hunt for CAGDASGPT — Turkish PyInstaller-packed Tkinter GUI tool with DeepSeek C2 and date-expiration sandbox evasion. Filename anchor: CagdasGptV2.exe / CagdasGpt.exe. Single submission 2025-12-12; no V1 found as of 2026-07-15. Re-check periodically.",
+      "queryText": "type:peexe AND (\ncontent:\"CagdasGpt\" OR\nname:CagdasGpt\n)"
+    },
+    {
+      "name": "JOBRADAR Hunt",
+      "slug": "jobradar-hunt",
+      "category": "hunt",
+      "enabled": true,
+      "defaultLimit": 50,
+      "minDetections": 2,
+      "description": "Targeted hunt for JOBRADAR — Wails Go desktop app with multi-provider AI integration (openrouter.ai, deepinfra, cerebras, LM Studio). PE Comments: \"Local-first desktop shell for Job Radar\". Registry autorun persistence. SafeBrowsing MALWARE flag. Version 0.0.765+.",
+      "queryText": "type:peexe AND positives:2+ AND (\ncontent:\"Local-first desktop shell\" OR\ncontent:\"Job Radar Desktop\"\n)"
+    },
+    {
+      "name": "VIBEAROUND Hunt (retracted)",
+      "slug": "vibearound-hunt",
+      "category": "hunt",
+      "enabled": false,
+      "defaultLimit": 50,
+      "minDetections": 2,
+      "description": "RETRACTED 2026-08-05 — kept disabled as a record only. Originally a targeted hunt for \"VIBEAROUND\", believed to be a Chinese AI coding IDE distributing the Galirus downloader via an NSIS installer. Static RE refuted every malicious claim: VibeAround is benign software by the developer `jazzenchen`, and the query's anchors are its brand and his handle.",
+      "queryText": "(type:peexe OR type:pedll) AND positives:2+ AND (\ncontent:\"vibearound\" OR\ncontent:\"com.vibearound.app\" OR\ncontent:\"jazzenchen\"\n)"
+    },
+    {
+      "name": "Offensive Co-Occurrence",
+      "slug": "offensive-co-occurrence",
+      "category": "offensive",
+      "enabled": true,
+      "defaultLimit": 100,
+      "minDetections": 5,
+      "description": "AI or model terminology co-occurring with offensive tradecraft terms such as PowerShell, exploit, payload, bypass, or evasion. NOTE 2026-08-06: bare content:\"gemini\" removed from the AI arm (GetLargePageMinimum collision).",
+      "queryText": "(type:peexe OR type:pedll) AND positives:5+ AND (\ncontent:\"openai\" OR\ncontent:\"chatgpt\" OR\ncontent:\"claude\" OR\ncontent:\"gemini-1.5\" OR\ncontent:\"gemini-2\" OR\ncontent:\"generativelanguage\" OR\ncontent:\"llama.cpp\" OR\ncontent:\"ollama\" OR\ncontent:\"api.openai.com\" OR\ncontent:\"api.anthropic.com\"\n) AND (\ncontent:\"powershell\" OR\ncontent:\"shellcode\" OR\ncontent:\"exploit\" OR\ncontent:\"obfuscate\" OR\ncontent:\"bypass\" OR\ncontent:\"evade\" OR\ncontent:\"phishing\" OR\ncontent:\"malware\"\n)"
+    }
+  ]
+}

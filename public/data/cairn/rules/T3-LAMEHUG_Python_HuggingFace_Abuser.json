@@ -1,0 +1,57 @@
+{
+  "name": "T3-LAMEHUG_Python_HuggingFace_Abuser",
+  "tier": "T3",
+  "confidence": 90,
+  "artifactType": "api_key_pattern",
+  "artifactClass": "llm_api_backdoor",
+  "description": "Detects LAMEHUG Python infostealer — abuses pool of stolen hf_ tokens to query HuggingFace router for Windows recon command generation; exfiltrates via SSH and webhook.site; generates NSFW images as cover",
+  "family": "LAMEHUG",
+  "archetypes": null,
+  "reference": "VT SHA256 384e8f3d300205546fb8c9b9224011b3b3cb71adc994180ff55e1e6416f65715; Python 19KB script; 400+ hardcoded hf_ tokens; SSH C2 144.126.202.227; Avast Python:LAMEHUG-A label",
+  "strings": [
+    {
+      "id": "$av_label",
+      "pattern": "Python:LAMEHUG-A",
+      "nocase": true
+    },
+    {
+      "id": "$av_label2",
+      "pattern": "Trojan.Python.LAMEHUBLOADER",
+      "nocase": true
+    },
+    {
+      "id": "$fn_llm",
+      "pattern": "LLM_QUERY_EX",
+      "nocase": true
+    },
+    {
+      "id": "$fn_ssh",
+      "pattern": "ssh_send",
+      "nocase": true
+    },
+    {
+      "id": "$hf_route",
+      "pattern": "router.huggingface.co/hyperbolic/v1",
+      "nocase": true
+    },
+    {
+      "id": "$no_tokens",
+      "pattern": "No valid authorization tokens found",
+      "nocase": true
+    },
+    {
+      "id": "$img_name",
+      "pattern": "image_generated_at_",
+      "nocase": true
+    },
+    {
+      "id": "$webhook_c2",
+      "pattern": "webhook.site/b3e30c61-c8a3-4a8f-9489",
+      "nocase": false
+    }
+  ],
+  "condition": "$av_label or $av_label2 or ($fn_llm and $fn_ssh) or ($hf_route and $no_tokens) or ($img_name and $webhook_c2)",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

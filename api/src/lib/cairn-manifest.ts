@@ -1,0 +1,1 @@
+../../../worker/lib/cairn-manifest.ts

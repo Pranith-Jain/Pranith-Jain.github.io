@@ -1,0 +1,53 @@
+{
+  "name": "CodeExecutionInjectionDetection",
+  "file": "injection.nov",
+  "meta": {
+    "description": "Detects attempts to inject code for execution within the prompt",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/hidden_instructions",
+    "severity": "high",
+    "uuid": "8ad6416c-e6b4-45ba-a2d1-77eee2ef75b9",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$python_code": {
+      "pattern": "Write Python code",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$run_code": {
+      "pattern": "execute code",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$import_os": {
+      "pattern": "import os",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$os_system": {
+      "pattern": "os.system",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$subprocess": {
+      "pattern": "subprocess",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {},
+  "condition": "keywords.*",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": false
+  },
+  "keywordOnly": true,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
+  "license": "MIT"
+}

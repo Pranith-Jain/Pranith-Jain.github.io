@@ -1,0 +1,72 @@
+{
+  "name": "T1-LLM_API_Endpoint",
+  "tier": "T1",
+  "confidence": 88,
+  "artifactType": "api_key_pattern",
+  "artifactClass": "llm_api_endpoint",
+  "description": "Primitive LLM provider endpoint or SDK callout residue",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$openai",
+      "pattern": "api.openai.com",
+      "nocase": true
+    },
+    {
+      "id": "$anthropic",
+      "pattern": "api.anthropic.com",
+      "nocase": true
+    },
+    {
+      "id": "$gemini",
+      "pattern": "generativelanguage.googleapis.com",
+      "nocase": true
+    },
+    {
+      "id": "$chat",
+      "pattern": "chat.completions",
+      "nocase": true
+    },
+    {
+      "id": "$responses",
+      "pattern": "responses.create",
+      "nocase": true
+    },
+    {
+      "id": "$deepseek",
+      "pattern": "api.deepseek.com",
+      "nocase": true
+    },
+    {
+      "id": "$mistral",
+      "pattern": "api.mistral.ai",
+      "nocase": true
+    },
+    {
+      "id": "$openrouter",
+      "pattern": "openrouter.ai",
+      "nocase": true
+    },
+    {
+      "id": "$groq",
+      "pattern": "api.groq.com",
+      "nocase": true
+    },
+    {
+      "id": "$together",
+      "pattern": "api.together.xyz",
+      "nocase": true
+    },
+    {
+      "id": "$cohere",
+      "pattern": "api.cohere.ai",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

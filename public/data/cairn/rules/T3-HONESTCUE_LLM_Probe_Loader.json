@@ -1,0 +1,47 @@
+{
+  "name": "T3-HONESTCUE_LLM_Probe_Loader",
+  "tier": "T3",
+  "confidence": 90,
+  "artifactType": "orchestration_logic",
+  "artifactClass": "llm_api_backdoor",
+  "description": "Detects HONESTCUE downloader — hard-coded Gemini API prompts embedded as binary string literals; probe prompt contains 'class named AITask'; stage2 prompts reference Stage2 class and CSharpCodeProvider for fileless in-memory C# compilation",
+  "family": "HONESTCUE",
+  "archetypes": null,
+  "reference": "Mandiant GTIG blog Sep 2025; Gemini API generates C# stage2 downloader/reflective loader compiled in-memory via CSharpCodeProvider; Discord CDN payload delivery",
+  "strings": [
+    {
+      "id": "$aitask_prompt",
+      "pattern": "class named AITask",
+      "nocase": true
+    },
+    {
+      "id": "$stage2_class",
+      "pattern": "class named 'Stage2'",
+      "nocase": true
+    },
+    {
+      "id": "$stage2_class2",
+      "pattern": "class named Stage2",
+      "nocase": true
+    },
+    {
+      "id": "$csharp_compile",
+      "pattern": "CSharpCodeProvider",
+      "nocase": true
+    },
+    {
+      "id": "$gemini_api",
+      "pattern": "generativelanguage.googleapis.com",
+      "nocase": true
+    },
+    {
+      "id": "$honestcue",
+      "pattern": "HONESTCUE",
+      "nocase": true
+    }
+  ],
+  "condition": "$honestcue or $aitask_prompt or $stage2_class or $stage2_class2 or ($csharp_compile and $gemini_api) or ($csharp_compile and ($aitask_prompt or $stage2_class or $stage2_class2))",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

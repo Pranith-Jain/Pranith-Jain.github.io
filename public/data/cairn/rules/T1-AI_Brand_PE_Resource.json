@@ -1,0 +1,47 @@
+{
+  "name": "T1-AI_Brand_PE_Resource",
+  "tier": "T1",
+  "confidence": 70,
+  "artifactType": "model_reference",
+  "artifactClass": "ai_brand_reference",
+  "description": "AI provider brand name in PE resource strings — potential impersonation, trojanized AI app, or AI-branded lure. Fires on exiftool CompanyName/FileDescription fields.",
+  "family": null,
+  "archetypes": null,
+  "reference": null,
+  "strings": [
+    {
+      "id": "$chatgpt",
+      "pattern": "ChatGPT",
+      "nocase": true
+    },
+    {
+      "id": "$chart_gpt",
+      "pattern": "Chart GPT",
+      "nocase": true
+    },
+    {
+      "id": "$claude_setup",
+      "pattern": "Claude Setup",
+      "nocase": true
+    },
+    {
+      "id": "$anthropic_co",
+      "pattern": "Anthropic, PBC",
+      "nocase": true
+    },
+    {
+      "id": "$openai_inc",
+      "pattern": "OpenAI, Inc",
+      "nocase": true
+    },
+    {
+      "id": "$copilot_ms",
+      "pattern": "Microsoft Copilot",
+      "nocase": true
+    }
+  ],
+  "condition": "any of them",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

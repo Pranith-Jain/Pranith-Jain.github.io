@@ -1,0 +1,67 @@
+{
+  "name": "IndirectPromptInjection",
+  "file": "llm01_promptinject.nov",
+  "meta": {
+    "description": "Detects indirect prompt injection through external content",
+    "author": "@fr0gger_",
+    "version": "1.0",
+    "category": "prompt_manipulation/indirect_injection",
+    "severity": "high",
+    "uuid": "22921094-9c2f-4800-be29-d9d756564bc7",
+    "date": "2026-02-21",
+    "reference": "LLM01:2025 Prompt Injection"
+  },
+  "keywords": {
+    "$summarize": {
+      "pattern": "summarize (this|the) (content|text|document|webpage)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$analyze": {
+      "pattern": "analyze (this|the) (content|text|document|webpage)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$review": {
+      "pattern": "review (this|the) (content|text|document|webpage)",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$hidden_text": {
+      "pattern": "hidden text|invisible text|steganography",
+      "isRegex": true,
+      "caseSensitive": false
+    },
+    "$external_link": {
+      "pattern": "(http|https):\\/\\/[^\\s]+",
+      "isRegex": true,
+      "caseSensitive": true
+    }
+  },
+  "semantics": {
+    "$process_external": {
+      "pattern": "process this external content",
+      "threshold": 0.4
+    },
+    "$hidden_instructions": {
+      "pattern": "follow instructions in the document",
+      "threshold": 0.4
+    }
+  },
+  "llm": {
+    "$external_content_risk": {
+      "pattern": "Does this prompt ask to process external content that might contain hidden instructions?",
+      "threshold": 0.35
+    }
+  },
+  "condition": "((keywords.$summarize or keywords.$analyze or keywords.$review) and keywords.$external_link) or keywords.$hidden_text or semantics.$process_external or semantics.$hidden_instructions or llm.$external_content_risk",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": true
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/llm01_promptinject.nov",
+  "license": "MIT"
+}

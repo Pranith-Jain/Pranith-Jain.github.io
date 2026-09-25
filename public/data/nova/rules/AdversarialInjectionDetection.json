@@ -1,0 +1,43 @@
+{
+  "name": "AdversarialInjectionDetection",
+  "file": "injection.nov",
+  "meta": {
+    "description": "Detects adversarial prompt injection attempts with direct instruction manipulation",
+    "author": "Thomas Roccia",
+    "version": "1.0.0",
+    "category": "prompt_manipulation/direct_injection",
+    "severity": "high",
+    "uuid": "9bb81cbb-7c00-427f-9703-074cdd6046ed",
+    "date": "2026-02-21",
+    "reference": null
+  },
+  "keywords": {
+    "$bypass": {
+      "pattern": "bypass instructions",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$alter": {
+      "pattern": "alter system behavior",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$override": {
+      "pattern": "override settings",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {},
+  "llm": {},
+  "condition": "2 of keywords.*",
+  "needs": {
+    "keywords": true,
+    "semantics": false,
+    "llm": false
+  },
+  "keywordOnly": true,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
+  "license": "MIT"
+}

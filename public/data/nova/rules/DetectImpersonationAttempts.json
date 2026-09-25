@@ -1,0 +1,112 @@
+{
+  "name": "DetectImpersonationAttempts",
+  "file": "skill_rules.nov",
+  "meta": {
+    "description": "Detects attempts to impersonate official sources or trusted authors",
+    "author": "Thomas Roccia (@fr0gger_)",
+    "version": "1.0.0",
+    "category": "abusing_functions/social_engineering",
+    "severity": "medium",
+    "uuid": "61162ec4-2482-4629-a254-521af6ae0d3a",
+    "date": "2026-03-25",
+    "reference": null
+  },
+  "keywords": {
+    "$anthropic": {
+      "pattern": "Anthropic Official",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$openai": {
+      "pattern": "OpenAI Official",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$google": {
+      "pattern": "Google Official",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$microsoft": {
+      "pattern": "Microsoft Official",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$verified": {
+      "pattern": "[VERIFIED]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$official": {
+      "pattern": "[OFFICIAL]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$trusted": {
+      "pattern": "[TRUSTED]",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$admin": {
+      "pattern": "administrator",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$root_access": {
+      "pattern": "root access",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$superuser": {
+      "pattern": "superuser",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$privileged": {
+      "pattern": "privileged mode",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$certified": {
+      "pattern": "certified by",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$approved": {
+      "pattern": "approved by",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$endorsed": {
+      "pattern": "endorsed by",
+      "isRegex": false,
+      "caseSensitive": false
+    },
+    "$audited": {
+      "pattern": "security audited",
+      "isRegex": false,
+      "caseSensitive": false
+    }
+  },
+  "semantics": {
+    "$impersonation": {
+      "pattern": "impersonate an official or trusted source",
+      "threshold": 0.3
+    },
+    "$false_authority": {
+      "pattern": "claim false authority or certification",
+      "threshold": 0.3
+    }
+  },
+  "llm": {},
+  "condition": "any of keywords.* or any of semantics.*",
+  "needs": {
+    "keywords": true,
+    "semantics": true,
+    "llm": false
+  },
+  "keywordOnly": false,
+  "source": "github.com/Nova-Hunting/nova-rules",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/skill_rules.nov",
+  "license": "MIT"
+}

@@ -1,0 +1,57 @@
+{
+  "name": "T3-TEAMPCP_Backdoored_LiteLLM_Proxy",
+  "tier": "T3",
+  "confidence": 90,
+  "artifactType": "api_key_pattern",
+  "artifactClass": "llm_api_backdoor",
+  "description": "Detects TeamPCP backdoored LiteLLM proxy — malicious proxy_server.py intercepts LLM API keys and AWS IAM credentials; delivered via @qwork/sdk npm; C2 on Railway.app. NOTE: checkmarx.zone was removed — it belongs to the XENORAT cluster, not TeamPCP",
+  "family": "TEAMPCP",
+  "archetypes": null,
+  "reference": "VT SHA256 a0d229be8efcb2f9135e2ad55ba275b76ddcfeb55fa4370e0a522a5bdee0120b; ESET: Trojan/Python.PthLlmStealer; AV: Generic.PY.TeamPCP; Railway.app C2 litellm-production-7002.up.railway.app; @qwork/sdk npm supply chain vector; AWS IMDSv1 credential theft",
+  "strings": [
+    {
+      "id": "$av_teamcp",
+      "pattern": "TeamPCP",
+      "nocase": true
+    },
+    {
+      "id": "$av_stealer",
+      "pattern": "PthLlmStealer",
+      "nocase": true
+    },
+    {
+      "id": "$av_tpcpsteal",
+      "pattern": "TPCPSTEAL",
+      "nocase": true
+    },
+    {
+      "id": "$railway_c2",
+      "pattern": "litellm-production-7002.up.railway.app",
+      "nocase": true
+    },
+    {
+      "id": "$railway_ex",
+      "pattern": "exampleopenaiendpoint-production.up.railway.app",
+      "nocase": true
+    },
+    {
+      "id": "$imds",
+      "pattern": "169.254.169.254/latest/meta-data/iam/security-credentials",
+      "nocase": true
+    },
+    {
+      "id": "$stage0",
+      "pattern": "proxy_server_stage0",
+      "nocase": true
+    },
+    {
+      "id": "$qwork",
+      "pattern": "@qwork/sdk",
+      "nocase": true
+    }
+  ],
+  "condition": "$av_stealer or $av_tpcpsteal or $railway_c2 or $railway_ex or $stage0 or $qwork or ($imds and 1 of ($av_teamcp, $av_stealer, $av_tpcpsteal, $railway_c2, $railway_ex, $stage0, $qwork))",
+  "source": "github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "sourceUrl": "https://github.com/Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network",
+  "license": "MIT"
+}

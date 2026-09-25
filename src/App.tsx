@@ -104,6 +104,9 @@ const AiSecurityMatrix = lazy(() => import('./pages/threatintel/AiSecurityMatrix
 const AiVulns = lazy(() => import('./pages/threatintel/AiVulns'));
 const AiAdvisories = lazy(() => import('./pages/threatintel/AiAdvisories'));
 const InvestigationSuite = lazy(() => import('./pages/threatintel/InvestigationSuite'));
+const Cairn = lazy(() => import('./pages/threatintel/Cairn'));
+const Nova = lazy(() => import('./pages/threatintel/Nova'));
+const Denali = lazy(() => import('./pages/threatintel/Denali'));
 const DashboardHub = lazy(() => import('./pages/threatintel/DashboardHub'));
 const CertSearch = lazy(() => import('./pages/dfir/CertSearch'));
 const AsnLookup = lazy(() => import('./pages/dfir/AsnLookup'));
@@ -700,6 +703,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   },
   { path: '/threatintel/feeds/threaticon', Component: ThreaticonFeeds },
   { path: '/threatintel/feeds/dphish', Component: DphishFeeds },
+  { path: '/threatintel/cairn', Component: Cairn },
+  { path: '/threatintel/nova', Component: Nova },
+  { path: '/threatintel/denali', Component: Denali },
   { path: '/threatintel/feeds/destroylist', Component: DestroylistFeeds },
   { path: '/threatintel/feeds/living-threat', Component: LivingThreatFeeds },
   { path: '/threatintel/feeds/malwareanalyzer', Component: MalwareAnalyzerFeeds },
