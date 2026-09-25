@@ -25,7 +25,8 @@
  * Safe to run repeatedly — wipes public/data/cairn/ on each run.
  */
 import { writeFileSync, mkdirSync, rmSync, existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve as resolvePath } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const ROOT = process.cwd();
 const OUT = join(ROOT, 'public', 'data', 'cairn');
@@ -78,6 +79,24 @@ async function loadText(relPath) {
   const resp = await fetch(`${RAW_BASE}/${relPath}`);
   if (!resp.ok) throw new Error(`fetch ${relPath}: ${resp.status} ${resp.statusText}`);
   return await resp.text();
+}
+
+/**
+ * Redact credential-shaped strings vendored from upstream research.
+ *
+ * Upstream family reports quote attacker/developer credentials verbatim
+ * (e.g. CLOSEDQUORUM's `gohno-final.exe` build flags carried live
+ * provider keys). Replicating them verbatim trips secret scanners and
+ * redistributes potentially-live credentials, so builds redact to
+ * prefix…suffix form (analyst-correlatable, scanner-safe). The
+ * surrounding prose (which keys, where found, presumed-revoked status)
+ * is preserved untouched.
+ */
+export function redactLeakedCredentials(text) {
+  if (typeof text !== 'string' || !text) return text;
+  return text
+    .replace(/AIza[0-9A-Za-z_-]{35}/g, (m) => `${m.slice(0, 8)}...${m.slice(-4)}`)
+    .replace(/\bsk-[A-Za-z0-9]{20,}\b/g, (m) => `${m.slice(0, 6)}...${m.slice(-4)}`);
 }
 
 // ─── YARA parsing (mirrors cairn/rules.py grammar subset) ────────────────
@@ -341,7 +360,9 @@ async function main() {
   for (const slug of FAMILY_SLUGS) {
     let body = null;
     try {
-      body = await loadText(`docs/families/${slug}.md`);
+      // Redact at ingest so no emitted artifact ever carries a verbatim
+      // credential, whatever the upstream report quotes.
+      body = redactLeakedCredentials(await loadText(`docs/families/${slug}.md`));
     } catch {
       console.warn(`[cairn] family report missing upstream: ${slug}`);
       continue;
@@ -406,7 +427,17 @@ async function main() {
   );
 }
 
-main().catch((e) => {
-  console.error(`[cairn] build failed: ${e.message}`);
-  process.exit(1);
-});
+const isMain = (() => {
+  if (typeof process === 'undefined' || !process.argv[1]) return false;
+  try {
+    return resolvePath(process.argv[1]) === fileURLToPath(import.meta.url);
+  } catch {
+    return false;
+  }
+})();
+if (isMain) {
+  main().catch((e) => {
+    console.error(`[cairn] build failed: ${e.message}`);
+    process.exit(1);
+  });
+}
