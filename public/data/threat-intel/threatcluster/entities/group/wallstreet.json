@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "wallstreet",
+  "name": "wallstreet",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-24T14:28:46.000Z",
+  "lastSeen": "2026-09-24T15:07:29.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-24",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "prater-amp-ridley-attorneys-at-law-28a8",
+      "title": "Prater &amp; Ridley Attorneys At Law — claimed by wallstreet",
+      "pubDate": "2026-09-24T15:07:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "catholic-university-of-el-salvador-f1c2",
+      "title": "Catholic University of El Salvador — claimed by wallstreet",
+      "pubDate": "2026-09-24T14:28:46.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "prater-amp-ridley-attorneys-at-law-28a8",
+      "victim": "Prater &amp; Ridley Attorneys At Law — claimed by wallstreet",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-24T15:07:29.000Z"
+    },
+    {
+      "id": "catholic-university-of-el-salvador-f1c2",
+      "victim": "Catholic University of El Salvador — claimed by wallstreet",
+      "sector": "Education",
+      "country": "SV",
+      "pubDate": "2026-09-24T14:28:46.000Z"
+    }
+  ]
+}

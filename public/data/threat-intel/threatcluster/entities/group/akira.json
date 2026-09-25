@@ -4,78 +4,59 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-23T12:23:15.000Z",
-  "lastSeen": "2026-09-23T13:24:53.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 0 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-09-24T13:26:41.000Z",
+  "lastSeen": "2026-09-24T13:56:18.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-23",
-      "count": 3
+      "date": "2026-09-24",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "urban-engineering-9aca",
-      "title": "Urban Engineering — claimed by akira",
-      "pubDate": "2026-09-23T13:24:53.000Z"
+      "slug": "wallatec-5173",
+      "title": "Wallatec — claimed by akira",
+      "pubDate": "2026-09-24T13:56:18.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "hit-dd-957e",
-      "title": "HIT dd — claimed by akira",
-      "pubDate": "2026-09-23T12:23:35.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "apex-litigation-support-096a",
-      "title": "Apex Litigation Support — claimed by akira",
-      "pubDate": "2026-09-23T12:23:15.000Z"
+      "slug": "strack-companies-d516",
+      "title": "Strack Companies — claimed by akira",
+      "pubDate": "2026-09-24T13:26:41.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "urban-engineering-9aca",
-      "victim": "Urban Engineering — claimed by akira",
+      "id": "wallatec-5173",
+      "victim": "Wallatec — claimed by akira",
+      "sector": "Other",
+      "country": null,
+      "pubDate": "2026-09-24T13:56:18.000Z"
+    },
+    {
+      "id": "strack-companies-d516",
+      "victim": "Strack Companies — claimed by akira",
       "sector": "Manufacturing",
-      "country": null,
-      "pubDate": "2026-09-23T13:24:53.000Z"
-    },
-    {
-      "id": "hit-dd-957e",
-      "victim": "HIT dd — claimed by akira",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-09-23T12:23:35.000Z"
-    },
-    {
-      "id": "apex-litigation-support-096a",
-      "victim": "Apex Litigation Support — claimed by akira",
-      "sector": "Professional Services",
-      "country": null,
-      "pubDate": "2026-09-23T12:23:15.000Z"
+      "country": "US",
+      "pubDate": "2026-09-24T13:26:41.000Z"
     }
   ]
 }

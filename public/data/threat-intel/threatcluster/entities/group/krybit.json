@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "krybit",
+  "name": "krybit",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-24T12:08:43.000Z",
+  "lastSeen": "2026-09-24T20:01:08.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-24",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "efada-sa-837c",
+      "title": "efada.sa — claimed by krybit",
+      "pubDate": "2026-09-24T20:01:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "airtanzania-co-tz-airtanzania-com-221b",
+      "title": "airtanzania.co.tz / airtanzania.com — claimed by krybit",
+      "pubDate": "2026-09-24T12:09:22.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "www-jonesthegrocer-com-62d1",
+      "title": "www.jonesthegrocer.com — claimed by krybit",
+      "pubDate": "2026-09-24T12:08:43.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "efada-sa-837c",
+      "victim": "efada.sa — claimed by krybit",
+      "sector": "Other",
+      "country": "SA",
+      "pubDate": "2026-09-24T20:01:08.000Z"
+    },
+    {
+      "id": "airtanzania-co-tz-airtanzania-com-221b",
+      "victim": "airtanzania.co.tz / airtanzania.com — claimed by krybit",
+      "sector": "Transportation",
+      "country": "TZ",
+      "pubDate": "2026-09-24T12:09:22.000Z"
+    },
+    {
+      "id": "www-jonesthegrocer-com-62d1",
+      "victim": "www.jonesthegrocer.com — claimed by krybit",
+      "sector": "Retail & E-Commerce",
+      "country": "AU",
+      "pubDate": "2026-09-24T12:08:43.000Z"
+    }
+  ]
+}

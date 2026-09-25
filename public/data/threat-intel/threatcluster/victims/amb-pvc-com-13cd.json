@@ -1,0 +1,14 @@
+{
+  "id": "amb-pvc-com-13cd",
+  "victim": "amb-pvc.com",
+  "group": "zawoo",
+  "sector": "Manufacturing",
+  "country": "FR",
+  "title": "amb-pvc.com — claimed by zawoo",
+  "link": "https://threatcluster.io/dark-web/victim/amb-pvc.com",
+  "guid": "darkweb-victim:zawoo:amb-pvc.com",
+  "pubDate": "2026-09-24T10:53:34.000Z",
+  "categories": ["Group: zawoo", "Sector: Manufacturing", "Country: FR"],
+  "description": "FR · Manufacturing · AMB (Ateliers de Menuiseries Bidet), also known as Atelier de Menuiseries Bidet, is a French manufacturer specializing in PVC and aluminium joinery products. The company is based in Bourguenolles, Normandy, France. Its website is amb-pvc.com.",
+  "sizeBytes": 263
+}

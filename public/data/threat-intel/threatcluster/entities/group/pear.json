@@ -1,0 +1,75 @@
+{
+  "type": "group",
+  "slug": "pear",
+  "name": "pear",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-24T21:38:02.000Z",
+  "lastSeen": "2026-09-24T21:40:03.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-24",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "westside-gi-4e91",
+      "title": "Westside GI — claimed by pear",
+      "pubDate": "2026-09-24T21:40:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "martin-lawrence-galleries-73ef",
+      "title": "Martin Lawrence Galleries — claimed by pear",
+      "pubDate": "2026-09-24T21:39:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "indroj-medical-group-inc-c435",
+      "title": "Indroj Medical Group Inc. — claimed by pear",
+      "pubDate": "2026-09-24T21:38:02.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "westside-gi-4e91",
+      "victim": "Westside GI — claimed by pear",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-24T21:40:03.000Z"
+    },
+    {
+      "id": "martin-lawrence-galleries-73ef",
+      "victim": "Martin Lawrence Galleries — claimed by pear",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-24T21:39:04.000Z"
+    },
+    {
+      "id": "indroj-medical-group-inc-c435",
+      "victim": "Indroj Medical Group Inc. — claimed by pear",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-24T21:38:02.000Z"
+    }
+  ]
+}

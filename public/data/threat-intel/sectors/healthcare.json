@@ -1,10 +1,25 @@
 {
   "sector": "healthcare",
   "title": "Healthcare sector brief",
-  "generatedAt": "2026-09-24",
-  "topCount": 0,
-  "preview": "No KEV-flagged CVEs in the current window.",
-  "sizeBytes": 290,
+  "generatedAt": "2026-09-25",
+  "topCount": 2,
+  "preview": "CVE-2026-5430 (critical) leads with priority 92.",
+  "sizeBytes": 925,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
-  "topThreats": []
+  "topThreats": [
+    {
+      "cveId": "CVE-2026-5430",
+      "title": "The JWT authentication mechanism accepts tokens signed with algorithms other than those explicitly configured or support",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 10; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-71362",
+      "title": "Adobe Commerce is affected by an Incorrect Authorization vulnerability that could result in privilege escalation. An att",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.1; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    }
+  ]
 }

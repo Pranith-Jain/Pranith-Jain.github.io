@@ -1,16 +1,170 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-24T10:23:01Z",
-  "syncedAt": "2026-09-24T10:23:02.097Z",
+  "generatedAt": "2026-09-25T10:22:35Z",
+  "syncedAt": "2026-09-25T10:22:35.616Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 344,
+  "count": 352,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "ernigr-esfilc.com",
+      "confidence": "high",
+      "reason": "Used as an iframe domain in a phishing campaign, indicating attacker control.",
+      "first_seen": "2026-09-24T13:12:11.081376+00:00",
+      "last_seen": "2026-09-24T13:12:11.081376+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "haveibeensquatted.com",
+          "url": "https://haveibeensquatted.com/blog/diesel-vortex-inside-the-russian-cybercrime-group-targeting-us-eu-freight",
+          "pub_date": "2026-09-24T13:12:11.081376+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "lpanel-bckaoplsks.top",
+      "confidence": "high",
+      "reason": "Appears in referrer entries recording victim traffic, indicating attacker control.",
+      "first_seen": "2026-09-24T13:12:11.081376+00:00",
+      "last_seen": "2026-09-24T13:12:11.081376+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "haveibeensquatted.com",
+          "url": "https://haveibeensquatted.com/blog/diesel-vortex-inside-the-russian-cybercrime-group-targeting-us-eu-freight",
+          "pub_date": "2026-09-24T13:12:11.081376+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "lpanel-bumaepxuje-iframe.top",
+      "confidence": "high",
+      "reason": "Identified as an active secondary domain used by attackers.",
+      "first_seen": "2026-09-24T13:12:11.081376+00:00",
+      "last_seen": "2026-09-24T13:12:11.081376+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "haveibeensquatted.com",
+          "url": "https://haveibeensquatted.com/blog/diesel-vortex-inside-the-russian-cybercrime-group-targeting-us-eu-freight",
+          "pub_date": "2026-09-24T13:12:11.081376+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "lpanel-bumaepxuje.top",
+      "confidence": "high",
+      "reason": "Configured as the panel hostname in the attacker's codebase.",
+      "first_seen": "2026-09-24T13:12:11.081376+00:00",
+      "last_seen": "2026-09-24T13:12:11.081376+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "haveibeensquatted.com",
+          "url": "https://haveibeensquatted.com/blog/diesel-vortex-inside-the-russian-cybercrime-group-targeting-us-eu-freight",
+          "pub_date": "2026-09-24T13:12:11.081376+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "yasomawork.space",
+      "confidence": "high",
+      "reason": "Referenced in the admin panel footer, indicating attacker control.",
+      "first_seen": "2026-09-24T13:12:11.081376+00:00",
+      "last_seen": "2026-09-24T13:12:11.081376+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "haveibeensquatted.com",
+          "url": "https://haveibeensquatted.com/blog/diesel-vortex-inside-the-russian-cybercrime-group-targeting-us-eu-freight",
+          "pub_date": "2026-09-24T13:12:11.081376+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "playgoogle.logisticstkwcargo.com",
+      "confidence": "high",
+      "reason": "Domain appears to be a typosquat or lookalike used for phishing or malware delivery.",
+      "first_seen": "2026-09-24T12:09:27+00:00",
+      "last_seen": "2026-09-24T13:12:08.828530+00:00",
+      "source_count": 3,
+      "sources": [
+        {
+          "source": "haveibeensquatted.com",
+          "url": "https://haveibeensquatted.com/blog/inside-corp-mdm-android-spyware-targeting-logisitics",
+          "pub_date": "2026-09-24T13:12:08.82853+00:00"
+        },
+        {
+          "source": "News.Lavx.Hu",
+          "url": "https://news.lavx.hu/article/corp-mdm-spyware-targets-logistics-firms-steals-new-sms-and-redirects-calls",
+          "pub_date": "2026-09-24T12:40:33+00:00"
+        },
+        {
+          "source": "Thehackernews",
+          "url": "https://thehackernews.com/2026/09/corp-mdm-spyware-targets-logistics.html",
+          "pub_date": "2026-09-24T12:09:27+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "docsend.appstore.com",
+      "confidence": "high",
+      "reason": "[article sweep] Listed as a URL used for malware delivery, indicating attacker control.",
+      "first_seen": "2026-09-24T10:12:52+00:00",
+      "last_seen": "2026-09-24T10:12:52+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Securelist",
+          "url": "https://securelist.com/macsync-new-version/121383/",
+          "pub_date": "2026-09-24T10:12:52+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "streamyard.appstore.com",
+      "confidence": "high",
+      "reason": "[article sweep] Domain used for hosting malicious installer script",
+      "first_seen": "2026-09-24T10:12:52+00:00",
+      "last_seen": "2026-09-24T10:12:52+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Securelist",
+          "url": "https://securelist.com/macsync-new-version/121383/",
+          "pub_date": "2026-09-24T10:12:52+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "waaako.appstore.com",
+      "confidence": "high",
+      "reason": "[article sweep] Domain used for hosting malicious installer script",
+      "first_seen": "2026-09-24T10:12:52+00:00",
+      "last_seen": "2026-09-24T10:12:52+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Securelist",
+          "url": "https://securelist.com/macsync-new-version/121383/",
+          "pub_date": "2026-09-24T10:12:52+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "cacheoutattack.com",
       "confidence": "high",
-      "reason": "Domain associated with a specific attack technique",
+      "reason": "Domain associated with the CacheOut attack",
       "first_seen": "2026-09-24T04:31:27.990972+00:00",
       "last_seen": "2026-09-24T04:31:27.990972+00:00",
       "source_count": 1,
@@ -26,7 +180,7 @@
       "type": "domain",
       "value": "indirector.cpusec.org",
       "confidence": "high",
-      "reason": "Domain associated with a specific attack technique",
+      "reason": "Domain associated with the Indirector attack",
       "first_seen": "2026-09-24T04:31:27.990972+00:00",
       "last_seen": "2026-09-24T04:31:27.990972+00:00",
       "source_count": 1,
@@ -42,7 +196,7 @@
       "type": "domain",
       "value": "lviattack.eu",
       "confidence": "high",
-      "reason": "Domain associated with a specific attack technique",
+      "reason": "Domain associated with the Load Value Injection attack",
       "first_seen": "2026-09-24T04:31:27.990972+00:00",
       "last_seen": "2026-09-24T04:31:27.990972+00:00",
       "source_count": 1,
@@ -58,7 +212,7 @@
       "type": "domain",
       "value": "mdsattacks.com",
       "confidence": "high",
-      "reason": "Domain associated with a specific attack technique",
+      "reason": "Domain associated with Microarchitectural Data Sampling attacks",
       "first_seen": "2026-09-24T04:31:27.990972+00:00",
       "last_seen": "2026-09-24T04:31:27.990972+00:00",
       "source_count": 1,
@@ -74,7 +228,7 @@
       "type": "domain",
       "value": "meltdownattack.com",
       "confidence": "high",
-      "reason": "Domain associated with a specific attack technique",
+      "reason": "Domain associated with the Meltdown attack",
       "first_seen": "2026-09-24T04:31:27.990972+00:00",
       "last_seen": "2026-09-24T04:31:27.990972+00:00",
       "source_count": 1,
@@ -90,7 +244,7 @@
       "type": "domain",
       "value": "zombieloadattack.com",
       "confidence": "high",
-      "reason": "Domain associated with a specific attack technique",
+      "reason": "Domain associated with the ZombieLoad attack",
       "first_seen": "2026-09-24T04:31:27.990972+00:00",
       "last_seen": "2026-09-24T04:31:27.990972+00:00",
       "source_count": 1,
@@ -99,6 +253,22 @@
           "source": "en.wikipedia.org",
           "url": "https://en.wikipedia.org/wiki/Transient_execution_CPU_vulnerability",
           "pub_date": "2026-09-24T04:31:27.990972+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "elxxvvx.xyz",
+      "confidence": "high",
+      "reason": "Referenced as a site distributing a malicious PowerShell script",
+      "first_seen": "2026-09-24T03:17:57+00:00",
+      "last_seen": "2026-09-24T03:17:57+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Bleepingcomputer",
+          "url": "https://www.bleepingcomputer.com/news/security/placeholder-domain-used-in-dev-docs-now-serves-clickfix-attacks/",
+          "pub_date": "2026-09-24T03:17:57+00:00"
         }
       ]
     },
@@ -5667,38 +5837,6 @@
           "source": "Kelacyber",
           "url": "https://www.kelacyber.com/blog/crpx0-threat-actor-profile/",
           "pub_date": "2026-08-26T17:39:45+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "67.213.118.179",
-      "confidence": "high",
-      "reason": "[article sweep] Used in exploitation attempts against Oracle WebLogic Server",
-      "first_seen": "2026-08-25T19:04:41.630110+00:00",
-      "last_seen": "2026-08-25T19:04:41.630110+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.cloudsek.com",
-          "url": "https://www.cloudsek.com/blog/honey-for-hackers-a-study-of-attacks-targeting-the-recent-cve-2026-21962-and-other-critical-weblogic-vulnerabilities-on-a-high-interactive-oracle-honeypot",
-          "pub_date": "2026-08-25T19:04:41.63011+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "102.91.71.83",
-      "confidence": "high",
-      "reason": "Listed as a scanning IP used to detect exploit attempts",
-      "first_seen": "2026-08-25T15:50:04+00:00",
-      "last_seen": "2026-08-25T15:50:04+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Techtimes",
-          "url": "https://www.techtimes.com/articles/325482/20260825/attackers-exploit-wordpress-sso-plugin-six-paid-editions-were-never-any-vulnerability-database.htm",
-          "pub_date": "2026-08-25T15:50:04+00:00"
         }
       ]
     }

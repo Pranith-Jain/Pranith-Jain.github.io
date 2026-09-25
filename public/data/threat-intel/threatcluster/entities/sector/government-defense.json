@@ -4,47 +4,29 @@
   "name": "Government & Defense",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-23T09:20:59.000Z",
-  "lastSeen": "2026-09-23T10:21:11.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 2 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-24T13:21:32.000Z",
+  "lastSeen": "2026-09-24T13:21:32.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-23",
-      "count": 3
+      "date": "2026-09-24",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "the-merrimack-county-9082",
-      "title": "The Merrimack County — claimed by booba project",
-      "pubDate": "2026-09-23T10:21:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "washington-county-6335",
-      "title": "Washington County — claimed by booba project",
-      "pubDate": "2026-09-23T10:20:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "receita-federal-do-brasil-e95f",
-      "title": "RECEITA FEDERAL DO BRASIL — claimed by emperador",
-      "pubDate": "2026-09-23T09:20:59.000Z"
+      "slug": "italy-4220",
+      "title": "Italy — claimed by imnotavillain",
+      "pubDate": "2026-09-24T13:21:32.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "booba-project",
-      "name": "booba project",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "emperador",
-      "name": "emperador",
+      "slug": "imnotavillain",
+      "name": "imnotavillain",
       "weight": 1
     }
   ],

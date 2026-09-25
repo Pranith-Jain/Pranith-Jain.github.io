@@ -1,8 +1,8 @@
 {
   "source": "github.com/phishdestroy/destroylist",
   "license": "MIT",
-  "syncedAt": "2026-09-24T10:23:09.693Z",
+  "syncedAt": "2026-09-25T10:22:43.941Z",
   "bucketCount": 64,
   "bucketsWritten": 64,
-  "counts": { "primary": 211160, "primaryRoots": 148460, "community": 1072790, "primaryActive": 130895 }
+  "counts": { "primary": 211727, "primaryRoots": 148991, "community": 1074080, "primaryActive": 131292 }
 }

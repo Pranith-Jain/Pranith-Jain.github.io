@@ -4,40 +4,135 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-23T11:51:41.000Z",
-  "lastSeen": "2026-09-23T11:51:41.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-09-24T13:45:30.000Z",
+  "lastSeen": "2026-09-24T14:24:06.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 6 sectors and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-23",
-      "count": 1
+      "date": "2026-09-24",
+      "count": 6
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "inkript-878c",
-      "title": "Inkript — claimed by qilin",
-      "pubDate": "2026-09-23T11:51:41.000Z"
+      "slug": "dao-group-c9f6",
+      "title": "Dao Group — claimed by qilin",
+      "pubDate": "2026-09-24T14:24:06.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "all-tech-machine-amp-engineering-dc4f",
+      "title": "All Tech Machine &amp; Engineering — claimed by qilin",
+      "pubDate": "2026-09-24T14:23:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "inversiones-bol-var-24a7",
+      "title": "Inversiones Bolívar — claimed by qilin",
+      "pubDate": "2026-09-24T14:22:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "zig-inge-group-4220",
+      "title": "Zig Inge Group — claimed by qilin",
+      "pubDate": "2026-09-24T14:22:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "agora-coop-rative-agricole-e9d3",
+      "title": "Agora coopérative agricole — claimed by qilin",
+      "pubDate": "2026-09-24T13:46:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gdm-pipelines-4fd7",
+      "title": "GDM Pipelines — claimed by qilin",
+      "pubDate": "2026-09-24T13:45:30.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "inkript-878c",
-      "victim": "Inkript — claimed by qilin",
-      "sector": "Technology",
+      "id": "dao-group-c9f6",
+      "victim": "Dao Group — claimed by qilin",
+      "sector": "Other",
       "country": null,
-      "pubDate": "2026-09-23T11:51:41.000Z"
+      "pubDate": "2026-09-24T14:24:06.000Z"
+    },
+    {
+      "id": "all-tech-machine-amp-engineering-dc4f",
+      "victim": "All Tech Machine &amp; Engineering — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-24T14:23:28.000Z"
+    },
+    {
+      "id": "inversiones-bol-var-24a7",
+      "victim": "Inversiones Bolívar — claimed by qilin",
+      "sector": "Financial Services",
+      "country": "CO",
+      "pubDate": "2026-09-24T14:22:50.000Z"
+    },
+    {
+      "id": "zig-inge-group-4220",
+      "victim": "Zig Inge Group — claimed by qilin",
+      "sector": "Not Found",
+      "country": "AU",
+      "pubDate": "2026-09-24T14:22:10.000Z"
+    },
+    {
+      "id": "agora-coop-rative-agricole-e9d3",
+      "victim": "Agora coopérative agricole — claimed by qilin",
+      "sector": "Agriculture and Food Production",
+      "country": "FR",
+      "pubDate": "2026-09-24T13:46:11.000Z"
+    },
+    {
+      "id": "gdm-pipelines-4fd7",
+      "victim": "GDM Pipelines — claimed by qilin",
+      "sector": "Energy & Utilities",
+      "country": "GB",
+      "pubDate": "2026-09-24T13:45:30.000Z"
     }
   ]
 }
