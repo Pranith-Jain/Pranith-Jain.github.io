@@ -257,7 +257,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [DISARM Framework](https://pranithjain.qzz.io/threatintel/detections/disarm) (threatintel): DISARM red-team framework mapping.
 - [YARA Hub](https://pranithjain.qzz.io/threatintel/detections/yara) (threatintel): YARA rule hub - community and curated rules.
 - [Threat Signal RSS](https://pranithjain.qzz.io/threatintel/detections/signal) (threatintel): Threat-signal RSS feed with auto-classified indicators.
-- [Detection Wiki](https://pranithjain.qzz.io/threatintel/detection-wiki) (threatintel): 15,957 rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs.
 - [CAIRN AI-Malware Rules](https://pranithjain.qzz.io/threatintel/cairn) (threatintel): Cisco-Talos cognitive artifact intel (MIT) — 26 tiered YARA rules (T1/T2/T3) spotting AI artifacts in malware, 10 family reports, A0–A11 archetypes, edge scanner.
 - [NOVA Prompt Hunting](https://pranithjain.qzz.io/threatintel/nova) (threatintel): Prompt pattern matching (MIT) — 69 .nov rules hunting jailbreaks, injections, and exfiltration prompts with an edge keyword scanner and 4-category taxonomy.
 - [Denali AI Security](https://pranithjain.qzz.io/threatintel/denali) (threatintel): Evidence-led AI security reference (Apache-2.0) — 9 deterministic rules, 16-kind asset taxonomy, 38 ADRs, plus stateless runtime-activity checks.
