@@ -909,6 +909,16 @@
     "reportNum": "7998",
     "description": "When state inspectors visited a dusty construction site amid the farmland of southern New Jersey in late July, it was impossible to miss the 62 tractor-trailer-size generators powering one of the largest planned data centers on the Eastern  ... (https://incidentdatabase.ai/cite/1709#7998)"
   },
+  "Y2EwNDBkOTEt": {
+    "id": "Y2EwNDBkOTEt",
+    "guid": "ca040d91-80ac-5e9f-9ae7-f0254d293ecf",
+    "title": "No title",
+    "link": "",
+    "pubDate": "Fri, 25 Sep 2026 15:14:50 GMT",
+    "citeId": null,
+    "reportNum": null,
+    "description": "... (report_number: 7999)"
+  },
   "ZDA4MDc0YmMt": {
     "id": "ZDA4MDc0YmMt",
     "guid": "d08074bc-161c-58ee-b084-9fdaf0fd504a",
@@ -988,15 +998,5 @@
     "citeId": null,
     "reportNum": null,
     "description": "In the last ten days: a single person used Claude to breach Mexican government agencies. Cline's own AI-powered triage workflow was compromised via prompt injection. A new Shai-Hulud variant started injecting rogue MCP servers into develope ... (report_number: 7915)"
-  },
-  "MjcyY2IwOTMt": {
-    "id": "MjcyY2IwOTMt",
-    "guid": "272cb093-aca1-51f7-9f4a-0fe9a07f1a94",
-    "title": "Google's AI Is Telling Users That Flock Cameras Are Filled With Valuable Gold and Copper",
-    "link": "https://futurism.com/artificial-intelligence/google-ai-overview-flock-alpr-surveillance-hallucination-gold-copper",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": null,
-    "reportNum": null,
-    "description": "Google's notorious AI Overview just handed would-be Flock vandals a perfect excuse to carve into the company's controversial AI-integrated license plate readers (ALPRs).\n\nALRPs are wildly unpopular, especially online, where privacy-minded c ... (report_number: 7920)"
   }
 }

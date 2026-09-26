@@ -3,13 +3,13 @@
   "repo": "Tencent/AI-Infra-Guard",
   "category": "scanner",
   "scope": ["llm", "agentic"],
-  "stars": 6575,
+  "stars": 6585,
   "description": "A full-stack AI Red Teaming platform securing AI ecosystems via Agent Scan, Skills Scan, MCP scan, AI Infra scan and LLM jailbreak evaluation.",
   "homepage": "https://tencent.github.io/AI-Infra-Guard/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-25T08:52:22Z",
+  "checkedAt": "2026-09-26T03:18:46Z",
   "pushedAt": "2026-09-24",
-  "daysIdle": 1,
+  "daysIdle": 2,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -23,12 +23,12 @@
       "description": "Gathers several separate AI security scans behind one console: the agent, the MCP servers, the skills, the serving infrastructure, and a jailbreak pass against the model itself."
     },
     "derived": {
-      "checked_at": "2026-09-25T08:52:22Z",
+      "checked_at": "2026-09-26T03:18:46Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-24",
-        "days_since_push": 1,
+        "days_since_push": 2,
         "total_commits": 1918,
         "last100_span_days": 30,
         "last100_authors": 19,
@@ -37,13 +37,13 @@
         "last_commit_at": "2026-09-24",
         "releases": 58,
         "latest_release_at": "2026-09-24",
-        "days_since_release": 1,
-        "days_idle": 1,
+        "days_since_release": 2,
+        "days_idle": 2,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "Tencent/AI-Infra-Guard",
-        "stars": 6575,
+        "stars": 6585,
         "forks": 616,
         "created_at": "2024-12-25",
         "is_fork": false,

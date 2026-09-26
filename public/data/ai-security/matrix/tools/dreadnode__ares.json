@@ -3,13 +3,13 @@
   "repo": "dreadnode/ares",
   "category": "agent",
   "scope": ["ad", "network", "redteam"],
-  "stars": 82,
+  "stars": 83,
   "description": "Ares is an autonomous security operations platform where LLM-driven red and blue team agents operate against each other on live infrastructure, enabling realistic evaluation of attack and defense.",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-25T08:50:53Z",
+  "checkedAt": "2026-09-26T03:17:35Z",
   "pushedAt": "2026-09-23",
-  "daysIdle": 2,
+  "daysIdle": 3,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -23,12 +23,12 @@
       "description": "Puts red and blue agents on the same live infrastructure at once: one side chains Active Directory attacks, the other reads the logs and writes detections back to the dashboard. A single Rust binary."
     },
     "derived": {
-      "checked_at": "2026-09-25T08:50:53Z",
+      "checked_at": "2026-09-26T03:17:35Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-23",
-        "days_since_push": 2,
+        "days_since_push": 3,
         "total_commits": 228,
         "last100_span_days": 85,
         "last100_authors": 3,
@@ -37,13 +37,13 @@
         "last_commit_at": "2026-09-23",
         "releases": 3,
         "latest_release_at": "2026-05-18",
-        "days_since_release": 130,
-        "days_idle": 2,
+        "days_since_release": 131,
+        "days_idle": 3,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "dreadnode/ares",
-        "stars": 82,
+        "stars": 83,
         "forks": 14,
         "created_at": "2025-12-15",
         "is_fork": false,

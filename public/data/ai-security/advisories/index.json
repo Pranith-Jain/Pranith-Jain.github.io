@@ -1,8 +1,7 @@
 {
-  "updatedAt": "2026-09-25T11:46:39.878Z",
-  "total": 127,
+  "updatedAt": "2026-09-26T11:19:57.266Z",
+  "total": 126,
   "bySource": {
-    "cvelistV5": 1,
     "ghsa": 60,
     "garak": 5,
     "pyrit": 5,
@@ -19,6 +18,26 @@
     "exploitdb": 2
   },
   "items": [
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.40.0",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.40.0-rc0",
+      "updated": "2026-09-25T15:22:00Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-fireworks==1.6.3",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.6.3",
+      "updated": "2026-09-25T12:57:40Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
     {
       "id": "aHR0cHM6Ly9n",
       "title": "v1.104.0-dev.2",
@@ -55,26 +74,6 @@
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.98.1",
       "updated": "2026-09-25T06:20:07Z",
       "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "1 changes (1 new | 0 updated):",
-      "link": "https://github.com/CVEProject/cvelistV5/commit/a00cf8c92ce412a75c3ca71c4a84eda0c023a2ae",
-      "updated": "2026-09-25T04:52:21Z",
-      "source": "cvelistV5",
-      "kind": "cve",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.40.0",
-      "link": "https://github.com/ollama/ollama/releases/tag/v0.40.0-rc0",
-      "updated": "2026-09-25T03:31:52Z",
-      "source": "ollama",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -195,16 +194,6 @@
       "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
       "updated": "2026-09-22T05:20:54Z",
       "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-openrouter==0.2.9",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openrouter%3D%3D0.2.9",
-      "updated": "2026-09-22T04:16:13Z",
-      "source": "langchain",
       "kind": "release",
       "cves": [],
       "description": ""
