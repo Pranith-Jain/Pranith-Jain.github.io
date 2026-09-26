@@ -1,8 +1,17 @@
 {
-  "updatedAt": "2026-09-25T11:46:39.788Z",
+  "updatedAt": "2026-09-26T11:19:57.179Z",
   "source": "https://incidentdatabase.ai/rss.xml",
   "total": 100,
   "reports": [
+    {
+      "id": "Y2EwNDBkOTEt",
+      "guid": "ca040d91-80ac-5e9f-9ae7-f0254d293ecf",
+      "title": "No title",
+      "link": "",
+      "pubDate": "Fri, 25 Sep 2026 15:14:50 GMT",
+      "citeId": null,
+      "reportNum": null
+    },
     {
       "id": "7990",
       "guid": "43b6c75b-179d-5058-abbb-24cdd36fe0d8",
@@ -893,15 +902,6 @@
       "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
       "citeId": "1583",
       "reportNum": "7919"
-    },
-    {
-      "id": "MjcyY2IwOTMt",
-      "guid": "272cb093-aca1-51f7-9f4a-0fe9a07f1a94",
-      "title": "Google's AI Is Telling Users That Flock Cameras Are Filled With Valuable Gold and Copper",
-      "link": "https://futurism.com/artificial-intelligence/google-ai-overview-flock-alpr-surveillance-hallucination-gold-copper",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": null,
-      "reportNum": null
     }
   ]
 }

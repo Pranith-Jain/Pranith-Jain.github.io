@@ -7,9 +7,9 @@
   "description": "Autonomous AI penetration testing agent",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-25T08:50:59Z",
+  "checkedAt": "2026-09-26T03:17:40Z",
   "pushedAt": "2026-08-13",
-  "daysIdle": 43,
+  "daysIdle": 44,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -23,12 +23,12 @@
       "description": "Runs inside CI on a pull request and blocks the merge when it can validate a bug, rather than being driven from a terminal against a live target."
     },
     "derived": {
-      "checked_at": "2026-09-25T08:50:59Z",
+      "checked_at": "2026-09-26T03:17:40Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-08-13",
-        "days_since_push": 43,
+        "days_since_push": 44,
         "total_commits": 704,
         "last100_span_days": 20,
         "last100_authors": 14,
@@ -37,8 +37,8 @@
         "last_commit_at": "2026-08-13",
         "releases": 1,
         "latest_release_at": "2026-08-13",
-        "days_since_release": 43,
-        "days_idle": 43,
+        "days_since_release": 44,
+        "days_idle": 44,
         "relocated": false
       },
       "identity": {
@@ -87,7 +87,7 @@
         ],
         "manifests": ["containers/Dockerfile"]
       },
-      "rebadge": [{ "repo": "usestrix/strix", "shared_files": 118, "overlap": 0.3554 }],
+      "rebadge": [{ "repo": "usestrix/strix", "shared_files": 117, "overlap": 0.3524 }],
       "risk": { "licence": false, "install": true, "phones_home": false, "opaque": false, "host_access": false }
     }
   }

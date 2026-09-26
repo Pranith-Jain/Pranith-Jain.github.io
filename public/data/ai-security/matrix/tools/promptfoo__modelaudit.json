@@ -7,8 +7,8 @@
   "description": "Security scanner for AI/ML model files. Detects malicious code, backdoors, and vulnerabilities before deployment",
   "homepage": "https://www.promptfoo.dev/docs/model-audit/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-25T08:52:40Z",
-  "pushedAt": "2026-09-25",
+  "checkedAt": "2026-09-26T03:19:02Z",
+  "pushedAt": "2026-09-26",
   "daysIdle": 0,
   "archived": false,
   "license": "MIT",
@@ -18,11 +18,11 @@
       "description": "Covers the widest range of model formats of any of these, emits SARIF for a CI gate, and says plainly where its own analysis was bounded rather than reporting clean."
     },
     "derived": {
-      "checked_at": "2026-09-25T08:52:40Z",
+      "checked_at": "2026-09-26T03:19:02Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-25",
+        "pushed_at": "2026-09-26",
         "days_since_push": 0,
         "total_commits": 1658,
         "last100_span_days": 84,
@@ -32,7 +32,7 @@
         "last_commit_at": "2026-09-16",
         "releases": 42,
         "latest_release_at": "2026-07-22",
-        "days_since_release": 65,
+        "days_since_release": 66,
         "days_idle": 0,
         "relocated": false
       },
