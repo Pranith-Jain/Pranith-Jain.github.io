@@ -1,7 +1,7 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-25T10:22:35.927Z",
+  "syncedAt": "2026-09-26T10:03:27.730Z",
   "eventCount": 8,
   "events": [
     {
@@ -90,13 +90,21 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "cfd7f8ff-0c04-5751-b667-0883c8cfac95",
-      "info": "Macron Orders Protection Against Intensifying Russian Hybrid Attacks",
-      "date": "2026-09-18",
+      "uuid": "4a07834e-9ce2-52ae-9af5-631efe4fa5db",
+      "info": "Bitget Suffers $351.6 Million Hack Linked to North Korean Attackers",
+      "date": "2026-09-25",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1789747049",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium"],
+      "timestamp": "1790310380",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:malware",
+        "misp-galaxy:threat-actor=\"Lazarus\"",
+        "misp-galaxy:threat-actor=\"Lazarus Group\""
+      ],
       "orgc": "ThreatCluster"
     }
   ]

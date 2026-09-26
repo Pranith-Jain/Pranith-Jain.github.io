@@ -4,17 +4,27 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
+  "mentionCount": 7,
   "firstSeen": "2026-09-24T13:45:30.000Z",
-  "lastSeen": "2026-09-24T14:24:06.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 6 sectors and 5 countries.",
+  "lastSeen": "2026-09-25T12:48:32.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 6 sectors and 6 countries.",
   "frequency": [
     {
       "date": "2026-09-24",
       "count": 6
+    },
+    {
+      "date": "2026-09-25",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "iberia-compositech-manufacturing-0c9d",
+      "title": "Iberia Compositech Manufacturing — claimed by qilin",
+      "pubDate": "2026-09-25T12:48:32.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "dao-group-c9f6",
@@ -55,14 +65,14 @@
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "other",
+      "name": "Other",
       "weight": 1
     },
     {
@@ -92,6 +102,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "iberia-compositech-manufacturing-0c9d",
+      "victim": "Iberia Compositech Manufacturing — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "ES",
+      "pubDate": "2026-09-25T12:48:32.000Z"
+    },
     {
       "id": "dao-group-c9f6",
       "victim": "Dao Group — claimed by qilin",

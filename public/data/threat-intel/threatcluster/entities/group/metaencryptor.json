@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "metaencryptor",
+  "name": "metaencryptor",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-25T19:00:09.000Z",
+  "lastSeen": "2026-09-25T19:01:27.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-25",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ge-vernova-inc-202d",
+      "title": "GE Vernova Inc. — claimed by metaencryptor",
+      "pubDate": "2026-09-25T19:01:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pkf-hadiwinata-e1dd",
+      "title": "PKF Hadiwinata — claimed by metaencryptor",
+      "pubDate": "2026-09-25T19:00:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "platinum-healthcare-staffing-a238",
+      "title": "Platinum Healthcare Staffing — claimed by metaencryptor",
+      "pubDate": "2026-09-25T19:00:09.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ge-vernova-inc-202d",
+      "victim": "GE Vernova Inc. — claimed by metaencryptor",
+      "sector": "Energy & Utilities",
+      "country": "US",
+      "pubDate": "2026-09-25T19:01:27.000Z"
+    },
+    {
+      "id": "pkf-hadiwinata-e1dd",
+      "victim": "PKF Hadiwinata — claimed by metaencryptor",
+      "sector": "Professional Services",
+      "country": "ID",
+      "pubDate": "2026-09-25T19:00:47.000Z"
+    },
+    {
+      "id": "platinum-healthcare-staffing-a238",
+      "victim": "Platinum Healthcare Staffing — claimed by metaencryptor",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-25T19:00:09.000Z"
+    }
+  ]
+}

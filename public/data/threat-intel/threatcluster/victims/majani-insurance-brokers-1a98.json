@@ -1,0 +1,14 @@
+{
+  "id": "majani-insurance-brokers-1a98",
+  "victim": "Majani Insurance Brokers",
+  "group": "vexy ransomware",
+  "sector": "Financial Services",
+  "country": "KE",
+  "title": "Majani Insurance Brokers — claimed by vexy ransomware",
+  "link": "https://threatcluster.io/dark-web/victim/Majani%20Insurance%20Brokers",
+  "guid": "darkweb-victim:vexy ransomware:majani insurance brokers",
+  "pubDate": "2026-09-25T13:24:43.000Z",
+  "categories": ["Group: vexy ransomware", "Sector: Financial Services", "Country: KE"],
+  "description": "KE · Financial Services · Majani Insurance Brokers is an independent insurance broker serving both businesses and individuals. It arranges insurance products across areas including general business insurance, motor, medical, life, investment, marine, liability, property and agricultural-related covers",
+  "sizeBytes": 302
+}

@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-23T20:51:04.000Z",
-  "lastSeen": "2026-09-23T20:51:04.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "firstSeen": "2026-09-25T17:51:02.000Z",
+  "lastSeen": "2026-09-25T17:51:02.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
-      "date": "2026-09-23",
+      "date": "2026-09-25",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ontrac-cf3f",
-      "title": "OnTrac — claimed by emperador",
-      "pubDate": "2026-09-23T20:51:04.000Z"
+      "slug": "electrolux-amp-ontrac-6c5d",
+      "title": "Electrolux &amp; Ontrac — claimed by emperador",
+      "pubDate": "2026-09-25T17:51:02.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "ontrac-cf3f",
-      "victim": "OnTrac — claimed by emperador",
-      "sector": "Transportation",
-      "country": "US",
-      "pubDate": "2026-09-23T20:51:04.000Z"
+      "id": "electrolux-amp-ontrac-6c5d",
+      "victim": "Electrolux &amp; Ontrac — claimed by emperador",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-25T17:51:02.000Z"
     }
   ]
 }

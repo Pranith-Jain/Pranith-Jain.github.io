@@ -1,0 +1,56 @@
+{
+  "type": "group",
+  "slug": "silentransomgroup",
+  "name": "silentransomgroup",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-25T19:27:29.000Z",
+  "lastSeen": "2026-09-25T19:28:34.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-25",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "n-338a",
+      "title": "N... — claimed by silentransomgroup",
+      "pubDate": "2026-09-25T19:28:34.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "s-338d",
+      "title": "S... — claimed by silentransomgroup",
+      "pubDate": "2026-09-25T19:27:29.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 2
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "n-338a",
+      "victim": "N... — claimed by silentransomgroup",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-25T19:28:34.000Z"
+    },
+    {
+      "id": "s-338d",
+      "victim": "S... — claimed by silentransomgroup",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-09-25T19:27:29.000Z"
+    }
+  ]
+}

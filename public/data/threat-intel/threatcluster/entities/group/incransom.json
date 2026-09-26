@@ -4,17 +4,27 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
+  "mentionCount": 5,
   "firstSeen": "2026-09-24T12:07:14.000Z",
-  "lastSeen": "2026-09-24T17:58:23.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 4 countries.",
+  "lastSeen": "2026-09-25T10:33:40.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 5 countries.",
   "frequency": [
     {
       "date": "2026-09-24",
       "count": 4
+    },
+    {
+      "date": "2026-09-25",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "pharma5-ma-0e0b",
+      "title": "pharma5.ma — claimed by incransom",
+      "pubDate": "2026-09-25T10:33:40.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "bnlawmacau-com-www-bn-ip-com-961b",
@@ -43,14 +53,14 @@
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 1
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
     },
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "professional-services",
+      "name": "Professional Services",
       "weight": 1
     },
     {
@@ -68,6 +78,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "pharma5-ma-0e0b",
+      "victim": "pharma5.ma — claimed by incransom",
+      "sector": "Healthcare",
+      "country": "MA",
+      "pubDate": "2026-09-25T10:33:40.000Z"
+    },
     {
       "id": "bnlawmacau-com-www-bn-ip-com-961b",
       "victim": "bnlawmacau.com www.bn-ip.com — claimed by incransom",

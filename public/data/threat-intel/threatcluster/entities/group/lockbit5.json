@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "lockbit5",
+  "name": "lockbit5",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-25T12:36:29.000Z",
+  "lastSeen": "2026-09-25T12:40:42.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-25",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "taspenlife-com-3595",
+      "title": "taspenlife.com — claimed by lockbit5",
+      "pubDate": "2026-09-25T12:40:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "anery-com-br-705a",
+      "title": "anery.com.br — claimed by lockbit5",
+      "pubDate": "2026-09-25T12:38:34.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "corisricambi-it-b1b0",
+      "title": "corisricambi.it — claimed by lockbit5",
+      "pubDate": "2026-09-25T12:36:29.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "taspenlife-com-3595",
+      "victim": "taspenlife.com — claimed by lockbit5",
+      "sector": "Healthcare",
+      "country": "KZ",
+      "pubDate": "2026-09-25T12:40:42.000Z"
+    },
+    {
+      "id": "anery-com-br-705a",
+      "victim": "anery.com.br — claimed by lockbit5",
+      "sector": "Agriculture and Food Production",
+      "country": "BR",
+      "pubDate": "2026-09-25T12:38:34.000Z"
+    },
+    {
+      "id": "corisricambi-it-b1b0",
+      "victim": "corisricambi.it — claimed by lockbit5",
+      "sector": "Other",
+      "country": "IT",
+      "pubDate": "2026-09-25T12:36:29.000Z"
+    }
+  ]
+}

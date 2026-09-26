@@ -4,17 +4,51 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-24T10:00:20.000Z",
-  "lastSeen": "2026-09-24T21:40:03.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 2 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-09-24T17:08:57.000Z",
+  "lastSeen": "2026-09-25T19:00:09.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 6 ransomware groups and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-24",
+      "count": 3
+    },
+    {
+      "date": "2026-09-25",
       "count": 5
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "platinum-healthcare-staffing-a238",
+      "title": "Platinum Healthcare Staffing — claimed by metaencryptor",
+      "pubDate": "2026-09-25T19:00:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "morula-ivf-6474",
+      "title": "Morula IVF — claimed by everest",
+      "pubDate": "2026-09-25T16:28:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "breast-implant-center-of-hawaii-4870",
+      "title": "Breast Implant Center of Hawaii — claimed by wallstreet",
+      "pubDate": "2026-09-25T15:25:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "taspenlife-com-3595",
+      "title": "taspenlife.com — claimed by lockbit5",
+      "pubDate": "2026-09-25T12:40:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pharma5-ma-0e0b",
+      "title": "pharma5.ma — claimed by incransom",
+      "pubDate": "2026-09-25T10:33:40.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "westside-gi-4e91",
@@ -32,21 +66,15 @@
       "slug": "welgenone-com-f8f5",
       "title": "welgenone.com — claimed by incransom",
       "pubDate": "2026-09-24T17:08:57.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "www-francare-com-0399",
-      "title": "www.francare.com — claimed by zawoo",
-      "pubDate": "2026-09-24T10:54:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "arizona-vascular-medical-equipment-inc-c441",
-      "title": "Arizona Vascular Medical Equipment, Inc — claimed by dragonforce",
-      "pubDate": "2026-09-24T10:00:20.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 2
+    },
     {
       "type": "group",
       "slug": "pear",
@@ -55,20 +83,26 @@
     },
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "zawoo",
-      "name": "zawoo",
+      "slug": "everest",
+      "name": "everest",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "dragonforce",
-      "name": "dragonforce",
+      "slug": "wallstreet",
+      "name": "wallstreet",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 1
     }
   ],

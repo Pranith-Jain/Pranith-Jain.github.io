@@ -4,17 +4,33 @@
   "name": "Energy & Utilities",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 3,
   "firstSeen": "2026-09-24T13:45:30.000Z",
-  "lastSeen": "2026-09-24T13:45:30.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "lastSeen": "2026-09-25T19:01:27.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-24",
       "count": 1
+    },
+    {
+      "date": "2026-09-25",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ge-vernova-inc-202d",
+      "title": "GE Vernova Inc. — claimed by metaencryptor",
+      "pubDate": "2026-09-25T19:01:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ar-valve-resources-5060",
+      "title": "Ar Valve Resources — claimed by wallstreet",
+      "pubDate": "2026-09-25T15:53:37.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "gdm-pipelines-4fd7",
@@ -23,6 +39,18 @@
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "metaencryptor",
+      "name": "metaencryptor",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "wallstreet",
+      "name": "wallstreet",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "qilin",

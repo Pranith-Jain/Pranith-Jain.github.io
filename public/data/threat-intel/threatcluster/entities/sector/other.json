@@ -4,21 +4,37 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-09-23T14:40:33.000Z",
-  "lastSeen": "2026-09-24T20:01:08.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 7 ransomware groups and 6 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-24T13:56:18.000Z",
+  "lastSeen": "2026-09-26T00:43:37.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-23",
-      "count": 2
+      "date": "2026-09-24",
+      "count": 3
     },
     {
-      "date": "2026-09-24",
-      "count": 6
+      "date": "2026-09-25",
+      "count": 1
+    },
+    {
+      "date": "2026-09-26",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "crossett-706f",
+      "title": "Crossett — claimed by termite",
+      "pubDate": "2026-09-26T00:43:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "corisricambi-it-b1b0",
+      "title": "corisricambi.it — claimed by lockbit5",
+      "pubDate": "2026-09-25T12:36:29.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "efada-sa-837c",
@@ -36,44 +52,20 @@
       "slug": "wallatec-5173",
       "title": "Wallatec — claimed by akira",
       "pubDate": "2026-09-24T13:56:18.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bmgp-groupe-5d71",
-      "title": "BMGP Groupe — claimed by dragonforce",
-      "pubDate": "2026-09-24T09:59:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hec-group-14b9",
-      "title": "HEC Group — claimed by dragonforce",
-      "pubDate": "2026-09-24T09:57:15.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "solucioning-s-a-9cd8",
-      "title": "Solucioning S.A. — claimed by barracuda",
-      "pubDate": "2026-09-24T02:21:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "vestfrostsolutions-com-4315",
-      "title": "vestfrostsolutions.com — claimed by settra",
-      "pubDate": "2026-09-23T16:23:12.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dad-co-th-b6d1",
-      "title": "DAD-CO.TH — claimed by clop",
-      "pubDate": "2026-09-23T14:40:33.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "dragonforce",
-      "name": "dragonforce",
-      "weight": 2
+      "slug": "termite",
+      "name": "termite",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "lockbit5",
+      "name": "lockbit5",
+      "weight": 1
     },
     {
       "type": "group",
@@ -91,24 +83,6 @@
       "type": "group",
       "slug": "akira",
       "name": "akira",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "barracuda",
-      "name": "barracuda",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "settra",
-      "name": "settra",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "clop",
-      "name": "clop",
       "weight": 1
     }
   ],

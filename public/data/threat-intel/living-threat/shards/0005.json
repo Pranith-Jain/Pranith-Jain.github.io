@@ -2,6 +2,1757 @@
   {
     "Adversary": {
       "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of directory traversal weaknesses in Apex One management console",
+        "Detection": "Monitor for unusual HTTP requests to the management console • Check for unauthorized code execution on the console",
+        "Remediation": "Apply CP Build 14136 for Apex One 2019 • Restrict external IP access to the management console",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in an internet-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of directory traversal weaknesses in Apex One management console",
+      "Exploits": ["CVE-2025-71210", "CVE-2025-71211"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["management console"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Trend Micro"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["vulnerabilities", "remote code execution", "directory traversal"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["CP Build 14136"],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["Apex One"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": [
+        "CVE-2025-71210",
+        "CVE-2025-71211",
+        "CVE-2025-71212",
+        "CVE-2025-71213",
+        "CVE-2025-71214",
+        "CVE-2025-71215",
+        "CVE-2025-71216",
+        "CVE-2025-71217"
+      ]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Apex One management console vulnerable to remote code execution",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of directory traversal vulnerabilities"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-02-27T09:50:28Z",
+    "Title": "Trend Micro Apex One Vulnerabilities Disclosed",
+    "Tools": ["Apex One"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": [],
+      "Description": "Organizations using Trend Micro Apex One 2019 on-premises",
+      "Geography": "",
+      "Impact_Severity": "Critical",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": ["Apex One management console"]
+    },
+    "diamond_model_summary": "The incident involves vulnerabilities in Trend Micro's Apex One platform, specifically targeting the management console through directory traversal weaknesses. The adversary can exploit these vulnerabilities to execute remote code without authentication. The critical flaws, CVE-2025-71210 and CVE-2025-71211, highlight the capability of exploiting public-facing applications. The infrastructure at risk includes the Apex One management console, and the victims are organizations using this platform. The incident underscores the need for immediate patching and restricting external access to mitigate exposure.",
+    "doc_summary": "Trend Micro disclosed eight security vulnerabilities in its Apex One endpoint protection platform, including two critical-severity flaws (CVE-2025-71210 and CVE-2025-71211) that allow unauthenticated remote attackers to upload malicious code and execute commands on affected systems. The vulnerabilities affect Apex One 2019 on-premises for Windows and macOS. The critical flaws exploit directory traversal weaknesses in the management console, enabling remote code execution without authentication. The remaining six vulnerabilities are rated high and enable local privilege escalation. A critical patch was released on February 24, 2026, under Solution ID KA-0022458. The CVEs have CVSS 3.1 scores ranging from 7.2 to 9.8. Trend Micro advises applying CP Build 14136 and upgrading Apex One as a Service agents to Security Agent Build 14.0.20315. Additional recommendations include restricting external IP access to the management console and enforcing source IP restrictions.",
+    "enrichment": null,
+    "id": "b217dcdd8ef6edc6e8f227a53a99161a9fd50a89",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack chain begins with the exploitation of directory traversal vulnerabilities in the Apex One management console, allowing unauthenticated remote code execution. The critical flaws, CVE-2025-71210 and CVE-2025-71211, are exploited through specially crafted HTTP requests. The exploitation stage is crucial, as it enables the adversary to gain initial access without user interaction. Remediation efforts focus on applying the critical patch and restricting external IP access to the management console. The incident highlights the importance of securing public-facing applications to prevent unauthorized access.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 85,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the TTPs, specifically the exploitation of directory traversal vulnerabilities in the Apex One management console. The critical CVEs, CVE-2025-71210 and CVE-2025-71211, represent significant pain points due to their potential for remote code execution without authentication. The lack of specific IP addresses, domains, or hash values limits the ability to apply traditional detection methods, emphasizing the need for robust patch management and access control measures. The incident underscores the challenge of defending against sophisticated exploitation techniques.",
+    "relevance_score": 41,
+    "sequence": 19622,
+    "source": "https://gbhackers.com/critical-trend-micro-apex-one-vulnerabilities/",
+    "slug": "Trend_Micro_Apex_One_Vulnerabilities_Disclosed-019622",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation involves bypassing jail root directory restrictions using nullfs mounts and Unix domain sockets.",
+        "Detection": "",
+        "Remediation": "Upgrade FreeBSD systems to the latest patched versions. • Apply security updates provided by the FreeBSD Project.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in a client application.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The attacker gains unauthorized access to the host filesystem, potentially compromising the entire infrastructure.",
+        "Detection": "",
+        "Remediation": "Monitor for unusual access patterns to the host filesystem. • Implement additional logging and monitoring for jail environments.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to avoid being detected.",
+            "tactic_id": "TA0005",
+            "tactic_name": "Defense Evasion"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary may use valid accounts to maintain access to victim systems.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The vulnerability allows attackers to escape FreeBSD jail environments by exploiting nullfs mounts and Unix domain sockets.",
+      "Exploits": ["CVE-2025-15576"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["host filesystem"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-15576", "FreeBSD", "jail", "nullfs", "Unix domain sockets"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["FreeBSD"],
+      "Technologies": ["nullfs", "Unix domain sockets"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-15576"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Unix domain sockets"],
+      "Description": "The attack requires control over processes in sibling jails with a shared nullfs-mounted directory.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Ensure all FreeBSD systems are updated to the latest security patches.",
+      "Review and enhance monitoring of jail environments for unusual activities."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of CVE-2025-15576"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-02-27T07:14:22Z",
+    "Title": "Critical Vulnerability in FreeBSD Jails: CVE-2025-15576",
+    "Tools": ["FreeBSD"],
+    "Victim": {
+      "Access_Vectors": ["Local"],
+      "Data_Types_At_Risk": ["Filesystem data"],
+      "Description": "FreeBSD systems running versions 14.3 and 13.5 are vulnerable.",
+      "Geography": "",
+      "Impact_Severity": "Critical",
+      "Industry": "",
+      "Security_Posture": "Vulnerable",
+      "Targeted_Assets": ["FreeBSD host filesystem"]
+    },
+    "diamond_model_summary": "The incident involves a critical vulnerability in FreeBSD jails, CVE-2025-15576, allowing attackers to escape jail environments and access the host filesystem. The attack requires control over processes in sibling jails with a shared nullfs-mounted directory. The vulnerability arises from flawed boundary validation during filesystem name lookup, leading to potential infrastructure compromise.",
+    "doc_summary": "The FreeBSD Project disclosed a critical security vulnerability, CVE-2025-15576, affecting FreeBSD versions 14.3 and 13.5. This flaw allows attackers to escape jail environments and gain unauthorized access to the host filesystem. The vulnerability involves nullfs mounts and Unix domain sockets, enabling attackers to bypass jail root directory restrictions. Exploitation requires control over processes in sibling jails sharing a nullfs-mounted directory. The impact is severe, potentially leading to complete infrastructure compromise. No workarounds exist; administrators must upgrade systems immediately. Security updates are available for all affected branches.",
+    "enrichment": null,
+    "id": "26cc45aed2080ad579822d6f3de262f6388e86a2",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack chain involves exploiting a vulnerability in FreeBSD jails, CVE-2025-15576, through nullfs mounts and Unix domain sockets. The exploitation stage is critical, allowing attackers to bypass jail root directory restrictions and gain unauthorized access to the host filesystem. The attack requires control over processes in sibling jails sharing a nullfs-mounted directory.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 86,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the TTPs involved in exploiting the FreeBSD jail vulnerability, CVE-2025-15576. The attack leverages nullfs mounts and Unix domain sockets to bypass jail root directory restrictions. No specific hashes, IPs, or domains are identified, making detection challenging without behavioral indicators.",
+    "relevance_score": 43,
+    "sequence": 19621,
+    "source": "https://gbhackers.com/freebsd-vulnerabilities/",
+    "slug": "Critical_Vulnerability_in_FreeBSD_Jails__CVE-2025-15576-019621",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential threat actors exploiting exposed Google API keys to access Gemini AI services.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through unauthorized API usage.",
+      "Sophistication": "Moderate, leveraging publicly available API keys.",
+      "Strategic_Objectives": "Unauthorized access to private data and potential financial exploitation.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "Attackers identify exposed API keys in public code.",
+        "Detection": "Monitor public code repositories for exposed API keys.",
+        "Remediation": "Audit and rotate exposed API keys immediately.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about victim identities.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Attackers use exposed API keys to access Gemini AI services.",
+        "Detection": "Monitor API access logs for unusual activity.",
+        "Remediation": "Implement API key usage restrictions and monitoring.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Obtaining and abusing credentials to access systems.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to access systems.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Attackers make unauthorized API calls, potentially incurring financial charges.",
+        "Detection": "Monitor for excessive API usage and unusual billing patterns.",
+        "Remediation": "Implement rate limiting and alerting for API usage.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data of interest to the adversary.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using automated tools to collect data.",
+            "technique_id": "T1119",
+            "technique_name": "Automated Collection"
+          }
+        ],
+        "Techniques": ["T1119"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of exposed API keys to access Gemini AI services.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["API keys", "private data"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Google", "TruffleSecurity"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["API keys", "Gemini AI", "exposure", "unauthorized access"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Finance", "Security", "Technology"],
+      "Software": ["Google API", "Gemini AI"],
+      "Technologies": ["Google Cloud", "JavaScript"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Publicly exposed Google API keys embedded in client-side code.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-02-26T15:55:00Z",
+    "Title": "Exposure of Google API Keys Leading to Unauthorized Access to Gemini AI",
+    "Tools": ["Google API", "Gemini AI"],
+    "Victim": {
+      "Access_Vectors": ["Publicly exposed API keys"],
+      "Data_Types_At_Risk": ["Private data accessible via Gemini AI"],
+      "Description": "Organizations across various sectors, including finance and security, with exposed API keys.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Finance, Security, Technology",
+      "Security_Posture": "Vulnerable due to exposed API keys",
+      "Targeted_Assets": ["API keys", "Private data"]
+    },
+    "diamond_model_summary": "The incident involves the exposure of Google API keys, which were used to access the Gemini AI assistant. The adversary is likely motivated by financial gain, exploiting these keys to make unauthorized API calls. The infrastructure includes publicly exposed API keys, and the victims are organizations across various sectors, including finance and security. The capability involves exploiting these keys to access private data and incur financial charges.",
+    "doc_summary": "Google API keys embedded in client-side code were found to authenticate to the Gemini AI assistant, risking unauthorized access to private data. TruffleSecurity discovered nearly 3,000 such keys in public code, affecting sectors like finance and security. The issue arose when Google introduced Gemini, making API keys sensitive. Attackers could exploit these keys for unauthorized API calls, incurring significant charges. Google has since implemented measures to detect and block leaked keys, advising developers to audit and rotate exposed keys. The incident highlights the risks of API key exposure in public code.",
+    "enrichment": null,
+    "id": "e0f026f3e49228bfc2a9eb059ff2ccd6",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain begins with reconnaissance, where attackers identify exposed API keys in public code. Exploitation occurs when these keys are used to access Gemini AI services. Actions on objectives involve making unauthorized API calls, potentially incurring financial charges. Detection involves monitoring API access logs and usage patterns, while remediation includes auditing and rotating exposed keys.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 75,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the exposure of API keys, which are critical for accessing Gemini AI services. The lack of specific indicators like hashes or IP addresses means the focus is on detecting and remediating exposed keys. The scoring reflects the absence of traditional indicators, emphasizing the need for proactive monitoring and key management.",
+    "relevance_score": 49,
+    "sequence": 19620,
+    "source": "https://www.bleepingcomputer.com/news/security/previously-harmless-google-api-keys-now-expose-gemini-ai-data/",
+    "slug": "Exposure_of_Google_API_Keys_Leading_to_Unauthorized_Access_to_Gemini_AI-019620",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": ["LenAI"],
+      "Associated_Groups": [],
+      "Description": "LenAI is the threat actor behind the Aeternum C2 botnet loader, advertising it on underground forums.",
+      "Known_Campaigns": ["Aeternum C2"],
+      "Motivation": "Financial gain through selling malware and associated services.",
+      "Sophistication": "High, due to the use of blockchain for C2 and anti-analysis features.",
+      "Strategic_Objectives": "To create a resilient and takedown-resistant botnet infrastructure.",
+      "TTPs_Employed": ["Use of blockchain for C2", "Anti-analysis features"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Aeternum C2 is weaponized as a botnet loader using blockchain for C2.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Develop capabilities to support operations.",
+            "tactic_id": "TA0042",
+            "tactic_name": "Resource Development"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Develop or acquire malware for use in operations.",
+            "technique_id": "T1588.006",
+            "technique_name": "Malware"
+          }
+        ],
+        "Techniques": ["T1588.006"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Aeternum C2 installs itself on compromised devices.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          { "tactic_description": "Maintain presence on systems.", "tactic_id": "TA0003", "tactic_name": "Persistence" }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Create or modify Windows services for persistence.",
+            "technique_id": "T1543.003",
+            "technique_name": "Windows Service"
+          }
+        ],
+        "Techniques": ["T1543.003"]
+      },
+      {
+        "Description": "Aeternum C2 uses the Polygon blockchain for command and control.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Communicate with compromised systems to control them.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Use web services for command and control.",
+            "technique_id": "T1102.003",
+            "technique_name": "Web Service"
+          }
+        ],
+        "Techniques": ["T1102.003"]
+      },
+      {
+        "Description": "Aeternum C2 can perform various actions such as data exfiltration and device control.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gather information relevant to objectives.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Capture keystrokes to gather sensitive information.",
+            "technique_id": "T1056.001",
+            "technique_name": "Keylogging"
+          }
+        ],
+        "Techniques": ["T1056.001"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Anti-analysis features", "Virtualization checks"],
+      "Description": "Aeternum C2 is a botnet loader using blockchain for C2, with anti-analysis features.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Aeternum C2"],
+      "Persistence_Mechanisms": ["Smart contracts on blockchain"],
+      "Tools": ["Aeternum C2"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["compromised devices"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Qrator Labs", "Outpost24"],
+      "Countries": ["Czechia"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["botnet", "blockchain", "command-and-control", "malware"],
+      "Malware_Families": ["Aeternum C2"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["Next.js"],
+      "Technologies": ["Polygon blockchain", "smart contracts"],
+      "Threat_Infrastructure": ["Polygon blockchain"],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": ["Aeternum C2"],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Polygon blockchain RPC"],
+      "Description": "Aeternum C2 uses the Polygon blockchain for its command-and-control infrastructure.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Use of blockchain for C2", "Anti-analysis features"],
+      "Tools": ["Aeternum C2"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["LenAI"],
+    "Timestamp": "2026-02-25T18:30:00Z",
+    "Title": "Aeternum C2 Botnet Loader Using Blockchain for Resilient C2 Infrastructure",
+    "Tools": ["Aeternum C2", "Next.js"],
+    "Victim": {
+      "Access_Vectors": ["Smart contract transactions"],
+      "Data_Types_At_Risk": ["Device control", "Data exfiltration"],
+      "Description": "Victims are devices compromised by the Aeternum C2 botnet.",
+      "Geography": "",
+      "Impact_Severity": "High",
+      "Industry": "",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Compromised devices"]
+    },
+    "diamond_model_summary": "The Aeternum C2 botnet loader represents a sophisticated threat actor, LenAI, utilizing blockchain technology for command-and-control infrastructure. This approach provides resilience against traditional takedown methods. The malware is advertised on underground forums, indicating a financial motivation. The infrastructure leverages the Polygon blockchain, making it difficult to disrupt. Victims are devices compromised by the botnet, with high exposure potential due to the resilient nature of the C2 infrastructure.",
+    "doc_summary": "Cybersecurity researchers have disclosed a new botnet loader called Aeternum C2, which uses a blockchain-based command-and-control infrastructure on the Polygon blockchain. This approach makes it resilient to takedown efforts. The malware, advertised by the threat actor LenAI, is available for purchase on underground forums. Aeternum C2 is a native C++ loader that writes commands to smart contracts on the blockchain, which are then read by infected hosts. The malware includes anti-analysis features and is managed via a web-based panel. The operational costs are low, requiring only a small amount of MATIC for transactions. The threat actor has attempted to sell the entire toolkit, citing a lack of time for support.",
+    "enrichment": null,
+    "id": "64d07817aa2629052ed739eeecd00259c18373135a2ca567173b1aca83b6dec9",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The Aeternum C2 botnet loader follows a structured kill chain, starting with weaponization through the development of a blockchain-based C2 infrastructure. Installation occurs on compromised devices, with persistence achieved via smart contracts on the Polygon blockchain. Command and control are maintained through blockchain transactions, allowing the threat actor to issue commands to infected hosts. Actions on objectives include data exfiltration and device control, facilitated by the resilient C2 infrastructure.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 72,
+    "pyramid_of_pain_summary": "The Aeternum C2 botnet loader presents significant challenges for defenders due to its use of blockchain for command and control. Traditional indicators such as IP addresses and domains are not applicable, as the infrastructure relies on smart contracts and blockchain transactions. This elevates the difficulty of detection and remediation, as the infrastructure is inherently resilient to takedown efforts. The use of anti-analysis features further complicates defensive measures.",
+    "relevance_score": 59,
+    "sequence": 19619,
+    "source": "https://thehackernews.com/2026/02/aeternum-c2-botnet-stores-encrypted.html",
+    "slug": "Aeternum_C2_Botnet_Loader_Using_Blockchain_for_Resilient_C2_Infrastructu-019619",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "The threat actor claimed responsibility for breaching Olympique de Marseille's systems and leaking data.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through selling stolen data",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Data theft and sale",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "The adversary likely conducted reconnaissance to identify vulnerabilities in Olympique de Marseille's systems.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gathers information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary scans for vulnerabilities in the target's systems.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary exploited vulnerabilities to gain unauthorized access to Olympique de Marseille's systems.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gains initial access to the target's network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary exploits a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary exfiltrated data from Olympique de Marseille's systems.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary exfiltrates data from the target's network.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary uses automated tools to exfiltrate data.",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The adversary demonstrated the ability to breach systems and exfiltrate large datasets.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Database", "Drupal CMS accounts"],
+      "Breach_Types": ["Data breach"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Olympique de Marseille"],
+      "Countries": ["France"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["cyberattack", "data breach", "hacking forum", "phishing"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Sports"],
+      "Software": ["Drupal CMS"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The adversary used a hacking forum to leak and potentially sell the stolen data.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["T1595", "T1190", "T1020"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-02-26T11:11:00Z",
+    "Title": "Cyberattack on Olympique de Marseille",
+    "Tools": ["Drupal CMS"],
+    "Victim": {
+      "Access_Vectors": ["Server breach"],
+      "Data_Types_At_Risk": ["Personal information", "Email addresses", "Mobile phone numbers"],
+      "Description": "Olympique de Marseille, a prominent French football club, was targeted.",
+      "Geography": "France",
+      "Impact_Severity": "High",
+      "Industry": "Sports",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Database", "Drupal CMS accounts"]
+    },
+    "diamond_model_summary": "The cyberattack on Olympique de Marseille involved a threat actor who breached the club's systems and exfiltrated a large dataset. The adversary's capability included exploiting vulnerabilities in public-facing applications, and the infrastructure used involved a hacking forum for data leakage. The victim, Olympique de Marseille, is a prominent football club in France, highlighting the sports sector's vulnerability to cyber threats.",
+    "doc_summary": "Olympique de Marseille, a French professional football club, confirmed a cyberattack after a threat actor claimed to have breached the club's systems. The attack reportedly involved the theft of a database containing information on 400,000 individuals, including names, addresses, order information, email addresses, and mobile phone numbers. The threat actor also claimed to have accessed more than 2,050 Drupal CMS accounts. Olympique Marseille reported the incident to the French data protection authority (CNIL) and advised fans to remain vigilant against phishing attempts. The club assured that no banking details or passwords were compromised. The incident highlights the increasing trend of cyberattacks targeting large organizations, particularly in the sports sector.",
+    "enrichment": null,
+    "id": "6ae747c17cbf2179b20ebf7e4a727372",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack on Olympique de Marseille followed a typical cyber kill chain. The adversary likely conducted reconnaissance to identify vulnerabilities, exploited these to gain initial access, and then exfiltrated data. The lack of detailed information on weaponization, delivery, installation, and command and control stages suggests these may not have been significant or were not detected. The primary focus was on data exfiltration and subsequent sale.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 69,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is limited due to the lack of specific indicators such as hashes, IP addresses, or domains. The primary challenge lies in detecting and responding to the adversary's tactics, techniques, and procedures (TTPs), particularly the exploitation of public-facing applications and data exfiltration. The absence of detailed indicators makes it difficult to apply the Pyramid of Pain effectively.",
+    "relevance_score": 45,
+    "sequence": 19618,
+    "source": "https://www.bleepingcomputer.com/news/security/olympique-marseille-football-club-confirms-cyberattack-after-data-leak/",
+    "slug": "Cyberattack_on_Olympique_de_Marseille-019618",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of the vulnerability allows remote code execution with root privileges.",
+        "Detection": "",
+        "Remediation": "Apply patches provided by Juniper Networks. • Restrict access to vulnerable endpoints using firewall filters or ACLs.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in an internet-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The vulnerability allows remote code execution with root privileges due to incorrect permission assignment.",
+      "Exploits": ["CVE-2026-21902"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["routers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Juniper Networks"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["vulnerability", "remote code execution", "root privileges"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["25.4R1-S1-EVO", "25.4R2-EVO", "26.2R1-EVO"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Telecommunications", "Cloud"],
+      "Software": ["Junos OS Evolved"],
+      "Technologies": ["PTX Series routers"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2026-21902"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "PTX Series routers running Junos OS Evolved are affected.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Apply the latest patches from Juniper Networks.",
+      "Restrict network access to trusted sources only."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2026-21902"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-02-26T11:42:00Z",
+    "Title": "Critical Vulnerability in Junos OS Evolved on PTX Series Routers",
+    "Tools": ["Junos OS Evolved"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": [],
+      "Description": "Potential victims include internet service providers, telecommunication services, and cloud network applications.",
+      "Geography": "",
+      "Impact_Severity": "Critical",
+      "Industry": "Telecommunications",
+      "Security_Posture": "",
+      "Targeted_Assets": ["PTX Series routers"]
+    },
+    "diamond_model_summary": "The incident involves a critical vulnerability in Junos OS Evolved on PTX Series routers, allowing remote code execution with root privileges. The vulnerability is due to incorrect permission assignment in the 'On-Box Anomaly Detection' framework. Juniper Networks has released patches to address the issue, and recommends restricting access to vulnerable endpoints if patching is not immediately possible.",
+    "doc_summary": "A critical vulnerability identified as CVE-2026-21902 in the Junos OS Evolved network operating system affects PTX Series routers from Juniper Networks. This flaw allows unauthenticated remote code execution with root privileges due to incorrect permission assignment in the 'On-Box Anomaly Detection' framework. The issue impacts versions before 25.4R1-S1-EVO and 25.4R2-EVO, with fixes available in later versions. Juniper Networks recommends restricting access to vulnerable endpoints using firewall filters or ACLs if immediate patching is not possible. The vulnerability is significant for internet service providers, telecommunication services, and cloud network applications.",
+    "enrichment": null,
+    "id": "1c15b2fae53491effc2a98a489698eef",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident primarily involves the exploitation stage, where the vulnerability in Junos OS Evolved allows remote code execution with root privileges. The vulnerability is exploited through incorrect permission assignment, enabling access over an externally exposed port. Remediation involves applying patches and restricting access to vulnerable endpoints.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 83,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is limited due to the lack of specific indicators such as hashes, IP addresses, or domains. The primary focus is on the vulnerability CVE-2026-21902, which allows remote code execution. The remediation efforts include applying patches and restricting network access, which are critical to mitigating the threat.",
+    "relevance_score": 41,
+    "sequence": 19617,
+    "source": "https://www.bleepingcomputer.com/news/security/critical-juniper-networks-ptx-flaw-allows-full-router-takeover/",
+    "slug": "Critical_Vulnerability_in_Junos_OS_Evolved_on_PTX_Series_Routers-019617",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": ["Indra"],
+      "Associated_Groups": [],
+      "Description": "The adversary, using the alias 'Indra', claimed responsibility for the attack on a hacker forum.",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "The adversary likely conducted reconnaissance to identify vulnerabilities in the third-party service provider.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gathers information to plan future operations.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary scans for vulnerabilities in the target's infrastructure.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary exploited a vulnerability in the third-party service provider's system.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary gains initial access to the target's network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary exploits a vulnerability in a public-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary extracted personal data and customer service interactions.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary exfiltrates data from the target's network.",
+            "tactic_id": "TA0010",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary uses automated tools to exfiltrate data.",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "The adversary exploited a vulnerability in a third-party service provider's system, specifically a Zendesk breach.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Customer data", "Support tickets"],
+      "Breach_Types": ["Data breach"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["ManoMano"],
+      "Countries": ["France", "Belgium", "Spain", "Italy", "Germany", "United Kingdom", "Tunisia"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["data breach", "third-party service provider", "customer data", "Indra"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["E-commerce"],
+      "Software": ["Zendesk"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The breach involved a Tunis-based customer support service provider using Zendesk.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Verify incoming communications and sender identity.",
+      "Monitor bank accounts for fraudulent transactions.",
+      "Avoid clicking on suspicious links or downloading email attachments."
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Indra"],
+    "Timestamp": "2026-02-26T12:35:00Z",
+    "Title": "ManoMano Data Breach via Third-Party Service Provider",
+    "Tools": ["Zendesk"],
+    "Victim": {
+      "Access_Vectors": ["Third-party service provider"],
+      "Data_Types_At_Risk": ["Personal data", "Customer service interactions"],
+      "Description": "ManoMano, a French e-commerce firm, was the victim of the breach.",
+      "Geography": "France, Belgium, Spain, Italy, Germany, United Kingdom",
+      "Impact_Severity": "High",
+      "Industry": "E-commerce",
+      "Security_Posture": "",
+      "Targeted_Assets": ["Customer data", "Support tickets"]
+    },
+    "diamond_model_summary": "The ManoMano data breach involved an adversary using the alias 'Indra', who exploited a vulnerability in a third-party service provider's system, specifically a Zendesk breach. The victim, ManoMano, is a French e-commerce firm specializing in DIY and home improvement. The breach affected 38 million individuals, with personal data and customer service interactions at risk. The adversary's capability included exploiting vulnerabilities in third-party systems, and the infrastructure involved a Tunis-based customer support service provider.",
+    "doc_summary": "ManoMano, a French e-commerce firm specializing in DIY and home improvement, reported a data breach affecting 38 million individuals due to a compromise of a third-party service provider. The breach, discovered in January 2026, involved unauthorized access and data extraction linked to a Tunis-based customer support service provider using Zendesk. The hacker alias 'Indra' claimed responsibility, alleging possession of 37.8 million user accounts and support tickets. ManoMano operates in France, Belgium, Spain, Italy, Germany, and the United Kingdom, with 50 million monthly visitors. The company emphasized that no passwords were accessed and took steps to secure their environment, including revoking subcontractor access and notifying authorities like CNIL and ANSSI. Customers were advised to verify communications, monitor bank accounts, and avoid suspicious links.",
+    "enrichment": null,
+    "id": "2bbe649540cdc4202c09080974f994d7",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The ManoMano data breach followed a sequence of stages in the MITRE ATT&CK kill chain. During the reconnaissance stage, the adversary likely identified vulnerabilities in the third-party service provider. Exploitation occurred when the adversary exploited a vulnerability in the provider's system, leading to unauthorized access. Actions on objectives involved the extraction of personal data and customer service interactions. The breach highlights the importance of securing third-party service providers and monitoring for unauthorized access.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 69,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for the ManoMano data breach is limited due to the lack of specific indicators such as hashes, IP addresses, or domain names. The breach involved exploiting a vulnerability in a third-party service provider's system, specifically a Zendesk breach. The adversary, using the alias 'Indra', claimed responsibility. The breach affected 38 million individuals, with personal data and customer service interactions at risk. The lack of specific indicators makes it challenging to apply the Pyramid of Pain effectively.",
+    "relevance_score": 53,
+    "sequence": 19616,
+    "source": "https://www.bleepingcomputer.com/news/security/european-dyi-chain-manomano-data-breach-impacts-38-million-customers/",
+    "slug": "ManoMano_Data_Breach_via_Third-Party_Service_Provider-019616",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of path traversal vulnerabilities in the management console",
+        "Detection": "Monitor for unusual access patterns to the management console • Check for unauthorized code execution attempts",
+        "Remediation": "Apply Critical Patch Build 14136 • Restrict access to the management console",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary is trying to get into your network.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploitation of a vulnerability in an internet-facing application.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of path traversal vulnerabilities in Trend Micro Apex One management console",
+      "Exploits": ["CVE-2025-71210", "CVE-2025-71211"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Windows systems"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Trend Micro"],
+      "Countries": ["Japan", "United States"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["vulnerabilities", "remote code execution", "path traversal"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Critical Patch Build 14136"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Trend Micro Apex One"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-71210", "CVE-2025-71211"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Trend Micro Apex One management console exposed to external access",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [
+      "Ensure all systems are updated with the latest patches",
+      "Implement network segmentation to limit exposure"
+    ],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["CVE-2025-71210", "CVE-2025-71211"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2026-02-26T12:58:00Z",
+    "Title": "Trend Micro Apex One Vulnerabilities Allow Remote Code Execution",
+    "Tools": ["Trend Micro Apex One"],
+    "Victim": {
+      "Access_Vectors": ["Remote"],
+      "Data_Types_At_Risk": [],
+      "Description": "Organizations using Trend Micro Apex One with exposed management consoles",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable",
+      "Targeted_Assets": ["Windows systems"]
+    },
+    "diamond_model_summary": "The incident involves critical vulnerabilities in Trend Micro's Apex One platform, specifically CVE-2025-71210 and CVE-2025-71211, which allow remote code execution through path traversal. The vulnerabilities require access to the management console, and Trend Micro has released patches to address these issues. The adversary's identity and motivation remain unknown, but the potential impact is significant due to the critical nature of the vulnerabilities.",
+    "doc_summary": "Trend Micro, a Japanese cybersecurity software firm, has patched two critical vulnerabilities in its Apex One endpoint security platform. These vulnerabilities, identified as CVE-2025-71210 and CVE-2025-71211, allow remote code execution on vulnerable Windows systems through path traversal weaknesses in the management console. The vulnerabilities require access to the management console, and Trend Micro advises customers to update to the latest builds and apply source restrictions. The company has released Critical Patch Build 14136 to address these issues, along with other high-severity privilege escalation flaws. Although these vulnerabilities have not been exploited in the wild, Trend Micro has previously warned about other Apex One vulnerabilities being actively exploited. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has also highlighted the importance of addressing these vulnerabilities.",
+    "enrichment": null,
+    "id": "a9abe14b890da1f96650160d9a7d6079",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain for this incident primarily involves the exploitation stage, where adversaries can leverage path traversal vulnerabilities in the Trend Micro Apex One management console to achieve remote code execution. The vulnerabilities require specific conditions, such as access to the management console, which can be mitigated by applying the latest patches and restricting external access. No further stages of the kill chain, such as installation or command and control, have been observed in this incident.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 85,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is focused on the vulnerabilities CVE-2025-71210 and CVE-2025-71211, which are critical indicators of compromise. These vulnerabilities represent a significant challenge for defenders, as they require patching and network configuration changes to mitigate. No specific hashes, IP addresses, or domains have been identified, limiting the ability to track and respond to this threat using traditional indicators.",
+    "relevance_score": 41,
+    "sequence": 19615,
+    "source": "https://www.bleepingcomputer.com/news/security/trend-micro-warns-of-critical-apex-one-rce-vulnerabilities/",
+    "slug": "Trend_Micro_Apex_One_Vulnerabilities_Allow_Remote_Code_Execution-019615",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Belarusian authorities using ResidentBat spyware for surveillance.",
+      "Known_Campaigns": [],
+      "Motivation": "Surveillance of journalists and civil society.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Monitoring and control of information flow.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Installation of ResidentBat on Android devices.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that adversaries use to maintain their foothold.",
+            "tactic_id": "TA0003",
+            "tactic_name": "Persistence"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may use methods that register programs to run at system boot or logon.",
+            "technique_id": "T1547",
+            "technique_name": "Boot or Logon Autostart Execution"
+          }
+        ],
+        "Techniques": ["T1547"]
+      },
+      {
+        "Description": "Use of narrow port range for control traffic.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that adversaries use to communicate with systems under their control.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may communicate using application layer protocols to avoid detection.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "Surveillance and data collection from compromised devices.",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Techniques that adversaries use to gather information.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Adversaries may attempt to capture the screen to gather information.",
+            "technique_id": "T1113",
+            "technique_name": "Screen Capture"
+          }
+        ],
+        "Techniques": ["T1113"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "ResidentBat spyware provides extensive surveillance capabilities.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["ResidentBat"],
+      "Persistence_Mechanisms": [],
+      "Tools": ["ResidentBat"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [
+        "Call logs",
+        "Microphone recordings",
+        "SMS",
+        "Encrypted messenger traffic",
+        "Screen captures",
+        "Locally stored files"
+      ],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": ["Netherlands", "Germany", "Switzerland", "Russia"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["ResidentBat", "spyware", "surveillance", "Belarusian authorities"],
+      "Malware_Families": ["ResidentBat"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Media"],
+      "Software": ["Android"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": ["Narrow port range (7000-7257)"],
+      "Description": "ResidentBat infrastructure concentrated in Europe and Russia.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": ["ResidentBat"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": ["Belarusian authorities"],
+    "Timestamp": "2026-02-25T18:30:00Z",
+    "Title": "ResidentBat Android Spyware Used by Belarusian Authorities",
+    "Tools": ["ResidentBat", "Android"],
+    "Victim": {
+      "Access_Vectors": ["Android devices"],
+      "Data_Types_At_Risk": ["Communications", "Personal data"],
+      "Description": "Journalists and civil society targeted by ResidentBat.",
+      "Geography": "Europe, Russia",
+      "Impact_Severity": "High",
+      "Industry": "Media",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": [
+        "Call logs",
+        "Microphone recordings",
+        "SMS",
+        "Encrypted messenger traffic",
+        "Screen captures",
+        "Locally stored files"
+      ]
+    },
+    "diamond_model_summary": "The ResidentBat spyware incident involves Belarusian authorities using advanced surveillance capabilities to monitor journalists and civil society. The infrastructure is concentrated in Europe and Russia, utilizing a narrow port range for control traffic. The spyware provides extensive access to communications and personal data, highlighting a high level of sophistication and targeted surveillance objectives.",
+    "doc_summary": "ResidentBat is an Android spyware implant used by Belarusian authorities for surveillance operations against journalists and civil society. Once installed, it provides operators with access to call logs, microphone recordings, SMS, encrypted messenger traffic, screen captures, and locally stored files. The malware, although first documented in December 2025, is assessed to date back to 2021. According to Censys, ResidentBat-associated infrastructure is concentrated in Europe and Russia: the Netherlands (5 hosts), Germany (2 hosts), Switzerland (2 hosts), and Russia (1 host) in a recent Platform view, using a narrow port range (7000-7257) for control traffic.",
+    "enrichment": null,
+    "id": "3b551ccadd692a1a710e7b27280fc963568888ee8e05188ce3f113215523b9df",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The ResidentBat spyware follows a structured kill chain, beginning with the installation on Android devices, followed by command and control through a narrow port range. The final stage involves actions on objectives, where the spyware collects extensive data from compromised devices, including call logs, microphone recordings, and encrypted messenger traffic. The operation is characterized by high sophistication and targeted surveillance.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 77,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for the ResidentBat spyware incident includes tools such as ResidentBat itself, which is used for extensive surveillance. The infrastructure involves a narrow port range for control traffic, making it a critical component of the operation. The high level of sophistication and targeted surveillance objectives make this a challenging threat to mitigate.",
+    "relevance_score": 57,
+    "sequence": 19614,
+    "source": "https://thehackernews.com/2026/02/threatsday-bulletin-kali-linux-claude.html",
+    "slug": "ResidentBat_Android_Spyware_Used_by_Belarusian_Authorities-019614",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
       "Associated_Groups": ["Lazarus Group"],
       "Description": "The adversary behind UAT-10027 is currently unknown, but there are tactical similarities with North Korean APTs.",
       "Known_Campaigns": ["UAT-10027"],
@@ -101019,1845 +102770,6 @@
     "sequence": 19129,
     "source": "https://gbhackers.com/critical-zoom-vulnerability-enables-remote-code-execution/",
     "slug": "Critical_Command_Injection_Vulnerability_in_Zoom_Node_MMRs-019129",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of the command injection vulnerability in NSIGHT Graphics.",
-        "Detection": "Monitor system logs for suspicious command injection attempts.",
-        "Remediation": "Update NSIGHT Graphics to version 2025.5 immediately.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may abuse command and script interpreters to execute arbitrary commands.",
-            "technique_id": "T1059.001",
-            "technique_name": "Command and Scripting Interpreter: PowerShell"
-          }
-        ],
-        "Techniques": ["T1059.001"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential unauthorized code execution and data manipulation.",
-        "Detection": "Review environment variables and input handling in graphics pipelines.",
-        "Remediation": "Audit local access controls on systems running NSIGHT Graphics.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to avoid being detected.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Defense Evasion"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may use valid accounts to maintain access to victim systems.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "The capability involves exploiting a command injection vulnerability in NVIDIA NSIGHT Graphics for Linux, allowing arbitrary code execution.",
-      "Exploits": ["CVE-2025-33206"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Development environments", "Graphics analysis workflows"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["NVIDIA"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerability", "command injection", "arbitrary code execution"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["2025.5"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["NSIGHT Graphics"],
-      "Technologies": ["Linux"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-33206"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2025-33206"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-21T12:41:29Z",
-    "Title": "Critical Vulnerability in NVIDIA NSIGHT Graphics for Linux",
-    "Tools": ["NSIGHT Graphics"],
-    "Victim": {
-      "Access_Vectors": ["Local access"],
-      "Data_Types_At_Risk": ["Proprietary graphics algorithms"],
-      "Description": "Organizations using NVIDIA NSIGHT Graphics on Linux systems, particularly graphics developers and performance analysis teams.",
-      "Geography": "",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Development environments", "Graphics analysis workflows"]
-    },
-    "diamond_model_summary": "The incident involves a critical vulnerability in NVIDIA NSIGHT Graphics for Linux, tracked as CVE-2025-33206. The adversary can exploit this vulnerability to execute arbitrary code through command injection, posing significant risks to development and graphics analysis workflows. The capability is centered around exploiting this vulnerability, with the potential impact on organizations using NSIGHT Graphics for rendering optimization and profiling. The infrastructure details are not specified, but the victim profile includes technology sector organizations with Linux systems running NSIGHT Graphics.",
-    "doc_summary": "NVIDIA has released an urgent security update for NSIGHT Graphics on Linux systems, addressing a critical vulnerability tracked as CVE-2025-33206. This flaw allows attackers to execute arbitrary code through command injection, posing significant risks to development and graphics analysis workflows. The vulnerability affects all Linux versions prior to 2025.5 and requires user interaction but no special privileges, making it accessible to threat actors with basic system access. Organizations using NSIGHT Graphics for rendering optimization and profiling are advised to update to version 2025.5 immediately. The vulnerability could lead to unauthorized code execution, privilege escalation, data manipulation, and system compromise. NVIDIA recommends auditing local access controls and monitoring system logs for suspicious activity.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022763+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "043b579dee8484408a8ceaf10ba0d04bb33de3fb",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for this incident involves the exploitation of a command injection vulnerability in NVIDIA NSIGHT Graphics for Linux. The adversary gains initial access through local exploitation, leading to potential unauthorized code execution and data manipulation. The exploitation stage is critical, with the vulnerability allowing arbitrary code execution. The actions on objectives stage involves potential privilege escalation and system compromise. Detection and remediation efforts focus on updating to the latest software version and monitoring for suspicious activity.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 90,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on the TTPs associated with the command injection vulnerability in NVIDIA NSIGHT Graphics. The lack of specific indicators such as hashes, IP addresses, or domains limits the ability to provide a detailed summary. The primary focus is on the exploitation of CVE-2025-33206, with recommended actions including updating to the latest software version and auditing local access controls. The summary highlights the critical nature of the vulnerability and the need for immediate remediation.",
-    "relevance_score": 43,
-    "sequence": 19128,
-    "source": "https://gbhackers.com/nvidia-nsight-graphics-on-linux-exposed/",
-    "slug": "Critical_Vulnerability_in_NVIDIA_NSIGHT_Graphics_for_Linux-019128",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in GitLab versions",
-        "Detection": "Monitor for unusual authentication attempts. • Check for anomalies in two-factor authentication processes.",
-        "Remediation": "Apply the latest GitLab security patches immediately. • Enhance monitoring of authentication systems.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may use valid accounts to gain initial access to a network.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["GitLab"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "two-factor authentication",
-        "denial-of-service",
-        "CVE-2026-0723",
-        "CVE-2025-13335",
-        "CVE-2025-13927",
-        "CVE-2025-13928",
-        "CVE-2026-1102"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["18.8.2", "18.7.2", "18.6.4"],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["GitLab"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-0723", "CVE-2025-13335", "CVE-2025-13927", "CVE-2025-13928", "CVE-2026-1102"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["CVE-2026-0723", "CVE-2025-13335", "CVE-2025-13927", "CVE-2025-13928", "CVE-2026-1102"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-21T13:07:26Z",
-    "Title": "GitLab Security Patches for Critical Vulnerabilities",
-    "Tools": ["GitLab"],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "The incident involves multiple vulnerabilities in GitLab, including a critical two-factor authentication bypass (CVE-2026-0723) and several denial-of-service vulnerabilities. The adversary could exploit these flaws to gain unauthorized access and disrupt services. GitLab has released patches to mitigate these risks, emphasizing the need for immediate upgrades.",
-    "doc_summary": "GitLab has released critical security patches addressing multiple vulnerabilities affecting both Community Edition (CE) and Enterprise Edition (EE). The most severe flaw, CVE-2026-0723, allows attackers to bypass two-factor authentication. Other vulnerabilities include denial-of-service issues such as CVE-2025-13335, CVE-2025-13927, and CVE-2025-13928. Security researcher ahacker1 discovered CVE-2026-0723 through GitLab's HackerOne bug bounty program. GitLab strongly recommends immediate upgrades to versions 18.8.2, 18.7.2, and 18.6.4. Organizations relying on two-factor authentication for privileged accounts should prioritize this patch. GitLab.com has already deployed the patches. The vulnerabilities pose significant risks to account security and service availability.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022741+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "1c1c9a88514637546b264f0a6fdb0c73ad3a5ac5",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack chain involves exploiting vulnerabilities in GitLab's authentication and service components. The adversary could bypass two-factor authentication and cause denial-of-service conditions. Organizations are advised to apply patches immediately to prevent unauthorized access and service disruptions. Monitoring and enhancing authentication systems are crucial for detection.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes vulnerabilities (TTPs) such as CVE-2026-0723 and denial-of-service issues. No specific hashes, IPs, or domains were identified. The focus is on patching and monitoring authentication systems to mitigate the risks associated with these vulnerabilities.",
-    "relevance_score": 41,
-    "sequence": 19127,
-    "source": "https://gbhackers.com/gitlab-security-flaws-two-factor-authentication-bypass/",
-    "slug": "GitLab_Security_Patches_for_Critical_Vulnerabilities-019127",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of the command injection vulnerability in Zoom Node Multimedia Routers.",
-        "Detection": "",
-        "Remediation": "Update Zoom Node Multimedia Routers to version 5.2.1716.0 or later.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of a vulnerability in Zoom Node Multimedia Routers.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Zoom's Node Multimedia Routers are vulnerable to remote code execution due to a command injection flaw.",
-      "Exploits": ["CVE-2026-22844"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Zoom Node Multimedia Routers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Zoom", "GitLab"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["remote code execution", "denial-of-service", "security update"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["5.2.1716.0"],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Zoom", "GitLab"],
-      "Technologies": ["Node Multimedia Routers"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2026-22844", "CVE-2025-13335", "CVE-2026-1102"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Zoom Node Multimedia Routers are the primary infrastructure affected by the vulnerability.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-20T18:30:00Z",
-    "Title": "Critical Vulnerability in Zoom Node Multimedia Routers",
-    "Tools": ["Zoom", "GitLab"],
-    "Victim": {
-      "Access_Vectors": ["Network"],
-      "Data_Types_At_Risk": [],
-      "Description": "Potential victims include users of Zoom Node Meetings, Hybrid, or Meeting Connector deployments.",
-      "Geography": "",
-      "Impact_Severity": "Critical",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Zoom Node Multimedia Routers"]
-    },
-    "diamond_model_summary": "The incident involves a critical vulnerability in Zoom Node Multimedia Routers, allowing remote code execution. The vulnerability, CVE-2026-22844, was discovered internally by Zoom's Offensive Security team. No adversary or specific threat actor has been identified, and there is no evidence of exploitation in the wild. The primary capability involves exploiting a command injection flaw, with the infrastructure being Zoom's Node Multimedia Routers. Victims are users of Zoom's Node Meetings, Hybrid, or Meeting Connector deployments. The severity of the impact is critical, with a CVSS score of 9.9.",
-    "doc_summary": "Zoom and GitLab have released security updates to address vulnerabilities. Zoom's critical flaw, CVE-2026-22844, affects Node Multimedia Routers, allowing remote code execution with a CVSS score of 9.9. GitLab fixed high-severity flaws in its Community and Enterprise Editions, including DoS and 2FA bypass vulnerabilities. The Zoom vulnerability was discovered internally, and no exploitation in the wild has been reported. Users are advised to update to the latest versions to mitigate risks. GitLab also addressed medium-severity DoS vulnerabilities, CVE-2025-13335 and CVE-2026-1102, related to malformed Wiki documents and SSH requests.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022668+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "679f2e6b5955cf83d71a6dabb8d9dd19e660c3a3066bb1de2e4ce4f2c13b71f5",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for this incident primarily involves the exploitation stage, where a command injection vulnerability in Zoom Node Multimedia Routers is exploited for remote code execution. The vulnerability, CVE-2026-22844, allows a meeting participant to execute arbitrary code on the MMR via network access. No significant activity was detected in other stages of the kill chain, such as reconnaissance, weaponization, delivery, installation, command and control, or actions on objectives. The primary remediation is updating to the latest MMR version to mitigate the risk.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 83,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is limited due to the lack of specific indicators such as hashes, IP addresses, or domain names. The primary indicator is the vulnerability CVE-2026-22844, which affects Zoom Node Multimedia Routers. The incident highlights the importance of patching and updating vulnerable systems to prevent exploitation. No specific tools, TTPs, or network host artifacts were identified, resulting in a low Pyramid of Pain score. The focus is on mitigating the vulnerability through software updates.",
-    "relevance_score": 45,
-    "sequence": 19126,
-    "source": "https://thehackernews.com/2026/01/zoom-and-gitlab-release-security.html",
-    "slug": "Critical_Vulnerability_in_Zoom_Node_Multimedia_Routers-019126",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [
-        "CL-STA-0240",
-        "DeceptiveDevelopment",
-        "DEV#POPPER",
-        "Famous Chollima",
-        "Gwisin Gang",
-        "Tenacious Pungsan",
-        "UNC5342",
-        "Void Dokkaebi",
-        "WaterPlum"
-      ],
-      "Associated_Groups": ["PurpleDelta"],
-      "Description": "PurpleBravo is a North Korean threat actor group involved in cyber espionage and financial theft.",
-      "Known_Campaigns": ["Contagious Interview", "Wagemole"],
-      "Motivation": "Cyber espionage and financial theft",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Infiltrate IT supply chains and steal sensitive data",
-      "TTPs_Employed": ["Use of malicious VS Code projects", "C2 server management via Astrill VPN"]
-    },
-    "Analyses": [
-      {
-        "Description": "PurpleBravo likely conducted reconnaissance to identify potential targets in various sectors.",
-        "Detection": "Monitor for unusual scanning activity from external IPs.",
-        "Remediation": "Implement network segmentation and access controls.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather information they can use to plan future operations.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is actively scanning for vulnerabilities or information.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "The adversary weaponized malicious VS Code projects to deliver malware.",
-        "Detection": "Monitor for the creation or modification of suspicious VS Code projects.",
-        "Remediation": "Educate developers on the risks of using untrusted code repositories.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to establish resources they can use to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is developing capabilities to use in future operations.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Malicious code was delivered via job-seeking candidates executing it on corporate devices.",
-        "Detection": "Monitor email attachments for known malicious signatures.",
-        "Remediation": "Implement email filtering and scanning solutions.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to get into your network.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is sending emails with malicious attachments to gain access.",
-            "technique_id": "T1566.001",
-            "technique_name": "Spearphishing Attachment"
-          }
-        ],
-        "Techniques": ["T1566.001"]
-      },
-      {
-        "Description": "Exploitation occurred when candidates executed malicious code on corporate devices.",
-        "Detection": "Monitor for unusual JavaScript execution on endpoints.",
-        "Remediation": "Restrict execution of scripts to trusted sources.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to run malicious code.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using JavaScript to execute code.",
-            "technique_id": "T1059.007",
-            "technique_name": "Command and Scripting Interpreter: JavaScript"
-          }
-        ],
-        "Techniques": ["T1059.007"]
-      },
-      {
-        "Description": "Malware such as BeaverTail and GolangGhost was installed on compromised systems.",
-        "Detection": "Monitor for changes to registry run keys and startup folders.",
-        "Remediation": "Implement application whitelisting to prevent unauthorized installations.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to maintain their foothold.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using registry run keys or startup folders for persistence.",
-            "technique_id": "T1547.001",
-            "technique_name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder"
-          }
-        ],
-        "Techniques": ["T1547.001"]
-      },
-      {
-        "Description": "C2 communication was established using servers managed via Astrill VPN.",
-        "Detection": "Monitor network traffic for connections to known C2 servers.",
-        "Remediation": "Block known malicious IP addresses and domains.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to communicate with compromised systems to control them.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is using web protocols for C2 communication.",
-            "technique_id": "T1071.001",
-            "technique_name": "Application Layer Protocol: Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "The adversary aimed to achieve cyber espionage and financial theft.",
-        "Detection": "Monitor for unusual screen capture activities.",
-        "Remediation": "Implement DLP solutions to prevent unauthorized data collection.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gather data of interest to their goal.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "The adversary is capturing screenshots to gather information.",
-            "technique_id": "T1113",
-            "technique_name": "Screen Capture"
-          }
-        ],
-        "Techniques": ["T1113"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "PurpleBravo employs sophisticated malware and exploits trusted developer workflows.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["BeaverTail", "GolangGhost"],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Astrill VPN"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Recorded Future", "Jamf Threat Labs", "Mastercard"],
-      "Countries": [
-        "Belgium",
-        "Bulgaria",
-        "Costa Rica",
-        "India",
-        "Italy",
-        "Netherlands",
-        "Pakistan",
-        "Romania",
-        "United Arab Emirates",
-        "Vietnam"
-      ],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Contagious Interview", "PurpleBravo", "Wagemole", "Astrill VPN"],
-      "Malware_Families": ["BeaverTail", "GolangGhost"],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [
-        "Artificial Intelligence",
-        "Cryptocurrency",
-        "Financial Services",
-        "IT Services",
-        "Marketing",
-        "Software Development"
-      ],
-      "Software": ["Microsoft Visual Studio Code"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": ["17 different providers"],
-      "Communication_Protocols": [],
-      "Description": "PurpleBravo manages C2 servers across 17 providers, using IP ranges in China.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Use of malicious VS Code projects", "C2 server management via Astrill VPN"],
-      "Tools": ["Astrill VPN"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [
-      "PurpleBravo",
-      "CL-STA-0240",
-      "DeceptiveDevelopment",
-      "DEV#POPPER",
-      "Famous Chollima",
-      "Gwisin Gang",
-      "Tenacious Pungsan",
-      "UNC5342",
-      "Void Dokkaebi",
-      "WaterPlum"
-    ],
-    "Timestamp": "2026-01-20T18:30:00Z",
-    "Title": "Contagious Interview Campaign by PurpleBravo Targeting Multiple Sectors",
-    "Tools": ["Astrill VPN", "Microsoft Visual Studio Code"],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "Targets include organizations in AI, cryptocurrency, and financial services sectors.",
-      "Geography": "Belgium, Bulgaria, Costa Rica, India, Italy, Netherlands, Pakistan, Romania, United Arab Emirates, Vietnam",
-      "Impact_Severity": "High",
-      "Industry": "AI, Cryptocurrency, Financial Services, IT Services, Marketing, Software Development",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "The Contagious Interview campaign by PurpleBravo, a North Korean threat actor group, targets multiple sectors including AI and cryptocurrency. The adversary uses malicious VS Code projects to deliver malware like BeaverTail and GolangGhost. Infrastructure includes C2 servers managed via Astrill VPN. Victims are located in Europe, South Asia, and Central America, posing significant supply chain risks.",
-    "doc_summary": "The Contagious Interview campaign, attributed to the North Korean threat actor group PurpleBravo, has targeted 3,136 IP addresses and 20 organizations across sectors like AI, cryptocurrency, and financial services in regions including Europe, South Asia, and Central America. The campaign, active from August 2024 to September 2025, involves malicious Microsoft Visual Studio Code projects to distribute malware such as BeaverTail and GolangGhost. PurpleBravo uses Astrill VPN and operates C2 servers across 17 providers. The campaign overlaps with Wagemole, another North Korean operation, highlighting significant supply chain risks. Recorded Future's Insikt Group and Jamf Threat Labs have detailed these activities, emphasizing the need for vigilance against North Korean cyber threats.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022643+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "745d09f72be7187c2b9ab57179aa389c4df8d0c0fd8b82ee6c6959a8660a0572",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The Contagious Interview campaign follows a structured kill chain: reconnaissance to identify targets, weaponization using malicious VS Code projects, delivery through job-seeking candidates, exploitation via code execution on corporate devices, installation of malware like BeaverTail and GolangGhost, command and control using C2 servers managed via Astrill VPN, and actions on objectives focusing on cyber espionage and financial theft.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for the Contagious Interview campaign includes IP addresses and C2 infrastructure, which are challenging to change and thus impactful for detection and response. Tools like Astrill VPN and malware families such as BeaverTail and GolangGhost are also significant indicators. The campaign's reliance on trusted developer workflows adds complexity to detection efforts.",
-    "relevance_score": 82,
-    "sequence": 19125,
-    "source": "https://thehackernews.com/2026/01/north-korean-purplebravo-campaign.html",
-    "slug": "Contagious_Interview_Campaign_by_PurpleBravo_Targeting_Multiple_Sectors-019125",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Security researchers participating in Pwn2Own Automotive 2026",
-      "Known_Campaigns": [],
-      "Motivation": "Financial gain through competition rewards",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Demonstrate vulnerabilities in automotive systems",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "Researchers identified potential vulnerabilities in automotive systems.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Actively scanning systems to identify vulnerabilities.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Exploits were developed for identified vulnerabilities.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing exploits for identified vulnerabilities.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Weaponization"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing exploits for vulnerabilities.",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "Exploits were delivered via USB-based attacks.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining initial access to systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using USB devices to deliver exploits.",
-            "technique_id": "T1200",
-            "technique_name": "Hardware Additions"
-          }
-        ],
-        "Techniques": ["T1200"]
-      },
-      {
-        "Description": "Exploits were executed to gain control over systems.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          { "tactic_description": "Executing code on systems.", "tactic_id": "TA0002", "tactic_name": "Execution" }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Researchers demonstrated control over systems.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          { "tactic_description": "Demonstrating impact on systems.", "tactic_id": "TA0005", "tactic_name": "Impact" }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Demonstrating control over systems.",
-            "technique_id": "T1499",
-            "technique_name": "Endpoint Denial of Service"
-          }
-        ],
-        "Techniques": ["T1499"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of zero-day vulnerabilities in automotive systems",
-      "Exploits": ["Information leak", "Out-of-bounds write"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": [
-        "Tesla Infotainment System",
-        "Sony XAV-9500ES",
-        "Alpitronic HYC50",
-        "Phoenix Contact CHARX SEC-3150"
-      ]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Tesla Infotainment System", "Sony XAV-9500ES", "Alpitronic HYC50", "Phoenix Contact CHARX SEC-3150"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Tesla", "Sony", "Alpitronic", "Phoenix Contact"],
-      "Countries": ["Japan"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Pwn2Own", "zero-day", "vulnerability", "exploit"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Automotive"],
-      "Software": [
-        "Tesla Infotainment System",
-        "Sony XAV-9500ES",
-        "Alpitronic HYC50",
-        "Phoenix Contact CHARX SEC-3150"
-      ],
-      "Technologies": ["Infotainment System", "Charging Station"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Information leak", "Out-of-bounds write"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Automotive systems and charging stations targeted during the competition",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Synacktiv Team", "Fuzzware.io", "PetoWorks", "Team DDOS"],
-    "Timestamp": "2026-01-21T07:16:00Z",
-    "Title": "Pwn2Own Automotive 2026: Multiple Zero-Day Exploits in Automotive Systems",
-    "Tools": ["Tesla Infotainment System", "Sony XAV-9500ES", "Alpitronic HYC50", "Phoenix Contact CHARX SEC-3150"],
-    "Victim": {
-      "Access_Vectors": ["USB-based attack"],
-      "Data_Types_At_Risk": [],
-      "Description": "Automotive systems and charging stations",
-      "Geography": "Japan",
-      "Impact_Severity": "High",
-      "Industry": "Automotive",
-      "Security_Posture": "Fully patched systems",
-      "Targeted_Assets": [
-        "Tesla Infotainment System",
-        "Sony XAV-9500ES",
-        "Alpitronic HYC50",
-        "Phoenix Contact CHARX SEC-3150"
-      ]
-    },
-    "diamond_model_summary": "The Pwn2Own Automotive 2026 competition highlighted the capabilities of security researchers in identifying and exploiting zero-day vulnerabilities in automotive systems. The adversaries, motivated by financial rewards, demonstrated high sophistication in their attacks. The infrastructure targeted included infotainment systems and charging stations, with the automotive industry being the primary victim. The competition serves as a reminder of the importance of securing automotive technologies against potential threats.",
-    "doc_summary": "Security researchers at the Pwn2Own Automotive 2026 competition in Tokyo, Japan, successfully exploited 37 zero-day vulnerabilities on the first day, earning $516,500. The Synacktiv Team hacked the Tesla Infotainment System using an information leak and an out-of-bounds write flaw, while Fuzzware.io targeted the Alpitronic HYC50 Charging Station. PetoWorks gained root privileges on a Phoenix Contact CHARX SEC-3150 charging controller. Team DDOS exploited vulnerabilities in the ChargePoint Home Flex. Vendors have 90 days to release security fixes before public disclosure by TrendMicro's Zero Day Initiative.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022617+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "8fc5bf3dcad8d3a730a8c544f5365455",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The Pwn2Own Automotive 2026 competition involved multiple stages of the MITRE ATT&CK kill chain. Researchers conducted reconnaissance to identify vulnerabilities, followed by weaponization to develop exploits. Delivery was achieved through USB-based attacks, leading to successful exploitation and control over targeted systems. The competition demonstrated the potential impact of zero-day vulnerabilities in automotive technologies, emphasizing the need for robust security measures.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 75,
-    "pyramid_of_pain_summary": "The Pwn2Own Automotive 2026 competition revealed several zero-day vulnerabilities, highlighting the challenges in detecting and mitigating such threats. The absence of specific indicators like hashes, IPs, and domains makes it difficult to apply traditional detection methods. The competition underscores the importance of proactive security measures and collaboration between researchers and vendors to address vulnerabilities in automotive systems.",
-    "relevance_score": 86,
-    "sequence": 19124,
-    "source": "https://www.bleepingcomputer.com/news/security/tesla-hacked-37-zero-days-demoed-at-pwn2own-automotive-2026/",
-    "slug": "Pwn2Own_Automotive_2026__Multiple_Zero-Day_Exploits_in_Automotive_System-019124",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of authentication and DoS vulnerabilities",
-        "Detection": "",
-        "Remediation": "Upgrade to GitLab versions 18.8.2, 18.7.2, or 18.6.4 • Implement additional monitoring for authentication anomalies",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to steal account names and passwords.",
-            "tactic_id": "TA0006",
-            "tactic_name": "Credential Access"
-          },
-          {
-            "tactic_description": "The adversary is trying to manipulate, interrupt, or destroy systems and data.",
-            "tactic_id": "TA0040",
-            "tactic_name": "Impact"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Adversaries may use valid accounts to interact with systems.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          },
-          {
-            "technique_description": "Adversaries may perform DoS attacks to degrade or block the availability of services.",
-            "technique_id": "T1499",
-            "technique_name": "Endpoint Denial of Service"
-          }
-        ],
-        "Techniques": ["T1078", "T1499"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["GitLab", "Nvidia", "Airbus", "T-Mobile", "Lockheed Martin", "Goldman Sachs", "UBS"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["two-factor authentication", "denial-of-service", "authentication bypass", "security patch"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["18.8.2", "18.7.2", "18.6.4"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["GitLab Community Edition", "GitLab Enterprise Edition"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-21T08:57:00Z",
-    "Title": "GitLab Two-Factor Authentication Bypass and DoS Vulnerabilities",
-    "Tools": ["GitLab Community Edition", "GitLab Enterprise Edition"],
-    "Victim": {
-      "Access_Vectors": ["Web application"],
-      "Data_Types_At_Risk": ["Authentication data"],
-      "Description": "GitLab users, including Fortune 100 companies",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable prior to patch",
-      "Targeted_Assets": ["GitLab Community Edition", "GitLab Enterprise Edition"]
-    },
-    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
-    "doc_summary": "GitLab has patched a high-severity two-factor authentication bypass affecting its community and enterprise editions. The vulnerability, stemming from an unchecked return value in authentication services, allows attackers with knowledge of a target's account ID to bypass two-factor authentication. GitLab also addressed two high-severity flaws that could enable unauthenticated threat actors to trigger denial-of-service conditions by sending crafted requests with malformed authentication data and exploiting incorrect authorization validation in API endpoints. Additionally, two medium-severity DoS vulnerabilities were patched, which could be exploited by configuring malformed Wiki documents that bypass cycle detection and sending repeated malformed SSH authentication requests. GitLab released versions 18.8.2, 18.7.2, and 18.6.4 for its Community and Enterprise Editions, advising admins to upgrade immediately. GitLab.com is already running the patched version, and GitLab Dedicated customers do not need to take action. The platform is used by over 30 million registered users, including more than 50% of Fortune 100 companies.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022594+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "cb756c673b8dd67195fddbac06d6037d",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The incident involves exploitation of vulnerabilities in GitLab's authentication services, allowing attackers to bypass two-factor authentication and trigger denial-of-service conditions. The vulnerabilities were addressed by GitLab through security patches, urging users to upgrade to the latest versions. The attack primarily targets GitLab's Community and Enterprise Editions, affecting a wide user base including Fortune 100 companies. The exploitation stage is the most significant, with tactics involving credential access and impact through valid accounts and endpoint denial of service.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 66,
-    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
-    "relevance_score": 47,
-    "sequence": 19123,
-    "source": "https://www.bleepingcomputer.com/news/security/gitlab-warns-of-high-severity-2fa-bypass-denial-of-service-flaws/",
-    "slug": "GitLab_Two-Factor_Authentication_Bypass_and_DoS_Vulnerabilities-019123",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Threat actors exploiting misconfigured web applications for cloud access.",
-      "Known_Campaigns": [],
-      "Motivation": "Financial gain through cryptocurrency mining.",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Compromise cloud environments to deploy crypto miners and webshells.",
-      "TTPs_Employed": [
-        "Exploitation of misconfigured web applications",
-        "Deployment of crypto miners",
-        "Use of webshells for persistence"
-      ]
-    },
-    "Analyses": [
-      {
-        "Description": "Identification of misconfigured web applications exposed on the public internet.",
-        "Detection": "Monitor for unusual scanning activity on web applications.",
-        "Remediation": "Regularly audit and secure web applications.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify potential targets.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Scanning for exposed and vulnerable web applications.",
-            "technique_id": "T1595",
-            "technique_name": "Active Scanning"
-          }
-        ],
-        "Techniques": ["T1595"]
-      },
-      {
-        "Description": "Preparation of scripts and tools for exploitation.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating tools and scripts for exploitation.",
-            "technique_id": "T1587",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587"]
-      },
-      {
-        "Description": "Deployment of scripts and tools to compromised environments.",
-        "Detection": "Monitor for unauthorized access attempts to web applications.",
-        "Remediation": "Apply patches and updates to web applications.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to target systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in web applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in web applications to gain access.",
-        "Detection": "Monitor for exploitation attempts on web applications.",
-        "Remediation": "Implement web application firewalls.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to target systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in web applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Installation of crypto miners and webshells on compromised systems.",
-        "Detection": "Monitor for installation of unauthorized software.",
-        "Remediation": "Remove unauthorized software and scripts.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to systems over time.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using scripts for persistence.",
-            "technique_id": "T1546",
-            "technique_name": "Event Triggered Execution"
-          }
-        ],
-        "Techniques": ["T1546"]
-      },
-      {
-        "Description": "Establishing control over compromised systems.",
-        "Detection": "Monitor for unusual outbound network traffic.",
-        "Remediation": "Block unauthorized outbound connections.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols for command and control.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "Deployment of crypto miners and data exfiltration.",
-        "Detection": "Monitor for data exfiltration attempts.",
-        "Remediation": "Implement data loss prevention solutions.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from target systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Compressing data for exfiltration.",
-            "technique_id": "T1560",
-            "technique_name": "Archive Collected Data"
-          }
-        ],
-        "Techniques": ["T1560"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Use of base64-encoded scripts", "Timezone set to Europe/Minsk"],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Use of base64-encoded backups", "AES-256 encryption"],
-      "Description": "Exploitation of vulnerable web applications to gain unauthorized cloud access.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["watchdog.sh script"],
-      "Tools": ["XMRig", "watchdog.sh", "filemanager.php"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual data transfer to external IPs"],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for default credential usage",
-      "Detect unauthorized access to cloud resources"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["S3 buckets", "GCS", "Azure Blob Storage"],
-      "Breach_Types": ["Cloud credential exposure"],
-      "Command_Lines_Or_Scripts": ["watchdog.sh"],
-      "Companies": ["Cloudflare", "F5", "Palo Alto Networks"],
-      "Countries": ["Belarus"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": ["AES-256"],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["misconfigured web applications", "crypto miners", "webshells", "cloud environments"],
-      "Malware_Families": ["XMRig"],
-      "Malware_Filenames": ["filemanager.php"],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["DVWA", "OWASP Juice Shop", "Hackazon", "bWAPP"],
-      "Technologies": ["AWS", "GCP", "Azure"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Compromised cloud environments of Fortune 500 companies.",
-      "Domains": [],
-      "Hosting_Providers": ["AWS", "GCP", "Azure"],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [
-      "Enforce least-privilege IAM roles",
-      "Change default credentials",
-      "Isolate testing apps from production environments"
-    ],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": ["watchdog.sh", "filemanager.php"],
-      "TTPs": ["Exploitation of misconfigured web applications"],
-      "Tools": ["XMRig"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [
-      "Web application vulnerability scanners",
-      "Cloud security posture management tools"
-    ],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-21T09:00:00Z",
-    "Title": "Exploitation of Misconfigured Security Training Web Applications",
-    "Tools": ["XMRig", "watchdog.sh", "filemanager.php", "DVWA", "OWASP Juice Shop", "Hackazon", "bWAPP"],
-    "Victim": {
-      "Access_Vectors": ["Misconfigured web applications"],
-      "Data_Types_At_Risk": ["Cloud credentials", "Secrets Manager data"],
-      "Description": "Fortune 500 companies and security vendors with misconfigured web applications.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Weak due to misconfigurations and default credentials.",
-      "Targeted_Assets": ["Cloud environments", "IAM roles", "S3 buckets", "GCS", "Azure Blob Storage"]
-    },
-    "diamond_model_summary": "The incident involves threat actors exploiting misconfigured web applications used for security training and internal penetration testing to gain access to cloud environments of Fortune 500 companies. The adversaries deployed crypto miners and webshells, leveraging overly privileged IAM roles and default credentials. The infrastructure targeted includes AWS, GCP, and Azure cloud environments, with a focus on technology sector companies like Cloudflare, F5, and Palo Alto Networks. The victims were exposed due to misconfigurations and inadequate security practices, leading to a high impact severity.",
-    "doc_summary": "Threat actors are exploiting misconfigured web applications used for security training and internal penetration testing, such as DVWA, OWASP Juice Shop, Hackazon, and bWAPP, to gain access to cloud environments of Fortune 500 companies and security vendors. An investigation from automated penetration testing company Pentera found evidence that hackers are leveraging this attack vector to compromise systems and deploy crypto miners, plant webshells, or pivot to sensitive systems. The testing web apps are intentionally vulnerable and represent a serious compromise risk when exposed on the public internet and executed from a privileged cloud account. Pentera researchers found 1,926 live, vulnerable applications exposed on the public web, often linked to overly privileged IAM roles and deployed on AWS, GCP, and Azure cloud environments. According to Pentera, the exposed apps belong to multiple Fortune 500 companies, including Cloudflare, F5, and Palo Alto Networks, which received the researchers' findings and have fixed the issues. Many of those instances exposed cloud credential sets, did not follow ‘least-privilege’ recommended practices, and in more than half of the cases, still used default credentials, allowing for easy takeover. The credentials Pentera discovered in the investigation could give attackers full access to S3 buckets, GCS, and Azure Blob Storage, read and write permission to Secrets Manager, interact with container registries, and gain admin access to the cloud environment. In a report shared with BleepingComputer, Pentera Labs confirmed that the risk was not theoretical and that hackers have already exploited these entry points. During the investigation, we discovered clear evidence that attackers are actively exploiting these exact attack vectors in the wild – deploying crypto miners, webshells, and persistence mechanisms on compromised systems, the researchers said. Proof of compromise emerged when assessing several misconfigured, vulnerable applications. The researchers established shells on the machines and enumerated data in an effort to determine their owners. Out of the 616 discovered DVWA instances, around 20% were found to contain artifacts deployed by malicious actors, Pentera says in the report. The cryptocurrency mining activity used the XMRig tool, which was actively mining Monero (XMR) cryptocurrency in the background. The researchers also found an advanced persistence mechanism using a script named ‘watchdog.sh’. If deleted, the script restored itself from a base64-encoded backup and downloads XMRig from GitHub again. The script also downloads from a Dropbox account additional tools encrypted using the AES-256 cipher, and kills competing miners present on the compromised host. Other cases involve the deployment of a PHP webshell named ‘filemanager.php’ that supports file actions (read, write, delete, download, upload) and command execution. The webshell contained hardcoded authentication credentials and had a timezone set to Europe/Minsk (UTC+3), which could be a hint about the origin of the operators. Pentera clarifies that these malicious artifacts were discovered after notifying Cloudflare, F5, and Palo Alto, and the companies remediated the issues. The researchers recommend that organizations maintain a comprehensive inventory of all cloud resources, including testing apps, and isolate them from production environments. Also, least-privilege IAM roles for non-production systems should be enforced, default credentials should be changed, and automatic expiration should be set up for temporary resources. Pentera's report provides a detailed description of the steps in the investigation and includes information on the tools and methods used to discover and probe vulnerable instances, and to identify their owners.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022570+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "005475dc25f775258cfc714beb62ad07",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack began with reconnaissance to identify misconfigured web applications exposed on the public internet. The adversaries then weaponized scripts and tools for exploitation, followed by delivery and exploitation of vulnerabilities in the web applications to gain access. Installation of crypto miners and webshells on compromised systems was achieved, establishing command and control. The final stage involved actions on objectives, including cryptocurrency mining and potential data exfiltration. The attack highlights the importance of securing web applications and enforcing least-privilege access controls.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 100,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes several indicators that can be used for detection and response. Hash values of the deployed scripts and tools, such as XMRig and watchdog.sh, are at the base of the pyramid. IP addresses and domain names used for command and control can be monitored for unusual activity. Network host artifacts, including the presence of unauthorized software and scripts, provide further detection opportunities. Tools like XMRig and the use of specific TTPs, such as exploiting misconfigured web applications, are critical for understanding the adversary's methods and improving defenses.",
-    "relevance_score": 67,
-    "sequence": 19122,
-    "source": "https://www.bleepingcomputer.com/news/security/hackers-exploit-security-testing-apps-to-breach-fortune-500-firms/",
-    "slug": "Exploitation_of_Misconfigured_Security_Training_Web_Applications-019122",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Secure Cyber Defense", "Cynomi"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["AI", "MSSP", "CISO", "automation", "security services"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-20T18:30:00Z",
-    "Title": "AI Revolution in MSSP Operations",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
-    "doc_summary": "In 2026, managed security service providers (MSSPs) face challenges with excessive alerts and limited analysts, while clients demand high-level protection at small business budgets. The text highlights a shift towards AI-driven solutions, emphasizing the role of AI in transforming security service delivery. AI automation is presented as a game-changer, enabling MSSPs to improve margins and efficiency without increasing headcount. The text mentions Chad Robinson, CISO at Secure Cyber Defense, who successfully implemented Cynomi's AI platform to enhance operations. The focus is on AI's ability to automate assessments, benchmarking, and reporting, allowing teams to concentrate on strategic tasks. The narrative underscores the importance of adopting AI to remain competitive in the evolving cybersecurity landscape.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022786+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "1123923f49bf1f2d2e8f21b4544608790022a8e749c155ed8b26628e5759e8af",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
-    "relevance_score": 35,
-    "sequence": 19121,
-    "source": "https://thehackernews.com/2026/01/webinar-how-smart-mssps-using-ai-to.html",
-    "slug": "AI_Revolution_in_MSSP_Operations-019121",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Gartner", "XM Cyber"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "Exposure Assessment Platforms",
-        "Vulnerability Management",
-        "Continuous Threat Exposure Management",
-        "Magic Quadrant",
-        "Security Workflow"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2026-01-20T18:30:00Z",
-    "Title": "Introduction of Exposure Assessment Platforms (EAP) by Gartner",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
-    "doc_summary": "Gartner introduces the Exposure Assessment Platforms (EAP) category, marking a shift from traditional Vulnerability Management (VM) to Continuous Threat Exposure Management (CTEM). The Magic Quadrant for EAPs evaluates 20 vendors on their ability to support continuous discovery, risk-informed prioritization, and integrated visibility across cloud, on-prem, and identity layers. EAPs address the inefficiencies of legacy VM tools by providing a unified view of how systems, identities, and vulnerabilities interact, showing how attackers could move from low-risk environments to critical assets. This approach aligns with attacker behavior, focusing on eliminating critical attack paths rather than merely patching vulnerabilities. Gartner projects a 30% reduction in unplanned downtime by 2027 for organizations adopting EAPs. The category's maturity is evidenced by a shift in success metrics, with platforms like XM Cyber leading the way. EAPs are now a core layer in securing environments, aligning security metrics with business reality.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:39.022829+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "8b766a4e95a7c0e89299b62d7265cfaf8db63e77a09b8d09f5bbd245c2c4c2db",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
-    "relevance_score": 35,
-    "sequence": 19120,
-    "source": "https://thehackernews.com/2026/01/exposure-assessment-platforms-signal.html",
-    "slug": "Introduction_of_Exposure_Assessment_Platforms__EAP__by_Gartner-019120",
     "shard": 5
   }
 ]

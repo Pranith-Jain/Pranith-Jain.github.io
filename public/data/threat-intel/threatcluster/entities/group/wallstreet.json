@@ -4,17 +4,51 @@
   "name": "wallstreet",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 7,
   "firstSeen": "2026-09-24T14:28:46.000Z",
-  "lastSeen": "2026-09-24T15:07:29.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "lastSeen": "2026-09-25T15:53:56.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 7 sectors and 3 countries.",
   "frequency": [
     {
       "date": "2026-09-24",
       "count": 2
+    },
+    {
+      "date": "2026-09-25",
+      "count": 5
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "tobin-amp-company-1b22",
+      "title": "Tobin &amp; Company — claimed by wallstreet",
+      "pubDate": "2026-09-25T15:53:56.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ar-valve-resources-5060",
+      "title": "Ar Valve Resources — claimed by wallstreet",
+      "pubDate": "2026-09-25T15:53:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gtfm-aa7c",
+      "title": "GTFM — claimed by wallstreet",
+      "pubDate": "2026-09-25T15:53:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "beatus-cartons-af41",
+      "title": "Beatus Cartons — claimed by wallstreet",
+      "pubDate": "2026-09-25T15:52:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "breast-implant-center-of-hawaii-4870",
+      "title": "Breast Implant Center of Hawaii — claimed by wallstreet",
+      "pubDate": "2026-09-25T15:25:13.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "prater-amp-ridley-attorneys-at-law-28a8",
@@ -31,6 +65,36 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
       "weight": 1
@@ -44,6 +108,41 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "tobin-amp-company-1b22",
+      "victim": "Tobin &amp; Company — claimed by wallstreet",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-09-25T15:53:56.000Z"
+    },
+    {
+      "id": "ar-valve-resources-5060",
+      "victim": "Ar Valve Resources — claimed by wallstreet",
+      "sector": "Energy & Utilities",
+      "country": "GB",
+      "pubDate": "2026-09-25T15:53:37.000Z"
+    },
+    {
+      "id": "gtfm-aa7c",
+      "victim": "GTFM — claimed by wallstreet",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-25T15:53:17.000Z"
+    },
+    {
+      "id": "beatus-cartons-af41",
+      "victim": "Beatus Cartons — claimed by wallstreet",
+      "sector": "Manufacturing",
+      "country": "GB",
+      "pubDate": "2026-09-25T15:52:58.000Z"
+    },
+    {
+      "id": "breast-implant-center-of-hawaii-4870",
+      "victim": "Breast Implant Center of Hawaii — claimed by wallstreet",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-25T15:25:13.000Z"
+    },
     {
       "id": "prater-amp-ridley-attorneys-at-law-28a8",
       "victim": "Prater &amp; Ridley Attorneys At Law — claimed by wallstreet",

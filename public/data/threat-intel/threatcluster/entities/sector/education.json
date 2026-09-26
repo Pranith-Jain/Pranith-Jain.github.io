@@ -5,44 +5,44 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 2,
-  "firstSeen": "2026-09-23T14:41:08.000Z",
-  "lastSeen": "2026-09-24T14:28:46.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
+  "firstSeen": "2026-09-24T14:28:46.000Z",
+  "lastSeen": "2026-09-25T15:32:32.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-23",
+      "date": "2026-09-24",
       "count": 1
     },
     {
-      "date": "2026-09-24",
+      "date": "2026-09-25",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "catholic-university-of-el-salvador-f1c2",
-      "title": "Catholic University of El Salvador — claimed by wallstreet",
-      "pubDate": "2026-09-24T14:28:46.000Z"
+      "slug": "ets-3d9f",
+      "title": "ETS — claimed by everest",
+      "pubDate": "2026-09-25T15:32:32.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "smapcenter-uah-edu-7af9",
-      "title": "SMAPCENTER-UAH.EDU — claimed by clop",
-      "pubDate": "2026-09-23T14:41:08.000Z"
+      "slug": "catholic-university-of-el-salvador-f1c2",
+      "title": "Catholic University of El Salvador — claimed by wallstreet",
+      "pubDate": "2026-09-24T14:28:46.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "wallstreet",
-      "name": "wallstreet",
+      "slug": "everest",
+      "name": "everest",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "clop",
-      "name": "clop",
+      "slug": "wallstreet",
+      "name": "wallstreet",
       "weight": 1
     }
   ],
