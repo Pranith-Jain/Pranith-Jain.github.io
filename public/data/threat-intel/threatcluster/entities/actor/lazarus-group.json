@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "lazarus-group",
+  "name": "Lazarus Group",
+  "aliases": ["Lazarus"],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-25T00:00:00.000Z",
+  "lastSeen": "2026-09-25T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-09-25",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "4a07834e-9ce2-52ae-9af5-631efe4fa5db",
+      "title": "Bitget Suffers $351.6 Million Hack Linked to North Korean Attackers",
+      "pubDate": "2026-09-25T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

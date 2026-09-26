@@ -4,14 +4,14 @@
   "name": "dragonforce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-24T09:57:15.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-24T11:56:35.000Z",
   "lastSeen": "2026-09-24T11:56:35.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 4 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
       "date": "2026-09-24",
-      "count": 5
+      "count": 1
     }
   ],
   "recentActivity": [
@@ -20,55 +20,13 @@
       "slug": "winfashion-dfcd",
       "title": "winfashion — claimed by dragonforce",
       "pubDate": "2026-09-24T11:56:35.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "arizona-vascular-medical-equipment-inc-c441",
-      "title": "Arizona Vascular Medical Equipment, Inc — claimed by dragonforce",
-      "pubDate": "2026-09-24T10:00:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bmgp-groupe-5d71",
-      "title": "BMGP Groupe — claimed by dragonforce",
-      "pubDate": "2026-09-24T09:59:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "elite-industech-co-ltd-b2b1",
-      "title": "Elite Industech Co., Ltd — claimed by dragonforce",
-      "pubDate": "2026-09-24T09:58:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "hec-group-14b9",
-      "title": "HEC Group — claimed by dragonforce",
-      "pubDate": "2026-09-24T09:57:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 2
-    },
-    {
-      "type": "sector",
       "slug": "retail-e-commerce",
       "name": "Retail & E-Commerce",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
       "weight": 1
     }
   ],
@@ -80,34 +38,6 @@
       "sector": "Retail & E-Commerce",
       "country": null,
       "pubDate": "2026-09-24T11:56:35.000Z"
-    },
-    {
-      "id": "arizona-vascular-medical-equipment-inc-c441",
-      "victim": "Arizona Vascular Medical Equipment, Inc — claimed by dragonforce",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-09-24T10:00:20.000Z"
-    },
-    {
-      "id": "bmgp-groupe-5d71",
-      "victim": "BMGP Groupe — claimed by dragonforce",
-      "sector": "Other",
-      "country": "FR",
-      "pubDate": "2026-09-24T09:59:19.000Z"
-    },
-    {
-      "id": "elite-industech-co-ltd-b2b1",
-      "victim": "Elite Industech Co., Ltd — claimed by dragonforce",
-      "sector": "Manufacturing",
-      "country": "TH",
-      "pubDate": "2026-09-24T09:58:17.000Z"
-    },
-    {
-      "id": "hec-group-14b9",
-      "victim": "HEC Group — claimed by dragonforce",
-      "sector": "Other",
-      "country": "TW",
-      "pubDate": "2026-09-24T09:57:15.000Z"
     }
   ]
 }

@@ -1,0 +1,126 @@
+{
+  "type": "group",
+  "slug": "everest",
+  "name": "everest",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 6,
+  "firstSeen": "2026-09-25T15:32:32.000Z",
+  "lastSeen": "2026-09-25T16:29:00.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-25",
+      "count": 6
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "securitas-group-a300",
+      "title": "Securitas Group — claimed by everest",
+      "pubDate": "2026-09-25T16:29:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "morula-ivf-6474",
+      "title": "Morula IVF — claimed by everest",
+      "pubDate": "2026-09-25T16:28:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "reliance-audit-2173",
+      "title": "Reliance Audit — claimed by everest",
+      "pubDate": "2026-09-25T15:34:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "unirita-b5a0",
+      "title": "UNIRITA — claimed by everest",
+      "pubDate": "2026-09-25T15:33:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cenelec-375d",
+      "title": "CENELEC — claimed by everest",
+      "pubDate": "2026-09-25T15:33:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ets-3d9f",
+      "title": "ETS — claimed by everest",
+      "pubDate": "2026-09-25T15:32:32.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "securitas-group-a300",
+      "victim": "Securitas Group — claimed by everest",
+      "sector": "Professional Services",
+      "country": "SE",
+      "pubDate": "2026-09-25T16:29:00.000Z"
+    },
+    {
+      "id": "morula-ivf-6474",
+      "victim": "Morula IVF — claimed by everest",
+      "sector": "Healthcare",
+      "country": "ZA",
+      "pubDate": "2026-09-25T16:28:05.000Z"
+    },
+    {
+      "id": "reliance-audit-2173",
+      "victim": "Reliance Audit — claimed by everest",
+      "sector": "Professional Services",
+      "country": null,
+      "pubDate": "2026-09-25T15:34:31.000Z"
+    },
+    {
+      "id": "unirita-b5a0",
+      "victim": "UNIRITA — claimed by everest",
+      "sector": "Technology",
+      "country": "JP",
+      "pubDate": "2026-09-25T15:33:52.000Z"
+    },
+    {
+      "id": "cenelec-375d",
+      "victim": "CENELEC — claimed by everest",
+      "sector": "Professional Services",
+      "country": "BE",
+      "pubDate": "2026-09-25T15:33:13.000Z"
+    },
+    {
+      "id": "ets-3d9f",
+      "victim": "ETS — claimed by everest",
+      "sector": "Education",
+      "country": null,
+      "pubDate": "2026-09-25T15:32:32.000Z"
+    }
+  ]
+}

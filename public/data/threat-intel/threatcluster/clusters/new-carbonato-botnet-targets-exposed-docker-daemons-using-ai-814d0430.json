@@ -1,0 +1,11 @@
+{
+  "slug": "new-carbonato-botnet-targets-exposed-docker-daemons-using-ai-814d0430",
+  "title": "CARBONATO Botnet Exploits Exposed Docker APIs Using AI Agents",
+  "link": "https://threatcluster.io/cluster/new-carbonato-botnet-targets-exposed-docker-daemons-using-ai-814d0430?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/new-carbonato-botnet-targets-exposed-docker-daemons-using-ai-814d0430",
+  "pubDate": "2026-09-24T22:31:16.000Z",
+  "sourceCount": 10,
+  "categories": ["10 Sources"],
+  "description": "The CARBONATO botnet, discovered by ThreatDown, targets exposed Docker daemons on port 2375 without authentication, enabling attackers to install the Hermes Agent AI framework.",
+  "sizeBytes": 176
+}

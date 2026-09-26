@@ -4,15 +4,11 @@
   "name": "spirals",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-23T15:53:48.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-24T22:23:56.000Z",
   "lastSeen": "2026-09-24T22:23:56.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-23",
-      "count": 1
-    },
     {
       "date": "2026-09-24",
       "count": 1
@@ -24,12 +20,6 @@
       "slug": "armada-credit-bureau-2de8",
       "title": "Armada Credit Bureau — claimed by spirals",
       "pubDate": "2026-09-24T22:23:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "asyad-group-6a4b",
-      "title": "ASYAD GROUP — claimed by spirals",
-      "pubDate": "2026-09-23T15:53:48.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,12 +27,6 @@
       "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
       "weight": 1
     }
   ],
@@ -54,13 +38,6 @@
       "sector": "Financial Services",
       "country": "UG",
       "pubDate": "2026-09-24T22:23:56.000Z"
-    },
-    {
-      "id": "asyad-group-6a4b",
-      "victim": "ASYAD GROUP — claimed by spirals",
-      "sector": "Transportation",
-      "country": "OM",
-      "pubDate": "2026-09-23T15:53:48.000Z"
     }
   ]
 }
