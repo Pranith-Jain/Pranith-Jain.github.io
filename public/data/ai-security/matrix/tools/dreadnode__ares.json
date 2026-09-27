@@ -7,9 +7,9 @@
   "description": "Ares is an autonomous security operations platform where LLM-driven red and blue team agents operate against each other on live infrastructure, enabling realistic evaluation of attack and defense.",
   "homepage": null,
   "added": "2026-09-12",
-  "checkedAt": "2026-09-26T03:17:35Z",
-  "pushedAt": "2026-09-23",
-  "daysIdle": 3,
+  "checkedAt": "2026-09-27T03:17:42Z",
+  "pushedAt": "2026-09-27",
+  "daysIdle": 0,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -23,12 +23,12 @@
       "description": "Puts red and blue agents on the same live infrastructure at once: one side chains Active Directory attacks, the other reads the logs and writes detections back to the dashboard. A single Rust binary."
     },
     "derived": {
-      "checked_at": "2026-09-26T03:17:35Z",
+      "checked_at": "2026-09-27T03:17:42Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-23",
-        "days_since_push": 3,
+        "pushed_at": "2026-09-27",
+        "days_since_push": 0,
         "total_commits": 228,
         "last100_span_days": 85,
         "last100_authors": 3,
@@ -37,8 +37,8 @@
         "last_commit_at": "2026-09-23",
         "releases": 3,
         "latest_release_at": "2026-05-18",
-        "days_since_release": 131,
-        "days_idle": 3,
+        "days_since_release": 132,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
@@ -77,7 +77,8 @@
         "manifests": [".taskfiles/ec2/scripts/setup-tools.sh"]
       },
       "rebadge": [],
-      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false },
+      "risk_where": {}
     }
   }
 }
