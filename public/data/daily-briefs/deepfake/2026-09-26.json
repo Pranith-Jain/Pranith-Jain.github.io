@@ -1,0 +1,70 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-26",
+  "riskOutlook": "Worsening",
+  "executiveSummary": "This period saw multiple high-urgency incidents driven by generative AI and synthetic media. Microsoft and partners disrupted the EvilTokens phishing-as-a-service operation, linked to the compromise of more than 12,000 Microsoft accounts across over 10,000 organizations and arrests in the UK, underscoring how AI-assisted tooling is scaling business email compromise and fraud campaigns View Article View Article . Prosecutors in New York also seized 12 domains involved in AI-generated non-consensual sexual imagery affecting over 1,200 victims, highlighting persistent harms from deepfake exploitation View Article . Election integrity featured prominently: Brazil's top electoral court acted following the use of AI-generated political endorsement imagery Source , while CISA released a U.S. election security plan addressing ongoing cyber and influence risks around voter databases and patching View Article . A U.S. proposal for bilateral AI incident alerts with China indicates elevated national-security concern over destabilizing AI events View Article . Additional escalations included a reported criminal appeal in New Mexico that allegedly contained fabricated AI-generated police testimony-raising acute due-process risks Source -and active fraud schemes spoofing FBI complaints using AI-generated video to harvest personal and financial data Source . Defensive and governance developments included NIST media-forensics evaluation work, a European transparency code for labeling deepfakes, and research on hijacking AI browser agents via malicious extensions View Article View Article View Article . Overall, given the scale of AI-assisted phishing, ongoing deepfake exploitation, and election-related incidents, the near-term threat environment appears to be worsening.",
+  "keyFindings": [
+    {
+      "title": "Microsoft and partners disrupted the EvilTokens PhaaS, tied to over 12,000 Micro",
+      "summary": "Microsoft and partners disrupted the EvilTokens PhaaS, tied to over 12,000 Microsoft account compromises across 10,000+ organizations, with arrests in the UK-demonstrating AI-assisted phishing at enterprise scale. View Article"
+    },
+    {
+      "title": "New York prosecutors seized 12 domains distributing AI-generated non-consensual ",
+      "summary": "New York prosecutors seized 12 domains distributing AI-generated non-consensual sexual imagery that targeted 1,200+ people, indicating large-scale deepfake exploitation infrastructure. View Article"
+    },
+    {
+      "title": "A New Mexico criminal appeal reportedly included fabricated AI-generated police ",
+      "summary": "A New Mexico criminal appeal reportedly included fabricated AI-generated police testimony, raising urgent evidentiary-authenticity and due-process concerns. Source"
+    },
+    {
+      "title": "CISA's U.S. election security plan highlights risks around patching and voter da",
+      "summary": "CISA's U.S. election security plan highlights risks around patching and voter databases amid persistent cyber and influence threats. View Article"
+    },
+    {
+      "title": "Brazil's electoral authorities acted after AI-generated political endorsement im",
+      "summary": "Brazil's electoral authorities acted after AI-generated political endorsement imagery surfaced, signaling active election-security risks. Source"
+    },
+    {
+      "title": "Fraud operators spoofed FBI-themed complaint sites augmented with AI-generated v",
+      "summary": "Fraud operators spoofed FBI-themed complaint sites augmented with AI-generated video to steal victim data. Source"
+    },
+    {
+      "title": "U.S. agencies warned of large-scale extraction of knowledge from U.S. frontier A",
+      "summary": "U.S. agencies warned of large-scale extraction of knowledge from U.S. frontier AI models by China-based companies, raising capability-misuse concerns. Source"
+    },
+    {
+      "title": "The U.S. proposed a bilateral AI incident notification mechanism with China, ref",
+      "summary": "The U.S. proposed a bilateral AI incident notification mechanism with China, reflecting increased national-security sensitivity to AI incidents. View Article"
+    },
+    {
+      "title": "NIST's OpenMFC and forensic benchmarks, plus EU transparency measures, indicate ",
+      "summary": "NIST's OpenMFC and forensic benchmarks, plus EU transparency measures, indicate momentum on provenance and detection. View Article"
+    },
+    {
+      "title": "Research shows AI browser agents can be hijacked via malicious extensions, addin",
+      "summary": "Research shows AI browser agents can be hijacked via malicious extensions, adding a new deception surface. View Article"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [],
+  "geographicObservations": [
+    "United States: Election security planning; FBI-themed fraud; deepfake domain seizures in New York; reported fabricated testimony in New Mexico. View Article Source View Article",
+    "United Kingdom: Arrests linked to EvilTokens PhaaS; national warning that AI may benefit attackers more than defenders; NCA justice-system concerns. View Article View Article",
+    "Brazil: Electoral authority action on AI-generated endorsement imagery. Source",
+    "United States and China: Proposed bilateral AI incident notification mechanism. View Article",
+    "Angola: Reported training tied to coordinated online influence operations. View Article",
+    "European Union: Code of practice for transparency and labeling of AI-generated content. View Article"
+  ],
+  "detectionDevelopments": [
+    "Disruption of EvilTokens PhaaS and related arrests, reducing active phishing infrastructure. View Article",
+    "Seizure of 12 domains distributing deepfake sexual content as part of a broader investigation. View Article",
+    "NIST OpenMFC and \"Guardians for Forensic Evidence\" initiatives supporting benchmarking and evaluation of detection tools. View Article View Article",
+    "EU code of practice emphasizing transparency and labeling of AI-generated content. View Article",
+    "Identity and Access: Enforce phishing-resistant MFA, conditional access policies, token-lifetime controls, and geovelocity anomaly detection. [Analyst Recommendation]",
+    "BEC Resilience: Implement out-of-band payment verification, dual-approval workflows, and vendor bank-change cooldowns. [Analyst Recommendation]",
+    "Evidence Integrity: Require sworn digital attestations, C2PA/manifest metadata where feasible, and documented chain-of-custody for media in legal proceedings. [Analyst Recommendation]",
+    "Election Operations: Pre-stage rapid-response playbooks for synthetic-media incidents; coordinate with platforms for escalation and takedowns. [Analyst Recommendation]",
+    "Browser Agents: Lock down enterprise extension policies, audit AI-agent permissions, and monitor for rogue extension behaviors. [Analyst Recommendation]",
+    "Provenance & Detection: Pilot C2PA-compatible tooling and benchmark detectors using NIST resources; maintain human-in-the-loop verification. [Analyst Recommendation]"
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "type": "cyber",
+  "date": "2026-09-26",
+  "threatLevel": "",
+  "executiveSummary": "Active targeting of Siemens S7 series PLCs across multiple U.S. critical sectors (Water/Wastewater, Energy, Critical Manufacturing, Chemical, Food/Agriculture) is ongoing; actors use S7comm over TCP/102 and AI-assisted tooling to perform PLC memory read/write, creating immediate risk of process disruption. Security Advisory Field-deployed OT gateways face critical exploitation risk. Advantech WISE-6610 LoRaWAN gateways have public exploits and vendor patches; compromise enables pivoting into OT networks used by utilities, including water/wastewater. CISA Bulletin Industrial protocol/edge gateways (Advantech EKI-1242EIMS/IEIMS) contain multiple unauthenticated root command execution paths and missing auth for critical functions, endangering OT perimeters and DMZs. CISA Bulletin Critical perimeter access technologies under active exploitation: F5 BIG-IP APM (OAuth mode) allows unauthenticated RCE in commonly used remote-access gateways; immediate hotfixes/mitigations and compromise hunting are required. Security Advisory Actively exploited Cisco Secure Email Gateway (AsyncOS) SQLi permits unauthenticated RCE via crafted emails, providing enterprise entry points with potential IT-to-OT pivot; patch immediately and forward logs off-device. Security Advisory Kiteworks issued a time-boxed global shutdown directive citing imminent zero-day targeting of secure file-transfer systems favored by governments and enterprises; follow vendor power-down guidance and prepare for patch/apply mitigations. View Article CISA highlighted multiple OT/IIoT platform risks (Eclipse Arrowhead/Ditto, DDS stacks, ASUS management, Erlang/OTP core libs) with potential control-plane abuse and data-twin tampering; prioritize segmentation, broker hardening, and patching. CISA Bulletin",
+  "keyFindings": [
+    {
+      "title": "OT controllers",
+      "summary": "Confirmed, active reconnaissance and memory manipulation attempts against Siemens S7 PLCs require immediate isolation from the internet and strict engineering workstation controls. Security Advisory"
+    },
+    {
+      "title": "OT gateways",
+      "summary": "Advantech WISE-6610 LoRaWAN gateways have remotely exploitable command-injection with public PoCs; apply firmware 1.2.4_20260821 and reissue certs/creds. CISA Bulletin"
+    },
+    {
+      "title": "OT edge bridges",
+      "summary": "Multiple RCEs and missing-auth flaws in Advantech EKI-1242 industrial gateways on TCP/5058 can enable full device takeover in OT DMZs. CISA Bulletin"
+    },
+    {
+      "title": "Perimeter access",
+      "summary": "F5 BIG-IP APM CVE-2026-94127 under active exploitation enables unauthenticated RCE in OAuth mode-patch/hotfix or deploy iRule mitigation; hunt for abnormal OAuth header spikes. Security Advisory"
+    },
+    {
+      "title": "Email edge",
+      "summary": "Cisco Secure Email Gateway CVE-2026-76461 allows unauthenticated RCE via crafted email-upgrade per Cisco/JPCERT guidance and assume potential log tampering. Security Advisory"
+    },
+    {
+      "title": "Enterprise risk",
+      "summary": "Vendor warning of imminent Kiteworks zero-day suggests elevated likelihood of mass data theft and downstream lateral movement; power down per schedule and prepare to patch. View Article"
+    },
+    {
+      "title": "Supply chain",
+      "summary": "Compromised GitHub Actions re-activated, exfiltrating CI/CD secrets (Mini Shai-Hulud); enforce SHA pinning and rotate tokens immediately. View Article"
+    },
+    {
+      "title": "Windows estate",
+      "summary": "Microsoft's largest-ever Patch Tuesday includes actively exploited zero-days; prioritize domain controllers, DNS servers, OT-adjacent workstations/jump hosts. View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "CRITICAL",
+        "label": "Overall OT Threat Level"
+      },
+      {
+        "value": "8",
+        "label": "Escalate Events (24-72h)"
+      },
+      {
+        "value": "6+",
+        "label": "Actively Exploited Items"
+      },
+      {
+        "value": "20+",
+        "label": "Vendors/Tech Affected"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7-series PLCs; S7comm (TCP/102) - Advantech WISE-6610 LoRaWAN gateways; Advantech EKI-1242EIMS/IEIMS industrial gateways (TCP/5058) - F5 BIG-IP APM (OAuth Authorization Server mode) - Cisco Secure Email Gateway (AsyncOS) - Eclipse Arrowhead & Ditto; eProsima Fast-DDS; ASUS Control Center Enterprise; Erlang/OTP networking stacks - Microsoft Windows servers/workstations (including DNS/DC, OT-adjacent hosts) - WordPress Core (public-facing CMS); Kiteworks secure file transfer"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy; Critical Manufacturing; Chemical; Food and Agriculture; Government Services and Facilities; Communications (enterprise gateways and public web/CMS); Transportation (indirect via enterprise footholds)."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "OT-focused probing: Active S7comm reconnaissance and PLC memory operations consistent with capability development for disruptive actions. Security Advisory",
+        "Enterprise extortion via policy abuse: Encryptionless extortion using GPO hijacking for rapid domain-wide disruption observed in manufacturing. Supporting Report",
+        "Supply-chain compromise: Re-activated malicious GitHub Actions exfiltrated CI/CD secrets to actor infrastructure. View Article",
+        "Initial access tradecraft: Sophisticated phishing URL tricks exploiting parser discrepancies and userinfo segments continue to evade filters. View Article"
+      ]
+    }
+  ],
+  "relevance": "- Direct OT impact: Siemens S7 PLC targeting; Advantech WISE-6610 and EKI-1242 gateway vulnerabilities allow control-plane manipulation and OT network pivoting. - High-risk IT/OT boundary: F5 BIG-IP APM and Cisco Secure Email exploitation provide privileged footholds commonly used for vendor remote access and enterprise-to-OT conduits. - Indirect pressure: CI/CD supply-chain (compromised GitHub Actions), Windows zero-days, and Kiteworks mass-exfiltration risk can accelerate attacker dwell time and staging for OT intrusion.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Advantech WISE-6610 LoRaWAN gateways - Command injection with public exploits; fixed in 1.2.4_20260821. CISA Bulletin",
+        "Advantech EKI-1242EIMS/IEIMS - Unauth root command execution, missing auth on TCP/5058, and more; isolate and patch. CISA Bulletin",
+        "Eclipse Arrowhead & Ditto - Authorization bypass, SSRF, MQTT auth flaws affecting IIoT orchestration and digital twins. CISA Bulletin",
+        "F5 BIG-IP APM (CVE-2026-94127) - Unauth RCE in OAuth mode (actively exploited); apply hotfix/iRule. Security Advisory",
+        "Cisco Secure Email (CVE-2026-76461) - Actively exploited SQLi→RCE via email processing; upgrade now. Security Advisory",
+        "WordPress Core (CVE-2026-87902) - Actively exploited RFI; patch and check for webshells on public-facing CMS. CISA KEV",
+        "Microsoft Patch Tuesday - Two exploited zero-days across Windows platform; prioritize DC/DNS/OT-adjacent systems. View Article",
+        "Adobe Acrobat/Reader (APSB26-141) - Code execution via malicious PDFs; update to fixed builds and enforce Protected View. JPCERT Alert"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploit Public-Facing Applications (T1190): F5 BIG-IP APM RCE; Cisco Secure Email SQLi; WordPress Core RFI; SharePoint code injection.",
+      "External Remote Services (T1133) and Valid Accounts (T1078): Perimeter VPN/APM abuse enabling lateral movement toward OT.",
+      "Command and Scripting Interpreter (T1059) and Abuse of Remote Services (T1021): Unauth command execution on OT gateways (Advantech EKI/WISE-6610).",
+      "Modify Control Logic/Physical Process (ICS ATT&CK T0831/T0809): S7comm PUT/GET memory operations against PLCs.",
+      "Credential Access (T1003/T1555): GPO hijack tactics; CI/CD token theft via compromised GitHub Actions.",
+      "Phishing (T1566): URL parser evasion (userinfo segments, malformed host labels) to achieve initial access."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1133",
+      "T1078",
+      "T1059",
+      "T1021",
+      "T0831",
+      "T0809",
+      "T1003",
+      "T1555",
+      "T1566"
+    ]
+  },
+  "outlook72h": "Immediate (0-24h): Remove any internet exposure to PLCs and OT gateways; block TCP/102 to/from untrusted networks; quarantine unpatched WISE-6610/EKI-1242 from production segments. Security Advisory Time-boxed action: Execute Kiteworks shutdown window per vendor instruction; collect logs, snapshot VMs, and prepare credential/token rotation on restart. View Article 24-48h: Patch F5 BIG-IP APM (or deploy interim iRule) and Cisco Secure Email; implement WAF/Geo/IP allowlists; start compromise assessments. 48-72h: Complete patching of Windows DC/DNS/OT-adjacent hosts; remediate KEV-listed WordPress/SharePoint; rotate secrets impacted by compromised GitHub Actions.",
+  "relatedCves": [
+    "CVE-2026-94127",
+    "CVE-2026-76461",
+    "CVE-2026-87902"
+  ]
+}
