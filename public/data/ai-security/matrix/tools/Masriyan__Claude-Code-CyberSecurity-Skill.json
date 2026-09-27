@@ -7,9 +7,9 @@
   "description": "22 production-quality Claude Code Skills for cybersecurity professionals — covering offensive security, defensive operations, reverse engineering, threat hunting, threat intelligence, purple team / adversary emulation, CSOC automation, AI/…",
   "homepage": "https://www.security-life.org",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-26T03:19:08Z",
+  "checkedAt": "2026-09-27T03:19:38Z",
   "pushedAt": "2026-09-07",
-  "daysIdle": 19,
+  "daysIdle": 20,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -23,12 +23,12 @@
       "description": "Twenty-two skills, each carrying a methodology, the commands to run and a template for the write-up, reaching into OT and ICS, mobile and governance as well as the usual ground."
     },
     "derived": {
-      "checked_at": "2026-09-26T03:19:08Z",
+      "checked_at": "2026-09-27T03:19:38Z",
       "cloned": true,
       "alive": {
         "archived": false,
         "pushed_at": "2026-09-07",
-        "days_since_push": 19,
+        "days_since_push": 20,
         "total_commits": 39,
         "last100_span_days": 192,
         "last100_authors": 3,
@@ -38,7 +38,7 @@
         "releases": 0,
         "latest_release_at": null,
         "days_since_release": null,
-        "days_idle": 19,
+        "days_idle": 20,
         "relocated": false
       },
       "identity": {

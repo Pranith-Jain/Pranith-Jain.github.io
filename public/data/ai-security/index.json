@@ -1,6 +1,6 @@
 {
   "hub": "AI Security",
-  "builtAt": "2026-09-26T11:19:57.267Z",
+  "builtAt": "2026-09-27T11:58:41.445Z",
   "sources": {
     "escapeWatch": "https://ai-escape.watch (parity only; seed stays canonical)",
     "matrix": "https://aisecuritymatrix.com/data.json",
@@ -14,10 +14,10 @@
     "matrixCategories": 4,
     "incidentReports": 100,
     "escapeDrift": false,
-    "vulns": 2193,
+    "vulns": 2202,
     "vulnKev": 4,
     "advisories": 126,
-    "research": 53
+    "research": 54
   },
   "matrixByCategory": { "agent": 24, "mcp": 14, "scanner": 20, "skill": 10 },
   "advisoryBySource": {
@@ -36,9 +36,9 @@
     "owasp-acs": 8,
     "exploitdb": 2
   },
-  "researchBySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 4 },
+  "researchBySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 5 },
   "latestIncidentAt": "Fri, 25 Sep 2026 15:14:50 GMT",
-  "latestMatrixCheck": "2026-09-26T03:17:10Z",
+  "latestMatrixCheck": "2026-09-27T03:17:13Z",
   "latestAdvisoryAt": "2026-09-25T15:22:00Z",
-  "latestResearchAt": "Fri, 25 Sep 2026 12:00:00 -0400"
+  "latestResearchAt": "Sat, 26 Sep 2026 12:26:58 -0400"
 }
