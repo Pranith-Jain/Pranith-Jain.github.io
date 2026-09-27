@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "blacklocks",
+  "name": "blacklocks",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-26T08:50:49.000Z",
+  "lastSeen": "2026-09-26T17:07:42.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-26",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "arca-unlimited-architects-d400",
+      "title": "ARCA UNLIMITED Architects — claimed by blacklocks",
+      "pubDate": "2026-09-26T17:07:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "apollo-21-quality-truck-bus-amp-trailer-spare-parts-south-africa-622f",
+      "title": "Apollo 21 – Quality Truck, Bus &amp; Trailer Spare Parts South Africa — claimed by blacklocks",
+      "pubDate": "2026-09-26T08:50:49.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "arca-unlimited-architects-d400",
+      "victim": "ARCA UNLIMITED Architects — claimed by blacklocks",
+      "sector": "Professional Services",
+      "country": "ZA",
+      "pubDate": "2026-09-26T17:07:42.000Z"
+    },
+    {
+      "id": "apollo-21-quality-truck-bus-amp-trailer-spare-parts-south-africa-622f",
+      "victim": "Apollo 21 – Quality Truck, Bus &amp; Trailer Spare Parts South Africa — claimed by blacklocks",
+      "sector": "Transportation",
+      "country": "ZA",
+      "pubDate": "2026-09-26T08:50:49.000Z"
+    }
+  ]
+}

@@ -7,7 +7,7 @@
   "mitreTechniques": [],
   "indicatorCount": 26,
   "description": "💡INTEL",
-  "sizeBytes": 1158,
+  "sizeBytes": 1362,
   "indicators": [
     { "type": "ipv4", "value": "3.22.79.23", "firstSeen": null, "confidence": "medium" },
     { "type": "ipv4", "value": "18.193.71.144", "firstSeen": null, "confidence": "medium" },
@@ -126,7 +126,7 @@
     { "type": "email", "value": "evrstgroup@onionmail.org", "firstSeen": null, "confidence": "medium" },
     { "type": "email", "value": "everestblog@cock.li", "firstSeen": null, "confidence": "medium" }
   ],
-  "context": "💡INTEL\n========\n📌Initially appeared in September 2021\n📌Majorly shifted their DLS in 2026, by decommissioning older Leak Site\n📌Group uses platforms like GoFile, DropMeFiles, FEX to host sample leak\n📌Also uses dedicated Onion Domains in case of large branded victim such as Nissan\n📌Targets Healthcare Industry at a faster pace\n\nDLS\n===\nransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion\nransomoefralti2zh5nrv7iqybp3d5b4a2eeecz5yjosp7ggbepj7iyd.onion\neverestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion\n\nFS\n==\ngxp6yt3wdj7yky27j37jfrrbkuy24n2zo5uxyuoy23uf76d6m2gnfpid.onion\naihvh6j6fbkfjyc6jqbsh2ed4s3rym2v2pu6kd3z3exdso2xc2qwcuqd.onion\nbifpwatchoxp7tsb2kpes37b23ogjrb2kj4wgr7yncf4hhgsfahu7jad.onion\n2vqamwfdpis5rkjtpkutigykp56n6hkxfurm6qukdxp6uz5uff5kkaid.onion\n4p2hmbuy36oau64fcvwz2yvdw7eptlkionm46p2m2cs6dmhone5mxiyd.onion\nwyviwn66c5fhgjkdzn7u3tcp2jc5gr3vamgzzrey5rtzogivofxsecyd.onion : NISSAN\n\nASSOCIATED IPs\n==============\n3.22.79.23\n18.193.71.144\n45.84.0.164\n\nTOX\n99D176DB79C7DB2A708F680C460CA48540230AA103F1EF69A26EBFE29661C933918DE7852521\n\nEMAIL\n=====\neverestaf@onionmail.org\nevrstgroup@onionmail.org\neverestblog@cock.li\n\n\n\n",
+  "context": "💡INTEL\n========\n📌Initially appeared in September 2021\n📌Majorly shifted their DLS in 2026, by decommissioning older Leak Site\n📌Group uses platforms like GoFile, DropMeFiles, FEX to host sample leak\n📌Also uses dedicated Onion Domains in case of large branded victim such as Nissan\n📌Targets Healthcare Industry at a faster pace\n📌The group uses AI to summarize the Data Breach to provide a quick-snapshot as Breach Analysis\n📌The group also found to be using HIBP service to map the exposed credentials and include it in the report\n\nDLS\n===\nransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion\nransomoefralti2zh5nrv7iqybp3d5b4a2eeecz5yjosp7ggbepj7iyd.onion\neverestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion\n\nFS\n==\ngxp6yt3wdj7yky27j37jfrrbkuy24n2zo5uxyuoy23uf76d6m2gnfpid.onion\naihvh6j6fbkfjyc6jqbsh2ed4s3rym2v2pu6kd3z3exdso2xc2qwcuqd.onion\nbifpwatchoxp7tsb2kpes37b23ogjrb2kj4wgr7yncf4hhgsfahu7jad.onion\n2vqamwfdpis5rkjtpkutigykp56n6hkxfurm6qukdxp6uz5uff5kkaid.onion\n4p2hmbuy36oau64fcvwz2yvdw7eptlkionm46p2m2cs6dmhone5mxiyd.onion\nwyviwn66c5fhgjkdzn7u3tcp2jc5gr3vamgzzrey5rtzogivofxsecyd.onion : NISSAN\n\nASSOCIATED IPs\n==============\n3.22.79.23\n18.193.71.144\n45.84.0.164\n\nTOX\n99D176DB79C7DB2A708F680C460CA48540230AA103F1EF69A26EBFE29661C933918DE7852521\n\nEMAIL\n=====\neverestaf@onionmail.org\nevrstgroup@onionmail.org\neverestblog@cock.li\n\n\n\n",
   "references": [],
   "llmSummary": null
 }

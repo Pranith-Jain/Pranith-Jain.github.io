@@ -1,11 +1,27 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-26T10:03:27Z",
-  "syncedAt": "2026-09-26T10:03:27.447Z",
+  "generatedAt": "2026-09-27T10:39:32Z",
+  "syncedAt": "2026-09-27T10:39:32.324Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 354,
+  "count": 339,
   "iocs": [
+    {
+      "type": "ipv4",
+      "value": "193.178.158.61",
+      "confidence": "high",
+      "reason": "[article sweep] Identified as part of attacker infrastructure in a threat report",
+      "first_seen": "2026-09-27T09:02:32.908946+00:00",
+      "last_seen": "2026-09-27T09:02:32.908946+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.ontinue.com",
+          "url": "https://www.ontinue.com/resource/lunex-unmasked-a-new-information-stealer-deployed-through-byovd/",
+          "pub_date": "2026-09-27T09:02:32.908946+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "account-access-rc3uenqi.elitechiropracticandrehab.com",
@@ -131,22 +147,6 @@
           "source": "www.aikido.dev",
           "url": "https://www.aikido.dev/blog/supplychain-local-memtensor-npm-pypi",
           "pub_date": "2026-09-25T17:31:00.178828+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "193.178.158.61",
-      "confidence": "high",
-      "reason": "[article sweep] Identified as part of attacker infrastructure in a threat report",
-      "first_seen": "2026-09-25T17:12:02.656577+00:00",
-      "last_seen": "2026-09-25T17:12:02.656577+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.ontinue.com",
-          "url": "https://www.ontinue.com/resource/lunex-unmasked-a-new-information-stealer-deployed-through-byovd/",
-          "pub_date": "2026-09-25T17:12:02.656577+00:00"
         }
       ]
     },
@@ -5609,261 +5609,6 @@
           "source": "Socprime",
           "url": "https://socprime.com/active-threats/cambodia-focused-threat-cluster-uses-localized-phishing-and-multi-stage-malware/",
           "pub_date": "2026-08-28T11:38:54+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "exessupdate.info",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as part of campaign infrastructure in a YARA rule",
-      "first_seen": "2026-08-28T03:24:16+00:00",
-      "last_seen": "2026-08-28T03:24:16+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cyfirma",
-          "url": "https://www.cyfirma.com/news/weekly-intelligence-report-28-aug-2026/",
-          "pub_date": "2026-08-28T03:24:16+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "greezupdto.info",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as part of campaign infrastructure in a YARA rule",
-      "first_seen": "2026-08-28T03:24:16+00:00",
-      "last_seen": "2026-08-28T03:24:16+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cyfirma",
-          "url": "https://www.cyfirma.com/news/weekly-intelligence-report-28-aug-2026/",
-          "pub_date": "2026-08-28T03:24:16+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "hillisolutions.info",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as part of campaign infrastructure in a YARA rule",
-      "first_seen": "2026-08-28T03:24:16+00:00",
-      "last_seen": "2026-08-28T03:24:16+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cyfirma",
-          "url": "https://www.cyfirma.com/news/weekly-intelligence-report-28-aug-2026/",
-          "pub_date": "2026-08-28T03:24:16+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "makerolleds.info",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as part of campaign infrastructure in a YARA rule",
-      "first_seen": "2026-08-28T03:24:16+00:00",
-      "last_seen": "2026-08-28T03:24:16+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cyfirma",
-          "url": "https://www.cyfirma.com/news/weekly-intelligence-report-28-aug-2026/",
-          "pub_date": "2026-08-28T03:24:16+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "programgreedz.info",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as part of campaign infrastructure in a YARA rule",
-      "first_seen": "2026-08-28T03:24:16+00:00",
-      "last_seen": "2026-08-28T03:24:16+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cyfirma",
-          "url": "https://www.cyfirma.com/news/weekly-intelligence-report-28-aug-2026/",
-          "pub_date": "2026-08-28T03:24:16+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "reggyupdated.info",
-      "confidence": "high",
-      "reason": "[article sweep] Listed as part of campaign infrastructure in a YARA rule",
-      "first_seen": "2026-08-28T03:24:16+00:00",
-      "last_seen": "2026-08-28T03:24:16+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cyfirma",
-          "url": "https://www.cyfirma.com/news/weekly-intelligence-report-28-aug-2026/",
-          "pub_date": "2026-08-28T03:24:16+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "192.162.199.149",
-      "confidence": "high",
-      "reason": "[article sweep] IP address associated with malware file hosting",
-      "first_seen": "2026-08-28T03:24:16+00:00",
-      "last_seen": "2026-08-28T03:24:16+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Cyfirma",
-          "url": "https://www.cyfirma.com/news/weekly-intelligence-report-28-aug-2026/",
-          "pub_date": "2026-08-28T03:24:16+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "crpx0.su",
-      "confidence": "high",
-      "reason": "[article sweep] Identified as hosting a panel for a ransomware group",
-      "first_seen": "2026-08-27T21:32:24.332810+00:00",
-      "last_seen": "2026-08-27T21:32:24.332810+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "theravenfile.com",
-          "url": "https://theravenfile.com/2026/08/03/crpx0-scammer-turned-ransomware-operator/",
-          "pub_date": "2026-08-27T21:32:24.33281+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "flash-token.shop",
-      "confidence": "high",
-      "reason": "[article sweep] Identified as a scam service domain",
-      "first_seen": "2026-08-27T21:32:24.332810+00:00",
-      "last_seen": "2026-08-27T21:32:24.332810+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "theravenfile.com",
-          "url": "https://theravenfile.com/2026/08/03/crpx0-scammer-turned-ransomware-operator/",
-          "pub_date": "2026-08-27T21:32:24.33281+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "qt-proxy.org",
-      "confidence": "high",
-      "reason": "Seized domain used for malware communication and authentication",
-      "first_seen": "2026-08-27T13:47:51+00:00",
-      "last_seen": "2026-08-27T17:12:48.782680+00:00",
-      "source_count": 2,
-      "sources": [
-        {
-          "source": "www.lumen.com",
-          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
-          "pub_date": "2026-08-27T17:12:48.78268+00:00"
-        },
-        {
-          "source": "Techtimes",
-          "url": "https://www.techtimes.com/articles/325708/20260827/china-hacked-nasa-federal-reserve-fbi-seizes-platforms-behind-eight-year-breach.htm",
-          "pub_date": "2026-08-27T13:47:51+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "qtproxy.xyz",
-      "confidence": "high",
-      "reason": "Seized domain used for malware communication and authentication",
-      "first_seen": "2026-08-27T13:47:51+00:00",
-      "last_seen": "2026-08-27T17:12:48.782680+00:00",
-      "source_count": 2,
-      "sources": [
-        {
-          "source": "www.lumen.com",
-          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
-          "pub_date": "2026-08-27T17:12:48.78268+00:00"
-        },
-        {
-          "source": "Techtimes",
-          "url": "https://www.techtimes.com/articles/325708/20260827/china-hacked-nasa-federal-reserve-fbi-seizes-platforms-behind-eight-year-breach.htm",
-          "pub_date": "2026-08-27T13:47:51+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "qt-team.com",
-      "confidence": "high",
-      "reason": "Seized domain used for malware communication and authentication",
-      "first_seen": "2026-08-27T13:47:51+00:00",
-      "last_seen": "2026-08-27T17:12:48.782680+00:00",
-      "source_count": 2,
-      "sources": [
-        {
-          "source": "www.lumen.com",
-          "url": "https://www.lumen.com/blog/en-us/the-infrastructure-quartermaster-inside-a-china-nexus-state-enablement-model",
-          "pub_date": "2026-08-27T17:12:48.78268+00:00"
-        },
-        {
-          "source": "Techtimes",
-          "url": "https://www.techtimes.com/articles/325708/20260827/china-hacked-nasa-federal-reserve-fbi-seizes-platforms-behind-eight-year-breach.htm",
-          "pub_date": "2026-08-27T13:47:51+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "datewithmealways.online",
-      "confidence": "high",
-      "reason": "[article sweep] Associated with malicious activity by DragonDoll malware",
-      "first_seen": "2026-08-27T14:50:04+00:00",
-      "last_seen": "2026-08-27T14:50:04+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Habr",
-          "url": "https://habr.com/en/amp/publications/1073720/",
-          "pub_date": "2026-08-27T14:50:04+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "datewithmealways.site",
-      "confidence": "high",
-      "reason": "[article sweep] Associated with malicious activity by DragonDoll malware",
-      "first_seen": "2026-08-27T14:50:04+00:00",
-      "last_seen": "2026-08-27T14:50:04+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Habr",
-          "url": "https://habr.com/en/amp/publications/1073720/",
-          "pub_date": "2026-08-27T14:50:04+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "digitaladstracking.com",
-      "confidence": "high",
-      "reason": "[article sweep] Associated with malicious activity by DragonDoll malware",
-      "first_seen": "2026-08-27T14:50:04+00:00",
-      "last_seen": "2026-08-27T14:50:04+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Habr",
-          "url": "https://habr.com/en/amp/publications/1073720/",
-          "pub_date": "2026-08-27T14:50:04+00:00"
         }
       ]
     }

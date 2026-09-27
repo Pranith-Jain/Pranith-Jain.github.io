@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "storm",
+  "name": "storm",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-26T08:48:02.000Z",
+  "lastSeen": "2026-09-26T08:48:35.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-26",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "applied-composites-49b1",
+      "title": "Applied Composites — claimed by storm",
+      "pubDate": "2026-09-26T08:48:35.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "magna-legal-services-f0da",
+      "title": "Magna Legal Services — claimed by storm",
+      "pubDate": "2026-09-26T08:48:02.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "applied-composites-49b1",
+      "victim": "Applied Composites — claimed by storm",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-26T08:48:35.000Z"
+    },
+    {
+      "id": "magna-legal-services-f0da",
+      "victim": "Magna Legal Services — claimed by storm",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-26T08:48:02.000Z"
+    }
+  ]
+}
