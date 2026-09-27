@@ -5,24 +5,38 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 5,
-  "firstSeen": "2026-09-24T13:56:18.000Z",
-  "lastSeen": "2026-09-26T00:43:37.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 3 countries.",
+  "firstSeen": "2026-09-25T12:36:29.000Z",
+  "lastSeen": "2026-09-26T08:45:31.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
-    {
-      "date": "2026-09-24",
-      "count": 3
-    },
     {
       "date": "2026-09-25",
       "count": 1
     },
     {
       "date": "2026-09-26",
-      "count": 1
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "puroclean-1d1d",
+      "title": "PuroClean — claimed by thegentlemen",
+      "pubDate": "2026-09-26T08:45:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "brancoptica-e0a9",
+      "title": "Brancoptica — claimed by thegentlemen",
+      "pubDate": "2026-09-26T08:45:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ligue-se-grupo-c353",
+      "title": "Ligue se Grupo — claimed by thegentlemen",
+      "pubDate": "2026-09-26T08:43:46.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "crossett-706f",
@@ -34,27 +48,15 @@
       "slug": "corisricambi-it-b1b0",
       "title": "corisricambi.it — claimed by lockbit5",
       "pubDate": "2026-09-25T12:36:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "efada-sa-837c",
-      "title": "efada.sa — claimed by krybit",
-      "pubDate": "2026-09-24T20:01:08.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dao-group-c9f6",
-      "title": "Dao Group — claimed by qilin",
-      "pubDate": "2026-09-24T14:24:06.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "wallatec-5173",
-      "title": "Wallatec — claimed by akira",
-      "pubDate": "2026-09-24T13:56:18.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 3
+    },
     {
       "type": "group",
       "slug": "termite",
@@ -65,24 +67,6 @@
       "type": "group",
       "slug": "lockbit5",
       "name": "lockbit5",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "akira",
-      "name": "akira",
       "weight": 1
     }
   ],

@@ -1,0 +1,14 @@
+{
+  "id": "international-chemical-co-3ab3",
+  "victim": "International Chemical Co.",
+  "group": "barracuda",
+  "sector": "Manufacturing",
+  "country": null,
+  "title": "International Chemical Co. — claimed by barracuda",
+  "link": "https://threatcluster.io/dark-web/victim/International%20Chemical%20Co.",
+  "guid": "darkweb-victim:barracuda:international chemical co.",
+  "pubDate": "2026-09-26T15:51:01.000Z",
+  "categories": ["Group: barracuda", "Sector: Manufacturing"],
+  "description": "Manufacturing · International Chemical Company (ICC) manufactures specialty metalworking fluids, industrial cleaners, rust preventatives, and custom chemical formulations.\nWe have extracted the most important files from their main file server and possess data on their sales, formulas, patents, manufacturing, contracts, and partners.\nFor example, we possess the full formulation and manufacturing instructions for I",
+  "sizeBytes": 416
+}
