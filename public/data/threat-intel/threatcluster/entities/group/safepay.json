@@ -1,0 +1,177 @@
+{
+  "type": "group",
+  "slug": "safepay",
+  "name": "safepay",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 9,
+  "firstSeen": "2026-09-28T07:30:29.000Z",
+  "lastSeen": "2026-09-28T08:34:02.000Z",
+  "summary": "Ransomware group with 9 leak-site victims across 6 sectors and 7 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-28",
+      "count": 9
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "manno-ch-71fc",
+      "title": "manno.ch — claimed by safepay",
+      "pubDate": "2026-09-28T08:34:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "auromex-com-1c7b",
+      "title": "auromex.com — claimed by safepay",
+      "pubDate": "2026-09-28T08:33:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cromados-com-1866",
+      "title": "cromados.com — claimed by safepay",
+      "pubDate": "2026-09-28T08:32:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lfgholding-com-4e48",
+      "title": "lfgholding.com — claimed by safepay",
+      "pubDate": "2026-09-28T07:33:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "fedelmundo-com-ph-4a0a",
+      "title": "fedelmundo.com.ph — claimed by safepay",
+      "pubDate": "2026-09-28T07:32:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bio-strath-com-fd07",
+      "title": "bio-strath.com — claimed by safepay",
+      "pubDate": "2026-09-28T07:32:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sumperk-cz-b139",
+      "title": "sumperk.cz — claimed by safepay",
+      "pubDate": "2026-09-28T07:31:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "eagroep-com-3deb",
+      "title": "eagroep.com — claimed by safepay",
+      "pubDate": "2026-09-28T07:31:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "holiday-inn-vilnius-d73a",
+      "title": "Holiday Inn Vilnius — claimed by safepay",
+      "pubDate": "2026-09-28T07:30:29.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "manno-ch-71fc",
+      "victim": "manno.ch — claimed by safepay",
+      "sector": "Other",
+      "country": "CH",
+      "pubDate": "2026-09-28T08:34:02.000Z"
+    },
+    {
+      "id": "auromex-com-1c7b",
+      "victim": "auromex.com — claimed by safepay",
+      "sector": "Manufacturing",
+      "country": "MX",
+      "pubDate": "2026-09-28T08:33:27.000Z"
+    },
+    {
+      "id": "cromados-com-1866",
+      "victim": "cromados.com — claimed by safepay",
+      "sector": "Manufacturing",
+      "country": "ES",
+      "pubDate": "2026-09-28T08:32:52.000Z"
+    },
+    {
+      "id": "lfgholding-com-4e48",
+      "victim": "lfgholding.com — claimed by safepay",
+      "sector": "Other",
+      "country": "CH",
+      "pubDate": "2026-09-28T07:33:24.000Z"
+    },
+    {
+      "id": "fedelmundo-com-ph-4a0a",
+      "victim": "fedelmundo.com.ph — claimed by safepay",
+      "sector": "Other",
+      "country": "PH",
+      "pubDate": "2026-09-28T07:32:49.000Z"
+    },
+    {
+      "id": "bio-strath-com-fd07",
+      "victim": "bio-strath.com — claimed by safepay",
+      "sector": "Healthcare",
+      "country": "CH",
+      "pubDate": "2026-09-28T07:32:13.000Z"
+    },
+    {
+      "id": "sumperk-cz-b139",
+      "victim": "sumperk.cz — claimed by safepay",
+      "sector": "Retail & E-Commerce",
+      "country": "CZ",
+      "pubDate": "2026-09-28T07:31:38.000Z"
+    },
+    {
+      "id": "eagroep-com-3deb",
+      "victim": "eagroep.com — claimed by safepay",
+      "sector": "Agriculture and Food Production",
+      "country": "NL",
+      "pubDate": "2026-09-28T07:31:04.000Z"
+    },
+    {
+      "id": "holiday-inn-vilnius-d73a",
+      "victim": "Holiday Inn Vilnius — claimed by safepay",
+      "sector": "Hospitality",
+      "country": "LT",
+      "pubDate": "2026-09-28T07:30:29.000Z"
+    }
+  ]
+}

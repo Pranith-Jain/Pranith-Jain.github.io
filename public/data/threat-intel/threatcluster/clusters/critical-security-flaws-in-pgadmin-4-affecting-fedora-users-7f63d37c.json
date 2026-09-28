@@ -1,0 +1,11 @@
+{
+  "slug": "critical-security-flaws-in-pgadmin-4-affecting-fedora-users-7f63d37c",
+  "title": "Critical Security Flaws in pgAdmin 4 Affecting Fedora Users",
+  "link": "https://threatcluster.io/cluster/critical-security-flaws-in-pgadmin-4-affecting-fedora-users-7f63d37c?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-security-flaws-in-pgadmin-4-affecting-fedora-users-7f63d37c",
+  "pubDate": "2026-09-27T01:12:31.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Multiple vulnerabilities in pgAdmin 4, including CVE-2026-86862, CVE-2026-86863, CVE-2026-86864, and CVE-2026-86861, were disclosed on September 17, 2026.",
+  "sizeBytes": 154
+}

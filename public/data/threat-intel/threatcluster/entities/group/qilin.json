@@ -4,25 +4,65 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-25T12:48:32.000Z",
-  "lastSeen": "2026-09-25T12:48:32.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-27T16:05:11.000Z",
+  "lastSeen": "2026-09-28T08:59:05.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 3 sectors and 5 countries.",
   "frequency": [
     {
-      "date": "2026-09-25",
+      "date": "2026-09-27",
+      "count": 4
+    },
+    {
+      "date": "2026-09-28",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "iberia-compositech-manufacturing-0c9d",
-      "title": "Iberia Compositech Manufacturing — claimed by qilin",
-      "pubDate": "2026-09-25T12:48:32.000Z"
+      "slug": "nissho-electric-manufacturing-co-ltd-5f8e",
+      "title": "Nissho Electric Manufacturing Co., Ltd. — claimed by qilin",
+      "pubDate": "2026-09-28T08:59:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "xico-5fd7",
+      "title": "XICO — claimed by qilin",
+      "pubDate": "2026-09-27T17:03:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "island-9019",
+      "title": "Island — claimed by qilin",
+      "pubDate": "2026-09-27T17:02:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "revenga-smart-solutions-e4a4",
+      "title": "Revenga Smart Solutions — claimed by qilin",
+      "pubDate": "2026-09-27T16:06:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "willatt-amp-flickinger-801a",
+      "title": "Willatt &amp; Flickinger — claimed by qilin",
+      "pubDate": "2026-09-27T16:05:11.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 2
+    },
     {
       "type": "sector",
       "slug": "manufacturing",
@@ -33,11 +73,39 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "iberia-compositech-manufacturing-0c9d",
-      "victim": "Iberia Compositech Manufacturing — claimed by qilin",
+      "id": "nissho-electric-manufacturing-co-ltd-5f8e",
+      "victim": "Nissho Electric Manufacturing Co., Ltd. — claimed by qilin",
       "sector": "Manufacturing",
+      "country": "JP",
+      "pubDate": "2026-09-28T08:59:05.000Z"
+    },
+    {
+      "id": "xico-5fd7",
+      "victim": "XICO — claimed by qilin",
+      "sector": "Not Found",
+      "country": "MX",
+      "pubDate": "2026-09-27T17:03:11.000Z"
+    },
+    {
+      "id": "island-9019",
+      "victim": "Island — claimed by qilin",
+      "sector": "Technology",
+      "country": "CA",
+      "pubDate": "2026-09-27T17:02:29.000Z"
+    },
+    {
+      "id": "revenga-smart-solutions-e4a4",
+      "victim": "Revenga Smart Solutions — claimed by qilin",
+      "sector": "Technology",
       "country": "ES",
-      "pubDate": "2026-09-25T12:48:32.000Z"
+      "pubDate": "2026-09-27T16:06:05.000Z"
+    },
+    {
+      "id": "willatt-amp-flickinger-801a",
+      "victim": "Willatt &amp; Flickinger — claimed by qilin",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-27T16:05:11.000Z"
     }
   ]
 }

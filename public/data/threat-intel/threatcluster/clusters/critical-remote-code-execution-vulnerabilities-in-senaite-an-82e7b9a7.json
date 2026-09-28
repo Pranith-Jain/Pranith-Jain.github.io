@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/critical-remote-code-execution-vulnerabilities-in-senaite-an-82e7b9a7?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/critical-remote-code-execution-vulnerabilities-in-senaite-an-82e7b9a7",
   "pubDate": "2026-09-25T05:15:22.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
+  "sourceCount": 5,
+  "categories": ["5 Sources"],
   "description": "Two critical remote code execution vulnerabilities have been identified in SENAITE and Microsoft SharePoint. The SENAITE vulnerability CVE-2026-54569, published on August 26, 2026, allows attackers to…",
   "sizeBytes": 201
 }
