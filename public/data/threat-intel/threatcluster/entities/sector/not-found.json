@@ -5,20 +5,42 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 5,
-  "firstSeen": "2026-09-25T15:53:17.000Z",
-  "lastSeen": "2026-09-26T08:55:32.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 1 country.",
+  "firstSeen": "2026-09-26T08:44:49.000Z",
+  "lastSeen": "2026-09-28T00:35:17.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-09-25",
-      "count": 3
-    },
     {
       "date": "2026-09-26",
       "count": 2
+    },
+    {
+      "date": "2026-09-27",
+      "count": 2
+    },
+    {
+      "date": "2026-09-28",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ahead-33c7",
+      "title": "AHEAD — claimed by incransom",
+      "pubDate": "2026-09-28T00:35:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "xico-5fd7",
+      "title": "XICO — claimed by qilin",
+      "pubDate": "2026-09-27T17:03:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "willatt-amp-flickinger-801a",
+      "title": "Willatt &amp; Flickinger — claimed by qilin",
+      "pubDate": "2026-09-27T16:05:11.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "m-n-8c56",
@@ -30,32 +52,20 @@
       "slug": "craisa-9a15",
       "title": "Craisa — claimed by thegentlemen",
       "pubDate": "2026-09-26T08:44:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "n-338a",
-      "title": "N... — claimed by silentransomgroup",
-      "pubDate": "2026-09-25T19:28:34.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "s-338d",
-      "title": "S... — claimed by silentransomgroup",
-      "pubDate": "2026-09-25T19:27:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gtfm-aa7c",
-      "title": "GTFM — claimed by wallstreet",
-      "pubDate": "2026-09-25T15:53:17.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "silentransomgroup",
-      "name": "silentransomgroup",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
     },
     {
       "type": "group",
@@ -67,12 +77,6 @@
       "type": "group",
       "slug": "thegentlemen",
       "name": "thegentlemen",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "wallstreet",
-      "name": "wallstreet",
       "weight": 1
     }
   ],

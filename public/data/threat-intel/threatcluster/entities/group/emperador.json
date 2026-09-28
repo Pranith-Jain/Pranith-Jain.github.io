@@ -4,40 +4,82 @@
   "name": "emperador",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-25T17:51:02.000Z",
-  "lastSeen": "2026-09-25T17:51:02.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-09-27T09:51:32.000Z",
+  "lastSeen": "2026-09-28T02:51:39.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-09-25",
+      "date": "2026-09-27",
       "count": 1
+    },
+    {
+      "date": "2026-09-28",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "electrolux-amp-ontrac-6c5d",
-      "title": "Electrolux &amp; Ontrac — claimed by emperador",
-      "pubDate": "2026-09-25T17:51:02.000Z"
+      "slug": "siteprorentals-aa61",
+      "title": "SiteProRentals — claimed by emperador",
+      "pubDate": "2026-09-28T02:51:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "electrolux-2-1eca",
+      "title": "Electrolux 2... — claimed by emperador",
+      "pubDate": "2026-09-28T02:51:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "car-service-abschlepp-50ee",
+      "title": "Car Service Abschlepp — claimed by emperador",
+      "pubDate": "2026-09-27T09:51:32.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "electrolux-amp-ontrac-6c5d",
-      "victim": "Electrolux &amp; Ontrac — claimed by emperador",
-      "sector": "Manufacturing",
+      "id": "siteprorentals-aa61",
+      "victim": "SiteProRentals — claimed by emperador",
+      "sector": "Hospitality",
       "country": null,
-      "pubDate": "2026-09-25T17:51:02.000Z"
+      "pubDate": "2026-09-28T02:51:39.000Z"
+    },
+    {
+      "id": "electrolux-2-1eca",
+      "victim": "Electrolux 2... — claimed by emperador",
+      "sector": "Manufacturing",
+      "country": "SE",
+      "pubDate": "2026-09-28T02:51:03.000Z"
+    },
+    {
+      "id": "car-service-abschlepp-50ee",
+      "victim": "Car Service Abschlepp — claimed by emperador",
+      "sector": "Transportation",
+      "country": "DE",
+      "pubDate": "2026-09-27T09:51:32.000Z"
     }
   ]
 }

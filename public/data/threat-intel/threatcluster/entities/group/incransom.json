@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "incransom",
+  "name": "incransom",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-28T00:34:42.000Z",
+  "lastSeen": "2026-09-28T00:35:17.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-28",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ahead-33c7",
+      "title": "AHEAD — claimed by incransom",
+      "pubDate": "2026-09-28T00:35:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "nsbsd-org-e9f1",
+      "title": "nsbsd.org — claimed by incransom",
+      "pubDate": "2026-09-28T00:34:42.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ahead-33c7",
+      "victim": "AHEAD — claimed by incransom",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-28T00:35:17.000Z"
+    },
+    {
+      "id": "nsbsd-org-e9f1",
+      "victim": "nsbsd.org — claimed by incransom",
+      "sector": "Government & Defense",
+      "country": "US",
+      "pubDate": "2026-09-28T00:34:42.000Z"
+    }
+  ]
+}
