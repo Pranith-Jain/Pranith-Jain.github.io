@@ -1,10 +1,10 @@
 {
   "source": "github.com/SCStelz/security-investigator",
   "license": "MIT",
-  "replicatedAt": "2026-09-21",
+  "replicatedAt": "2026-09-28",
   "counts": {
     "skills": 28,
-    "queries": 62,
+    "queries": 67,
     "automations": 3,
     "docs": 11,
     "referenceData": 14,
@@ -979,6 +979,14 @@
       "sizeBytes": 17255
     },
     {
+      "slug": "threat-intelligence/2026-09/ai_assisted_executive_impersonation_invoice_fraud",
+      "domain": "threat-intelligence",
+      "subdomain": "2026-09",
+      "title": "AI-Assisted Executive Impersonation and Vendor Invoice Fraud (ACH) — Threat Hunts",
+      "filename": "ai_assisted_executive_impersonation_invoice_fraud.md",
+      "sizeBytes": 38380
+    },
+    {
       "slug": "threat-intelligence/2026-09/ascii_smuggling_phishing_evasion",
       "domain": "threat-intelligence",
       "subdomain": "2026-09",
@@ -993,6 +1001,38 @@
       "title": "Counterfeit Software Installers — Silver Fox-Consistent Fake Download Sites to Persistent Implant — Threat Hunts",
       "filename": "counterfeit_installers_fake_download_sites.md",
       "sizeBytes": 61951
+    },
+    {
+      "slug": "threat-intelligence/2026-09/eviltokens_storm_2992_device_code_postcompromise",
+      "domain": "threat-intelligence",
+      "subdomain": "2026-09",
+      "title": "EvilTokens (Storm-2992) — Device Code Phishing Post-Compromise Chains — Threat Hunts",
+      "filename": "eviltokens_storm_2992_device_code_postcompromise.md",
+      "sizeBytes": 48035
+    },
+    {
+      "slug": "threat-intelligence/2026-09/passkey_themed_social_engineering_cloud_compromise",
+      "domain": "threat-intelligence",
+      "subdomain": "2026-09",
+      "title": "Passkey-Themed Social Engineering → MFA Persistence, Graph Reconnaissance and Cloud Data Collection — Threat Hunts",
+      "filename": "passkey_themed_social_engineering_cloud_compromise.md",
+      "sizeBytes": 65746
+    },
+    {
+      "slug": "threat-intelligence/2026-09/storm_2570_ransomware_affiliate_tradecraft",
+      "domain": "threat-intelligence",
+      "subdomain": "2026-09",
+      "title": "Storm-2570 — Cross-RaaS Ransomware Affiliate Tradecraft (Qilin, DragonForce, Anubis, BERT) — Threat Hunts",
+      "filename": "storm_2570_ransomware_affiliate_tradecraft.md",
+      "sizeBytes": 58919
+    },
+    {
+      "slug": "threat-intelligence/2026-09/storm_3168_agentic_cloud_spn_destruction",
+      "domain": "threat-intelligence",
+      "subdomain": "2026-09",
+      "title": "Storm-3168 (JADEPUFFER) — Agentic Azure Destruction via Compromised Service Principals — Threat Hunts",
+      "filename": "storm_3168_agentic_cloud_spn_destruction.md",
+      "sizeBytes": 53123
     },
     {
       "slug": "threat-intelligence/2026-09/teams_helpdesk_impersonation_nodejs_implant",
