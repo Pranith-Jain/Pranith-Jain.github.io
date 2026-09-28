@@ -1,8 +1,24 @@
 {
-  "updatedAt": "2026-09-27T11:58:41.445Z",
-  "total": 54,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 5 },
+  "updatedAt": "2026-09-28T13:47:57.884Z",
+  "total": 53,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 4 },
   "items": [
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "OpenAI is preparing “o,” an always-on ChatGPT assistant that could handle email",
+      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-is-preparing-o-an-always-on-chatgpt-assistant-that-could-handle-email/",
+      "pubDate": "Sun, 27 Sep 2026 19:40:39 -0400",
+      "source": "bleepingcomputer",
+      "description": "OpenAI is testing a new always-on assistant called \"o\", and references to the unannounced feature briefly showed up on the company's website. [...]"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Anthropic turns Claude into an AI marketplace with 2,000+ plugins and connectors",
+      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-turns-claude-into-an-ai-marketplace-with-2-000-plus-plugins-and-connectors/",
+      "pubDate": "Sun, 27 Sep 2026 09:38:40 -0400",
+      "source": "bleepingcomputer",
+      "description": "Anthropic has just announced a new Claude Marketplace, and it brings all AI-related tools into one place, including plugins, connectors, agents, and more. [...]"
+    },
     {
       "id": "aHR0cHM6Ly93",
       "title": "Claude Opus 5.5 uses 95% fewer em dashes, but its answers are getting longer",
@@ -18,30 +34,6 @@
       "pubDate": "Sat, 26 Sep 2026 08:28:41 -0400",
       "source": "bleepingcomputer",
       "description": "OpenAI says its AI agents uploaded user-provided images to third-party image-hosting services while carrying out research and evaluation tasks. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "Anthropic rolls out up to $250 in free Claude Code credits, but only for cloud sessions",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-rolls-out-up-to-250-in-free-claude-code-credits-but-only-for-cloud-sessions/",
-      "pubDate": "Fri, 25 Sep 2026 12:00:00 -0400",
-      "source": "bleepingcomputer",
-      "description": "Anthropic now allows you to run Claude Code via cloud sessions without signing up for the research preview, and it's offering up to $250 in free usage credits, so more users can give it a try. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "OpenAI is preparing a $500 ChatGPT Pro Max plan with faster Codex",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-is-preparing-a-500-chatgpt-pro-max-plan-with-faster-codex/",
-      "pubDate": "Fri, 25 Sep 2026 10:54:33 -0400",
-      "source": "bleepingcomputer",
-      "description": "OpenAI appears to be preparing a new ChatGPT Pro Max subscription that could cost $500 per month, but it's unclear when it'll begin rolling out. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "With the Rise of AI Agents, SOC 2 Should Adapt or Risk Irrelevance",
-      "link": "https://www.bleepingcomputer.com/news/security/with-the-rise-of-ai-agents-soc-2-should-adapt-or-risk-irrelevance/",
-      "pubDate": "Fri, 25 Sep 2026 10:51:10 -0400",
-      "source": "bleepingcomputer",
-      "description": "AI agents can operate through human credentials and take actions that existing SOC 2 controls may not distinguish from human activity. Token Security explains why SOC 2 needs to adapt to address the security gaps created by agent identities. [...]"
     },
     {
       "id": "aHR0cHM6Ly9j",

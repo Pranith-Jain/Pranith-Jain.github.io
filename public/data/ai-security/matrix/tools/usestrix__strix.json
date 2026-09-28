@@ -3,13 +3,13 @@
   "repo": "usestrix/strix",
   "category": "agent",
   "scope": ["webapp", "api", "code"],
-  "stars": 65051,
+  "stars": 65244,
   "description": "Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
   "homepage": "https://strix.ai",
   "added": "2026-09-12",
-  "checkedAt": "2026-09-27T03:17:13Z",
-  "pushedAt": "2026-09-25",
-  "daysIdle": 2,
+  "checkedAt": "2026-09-28T03:17:12Z",
+  "pushedAt": "2026-09-28",
+  "daysIdle": 0,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -23,31 +23,31 @@
       "description": "Drives a live pentest against a running web app or API, choosing each probe from what the last one returned, then reports what it found."
     },
     "derived": {
-      "checked_at": "2026-09-27T03:17:13Z",
+      "checked_at": "2026-09-28T03:17:12Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-25",
-        "days_since_push": 2,
-        "total_commits": 818,
-        "last100_span_days": 41,
-        "last100_authors": 9,
-        "last_commit_sha": "ae38fe7",
-        "last_commit_message": "Fill in blank tool-call ids so strict providers accept the history (#1355)",
-        "last_commit_at": "2026-09-24",
+        "pushed_at": "2026-09-28",
+        "days_since_push": 0,
+        "total_commits": 819,
+        "last100_span_days": 45,
+        "last100_authors": 10,
+        "last_commit_sha": "d6dd9de",
+        "last_commit_message": "fix(dev): make check-all non-mutating (#1360)",
+        "last_commit_at": "2026-09-28",
         "releases": 29,
         "latest_release_at": "2026-09-05",
-        "days_since_release": 22,
-        "days_idle": 2,
+        "days_since_release": 23,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "usestrix/strix",
-        "stars": 65051,
-        "forks": 7144,
+        "stars": 65244,
+        "forks": 7165,
         "created_at": "2025-08-05",
         "is_fork": false,
-        "contributors": 71,
+        "contributors": 72,
         "top_contributor_share": 0.69,
         "homepage": "https://strix.ai",
         "description": "Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
@@ -109,7 +109,8 @@
         "manifests": ["containers/Dockerfile"]
       },
       "rebadge": [{ "repo": "Nightlysec/nightly", "shared_files": 117, "overlap": 0.3524 }],
-      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": false }
+      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": false },
+      "risk_where": { "install": "README.md:85", "phones_home": "strix/telemetry/posthog.py:25" }
     }
   }
 }

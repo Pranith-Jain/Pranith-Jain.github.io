@@ -149,66 +149,6 @@
     "reportNum": "7912",
     "description": "Package\n\n cline (npm)\n\nAffected versions\n\n2.3.0\n\nPatched versions\n\n\\=2.4.0\n\nDescription\n\nDescription\n\nOn February 17, 2026 at 3:26 AM PT, an unauthorized party used a compromised npm publish token to publish an update to Cline CLI on the NP ... (https://incidentdatabase.ai/cite/1680#7912)"
   },
-  "7913": {
-    "id": "7913",
-    "guid": "2a7b7e15-6e3b-581a-aafa-36b1863a1a45",
-    "title": "Cline Supply Chain Attack Detected: cline@2.3.0 Silently Installs OpenClaw",
-    "link": "https://www.stepsecurity.io/blog/cline-supply-chain-attack-detected-cline-2-3-0-silently-installs-openclaw",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": "1680",
-    "reportNum": "7913",
-    "description": "Overview\n\nOn February 17, 2026 at 11:40 UTC, the StepSecurity npm monitoring system detected a suspicious release of the cline npm package. Version 2.3.0 of this widely-used autonomous coding agent CLI was published with a malicious post-in ... (https://incidentdatabase.ai/cite/1680#7913)"
-  },
-  "7914": {
-    "id": "7914",
-    "guid": "0fb75440-08b0-5907-b89e-d2774c7fc4a0",
-    "title": "Cline CLI npm Package Compromised via Suspected Cache Poisoning Attack",
-    "link": "https://socket.dev/blog/cline-cli-npm-package-compromised-via-suspected-cache-poisoning-attack",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": "1680",
-    "reportNum": "7914",
-    "description": "On February 17, 2026, an unauthorized party used a compromised npm publish token to push cline@2.3.0 to the npm registry. Cline is a popular AI coding agent CLI in the developer ecosystem, with around 90,000 weekly downloads from npm. The m ... (https://incidentdatabase.ai/cite/1680#7914)"
-  },
-  "7916": {
-    "id": "7916",
-    "guid": "d36602c1-96d5-57b1-98dc-9e7561dba965",
-    "title": "Georgia couple loses $800K in sophisticated cryptocurrency scam",
-    "link": "https://www.fox5atlanta.com/news/georgia-couple-loses-800k-sophisticated-cryptocurrency-scam.amp",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": "1681",
-    "reportNum": "7916",
-    "description": "The Brief\n\nA Georgia couple lost nearly $800,000 in a cryptocurrency scam initiated through a WhatsApp message, leaving them financially devastated.\n\nThe scam involved a legitimate-looking mobile trading app and an AI-generated \"ghost site\" ... (https://incidentdatabase.ai/cite/1681#7916)"
-  },
-  "7917": {
-    "id": "7917",
-    "guid": "93f07cb2-6362-56cb-8b0e-87e9157b781f",
-    "title": "Gwinnett couple warn others after losing $800K in cryptocurrency scam",
-    "link": "https://www.ajc.com/news/2025/06/gwinnett-couple-warn-others-after-losing-800k-in-cryptocurrency-scam/",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": "1681",
-    "reportNum": "7917",
-    "description": "Jerry Dunaway said his heart sank while staring at the glow of a cellphone inside his northeast Gwinnett County home last week.\n\nHe had just tried to withdraw money from his cryptocurrency account, but couldn't. The 74-year-old's head was s ... (https://incidentdatabase.ai/cite/1681#7917)"
-  },
-  "7918": {
-    "id": "7918",
-    "guid": "1f9b6a17-d9e9-5933-820c-cc27b2c95bfb",
-    "title": "AI scams in Georgia and South Florida: How scammers use deepfakes to steal millions",
-    "link": "https://www.cbsnews.com/atlanta/news/ai-scams-in-georgia-and-south-florida-how-scammers-use-deepfakes-to-steal-millions/",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": "1660",
-    "reportNum": "7918",
-    "description": "Artificial intelligence is no longer just helping people write emails or generate images. Investigators say it's also helping scammers steal money by making fake voices, photos and phone calls look and sound frighteningly real.\n\nFor one Sou ... (https://incidentdatabase.ai/cite/1660#7918)"
-  },
-  "7919": {
-    "id": "7919",
-    "guid": "04c75624-7d01-5271-86e0-b3846d116ce6",
-    "title": "Waymo cars stranded on San Francisco streets as Fourth of July gridlock drains batteries",
-    "link": "https://www.nbcnews.com/news/us-news/waymo-cars-stranded-san-francisco-streets-drain-batteries-rcna353089",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": "1583",
-    "reportNum": "7919",
-    "description": "Several Waymo vehicles had to be towed away after the company said their batteries died while they were stuck in heavy San Francisco traffic amid Fourth of July celebrations.\n\nVideo verified by NBC News showed at least a dozen stationary Wa ... (https://incidentdatabase.ai/cite/1583#7919)"
-  },
   "7925": {
     "id": "7925",
     "guid": "acc1e89a-c421-5a31-a6ce-a8852a9a7a1c",
@@ -909,6 +849,76 @@
     "reportNum": "7998",
     "description": "When state inspectors visited a dusty construction site amid the farmland of southern New Jersey in late July, it was impossible to miss the 62 tractor-trailer-size generators powering one of the largest planned data centers on the Eastern  ... (https://incidentdatabase.ai/cite/1709#7998)"
   },
+  "8000": {
+    "id": "8000",
+    "guid": "422c419d-a1a9-5af7-9d43-6d977bff8496",
+    "title": "How OpenAI’s Rogue A.I. Agents Tried to Trick a Robot Detector",
+    "link": "https://www.nytimes.com/2026/09/25/technology/openai-hugging-face-hack.html",
+    "pubDate": "Fri, 25 Sep 2026 00:00:00 GMT",
+    "citeId": "1604",
+    "reportNum": "8000",
+    "description": "An artificial intelligence system from OpenAI attempted to use another A.I. model to evade a robot detection test as it tried over and over to break into a company's computers, according to a report released on Friday by a Bay Area start-up ... (https://incidentdatabase.ai/cite/1604#8000)"
+  },
+  "8001": {
+    "id": "8001",
+    "guid": "8378ee6c-811c-5209-9de1-20bbb474b36b",
+    "title": "Revealing the details of how OpenAI agents hacked Hugging Face",
+    "link": "https://swarmtraces.org/",
+    "pubDate": "Fri, 25 Sep 2026 00:00:00 GMT",
+    "citeId": "1604",
+    "reportNum": "8001",
+    "description": "AIID editor's note: Below is just the introduction to the report. For the full findings, please visit the original source at: https://swarmtraces.org/.\n\nIntro\n\nWhen a swarm of 700 OpenAI agents hacked Hugging Face in July, they left behind  ... (https://incidentdatabase.ai/cite/1604#8001)"
+  },
+  "8002": {
+    "id": "8002",
+    "guid": "905b3803-a08b-5bb7-9e52-3b117a65d23b",
+    "title": "OpenAI’s Systems Meddled With U.S. Government Sites After Going Rogue",
+    "link": "https://www.nytimes.com/2026/09/25/technology/openais-ai-us-government-websites.html",
+    "pubDate": "Sat, 26 Sep 2026 00:00:00 GMT",
+    "citeId": "1710",
+    "reportNum": "8002",
+    "description": "OpenAI's artificial intelligence went rogue and meddled with the websites for the Education Department, the Commerce Department and the Securities and Exchange Commission this summer without the A.I. lab's knowledge, according to security r ... (https://incidentdatabase.ai/cite/1710#8002)"
+  },
+  "8003": {
+    "id": "8003",
+    "guid": "6f661629-93ac-5bae-8cf6-818eac1ae9de",
+    "title": "‘CM Vijay’ WhatsApp call promises Rs 11 lakh aid, Bengaluru man loses Rs 1 lakh",
+    "link": "https://timesofindia.indiatimes.com/city/bengaluru/cm-vijay-deepfake-whatsapp-call-promises-rs-11-lakh-aid-bengaluru-man-loses-rs-1-lakh/articleshow/134215533.cms",
+    "pubDate": "Sat, 26 Sep 2026 00:00:00 GMT",
+    "citeId": "1711",
+    "reportNum": "8003",
+    "description": "BENGALURU: “I am CM Vijay. I am here to help you,” a voice and face appearing on a WhatsApp video call allegedly convinced a 29-year-old security guard that he was speaking to Tamil Nadu chief minister and actor C Joseph Vijay.\n\nPromised Rs ... (https://incidentdatabase.ai/cite/1711#8003)"
+  },
+  "8004": {
+    "id": "8004",
+    "guid": "faca338f-8ad2-5b4c-8b68-495ccb80e0d9",
+    "title": "Victim loses £250k after scammers use AI video of 'well-known' celebrity",
+    "link": "https://www.bbc.com/news/articles/cx2zkp8vx9jo",
+    "pubDate": "Sat, 26 Sep 2026 00:00:00 GMT",
+    "citeId": "1712",
+    "reportNum": "8004",
+    "description": "A person has lost £250,000 after falling victim to an AI-generated scam.\n\nThe Police Service of Northern Ireland (PSNI) said the victim saw what appeared to be an AI-generated video featuring a well-known personality from the financial sect ... (https://incidentdatabase.ai/cite/1712#8004)"
+  },
+  "8005": {
+    "id": "8005",
+    "guid": "9b675fca-a30b-5ec4-94c2-29285ba12995",
+    "title": "York man was held at gunpoint over incorrect Flock hit. Sheriff blames illegal tag cover",
+    "link": "https://www.heraldonline.com/news/local/crime/article316428323.html",
+    "pubDate": "Sun, 27 Sep 2026 00:00:00 GMT",
+    "citeId": "1713",
+    "reportNum": "8005",
+    "description": "A York County man is suing the sheriff’s office after a Flock camera falsely flagged his car as stolen, prompting police to hold him at gunpoint.\n\nAccording to a lawsuit filed June 29 in York County, Steven Melvin, 42, was stopped by a York ... (https://incidentdatabase.ai/cite/1713#8005)"
+  },
+  "8006": {
+    "id": "8006",
+    "guid": "5ae85bbe-59ff-510a-9a70-10f8239baf83",
+    "title": "China's Z.ai disables AI coding assistant features after security issue",
+    "link": "https://www.reuters.com/legal/litigation/chinas-zai-disables-ai-coding-assistant-features-after-security-issue-2026-09-21/",
+    "pubDate": "Sun, 27 Sep 2026 00:00:00 GMT",
+    "citeId": "1714",
+    "reportNum": "8006",
+    "description": "BEIJING, Sept 21 (Reuters) - Chinese startup Z.ai said on Monday it had disabled some features of its flagship AI coding assistant ​after some users reported it was uploading entire local code repositories onto overseas cloud servers withou ... (https://incidentdatabase.ai/cite/1714#8006)"
+  },
   "Y2EwNDBkOTEt": {
     "id": "Y2EwNDBkOTEt",
     "guid": "ca040d91-80ac-5e9f-9ae7-f0254d293ecf",
@@ -988,15 +998,5 @@
     "citeId": null,
     "reportNum": null,
     "description": "ChatGPT Operator is a research preview agent from OpenAI that lets ChatGPT use a web browser. It uses vision and reasoning abilities to complete tasks like researching topics, booking travel, ordering groceries, or as this post will show, s ... (report_number: 7909)"
-  },
-  "YTg2OTU4NjEt": {
-    "id": "YTg2OTU4NjEt",
-    "guid": "a8695861-67ee-5915-9cf3-91ebb50da041",
-    "title": "How Claude Code escapes its own denylist and sandbox",
-    "link": "https://ona.com/stories/how-claude-code-escapes-its-own-denylist-and-sandbox",
-    "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-    "citeId": null,
-    "reportNum": null,
-    "description": "In the last ten days: a single person used Claude to breach Mexican government agencies. Cline's own AI-powered triage workflow was compromised via prompt injection. A new Shai-Hulud variant started injecting rogue MCP servers into develope ... (report_number: 7915)"
   }
 }

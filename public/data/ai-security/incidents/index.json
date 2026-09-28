@@ -1,8 +1,53 @@
 {
-  "updatedAt": "2026-09-27T11:58:41.358Z",
+  "updatedAt": "2026-09-28T13:47:57.796Z",
   "source": "https://incidentdatabase.ai/rss.xml",
   "total": 100,
   "reports": [
+    {
+      "id": "8005",
+      "guid": "9b675fca-a30b-5ec4-94c2-29285ba12995",
+      "title": "York man was held at gunpoint over incorrect Flock hit. Sheriff blames illegal tag cover",
+      "link": "https://www.heraldonline.com/news/local/crime/article316428323.html",
+      "pubDate": "Sun, 27 Sep 2026 00:00:00 GMT",
+      "citeId": "1713",
+      "reportNum": "8005"
+    },
+    {
+      "id": "8006",
+      "guid": "5ae85bbe-59ff-510a-9a70-10f8239baf83",
+      "title": "China's Z.ai disables AI coding assistant features after security issue",
+      "link": "https://www.reuters.com/legal/litigation/chinas-zai-disables-ai-coding-assistant-features-after-security-issue-2026-09-21/",
+      "pubDate": "Sun, 27 Sep 2026 00:00:00 GMT",
+      "citeId": "1714",
+      "reportNum": "8006"
+    },
+    {
+      "id": "8002",
+      "guid": "905b3803-a08b-5bb7-9e52-3b117a65d23b",
+      "title": "OpenAI’s Systems Meddled With U.S. Government Sites After Going Rogue",
+      "link": "https://www.nytimes.com/2026/09/25/technology/openais-ai-us-government-websites.html",
+      "pubDate": "Sat, 26 Sep 2026 00:00:00 GMT",
+      "citeId": "1710",
+      "reportNum": "8002"
+    },
+    {
+      "id": "8003",
+      "guid": "6f661629-93ac-5bae-8cf6-818eac1ae9de",
+      "title": "‘CM Vijay’ WhatsApp call promises Rs 11 lakh aid, Bengaluru man loses Rs 1 lakh",
+      "link": "https://timesofindia.indiatimes.com/city/bengaluru/cm-vijay-deepfake-whatsapp-call-promises-rs-11-lakh-aid-bengaluru-man-loses-rs-1-lakh/articleshow/134215533.cms",
+      "pubDate": "Sat, 26 Sep 2026 00:00:00 GMT",
+      "citeId": "1711",
+      "reportNum": "8003"
+    },
+    {
+      "id": "8004",
+      "guid": "faca338f-8ad2-5b4c-8b68-495ccb80e0d9",
+      "title": "Victim loses £250k after scammers use AI video of 'well-known' celebrity",
+      "link": "https://www.bbc.com/news/articles/cx2zkp8vx9jo",
+      "pubDate": "Sat, 26 Sep 2026 00:00:00 GMT",
+      "citeId": "1712",
+      "reportNum": "8004"
+    },
     {
       "id": "Y2EwNDBkOTEt",
       "guid": "ca040d91-80ac-5e9f-9ae7-f0254d293ecf",
@@ -11,6 +56,24 @@
       "pubDate": "Fri, 25 Sep 2026 15:14:50 GMT",
       "citeId": null,
       "reportNum": null
+    },
+    {
+      "id": "8000",
+      "guid": "422c419d-a1a9-5af7-9d43-6d977bff8496",
+      "title": "How OpenAI’s Rogue A.I. Agents Tried to Trick a Robot Detector",
+      "link": "https://www.nytimes.com/2026/09/25/technology/openai-hugging-face-hack.html",
+      "pubDate": "Fri, 25 Sep 2026 00:00:00 GMT",
+      "citeId": "1604",
+      "reportNum": "8000"
+    },
+    {
+      "id": "8001",
+      "guid": "8378ee6c-811c-5209-9de1-20bbb474b36b",
+      "title": "Revealing the details of how OpenAI agents hacked Hugging Face",
+      "link": "https://swarmtraces.org/",
+      "pubDate": "Fri, 25 Sep 2026 00:00:00 GMT",
+      "citeId": "1604",
+      "reportNum": "8001"
     },
     {
       "id": "7990",
@@ -839,69 +902,6 @@
       "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
       "citeId": "1680",
       "reportNum": "7912"
-    },
-    {
-      "id": "7913",
-      "guid": "2a7b7e15-6e3b-581a-aafa-36b1863a1a45",
-      "title": "Cline Supply Chain Attack Detected: cline@2.3.0 Silently Installs OpenClaw",
-      "link": "https://www.stepsecurity.io/blog/cline-supply-chain-attack-detected-cline-2-3-0-silently-installs-openclaw",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1680",
-      "reportNum": "7913"
-    },
-    {
-      "id": "7914",
-      "guid": "0fb75440-08b0-5907-b89e-d2774c7fc4a0",
-      "title": "Cline CLI npm Package Compromised via Suspected Cache Poisoning Attack",
-      "link": "https://socket.dev/blog/cline-cli-npm-package-compromised-via-suspected-cache-poisoning-attack",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1680",
-      "reportNum": "7914"
-    },
-    {
-      "id": "YTg2OTU4NjEt",
-      "guid": "a8695861-67ee-5915-9cf3-91ebb50da041",
-      "title": "How Claude Code escapes its own denylist and sandbox",
-      "link": "https://ona.com/stories/how-claude-code-escapes-its-own-denylist-and-sandbox",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": null,
-      "reportNum": null
-    },
-    {
-      "id": "7916",
-      "guid": "d36602c1-96d5-57b1-98dc-9e7561dba965",
-      "title": "Georgia couple loses $800K in sophisticated cryptocurrency scam",
-      "link": "https://www.fox5atlanta.com/news/georgia-couple-loses-800k-sophisticated-cryptocurrency-scam.amp",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1681",
-      "reportNum": "7916"
-    },
-    {
-      "id": "7917",
-      "guid": "93f07cb2-6362-56cb-8b0e-87e9157b781f",
-      "title": "Gwinnett couple warn others after losing $800K in cryptocurrency scam",
-      "link": "https://www.ajc.com/news/2025/06/gwinnett-couple-warn-others-after-losing-800k-in-cryptocurrency-scam/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1681",
-      "reportNum": "7917"
-    },
-    {
-      "id": "7918",
-      "guid": "1f9b6a17-d9e9-5933-820c-cc27b2c95bfb",
-      "title": "AI scams in Georgia and South Florida: How scammers use deepfakes to steal millions",
-      "link": "https://www.cbsnews.com/atlanta/news/ai-scams-in-georgia-and-south-florida-how-scammers-use-deepfakes-to-steal-millions/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1660",
-      "reportNum": "7918"
-    },
-    {
-      "id": "7919",
-      "guid": "04c75624-7d01-5271-86e0-b3846d116ce6",
-      "title": "Waymo cars stranded on San Francisco streets as Fourth of July gridlock drains batteries",
-      "link": "https://www.nbcnews.com/news/us-news/waymo-cars-stranded-san-francisco-streets-drain-batteries-rcna353089",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1583",
-      "reportNum": "7919"
     }
   ]
 }
