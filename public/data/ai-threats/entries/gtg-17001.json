@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-17001",
+  "name": "GTG-17001",
+  "akas": "UnSub (Anthropic designation); China-based operation",
+  "brief": "Anthropic disrupted a China-based operation that used Claude to draft a Chinese-language specification for an anti-torpedo fire-control system — \"the core logic that aims and times an anti-torpedo weapon's response\" — written to win approval from a Chinese defense manufacturer, plus a 200+ page acquisition proposal and an associated fire-control software test matrix. Anthropic",
+  "ttps": ["T1587"],
+  "categories": ["LLM-assisted weapons/munitions engineering", "LLM-aided development"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 379,
+  "ttpMd": "**LLM-assisted weapons/munitions engineering**<br><br>**LLM-aided development** T1587 - Develop Capabilities (acquisition/proposal documentation)"
+}

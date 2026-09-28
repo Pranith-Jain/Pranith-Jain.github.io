@@ -1,0 +1,13 @@
+{
+  "slug": "storm-0817",
+  "name": "STORM-0817",
+  "akas": "Iran-based actor",
+  "brief": "OpenAI disrupted Storm-0817, an Iran-based actor using ChatGPT to debug rudimentary Android surveillanceware (two APKs — `com.example.myttt` and `com.mihanwebmaster.ashpazi` — capable of exfiltrating contacts, call logs, screenshots, IMEI, and geolocation, plus WhatsApp/IMO files), build C2 server code (a WAMP-stack server at `stickhero[.]pro`), debug an Instagram-scraping tool tested against an Iranian journalist critical of the government, and translate LinkedIn profiles of Pakistani cybersecurity/military-affiliated academics into Persian. OpenAI: \"we believe our models only offered limited, incremental capabilities for malicious cybersecurity tasks beyond what is already achievable with publicly available, non-AI powered tools.\" *Backfill note: see CyberAv3ngers row above — same October 2024 report.* OpenAI",
+  "ttps": ["T1119", "T1587.001"],
+  "categories": ["LLM-aided development", "LLM-directed Automated Collection"],
+  "reported": "Oct 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 822,
+  "ttpMd": "**LLM-aided development** T1587.001 - Develop Capabilities: Malware (Android surveillanceware, C2 server)<br><br>**LLM-directed Automated Collection** T1119 - Automated Collection (Instagram scraper, target profiling)"
+}

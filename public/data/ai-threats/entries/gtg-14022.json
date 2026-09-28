@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-14022",
+  "name": "GTG-14022",
+  "akas": "Contractor for PRC-government clients",
+  "brief": "A China-based contractor for PRC-government clients ran an automated daily \"public opinion monitoring\" pipeline (15–30+ articles/day) scoring social-media and news content for political sensitivity, producing restricted government briefings (\"舆情简报\") profiling dissidents, ethnic minorities, diaspora communities, and Taiwanese political figures. Anthropic",
+  "ttps": ["T1119", "T1587"],
+  "categories": ["LLM-directed Automated Collection", "LLM-aided development"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 355,
+  "ttpMd": "**LLM-directed Automated Collection** T1119 - Automated Collection<br><br>**LLM-aided development** T1587 - Develop Capabilities (automated scoring pipeline)"
+}

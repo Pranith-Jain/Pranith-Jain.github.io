@@ -1,0 +1,13 @@
+{
+  "slug": "unnamed-fraud-ring",
+  "name": "Unnamed fraud ring",
+  "akas": "",
+  "brief": "PSNI warned after a victim in Ards and North Down lost £250,000 to a multi-stage investment scam that began with an AI-generated video appearing to feature a prominent financial-sector figure promoting a high-return investment. After an initial small payment, the victim was contacted on WhatsApp and pressured into further transfers, set up multiple accounts, and granted the fraudsters remote access to their computer. *Analyst note: PSNI's own statement does not confirm which individual's likeness was used; secondary coverage's identification is unconfirmed by the primary source and is deliberately not repeated here.* PSNI",
+  "ttps": [],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Sep 2026",
+  "activity": "Unknown (reported Sep 2026)",
+  "table": "deepfake",
+  "sizeBytes": 629,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>Financial fraud (investment scam)"
+}

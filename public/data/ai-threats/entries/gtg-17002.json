@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-17002",
+  "name": "GTG-17002",
+  "akas": "UnSub (Anthropic designation); China-based operation",
+  "brief": "A separate China-based operation used Claude's chat, coding, and agentic tooling to design, build, and iteratively refine (12 versions) a roughly 16-module Chinese-language software suite for electronic warfare and suppression of an opponent's air-defense systems. Anthropic",
+  "ttps": ["T1587.001"],
+  "categories": ["LLM-assisted weapons/munitions engineering", "LLM-aided development"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 274,
+  "ttpMd": "**LLM-assisted weapons/munitions engineering**<br><br>**LLM-aided development** T1587.001 - Develop Capabilities: Tool (iterative agentic build)"
+}

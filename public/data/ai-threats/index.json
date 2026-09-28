@@ -2,9 +2,9 @@
   "source": "Cybershujin Threat Actors' Use of Artificial Intelligence tracker",
   "sourceUrl": "https://cybershujin.github.io/Threat-Actors-use-of-Artifical-Intelligence/",
   "license": "MIT",
-  "replicatedAt": "2026-09-21",
-  "lastSyncedAt": "2026-09-21T13:12:56.894Z",
-  "counts": { "total": 119, "main": 105, "deepfake": 14 },
+  "replicatedAt": "2026-09-28",
+  "lastSyncedAt": "2026-09-28T14:21:45.195Z",
+  "counts": { "total": 134, "main": 118, "deepfake": 16 },
   "stixAvailable": true,
   "threatIndex": [
     {
@@ -219,16 +219,32 @@
       "sizeBytes": 282
     },
     {
+      "slug": "cyberav3ngers",
+      "name": "CyberAv3ngers",
+      "akas": "IRGC-affiliated per public reporting cited by OpenAI; publicly linked to PLC compromise at the Municipal Water Authority of Aliquippa, PA (Nov 2023) and a water-service disruption in County Mayo, Ireland (Dec 2023)",
+      "brief": "OpenAI banned ChatGPT accounts assessed, per a credible-source tip, to belong to CyberAv3ngers. Interactions included listing commonly used industrial routers in Jordan; requesting default credentials for a Tridium Niagara device and a H…",
+      "ttps": ["T1027", "T1588.006", "T1592"],
+      "categories": [
+        "LLM-informed reconnaissance",
+        "LLM-assisted vulnerability research",
+        "LLM-optimized payload crafting"
+      ],
+      "reported": "Oct 2024",
+      "activity": "Unknown (ChatGPT interactions undated in the report; the group's own prior physical intrusions were Nov–Dec 2023, a distinct window from the ChatGPT-use activity)",
+      "table": "main",
+      "sizeBytes": 1112
+    },
+    {
       "slug": "dprk-it-worker-operation",
       "name": "DPRK IT-worker operation",
       "akas": "",
       "brief": "DPRK operatives use AI-generated résumés/personas, AI profile photos, and real-time deepfake video to pass job interviews, and Claude to pass coding assessments and perform the work while fraudulently employed, funneling wages to the reg…",
       "ttps": [],
       "categories": ["DeepFake for Impersonation", "DeepFake for Synthetic Identity"],
-      "reported": "Aug 2025 – Mar 2026",
-      "activity": "Aug 2025 – 2026",
+      "reported": "Aug 2025 – Mar 2026; Sep 2026 (WaterPlum joint advisory)",
+      "activity": "Aug 2025 – Jul 2026",
       "table": "deepfake",
-      "sizeBytes": 524
+      "sizeBytes": 1920
     },
     {
       "slug": "dragonbridge",
@@ -294,6 +310,23 @@
       "activity": "Jan 2026 – Jun 2026",
       "table": "main",
       "sizeBytes": 1035
+    },
+    {
+      "slug": "eviltokens",
+      "name": "EvilTokens",
+      "akas": "UnSub (no named group / Storm-#### designation given in this post)",
+      "brief": "Microsoft's Digital Crimes Unit disrupted EvilTokens, an AI chatbot platform sold via Telegram ($1,500 initiation + $500/month) that used AI \"at every step of the attack chain\" — analyzing compromised inboxes to identify trusted relation…",
+      "ttps": ["T1114", "T1566", "T1585", "T1657"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-directed Automated Collection",
+        "LLM-supported social engineering",
+        "LLM-enhanced extortion/negotiation"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Feb 2026 – Sep 2026 (launched Feb 2026; disruption action Sep 2026)",
+      "table": "main",
+      "sizeBytes": 1339
     },
     {
       "slug": "fancy-bear",
@@ -383,6 +416,54 @@
       "sizeBytes": 578
     },
     {
+      "slug": "gtg-14021",
+      "name": "GTG-14021",
+      "akas": "PRC-aligned public security and state security organs",
+      "brief": "A China-based public-and-state-security \"stability maintenance\" and transnational-repression operation, run from inside the PRC via VPN/v2ray access (device timezone consistently UTC+8 regardless of exit node), targeting Hong Kong pro-de…",
+      "ttps": ["T1119", "T1591"],
+      "categories": ["LLM-directed Automated Collection", "LLM-informed reconnaissance"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 513
+    },
+    {
+      "slug": "gtg-14022",
+      "name": "GTG-14022",
+      "akas": "Contractor for PRC-government clients",
+      "brief": "A China-based contractor for PRC-government clients ran an automated daily \"public opinion monitoring\" pipeline (15–30+ articles/day) scoring social-media and news content for political sensitivity, producing restricted government briefi…",
+      "ttps": ["T1119", "T1587"],
+      "categories": ["LLM-directed Automated Collection", "LLM-aided development"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 355
+    },
+    {
+      "slug": "gtg-17001",
+      "name": "GTG-17001",
+      "akas": "UnSub (Anthropic designation); China-based operation",
+      "brief": "Anthropic disrupted a China-based operation that used Claude to draft a Chinese-language specification for an anti-torpedo fire-control system — \"the core logic that aims and times an anti-torpedo weapon's response\" — written to win appr…",
+      "ttps": ["T1587"],
+      "categories": ["LLM-assisted weapons/munitions engineering", "LLM-aided development"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 379
+    },
+    {
+      "slug": "gtg-17002",
+      "name": "GTG-17002",
+      "akas": "UnSub (Anthropic designation); China-based operation",
+      "brief": "A separate China-based operation used Claude's chat, coding, and agentic tooling to design, build, and iteratively refine (12 versions) a roughly 16-module Chinese-language software suite for electronic warfare and suppression of an oppo…",
+      "ttps": ["T1587.001"],
+      "categories": ["LLM-assisted weapons/munitions engineering", "LLM-aided development"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 274
+    },
+    {
       "slug": "gtg-20006",
       "name": "GTG-20006",
       "akas": "Russian espionage group; Anthropic states \"consistent with public reporting linking the actor to Midnight Blizzard\"",
@@ -416,6 +497,22 @@
       "sizeBytes": 410
     },
     {
+      "slug": "gtg-27005",
+      "name": "GTG-27005",
+      "akas": "\"DronDoc\" / \"Serafim\" (actors' own operation names); assessed as a small freelance team, possibly linked to a Russian university/federal research center",
+      "brief": "Anthropic disrupted likely freelance Russia-based actors building a full-stack autonomous FPV kamikaze drone swarm via Claude Code — shared swarm memory/fault-tolerant coordination logic, an onboard small language model governing attack/…",
+      "ttps": ["T1587"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-assisted weapons/munitions engineering",
+        "LLM-aided development"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Accounts created late 2025 – early 2026; operation active mid-May 2026 – Aug 2026 (report cutoff)",
+      "table": "main",
+      "sizeBytes": 989
+    },
+    {
       "slug": "gtg-30004",
       "name": "GTG-30004",
       "akas": "Iran-nexus; unnamed",
@@ -440,6 +537,22 @@
       "sizeBytes": 93
     },
     {
+      "slug": "gtg-34007",
+      "name": "GTG-34007",
+      "akas": "Two linked Iranian paramilitary/domestic-security units",
+      "brief": "Anthropic banned 16 Claude accounts tied to two linked Iranian paramilitary/domestic-security units running surveillance systems and a malicious Firefox browser extension (\"al-Najm al-thāqib\") used to mass-harvest identities from social …",
+      "ttps": ["T1119", "T1195.001", "T1589"],
+      "categories": [
+        "LL Models used for backdoor deployment",
+        "LLM-directed Automated Collection",
+        "LLM-informed reconnaissance"
+      ],
+      "reported": "Sep 2026",
+      "activity": "Unknown (falls within the report's general \"Jan–Jul 2026\" surveillance-section framing, not case-specific)",
+      "table": "main",
+      "sizeBytes": 610
+    },
+    {
       "slug": "gtg-50020",
       "name": "GTG-50020",
       "akas": "Russian-speaking actor; unnamed",
@@ -462,6 +575,18 @@
       "activity": "Unknown",
       "table": "main",
       "sizeBytes": 170
+    },
+    {
+      "slug": "gtg-50027",
+      "name": "GTG-50027",
+      "akas": "Likely a Bamako-based independent consultant contracted to Mali's state intelligence service (Agence Nationale de la Sécurité d'État, ANSE)",
+      "brief": "A single Claude subscriber — likely a Bamako-based independent consultant working for Mali's state intelligence service (ANSE) — used Claude to build \"Lakana 360,\" a population-scale domestic-surveillance platform monitoring roughly 25 m…",
+      "ttps": ["T1114", "T1119", "T1587"],
+      "categories": ["LLM-aided development", "LLM-directed Automated Collection"],
+      "reported": "Sep 2026",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 843
     },
     {
       "slug": "gtg-50029",
@@ -494,6 +619,18 @@
       "activity": "Jan 2025 – Aug 2025",
       "table": "main",
       "sizeBytes": 360
+    },
+    {
+      "slug": "gtg-87001",
+      "name": "GTG-87001",
+      "akas": "UnSub (Anthropic designation); northern-Yemen-based weapons engineering cell — *analyst note: secondary press (The Register, Politico) labeled this \"Houthi\"; Anthropic's own report never uses that word — the Houthi attribution is unconfirmed by the primary source and not repeated as fact here.*",
+      "brief": "Anthropic disrupted a northern-Yemen-based cell running three parallel AI-assisted weapons-development programs: a guided rocket using a commodity phone-class flight computer with terminal-phase homing guidance; a multi-stage ballistic m…",
+      "ttps": ["T1587"],
+      "categories": ["LLM-assisted weapons/munitions engineering", "LLM-aided development"],
+      "reported": "Sep 2026",
+      "activity": "Unknown (report gives no calendar window for this cell; describes one undated live field test)",
+      "table": "main",
+      "sizeBytes": 846
     },
     {
       "slug": "gxc-team-group-leader-googlexcoder",
@@ -960,6 +1097,18 @@
       "sizeBytes": 286
     },
     {
+      "slug": "storm-0817",
+      "name": "STORM-0817",
+      "akas": "Iran-based actor",
+      "brief": "OpenAI disrupted Storm-0817, an Iran-based actor using ChatGPT to debug rudimentary Android surveillanceware (two APKs — `com.example.myttt` and `com.mihanwebmaster.ashpazi` — capable of exfiltrating contacts, call logs, screenshots, IME…",
+      "ttps": ["T1119", "T1587.001"],
+      "categories": ["LLM-aided development", "LLM-directed Automated Collection"],
+      "reported": "Oct 2024",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 822
+    },
+    {
       "slug": "storm-1747",
       "name": "Storm-1747",
       "akas": "Tycoon2FA operators (Microsoft)",
@@ -982,6 +1131,22 @@
       "activity": "Feb 2026 – Jul 2026",
       "table": "main",
       "sizeBytes": 816
+    },
+    {
+      "slug": "sweetspecter",
+      "name": "SweetSpecter",
+      "akas": "Suspected China-based actor",
+      "brief": "OpenAI disrupted a cluster of accounts attributed to SweetSpecter, a suspected China-based actor. The group conducted unsuccessful spear-phishing against OpenAI's own employees (a malicious \"some problems.zip\" attachment delivering the S…",
+      "ttps": ["T1566.001", "T1588.006", "T1595"],
+      "categories": [
+        "LLM-supported social engineering",
+        "LLM-informed reconnaissance",
+        "LLM-assisted vulnerability research"
+      ],
+      "reported": "Oct 2024",
+      "activity": "Unknown",
+      "table": "main",
+      "sizeBytes": 755
     },
     {
       "slug": "ta547",
@@ -1221,6 +1386,30 @@
       "activity": "Mar 2022",
       "table": "deepfake",
       "sizeBytes": 250
+    },
+    {
+      "slug": "unnamed-fraud-ring",
+      "name": "Unnamed fraud ring",
+      "akas": "",
+      "brief": "PSNI warned after a victim in Ards and North Down lost £250,000 to a multi-stage investment scam that began with an AI-generated video appearing to feature a prominent financial-sector figure promoting a high-return investment. After an …",
+      "ttps": [],
+      "categories": ["DeepFake for Impersonation"],
+      "reported": "Sep 2026",
+      "activity": "Unknown (reported Sep 2026)",
+      "table": "deepfake",
+      "sizeBytes": 629
+    },
+    {
+      "slug": "unnamed-greek-organized-crime-ring-6-suspects-in-case-file-2-named-arrests",
+      "name": "Unnamed Greek organized-crime ring (6 suspects in case file; 2 named arrests)",
+      "akas": "",
+      "brief": "Greece's Financial Crime Squad broke up an organized-crime ring that used AI voice-cloning to impersonate victims' relatives in high-value phone fraud. \"Callers\" posed as staff of the national electricity distributor (HEDNO) or telecom/f…",
+      "ttps": [],
+      "categories": ["DeepFake for Impersonation"],
+      "reported": "Sep 2026",
+      "activity": "Jul 2026 – Sep 2026",
+      "table": "deepfake",
+      "sizeBytes": 755
     },
     {
       "slug": "unsub",
@@ -1483,6 +1672,21 @@
       "activity": "Jul 1–4, 2026",
       "table": "main",
       "sizeBytes": 791
+    },
+    {
+      "slug": "unsub-papercut-ng-mf-agentic-exploitation-campaign-greynoise-blackpoint",
+      "name": "UnSub (PaperCut NG/MF agentic exploitation campaign) — GreyNoise/Blackpoint",
+      "akas": "UnSub; GreyNoise's own hedge: \"likely Russian-speaking malicious cyber actor (MCA)\" — *analyst note: this attribution is explicitly hedged (\"likely\") with no supporting linguistic evidence cited in either primary report; Blackpoint's independent report gives no nation/language attribution at all.*",
+      "brief": "GreyNoise and Blackpoint Cyber independently documented (and directly corroborate each other on IOCs/scale) an actor who wrapped a DeepSeek model inside an OpenAI Codex harness to run hundreds of autonomous AI agents against two PaperCut…",
+      "ttps": ["T1190", "T1552", "T1588.006"],
+      "categories": [
+        "LLM-orchestrated operations (Agentic AI attack orchestration)",
+        "LLM-assisted vulnerability research"
+      ],
+      "reported": "Sep 2026",
+      "activity": "31 Aug 2026 – 9 Sep 2026 (GreyNoise had tracked the C2 IP's broader activity since early Jul 2026)",
+      "table": "main",
+      "sizeBytes": 1581
     },
     {
       "slug": "unsub-possibly-earth-lamia-trend-micro",
