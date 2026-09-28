@@ -1,7 +1,7 @@
 {
   "source": "malapi.io (mr.d0x)",
   "license": "upstream-collection (summaries only; no vendored content)",
-  "replicatedAt": "2026-09-21",
+  "replicatedAt": "2026-09-28",
   "count": 370,
   "categories": ["Enumeration", "Injection", "Evasion", "Spying", "Internet", "Anti-Debugging", "Ransomware", "Helper"],
   "entries": [
@@ -398,11 +398,11 @@
     {
       "slug": "getcurrenthwprofilea",
       "name": "GetCurrentHwProfileA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "GetCurrentHwProfileA is used to retrieve information about the current hardware profile for the local computer. This function is commonly used by malware to anti-debugging purposes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getcurrenthwprofilea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetCurrentHwProfileA"
     },
     {
@@ -418,11 +418,11 @@
     {
       "slug": "regenumkeyexa",
       "name": "RegEnumKeyExA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "RegEnumKeyExA is used to enumerate the subkeys of the specified open registry key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regenumkeyexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegEnumKeyExA"
     },
     {
@@ -448,21 +448,21 @@
     {
       "slug": "regquerymultiplevaluesa",
       "name": "RegQueryMultipleValuesA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "RegQueryMultipleValuesA is used to retrieve the type and data for a list of value names associated with an open registry key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regquerymultiplevaluesa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegQueryMultipleValuesA"
     },
     {
       "slug": "regqueryvalueexa",
       "name": "RegQueryValueExA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "RegQueryValueExA is used to retrieve the type and data for the specified value name associated with an open registry key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regqueryvalueexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegQueryValueExA"
     },
     {
@@ -478,20 +478,20 @@
     {
       "slug": "ntqueryinformationprocess",
       "name": "NtQueryInformationProcess",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "NtQueryInformationProcess is used to retrieve information about a specified process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winternl/nf-winternl-ntqueryinformationprocess",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NtQueryInformationProcess"
     },
     {
       "slug": "ntquerysystemenvironmentvalueex",
       "name": "NtQuerySystemEnvironmentValueEx",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "NtQuerySystemEnvironmentValueEx is used to locate a specified system environment variable and return its value.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtQuerySystemEnvironmentValueEx"
     },
@@ -508,11 +508,11 @@
     {
       "slug": "enumwindows",
       "name": "EnumWindows",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "EnumWindows is used to enumerate all top-level windows on the screen by passing the handle to each window, in turn, to an application-defined callback function. This function is commonly used for enumeration purposes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumwindows",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/EnumWindows"
     },
     {
@@ -538,21 +538,21 @@
     {
       "slug": "netsharecheck",
       "name": "NetShareCheck",
-      "library": "Netapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "NetShareCheck is used to check whether or not a server is sharing a device.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/lmshare/nf-lmshare-netsharecheck",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NetShareCheck"
     },
     {
       "slug": "getadaptersinfo",
       "name": "GetAdaptersInfo",
-      "library": "Iphlpapi.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "GetAdaptersInfo is used to obtain information about the network adapters on the system. This function is commonly used by malware for enumeration purposes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/iphlpapi/nf-iphlpapi-getadaptersinfo",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetAdaptersInfo"
     },
     {
@@ -568,21 +568,21 @@
     {
       "slug": "getnativesysteminfo",
       "name": "GetNativeSystemInfo",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "GetNativeSystemInfo is used to retrieve information about the current system to an application running under WOW64. If the function is called from a 64-bit application, or on a 64-bit system that does not have an Intel64 or x64 processor (such as ARM64), it is equivalent to the GetSystemInfo function.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getnativesysteminfo",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetNativeSystemInfo"
     },
     {
       "slug": "rtlgetversion",
       "name": "RtlGetVersion",
-      "library": "NtosKrnl.lib",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "RtlGetVersion is used to enumerate OS basic information properties such Windows and build versions.",
-      "documentation": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlgetversion",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RtlGetVersion"
     },
     {
@@ -608,11 +608,11 @@
     {
       "slug": "getdrivetypea",
       "name": "GetDriveTypeA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "GetDriveTypeA is used to determine whether a disk drive is a removable / fixed / CD-ROM / RAM disk or network drive.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getdrivetypea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetDriveTypeA"
     },
     {
@@ -628,31 +628,31 @@
     {
       "slug": "wnetenumresourcea",
       "name": "WNetEnumResourceA",
-      "library": "Mpr.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "The WNetEnumResourceA function continues an enumeration of network resources that was started by a call to the WNetOpenEnum function.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winnetwk/nf-winnetwk-wnetenumresourcea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WNetEnumResourceA"
     },
     {
       "slug": "wnetcloseenum",
       "name": "WNetCloseEnum",
-      "library": "Mpr.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "The WNetCloseEnum function ends a network resource enumeration started by a call to the WNetOpenEnum function.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winnetwk/nf-winnetwk-wnetcloseenum",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WNetCloseEnum"
     },
     {
       "slug": "findfirsturlcacheentrya",
       "name": "FindFirstUrlCacheEntryA",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "FindFirstUrlCacheEntryA is used to begin the enumeration of the Internet cache.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentrya",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/FindFirstUrlCacheEntryA"
     },
     {
@@ -668,11 +668,11 @@
     {
       "slug": "wnetaddconnection2a",
       "name": "WNetAddConnection2A",
-      "library": "Mpr.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "The WNetAddConnection2A function makes a connection to a network resource and can redirect a local device to the network resource. The WNetAddConnection2 function supersedes the WNetAddConnection function.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2a",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WNetAddConnection2A"
     },
     {
@@ -698,11 +698,11 @@
     {
       "slug": "enumresourcetypesexa",
       "name": "EnumResourceTypesExA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "EnumResourceTypesExA is used to enumerate resource types associated with a specified binary module. The search can include both a language-neutral Portable Executable file (LN file) and its associated .mui files. Alternately, it can be limited to a single binary module of any type, or to the .mui files associated with a single LN file. The search can also be limited to a single associated .mui file that contains resources for a specific language.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcetypesexw",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/EnumResourceTypesExA"
     },
     {
@@ -718,21 +718,21 @@
     {
       "slug": "getthreadlocale",
       "name": "GetThreadLocale",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Enumeration"],
-      "description": "GetThreadLocale is used to retrieve the locale identifier of the current thread. Can be used alongside other language and/or locale APIs to geofence infections",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winnls/nf-winnls-getthreadlocale",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetThreadLocale"
     },
     {
       "slug": "enumsystemlocalesa",
       "name": "EnumSystemLocalesA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "EnumSystemLocalesA is used enumerate installed locale identifiers, all of the supported identifiers or alternate sort identifiers, according to which flag is passed to the API. Can be used to geofence infection campaigns or avoid infecting systems from a certain region/country. It can also be used to jump to allocated shellcode and execute it.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winnls/nf-winnls-enumsystemlocalesw",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/EnumSystemLocalesA"
     },
     {
@@ -748,21 +748,21 @@
     {
       "slug": "createprocessa",
       "name": "CreateProcessA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "CreateProcessA is used to create a process. This function is used by malware in several process injection attacks such as process hollowing.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CreateProcessA"
     },
     {
       "slug": "createremotethread",
       "name": "CreateRemoteThread",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "CreateRemoteThread is used to create a thread that runs in the virtual address space of another process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createremotethread",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CreateRemoteThread"
     },
     {
@@ -788,21 +788,21 @@
     {
       "slug": "getprocaddress",
       "name": "GetProcAddress",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "GetProcAddress is used to get the memory address of a function in a DLL. This is often used by malware for obfuscation and evasion purposes to avoid having to call the function directly.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetProcAddress"
     },
     {
       "slug": "getthreadcontext",
       "name": "GetThreadContext",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "GetThreadContext is used to retrieve a thread&#039;s context. This is often used as part of process injection techniques.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetThreadContext"
     },
     {
@@ -818,21 +818,21 @@
     {
       "slug": "loadlibrarya",
       "name": "LoadLibraryA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "LoadLibraryA is used to load a specified module into the address space of the calling process. Malware commonly use this to load DLLs dynamically for evasion purposes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/LoadLibraryA"
     },
     {
       "slug": "loadlibraryexa",
       "name": "LoadLibraryExA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "LoadLibraryExA is used to load a specified module into the address space of the calling process. Malware commonly use this to load DLLs dynamically for evasion purposes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/LoadLibraryExA"
     },
     {
@@ -868,21 +868,21 @@
     {
       "slug": "mapviewoffile3",
       "name": "MapViewOfFile3",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "MapViewOfFile3 is used for heap allocation and manipulation.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile3",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/MapViewOfFile3"
     },
     {
       "slug": "mapviewoffileex",
       "name": "MapViewOfFileEx",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "MapViewOfFileEx is used for heap allocation and manipulation.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffileex",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/MapViewOfFileEx"
     },
     {
@@ -898,21 +898,21 @@
     {
       "slug": "queueuserapc",
       "name": "QueueUserAPC",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "QueueUserAPC is used to execute code for a different thread. This function is commonly used as part of process injection.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-queueuserapc",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/QueueUserAPC"
     },
     {
       "slug": "resumethread",
       "name": "ResumeThread",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "ResumeThread is used to resume a specified thread often times as part of process injection.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-resumethread",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/ResumeThread"
     },
     {
@@ -938,11 +938,11 @@
     {
       "slug": "suspendthread",
       "name": "SuspendThread",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "SuspendThread is used to suspend a specified thread often times as part of process injection or to tamper with a legitimate application.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-suspendthread",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SuspendThread"
     },
     {
@@ -958,31 +958,31 @@
     {
       "slug": "virtualalloc",
       "name": "VirtualAlloc",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "VirtualAlloc is often used by malware to allocate memory as part of process injection.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/VirtualAlloc"
     },
     {
       "slug": "virtualallocex",
       "name": "VirtualAllocEx",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "VirtualAllocEx is often used by malware to allocate memory in a remote process as part of process injection.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualallocex",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/VirtualAllocEx"
     },
     {
       "slug": "virtualprotect",
       "name": "VirtualProtect",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "VirtualProtect is often used by malware to modify memory protection (often to allow write or execution).",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/VirtualProtect"
     },
     {
@@ -998,11 +998,11 @@
     {
       "slug": "writeprocessmemory",
       "name": "WriteProcessMemory",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "Writing data into a specified region of memory. This function is often used by malware as part of process injection to inject malicious code into a specified process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WriteProcessMemory"
     },
     {
@@ -1028,11 +1028,11 @@
     {
       "slug": "virtualalloc2fromapp",
       "name": "VirtualAlloc2FromApp",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "VirtualAlloc2FromApp is used to reserve or changes the state of a region of pages in the virtual address space of the calling process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc2fromapp",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/VirtualAlloc2FromApp"
     },
     {
@@ -1048,21 +1048,21 @@
     {
       "slug": "virtualprotectfromapp",
       "name": "VirtualProtectFromApp",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "VirtualProtectFromApp is used to change the protection on a region of committed pages in the virtual address space of the calling process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotectfromapp",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/VirtualProtectFromApp"
     },
     {
       "slug": "createthread",
       "name": "CreateThread",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "CreateThread is used to create a thread to execute within the virtual address space of the calling process. This function is commonly used for shellcode execution.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CreateThread"
     },
     {
@@ -1078,21 +1078,21 @@
     {
       "slug": "openprocess",
       "name": "OpenProcess",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "OpenProcess is used to get a handle on a process. This function is commonly used by malware during process injection.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/OpenProcess"
     },
     {
       "slug": "openfilemappinga",
       "name": "OpenFileMappingA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "OpenFileMappingA is used to open a named file mapping object.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-openfilemappinga",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/OpenFileMappingA"
     },
     {
@@ -1118,11 +1118,11 @@
     {
       "slug": "heapalloc",
       "name": "HeapAlloc",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "HeapAlloc is used to allocate a block of memory from a heap.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/heapapi/nf-heapapi-heapalloc",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/HeapAlloc"
     },
     {
@@ -1138,21 +1138,21 @@
     {
       "slug": "globalalloc",
       "name": "GlobalAlloc",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "GlobalAlloc is used to allocate the specified number of bytes from the heap.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-globalalloc",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GlobalAlloc"
     },
     {
       "slug": "adjusttokenprivileges",
       "name": "AdjustTokenPrivileges",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "AdjustTokenPrivileges is used to enable or disable specific access privileges. Malware that performs process injection often calls this function to gain additional permissions.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/AdjustTokenPrivileges"
     },
     {
@@ -1178,11 +1178,11 @@
     {
       "slug": "createprocesswithtokenw",
       "name": "CreateProcessWithTokenW",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "CreateProcessWithTokenW is used to create a new process and its primary thread.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-createprocesswithtokenw",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CreateProcessWithTokenW"
     },
     {
@@ -1198,20 +1198,20 @@
     {
       "slug": "ntallocatevirtualmemory",
       "name": "NtAllocateVirtualMemory",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtAllocateVirtualMemoy is used to reserve, commit, or both, a region of pages within the user-mode virtual address space of a specified process.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtAllocateVirtualMemory"
     },
     {
       "slug": "ntcontinue",
       "name": "NtContinue",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtContinue is used to resume the execution of a thread.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtContinue"
     },
@@ -1228,10 +1228,10 @@
     {
       "slug": "ntcreateprocessex",
       "name": "NtCreateProcessEx",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtCreateProcessEx is used to create a new process.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtCreateProcessEx"
     },
@@ -1258,20 +1258,20 @@
     {
       "slug": "ntcreatethreadex",
       "name": "NtCreateThreadEx",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtCreateThreadEx is used to create a new thread.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtCreateThreadEx"
     },
     {
       "slug": "ntcreateuserprocess",
       "name": "NtCreateUserProcess",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtCreateUserProcess is used to create a new process.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtCreateUserProcess"
     },
@@ -1288,20 +1288,20 @@
     {
       "slug": "ntmapviewofsection",
       "name": "NtMapViewOfSection",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtMapViewOfSection is used to map a view of a section into the virtual address space of a subject process. This function is used by malware as part of process injection.",
-      "documentation": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-zwmapviewofsection",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NtMapViewOfSection"
     },
     {
       "slug": "ntopenprocess",
       "name": "NtOpenProcess",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtOpenProcess is used to get a handle on a process. This function is commonly used as part of process injection.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtOpenProcess"
     },
@@ -1328,10 +1328,10 @@
     {
       "slug": "ntqueueapcthread",
       "name": "NtQueueApcThread",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtQueueApcThread is used to execute code for a different thread. This function is commonly used as part of process injection.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtQueueApcThread"
     },
@@ -1348,30 +1348,30 @@
     {
       "slug": "ntqueueapcthreadex2",
       "name": "NtQueueApcThreadEx2",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtQueueApcThreadEx2 is a new system call that allows to pass both UserApcFlags and MemoryReserveHandle.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtQueueApcThreadEx2"
     },
     {
       "slug": "ntreadvirtualmemory",
       "name": "NtReadVirtualMemory",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtReadVirtualMemory is used to copy data in the specified address range from the address space of the specified process into the specified buffer of the current process",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtReadVirtualMemory"
     },
     {
       "slug": "ntresumethread",
       "name": "NtResumeThread",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtResumeThread is used to resume a suspended thread.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtResumeThread"
     },
@@ -1388,10 +1388,10 @@
     {
       "slug": "ntwaitformultipleobjects",
       "name": "NtWaitForMultipleObjects",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "NtWaitForMultipleObjects is used to wait until one or all of the specified objects are in the signaled state or the time-out interval elapses. This function is commonly used by malware for evasion purposes",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtWaitForMultipleObjects"
     },
@@ -1418,11 +1418,11 @@
     {
       "slug": "rtlcreateheap",
       "name": "RtlCreateHeap",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "RtlCreateHeap is used to create a heap object that can be used by the calling process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-rtlcreateheap",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RtlCreateHeap"
     },
     {
@@ -1438,21 +1438,21 @@
     {
       "slug": "rtlmovememory",
       "name": "RtlMoveMemory",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "RtlMoveMemory is used to copy the contents of a source memory block to a destination memory block, and supports overlapping source and destination memory blocks.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/RtlMoveMemory"
     },
     {
       "slug": "rtlcopymemory",
       "name": "RtlCopyMemory",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "RtlCopyMemory is used to copy the contents of a source memory block to a destination memory block.",
-      "documentation": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlcopymemory",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RtlCopyMemory"
     },
     {
@@ -1468,21 +1468,21 @@
     {
       "slug": "waitforsingleobjectex",
       "name": "WaitForSingleObjectEx",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "WaitForSingleObjectEx is used to delay the execution of an object. This function is commonly used to allow time for shellcode being executed within a thread to run. It is also used for time-based evasion.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-waitforsingleobjectex",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WaitForSingleObjectEx"
     },
     {
       "slug": "waitformultipleobjects",
       "name": "WaitForMultipleObjects",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "WaitForMultipleObjects is used to wait until one or all of the specified objects are in the signaled state or the time-out interval elapses. This function is commonly used to allow time for shellcode to execute or for time-based evasion.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-waitformultipleobjects",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WaitForMultipleObjects"
     },
     {
@@ -1508,11 +1508,11 @@
     {
       "slug": "wow64setthreadcontext",
       "name": "Wow64SetThreadContext",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "Wow64SetThreadContext is used to set the context for the specified thread. This function can be used by malware as part of a process hollowing attack.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadcontext",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Wow64SetThreadContext"
     },
     {
@@ -1528,21 +1528,21 @@
     {
       "slug": "ntresumeprocess",
       "name": "NtResumeProcess",
-      "library": "ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "NtResumeProcess is used to resume a suspended process",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtResumeProcess"
     },
     {
       "slug": "duplicatetoken",
       "name": "DuplicateToken",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "The DuplicateToken function creates a new access token that duplicates one already in existence.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-duplicatetoken",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/DuplicateToken"
     },
     {
@@ -1558,21 +1558,21 @@
     {
       "slug": "createprocessinternal",
       "name": "CreateProcessInternal",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Injection"],
-      "description": "CreateProcessInternal is an undocumented API for process creation. According to Windows Internals, CreateProcess and CreateProcessAsUser actually lead to this API, which is responsible for starting the process creation in user land. Eventually it calls NtCreateUserProcess for the kernel land operations. This API is commonly used for spawning a suspended process to be hollowed/injected.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/CreateProcessInternal"
     },
     {
       "slug": "uuidfromstringa",
       "name": "UuidFromStringA",
-      "library": "Rpcrt4.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "UuidFromStringA is used to convert a string to a UUID. This function can be abused to both decode data and write it to memory without using common functions such as memcpy or WriteProcessMemory.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/rpcdce/nf-rpcdce-uuidfromstringa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/UuidFromStringA"
     },
     {
@@ -1598,21 +1598,21 @@
     {
       "slug": "loadresource",
       "name": "LoadResource",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "LoadResource is used to load a resource from a PE file into memory. Malware sometimes uses resources to store strings, configuration information, or other malicious files.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadresource",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/LoadResource"
     },
     {
       "slug": "setenvironmentvariablea",
       "name": "SetEnvironmentVariableA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "SetEnvironmentVariableA sets the contents of the specified environment variable for the current process. Setting custom envrinoment variables can be used for obfuscation and evasion purposes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processenv/nf-processenv-setenvironmentvariablea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetEnvironmentVariableA"
     },
     {
@@ -1628,11 +1628,11 @@
     {
       "slug": "sleep",
       "name": "Sleep",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "Sleep is used to suspend the execution of the current thread for a set time. This function is commonly used for time-based evasion by adding delays in the code.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-sleep",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Sleep"
     },
     {
@@ -1658,10 +1658,10 @@
     {
       "slug": "ntdelayexecution",
       "name": "NtDelayExecution",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "NtDelayExecution is used to suspend execution, similiar to the Sleep() API function. This function can be used by malware for evasion purposes.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtDelayExecution"
     },
@@ -1678,21 +1678,21 @@
     {
       "slug": "registerhotkey",
       "name": "RegisterHotKey",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "RegisterHotKey is used to create a system wide hotkey. This function is commonly used by spyware or keyloggers to recieve a notification when a certain combination of keys are pressed.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerhotkey",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegisterHotKey"
     },
     {
       "slug": "timesetevent",
       "name": "timeSetEvent",
-      "library": "Winmm.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "timeSetEvent is used to start a specified timer event. This function is obselete but is still used by malware for time-based evasion.",
-      "documentation": "https://docs.microsoft.com/en-us/previous-versions/dd757634(v=vs.85)",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/timeSetEvent"
     },
     {
@@ -1708,21 +1708,21 @@
     {
       "slug": "setwaitabletimer",
       "name": "SetWaitableTimer",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "SetWaitableTimer is used to activate the specified waitable timer. This function is commonly used by malware for time-based evasion.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-setwaitabletimer",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetWaitableTimer"
     },
     {
       "slug": "createtimerqueuetimer",
       "name": "CreateTimerQueueTimer",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "CreateTimerQueueTimer is used to create a timer-queue timer. This function is commonly used by malware for time-based evasion.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueuetimer",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CreateTimerQueueTimer"
     },
     {
@@ -1748,11 +1748,11 @@
     {
       "slug": "select",
       "name": "Select",
-      "library": "Ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "Select is used to determine the status of one or more sockets, waiting if necessary, to perform synchronous I/O. This function is used by malware for time-based evasion by setting a large timeout number.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-select",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Select"
     },
     {
@@ -1768,21 +1768,21 @@
     {
       "slug": "setthreadtoken",
       "name": "SetThreadToken",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "The SetThreadToken function assigns an impersonation token to a thread. The function can also cause a thread to stop using an impersonation token.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadtoken",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetThreadToken"
     },
     {
       "slug": "sizeofresource",
       "name": "SizeOfResource",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "SizeOfResource checks and retrieves the size of given resource. Usually found in droppers",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-sizeofresource",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SizeOfResource"
     },
     {
@@ -1798,11 +1798,11 @@
     {
       "slug": "timegettime",
       "name": "TimeGetTime",
-      "library": "Winmm.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Evasion"],
-      "description": "TimeGetTime is used to retrieve the system time, in milliseconds. The system time is the time elapsed since Windows was started.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/timeapi/nf-timeapi-timegettime",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/TimeGetTime"
     },
     {
@@ -1818,11 +1818,11 @@
     {
       "slug": "attachthreadinput",
       "name": "AttachThreadInput",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "AttachThreadInput is used to attach the input processing from one thread to another so that the second thread receives input events such as keyboard and mouse events. This function is commonly used by keyloggers.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-attachthreadinput",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/AttachThreadInput"
     },
     {
@@ -1838,11 +1838,11 @@
     {
       "slug": "getasynckeystate",
       "name": "GetAsyncKeyState",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "GetAsyncKeyState is used to determine when a specific key is pressed. This function is commonly used by keyloggers.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getasynckeystate",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetAsyncKeyState"
     },
     {
@@ -1858,31 +1858,31 @@
     {
       "slug": "getdc",
       "name": "GetDC",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "GetDC is used to retrieve a handle to a device context (DC) for the client area of a specified window or for the entire screen. This function is commonly used by spyware for taking screenshots.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdc",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetDC"
     },
     {
       "slug": "getdcex",
       "name": "GetDCEx",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "GetDCEx is used to retrieve a handle to a device context (DC) for the client area of a specified window or for the entire screen. This function is commonly used by spyware for taking screenshots.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdcex",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetDCEx"
     },
     {
       "slug": "getforegroundwindow",
       "name": "GetForegroundWindow",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "GetForegroundWindow is used to get a handle to the foreground window (the window with which the user is currently working). This function is commonly used by keyloggers and spyware to determine which window is being utilized at the moment by the user.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getforegroundwindow",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetForegroundWindow"
     },
     {
@@ -1898,11 +1898,11 @@
     {
       "slug": "getkeystate",
       "name": "GetKeyState",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "GetKeyState is used to retrieve the status of the specified virtual key. This function is commonly used by keyloggers.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetKeyState"
     },
     {
@@ -1928,11 +1928,11 @@
     {
       "slug": "getwindowdc",
       "name": "GetWindowDC",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "GetWindowDC is used to retrieve the device context (DC) for the entire window, including title bar, menus, and scroll bars. This function is commonly used by spyware and keyloggers to capture screenshots.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindowdc",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetWindowDC"
     },
     {
@@ -1948,21 +1948,21 @@
     {
       "slug": "mapvirtualkeyexa",
       "name": "MapVirtualKeyExA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "MapVirtualKeyExA is used to map a virtual-key code into a scan code or character value, or translates a scan code into a virtual-key code. This function is commonly used by spyware and keyloggers.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-mapvirtualkeyexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/MapVirtualKeyExA"
     },
     {
       "slug": "peekmessagea",
       "name": "PeekMessageA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "PeekMessageA is used to check for incoming sent messages, checks the thread message queue for a posted message, and retrieves the message (if any exist).",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-peekmessagea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/PeekMessageA"
     },
     {
@@ -1988,11 +1988,11 @@
     {
       "slug": "registerrawinputdevices",
       "name": "RegisterRawInputDevices",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "RegisterRawInputDevices is used to register the devices that supply raw input.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerrawinputdevices",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegisterRawInputDevices"
     },
     {
@@ -2008,21 +2008,21 @@
     {
       "slug": "sendmessagecallbacka",
       "name": "SendMessageCallbackA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "SendMessageCallbackA is used to send the specified message to a window or windows.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendmessagecallbacka",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SendMessageCallbackA"
     },
     {
       "slug": "sendmessagetimeouta",
       "name": "SendMessageTimeoutA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "SendMessageTimeoutA is used to send the specified message to a window or windows.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendmessagetimeouta",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SendMessageTimeoutA"
     },
     {
@@ -2038,21 +2038,21 @@
     {
       "slug": "setwindowshookexa",
       "name": "SetWindowsHookExA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "SetWindowsHookExA is used to install an application-defined hook procedure into a hook chain. This function is commonly used by keyloggers.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowshookexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetWindowsHookExA"
     },
     {
       "slug": "setwineventhook",
       "name": "SetWinEventHook",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "SetWinEventHook is used to set an event hook function for a range of events.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwineventhook",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetWinEventHook"
     },
     {
@@ -2078,11 +2078,11 @@
     {
       "slug": "stretchblt",
       "name": "StretchBlt",
-      "library": "Gdi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Spying"],
-      "description": "StretchBlt is used to copy graphic data from one device to another. Spyware sometimes uses this function to capture screenshots.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-stretchblt",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/StretchBlt"
     },
     {
@@ -2098,21 +2098,21 @@
     {
       "slug": "winexec",
       "name": "WinExec",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "WinExec is used to allow the execution of an application.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-winexec",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WinExec"
     },
     {
       "slug": "ftpputfilea",
       "name": "FtpPutFileA",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "FtpPutFileA is used to upload a file to a server via FTP.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-ftpputfilea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/FtpPutFileA"
     },
     {
@@ -2128,11 +2128,11 @@
     {
       "slug": "httpsendrequesta",
       "name": "HttpSendRequestA",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "HttpSendRequestA is used to send a HTTP request to a server.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-httpsendrequesta",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/HttpSendRequestA"
     },
     {
@@ -2158,21 +2158,21 @@
     {
       "slug": "internetopena",
       "name": "InternetOpenA",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "InternetOpenA is used to initialize the use of WinINet functions.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-internetopenurla",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/InternetOpenA"
     },
     {
       "slug": "internetopenurla",
       "name": "InternetOpenUrlA",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "InternetOpenUrlA is used to open a resource specified by a complete FTP or HTTP URL.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-internetopenurla",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/InternetOpenUrlA"
     },
     {
@@ -2188,21 +2188,21 @@
     {
       "slug": "internetreadfileexa",
       "name": "InternetReadFileExA",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "InternetReadFileExA is used to read data from a handle opened by the InternetOpenUrl or HttpOpenRequest function.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-internetreadfileexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/InternetReadFileExA"
     },
     {
       "slug": "internetwritefile",
       "name": "InternetWriteFile",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "InternetWriteFile is used to write data to an open Internet file.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-internetreadfile",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/InternetWriteFile"
     },
     {
@@ -2228,11 +2228,11 @@
     {
       "slug": "urlopenblockingstream",
       "name": "URLOpenBlockingStream",
-      "library": "Urlmon.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "URLOpenBlockingStream is used to create a blocking type stream object from a URL and downloads the data from the Internet.",
-      "documentation": "https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775127(v=vs.85)",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/URLOpenBlockingStream"
     },
     {
@@ -2248,21 +2248,21 @@
     {
       "slug": "accept",
       "name": "Accept",
-      "library": "Ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "Accept is used to permit an incoming connection attempt on a socket.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-accept",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Accept"
     },
     {
       "slug": "bind",
       "name": "Bind",
-      "library": "Ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "Bind is used to associates a local address with a socket.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-bind",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Bind"
     },
     {
@@ -2278,11 +2278,11 @@
     {
       "slug": "gethostbyname",
       "name": "Gethostbyname",
-      "library": "Ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "gethostbyname is used to retrieve host information corresponding to a host name from a host database.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-gethostbyname",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Gethostbyname"
     },
     {
@@ -2308,21 +2308,21 @@
     {
       "slug": "send",
       "name": "Send",
-      "library": "Ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "Send is used to send data on a connected socket.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-send",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Send"
     },
     {
       "slug": "wsastartup",
       "name": "WSAStartup",
-      "library": "Ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "WSAStartup is used to initiate use of the Winsock DLL by a process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-wsastartup",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WSAStartup"
     },
     {
@@ -2338,11 +2338,11 @@
     {
       "slug": "socket",
       "name": "Socket",
-      "library": "Ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "socket is used create a socket that is bound to a specific transport service provider.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-socket",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/Socket"
     },
     {
@@ -2368,21 +2368,21 @@
     {
       "slug": "shellexecutea",
       "name": "ShellExecuteA",
-      "library": "Shell32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "ShellExecuteA is used to perform an operation on a specified file.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/ShellExecuteA"
     },
     {
       "slug": "shellexecuteexa",
       "name": "ShellExecuteExA",
-      "library": "Shell32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "ShellExecuteExA is used to perform an operation on a specified file.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecuteexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/ShellExecuteExA"
     },
     {
@@ -2398,21 +2398,21 @@
     {
       "slug": "dnsqueryex",
       "name": "DnsQueryEx",
-      "library": "Dnsapi.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "DnsQueryEx is used to send a DNS query. This may be used for communications over a DNS tunnel.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/windns/nf-windns-dnsqueryex",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/DnsQueryEx"
     },
     {
       "slug": "wnetopenenuma",
       "name": "WNetOpenEnumA",
-      "library": "Mpr.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "The WNetOpenEnumA function starts an enumeration of network resources or existing connections. You can continue the enumeration by calling the WNetEnumResource function.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winnetwk/nf-winnetwk-wnetopenenuma",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WNetOpenEnumA"
     },
     {
@@ -2428,11 +2428,11 @@
     {
       "slug": "internetsetoptiona",
       "name": "InternetSetOptionA",
-      "library": "Wininet.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "InternetSetOptionA is used to set an Internet option.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wininet/nf-wininet-internetsetoptiona",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/InternetSetOptionA"
     },
     {
@@ -2458,21 +2458,21 @@
     {
       "slug": "wsaioctl",
       "name": "WSAIoctl",
-      "library": "ws2_32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "WSAIoctl Can be used to retrieve and set socket mode. E.g.: Put NIC in &#039;Promiscuous Mode&#039;",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-wsaioctl",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WSAIoctl"
     },
     {
       "slug": "ioctlsocket",
       "name": "ioctlsocket",
-      "library": "Ws2_32.lib",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Internet"],
-      "description": "ioctlsocket takes control of the I/O mode of a socket in any state",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-ioctlsocket",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/ioctlsocket"
     },
     {
@@ -2488,21 +2488,21 @@
     {
       "slug": "gettickcount",
       "name": "GetTickCount",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Anti-Debugging"],
-      "description": "GetTickCount is used to retrieve the number of milliseconds since bootup. This function is used by malware for anti-debugging purposes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetTickCount"
     },
     {
       "slug": "outputdebugstringa",
       "name": "OutputDebugStringA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Anti-Debugging"],
-      "description": "OutputDebugStringA sends a string to the debugger for display. This function can be used as an anti-debugging technique.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-outputdebugstringa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/OutputDebugStringA"
     },
     {
@@ -2518,11 +2518,11 @@
     {
       "slug": "isdebuggerpresent",
       "name": "IsDebuggerPresent",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Anti-Debugging"],
-      "description": "IsDebuggerPresent is used to determine whether the calling process is being debugged by a user-mode debugger.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-isdebuggerpresent",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/IsDebuggerPresent"
     },
     {
@@ -2548,21 +2548,21 @@
     {
       "slug": "findwindowexa",
       "name": "FindWindowExA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Anti-Debugging"],
-      "description": "FindWindowExA is used to get a handle to the top-level window whose class name and window name match the specified strings. This function is commonly used by malware as an anti-debugging technique.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-findwindowexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/FindWindowExA"
     },
     {
       "slug": "gettickcount64",
       "name": "GetTickCount64",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Anti-Debugging"],
-      "description": "GetTickCount64 is used to retrieve the number of milliseconds that have elapsed since the system was started. This function is used by malware for anti-debugging purposes by checking how long the system uptime is.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount64",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetTickCount64"
     },
     {
@@ -2578,11 +2578,11 @@
     {
       "slug": "queryperformancecounter",
       "name": "QueryPerformanceCounter",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Anti-Debugging"],
-      "description": "QueryPerformanceCounter is used to retrieve the frequency of the performance counter. This function is commonly used by malware for anti-debugging purposes. The malware will measure the time before and after an operation, if the time exceeds taken expected time, the malware will terminate or activate a benign function.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/QueryPerformanceCounter"
     },
     {
@@ -2598,11 +2598,11 @@
     {
       "slug": "cryptacquirecontexta",
       "name": "CryptAcquireContextA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "CryptAcquireContextA is used to acquire a handle to a particular key container within a particular cryptographic service provider (CSP)",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptacquirecontexta",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptAcquireContextA"
     },
     {
@@ -2618,11 +2618,11 @@
     {
       "slug": "cryptencrypt",
       "name": "CryptEncrypt",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "CryptEncrypt is used to encrypt data.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptencrypt",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptEncrypt"
     },
     {
@@ -2638,21 +2638,21 @@
     {
       "slug": "cryptcreatehash",
       "name": "CryptCreateHash",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "CryptCreateHash is used to create a hash.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptcreatehash",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptCreateHash"
     },
     {
       "slug": "crypthashdata",
       "name": "CryptHashData",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "CryptHashData is used to create a hash.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-crypthashdata",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptHashData"
     },
     {
@@ -2668,11 +2668,11 @@
     {
       "slug": "cryptsetkeyparam",
       "name": "CryptSetKeyParam",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "CryptSetKeyParam is used to customize various aspects of a session key&#039;s operations.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptsetkeyparam",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptSetKeyParam"
     },
     {
@@ -2688,11 +2688,11 @@
     {
       "slug": "cryptdestroykey",
       "name": "CryptDestroyKey",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "CryptDestroyKey is used to destroy previously generated encryption keys.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptdestroykey",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptDestroyKey"
     },
     {
@@ -2708,11 +2708,11 @@
     {
       "slug": "decryptfilea",
       "name": "DecryptFileA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "DecryptFileA is used to decrypt an encrypted file or directory.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-decryptfilea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/DecryptFileA"
     },
     {
@@ -2728,21 +2728,21 @@
     {
       "slug": "cryptstringtobinary",
       "name": "CryptStringToBinary",
-      "library": "Crypt32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "The CryptStringToBinary function is used to convert a formatted string into an array of bytes.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptstringtobinarya",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptStringToBinary"
     },
     {
       "slug": "cryptbinarytostring",
       "name": "CryptBinaryToString",
-      "library": "Crypt32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "The CryptBinaryToString function is used to convert an array of bytes into a formatted string.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptbinarytostringa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptBinaryToString"
     },
     {
@@ -2758,11 +2758,11 @@
     {
       "slug": "cryptdestroyhash",
       "name": "CryptDestroyHash",
-      "library": "Crypt32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Ransomware"],
-      "description": "The CryptDestroyHash function destroys the hash object referenced by the hHash parameter. After a hash object has been destroyed, it can no longer be used.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/wincrypt/nf-wincrypt-cryptdestroyhash",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CryptDestroyHash"
     },
     {
@@ -2778,11 +2778,11 @@
     {
       "slug": "copyfilea",
       "name": "CopyFileA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "CopyFileA is used to copy an existing file to a new file.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-copyfilea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CopyFileA"
     },
     {
@@ -2798,11 +2798,11 @@
     {
       "slug": "createmutexa",
       "name": "CreateMutexA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "CreateMutexA is used to create a new mutex object. Mutexs are often used by malware to prevent the reinfection of a system with the same or different malware variant.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-createmutexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CreateMutexA"
     },
     {
@@ -2818,21 +2818,21 @@
     {
       "slug": "deviceiocontrol",
       "name": "DeviceIoControl",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "DeviceIoControl is used to send a control message from user space to a device driver. DeviceIoControl is popular with kernel malware because it is an easy, flexible way to pass information between user space and kernel space.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/ioapiset/nf-ioapiset-deviceiocontrol",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/DeviceIoControl"
     },
     {
       "slug": "findresourcea",
       "name": "FindResourceA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "FindResourceA is used to find a resource in an executable or loaded DLL. Malware sometimes uses resources to store strings, configuration information, or other malicious files. If you see this function used, check for a .rsrc section in the malware’s PE header.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-findresourcea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/FindResourceA"
     },
     {
@@ -2848,11 +2848,11 @@
     {
       "slug": "getmodulefilenamea",
       "name": "GetModuleFileNameA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "GetModuleFileNameA is used to return the filename of a module that is loaded in the current process. Malware can use this function to modify or copy files in the currently running process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetModuleFileNameA"
     },
     {
@@ -2878,21 +2878,21 @@
     {
       "slug": "movefilea",
       "name": "MoveFileA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "MoveFileA is used to move an existing file or a directory, including its children.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefilea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/MoveFileA"
     },
     {
       "slug": "movefileexa",
       "name": "MoveFileExA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "MoveFileExA is used to move an existing file or a directory, including its children.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefileexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/MoveFileExA"
     },
     {
@@ -2908,21 +2908,21 @@
     {
       "slug": "writefile",
       "name": "WriteFile",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "WriteFile is used to write data to the specified file or input/output (I/O) device.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-writefile",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/WriteFile"
     },
     {
       "slug": "terminatethread",
       "name": "TerminateThread",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "TerminateThread is used to terminate a thread.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminatethread",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/TerminateThread"
     },
     {
@@ -2938,11 +2938,11 @@
     {
       "slug": "copyfileexa",
       "name": "CopyFileExA",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "CopyFileExA is used to copy an existing file to a new file.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-copyfileexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CopyFileExA"
     },
     {
@@ -2968,11 +2968,11 @@
     {
       "slug": "terminateprocess",
       "name": "TerminateProcess",
-      "library": "Kernel32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "TerminateProcess is used to terminate a process.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/TerminateProcess"
     },
     {
@@ -3108,21 +3108,21 @@
     {
       "slug": "startservicectrldispatchera",
       "name": "StartServiceCtrlDispatcherA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "StartServiceCtrlDispatcherA is used by a service to connect the main thread of the process to the service control manager.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-startservicectrldispatchera",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/StartServiceCtrlDispatcherA"
     },
     {
       "slug": "regcreatekeyexa",
       "name": "RegCreateKeyExA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegCreateKeyExA is used to create a specified registry key. If the key already exists, the function opens it.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regcreatekeyexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegCreateKeyExA"
     },
     {
@@ -3148,11 +3148,11 @@
     {
       "slug": "regsetkeyvaluea",
       "name": "RegSetKeyValueA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegSetKeyValueA is used to set a value for a given registry key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regsetkeyvaluea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegSetKeyValueA"
     },
     {
@@ -3168,31 +3168,31 @@
     {
       "slug": "reggetvaluea",
       "name": "RegGetValueA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegGetValueA is used to retrieve the type and data for the specified registry value.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-reggetvaluea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegGetValueA"
     },
     {
       "slug": "regflushkey",
       "name": "RegFlushKey",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegFlushKey is used to write all the attributes of the specified open registry key into the registry.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regflushkey",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegFlushKey"
     },
     {
       "slug": "reggetkeysecurity",
       "name": "RegGetKeySecurity",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegGetKeySecurity is used to retrieve a copy of the security descriptor protecting the specified open registry key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-reggetkeysecurity",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegGetKeySecurity"
     },
     {
@@ -3228,21 +3228,21 @@
     {
       "slug": "regopenkeytransacteda",
       "name": "RegOpenKeyTransactedA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegOpenKeyTransactedA is used to open the specified registry key and associates it with a transaction",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regopenkeytransacteda",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegOpenKeyTransactedA"
     },
     {
       "slug": "regopenuserclassesroot",
       "name": "RegOpenUserClassesRoot",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegOpenUserClassesRoot is used to retrieve a handle to the HKEY_CLASSES_ROOT key for a specified user.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regopenuserclassesroot",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegOpenUserClassesRoot"
     },
     {
@@ -3258,21 +3258,21 @@
     {
       "slug": "regreplacekeya",
       "name": "RegReplaceKeyA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegReplaceKeyA is used to replace the file backing a registry key and all its subkeys with another file, so that when the system is next started, the key and subkeys will have the values stored in the new file.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regreplacekeya",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegReplaceKeyA"
     },
     {
       "slug": "regrestorekeya",
       "name": "RegRestoreKeyA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegRestoreKeyA is used to read the registry information in a specified file and copies it over the specified key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regrestorekeya",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegRestoreKeyA"
     },
     {
@@ -3298,21 +3298,21 @@
     {
       "slug": "regsetkeysecurity",
       "name": "RegSetKeySecurity",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegSetKeySecurity is used to set the security of an open registry key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regsetkeysecurity",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegSetKeySecurity"
     },
     {
       "slug": "regunloadkeya",
       "name": "RegUnLoadKeyA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegUnLoadKeyA is used to unload the specified registry key and its subkeys from the registry.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regunloadkeya",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegUnLoadKeyA"
     },
     {
@@ -3328,11 +3328,11 @@
     {
       "slug": "regcopytreea",
       "name": "RegCopyTreeA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegCopyTreeA is used to copy the specified registry key, along with its values and subkeys, to the specified destination key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regcopytreea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegCopyTreeA"
     },
     {
@@ -3358,11 +3358,11 @@
     {
       "slug": "regdeletekeyexa",
       "name": "RegDeleteKeyExA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegDeleteKeyExA is used to delete a subkey and its values from the specified platform-specific view of the registry.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletekeyexa",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegDeleteKeyExA"
     },
     {
@@ -3378,31 +3378,31 @@
     {
       "slug": "regdeletekeyvaluea",
       "name": "RegDeleteKeyValueA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegDeleteKeyValueA is used to remove the specified value from the specified registry key and subkey.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletekeyvaluea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegDeleteKeyValueA"
     },
     {
       "slug": "regdeletetreea",
       "name": "RegDeleteTreeA",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegDeleteTreeA is used to delete the subkeys and values of the specified key recursively.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletetreea",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegDeleteTreeA"
     },
     {
       "slug": "regclosekey",
       "name": "RegCloseKey",
-      "library": "Advapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RegCloseKey is used to close a handle to the specified registry key.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regclosekey",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/RegCloseKey"
     },
     {
@@ -3418,11 +3418,11 @@
     {
       "slug": "ntcreatefile",
       "name": "NtCreateFile",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NtCreateFile is used to create a new file or directory, or opens an existing file, device, directory, or volume.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winternl/nf-winternl-ntcreatefile",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NtCreateFile"
     },
     {
@@ -3448,11 +3448,11 @@
     {
       "slug": "ntmaketemporaryobject",
       "name": "NtMakeTemporaryObject",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NtMakeTemporaryObject is used to change the attributes of an object to make it temporary.",
-      "documentation": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-zwmaketemporaryobject",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NtMakeTemporaryObject"
     },
     {
@@ -3468,21 +3468,21 @@
     {
       "slug": "ntsetinformationprocess",
       "name": "NtSetInformationProcess",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NtSetInformationProcess is used to modify information about a process such making it a critical process.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtSetInformationProcess"
     },
     {
       "slug": "ntsetinformationthread",
       "name": "NtSetInformationThread",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NtSetInformationThread is used to set the priority of a thread.",
-      "documentation": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntsetinformationthread",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NtSetInformationThread"
     },
     {
@@ -3498,20 +3498,20 @@
     {
       "slug": "ntsetvaluekey",
       "name": "NtSetValueKey",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NtSetValueKey is used to create or replace a registry value.",
-      "documentation": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-zwsetvaluekey",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NtSetValueKey"
     },
     {
       "slug": "ntshutdownsystem",
       "name": "NtShutdownSystem",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NtShutdownSystem is used to shutdown the system.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/NtShutdownSystem"
     },
@@ -3538,10 +3538,10 @@
     {
       "slug": "rtlsetprocessiscritical",
       "name": "RtlSetProcessIsCritical",
-      "library": "Ntdll.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "RtlSetProcessIsCritical is used to set a process to a system critical status. This function is used by malware to prevent the process from being terminated.",
+      "associatedAttacks": [],
+      "description": "",
       "documentation": "",
       "url": "https://malapi.io/winapi/RtlSetProcessIsCritical"
     },
@@ -3558,21 +3558,21 @@
     {
       "slug": "getdesktopwindow",
       "name": "GetDesktopWindow",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "GetDesktopWindow is used to get a handle to the desktop window that covers the entire screen.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdesktopwindow",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/GetDesktopWindow"
     },
     {
       "slug": "setclipboarddata",
       "name": "SetClipboardData",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "SetClipboardData is used to place data on the clipboard in a specified clipboard format.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setclipboarddata",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetClipboardData"
     },
     {
@@ -3588,11 +3588,11 @@
     {
       "slug": "setwindowlongptra",
       "name": "SetWindowLongPtrA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "SetWindowLongPtrA is used to changes an attribute of a specified window.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlongptra",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetWindowLongPtrA"
     },
     {
@@ -3618,21 +3618,21 @@
     {
       "slug": "bringwindowtotop",
       "name": "BringWindowToTop",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "BringWindowToTop is used for bringing the specified window to the top of the Z order.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-bringwindowtotop",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/BringWindowToTop"
     },
     {
       "slug": "setfocus",
       "name": "SetFocus",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "SetFocus is used to set the keyboard focus to the specified window",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setfocus",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/SetFocus"
     },
     {
@@ -3648,21 +3648,21 @@
     {
       "slug": "netsharesetinfo",
       "name": "NetShareSetInfo",
-      "library": "Netapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NetShareSetInfo is used to set the parameters of a shared resource.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/lmshare/nf-lmshare-netsharesetinfo",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NetShareSetInfo"
     },
     {
       "slug": "netshareadd",
       "name": "NetShareAdd",
-      "library": "Netapi32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "NetShareAdd is used to share a server resource.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/lmshare/nf-lmshare-netshareadd",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/NetShareAdd"
     },
     {
@@ -3688,11 +3688,11 @@
     {
       "slug": "callwindowproca",
       "name": "CallWindowProcA",
-      "library": "User32.dll",
+      "library": "",
       "categories": ["Enumeration"],
-      "associatedAttacks": ["Helper"],
-      "description": "CallWindowProcA is used to pass message information to the specified window procedure.",
-      "documentation": "https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-callwindowproca",
+      "associatedAttacks": [],
+      "description": "",
+      "documentation": "",
       "url": "https://malapi.io/winapi/CallWindowProcA"
     },
     {

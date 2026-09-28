@@ -1,7 +1,7 @@
 {
   "source": "hijacklibs.net (Wietze Beukema)",
   "license": "upstream-collection (summaries only; no vendored content)",
-  "replicatedAt": "2026-09-21",
+  "replicatedAt": "2026-09-28",
   "count": 608,
   "hijackTypes": ["Environment Variable", "Phantom", "Search Order", "Sideloading"],
   "typeCounts": {
