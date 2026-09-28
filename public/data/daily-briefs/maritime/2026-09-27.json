@@ -1,0 +1,87 @@
+{
+  "type": "maritime",
+  "date": "2026-09-27",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates U.S. authorities boarded at least one tanker in August 2026 to investigate indications of a vessel network compromise attributed to foreign cyber actors; public reporting links the case to the Liberian-flagged VL Prosperity and notes another tanker reportedly lost communications for over 30 hours. No confirmed OT manipulation or safety incidents were disclosed, but USCG examined both IT and OT systems. Confidence: medium. View Article The collected intelligence supports an assessment that port and terminal operators should immediately review remote-access pathways, third-party support arrangements, and exposure of foreign-manufactured cranes and inspection systems, per a current MARAD advisory emphasizing cyber and data-security risks in globally deployed equipment. Confidence: high. Maritime Advisory Current reporting suggests a newly disclosed TDengine vulnerability (CVE-2026-42542) could enable pre-authentication denial-of-service on telemetry/monitoring daemons (taosd), with potential loss of visibility and dropped writes in OT-adjacent monitoring stacks that use this database. Confidence: medium. View Article For navigation resilience, ESA reported the first civil authenticated Galileo position fix under spoofing, demonstrating future potential to detect/mitigate GNSS spoofing-a persistent maritime risk. Confidence: medium. View Article",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "",
+        "label": "Active Incidents"
+      },
+      {
+        "value": "",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "",
+        "label": "Vulnerabilities or CVEs"
+      },
+      {
+        "value": "",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [
+      "TDengine (taosd service) - telemetry/monitoring database (CVE-2026-42542).",
+      "Port equipment ecosystems highlighted by MARAD - PRC-manufactured ship-to-shore cranes; Nuctech inspection systems; LOGINK logistics platforms. Maritime Advisory",
+      "GNSS/Galileo - authentication capability (future fielding considerations). View Article"
+    ],
+    "sectors": [
+      "Energy shipping (tankers) - suspected compromise under investigation.",
+      "Ports and terminals - crane/inspection system cyber exposure and third-party integrator risks.",
+      "Navigation and bridge operations - GNSS spoofing considerations; AIS emission profile risk in high-threat regions."
+    ]
+  },
+  "keyFindings": [],
+  "topThreats": [],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "CVE-2026-42542 (TDengine 3.4.0.0-3.4.1.5): Pre-auth malformed packet causes taosd crash → potential visibility loss in OT monitoring. Mitigate by restricting network exposure, rate-limiting, and applying vendor fixes when available. View Article"
+      ]
+    }
+  ],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "External remote services abuse via vendor/integrator pathways in port OT (inferred from MARAD advisory and integrator compromise reporting).",
+      "Service disruption (DoS) against telemetry daemons using malformed packets (explicit in TDengine reporting).",
+      "Credential and information access through third-party integrator compromise enabling follow-on operational targeting (reported case example).",
+      "Navigation deception risk via GNSS spoofing; ESA work demonstrates authentication-based mitigation (behavioral observation, not adversary TTP evidence)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional disclosures from USCG/FBI or affected operators regarding the tanker investigations; immediate risk to transiting energy cargoes remains elevated. Confidence: medium. View Article Continued reporting is likely on port-equipment cyber exposure as operators respond to MARAD 2026-007 with segmentation and remote-access changes. Confidence: high. Maritime Advisory Additional vendor guidance for TDengine deployments may emerge; maintain heightened monitoring for telemetry service instability. Confidence: medium. View Article GNSS spoofing events remain possible in several theaters; however, current evidence does not establish a new maritime spoofing campaign in this cycle. Confidence: medium. View Article",
+  "relatedCves": [
+    "CVE-2026-42542"
+  ]
+}

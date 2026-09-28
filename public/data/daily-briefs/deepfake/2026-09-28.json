@@ -1,0 +1,74 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-28",
+  "riskOutlook": "",
+  "executiveSummary": "The most consequential development this period is the disruption of the \"Eviltokens\" phishing-as-a-service platform, which reportedly enabled compromise of more than 12,000 Microsoft accounts across over 10,000 organizations and scaled business email compromise (BEC) using AI-assisted lure customization and mailbox analysis. View Article Law enforcement in the United Kingdom arrested two suspects connected to the operation, underscoring escalating criminal misuse of AI to industrialize financially motivated social engineering. View Article In Brazil, election authorities tightened deepfake standards for political advertising following use of AI-generated endorsement content, creating immediate compliance obligations for campaigns, broadcasters, and platforms ahead of national voting. View Article Defensively, provenance and detection capabilities continue to evolve. Platforms expanded C2PA and AI-identification features to help users verify content, while updated guidance provides practical deployment paths for content credentials. View Article View Article At the same time, new research suggests provenance watermarking may inadvertently provide shortcuts that weaken some audio deepfake detectors, indicating detection stacks must be validated against such interactions. View Article Threat actors are also exploiting trusted AI platforms and search outputs to deliver malware or steer victims toward attacker infrastructure, amplifying the social-engineering surface around AI tools. View Article View Article Overall, the environment is assessed as worsening due to the demonstrated scale of AI-enabled BEC and persistent risks to election integrity despite emerging authenticity controls. Supporting Report",
+  "keyFindings": [
+    {
+      "title": "AI-assisted phishing service \"Eviltokens\" enabled compromise of 12,000+ Microsof",
+      "summary": "AI-assisted phishing service \"Eviltokens\" enabled compromise of 12,000+ Microsoft accounts across 10,000+ organizations, fueling large-scale BEC. View Article"
+    },
+    {
+      "title": "Law enforcement in the UK arrested two suspects following the Microsoft-linked t",
+      "summary": "Law enforcement in the UK arrested two suspects following the Microsoft-linked takedown effort against the Eviltokens operation. View Article"
+    },
+    {
+      "title": "Brazil imposed stricter, enforceable deepfake rules for political advertising af",
+      "summary": "Brazil imposed stricter, enforceable deepfake rules for political advertising after AI-generated endorsement content appeared ahead of national elections. View Article"
+    },
+    {
+      "title": "Research warns some provenance watermarking can create shortcuts that degrade au",
+      "summary": "Research warns some provenance watermarking can create shortcuts that degrade audio deepfake detectors' effectiveness. View Article"
+    },
+    {
+      "title": "New image watermarking approaches and visual analytics methods may strengthen pr",
+      "summary": "New image watermarking approaches and visual analytics methods may strengthen provenance and triage of AI-generated images. View Article View Article"
+    },
+    {
+      "title": "Platforms expanded provenance and AI-identification tooling, potentially improvi",
+      "summary": "Platforms expanded provenance and AI-identification tooling, potentially improving moderation and fraud review workflows. View Article"
+    },
+    {
+      "title": "Updated C2PA resources and implementation guidance provide practical steps for d",
+      "summary": "Updated C2PA resources and implementation guidance provide practical steps for deploying tamper-evident Content Credentials. View Article View Article"
+    },
+    {
+      "title": "Threat actors are poisoning AI/search results and abusing trusted AI platforms t",
+      "summary": "Threat actors are poisoning AI/search results and abusing trusted AI platforms to distribute malware and impersonate support channels. View Article View Article"
+    },
+    {
+      "title": "Criminal marketplaces and briefings continue to feature deepfake tooling as part",
+      "summary": "Criminal marketplaces and briefings continue to feature deepfake tooling as part of industrialized scam ecosystems. View Article View Article"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [
+    "Industrialized BEC using AI-assisted phishing and mailbox analysis to identify financial threads and impersonation opportunities. Supporting Report",
+    "Election-related use of AI-generated political endorsements driving rapid regulatory and enforcement responses. Source",
+    "Detection-provenance interactions: watermarking can create \"shortcuts\" that degrade some audio deepfake detectors. Source",
+    "Abuse of trusted AI platforms and AI/search poisoning to redirect users to malware or fraudulent support channels. Source Source",
+    "Advances in image watermarking and visual analytics for more robust provenance and analyst triage. Source Source",
+    "Platform and standards momentum for C2PA and AI-content identification (Google, C2PA guidance, Anthropic text watermarking). Source Source Source"
+  ],
+  "geographicObservations": [
+    "Global: Large-scale AI-assisted BEC; detection and provenance developments across platforms and standards.",
+    "United Kingdom: Arrests linked to AI-enabled phishing service disruption.",
+    "Brazil: Enforced deepfake rules for political ads amid active election period.",
+    "United States: Disruption of a scam marketplace with deepfake tooling components; midterm disinformation concerns.",
+    "Australia: Disputed reporting on alleged AI-agent misuse and control bypass."
+  ],
+  "detectionDevelopments": [
+    "Microsoft-linked disruption of an AI-assisted phishing service with reported arrests. View Article",
+    "Updated C2PA resources and implementation guidance for deploying Content Credentials. Resources Implementation Guide",
+    "Google expanded identification features for AI-generated media, including C2PA and SynthID surfaces. View Article",
+    "Anthropic described text watermarking and Content Credentials for AI-written content. View Article",
+    "No source-specific detection or mitigation guidance was reported for several research items.",
+    "Implement strict email identity protections (FIDO2/WebAuthn, phishing-resistant MFA) and disable legacy auth where possible. [Analyst Recommendation]",
+    "Continuously monitor for anomalous mailbox rules, delegated access, and suspicious OAuth grants; enforce rapid revocation workflows. [Analyst Recommendation]",
+    "Adopt out-of-band payment verification and dual control for changes to banking details; train staff on BEC pretexts. [Analyst Recommendation]",
+    "Deploy and validate C2PA Content Credentials pipelines for owned media; verify and display provenance to end users. [Analyst Recommendation]",
+    "Test deepfake detectors for robustness when provenance signals (watermarks) are present to avoid shortcut reliance. [Analyst Recommendation]",
+    "Harden discovery surfaces: monitor for search/AI poisoning of your brand queries; pre-register official support touchpoints. [Analyst Recommendation]",
+    "Establish rapid takedown/escalation channels with platforms for election-related synthetic media. [Analyst Recommendation]"
+  ]
+}
