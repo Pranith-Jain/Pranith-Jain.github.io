@@ -1,7 +1,7 @@
 {
   "source": "github.com/Chick3nHawk01/Open_Source-CTI-Tooling",
   "license": "upstream-collection (links only; no vendored content)",
-  "replicatedAt": "2026-09-21",
+  "replicatedAt": "2026-09-28",
   "count": 387,
   "levels": ["Operational", "Strategic", "Tactical", "Tools"],
   "categories": [
@@ -157,8 +157,8 @@
     }
   ],
   "statusCounts": {
-    "live": 241,
-    "reference": 146,
+    "live": 243,
+    "reference": 144,
     "missing": 0
   },
   "entries": [
@@ -177,7 +177,7 @@
     {
       "slug": "ncsc-uk-2",
       "name": "NCSC UK",
-      "url": "https://www.ncsc.gov.uk/section/keep-up-to-date/advisories",
+      "url": "https://www.ncsc.gov.uk/section/keep-up-to-date/reports-advisories",
       "host": "ncsc.gov.uk",
       "level": "Operational",
       "category": "National CERTs & Advisories",
@@ -225,7 +225,7 @@
     {
       "slug": "enisa",
       "name": "ENISA",
-      "url": "https://www.enisa.europa.eu/topics/threat-risk-management",
+      "url": "https://www.enisa.europa.eu/topics/cyber-threats",
       "host": "enisa.europa.eu",
       "level": "Operational",
       "category": "National CERTs & Advisories",
@@ -321,7 +321,7 @@
     {
       "slug": "enisa-2",
       "name": "ENISA",
-      "url": "https://www.enisa.europa.eu/topics/national-cyber-security-strategies/information-sharing/isacs-toolkit/view",
+      "url": "https://www.enisa.europa.eu/publications",
       "host": "enisa.europa.eu",
       "level": "Operational",
       "category": "National CERTs & Advisories",
@@ -333,7 +333,7 @@
     {
       "slug": "ms-isac",
       "name": "MS-ISAC",
-      "url": "https://www.cisecurity.org/ms-isac/services/cyber-alerts-advisories",
+      "url": "https://www.cisecurity.org/ms-isac",
       "host": "cisecurity.org",
       "level": "Operational",
       "category": "National CERTs & Advisories",
@@ -381,7 +381,7 @@
     {
       "slug": "dragos",
       "name": "Dragos",
-      "url": "https://www.dragos.com/threat-activity-groups/",
+      "url": "https://www.dragos.com/threat-groups/",
       "host": "dragos.com",
       "level": "Operational",
       "category": "Adversary Intelligence",
@@ -525,7 +525,7 @@
     {
       "slug": "intezer-ost-map",
       "name": "Intezer OST Map",
-      "url": "https://www.intezer.com/ost-map/",
+      "url": "https://www.intezer.com/",
       "host": "intezer.com",
       "level": "Operational",
       "category": "Adversary Intelligence",
@@ -969,7 +969,7 @@
     {
       "slug": "github-bushidouk-open-source-threat-intel-feeds",
       "name": "GitHub - BushidoUK/Open-Source-Threat-Intel-Feeds",
-      "url": "https://github.com/BushidoUK/Open-Source-Threat-Intel-Feeds",
+      "url": "https://github.com/BushidoUK/Open-source-tools-for-CTI",
       "host": "github.com",
       "level": "Operational",
       "category": "IoC Feeds & Sharing",
@@ -1101,7 +1101,7 @@
     {
       "slug": "cyware",
       "name": "Cyware",
-      "url": "https://cyware.com/resources/threat-briefings/monthly-threat-briefing/",
+      "url": "https://cyware.com/",
       "host": "cyware.com",
       "level": "Operational",
       "category": "Monthly Threat Reports",
@@ -1125,7 +1125,7 @@
     {
       "slug": "rewterz",
       "name": "Rewterz",
-      "url": "https://www.rewterz.com/monthly-threat-insights/",
+      "url": "https://www.rewterz.com/",
       "host": "rewterz.com",
       "level": "Operational",
       "category": "Monthly Threat Reports",
@@ -1281,13 +1281,13 @@
     {
       "slug": "center-for-threat-informed-defense",
       "name": "Center for Threat-Informed Defense",
-      "url": "https://center-for-threat-informed-defense.github.io/",
-      "host": "center-for-threat-informed-defense.github.io",
+      "url": "https://ctid.mitre.org/",
+      "host": "ctid.mitre.org",
       "level": "Tactical",
       "category": "Frameworks & Methodology",
       "description": "Applied ATT&CK Research",
       "status": "reference",
-      "platformRef": "github",
+      "platformRef": null,
       "tags": ["tactical", "frameworks", "methodology"]
     },
     {
@@ -1701,13 +1701,13 @@
     {
       "slug": "stealthbits-attack-catalog",
       "name": "Stealthbits Attack Catalog",
-      "url": "https://attack.stealthbits.com/",
-      "host": "attack.stealthbits.com",
+      "url": "https://web.archive.org/web/20230601000000/https://attack.stealthbits.com/",
+      "host": "web.archive.org",
       "level": "Tactical",
       "category": "TTP & Technique References",
       "description": "Credential Theft Technique Detail",
-      "status": "reference",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "wayback",
       "tags": ["tactical", "ttp", "technique", "references"]
     },
     {
@@ -1737,7 +1737,7 @@
     {
       "slug": "shell-storm",
       "name": "shell-storm",
-      "url": "http://shell-storm.org/shellcode/",
+      "url": "http://shell-storm.org/shellcode/index.html",
       "host": "shell-storm.org",
       "level": "Tactical",
       "category": "Exploitation & Offensive Technique References",
@@ -2061,7 +2061,7 @@
     {
       "slug": "enisa-threat-landscape",
       "name": "ENISA Threat Landscape",
-      "url": "https://www.enisa.europa.eu/topics/threat-risk-management/threats-and-trends",
+      "url": "https://www.enisa.europa.eu/publications",
       "host": "enisa.europa.eu",
       "level": "Strategic",
       "category": "Annual & Landscape Reports",
@@ -2073,7 +2073,7 @@
     {
       "slug": "ncsc-annual-review",
       "name": "NCSC Annual Review",
-      "url": "https://www.ncsc.gov.uk/collection/annual-review",
+      "url": "https://www.ncsc.gov.uk/section/keep-up-to-date/reports-advisories",
       "host": "ncsc.gov.uk",
       "level": "Strategic",
       "category": "Annual & Landscape Reports",
@@ -2133,8 +2133,8 @@
     {
       "slug": "microsoft-digital-defense-report",
       "name": "Microsoft Digital Defense Report",
-      "url": "https://www.microsoft.com/en-us/security/security-insider/microsoft-digital-defense-report",
-      "host": "microsoft.com",
+      "url": "https://aka.ms/mdrr",
+      "host": "aka.ms",
       "level": "Strategic",
       "category": "Annual & Landscape Reports",
       "description": "Nation-State & Cybercrime Telemetry",
@@ -2169,7 +2169,7 @@
     {
       "slug": "csis",
       "name": "CSIS",
-      "url": "https://www.csis.org/programs/strategic-technologies-program/cybersecurity-and-technology",
+      "url": "https://www.csis.org/programs/strategic-technologies-program",
       "host": "csis.org",
       "level": "Strategic",
       "category": "Geopolitics & Policy",
@@ -2229,7 +2229,7 @@
     {
       "slug": "iiss",
       "name": "IISS",
-      "url": "https://www.iiss.org/research/cyber-space-and-futures-conflict/",
+      "url": "https://www.iiss.org/research/cyber-power-and-future-conflict/",
       "host": "iiss.org",
       "level": "Strategic",
       "category": "Geopolitics & Policy",
@@ -2253,13 +2253,13 @@
     {
       "slug": "ccdcoe-cyber-law-toolkit",
       "name": "CCDCOE Cyber Law Toolkit",
-      "url": "https://cyberlaw.ccdcoe.org/",
-      "host": "cyberlaw.ccdcoe.org",
+      "url": "https://web.archive.org/web/20231215000000/https://cyberlaw.ccdcoe.org/",
+      "host": "web.archive.org",
       "level": "Strategic",
       "category": "Geopolitics & Policy",
       "description": "Legal Analysis of Cyber Scenarios",
-      "status": "reference",
-      "platformRef": null,
+      "status": "live",
+      "platformRef": "wayback",
       "tags": ["strategic", "geopolitics", "policy"]
     },
     {
@@ -2313,7 +2313,7 @@
     {
       "slug": "uk-sanctions-list",
       "name": "UK Sanctions List",
-      "url": "https://www.gov.uk/government/collections/uk-sanctions-list",
+      "url": "https://www.gov.uk/government/publications/the-uk-sanctions-list",
       "host": "gov.uk",
       "level": "Strategic",
       "category": "Geopolitics & Policy",
@@ -2421,7 +2421,7 @@
     {
       "slug": "owasp-2",
       "name": "OWASP",
-      "url": "https://owasp.org/www-project-security-knowledge-framework/",
+      "url": "https://owasp.org/www-project-top-ten/",
       "host": "owasp.org",
       "level": "Strategic",
       "category": "Risk, Governance & Standards",
@@ -2781,8 +2781,8 @@
     {
       "slug": "wannabrowser",
       "name": "Wannabrowser",
-      "url": "https://www.wannabrowser.net/",
-      "host": "wannabrowser.net",
+      "url": "https://www.browserling.com/",
+      "host": "browserling.com",
       "level": "Tools",
       "category": "IP, URL & Domain Analysis",
       "description": "Safe Remote Page Rendering",
@@ -2865,7 +2865,7 @@
     {
       "slug": "cdn-finder",
       "name": "CDN Finder",
-      "url": "https://www.cdnplanet.com/tools/cdnfinder",
+      "url": "https://www.cdnplanet.com/blog/",
       "host": "cdnplanet.com",
       "level": "Tools",
       "category": "IP, URL & Domain Analysis",
@@ -4329,7 +4329,7 @@
     {
       "slug": "fabric",
       "name": "Fabric",
-      "url": "https://blackstork.io/fabric",
+      "url": "https://www.blackstork.io/",
       "host": "blackstork.io",
       "level": "Tools",
       "category": "Reporting & Analytic Tradecraft",
@@ -4353,8 +4353,8 @@
     {
       "slug": "icd-203",
       "name": "ICD 203",
-      "url": "https://www.dni.gov/files/documents/ICD/ICD%20203%20Analytic%20Standards.pdf",
-      "host": "dni.gov",
+      "url": "https://www.odni.gov/files/documents/ICD/ICD-203.pdf",
+      "host": "odni.gov",
       "level": "Tools",
       "category": "Reporting & Analytic Tradecraft",
       "description": "Analytic Standards & Confidence Language",
@@ -4365,8 +4365,8 @@
     {
       "slug": "heuer",
       "name": "Heuer",
-      "url": "https://www.cia.gov/static/9a5f1162fd0932c29bfed1c030edf4ae/Pyschology-of-Intelligence-Analysis.pdf",
-      "host": "cia.gov",
+      "url": "https://archive.org/details/psychologyofinte00heue",
+      "host": "archive.org",
       "level": "Tools",
       "category": "Reporting & Analytic Tradecraft",
       "description": "Psychology of Intelligence Analysis",
