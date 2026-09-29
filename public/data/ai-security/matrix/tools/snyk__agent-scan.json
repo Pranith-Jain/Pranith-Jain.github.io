@@ -3,13 +3,13 @@
   "repo": "snyk/agent-scan",
   "category": "scanner",
   "scope": ["agentic"],
-  "stars": 3093,
+  "stars": 3096,
   "description": "Security scanner for AI agents, MCP servers and agent skills.",
   "homepage": null,
   "added": "2026-09-13",
-  "checkedAt": "2026-09-28T03:18:54Z",
-  "pushedAt": "2026-09-26",
-  "daysIdle": 2,
+  "checkedAt": "2026-09-29T03:18:32Z",
+  "pushedAt": "2026-09-28",
+  "daysIdle": 1,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -18,27 +18,27 @@
       "description": "Finds the agent components already installed on your machine, the MCP servers, skills and agent configs, and scans each for prompt injection and known vulnerabilities."
     },
     "derived": {
-      "checked_at": "2026-09-28T03:18:54Z",
+      "checked_at": "2026-09-29T03:18:32Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-26",
-        "days_since_push": 2,
-        "total_commits": 759,
-        "last100_span_days": 71,
+        "pushed_at": "2026-09-28",
+        "days_since_push": 1,
+        "total_commits": 761,
+        "last100_span_days": 74,
         "last100_authors": 12,
-        "last_commit_sha": "2527530",
-        "last_commit_message": "chore: prepare release 0.6.7 (#493)",
-        "last_commit_at": "2026-09-25",
+        "last_commit_sha": "30a0141",
+        "last_commit_message": "Merge pull request #495 from snyk/upgrade-deps\n\nchore: upgrade anyio",
+        "last_commit_at": "2026-09-28",
         "releases": 100,
-        "latest_release_at": "2026-09-25",
-        "days_since_release": 3,
-        "days_idle": 2,
+        "latest_release_at": "2026-09-28",
+        "days_since_release": 1,
+        "days_idle": 1,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "snyk/agent-scan",
-        "stars": 3093,
+        "stars": 3096,
         "forks": 279,
         "created_at": "2025-04-07",
         "is_fork": false,
@@ -66,7 +66,8 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false },
+      "risk_where": {}
     }
   }
 }

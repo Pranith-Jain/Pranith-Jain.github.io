@@ -3,13 +3,13 @@
   "repo": "cisco-ai-defense/mcp-scanner",
   "category": "scanner",
   "scope": ["agentic"],
-  "stars": 1081,
+  "stars": 1082,
   "description": "Scan MCP servers for potential threats & security findings.",
   "homepage": "https://blogs.cisco.com/ai/securing-the-ai-agent-supply-chain-with-ciscos-open-source-mcp-scanner",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-28T03:19:41Z",
-  "pushedAt": "2026-09-19",
-  "daysIdle": 9,
+  "checkedAt": "2026-09-29T03:19:27Z",
+  "pushedAt": "2026-09-29",
+  "daysIdle": 0,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -23,39 +23,39 @@
       "description": "Judges an MCP server's tool definitions three ways, by YARA rule, by hosted inspection API and by asking a model, so a poisoned tool description has to clear more than one kind of reader."
     },
     "derived": {
-      "checked_at": "2026-09-28T03:19:41Z",
+      "checked_at": "2026-09-29T03:19:27Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-19",
-        "days_since_push": 9,
-        "total_commits": 135,
-        "last100_span_days": 331,
-        "last100_authors": 24,
-        "last_commit_sha": "9e47aab",
-        "last_commit_message": "fix: use MCP-registered tool names across languages (#209)\n\n* fix: use MCP-registered tool names across languages\n\nParse Go mcp.Tool{Name: \"...\"} composite literals (keyed_element/Name),\nprefer explicit registration names over handler symbols, and default tools\nto bare method names instead of class-qualified labels so Python, Go, and\nRust reports align (e.g. execute_shell_command).\n\nCo-authored-by: Cursor <cursoragent@cursor.com>\n\n* Fix nested decoy handlers in TS/JS registration object parsing\n\nInspect only direct descriptor fields when extracting handlers from object\narguments, unwrap inline functions without descending into nested schema\nobjects, and prefer explicit positional handlers over object-derived ones.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>\n\n* Rename nested decoy fixtures to match argument order\n\nSuffixes now reflect whether the schema decoy appears before or after the\nreal positional handler in server.tool() calls.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>\n\n---------\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
-        "last_commit_at": "2026-09-19",
+        "pushed_at": "2026-09-29",
+        "days_since_push": 0,
+        "total_commits": 136,
+        "last100_span_days": 341,
+        "last100_authors": 25,
+        "last_commit_sha": "820cb31",
+        "last_commit_message": "fix: narrow tool_poisoning.yara extracts_from_input to stop email-search false positives (#261)\n\n$extracts_from_input paired a broad verb list (extract|parse|scan|search|\nfind|identify) with a broad noun list including \"emails?\". Searching or\nfinding emails is the stated core function of any mail-search/mail-list\ntool (e.g. \"List, search, and filter Outlook email messages\"), so every\nlegitimate mail tool matched tool_poisoning.\n\nSplits emails? into its own alternative with a narrower verb set\n(extract|parse|scan|identify), dropping search|find. That phrasing still\nreads as scraping addresses out of unrelated content, not searching a\nmailbox, so real tool-poisoning attempts using that wording still fire.",
+        "last_commit_at": "2026-09-29",
         "releases": 48,
         "latest_release_at": "2026-08-28",
-        "days_since_release": 31,
-        "days_idle": 9,
+        "days_since_release": 32,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "cisco-ai-defense/mcp-scanner",
-        "stars": 1081,
+        "stars": 1082,
         "forks": 140,
         "created_at": "2025-09-24",
         "is_fork": false,
-        "contributors": 26,
-        "top_contributor_share": 0.5,
+        "contributors": 27,
+        "top_contributor_share": 0.49,
         "homepage": "https://blogs.cisco.com/ai/securing-the-ai-agent-supply-chain-with-ciscos-open-source-mcp-scanner",
         "description": "Scan MCP servers for potential threats & security findings.",
         "topics": ["agents", "ai", "mcp", "security"]
       },
       "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
       "shape": {
-        "loc": 97298,
+        "loc": 97347,
         "code_files": 368,
         "files": 457,
         "has_ci": true,
@@ -71,7 +71,8 @@
       },
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
-      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": false },
+      "risk_where": {}
     }
   }
 }
