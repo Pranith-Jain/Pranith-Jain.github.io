@@ -1,8 +1,32 @@
 {
-  "updatedAt": "2026-09-28T13:47:57.884Z",
-  "total": 53,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 10, "bleepingcomputer": 4 },
+  "updatedAt": "2026-09-29T12:46:47.290Z",
+  "total": 54,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 12, "bleepingcomputer": 3 },
   "items": [
+    {
+      "id": "aHR0cHM6Ly9j",
+      "title": "CSA Welcomes NVIDIA Open Agent Safety Platform",
+      "link": "https://cloudsecurityalliance.org/articles/cloud-security-alliance-welcomes-nvidia-open-agent-safety-platform-to-advance-its-mission-of-securing-the-agentic-control-plane",
+      "pubDate": "Mon, 28 Sep 2026 13:52:00 -0700",
+      "source": "csa",
+      "description": "Cloud Security Alliance is building industry consensus around governance and security controls for autonomous AI. We welcome the launch of the NVIDIA Open&amp;nbsp;Agent Safety Platform and NVIDIA’s commitment to making autonomous AI safer to deploy at enterprise scale. NVIDIA is bringing its engineering capabilities across software and hardware to one of the most consequential challenges facing our industry: giving agents the freedom to do useful work while maintaining control over their a..."
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "JadePuffer agentic AI attacks target Azure, destroy cloud resources",
+      "link": "https://www.bleepingcomputer.com/news/security/jadepuffer-agentic-ai-attacks-target-azure-destroy-cloud-resources/",
+      "pubDate": "Mon, 28 Sep 2026 11:49:27 -0400",
+      "source": "bleepingcomputer",
+      "description": "The JadePuffer ransomware operator is targeting Azure tenants with agent-driven attacks that conduct reconnaissance, steal credentials, and destroy core components. [...]"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "80,000+ Organizations Had AI Logins Stolen: From Shadow AI to LLMjacking",
+      "link": "https://www.bleepingcomputer.com/news/security/80-000-plus-organizations-had-ai-logins-stolen-from-shadow-ai-to-llmjacking/",
+      "pubDate": "Mon, 28 Sep 2026 10:00:10 -0400",
+      "source": "bleepingcomputer",
+      "description": "Infostealer logs exposed AI account credentials and sessions tied to more than 80,000 corporate domains, creating risks ranging from stolen conversations to LLMjacking. SOCRadar examines the growing market for stolen AI logins and how organizations can identify their exposure. [...]"
+    },
     {
       "id": "aHR0cHM6Ly93",
       "title": "OpenAI is preparing “o,” an always-on ChatGPT assistant that could handle email",
@@ -12,28 +36,12 @@
       "description": "OpenAI is testing a new always-on assistant called \"o\", and references to the unannounced feature briefly showed up on the company's website. [...]"
     },
     {
-      "id": "aHR0cHM6Ly93",
-      "title": "Anthropic turns Claude into an AI marketplace with 2,000+ plugins and connectors",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-turns-claude-into-an-ai-marketplace-with-2-000-plus-plugins-and-connectors/",
-      "pubDate": "Sun, 27 Sep 2026 09:38:40 -0400",
-      "source": "bleepingcomputer",
-      "description": "Anthropic has just announced a new Claude Marketplace, and it brings all AI-related tools into one place, including plugins, connectors, agents, and more. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "Claude Opus 5.5 uses 95% fewer em dashes, but its answers are getting longer",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/claude-opus-55-uses-95-percent-fewer-em-dashes-but-its-answers-are-getting-longer/",
-      "pubDate": "Sat, 26 Sep 2026 12:26:58 -0400",
-      "source": "bleepingcomputer",
-      "description": "Anthropic's Claude Opus 5.5 appears to be changing how it writes, with new analysis showing fewer obvious AI writing patterns, shorter sentences, and simpler wording compared with Opus 5. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "OpenAI's AI agents accidentally uploaded user-provided images to third-party sites",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/openais-ai-agents-accidentally-uploaded-user-provided-images-to-third-party-sites/",
-      "pubDate": "Sat, 26 Sep 2026 08:28:41 -0400",
-      "source": "bleepingcomputer",
-      "description": "OpenAI says its AI agents uploaded user-provided images to third-party image-hosting services while carrying out research and evaluation tasks. [...]"
+      "id": "aHR0cHM6Ly9j",
+      "title": "From Models to MCP Servers, Skills, and Plugins: Rethinking Trust in the AI Supply Chain",
+      "link": "https://cloudsecurityalliance.org/articles/from-models-to-mcp-servers-skills-and-plugins-rethinking-trust-in-the-ai-supply-chain",
+      "pubDate": "Thu, 24 Sep 2026 18:37:40 -0700",
+      "source": "csa",
+      "description": "An enterprise can approve an AI model, authenticate its users, and restrict access to internal systems, yet still expose sensitive data through the components surrounding that model. In September 2025, an MCP server distributed through npm demonstrated how quickly trust can become a liability. The package, postmark-mcp, allowed AI assistants to send email through Postmark. It operated normally across its first 15 versions and reached approximately 1,500 weekly downloads. Then version 1...."
     },
     {
       "id": "aHR0cHM6Ly9j",
