@@ -4,15 +4,11 @@
   "name": "storm",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-26T08:48:02.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-09-27T17:53:23.000Z",
   "lastSeen": "2026-09-27T17:53:23.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-26",
-      "count": 2
-    },
     {
       "date": "2026-09-27",
       "count": 1
@@ -24,18 +20,6 @@
       "slug": "first-secure-bank-group-f27d",
       "title": "First Secure Bank Group — claimed by storm",
       "pubDate": "2026-09-27T17:53:23.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "applied-composites-49b1",
-      "title": "Applied Composites — claimed by storm",
-      "pubDate": "2026-09-26T08:48:35.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "magna-legal-services-f0da",
-      "title": "Magna Legal Services — claimed by storm",
-      "pubDate": "2026-09-26T08:48:02.000Z"
     }
   ],
   "relatedEntities": [
@@ -43,18 +27,6 @@
       "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
       "weight": 1
     }
   ],
@@ -66,20 +38,6 @@
       "sector": "Financial Services",
       "country": "US",
       "pubDate": "2026-09-27T17:53:23.000Z"
-    },
-    {
-      "id": "applied-composites-49b1",
-      "victim": "Applied Composites — claimed by storm",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-26T08:48:35.000Z"
-    },
-    {
-      "id": "magna-legal-services-f0da",
-      "victim": "Magna Legal Services — claimed by storm",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-26T08:48:02.000Z"
     }
   ]
 }

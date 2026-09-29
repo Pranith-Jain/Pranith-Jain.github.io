@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "cry0",
+  "name": "cry0",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-28T22:56:41.000Z",
+  "lastSeen": "2026-09-28T22:56:41.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-28",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "minmor-industries-36f5",
+      "title": "MinMor Industries — claimed by cry0",
+      "pubDate": "2026-09-28T22:56:41.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "minmor-industries-36f5",
+      "victim": "MinMor Industries — claimed by cry0",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-09-28T22:56:41.000Z"
+    }
+  ]
+}

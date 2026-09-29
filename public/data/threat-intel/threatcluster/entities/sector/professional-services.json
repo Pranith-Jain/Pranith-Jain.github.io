@@ -5,20 +5,32 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 4,
-  "firstSeen": "2026-09-26T08:48:02.000Z",
-  "lastSeen": "2026-09-27T22:25:06.000Z",
+  "firstSeen": "2026-09-27T22:24:33.000Z",
+  "lastSeen": "2026-09-28T18:50:17.000Z",
   "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-26",
+      "date": "2026-09-27",
       "count": 2
     },
     {
-      "date": "2026-09-27",
+      "date": "2026-09-28",
       "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "bhn-expertise-com-8d1f",
+      "title": "bhn-expertise.com — claimed by threeam",
+      "pubDate": "2026-09-28T18:50:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "starr-whitehouse-landscape-architects-a424",
+      "title": "Starr Whitehouse Landscape Architects — claimed by play",
+      "pubDate": "2026-09-28T18:33:25.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "asesor-a-far-c9ca",
@@ -30,18 +42,6 @@
       "slug": "ressources-si-b856",
       "title": "Ressources Si — claimed by panzer",
       "pubDate": "2026-09-27T22:24:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "arca-unlimited-architects-d400",
-      "title": "ARCA UNLIMITED Architects — claimed by blacklocks",
-      "pubDate": "2026-09-26T17:07:42.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "magna-legal-services-f0da",
-      "title": "Magna Legal Services — claimed by storm",
-      "pubDate": "2026-09-26T08:48:02.000Z"
     }
   ],
   "relatedEntities": [
@@ -53,14 +53,14 @@
     },
     {
       "type": "group",
-      "slug": "blacklocks",
-      "name": "blacklocks",
+      "slug": "threeam",
+      "name": "threeam",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "storm",
-      "name": "storm",
+      "slug": "play",
+      "name": "play",
       "weight": 1
     }
   ],

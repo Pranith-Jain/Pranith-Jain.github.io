@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "play",
+  "name": "play",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-28T18:32:52.000Z",
+  "lastSeen": "2026-09-28T18:33:25.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-28",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "starr-whitehouse-landscape-architects-a424",
+      "title": "Starr Whitehouse Landscape Architects — claimed by play",
+      "pubDate": "2026-09-28T18:33:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ever-ready-first-aid-6f08",
+      "title": "Ever Ready First Aid — claimed by play",
+      "pubDate": "2026-09-28T18:32:52.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "starr-whitehouse-landscape-architects-a424",
+      "victim": "Starr Whitehouse Landscape Architects — claimed by play",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-28T18:33:25.000Z"
+    },
+    {
+      "id": "ever-ready-first-aid-6f08",
+      "victim": "Ever Ready First Aid — claimed by play",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-28T18:32:52.000Z"
+    }
+  ]
+}

@@ -5,20 +5,38 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 5,
-  "firstSeen": "2026-09-27T16:05:11.000Z",
-  "lastSeen": "2026-09-28T08:59:05.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 3 sectors and 5 countries.",
+  "firstSeen": "2026-09-27T17:03:11.000Z",
+  "lastSeen": "2026-09-28T20:01:05.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 3 sectors and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-27",
-      "count": 4
+      "count": 1
     },
     {
       "date": "2026-09-28",
-      "count": 1
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "arnold-center-62f7",
+      "title": "Arnold Center — claimed by qilin",
+      "pubDate": "2026-09-28T20:01:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "new-world-diagnostics-3afe",
+      "title": "New World Diagnostics — claimed by qilin",
+      "pubDate": "2026-09-28T17:00:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sklg-5fd4",
+      "title": "SKLG — claimed by qilin",
+      "pubDate": "2026-09-28T14:03:31.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "nissho-electric-manufacturing-co-ltd-5f8e",
@@ -30,24 +48,6 @@
       "slug": "xico-5fd7",
       "title": "XICO — claimed by qilin",
       "pubDate": "2026-09-27T17:03:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "island-9019",
-      "title": "Island — claimed by qilin",
-      "pubDate": "2026-09-27T17:02:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "revenga-smart-solutions-e4a4",
-      "title": "Revenga Smart Solutions — claimed by qilin",
-      "pubDate": "2026-09-27T16:06:05.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "willatt-amp-flickinger-801a",
-      "title": "Willatt &amp; Flickinger — claimed by qilin",
-      "pubDate": "2026-09-27T16:05:11.000Z"
     }
   ],
   "relatedEntities": [
@@ -55,13 +55,13 @@
       "type": "sector",
       "slug": "not-found",
       "name": "Not Found",
-      "weight": 2
+      "weight": 3
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 2
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
     },
     {
       "type": "sector",
@@ -72,6 +72,27 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "arnold-center-62f7",
+      "victim": "Arnold Center — claimed by qilin",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-09-28T20:01:05.000Z"
+    },
+    {
+      "id": "new-world-diagnostics-3afe",
+      "victim": "New World Diagnostics — claimed by qilin",
+      "sector": "Healthcare",
+      "country": "PH",
+      "pubDate": "2026-09-28T17:00:04.000Z"
+    },
+    {
+      "id": "sklg-5fd4",
+      "victim": "SKLG — claimed by qilin",
+      "sector": "Not Found",
+      "country": "JP",
+      "pubDate": "2026-09-28T14:03:31.000Z"
+    },
     {
       "id": "nissho-electric-manufacturing-co-ltd-5f8e",
       "victim": "Nissho Electric Manufacturing Co., Ltd. — claimed by qilin",
@@ -85,27 +106,6 @@
       "sector": "Not Found",
       "country": "MX",
       "pubDate": "2026-09-27T17:03:11.000Z"
-    },
-    {
-      "id": "island-9019",
-      "victim": "Island — claimed by qilin",
-      "sector": "Technology",
-      "country": "CA",
-      "pubDate": "2026-09-27T17:02:29.000Z"
-    },
-    {
-      "id": "revenga-smart-solutions-e4a4",
-      "victim": "Revenga Smart Solutions — claimed by qilin",
-      "sector": "Technology",
-      "country": "ES",
-      "pubDate": "2026-09-27T16:06:05.000Z"
-    },
-    {
-      "id": "willatt-amp-flickinger-801a",
-      "victim": "Willatt &amp; Flickinger — claimed by qilin",
-      "sector": "Not Found",
-      "country": "US",
-      "pubDate": "2026-09-27T16:05:11.000Z"
     }
   ]
 }

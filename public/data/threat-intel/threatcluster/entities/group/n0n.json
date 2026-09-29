@@ -4,17 +4,27 @@
   "name": "n0n",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-28T05:51:12.000Z",
-  "lastSeen": "2026-09-28T05:51:12.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-29T05:51:30.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-09-28",
       "count": 1
+    },
+    {
+      "date": "2026-09-29",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "precision-facades-ltd-d71f",
+      "title": "Precision Facades Ltd — claimed by n0n",
+      "pubDate": "2026-09-29T05:51:30.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "dediserve-ltd-2e0e",
@@ -25,6 +35,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "technology",
       "name": "Technology",
       "weight": 1
@@ -32,6 +48,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "precision-facades-ltd-d71f",
+      "victim": "Precision Facades Ltd — claimed by n0n",
+      "sector": "Manufacturing",
+      "country": "GB",
+      "pubDate": "2026-09-29T05:51:30.000Z"
+    },
     {
       "id": "dediserve-ltd-2e0e",
       "victim": "Dediserve Ltd — claimed by n0n",

@@ -1,0 +1,53 @@
+{
+  "type": "group",
+  "slug": "payload",
+  "name": "payload",
+  "aliases": [],
+  "sources": ["dictionary", "victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-12T08:16:24.000Z",
+  "lastSeen": "2026-09-28T16:59:11.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-12",
+      "count": 1
+    },
+    {
+      "date": "2026-09-28",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "netech-neeser-technik-ag-e7e1",
+      "title": "Netech (Neeser Technik AG) — claimed by payload",
+      "pubDate": "2026-09-28T16:59:11.000Z"
+    },
+    {
+      "recordType": "exploit",
+      "slug": "CVE-2026-78159",
+      "title": "CVE-2026-78159 [Exploit]",
+      "pubDate": "2026-09-12T08:16:24.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "netech-neeser-technik-ag-e7e1",
+      "victim": "Netech (Neeser Technik AG) — claimed by payload",
+      "sector": "Manufacturing",
+      "country": "CH",
+      "pubDate": "2026-09-28T16:59:11.000Z"
+    }
+  ]
+}
