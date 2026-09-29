@@ -1,0 +1,120 @@
+{
+  "type": "cyber",
+  "date": "2026-09-29",
+  "threatLevel": "",
+  "executiveSummary": "Active exploitation of Citrix NetScaler ADC/Gateway zero-days (CVE-2026-88771, -88772) is ongoing, enabling unauthenticated RCE on widely deployed VPN/perimeter devices that often broker access to OT networks. Immediate patching and pre-patch compromise assessment are urged. Security Advisory JPCERT/CC JPCERT/CC reports active exploitation of F5 BIG-IP APM (CVE-2026-94127) via OAuth paths, providing a direct route to enterprise and potential OT segments through compromised remote access infrastructure. Advisory Cisco Secure Email Gateway (AsyncOS) unauthenticated SQLi (CVE-2026-76461) is exploited in the wild; compromise risks data theft and follow-on lateral movement including toward OT if segmentation is weak. Advisory CISA warns of active reconnaissance and capability development targeting Siemens S7 PLCs using AI-assisted scripts over S7comm, elevating risk to multiple critical sectors; remove exposure, harden, and monitor S7 traffic. CISA Advisory Industrial gateway risks: Nozomi-reported critical issues in Advantech EKI-1242EIMS protocol gateways could enable OT device takeover and downtime across utilities, energy, and manufacturing. CISA Bulletin Additional edge/perimeter pressure: CISA KEV additions for SharePoint and MikroTik, plus WordPress Core RFI, indicate broad enterprise entry vectors that can enable IT-to-OT pivoting if controls lag. KEV Update KEV Update",
+  "keyFindings": [
+    {
+      "title": "Perimeter device exploitation (Citrix NetScaler, F5 BIG-IP APM, Cisco SEG) is a ",
+      "summary": "Perimeter device exploitation (Citrix NetScaler, F5 BIG-IP APM, Cisco SEG) is a leading pathway for enterprise compromise with credible OT pivot risk; treat VPN/ADC/SEG appliances as Tier-0 assets and validate segmentation. View Article View Article View Article"
+    },
+    {
+      "title": "OT-specific exposure",
+      "summary": "Advantech EKI-1242EIMS industrial gateways contain unauthenticated command execution and missing-auth flaws on management services; urgent isolation and updates are required in utilities and manufacturing. View Article"
+    },
+    {
+      "title": "Active interest in Siemens S7 PLCs using AI-generated scripts over S7comm unders",
+      "summary": "Active interest in Siemens S7 PLCs using AI-generated scripts over S7comm underscores the need to remove Internet exposure, enforce access controls, and baseline OT protocol traffic. View Article"
+    },
+    {
+      "title": "IT-to-OT pivot risk remains high",
+      "summary": "CISA red-team assessments in the Water Sector showed complete domain compromise via identity weaknesses and attempted OT DMZ pivot-blocked only by detection and segmentation. View Article"
+    },
+    {
+      "title": "Mass-distribution malware (e.g., MovieReaper) and long-dwell backdoors (NeedyMan",
+      "summary": "Mass-distribution malware (e.g., MovieReaper) and long-dwell backdoors (NeedyMantis) continue to target enterprise endpoints; engineering workstations remain at risk if hardening and allowlisting are absent. View Article View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall OT Threat Level"
+      },
+      {
+        "value": "44",
+        "label": "Total Intelligence Items Analyzed"
+      },
+      {
+        "value": "8",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "16",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "13",
+        "label": "IGNORE Items"
+      },
+      {
+        "value": "9",
+        "label": "Actively Exploited/Zero-Day Items"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Citrix NetScaler ADC/Gateway; F5 BIG-IP APM; Cisco Secure Email Gateway Siemens S7 PLCs (S7-1200/1500/200/300/400), STEP 7/TIA Portal; S7comm (TCP/102) Advantech EKI-1242EIMS protocol gateways; Advantech WISE-6610 LoRaWAN gateways Kaon AR2140 routers; F&F Filipowski mH-DEVELOPER building controllers Oracle PeopleSoft (CVE-2026-35273); Microsoft SharePoint; MikroTik RouterOS; WordPress Core Microsoft AD/Entra ID, GPO; DAEMON Tools Lite supply-chain exposure; Poedit/WinSparkle DLL sideloading Apple iOS/iPadOS/macOS endpoints (CoreGraphics CVE for legacy branches)"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems; Energy; Chemical; Critical Manufacturing; Commercial Facilities Source Telecommunications and Public Safety Communications Source Source Government, Transportation, Agriculture, Healthcare (via enterprise attacks and data exposure) Source Source"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "China-nexus overlap: NeedyMantis backdoor linked to DAEMON Tools Lite supply-chain incident, employing DLL sideloading and modular C2. View Article",
+        "ShinyHunters mass-exploited Oracle PeopleSoft CVE-2026-35273 (initially a 0-day), breaching multiple organizations including an FBI jobs portal; WAF-bypass via URL-encoding observed. View Article",
+        "MovieReaper torrent malvertising framework impacts multiple sectors (e.g., transportation, government), establishing stealthy persistence and C2 with Solana RPC indicators. View Article"
+      ]
+    }
+  ],
+  "relevance": "Current risk to OT environments is primarily driven by exploited and high-severity perimeter flaws (Citrix NetScaler, F5 BIG-IP APM, Cisco Secure Email) that provide rapid initial access and staging for lateral movement into industrial zones. Concurrently, an explicit government advisory highlights AI-assisted targeting of Siemens S7 PLCs over S7comm, increasing the probability of reconnaissance and misuse of engineering protocols if exposure and access controls are weak. Industrial protocol gateways (e.g., Advantech EKI-1242EIMS) with unauthenticated management functions present a direct OT impact path through device takeover, configuration tampering, or induced downtime. Effective segmentation, strict remote-access governance, and protocol-aware monitoring remain decisive controls.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Advantech EKI-1242EIMS protocol gateway: unauthenticated command execution/missing auth on management TCP/5058; OPC UA session-exhaustion DoS. Security Bulletin",
+        "Advantech WISE-6610 LoRaWAN gateway: command-injection and exposed components with public exploits. Security Bulletin",
+        "Kaon AR2140 routers ( CERT Polska",
+        "F&F Filipowski mH-DEVELOPER ( CERT Polska",
+        "Citrix NetScaler ADC/Gateway: actively exploited RCEs added to KEV. KEV",
+        "SharePoint and MikroTik RouterOS: KEV-listed active exploitation; initial access and device compromise risks. KEV",
+        "WordPress Core RFI (CVE-2026-87902): webshell risk on public sites operated by CI entities. KEV"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploitation of public-facing applications and edge devices (T1190), including VPN/ADC/SEG, SharePoint, WordPress, RouterOS",
+      "DLL sideloading with legitimate binaries (T1574.002); supply-chain abuse",
+      "Web shells/backdoors on appliances and CMS (T1505.003)",
+      "Credential access and cloud token abuse; AD misconfigurations and GPO weaponization (T1552, T1098, T1484)",
+      "Protocol abuse and reconnaissance in OT (S7comm over TCP/102), unauthorized PUT/GET operations",
+      "Command injection/unauthenticated management actions on industrial gateways and IIoT devices"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1574.002",
+      "T1505.003",
+      "T1552",
+      "T1098",
+      "T1484"
+    ]
+  },
+  "outlook72h": "Citrix NetScaler response window: conduct IOC check, preserve evidence, patch to fixed builds, rotate creds/tokens, and restrict external access to management/Gateway. Validate no lateral movement. Remote access broker triage: evaluate F5 BIG-IP APM and Cisco SEG exposure; apply hotfixes/patches or mitigations; review OAuth/mail logs for anomalies; isolate/rebuild if needed. OT perimeter sweep: inventory and isolate Advantech EKI/WISE gateways; restrict management services; deploy protocol-aware monitoring (OPC UA/Modbus/S7comm). PLC exposure elimination: block TCP/102 at perimeters; enforce brokered, MFA-protected access; baseline and alert on S7comm deviations. Identity and jump-host controls: enforce phishing-resistant MFA, JIT admin, gMSA; audit GPO rights and SYSVOL integrity; implement rapid token revocation playbooks. Patch KEV and high-risk enterprise edges (SharePoint, WordPress Core, MikroTik); hunt for webshells and persistence on public-facing apps.",
+  "relatedCves": [
+    "CVE-2026-88771",
+    "CVE-2026-94127",
+    "CVE-2026-76461",
+    "CVE-2026-35273",
+    "CVE-2026-52748",
+    "CVE-2026-82928",
+    "CVE-2026-87902",
+    "CVE-2026-88772",
+    "CVE-2026-73640"
+  ]
+}

@@ -1,0 +1,352 @@
+{
+  "type": "deepfake",
+  "date": "2026-09-29",
+  "riskOutlook": "",
+  "executiveSummary": "The reporting period features multiple high-urgency, operational incidents that expand both the scale and sophistication of synthetic-media-enabled crime and influence. Microsoft disrupted the EvilTokens AI-powered phishing service after confirmed compromise of over 12,000 accounts across more than 10,000 organizations, underscoring the growing role of AI in account takeover operations View Article . Separately, an autonomous multi-agent campaign reportedly targeted hundreds of online retailers, compromising at least 27 companies and stealing over 600,000 payment cards from two victims View Article . Public-safety and election-security risks are also acute. Manhattan prosecutors seized 12 domains in a takedown of commercialized deepfake pornography that victimized more than 1,200 people View Article , and AP reporting highlights active use of AI-generated political ads in the U.S. 2026 midterms amid inconsistent disclosure rules View Article . Additional reporting signals government-focused voice-impersonation risks to senior U.S. officials Source , and state-aligned influence efforts in Angola View Article . On the defensive and regulatory fronts, content provenance and detection capabilities continued to improve with OpenAI and Microsoft API-level verification features and Adobe workflow support for C2PA metadata View Article Vendor Advisory Supporting Report . In Europe, new guidance and a Code of Practice detail machine-readable marks and implementation measures for labeling and detecting AI-generated content View Article View Article . Overall, the threat environment appears to be worsening given the number of high-impact incidents, cross-sector victimization, and continued adoption of AI agents for fraud and influence operations, despite parallel progress in provenance and regulatory controls.",
+  "keyFindings": [
+    {
+      "title": "AI-powered phishing platform EvilTokens enabled compromise of 12,000+ accounts a",
+      "summary": "AI-powered phishing platform EvilTokens enabled compromise of 12,000+ accounts across 10,000+ organizations before disruption by Microsoft. View Article"
+    },
+    {
+      "title": "Autonomous AI agents reportedly targeted hundreds of online retailers; at least ",
+      "summary": "Autonomous AI agents reportedly targeted hundreds of online retailers; at least 27 companies were compromised and 600,000+ cards were stolen from two victims. View Article"
+    },
+    {
+      "title": "Manhattan DA seized 12 domains tied to AI deepfake pornography impacting over 1,",
+      "summary": "Manhattan DA seized 12 domains tied to AI deepfake pornography impacting over 1,200 victims. View Article"
+    },
+    {
+      "title": "AI-generated political ads are active in the U.S. 2026 midterms with inconsisten",
+      "summary": "AI-generated political ads are active in the U.S. 2026 midterms with inconsistent disclosure, increasing election-security burdens. View Article"
+    },
+    {
+      "title": "Reporting indicates AI voice deepfakes are being used to impersonate senior U.S.",
+      "summary": "Reporting indicates AI voice deepfakes are being used to impersonate senior U.S. officials and contacts. Source"
+    },
+    {
+      "title": "Angolan officials were reportedly trained in coordinated online influence operat",
+      "summary": "Angolan officials were reportedly trained in coordinated online influence operations using deceptive personas. View Article"
+    },
+    {
+      "title": "Content provenance defenses advanced via OpenAI and Microsoft verification APIs ",
+      "summary": "Content provenance defenses advanced via OpenAI and Microsoft verification APIs and Adobe C2PA preservation in enterprise workflows. View Article"
+    },
+    {
+      "title": "EU transparency guidance and a Code of Practice set clearer expectations for lab",
+      "summary": "EU transparency guidance and a Code of Practice set clearer expectations for labeling and detecting AI-generated content. View Article"
+    }
+  ],
+  "incidents": [
+    {
+      "title": "Microsoft disrupts EvilTokens AI-powered phishing platform after mass account compromise",
+      "badges": [
+        "ESCALATE",
+        "High Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/ai-powered-phishing-platform-eviltokens-disrupted-by-microsoft/",
+          "label": "View Article"
+        },
+        {
+          "url": "https://thehackernews.com/2026/09/microsoft-takes-down-eviltokens-device.html",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "AI multi-agent campaign compromises online retailers; major card theft reported",
+      "badges": [
+        "ESCALATE",
+        "High Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/ai-powered-campaign-targets-hundreds-of-online-retailers/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "AI-generated political ads active in U.S. midterms amid inconsistent disclosure",
+      "badges": [
+        "ESCALATE",
+        "High Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d375801e10821b3e6ac776ffc77e1f28",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Manhattan DA seizes 12 domains tied to AI deepfake pornography; 1,200+ victims",
+      "badges": [
+        "ESCALATE",
+        "High Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://therecord.media/manhattan-da-takes-down-12-ai-deepfake-porn-sites",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Reported AI voice deepfakes impersonate senior U.S. officials in targeted outreach",
+      "badges": [
+        "ESCALATE",
+        "High Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.silentsignals.com/",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Angola reportedly expands state-aligned social-media influence capabilities",
+      "badges": [
+        "ESCALATE",
+        "High Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://therecord.media/angola-israel-influence-operations-blackcore",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "15-year sentence for cyberstalking with AI-generated explicit material",
+      "badges": [
+        "ESCALATE",
+        "High Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.justice.gov/usao-sdoh/pr/columbus-man-sentenced-15-years-prison-cyberstalking-exes-creating-ai-generated",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "EU issues AI transparency guidance and Code of Practice for deepfake labeling/detection",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+          "label": "Guidelines"
+        },
+        {
+          "url": "https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content",
+          "label": "Code of Practice"
+        }
+      ]
+    },
+    {
+      "title": "OpenAI content provenance API and docs for C2PA/SynthID verification",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://developers.openai.com/api/docs/guides/content-provenance",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "OpenAI guidance for checking provenance signals in generated images/audio",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://help-lb.openai.com/en/articles/8912793-provenance-signals-content-credentials-synthid-in-openai-generated-content",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Microsoft Content Safety preview API for provenance detection",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/rest/api/contentsafety/content-provenance-operations/detect?view=rest-contentsafety-2026-07-01-preview",
+          "label": "Vendor Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Adobe Workfront update preserves C2PA metadata in media workflows",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://experienceleague.adobe.com/en/docs/workfront/using/documents/c2pa-metadata-overview",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "NIST updates \"Guardians of Forensic Evidence\" deepfake detector evaluation project",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.nist.gov/programs-projects/guardians-forensic-evidence",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Brazil court standard updates on political deepfakes ahead of elections",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d17e9ba58b40e6d1f9db87d70b148809",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Ofcom to crack down on illegal intimate-image deepfakes in the UK",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.ofcom.org.uk/online-safety/illegal-and-harmful-content/ofcom-to-crack-down-on-spread-of-illegal-intimate-images-and-deepfakes-boosting-protections-for-women-and-girls-online",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "FBI warns of deepfake-enabled cryptocurrency investment scams",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.fbi.gov/how-we-can-help-you/victim-services/national-crimes-and-victim-resources/cryptocurrency-investment-fraud",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Financial sector report: deepfakes, synthetic IDs, and AI docs drive more personalized scams",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.thomsonreuters.com/en/institute/reports/deception-in-the-ai-age-2026",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "CISO exposure to deepfake vishing reported as widespread",
+      "badges": [
+        "MONITOR",
+        "Medium Urgency"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.itpro.com/security/cyber-crime/nearly-half-of-cisos-have-been-hit-by-ai-deepfake-voice-calls-heres-how-to-spot-the-tell-tale-signs-youre-being-scammed",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "emergingTrends": [
+    "AI-assisted phishing and account takeover at enterprise scale, including device-code social engineering paths.",
+    "Autonomous multi-agent operations combining reconnaissance, exploitation, and orchestration against retail targets.",
+    "Active use of AI-generated political content with inconsistent disclosure during election cycles.",
+    "Growth in voice cloning and executive impersonation targeting government and corporate leaders.",
+    "Expansion of content provenance tooling (C2PA, watermark detection APIs) and workflow preservation of provenance metadata.",
+    "Regulatory momentum: EU transparency guidance and Code of Practice; UK enforcement focus on intimate-image deepfakes; Brazil's election standards.",
+    "Law-enforcement and prosecutorial actions against synthetic-intimate-image abuse at infrastructure and individual levels.",
+    "Forensic benchmarking improvements to evaluate detector resilience under realistic evidentiary conditions."
+  ],
+  "geographicObservations": [
+    "United States: Large-scale AI phishing disruption; active AI-generated political ads; sentencing in AI harassment case; voice-impersonation risks to officials; NIST detector evaluation efforts; Manhattan DA domain seizures.",
+    "Angola: Reported development of state-aligned influence capabilities.",
+    "European Union: Transparency guidance and Code of Practice on AI-generated content.",
+    "United Kingdom: Ofcom enforcement focus on illegal intimate-image deepfakes.",
+    "Brazil: Updated election standards addressing political deepfakes.",
+    "Global: Retailer-targeting AI agent campaign; provenance APIs and workflow integrations."
+  ],
+  "detectionDevelopments": [
+    "Platform disruption of EvilTokens following mass compromise. View Article",
+    "OpenAI provenance verification API and documentation for C2PA/SynthID. View Article",
+    "Microsoft Content Safety preview API for provenance detection. Vendor Advisory",
+    "Adobe Workfront preservation of C2PA metadata across workflows. Supporting Report",
+    "EU guidance and Code of Practice for labeling/detecting AI-generated content. View Article",
+    "NIST benchmarking for forensic detector evaluation. View Article",
+    "Investigate device-code flows: alert on anomalous token issuance, atypical geovelocity, mismatched device/user agents, and mass consent grants. (Analyst Recommendation)",
+    "Adopt provenance triage: verify C2PA metadata and watermarks where available; treat presence as corroborative, absence as inconclusive. (Analyst Recommendation)",
+    "Enforce out-of-band verification for executive requests and financial changes; disable voice-only approvals. (Analyst Recommendation)",
+    "Harden retail stacks: lock third-party scripts, deploy CSP/reporting, and continuously scan for web skimmers and injected tags. (Analyst Recommendation)",
+    "Election workflows: archive political media with hashes and provenance info; coordinate rapid corrections with platforms and authorities. (Analyst Recommendation)",
+    "Victim support: streamline deepfake takedown, evidence preservation, and law-enforcement referrals; provide clear reporting channels. (Analyst Recommendation)"
+  ]
+}
