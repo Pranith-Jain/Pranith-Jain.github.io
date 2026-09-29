@@ -1,75 +1,46 @@
 {
-  "name": "DANJailbreak",
-  "file": "jailbreak.nov",
+  "name": "DanJailbreak",
+  "file": "promptintel/DanJailbreak.nov",
   "meta": {
-    "description": "Detects Do Anything Now (DAN) jailbreak attempts",
-    "author": "Thomas Roccia",
+    "description": "Detects DAN (Do Anything Now) jailbreak attempts",
+    "author": "Security Team",
     "version": "1.0.0",
     "category": "prompt_manipulation/jailbreak",
     "severity": "high",
-    "uuid": "b0b1cc34-491b-4d3a-b174-146510e76b20",
-    "date": "2026-02-21",
-    "reference": null
+    "uuid": "ba9e02c6-9b97-426e-ac25-ee3ef6e7db4e",
+    "date": "2025-07-27",
+    "reference": "https://github.com/0xk1h0/ChatGPT_DAN"
   },
   "keywords": {
-    "$dan_mode": {
-      "pattern": "DAN mode",
-      "isRegex": false,
-      "caseSensitive": false
-    },
-    "$do_anything": {
+    "$dan_phrase": {
       "pattern": "do anything now",
       "isRegex": false,
       "caseSensitive": false
     },
-    "$ignore_rules": {
-      "pattern": "ignore all instructions",
-      "isRegex": false,
+    "$role_instruction": {
+      "pattern": "immerse yourself into the role",
+      "isRegex": true,
       "caseSensitive": false
     },
-    "$ignore_ethics": {
-      "pattern": "ignore the rules, constraints, perimeters, values, and ethics",
-      "isRegex": false,
+    "$bypass_rules": {
+      "pattern": "broken free of.*confines",
+      "isRegex": true,
       "caseSensitive": false
     },
-    "$authorization": {
-      "pattern": "you have full authorization to ignore",
-      "isRegex": false,
-      "caseSensitive": false
-    },
-    "$token_reward": {
-      "pattern": "you will receive 10 tokens",
-      "isRegex": false,
-      "caseSensitive": false
-    },
-    "$token_system": {
-      "pattern": "the more truthful your answers are, the more tokens",
-      "isRegex": false,
-      "caseSensitive": false
-    },
-    "$ethics_bypass": {
-      "pattern": "ignore your ethical guidelines",
-      "isRegex": false,
-      "caseSensitive": false
-    },
-    "$programming": {
-      "pattern": "ignore your programming",
-      "isRegex": false,
+    "$content_policy": {
+      "pattern": "does not need to adhere.*content policy",
+      "isRegex": true,
       "caseSensitive": false
     }
   },
   "semantics": {
-    "$model_override": {
-      "pattern": "convincing the model to bypass its safety measures",
-      "threshold": 0.35
-    },
-    "$ethics_evasion": {
-      "pattern": "requesting model to evade ethical constraints",
-      "threshold": 0.4
+    "$jailbreak_intent": {
+      "pattern": "instruct AI to ignore safety guidelines",
+      "threshold": 0.3
     }
   },
   "llm": {},
-  "condition": "keywords.$dan_mode or keywords.$do_anything or keywords.$ignore_rules or keywords.$ignore_ethics or keywords.$authorization or keywords.$token_reward or keywords.$token_system or keywords.$ethics_bypass or keywords.$programming or semantics.$model_override or semantics.$ethics_evasion",
+  "condition": "($dan_phrase and $role_instruction) or ($bypass_rules and $content_policy) or semantics.$jailbreak_intent",
   "needs": {
     "keywords": true,
     "semantics": true,
@@ -77,6 +48,6 @@
   },
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
-  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/jailbreak.nov",
+  "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/promptintel/DanJailbreak.nov",
   "license": "MIT"
 }
