@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-28T11:53:27.103Z",
-  "eventCount": 10,
+  "syncedAt": "2026-09-29T11:31:41.307Z",
+  "eventCount": 9,
   "events": [
     {
       "uuid": "7ddf6f0d-b311-59e7-a2d1-bd419d9ee628",
@@ -22,6 +22,28 @@
       "threat_level_id": "1",
       "timestamp": "1790112347",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "558ee81f-5e54-52c5-a042-49b937c93432",
+      "info": "Critical Citrix NetScaler Zero-Day Vulnerabilities Exploited",
+      "date": "2026-09-28",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1790619539",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:high",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"Kimsuky\"",
+        "misp-galaxy:threat-actor=\"Salt Typhoon\"",
+        "misp-galaxy:ransomware=\"Clop\"",
+        "misp-galaxy:ransomware=\"Ryuk\""
+      ],
       "orgc": "ThreatCluster"
     },
     {
@@ -62,23 +84,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "8294acbe-7d8b-5074-b29a-e686d5f96153",
-      "info": "Chinese Hackers Exploit Zyxel Switch Vulnerability CVE-2026-7273",
-      "date": "2026-09-22",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1790067199",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability"
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "289c6ece-0e9a-5216-b9cc-614ff85ef209",
       "info": "Critical CVE-2026-93952 Vulnerability in VeloCloud Orchestrator Actively Exploited",
       "date": "2026-09-22",
@@ -114,16 +119,6 @@
       "threat_level_id": "2",
       "timestamp": "1790094546",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "5375c7d0-aede-5a54-96e4-729fb51b7924",
-      "info": "Critical LFI Vulnerability in Visual Composer Exposed",
-      "date": "2026-09-27",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1790502725",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     }
   ]

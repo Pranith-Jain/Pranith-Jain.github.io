@@ -1,0 +1,145 @@
+{
+  "type": "group",
+  "slug": "threeam",
+  "name": "threeam",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 7,
+  "firstSeen": "2026-09-28T18:49:38.000Z",
+  "lastSeen": "2026-09-28T18:53:08.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 5 sectors and 6 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-28",
+      "count": 7
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "safescaffolding-net-395f",
+      "title": "safescaffolding.net — claimed by threeam",
+      "pubDate": "2026-09-28T18:53:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "coosalud-com-35da",
+      "title": "coosalud.com — claimed by threeam",
+      "pubDate": "2026-09-28T18:52:35.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pistonespersan-com-ar-77bf",
+      "title": "pistonespersan.com.ar — claimed by threeam",
+      "pubDate": "2026-09-28T18:52:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "midwestbit-com-c92b",
+      "title": "midwestbit.com — claimed by threeam",
+      "pubDate": "2026-09-28T18:51:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "apexus-com-fa72",
+      "title": "apexus.com — claimed by threeam",
+      "pubDate": "2026-09-28T18:50:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bhn-expertise-com-8d1f",
+      "title": "bhn-expertise.com — claimed by threeam",
+      "pubDate": "2026-09-28T18:50:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "stjames-wa-edu-au-c607",
+      "title": "stjames.wa.edu.au — claimed by threeam",
+      "pubDate": "2026-09-28T18:49:38.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "safescaffolding-net-395f",
+      "victim": "safescaffolding.net — claimed by threeam",
+      "sector": "Manufacturing",
+      "country": "GB",
+      "pubDate": "2026-09-28T18:53:08.000Z"
+    },
+    {
+      "id": "coosalud-com-35da",
+      "victim": "coosalud.com — claimed by threeam",
+      "sector": "Healthcare",
+      "country": "CO",
+      "pubDate": "2026-09-28T18:52:35.000Z"
+    },
+    {
+      "id": "pistonespersan-com-ar-77bf",
+      "victim": "pistonespersan.com.ar — claimed by threeam",
+      "sector": "Manufacturing",
+      "country": "AR",
+      "pubDate": "2026-09-28T18:52:00.000Z"
+    },
+    {
+      "id": "midwestbit-com-c92b",
+      "victim": "midwestbit.com — claimed by threeam",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-28T18:51:26.000Z"
+    },
+    {
+      "id": "apexus-com-fa72",
+      "victim": "apexus.com — claimed by threeam",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-28T18:50:52.000Z"
+    },
+    {
+      "id": "bhn-expertise-com-8d1f",
+      "victim": "bhn-expertise.com — claimed by threeam",
+      "sector": "Professional Services",
+      "country": "DE",
+      "pubDate": "2026-09-28T18:50:17.000Z"
+    },
+    {
+      "id": "stjames-wa-edu-au-c607",
+      "victim": "stjames.wa.edu.au — claimed by threeam",
+      "sector": "Education",
+      "country": "AU",
+      "pubDate": "2026-09-28T18:49:38.000Z"
+    }
+  ]
+}
