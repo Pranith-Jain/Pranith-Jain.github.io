@@ -410,6 +410,12 @@ const ROUTES = [
   '/threatintel/infra/ai-honeypot',
 ];
 
+// Mirrors `appMode` in src/App.tsx: routes under these prefixes render the
+// AppShell chrome, which never reads navLinks — so their HTML is identical
+// on both surfaces and only the portfolio tree needs to carry it. Must stay
+// in sync with the four `location.pathname.startsWith(...)` checks there.
+const APP_ROUTE_PREFIXES = ['/dfir', '/argus', '/threatintel', '/radar'];
+
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');
 const SERVER_BUNDLE = resolve(ROOT, '.ssr-build/entry-server.js');
 
@@ -439,37 +445,63 @@ async function main() {
   const prerenderDir = resolve(ROOT, 'dist/__prerendered');
   await mkdir(prerenderDir, { recursive: true });
 
-  const manifest = [];
-  let okCount = 0;
+  // Tools surface: a second tree under dist/__prerendered-tools/, chosen by
+  // the Worker when the request Host is TOOLS_HOST. Only routes whose HTML
+  // actually differs are rendered — /dfir/*, /threatintel/*, /argus/* and
+  // /radar/* render AppShell, which never reads navLinks, so their portfolio
+  // HTML is already correct for the tools host. The Worker falls back to the
+  // portfolio tree whenever this one has no file, so an under-rendered tools
+  // route degrades to portfolio chrome rather than to a bare shell.
+  const toolsPrerenderDir = resolve(ROOT, 'dist/__prerendered-tools');
+  const toolsRoutes = ROUTES.filter((route) => !APP_ROUTE_PREFIXES.some((p) => route.startsWith(p)));
+  await mkdir(toolsPrerenderDir, { recursive: true });
 
-  async function renderOne(route) {
-    const { html: appHtml } = await render(route);
+  const manifest = [];
+  const toolsManifest = [];
+  let okCount = 0;
+  let toolsOkCount = 0;
+
+  async function renderOne(route, surface, dir, treeLabel) {
+    const { html: appHtml } = await render(route, surface);
     const finalHtml = shell.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
     if (finalHtml === shell) {
       throw new Error('prerender: shell did not contain <div id="root"></div> placeholder');
     }
     const slug = route === '/' ? 'home' : route.slice(1).replace(/\//g, '__');
-    const outFile = resolve(prerenderDir, `${slug}.html`);
+    const outFile = resolve(dir, `${slug}.html`);
     await writeFile(outFile, finalHtml, 'utf8');
     const sizeKB = (finalHtml.length / 1024).toFixed(1);
-    console.log(`  ✓ ${route.padEnd(30)} → __prerendered/${slug}.html  (${sizeKB} KB)`);
-    return { route, file: `__prerendered/${slug}.html` };
+    console.log(`  ✓ ${route.padEnd(30)} → ${treeLabel}/${slug}.html  (${sizeKB} KB)`);
+    return { route, file: `${treeLabel}/${slug}.html` };
   }
 
   // Process routes in concurrent batches to saturate CPU without
   // overwhelming memory from N simultaneous render streams.
-  for (let i = 0; i < ROUTES.length; i += CONCURRENCY) {
-    const batch = ROUTES.slice(i, i + CONCURRENCY);
-    const results = await Promise.allSettled(batch.map(renderOne));
-    for (const result of results) {
-      if (result.status === 'fulfilled') {
-        manifest.push(result.value);
-        okCount++;
-      } else {
-        console.error(`  ✗ ${result.reason instanceof Error ? result.reason.message : String(result.reason)}`);
+  async function runPass(routes, surface, dir, treeLabel) {
+    const passManifest = [];
+    let passOk = 0;
+    for (let i = 0; i < routes.length; i += CONCURRENCY) {
+      const batch = routes.slice(i, i + CONCURRENCY);
+      const results = await Promise.allSettled(batch.map((r) => renderOne(r, surface, dir, treeLabel)));
+      for (const result of results) {
+        if (result.status === 'fulfilled') {
+          passManifest.push(result.value);
+          passOk++;
+        } else {
+          console.error(`  ✗ ${result.reason instanceof Error ? result.reason.message : String(result.reason)}`);
+        }
       }
     }
+    return { passManifest, passOk };
   }
+
+  const { passManifest, passOk } = await runPass(ROUTES, 'portfolio', prerenderDir, '__prerendered');
+  manifest.push(...passManifest);
+  okCount += passOk;
+
+  const toolsResult = await runPass(toolsRoutes, 'tools', toolsPrerenderDir, '__prerendered-tools');
+  toolsManifest.push(...toolsResult.passManifest);
+  toolsOkCount += toolsResult.passOk;
 
   // Manifest tells the Worker which routes have prerendered HTML available.
   await writeFile(
@@ -477,8 +509,15 @@ async function main() {
     JSON.stringify({ generated_at: new Date().toISOString(), routes: manifest }, null, 2),
     'utf8'
   );
+  // Tools-surface manifest — same shape, separate tree.
+  await writeFile(
+    resolve(toolsPrerenderDir, 'manifest.json'),
+    JSON.stringify({ generated_at: new Date().toISOString(), surface: 'tools', routes: toolsManifest }, null, 2),
+    'utf8'
+  );
 
   console.log(`\nprerender: ${okCount}/${ROUTES.length} routes rendered → dist/__prerendered/`);
+  console.log(`prerender: ${toolsOkCount}/${toolsRoutes.length} routes rendered → dist/__prerendered-tools/`);
   if (okCount === 0) process.exit(1);
 
   // ── Drift guard ─────────────────────────────────────────────────────────

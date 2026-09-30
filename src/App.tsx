@@ -9,7 +9,8 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
-import { navLinks, personalInfo, stats } from './data/content';
+import { navLinks, personalInfo, stats, toolsNavLinks } from './data/content';
+import { currentSurface, SurfaceContext, useSurface, type Surface } from './lib/surface';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SkipToContent } from './components/SkipToContent';
@@ -38,6 +39,7 @@ const CommandPalette = lazy(() =>
 // lazy-Home regressed wiki score 77→64 and root 72→69. The Suspense
 // fallback shifts FCP and adds CLS that outweighs the parse savings.
 import Home from './pages/Home';
+import ToolsHome from './pages/tools/ToolsHome';
 const About = lazy(() => import('./pages/About'));
 const Skills = lazy(() => import('./pages/Skills'));
 const Experience = lazy(() => import('./pages/Experience'));
@@ -444,7 +446,7 @@ interface RouteDef {
  * decision (Home stays eager) are preserved.
  */
 const ROUTES: ReadonlyArray<RouteDef> = [
-  { path: '/', Component: Home, eager: true },
+  { path: '/', Component: SurfaceHome, eager: true },
   { path: '/about', Component: About },
   { path: '/skills', Component: Skills },
   { path: '/experience', Component: Experience },
@@ -1128,10 +1130,27 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/copilot', to: '/threatintel/tools/copilot' },
 ];
 
-export function AppContent() {
+/**
+ * `/` — the one route whose CONTENT differs by surface.
+ *
+ * Chrome (nav) is handled by PortfolioShell; this is the Home → ToolsHome
+ * swap. It reads the surface from context so the prerenderer's explicit
+ * value wins during SSR, and the hostname wins in the browser.
+ */
+function SurfaceHome() {
+  return useSurface() === 'tools' ? <ToolsHome /> : <Home />;
+}
+
+export function AppContent({ surface }: { surface?: Surface } = {}) {
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const navigationType = useNavigationType();
+
+  // Which front door this render is for. Passed explicitly by the
+  // prerenderer (SSR has no window → would always answer "portfolio");
+  // resolved from location.hostname in the browser.
+  const activeSurface: Surface = surface ?? currentSurface();
+  const activeNavLinks = activeSurface === 'tools' ? toolsNavLinks : navLinks;
 
   // /dfir/* and /threatintel/* are stand-alone web apps hosted next to the
   // portfolio. They get their own app-shell chrome and skip the portfolio
@@ -1240,9 +1259,16 @@ export function AppContent() {
 
   // ─── Portfolio render path ────────────────────────────────────────────
   return (
-    <PortfolioShell isDark={isDark} toggleTheme={toggleTheme} navLinks={navLinks} personalInfo={personalInfo}>
-      {routes}
-    </PortfolioShell>
+    <SurfaceContext.Provider value={activeSurface}>
+      <PortfolioShell
+        isDark={isDark}
+        toggleTheme={toggleTheme}
+        navLinks={activeNavLinks}
+        personalInfo={personalInfo}
+      >
+        {routes}
+      </PortfolioShell>
+    </SurfaceContext.Provider>
   );
 }
 

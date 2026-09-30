@@ -3,6 +3,7 @@ import { renderToReadableStream } from 'react-dom/server.browser';
 import { StaticRouter } from 'react-router-dom';
 import { AppContent } from './App';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import type { Surface } from './lib/surface';
 import './index.css';
 
 /**
@@ -29,12 +30,12 @@ export interface RenderResult {
   html: string;
 }
 
-export async function render(url: string): Promise<RenderResult> {
+export async function render(url: string, surface: Surface = 'portfolio'): Promise<RenderResult> {
   const stream = await renderToReadableStream(
     <StrictMode>
       <ErrorBoundary>
         <StaticRouter location={url}>
-          <AppContent />
+          <AppContent surface={surface} />
         </StaticRouter>
       </ErrorBoundary>
     </StrictMode>
