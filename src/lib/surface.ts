@@ -31,11 +31,7 @@ export const PORTFOLIO_ORIGIN = 'https://pranithjain.qzz.io';
  * hostname with no DNS record would make us render tool chrome on a host
  * nobody can reach.
  */
-export const TOOL_HOSTS_BY_PATH: Readonly<Record<string, string>> = {
-  '/dfir': 'crucible.pranithjain.qzz.io',
-  '/threatintel': 'panopticon.pranithjain.qzz.io',
-  '/radar': 'scout.pranithjain.qzz.io',
-};
+export const TOOL_HOSTS_BY_PATH: Readonly<Record<string, string>> = {};
 
 /** Every configured tools hostname. */
 export const TOOL_HOSTS: readonly string[] = Object.values(TOOL_HOSTS_BY_PATH);
