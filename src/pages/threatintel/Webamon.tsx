@@ -619,6 +619,21 @@ function SandboxTab() {
   const [loadingReport, setLoadingReport] = useState(false);
   const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null);
   const [screenshotLoading, setScreenshotLoading] = useState(false);
+  // Blob URLs pin the whole screenshot in memory until revoked. Revoke the
+  // previous one whenever it is replaced or cleared, and on unmount, so
+  // repeated ?rid= lookups don't leak a full image per fetch.
+  const screenshotUrlRef = useRef<string | null>(null);
+  useEffect(() => {
+    const prev = screenshotUrlRef.current;
+    screenshotUrlRef.current = screenshotUrl;
+    if (prev && prev !== screenshotUrl) URL.revokeObjectURL(prev);
+  }, [screenshotUrl]);
+  useEffect(
+    () => () => {
+      if (screenshotUrlRef.current) URL.revokeObjectURL(screenshotUrlRef.current);
+    },
+    []
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

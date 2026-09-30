@@ -1,9 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useTheme } from '../useTheme';
+import { useTheme, _resetThemeForTests } from '../useTheme';
 
 describe('useTheme', () => {
   beforeEach(() => {
+    // The theme is a module-level store shared by every useTheme() caller, so
+    // each case has to reset it to observe the initial-value assertions.
+    _resetThemeForTests();
     localStorage.clear();
     document.documentElement.classList.remove('dark');
   });
@@ -178,5 +181,42 @@ describe('useTheme', () => {
     unmount();
 
     expect(removeSpy).toHaveBeenCalledWith('storage', expect.any(Function));
+  });
+
+  it('keeps separate useTheme() instances in sync (regression)', () => {
+    // Regression: the hook used to keep useState per call site, so toggling
+    // from the header left the dashboard/graph instances on the old theme.
+    const shell = renderHook(() => useTheme());
+    const dashboard = renderHook(() => useTheme());
+
+    expect(dashboard.result.current.isDark).toBe(false);
+
+    act(() => {
+      shell.result.current.toggleTheme();
+    });
+
+    expect(shell.result.current.isDark).toBe(true);
+    expect(dashboard.result.current.isDark).toBe(true);
+    expect(dashboard.result.current.theme).toBe('dark');
+
+    act(() => {
+      shell.result.current.toggleTheme();
+    });
+
+    expect(shell.result.current.isDark).toBe(false);
+    expect(dashboard.result.current.isDark).toBe(false);
+  });
+
+  it('syncs a late-mounting instance to the current theme', () => {
+    const shell = renderHook(() => useTheme());
+
+    act(() => {
+      shell.result.current.toggleTheme();
+    });
+
+    // Mounts AFTER the toggle - must read the shared value, not re-derive
+    // from localStorage defaults.
+    const late = renderHook(() => useTheme());
+    expect(late.result.current.isDark).toBe(true);
   });
 });

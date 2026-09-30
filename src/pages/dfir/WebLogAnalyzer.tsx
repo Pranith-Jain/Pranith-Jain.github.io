@@ -31,6 +31,40 @@ const RULES: Array<[string, RegExp]> = [
   ['Sensitive path', /(\/\.git|\/\.env|\/wp-admin|\/phpmyadmin|\/\.aws|\/actuator|\/server-status|\/\.ssh)/i],
 ];
 
+const ROW_CLASSNAME_STRIPED =
+  '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--surface-200)/0.5)]';
+
+/** Hoisted to module scope: a new array identity here would defeat
+ *  DataTable's internal useMemo and re-sort every render. */
+const COLUMNS: DataTableColumn<Row>[] = [
+  { key: 'n', header: '#', sortValue: (r) => r.n, render: (r) => <span className="text-slate-500">{r.n}</span> },
+  { key: 'ip', header: 'IP', sortValue: (r) => r.ip, render: (r) => r.ip },
+  { key: 'method', header: 'Method', sortValue: (r) => r.method, render: (r) => r.method },
+  { key: 'path', header: 'Path', sortValue: (r) => r.path, render: (r) => <span className="break-all">{r.path}</span> },
+  { key: 'status', header: 'Status', sortValue: (r) => r.status, render: (r) => r.status },
+  {
+    key: 'findings',
+    header: 'Findings',
+    render: (r) => (
+      <>
+        {r.tags.map((t) => (
+          <span
+            key={t}
+            className="inline-block mr-1 mb-0.5 px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+          >
+            {t}
+          </span>
+        ))}
+      </>
+    ),
+  },
+];
+
+/** Upper bound on rendered rows — a 500k-line log can produce far more. */
+const MAX_RENDERED_ROWS = 2000;
+/** Stable empty array so the memo above doesn't churn identity when there's no result. */
+const EMPTY_ROWS: Row[] = [];
+
 function analyze(text: string): { rows: Row[]; total: number; parsed: number } {
   const lines = text.split(/\r?\n/).slice(0, 500000);
   const rows: Row[] = [];
@@ -81,6 +115,10 @@ export default function WebLogAnalyzer(): JSX.Element {
   const [text, setText] = useState('');
   const [fileError, setFileError] = useState<string | null>(null);
   const res = useMemo(() => (text.trim() ? analyze(text) : null), [text]);
+  // Memoized so the array identity is stable across renders — DataTable's
+  // sort memo depends on `rows`, and `res.rows.slice(...)` inline produced a
+  // fresh 2000-element array on every parent render.
+  const visibleRows = useMemo(() => res?.rows.slice(0, MAX_RENDERED_ROWS) ?? EMPTY_ROWS, [res]);
 
   function download() {
     if (!res) return;
@@ -183,56 +221,10 @@ export default function WebLogAnalyzer(): JSX.Element {
           </div>
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
             <DataTable
-              columns={
-                [
-                  {
-                    key: 'n',
-                    header: '#',
-                    sortValue: (r: (typeof res.rows)[number]) => r.n,
-                    render: (r) => <span className="text-slate-500">{r.n}</span>,
-                  },
-                  { key: 'ip', header: 'IP', sortValue: (r: (typeof res.rows)[number]) => r.ip, render: (r) => r.ip },
-                  {
-                    key: 'method',
-                    header: 'Method',
-                    sortValue: (r: (typeof res.rows)[number]) => r.method,
-                    render: (r) => r.method,
-                  },
-                  {
-                    key: 'path',
-                    header: 'Path',
-                    sortValue: (r: (typeof res.rows)[number]) => r.path,
-                    render: (r) => <span className="break-all">{r.path}</span>,
-                  },
-                  {
-                    key: 'status',
-                    header: 'Status',
-                    sortValue: (r: (typeof res.rows)[number]) => r.status,
-                    render: (r) => r.status,
-                  },
-                  {
-                    key: 'findings',
-                    header: 'Findings',
-                    render: (r) => (
-                      <>
-                        {r.tags.map((t) => (
-                          <span
-                            key={t}
-                            className="inline-block mr-1 mb-0.5 px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </>
-                    ),
-                  },
-                ] as DataTableColumn<(typeof res.rows)[number]>[]
-              }
-              rows={res.rows.slice(0, 2000)}
+              columns={COLUMNS}
+              rows={visibleRows}
               rowKey={(r) => String(r.n)}
-              rowClassName={() =>
-                '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--surface-200)/0.5)]'
-              }
+              rowClassName={() => ROW_CLASSNAME_STRIPED}
             />
             {res.rows.length === 0 && (
               <p className="p-3 font-mono text-meta text-slate-500">No suspicious requests matched the heuristics.</p>

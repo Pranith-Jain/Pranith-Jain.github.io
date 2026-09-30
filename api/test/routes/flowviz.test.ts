@@ -106,6 +106,32 @@ describe('SSRF guard', () => {
     expect(() => validateFlowvizUrl('ftp://example.com/x')).toThrow('invalid-scheme');
     expect(validateFlowvizUrl('https://example.com/report').hostname).toBe('example.com');
   });
+
+  it('blocks cloud metadata and reserved ranges the old hand-rolled list missed', () => {
+    // Regression: flowviz-validate shipped a second, weaker private-range
+    // check than api/src/lib/ssrf-guard.ts. It now delegates to the shared
+    // guard, so these all reject.
+    expect(() => validateFlowvizUrl('http://168.63.129.16/')).toThrow('private-host'); // Azure WireServer
+    expect(() => validateFlowvizUrl('http://192.0.2.5/')).toThrow('private-host'); // TEST-NET-1
+    expect(() => validateFlowvizUrl('http://198.51.100.7/')).toThrow('private-host'); // TEST-NET-2
+    expect(() => validateFlowvizUrl('http://203.0.113.9/')).toThrow('private-host'); // TEST-NET-3
+    expect(() => validateFlowvizUrl('http://198.18.0.1/')).toThrow('private-host'); // benchmarking
+    expect(() => validateFlowvizUrl('http://192.88.99.1/')).toThrow('private-host'); // 6to4 relay anycast
+  });
+
+  it('blocks IPv6 forms that tunnel an IPv4 target or leave the unicast space', () => {
+    expect(() => validateFlowvizUrl('http://[64:ff9b::a9fe:a9fe]/')).toThrow('private-host'); // NAT64 -> 169.254.169.254
+    expect(() => validateFlowvizUrl('http://[2002:a9fe:a9fe::]/')).toThrow('private-host'); // 6to4 -> 169.254.169.254
+    expect(() => validateFlowvizUrl('http://[ff02::1]/')).toThrow('private-host'); // multicast
+    expect(() => validateFlowvizUrl('http://[fc00::1]/')).toThrow('private-host'); // ULA
+    expect(() => validateFlowvizUrl('http://[fe80::1]/')).toThrow('private-host'); // link-local
+  });
+
+  it('still permits public destinations', () => {
+    expect(validateFlowvizUrl('https://example.com/report').hostname).toBe('example.com');
+    expect(validateFlowvizUrl('http://8.8.8.8/').hostname).toBe('8.8.8.8');
+    expect(validateFlowvizUrl('https://[2606:4700:4700::1111]/').hostname).toBe('[2606:4700:4700::1111]');
+  });
 });
 
 describe('extractArticleLite', () => {

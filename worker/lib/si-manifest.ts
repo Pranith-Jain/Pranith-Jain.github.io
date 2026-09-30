@@ -97,7 +97,10 @@ let cachedIndex: SiIndex | null = null;
 let cachedIndexAt: number | null = null;
 
 function safeFilename(slug: string): string {
-  return slug.replace(/\//g, '__');
+  return slug
+    .replace(/\//g, '__')
+    .replace(/[^A-Za-z0-9._-]/g, '_')
+    .replace(/^\.+/, '');
 }
 
 async function fetchJson<T>(assets: Fetcher, path: string): Promise<T | null> {
@@ -172,7 +175,7 @@ export async function getSiQuery(assets: Fetcher, slug: string): Promise<SiQuery
 export async function getSiAutomation(assets: Fetcher, slug: string): Promise<SiAutomationBody | null> {
   const hit = trackHit(automationBodyCache, slug);
   if (hit) return hit;
-  const body = await fetchJson<SiAutomationBody>(assets, `${DATA_PREFIX}/automations/${slug}.json`);
+  const body = await fetchJson<SiAutomationBody>(assets, `${DATA_PREFIX}/automations/${safeFilename(slug)}.json`);
   if (!body) return null;
   return recordHit(automationBodyCache, slug, body);
 }
@@ -302,7 +305,8 @@ export async function getDoc(assets: Fetcher, slug: string): Promise<SiDoc | nul
   const hit = trackHit(docBodyCache, slug);
   if (hit) return hit;
   // Read the raw markdown body (it's a .md file, not JSON). Special-case here.
-  const path = `${DATA_PREFIX}/docs/${slug}.md`;
+  const safeSlug = safeFilename(slug);
+  const path = `${DATA_PREFIX}/docs/${safeSlug}.md`;
   const url = `https://si.local${path}`;
   const res = await assets.fetch(new Request(url));
   if (!res.ok) return null;
@@ -312,14 +316,14 @@ export async function getDoc(assets: Fetcher, slug: string): Promise<SiDoc | nul
   const doc: SiDoc = {
     slug,
     title: m?.[1] ?? slug,
-    filename: `${slug}.md`,
+    filename: `${safeSlug}.md`,
     bodyMarkdown: text,
   };
   return recordHit(docBodyCache, slug, doc);
 }
 
 export async function getRef<T = unknown>(assets: Fetcher, name: string): Promise<T | null> {
-  const key = name.replace(/\.json$/, '');
+  const key = safeFilename(name.replace(/\.json$/, ''));
   const hit = trackHit(refBodyCache, key);
   if (hit !== undefined) return hit as T;
   const v = await fetchJson<T>(assets, `${DATA_PREFIX}/ref/${key}.json`);

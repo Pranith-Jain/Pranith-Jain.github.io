@@ -5,7 +5,6 @@ import {
   loadNovaIndex,
   listNovaRules,
   getNovaRule,
-  loadNovaTaxonomy,
   normalizePrompt,
   evaluateKeyword,
   evaluateNovaCondition,

@@ -21,6 +21,8 @@ import {
   clearDocsCache,
   loadDocsIndex,
   getRef,
+  getDoc,
+  getSiAutomation,
   getRoutingPrompt,
   type SiIndex,
   type SiSkillBody,
@@ -333,6 +335,50 @@ describe('getRef', () => {
   it('returns null for an unknown ref', async () => {
     const { assets } = makeExtendedFixture();
     expect(await getRef(assets, 'nonexistent')).toBeNull();
+  });
+
+  it('cannot traverse out of the ref/ directory', async () => {
+    const { assets } = makeExtendedFixture();
+    // `..` segments would resolve to /data/si/index.json, a sibling file that
+    // exists in the fixture. safeFilename must neutralize them.
+    expect(await getRef(assets, '../index')).toBeNull();
+    expect(await getRef(assets, '../../si/index')).toBeNull();
+  });
+});
+
+describe('path traversal hardening', () => {
+  beforeEach(() => {
+    _resetSiCacheForTests();
+    clearDocsCache();
+  });
+
+  it('getSiAutomation cannot escape automations/', async () => {
+    const { assets, data } = makeExtendedFixture();
+    // /data/si/automations/../../index.json -> /data/index.json style escape.
+    expect(await getSiAutomation(assets, '../../index')).toBeNull();
+    const requested = (assets.fetch as unknown as ReturnType<typeof vi.fn>).mock.calls.map(
+      (c: unknown[]) => new URL((c[0] as Request).url).pathname
+    );
+    for (const p of requested) expect(p.startsWith('/data/si/automations/')).toBe(true);
+    expect(data.has('/data/si/automations/..__..__index.json')).toBe(false);
+  });
+
+  it('getDoc cannot escape docs/', async () => {
+    const { assets } = makeExtendedFixture();
+    expect(await getDoc(assets, '../index')).toBeNull();
+    const requested = (assets.fetch as unknown as ReturnType<typeof vi.fn>).mock.calls.map(
+      (c: unknown[]) => new URL((c[0] as Request).url).pathname
+    );
+    for (const p of requested) expect(p.startsWith('/data/si/docs/')).toBe(true);
+  });
+
+  it('getSiSkill cannot escape skills/', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getSiSkill(assets, '../index')).toBeNull();
+    const requested = (assets.fetch as unknown as ReturnType<typeof vi.fn>).mock.calls.map(
+      (c: unknown[]) => new URL((c[0] as Request).url).pathname
+    );
+    for (const p of requested) expect(p.startsWith('/data/si/skills/')).toBe(true);
   });
 });
 

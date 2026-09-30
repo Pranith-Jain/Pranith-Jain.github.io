@@ -5,10 +5,11 @@
 
 import { DfirMcpServer } from './mcp-server';
 import { withSecurityHeaders } from './csp';
-import { workerRateLimit, rateLimitResponse } from './lib/worker-rate-limit';
+import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 import type { Env } from './env';
 
 const MCP_LIMIT_KEYED = 60;
+const MCP_LIMIT_IP = 120;
 
 export async function handleMcp(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response | null> {
   if (!url.pathname.startsWith('/api/mcp')) return null;
@@ -25,6 +26,20 @@ export async function handleMcp(request: Request, env: Env, ctx: ExecutionContex
         undefined,
         url.origin
       );
+    }
+
+    // Rate-limit on BOTH the presented key and the caller IP.
+    //
+    // Keying only on `rawKey` was ineffective: the key is not validated until
+    // the request reaches the Durable Object (DfirMcpServer.onConnect ->
+    // validateRawKey), so an unauthenticated caller could send a fresh random
+    // `Authorization: Bearer <random>` per request and mint an unlimited
+    // number of fresh buckets, driving DO session creation at will. The IP
+    // bucket is not attacker-rotatable, so it bounds the unauthenticated case;
+    // the key bucket still gives legitimate multi-key callers their own quota.
+    const ipRl = await workerRateLimit('mcp-ip', callerIp(request), MCP_LIMIT_IP);
+    if (!ipRl.allowed) {
+      return withSecurityHeaders(rateLimitResponse(ipRl), undefined, url.origin);
     }
 
     const rlId = rawKey.slice(0, 16);

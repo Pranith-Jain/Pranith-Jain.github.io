@@ -1,5 +1,5 @@
 import { logCatch } from '../../lib/log';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, Upload, Loader2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
@@ -184,13 +184,30 @@ function parsePrefetch(buf: ArrayBuffer): PF {
   return { version: verLabel, exe, hash, runCount: runCount >>> 0, lastRuns: lastRuns.filter(Boolean), files, note };
 }
 
+/** Cap on rendered file rows — a prefetch list can be very large. */
+const MAX_RENDERED_FILES = 3000;
+/** Stable empty array so the memo below keeps a constant identity. */
+const EMPTY_FILES: string[] = [];
+
 export default function PrefetchAnalyzer(): JSX.Element {
   const [pf, setPf] = useState<PF | null>(null);
   const [err, setErr] = useState('');
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
 
-  const shown = pf ? (q ? pf.files.filter((f) => f.toLowerCase().includes(q.toLowerCase())) : pf.files) : [];
+  // Memoized: a prefetch file can list tens of thousands of paths, so
+  // re-filtering on every render (including on each keystroke in the input
+  // below) was a multi-hundred-ms main-thread stall.
+  const shown = useMemo(() => {
+    if (!pf) return EMPTY_FILES;
+    if (!q) return pf.files;
+    const needle = q.toLowerCase();
+    return pf.files.filter((f) => f.toLowerCase().includes(needle));
+  }, [pf, q]);
+
+  // Cap what we actually render so a huge result set doesn't reconcile
+  // thousands of DOM nodes on every keystroke.
+  const visibleFiles = useMemo(() => shown.slice(0, MAX_RENDERED_FILES), [shown]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-heading">
@@ -289,7 +306,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
               className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none mb-2"
             />
             <div className="surface-card p-3 overflow-auto max-h-[55vh]">
-              {shown.slice(0, 3000).map((f, i) => (
+              {visibleFiles.map((f, i) => (
                 <div key={i} className="font-mono text-mini text-muted break-all">
                   {f}
                 </div>

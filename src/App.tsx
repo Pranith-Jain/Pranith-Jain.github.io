@@ -14,14 +14,14 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SkipToContent } from './components/SkipToContent';
 import { StructuredData } from './components/StructuredData';
-import { ScrollProgress, BackToTop } from './components/ui';
+import { ScrollProgress } from './components/ui/ScrollProgress';
+import { BackToTop } from './components/ui/BackToTop';
 import { Layout } from './components/Layout';
 import { AppShell } from './components/AppShell';
 import { BackgroundLayer } from './components/BackgroundLayer';
 import { LazyRoute } from './components/LazyRoute';
 import { FeaturesProvider } from './components/FeaturesProvider';
 import { McpProvider } from './components/ti-mindmap-mcp/McpContext';
-import { AuthProvider } from './contexts/AuthContext';
 
 const CommandPalette = lazy(() =>
   import('./components/dfir/CommandPalette').then((m) => ({ default: m.CommandPalette }))
@@ -1288,11 +1288,12 @@ function PortfolioShell({
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <FeaturesProvider>
-          <AppContent />
-        </FeaturesProvider>
-      </AuthProvider>
+      {/* AuthProvider is intentionally NOT mounted: nothing consumes
+          useAuth(), and mounting it fired an unconditional /api/v1/auth/me
+          round-trip on every page load whose result was never read. */}
+      <FeaturesProvider>
+        <AppContent />
+      </FeaturesProvider>
     </BrowserRouter>
   );
 }

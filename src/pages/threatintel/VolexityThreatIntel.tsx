@@ -95,6 +95,51 @@ function pivotable(kind: Ioc['kind']): boolean {
   return kind === 'hash' || kind === 'domain' || kind === 'ipv4' || kind === 'url';
 }
 
+/** Upper bound on rendered IOC rows. */
+const MAX_IOC_ROWS = 2000;
+/** Stable empty array so the memo below keeps a constant identity. */
+const EMPTY_IOCS: Ioc[] = [];
+
+/** Hoisted to module scope: a fresh array identity on every render would
+ *  defeat DataTable's internal sort memo over up to 2000 rows. */
+const IOC_COLUMNS: DataTableColumn<Ioc>[] = [
+  {
+    key: 'indicator',
+    header: 'indicator',
+    sortValue: (ioc) => ioc.value,
+    render: (ioc) => (
+      <span className="font-mono break-all text-heading">
+        {pivotable(ioc.kind) ? (
+          <Link
+            to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`}
+            className="hover:text-rose-600 dark:hover:text-rose-400"
+            title="Pivot to IOC checker"
+          >
+            {ioc.value} →
+          </Link>
+        ) : (
+          ioc.value
+        )}
+      </span>
+    ),
+  },
+  {
+    key: 'type',
+    header: 'type',
+    sortValue: (ioc) => ioc.kind,
+    render: (ioc) => (
+      <span className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}>
+        {ioc.entity_type || ioc.kind}
+      </span>
+    ),
+  },
+  {
+    key: 'context',
+    header: 'context',
+    render: (ioc) => <span className="text-muted">{ioc.description}</span>,
+  },
+];
+
 interface FolderRowProps {
   folder: FolderEntry;
 }
@@ -123,6 +168,9 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
     setOpen(next);
     if (next && !data && !loading) load();
   };
+
+  // Stable identity so DataTable's sort memo survives unrelated re-renders.
+  const visibleIocs = useMemo(() => data?.iocs.slice(0, MAX_IOC_ROWS) ?? EMPTY_IOCS, [data]);
 
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
@@ -227,49 +275,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
 
               {data.iocs.length > 0 && (
                 <div className="overflow-x-auto">
-                  <DataTable
-                    columns={
-                      [
-                        {
-                          key: 'indicator',
-                          header: 'indicator',
-                          sortValue: (ioc: (typeof data.iocs)[number]) => ioc.value,
-                          render: (ioc) => (
-                            <span className="font-mono break-all text-heading">
-                              {pivotable(ioc.kind) ? (
-                                <Link
-                                  to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`}
-                                  className="hover:text-rose-600 dark:hover:text-rose-400"
-                                  title="Pivot to IOC checker"
-                                >
-                                  {ioc.value} →
-                                </Link>
-                              ) : (
-                                ioc.value
-                              )}
-                            </span>
-                          ),
-                        },
-                        {
-                          key: 'type',
-                          header: 'type',
-                          sortValue: (ioc: (typeof data.iocs)[number]) => ioc.kind,
-                          render: (ioc) => (
-                            <span className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}>
-                              {ioc.entity_type || ioc.kind}
-                            </span>
-                          ),
-                        },
-                        {
-                          key: 'context',
-                          header: 'context',
-                          render: (ioc) => <span className="text-muted">{ioc.description}</span>,
-                        },
-                      ] as DataTableColumn<(typeof data.iocs)[number]>[]
-                    }
-                    rows={data.iocs.slice(0, 2000)}
-                    rowKey={(ioc, i) => `${ioc.value}-${i}`}
-                  />
+                  <DataTable columns={IOC_COLUMNS} rows={visibleIocs} rowKey={(ioc, i) => `${ioc.value}-${i}`} />
                 </div>
               )}
 

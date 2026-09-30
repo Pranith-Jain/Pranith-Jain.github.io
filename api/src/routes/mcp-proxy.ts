@@ -30,6 +30,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { unauthorized, badRequest, badGateway } from '../lib/api-error';
+import { getAllowedOrigins } from '../lib/site-config';
 
 const MCP_URL = 'https://mcp.ti-mindmap-hub.com/mcp';
 // 25s matches the client-side timeout in src/lib/ti-mindmap-mcp.ts.
@@ -47,6 +48,24 @@ interface ProxyRequest {
   sessionId?: string;
   /** Opaque correlation id, echoed back as `x-mcp-trace` for debugging. */
   trace?: string;
+}
+
+/**
+ * Resolve the Access-Control-Allow-Origin value for a response.
+ *
+ * This endpoint builds its own `Response`, which DISCARDS the headers set by
+ * the global `cors()` middleware. Echoing the caller's `Origin` back (the old
+ * behaviour) is a reflect-and-allow pattern: combined with
+ * `access-control-allow-credentials: true` it would let any site make
+ * credentialed reads. Resolve against the canonical allowlist instead, and
+ * omit the credentials header entirely — this relay is token-in-body, so
+ * there is nothing here that needs cookie-based credentials.
+ */
+function resolveAllowOrigin(c: Context<{ Bindings: Env }>): string | null {
+  const requestOrigin = c.req.header('origin');
+  if (!requestOrigin) return null; // same-origin / non-CORS request
+  const allowed = new Set(getAllowedOrigins(c.env as { SITE_URL?: string; ALLOW_DEV_ORIGINS?: string }));
+  return allowed.has(requestOrigin) ? requestOrigin : null;
 }
 
 export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -135,12 +154,14 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
   // Relay upstream status + relevant headers back to the browser.
   const outHeaders = new Headers();
-  outHeaders.set('access-control-allow-origin', c.req.header('origin') ?? '*');
-  outHeaders.set('access-control-allow-credentials', 'true');
+  const allowOrigin = resolveAllowOrigin(c);
+  if (allowOrigin) {
+    outHeaders.set('access-control-allow-origin', allowOrigin);
+    outHeaders.set('vary', 'Origin');
+  }
   outHeaders.set('access-control-allow-methods', 'POST, OPTIONS');
   outHeaders.set('access-control-allow-headers', 'content-type, x-mcp-trace');
   outHeaders.set('access-control-max-age', '86400');
-  outHeaders.set('vary', 'Origin');
   outHeaders.set('cache-control', 'no-store');
   const newSid = upstream.headers.get('mcp-session-id');
   if (newSid) outHeaders.set('mcp-session-id', newSid);
@@ -160,17 +181,16 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
 /** OPTIONS preflight for the proxy itself. Hono's cors() handles this
  *  globally for /api/v1/*, but we add an explicit handler just in case
- *  a future refactor narrows the CORS middleware. */
+ *  a future refactor narrows the CORS middleware. The origin is resolved
+ *  against the canonical allowlist, never echoed back. */
 export async function mcpProxyOptions(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const origin = c.req.header('origin') ?? '*';
-  return new Response(null, {
-    status: 204,
-    headers: {
-      'access-control-allow-origin': origin,
-      'access-control-allow-methods': 'POST, OPTIONS',
-      'access-control-allow-headers': 'content-type, x-mcp-trace',
-      'access-control-max-age': '86400',
-      vary: 'Origin',
-    },
-  });
+  const headers: Record<string, string> = {
+    'access-control-allow-methods': 'POST, OPTIONS',
+    'access-control-allow-headers': 'content-type, x-mcp-trace',
+    'access-control-max-age': '86400',
+    vary: 'Origin',
+  };
+  const allowOrigin = resolveAllowOrigin(c);
+  if (allowOrigin) headers['access-control-allow-origin'] = allowOrigin;
+  return new Response(null, { status: 204, headers });
 }
