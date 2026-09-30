@@ -5,6 +5,7 @@ import { getOrInjectOg, injectOgMeta } from './og-rewriter';
 // list without creating an import cycle back through this file.
 import { PRERENDERED_ROUTES } from './prerender-routes';
 import type { Env } from './env';
+import type { Surface } from './surface';
 
 /**
  * Prerendered-route serving: see worker/prerender-routes.ts for the route
@@ -106,7 +107,8 @@ export async function fetchPrerenderedOrShell(
   env: Env,
   ctx: ExecutionContext,
   url: URL,
-  nonce: string
+  nonce: string,
+  surface: Surface = 'portfolio'
 ): Promise<Response> {
   // Try exact match first; fall back to a dynamic-route parent if the
   // exact path isn't a prerendered page.
@@ -132,10 +134,27 @@ export async function fetchPrerenderedOrShell(
     h.set('pragma', 'no-cache');
     return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
-  const internal = new URL(request.url);
-  internal.pathname = prerenderedPath;
-  const prerenderRes = await env.ASSETS.fetch(new Request(internal.toString(), request));
-  if (prerenderRes.status === 404) {
+  // Surface-aware lookup: the tools surface keeps its own prerendered tree
+  // for routes whose HTML actually differs (portfolio chrome + the "/" landing
+  // page). AppShell routes render identical markup on both surfaces and were
+  // never written to the tools tree, so a 404 there falls through to the
+  // portfolio file instead of dropping to the bare SPA shell.
+  const candidatePaths =
+    surface === 'tools'
+      ? [prerenderedPath.replace('/__prerendered/', '/__prerendered-tools/'), prerenderedPath]
+      : [prerenderedPath];
+
+  let prerenderRes: Response | null = null;
+  for (const candidate of candidatePaths) {
+    const internal = new URL(request.url);
+    internal.pathname = candidate;
+    const r = await env.ASSETS.fetch(new Request(internal.toString(), request));
+    if (r.status !== 404) {
+      prerenderRes = r;
+      break;
+    }
+  }
+  if (!prerenderRes) {
     const r = await getOrInjectOg(request, env, ctx, url);
     const ct = r.headers.get('content-type') ?? '';
     if (!ct.toLowerCase().includes('text/html')) return r;

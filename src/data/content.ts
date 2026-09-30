@@ -1,3 +1,5 @@
+import { PORTFOLIO_ORIGIN } from '../lib/surface';
+
 /**
  * Canonical URL of the platform repo (formerly `Pranith-Jain.github.io`).
  * The project cards below, the tool-app chrome, and the README all need this
@@ -620,7 +622,8 @@ interface NavLinkExt extends NavLink {
   cta?: boolean;
 }
 
-export const navLinks: NavLinkExt[] = [
+/** Portfolio surface nav — served on the apex host. Person + work only. */
+export const portfolioNavLinks: NavLinkExt[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Work',
@@ -634,6 +637,13 @@ export const navLinks: NavLinkExt[] = [
       { label: 'Projects', href: '/projects' },
     ],
   },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/#contact', cta: true },
+];
+
+/** Tools surface nav — served on `tools.pranithjain.qzz.io`. Platform only. */
+export const toolsNavLinks: NavLinkExt[] = [
+  { label: 'Home', href: '/' },
   {
     label: 'PANOPTICON',
     href: '/threatintel',
@@ -669,6 +679,16 @@ export const navLinks: NavLinkExt[] = [
   { label: 'Daily Briefs', href: '/daily-briefs' },
   { label: 'Agent', href: '/agent' },
   { label: 'Copilot', href: '/copilot' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/#contact', cta: true },
+  // Cross-host: the tools surface has no Contact section of its own, so the
+  // CTA sends people back to the portfolio apex.
+  { label: 'Portfolio', href: `${PORTFOLIO_ORIGIN}/`, cta: true },
 ];
+
+/**
+ * Back-compat alias for the portfolio surface's nav.
+ *
+ * The surface split renamed the single array into `portfolioNavLinks` +
+ * `toolsNavLinks`; `navLinks` still resolves to the portfolio set so existing
+ * imports and the `content.test.ts` contract keep working unchanged.
+ */
+export const navLinks: NavLinkExt[] = portfolioNavLinks;

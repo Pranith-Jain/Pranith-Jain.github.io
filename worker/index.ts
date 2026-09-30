@@ -8,6 +8,7 @@ import { RadarCrawlerDO } from './durable-objects/radar-crawler';
 import { GlobalPulseDO } from './durable-objects/global-pulse';
 import { generateNonce, injectScriptNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
+import { surfaceForHostname } from './surface';
 import { handleOgImage } from './og-route';
 import { handleBlogImage } from './blog-image-route';
 import { handleScheduled } from './scheduled';
@@ -294,9 +295,12 @@ export default {
 
     // SPA shell fallback — serve prerendered HTML or the shell for client routing
     const nonce = generateNonce();
+    // Which front door this Host is for; picks the prerendered tree below and
+    // must agree with what the browser resolves from location.hostname.
+    const surface = surfaceForHostname(url.hostname, env);
     let html: Response;
     try {
-      html = await fetchPrerenderedOrShell(request, env, ctx, url, nonce);
+      html = await fetchPrerenderedOrShell(request, env, ctx, url, nonce, surface);
     } catch (err) {
       console.error('fetchPrerenderedOrShell failed', err);
       return new Response('internal error', { status: 500 });

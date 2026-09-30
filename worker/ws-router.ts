@@ -17,6 +17,10 @@ export function isWsOriginAllowed(request: Request, env: Env): boolean {
   const wsOrigin = request.headers.get('origin') ?? '';
   if (WS_ALLOWED_ORIGINS_STATIC.has(wsOrigin)) return true;
   if (env.SITE_URL && env.SITE_URL.replace(/\/$/, '') === wsOrigin) return true;
+  // Tools surface: the second front door is the same app. Without this every
+  // /api/v1/ws/* connection from tools.pranithjain.qzz.io 403s on origin.
+  const toolsHost = (env.TOOLS_HOST ?? '').trim().toLowerCase();
+  if (toolsHost && wsOrigin === `https://${toolsHost}`) return true;
   return false;
 }
 

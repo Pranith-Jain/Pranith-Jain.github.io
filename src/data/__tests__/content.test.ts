@@ -10,6 +10,8 @@ import {
   featuredArticles,
   memberships,
   navLinks,
+  portfolioNavLinks,
+  toolsNavLinks,
 } from '../content';
 
 describe('Content Data Validation', () => {
@@ -203,6 +205,41 @@ describe('Content Data Validation', () => {
       const hrefs = navLinks.map((link) => link.href);
       const uniqueHrefs = new Set(hrefs);
       expect(uniqueHrefs.size).toBe(hrefs.length);
+    });
+  });
+
+  // The surface split divides one nav into a portfolio set and a tools set.
+  // Both must stay well-formed: a bad href in either surface renders as a
+  // dead link on that whole front door.
+  describe('surface navs', () => {
+    it('navLinks is an alias of the portfolio surface nav', () => {
+      expect(navLinks).toBe(portfolioNavLinks);
+    });
+
+    it('each surface nav has links', () => {
+      expect(portfolioNavLinks.length).toBeGreaterThan(0);
+      expect(toolsNavLinks.length).toBeGreaterThan(0);
+    });
+
+    it('each surface nav has unique hrefs', () => {
+      for (const set of [portfolioNavLinks, toolsNavLinks]) {
+        const hrefs = set.map((link) => link.href);
+        expect(new Set(hrefs).size).toBe(hrefs.length);
+      }
+    });
+
+    it('portfolio nav stays person/work only — no tool routes', () => {
+      const toolPrefixes = ['/dfir', '/threatintel', '/radar', '/argus', '/daily-briefs', '/agent', '/copilot'];
+      for (const link of portfolioNavLinks) {
+        expect(toolPrefixes.some((p) => link.href === p || link.href.startsWith(`${p}/`))).toBe(false);
+      }
+    });
+
+    it('tools nav keeps no portfolio CTA except the cross-host one', () => {
+      const cta = toolsNavLinks.filter((l) => l.cta);
+      expect(cta).toHaveLength(1);
+      // The single CTA is the cross-host jump back to the apex portfolio.
+      expect(cta[0].href.startsWith('https://pranithjain.qzz.io')).toBe(true);
     });
   });
 });

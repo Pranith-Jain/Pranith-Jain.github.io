@@ -22,10 +22,24 @@ export function getSiteUrl(env?: { SITE_URL?: string }): string {
  * auth same-origin bypass to localhost origins. It must never be set in a
  * production deployment — checked at startup in worker/bindings.ts.
  */
-export function getAllowedOrigins(env?: { SITE_URL?: string; ALLOW_DEV_ORIGINS?: string }): string[] {
-  const origins = [getSiteUrl(env)];
+export function getAllowedOrigins(env?: {
+  SITE_URL?: string;
+  ALLOW_DEV_ORIGINS?: string;
+  TOOLS_HOST?: string;
+}): string[] {
+  const siteUrl = getSiteUrl(env);
+  const origins = [siteUrl];
+  // Tools surface: same app on a second front door, so its origin is exactly
+  // as trusted as the apex. Omitting it makes the CORS preflight and the auth
+  // same-origin bypass reject every request originating from
+  // tools.pranithjain.qzz.io.
+  const toolsHost = (env?.TOOLS_HOST ?? '').trim().toLowerCase();
+  if (toolsHost) {
+    const toolsOrigin = `https://${toolsHost}`;
+    if (!origins.includes(toolsOrigin)) origins.push(toolsOrigin);
+  }
   const allowDev = env?.ALLOW_DEV_ORIGINS === 'true';
-  if (allowDev || getSiteUrl(env).includes('localhost')) {
+  if (allowDev || siteUrl.includes('localhost')) {
     origins.push(...DEV_ALLOWED_ORIGINS);
   }
   return origins;
