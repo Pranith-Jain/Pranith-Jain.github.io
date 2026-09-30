@@ -1,3 +1,5 @@
+import { toolHostList } from './surface-hosts';
+
 export const DEV_ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:8787',
@@ -25,17 +27,16 @@ export function getSiteUrl(env?: { SITE_URL?: string }): string {
 export function getAllowedOrigins(env?: {
   SITE_URL?: string;
   ALLOW_DEV_ORIGINS?: string;
-  TOOLS_HOST?: string;
+  TOOLS_HOSTS?: string;
 }): string[] {
   const siteUrl = getSiteUrl(env);
   const origins = [siteUrl];
-  // Tools surface: same app on a second front door, so its origin is exactly
-  // as trusted as the apex. Omitting it makes the CORS preflight and the auth
-  // same-origin bypass reject every request originating from
-  // tools.pranithjain.qzz.io.
-  const toolsHost = (env?.TOOLS_HOST ?? '').trim().toLowerCase();
-  if (toolsHost) {
-    const toolsOrigin = `https://${toolsHost}`;
+  // Tools surfaces: the same app on several front doors, so each of their
+  // origins is exactly as trusted as the apex. Omitting them makes the CORS
+  // preflight and the auth same-origin bypass reject every request
+  // originating from crucible./panopticon./scout.pranithjain.qzz.io.
+  for (const host of toolHostList(env?.TOOLS_HOSTS)) {
+    const toolsOrigin = `https://${host}`;
     if (!origins.includes(toolsOrigin)) origins.push(toolsOrigin);
   }
   const allowDev = env?.ALLOW_DEV_ORIGINS === 'true';

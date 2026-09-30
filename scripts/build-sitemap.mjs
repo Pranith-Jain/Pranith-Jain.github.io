@@ -28,6 +28,29 @@ const ROOT = resolve(__dirname, '..');
 const TODAY_ISO = new Date().toISOString().slice(0, 10);
 const BASE_URL = 'https://pranithjain.qzz.io';
 
+// Mirrors wrangler.jsonc#vars.TOOLS_HOSTS (and TOOL_HOSTS_BY_PATH in
+// src/lib/surface.ts) so a `<loc>` never disagrees with the canonical the
+// Worker serves for that same path — Google treats that mismatch as a signal
+// to ignore one of the two. Only prefixes whose hostname actually resolves may
+// appear here: a sitemap URL on a host with no DNS record is wasted crawl.
+const TOOL_HOSTS = {
+  '/dfir': 'crucible.pranithjain.qzz.io',
+  '/threatintel': 'panopticon.pranithjain.qzz.io',
+  '/radar': 'scout.pranithjain.qzz.io',
+};
+
+/** Origin that owns `path` — longest segment-aware prefix match, else apex.
+ *  Same rule as `toolHostForPath` in api/src/lib/surface-hosts.ts. */
+function originFor(path) {
+  let best = null;
+  for (const [prefix, host] of Object.entries(TOOL_HOSTS)) {
+    if (path === prefix || path.startsWith(`${prefix}/`)) {
+      if (!best || prefix.length > best.length) best = prefix;
+    }
+  }
+  return best ? `https://${TOOL_HOSTS[best]}` : BASE_URL;
+}
+
 function quote(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -126,7 +149,7 @@ function entryFor(path, opts = {}) {
   const cls = classifyRoute(path);
   return [
     '  <url>',
-    `    <loc>${quote(BASE_URL + path)}</loc>`,
+    `    <loc>${quote(originFor(path) + path)}</loc>`,
     `    <lastmod>${opts.lastmod ?? TODAY_ISO}</lastmod>`,
     `    <changefreq>${opts.changefreq ?? cls.changefreq}</changefreq>`,
     `    <priority>${opts.priority ?? cls.priority}</priority>`,

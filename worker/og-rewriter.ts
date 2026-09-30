@@ -13,6 +13,7 @@ import type { OgOverride } from './og-copy';
 // bridge) so the OG rewrite and /api/v1/blog/* hit the SAME per-colo shadow.
 import { readBlogPostShadowed, readBlogIndexShadowed } from './lib/blog-kv';
 import type { Env } from './env';
+import { owningToolHost } from './surface';
 
 /**
  * Per-route OG title/description resolution.
@@ -44,8 +45,37 @@ export { OG_OVERRIDES, ogMetaForPath } from './og-copy';
 export type { OgOverride, OgPageMeta } from './og-copy';
 
 /** The one true public origin. Used for canonical/OG URLs so they can never
- *  be poisoned by a request arriving on a non-canonical host. */
+ *  be poisoned by a request arriving on a non-canonical host. This is also the
+ *  owner of every path that no tool host claims (portfolio routes, and any
+ *  app prefix whose hostname is not configured in `TOOLS_HOSTS`). */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
+
+/**
+ * Origin that owns `pathname`.
+ *
+ * Each tools host is authoritative for its own path prefix and only for it, so
+ * `/dfir` canonicalises to crucible and `/threatintel` to panopticon no matter
+ * which host the request arrived on. A prefix with no configured host falls
+ * back to the apex — that fallback is what keeps `/argus` (whose hostname does
+ * not exist yet) on a canonical that actually resolves.
+ */
+function canonicalOriginFor(pathname: string, env: Env): string {
+  const host = owningToolHost(pathname, env);
+  return host ? `https://${host}` : CANONICAL_ORIGIN;
+}
+
+/**
+ * The full canonical URL for a request, redirect-only routes included.
+ *
+ * `REDIRECT_CANONICALS` targets are resolved through the same owner lookup,
+ * so `/copilot` → `/threatintel/tools/copilot` points at panopticon rather than
+ * at whatever host the visitor happened to land on.
+ */
+export function canonicalUrlFor(url: URL, env: Env): string {
+  const redirectTarget = url.pathname && REDIRECT_CANONICALS[url.pathname];
+  if (redirectTarget) return `${canonicalOriginFor(redirectTarget, env)}${redirectTarget}`;
+  return `${canonicalOriginFor(url.pathname, env)}${url.pathname}${url.search}`;
+}
 
 /**
  * Rewritten-HTML cache-key namespace. v14 additionally scopes keys by
@@ -383,15 +413,19 @@ function injectSeoContent(html: string, pathname?: string): string {
  * Combining both passes avoids a second full-String copy of the HTML body
  * (the caller used to read body → OG rewrite → Response → read body again
  * for nonce injection, doubling memory traffic on every HTML response).
+ *
+ * `canonicalUrl` arrives fully resolved from `canonicalUrlFor()` — the caller
+ * owns path→host resolution (including redirect-only routes) so this function
+ * stays a pure string transform and every entry point agrees on ownership.
  */
 function rewriteHtml(
   html: string,
   override: OgOverride | null,
-  fullUrl: string,
+  canonicalUrl: string,
   nonce?: string,
   pathname?: string
 ): string {
-  const u = escapeAttr(fullUrl);
+  const cu = escapeAttr(canonicalUrl);
   // NOTE: attribute gaps use `\s+`, not a literal space. index.html is
   // prettier-formatted, which wraps long meta tags across multiple lines (the
   // <meta name="description"> tag spans 3 lines). A single-space pattern
@@ -401,11 +435,6 @@ function rewriteHtml(
   // property=). LinkedIn only reads og:* so it never cared, but X is the sole
   // consumer of twitter:* and its parser expects name= — serving property=
   // was why per-page cards rendered on LinkedIn but not on X.
-  // Redirect canonical: for redirect-only routes, point canonical + og:url
-  // at the target page so Google consolidates ranking signals.
-  const redirectTarget = pathname ? REDIRECT_CANONICALS[pathname] : undefined;
-  const canonicalUrl = redirectTarget ? `${CANONICAL_ORIGIN}${redirectTarget}` : u;
-  const cu = escapeAttr(canonicalUrl);
   let out = html
     .replace(/<link\s+rel="canonical"\s+href="[^"]*"/i, `<link rel="canonical" href="${cu}"`)
     .replace(/<meta\s+property="og:url"\s+content="[^"]*"/i, `<meta property="og:url" content="${cu}"`)
@@ -807,7 +836,7 @@ export async function injectOgMeta(
   let ogRewritten = rewriteHtml(
     html,
     ogOverride,
-    `${CANONICAL_ORIGIN}${url.pathname}${url.search}`,
+    canonicalUrlFor(url, env),
     undefined,
     url.pathname
   );

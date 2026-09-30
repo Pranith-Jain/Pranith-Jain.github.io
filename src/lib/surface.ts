@@ -1,17 +1,22 @@
 /**
  * Surface resolution — which of the two presentation surfaces a request is on.
  *
- * One repo, one Worker, one build, two front doors:
+ * One repo, one Worker, one build, several front doors:
  *
- *   portfolio  https://pranithjain.qzz.io            → portfolio nav + Home
- *   tools      https://tools.pranithjain.qzz.io      → tools nav + ToolsHome
+ *   portfolio   https://pranithjain.qzz.io            portfolio nav + Home
+ *   tools       https://crucible.pranithjain.qzz.io    tools nav + ToolsHome
+ *               https://panopticon.pranithjain.qzz.io
+ *               https://scout.pranithjain.qzz.io
  *
- * Both hosts serve the SAME route table (`/dfir/*`, `/threatintel/*` work on
- * either), so a surface only picks chrome and the `/` landing page — never
- * whether a path exists. `TOOLS_HOST` is mirrored in `wrangler.jsonc` (the
- * Worker resolves the same string from the request Host header); keep them
- * identical or the server and client will disagree about which surface they
- * are on, which shows the wrong nav for the first frame.
+ * Both surfaces serve the SAME route table (`/dfir/*`, `/threatintel/*` work on
+ * any host), so a surface only picks chrome and the `/` landing page — never
+ * whether a path exists.
+ *
+ * `TOOL_HOSTS_BY_PATH` is the client mirror of the `TOOLS_HOSTS` var in
+ * `wrangler.jsonc` (the Worker resolves the same map from the request Host
+ * header); keep them identical or the server and client will disagree about
+ * which surface they are on, which shows the wrong nav for the first frame.
+ * The shared parser the Worker uses lives in `api/src/lib/surface-hosts.ts`.
  */
 import { createContext, useContext } from 'react';
 
@@ -20,11 +25,20 @@ export type Surface = 'portfolio' | 'tools';
 /** Apex / portfolio origin. */
 export const PORTFOLIO_ORIGIN = 'https://pranithjain.qzz.io';
 
-/** Hostname of the tools surface — no scheme. */
-export const TOOLS_HOST = 'tools.pranithjain.qzz.io';
+/**
+ * Path prefix → owning hostname (no scheme). Mirror of `TOOLS_HOSTS` in
+ * `wrangler.jsonc`. Only hosts that resolve are listed: a prefix mapped to a
+ * hostname with no DNS record would make us render tool chrome on a host
+ * nobody can reach.
+ */
+export const TOOL_HOSTS_BY_PATH: Readonly<Record<string, string>> = {
+  '/dfir': 'crucible.pranithjain.qzz.io',
+  '/threatintel': 'panopticon.pranithjain.qzz.io',
+  '/radar': 'scout.pranithjain.qzz.io',
+};
 
-/** Full tools origin. */
-export const TOOLS_ORIGIN = `https://${TOOLS_HOST}`;
+/** Every configured tools hostname. */
+export const TOOL_HOSTS: readonly string[] = Object.values(TOOL_HOSTS_BY_PATH);
 
 /**
  * Resolve the surface for the page currently executing.
@@ -37,12 +51,7 @@ export const TOOLS_ORIGIN = `https://${TOOLS_HOST}`;
 export function currentSurface(): Surface {
   if (typeof window === 'undefined' || !window.location) return 'portfolio';
   const host = window.location.hostname.toLowerCase();
-  return host === TOOLS_HOST ? 'tools' : 'portfolio';
-}
-
-/** Origin the given surface is served from. */
-export function originFor(surface: Surface): string {
-  return surface === 'tools' ? TOOLS_ORIGIN : PORTFOLIO_ORIGIN;
+  return TOOL_HOSTS.includes(host) ? 'tools' : 'portfolio';
 }
 
 /**

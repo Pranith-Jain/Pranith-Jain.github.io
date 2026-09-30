@@ -160,12 +160,34 @@ story is fixed; the site story is not.
 One repo, one Worker, one build, one `public/data/`. Split the _presentation surface_ so
 the two products stop sharing a front door.
 
-Shape: `tools.pranithjain.qzz.io` (or `/tools` behind a Worker route) serves `AppShell`;
-the apex serves `PortfolioShell`. Concretely:
+**Shape (amended 2026-09-30):** the single `tools.pranithjain.qzz.io` host this section
+originally specified **does not exist and was never created** — and DNS inspection found
+three front doors already live in the zone and already reaching the Worker
+(`crucible.`, `panopticon.`, `scout.pranithjain.qzz.io`, all proxied A records;
+`workers/domains` lists only the apex). The split is therefore *per-surface*, one host per
+branded product, not one shared tools host:
 
-- Host-based split: add a Worker hostname check, set a `SURFACE` binding
-  (`portfolio` | `tools`) from the request Host, and branch on it. A second custom domain
-  costs nothing on the free plan — it is a `routes` entry, not a second Worker.
+| Host                       | Surface       | Owns          |
+| -------------------------- | ------------- | ------------- |
+| `pranithjain.qzz.io`       | portfolio     | everything else |
+| `crucible.…qzz.io`         | tools (CRUCIBLE)   | `/dfir`       |
+| `panopticon.…qzz.io`       | tools (PANOPTICON) | `/threatintel` |
+| `scout.…qzz.io`            | tools (SCOUT)      | `/radar`      |
+| `argus.…qzz.io`            | **does not exist** | `/argus` stays on the apex |
+
+Concretely:
+
+- Host-based split: a Worker hostname check sets `SURFACE` (`portfolio` | `tools`) from
+  the request Host, and branches on it. Each tools host is a DNS record in the same
+  zone, not a second Worker — free-plan cost is zero.
+- The prefix→host map lives in **one** place, `api/src/lib/surface-hosts.ts`, configured
+  as `TOOLS_HOSTS` in `wrangler.jsonc` (`pathPrefix=hostname,…`) and mirrored by
+  `TOOL_HOSTS_BY_PATH` in `src/lib/surface.ts`. It drives three things at once: surface
+  selection, the CORS/WebSocket origin allow-lists, and **canonical ownership** — each
+  path has exactly one canonical origin regardless of which host served it.
+  **Fail-safe rule: a prefix may only be mapped once its hostname resolves.** A canonical
+  pointing at a host with no DNS record is worse than the duplicate content it would fix;
+  that mistake was shipped and reverted once already (PR #247 → #249).
 - Rewrite `Home.tsx` so the portfolio home is _actually a portfolio_ (hero, about,
   experience, featured work, contact) and the 7 platform widgets
   (`LiveSignalStrip`, `LatestBriefingCard`, `GlobalPulseCard`, `QuoteOfTheDay`,
@@ -178,6 +200,10 @@ the apex serves `PortfolioShell`. Concretely:
 - Per-surface `SITE_URL`, sitemap shards, OG defaults, `manifest.json`, `robots.txt`.
   Today all of those assume one origin (`wrangler.jsonc:93`, `index.html:42,60-78`,
   `public/sitemap.xml`, `public/manifest.json`, `public/humans.txt`).
+  *Shipped:* `scripts/build-sitemap.mjs` now emits each `<loc>` on the host that owns the
+  path, so the sitemap can never disagree with the canonical the Worker serves.
+  *Outstanding:* per-host `manifest.json` / `robots.txt` / `humans.txt`, and sitemap
+  shards served from each tools host rather than only from the apex.
 - Keep the paths as they are. `/dfir` and `/threatintel` stay reachable on both hosts via
   redirect, so no SEO or 265-entry-redirect work is triggered.
 

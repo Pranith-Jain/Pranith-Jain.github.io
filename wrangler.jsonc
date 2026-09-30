@@ -91,10 +91,13 @@
 	"vars": {
 		"ALLOW_DEV_ORIGINS": "false",
 		"SITE_URL": "https://pranithjain.qzz.io",
-		// Hostname (no scheme) of the tools surface. Mirrors TOOLS_HOST in
-		// src/lib/surface.ts — keep the two identical. Unset/empty disables
-		// the split and serves the portfolio surface everywhere.
-		"TOOLS_HOST": "tools.pranithjain.qzz.io"
+		// Path-prefix → hostname map for the tools surfaces (comma-separated
+		// `pathPrefix=hostname`). Mirrors TOOL_HOSTS_BY_PATH in
+		// src/lib/surface.ts — keep the two identical. Unset/empty disables the
+		// split and serves the portfolio surface + apex canonical everywhere.
+		// Only add a prefix once that hostname resolves: a canonical pointing
+		// at a host with no DNS record is worse than the duplicate it fixes.
+		"TOOLS_HOSTS": "/dfir=crucible.pranithjain.qzz.io,/threatintel=panopticon.pranithjain.qzz.io,/radar=scout.pranithjain.qzz.io"
 	},
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }
