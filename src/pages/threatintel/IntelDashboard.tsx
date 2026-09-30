@@ -5,9 +5,7 @@ import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { MaturityPanel } from '../../components/threatintel/MaturityPanel';
 // recharts (~540KB) lives behind the `cves` tab only — a static import here
 // would make every IntelDashboard visit parse it even on `tab==='overview'`.
-const CveLandscapePanel = lazy(() =>
-  import('./ThreatIntelDashboard').then((m) => ({ default: m.CveLandscapePanel }))
-);
+const CveLandscapePanel = lazy(() => import('./ThreatIntelDashboard').then((m) => ({ default: m.CveLandscapePanel })));
 import {
   Activity,
   AlertTriangle,
@@ -86,7 +84,7 @@ const SOURCES = [
     href: '/threatintel/cve-list',
     label: 'CVE & Vulns',
     icon: Bug,
-    desc: 'NVD, CISA KEV, MyThreatIntel, cvefeed.io, @cvenotify',
+    desc: 'NVD, CISA KEV, MyThreatIntel, cvefeed.io, CVE Telegram channels, FIRST EPSS',
   },
   {
     key: 'phishing',

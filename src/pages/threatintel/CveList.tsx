@@ -23,13 +23,21 @@ interface RecentCve {
   kev_due?: string;
   kev_ransomware?: boolean;
   actors?: Array<{ slug: string; mitre_id?: string; mitre_url?: string; mitre_name?: string }>;
-  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed' | 'cvenotify';
+  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed' | 'cvenotify' | 'tg';
   /** Telegram permalink when origin is 'mti'. */
   mti_permalink?: string;
   /** Telegram permalink when origin is 'cvenotify'. */
   cvenotify_permalink?: string;
-  /** External link when origin is 'cvefeed' - cvefeed.io detail page. */
+  /** External link when origin is 'cvefeed' - cvefeed.io detail page or TG post. */
   cvefeed_url?: string;
+  /** Telegram permalink when origin is 'tg'. */
+  tg_permalink?: string;
+  /** Channel handle when origin is 'tg' (e.g. 'new_cves'). */
+  tg_channel?: string;
+  /** FIRST EPSS exploitation probability (next 30 days), 0-1. */
+  epss?: number;
+  /** FIRST EPSS percentile, 0-1. */
+  epss_percentile?: number;
 }
 
 interface CveResponse {
@@ -77,6 +85,11 @@ const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; too
     label: 'cvenotify',
     cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
     tooltip: 'Gap-filled from @cvenotify Telegram channel - not yet in NVD',
+  },
+  tg: {
+    label: 'Telegram',
+    cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+    tooltip: 'Gap-filled from a CVE Telegram channel - not yet in NVD',
   },
 };
 
@@ -361,9 +374,23 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                     {c.severity}
                   </span>
                   {c.score !== null && <span className="text-slate-500">{c.score.toFixed(1)}</span>}
+                  {c.epss !== undefined && (
+                    <span
+                      className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                      title={`FIRST EPSS exploitation probability (next 30 days): ${(c.epss * 100).toFixed(1)}%${
+                        c.epss_percentile !== undefined ? ` · percentile ${(c.epss_percentile * 100).toFixed(1)}` : ''
+                      }`}
+                    >
+                      EPSS {(c.epss * 100).toFixed(0)}%
+                    </span>
+                  )}
                   <span
                     className={`uppercase tracking-wider px-1.5 py-0.5 rounded border ${ORIGIN_PILL[c.origin].cls}`}
-                    title={ORIGIN_PILL[c.origin].tooltip}
+                    title={
+                      c.origin === 'tg' && c.tg_channel
+                        ? `Gap-filled from @${c.tg_channel} Telegram channel - not yet in NVD`
+                        : ORIGIN_PILL[c.origin].tooltip
+                    }
                   >
                     {ORIGIN_PILL[c.origin].label}
                   </span>
@@ -428,10 +455,12 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
         <>
           <p className="text-muted mb-2 max-w-3xl leading-relaxed">
             Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
-            <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
-            <strong>cvefeed.io high-severity</strong> RSS, and <strong>@cvenotify</strong> Telegram alerts as
-            gap-fillers. NVD reports ~5,500 CVEs per 30-day window - this is a triage view that prioritises high-signal
-            records, not the full corpus. For exhaustive search use{' '}
+            <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts,{' '}
+            <strong>cvefeed.io high-severity</strong> RSS, and CVE Telegram channels (<strong>@cvenotify</strong>,{' '}
+            <strong>cvefeed</strong>, <strong>new_cves</strong>) as gap-fillers. Every entry is enriched with{' '}
+            <strong>FIRST EPSS</strong> exploitation probability where available. NVD reports ~5,500 CVEs per 30-day
+            window - this is a triage view that prioritises high-signal records, not the full corpus. For exhaustive
+            search use{' '}
             <a
               href="https://nvd.nist.gov/vuln/search"
               target="_blank"
@@ -449,7 +478,9 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
           </p>
           <p className="text-xs text-muted font-mono">
             Sources: <span className="text-body">NVD published-CVE feed</span> merged with the{' '}
-            <span className="text-body">CISA KEV catalogue</span>.
+            <span className="text-body">CISA KEV catalogue</span>, MyThreatIntel, cvefeed.io RSS, and{' '}
+            <span className="text-body">CVE Telegram channels</span>. Scores:{' '}
+            <span className="text-body">NVD CVSS</span> + <span className="text-body">FIRST EPSS</span>.
           </p>
         </>
       }
