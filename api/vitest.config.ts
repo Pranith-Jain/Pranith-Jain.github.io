@@ -35,6 +35,14 @@ export default defineConfig({
           GOOGLE_SAFE_BROWSING_API_KEY: 'test-key',
           ABUSEIPDB_API_KEY: 'test-key',
           URLSCAN_API_KEY: 'test-key',
+          // HMAC key for DO→API in-process call signing (internal-token.ts).
+          // Production sets it with `wrangler secret put`; without it the
+          // module fails closed, so routes that self-fetch (ioc-enrich-deep)
+          // answered 503 `internal_token_not_configured` and their route
+          // tests failed on the first run of the `test-api` job. Test-only
+          // value — both the signer and the verifier read this same binding,
+          // so any non-empty string is fine. Never use a real secret here.
+          INTERNAL_TOKEN_SECRET: 'test-internal-token-secret',
         },
       },
     }),
