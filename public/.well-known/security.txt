@@ -1,7 +1,7 @@
 Contact: mailto:security@pranithjain.qzz.io
-Contact: https://github.com/Pranith-Jain/Pranith-Jain.github.io/issues
+Contact: https://github.com/Pranith-Jain/dfir-threat-intel-platform/issues
 Expires: 2027-06-15T00:00:00Z
 Preferred-Languages: en
 Canonical: https://pranithjain.qzz.io/.well-known/security.txt
 Policy: https://pranithjain.qzz.io/.well-known/security.txt
-Acknowledgments: https://github.com/Pranith-Jain/Pranith-Jain.github.io/security/advisories
+Acknowledgments: https://github.com/Pranith-Jain/dfir-threat-intel-platform/security/advisories

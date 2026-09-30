@@ -1,3 +1,11 @@
+/**
+ * Canonical URL of the platform repo (formerly `Pranith-Jain.github.io`).
+ * The project cards below, the tool-app chrome, and the README all need this
+ * string; keeping it in one const means a future rename is a one-line change
+ * instead of a grep across `src/`, `api/`, and `scripts/`.
+ */
+export const PLATFORM_REPO_URL = 'https://github.com/Pranith-Jain/dfir-threat-intel-platform';
+
 export const personalInfo = {
   name: 'Pranith Jain',
   // Long form, used in headlines, SEO, and structured-data schema.
@@ -344,7 +352,7 @@ export const projects: Project[] = [
     description:
       "Live CTI surface at /threatintel. It correlates indicators across 18 free IOC feeds so I can tell whether a flagged IP is consensus-malicious or one source crying wolf. The live stream gives each indicator a reporter handle and a freshness badge, so I know which feeds are actually publishing today. There's a Gantt of which ransomware groups are posting right now, with MITRE Group profiles linked inline. Victim re-leak detection catches the cases where one company shows up under two different groups in the same year, which usually means a failed double-extortion or an affiliate moving shop. Everything that can be exported is exported as STIX 2.1 so it drops straight into MISP or a SIEM.",
     tags: ['Cloudflare Workers', 'STIX 2.1', 'MITRE ATT&CK', 'IOC Correlation', 'CTI', 'May 2026 - Present'],
-    github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
+    github: PLATFORM_REPO_URL,
     href: '/threatintel',
   },
   {
@@ -352,7 +360,7 @@ export const projects: Project[] = [
     description:
       'The interactive side of the same site, at /dfir. The piece I use the most is the IOC checker. Paste anything (IP, domain, URL, hash, CVE), and it fans out to about two dozen providers over SSE so the verdicts stream back as they arrive. VirusTotal, AbuseIPDB, OTX, GreyNoise, the abuse.ch trio, and a long tail of free reputation lists. Around that sits a Diamond Model builder that auto-fills its corners from whatever indicator you hand it, a STIX 2.1 viewer with an interactive relationship graph, subdomain-takeover fingerprinting, JWT inspection, IDN homograph detection, the MITRE ATT&CK matrix, and a small knowledge base I write to whenever I learn something the hard way. Edge-hosted, free, no signup.',
     tags: ['Cloudflare Workers', 'Hono', 'SSE', 'TypeScript', 'May 2026 - Present'],
-    github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
+    github: PLATFORM_REPO_URL,
     href: '/dfir',
   },
   {
@@ -360,7 +368,7 @@ export const projects: Project[] = [
     description:
       'An autonomous investigator agent at /dfir/agent. Describe what to investigate in natural language - the agent classifies the query type, plans which of 30+ intelligence tools to call, executes them in parallel, observes results, and repeats for up to 8 reasoning steps before synthesizing a structured intelligence report. Built on a Cloudflare Durable Object for stateful multi-step execution with alarm-driven scheduling, the same pattern used by the report builder. LLM planning via Groq (primary) with Workers AI fallback. Real-time progress streamed to the frontend via SSE.',
     tags: ['Cloudflare Workers', 'Durable Objects', 'LLM', 'Groq', 'TypeScript', 'Jun 2026'],
-    github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
+    github: PLATFORM_REPO_URL,
     href: '/dfir/agent',
   },
   {

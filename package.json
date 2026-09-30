@@ -1,7 +1,7 @@
 {
-  "name": "pranith-jain-portfolio",
+  "name": "dfir-threat-intel-platform",
   "version": "2.0.0",
-  "description": "Pranith Jain - Portfolio Website (React + Vite + TypeScript)",
+  "description": "DFIR toolkit + live threat-intel platform on Cloudflare Workers - 135+ analyst tools, 300+ MCP tools, self-updating CTI feeds. Includes Pranith Jain's portfolio at the apex.",
   "type": "module",
   "scripts": {
     "dev": "node scripts/build-telegram-actor-catalog.mjs && vite",
@@ -18,6 +18,7 @@
     "build": "npm run build:client && npm run build:server && npm run build:prerender",
     "og:pages": "node scripts/generate-page-og.mjs",
     "og:upload": "node scripts/generate-page-og.mjs && node scripts/upload-page-og.mjs",
+    "check:budgets": "node scripts/check-budgets.mjs",
     "build:check": "npm run build && npm run check:budgets",
     "deploy": "npm run build && npm run og:upload && wrangler deploy",
     "preview": "vite preview",
@@ -131,14 +132,37 @@
     "d3-color": "^3.1.0"
   },
   "keywords": [
-    "portfolio",
-    "react",
-    "vite",
-    "tailwind",
+    "dfir",
+    "threat-intelligence",
+    "cti",
+    "ioc",
+    "osint",
+    "detection-engineering",
+    "incident-response",
+    "phishing",
+    "ransomware",
+    "mitre-attack",
+    "stix",
+    "mcp",
+    "model-context-protocol",
+    "cloudflare-workers",
+    "edge-computing",
+    "serverless",
     "cybersecurity",
     "email-security",
-    "threat-intelligence"
+    "security-automation",
+    "react",
+    "vite",
+    "tailwind"
   ],
   "author": "Pranith Jain",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://pranithjain.qzz.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pranith-Jain/dfir-threat-intel-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pranith-Jain/dfir-threat-intel-platform/issues"
+  }
 }
