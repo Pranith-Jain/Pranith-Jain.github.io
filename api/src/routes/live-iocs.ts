@@ -19,7 +19,6 @@ import {
   parsePhishingArmy,
   parseViriback,
   parseThreatviewDomains,
-  parseThreatbaseTopIps,
   parseSwiftioc,
 } from '../lib/ioc-feed-parsers';
 import { fetchMalwareSamplesCached } from './malware-samples';
@@ -46,7 +45,6 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
  *   - MalwareBazaar recent (file hashes + family signature)
  *   - OpenPhish (phishing URLs)
  *   - PhishTank (verified phishing URLs + brand attribution)
- *   - Threatbase top-IPs (community-corroborated hostile IPs, feeds-ranked)
  *   - SwiftIOC high-confidence (multi-type, score-ranked, defanged)
  *
  * Cached 30 min — these feeds churn faster than the correlation endpoint.
@@ -103,6 +101,21 @@ export interface LiveSource {
   id: string;
   ok: boolean;
   count: number;
+  /**
+   * True when this source returned AT LEAST as many indicators as the
+   * per-feed cap, i.e. `count` is a truncation, not the feed's true size.
+   *
+   * Without this, a 170,954-line feed and a 300-line feed render identically
+   * as "300" — which reads as "this feed is nearly empty / not active" when it
+   * is in fact the highest-volume source in the roster. Several feeds sit at
+   * exactly the cap on every snapshot purely because they are large.
+   *
+   * `count === capped` is therefore the only evidence available without
+   * parsing the whole body: a parser that breaks at `cap` cannot also tell us
+   * there were more. It may over-report by one when a feed's true size is
+   * exactly `cap`, which is the safe direction (looks saturated, not empty).
+   */
+  capped?: boolean;
   /**
    * Newest per-entry observation timestamp from this source's contributions,
    * derived from items[].observed_at. Undefined for sources that don't
@@ -408,13 +421,6 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
       'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt',
     ],
   },
-  // Threatbase top-IPs: pre-ranked by independent-feed corroboration.
-  // NOTE: the full threatbase-ip.txt (61MB, IP-sorted) is NOT ingested —
-  // head/tail sampling is meaningless on sorted data and full ingestion
-  // blows the worker budget. top_ips.json is the curated 22KB slice.
-  threatbase: {
-    url: 'https://raw.githubusercontent.com/kalidada18/threatbase/main/ioc/ip/top_ips.json',
-  },
   // SwiftIOC high-confidence multi-type feed (~3MB, score-desc). Correct
   // path is under public/ (site root); the bare iocs/ path 404s.
   swiftioc: {
@@ -502,7 +508,12 @@ function textFeedSource(cfg: TextFeedConfig): FeedSource {
         items.push(item);
       }
       const ok = cfg.okRequiresItems ? items.length > 0 : true;
-      return { items, sources: [{ id: cfg.id, ok, count: items.length }] };
+      // See LiveSource.capped — items.length === PER_FEED_CAP means the parser
+      // truncated, so the real feed is at least this big.
+      return {
+        items,
+        sources: [{ id: cfg.id, ok, count: items.length, capped: items.length >= PER_FEED_CAP }],
+      };
     },
   };
 }
@@ -571,7 +582,7 @@ const tweetfeedSource: FeedSource = {
       });
       count++;
     }
-    return { items, sources: [{ id: 'tweetfeed', ok: true, count }] };
+    return { items, sources: [{ id: 'tweetfeed', ok: true, count, capped: count >= PER_FEED_CAP }] };
   },
 };
 
@@ -600,7 +611,7 @@ const malwarebazaarSource: FeedSource = {
       });
       count++;
     }
-    return { items, sources: [{ id: 'malwarebazaar', ok: true, count }] };
+    return { items, sources: [{ id: 'malwarebazaar', ok: true, count, capped: count >= PER_FEED_CAP }] };
   },
 };
 
@@ -686,7 +697,10 @@ const cryptoScamSource: FeedSource = {
         context: 'crypto phishing / scam / drainer',
       });
     }
-    return { items, sources: [{ id: 'crypto-scam', ok: items.length > 0, count: items.length }] };
+    return {
+      items,
+      sources: [{ id: 'crypto-scam', ok: items.length > 0, count: items.length, capped: items.length >= PER_FEED_CAP }],
+    };
   },
 };
 
@@ -957,16 +971,6 @@ const FEED_SOURCES: FeedSource[] = [
     kind: 'url',
     reporter: 'phishunt',
     context: 'phishing URL',
-    okRequiresItems: true,
-  }),
-  textFeedSource({
-    id: 'threatbase',
-    url: 'https://raw.githubusercontent.com/kalidada18/threatbase/main/ioc/ip/top_ips.json',
-    parse: parseThreatbaseTopIps,
-    kind: 'ip',
-    reporter: 'Threatbase community',
-    context: entryContext,
-    withTimestamp: true,
     okRequiresItems: true,
   }),
   textFeedSource({
