@@ -25,7 +25,7 @@ interface RecentCve {
   kev_added?: string;
   kev_ransomware?: boolean;
   actors?: Array<{ slug: string; mitre_id?: string; mitre_url?: string; mitre_name?: string }>;
-  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed' | 'cvenotify';
+  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed' | 'cvenotify' | 'tg';
 }
 
 interface CveRecentResponse {
@@ -308,9 +308,9 @@ export default function SocVulns(): JSX.Element {
       onExport={onExport}
       description={
         <span>
-          NVD + CISA KEV + MyThreatIntel + cvefeed.io + @cvenotify merged for the chosen window. Critical and high
-          counts derived from CVSS; KEV tracks the all-time known-exploited corpus. Drill into the vendor list or jump
-          to the{' '}
+          NVD + CISA KEV + MyThreatIntel + cvefeed.io + CVE Telegram channels (@cvenotify · cvefeed · new_cves) merged
+          for the chosen window. Critical and high counts derived from CVSS; KEV tracks the all-time known-exploited
+          corpus. Drill into the vendor list or jump to the{' '}
           <Link to="/threatintel/cves/cves" className="text-rose-600 dark:text-rose-400 hover:underline">
             full CVE list
           </Link>
@@ -319,7 +319,7 @@ export default function SocVulns(): JSX.Element {
       }
       meta={
         <span>
-          NVD · CISA KEV · MyThreatIntel · cvefeed.io · @cvenotify
+          NVD · CISA KEV · MyThreatIntel · cvefeed.io · CVE Telegram channels
           {data?.sources && (
             <>
               {' '}
