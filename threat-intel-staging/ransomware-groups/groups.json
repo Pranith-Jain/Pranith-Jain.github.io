@@ -1,6 +1,6 @@
 {
-  "syncedAt": "2026-09-23T11:55:26.841Z",
-  "count": 625,
+  "syncedAt": "2026-09-30T12:52:22.220Z",
+  "count": 629,
   "groups": [
     {
       "name": "0apt",
@@ -931,6 +931,10 @@
       "slug": "global"
     },
     {
+      "name": "global cybernetic collective",
+      "slug": "globalcyberneticcollective"
+    },
+    {
       "name": "global secret group",
       "slug": "globalsecretgroup"
     },
@@ -1053,6 +1057,10 @@
     {
       "name": "imn crew",
       "slug": "imncrew"
+    },
+    {
+      "name": "imnotavillian",
+      "slug": "imnotavillian"
     },
     {
       "name": "inc ransom",
@@ -2347,6 +2355,10 @@
       "slug": "visvendetta"
     },
     {
+      "name": "vladivostok",
+      "slug": "vladivostok"
+    },
+    {
       "name": "vsop",
       "slug": "vsop"
     },
@@ -2357,6 +2369,10 @@
     {
       "name": "vurten",
       "slug": "vurten"
+    },
+    {
+      "name": "vypr",
+      "slug": "vypr"
     },
     {
       "name": "w3crypto",

@@ -1,0 +1,41 @@
+{
+  "slug": "killsec3",
+  "name": "killsec3",
+  "fetchedAt": "2026-09-30T12:52:26.405Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "ks5424y3wpr5zlug5c7i6svvxweinhbdcqcfnptkfcutrncfazzgz5id.onion",
+          "title": "This site has been seized",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:04:42.188",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "ks5424y3wpr5zlug5c7i6svvxweinhbdcqcfnptkfcutrncfazzgz5id.onion",
+          "title": "This site has been seized",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:22:58.478",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "xo4o2o2ezgydykywn6zkyqx7toio6z5rzvmjyakgtgkk22vv7223jmqd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 10:01:53.222",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

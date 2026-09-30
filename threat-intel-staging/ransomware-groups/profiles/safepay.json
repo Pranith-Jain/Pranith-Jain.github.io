@@ -1,7 +1,7 @@
 {
   "slug": "safepay",
   "name": "safepay",
-  "fetchedAt": "2026-09-16T11:54:04.674Z",
+  "fetchedAt": "2026-09-30T12:52:27.595Z",
   "profiles": [
     {
       "captcha": false,
@@ -110,8 +110,8 @@
           "fqdn": "safepaypfxntwixwjrlcscft433ggemlhgkkdupi2ynhtcmvdgubmoyd.onion",
           "title": "Safepay Blog",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 10:18:02.086",
+          "available": true,
+          "updated": "2026-09-30 12:02:38.960",
           "chat": false,
           "fs": false
         },
@@ -121,6 +121,33 @@
           "version": 3,
           "available": false,
           "updated": "2026-07-29 12:39:58.568",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "dwizzpmqny2ddazasljow3cdd4doqscouwywd3gz5jbsxvzerqx3lwid.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:18:48.434",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "a5d3otrzcgbprssbut7fm7ykl2edbcrhzxi3g3qhs327jwp44yovi2id.onion",
+          "title": "404 — Not Found",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:00:50.929",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "4feb4566k5oqs5w4ksmbqcgduposx5r4oegkcngiedqfyhmtt3bxo4ad.onion",
+          "title": null,
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-16 20:48:25.127613",
           "chat": false,
           "fs": true
         }

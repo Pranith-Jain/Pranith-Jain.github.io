@@ -1,7 +1,7 @@
 {
   "slug": "everest",
   "name": "everest",
-  "fetchedAt": "2026-09-12T06:12:57.322Z",
+  "fetchedAt": "2026-09-30T12:52:28.036Z",
   "profiles": [
     {
       "captcha": false,
@@ -11,8 +11,8 @@
           "fqdn": "ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-11 21:02:02.327",
+          "available": true,
+          "updated": "2026-09-30 12:03:56.651",
           "chat": false,
           "fs": false
         },
@@ -65,8 +65,8 @@
           "fqdn": "everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
           "title": "Everest",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-12 00:08:26.930",
+          "available": true,
+          "updated": "2026-09-30 12:27:42.333",
           "chat": false,
           "fs": false
         }

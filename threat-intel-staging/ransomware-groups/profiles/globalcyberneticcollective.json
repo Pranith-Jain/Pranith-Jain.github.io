@@ -1,0 +1,32 @@
+{
+  "slug": "globalcyberneticcollective",
+  "name": "global cybernetic collective",
+  "fetchedAt": "2026-09-30T12:52:29.228Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "globalco44t2yl6ltgj74cwthr6b6olggl3srg7engqfhx72f6ni3cyd.onion",
+          "title": "GLOBAL // Blog",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:01:43.152",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "globalrbweyhxxa5b65bjjsm5bfuqfs5ydizefupqcminoedzn6o2sqd.onion",
+          "title": "GLOBAL // Blog",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:00:42.888",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

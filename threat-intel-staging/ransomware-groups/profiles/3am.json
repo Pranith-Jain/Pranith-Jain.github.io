@@ -1,0 +1,41 @@
+{
+  "slug": "3am",
+  "name": "3am",
+  "fetchedAt": "2026-09-30T12:52:29.141Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "3AM, also known as ThreeAM, is a relatively new ransomware family that emerged in late 2023, initially deployed as a fallback option when LockBit infections failed. Written in Rust for 64-bit systems, it appends the “.threeamtime” extension to encrypted files and tags them with the marker “0x666,” while deleting Volume Shadow Copies to hinder recovery. 3AM operators use a double extortion strategy, combining file encryption with data theft and threats to leak stolen information. More recent campaigns have shown increased sophistication, incorporating email bombing followed by vishing calls to convince victims to grant remote access via Microsoft Quick Assist. Attackers then deploy virtual machines containing backdoors, allowing them to remain undetected while exfiltrating data before attempting to launch the ransomware payload.",
+      "locations": [
+        {
+          "fqdn": "threeamkelxicjsaf2czjyz2lc4q3ngqkxhhlexyfcp2o6raw4rphyad.onion",
+          "title": "Verify",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:03:24.739",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "ulkvlj5sirgrbnvb4hvbjo2ex2c2ceqe2j4my57fcdozpbq5h5pyu7id.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2025-01-09 21:21:17.140",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "threeam7fj33rv5twe5ll7gcrp3kkyyt6ez5stssixnuwh4v3csxdwqd.onion",
+          "title": "Enter the key",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:16:37.074",
+          "chat": true,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

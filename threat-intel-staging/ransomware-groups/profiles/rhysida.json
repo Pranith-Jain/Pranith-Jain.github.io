@@ -1,7 +1,7 @@
 {
   "slug": "rhysida",
   "name": "rhysida",
-  "fetchedAt": "2026-09-16T11:54:06.020Z",
+  "fetchedAt": "2026-09-30T12:52:28.744Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "Rhysida",
           "version": 3,
           "available": true,
-          "updated": "2026-09-16 11:09:13.260",
+          "updated": "2026-09-30 12:16:43.216",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-16 11:04:08.250",
+          "updated": "2026-09-30 12:25:59.589",
           "chat": false,
           "fs": false
         },
@@ -30,7 +30,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-16 11:05:05.449",
+          "updated": "2026-09-30 12:33:55.748",
           "chat": false,
           "fs": false
         },
@@ -38,8 +38,8 @@
           "fqdn": "rhysidafc6lm7qa2mkiukbezh7zuth3i4wof4mh2audkymscjm6yegad.onion",
           "title": "Rhysida",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 10:11:40.545",
+          "available": true,
+          "updated": "2026-09-30 12:02:41.767",
           "chat": false,
           "fs": false
         },
@@ -65,8 +65,8 @@
           "fqdn": "rhysidaqho36b6i6mvpmy5di4ro5zglovtxixrirky6q3fgack7q5uyd.onion",
           "title": "Onionsite Not Found",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-16 11:04:18.401",
+          "available": false,
+          "updated": "2026-09-30 11:01:58.811",
           "chat": false,
           "fs": true
         }
