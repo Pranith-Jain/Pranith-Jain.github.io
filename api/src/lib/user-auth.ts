@@ -7,6 +7,7 @@
  */
 
 import type { D1Database } from '@cloudflare/workers-types';
+import { safeEqual } from './admin-auth';
 
 /* ─── Password Hashing ────────────────────────────────────────────────────── */
 
@@ -66,7 +67,11 @@ async function verifyPassword(password: string, stored: string): Promise<boolean
   const hashHex = Array.from(new Uint8Array(derivedBits))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
-  return hashHex === expectedHash;
+  // Constant-time compare: `===` on a secret-derived value short-circuits on
+  // the first differing character. The stored PBKDF2 digest isn't directly
+  // observable through a response, so this is defense-in-depth, but it keeps
+  // every secret comparison in the codebase on one primitive.
+  return safeEqual(hashHex, expectedHash);
 }
 
 /* ─── Token Generation ─────────────────────────────────────────────────────── */

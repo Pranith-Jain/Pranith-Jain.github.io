@@ -24,12 +24,19 @@ import { buildRansomwareMergedRss, RANSOMWARE_MERGED_FEED_PATH } from './ransomw
  * Items are sorted newest-first by pubDate.
  */
 
-// Hard ceiling on feeds per invocation. Each feed costs ≥1 subrequest even
-// fully warm (the cache match counts), plus fetch + redirects + put when cold,
-// so this must stay well under CF's 50-subrequest-per-invocation cap. The
-// frontend already chunks large feed lists (rssService AGGREGATOR_CHUNK_SIZE)
-// into separate requests; 40 is a safety ceiling for direct/uncommon callers.
-const MAX_FEEDS = 40;
+// Hard ceiling on feeds per invocation. Every feed costs at least one
+// subrequest (the caches.default.match lookup); a cold feed costs
+// match + fetch + up to 4 redirect hops + a write-back put.
+//
+// Cloudflare's free plan allows 50 subrequests per invocation, so the previous
+// ceiling of 40 could reach ~120-320 subrequests on a cold cache and hard-fail
+// the entire request ("Too many subrequests"). 15 matches the frontend's own
+// AGGREGATOR_CHUNK_SIZE (rssService.ts), which was already sized against the
+// 50-subrequest cap — so every first-party batch now fits without being
+// silently truncated, while direct/untrusted callers can no longer force a
+// 3-6x subrequest overrun. The worst case (15 fully cold, every feed
+// redirecting) is ~75 and the warm case is 15.
+const MAX_FEEDS = 15;
 /** Default page-size when caller doesn't pass ?limit=. Bumped 30 → 100 so
  *  the threat-pulse / threat-feeds pages surface a representative week
  *  rather than just a day's churn. */
