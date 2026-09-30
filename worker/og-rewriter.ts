@@ -9,6 +9,7 @@ import { OG_BUILD_VERSION } from './og-version.generated';
 // title/description the rewriter serves — cards and meta can never drift.
 import { clampToBytes, findOgOverride, ogMetaForPath, OG_OVERRIDES } from './og-copy';
 import type { OgOverride } from './og-copy';
+import { isAppRoute } from './surface';
 // Blog KV reads are shared with the public API routes (api/src/lib/blog-kv
 // bridge) so the OG rewrite and /api/v1/blog/* hit the SAME per-colo shadow.
 import { readBlogPostShadowed, readBlogIndexShadowed } from './lib/blog-kv';
@@ -46,6 +47,25 @@ export type { OgOverride, OgPageMeta } from './og-copy';
 /** The one true public origin. Used for canonical/OG URLs so they can never
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
+
+/**
+ * Origin that owns a path — the host its canonical/og:url/twitter:url must
+ * point at.
+ *
+ * Both hosts serve every path, so without a single owner each copy would
+ * self-declare canonical and search engines would see the whole site twice.
+ * Ownership follows the surface split: the platform routes (/dfir,
+ * /threatintel, /argus, /radar) belong to the tools host, everything else to
+ * the portfolio apex.
+ *
+ * `toolsHost` unset/empty fails safe to the apex, so a deployment without
+ * TOOLS_HOST keeps exactly today's single-origin behaviour.
+ */
+function canonicalOriginFor(pathname: string, toolsHost?: string): string {
+  const host = (toolsHost ?? '').trim().toLowerCase();
+  if (!host) return CANONICAL_ORIGIN;
+  return isAppRoute(pathname) ? `https://${host}` : CANONICAL_ORIGIN;
+}
 
 /**
  * Rewritten-HTML cache-key namespace. v14 additionally scopes keys by
@@ -389,7 +409,8 @@ function rewriteHtml(
   override: OgOverride | null,
   fullUrl: string,
   nonce?: string,
-  pathname?: string
+  pathname?: string,
+  toolsHost?: string
 ): string {
   const u = escapeAttr(fullUrl);
   // NOTE: attribute gaps use `\s+`, not a literal space. index.html is
@@ -402,9 +423,13 @@ function rewriteHtml(
   // consumer of twitter:* and its parser expects name= — serving property=
   // was why per-page cards rendered on LinkedIn but not on X.
   // Redirect canonical: for redirect-only routes, point canonical + og:url
-  // at the target page so Google consolidates ranking signals.
+  // at the target page so Google consolidates ranking signals. The owner is
+  // the TARGET's, not the thin source route's — /copilot redirects to
+  // /threatintel/tools/copilot, which the tools surface owns.
   const redirectTarget = pathname ? REDIRECT_CANONICALS[pathname] : undefined;
-  const canonicalUrl = redirectTarget ? `${CANONICAL_ORIGIN}${redirectTarget}` : u;
+  const canonicalUrl = redirectTarget
+    ? `${canonicalOriginFor(redirectTarget, toolsHost)}${redirectTarget}`
+    : u;
   const cu = escapeAttr(canonicalUrl);
   let out = html
     .replace(/<link\s+rel="canonical"\s+href="[^"]*"/i, `<link rel="canonical" href="${cu}"`)
@@ -804,12 +829,14 @@ export async function injectOgMeta(
   }
   const ogOverride = await resolveOg(url, env);
   const blogLd = await resolveBlogJsonLd(url, env);
+  const toolsHost = (env.TOOLS_HOST ?? '').trim().toLowerCase() || undefined;
   let ogRewritten = rewriteHtml(
     html,
     ogOverride,
-    `${CANONICAL_ORIGIN}${url.pathname}${url.search}`,
+    `${canonicalOriginFor(url.pathname, toolsHost)}${url.pathname}${url.search}`,
     undefined,
-    url.pathname
+    url.pathname,
+    toolsHost
   );
   if (blogLd) ogRewritten = ogRewritten.replace(/<\/head>/i, `${blogLd}</head>`);
   if (shouldNoindex(url.pathname)) {
