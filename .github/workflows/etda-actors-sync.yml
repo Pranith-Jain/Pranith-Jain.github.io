@@ -46,6 +46,7 @@ jobs:
           fi
 
       - name: Create PR
+        id: pr
         if: steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
@@ -68,3 +69,17 @@ jobs:
           labels: automated, data, threat-intel
           add-paths: |
             public/data/apt-actors/
+          delete-branch: true
+
+      - name: Auto-merge sync PR
+        # Data-only output, so it merges itself once checks clear (same
+        # pattern as ai-security-verticals-sync.yml). Without this the PR sits
+        # open forever and its branch accumulates one ref per run — which is
+        # how `etda-actors-sync` and `chore/ransomware-groups-sync` piled up.
+        id: automerge
+        if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge --auto --squash --delete-branch \
+            "${{ steps.pr.outputs.pull-request-number }}"
