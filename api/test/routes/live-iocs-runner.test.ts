@@ -17,7 +17,9 @@ describe('runFeedSourceById', () => {
 
     const result = await runFeedSourceById('emerging-threats', deps);
     expect(result).not.toBeNull();
-    expect(result!.sources).toEqual([{ id: 'emerging-threats', ok: true, count: 3 }]);
+    // `capped: false` — 3 entries is well under the 300 per-feed cap, so the
+    // count is the feed's real size, not a truncation.
+    expect(result!.sources).toEqual([{ id: 'emerging-threats', ok: true, count: 3, capped: false }]);
     expect(result!.items).toHaveLength(3);
     for (const it of result!.items) {
       expect(it.kind).toBe('ip');
@@ -37,19 +39,36 @@ describe('runFeedSourceById', () => {
 });
 
 describe('FEED_SOURCE_IDS', () => {
-  it('lists the 30 runner units in registry order', () => {
-    // Count pinned to the registry (threatbase + swiftioc added in bb53f68db).
-    // When adding a feed, bump this number AND register it below.
-    expect(FEED_SOURCE_IDS).toHaveLength(30);
+  it('lists the 29 runner units in registry order', () => {
+    // Count pinned to the registry. Was 30; threatbase removed 2026-09-30 after
+    // its upstream repo (kalidada18/threatbase) began 404ing — the entry cost a
+    // subrequest per invocation for a feed that could never return. When adding
+    // or removing a feed, bump this number AND update the assertions below.
+    expect(FEED_SOURCE_IDS).toHaveLength(29);
     expect(FEED_SOURCE_IDS[0]).toBe('tweetfeed');
-    expect(FEED_SOURCE_IDS[29]).toBe('swiftioc');
+    expect(FEED_SOURCE_IDS[28]).toBe('swiftioc');
     expect(FEED_SOURCE_IDS).toContain('emerging-threats');
     expect(FEED_SOURCE_IDS).toContain('crypto-scam');
-    expect(FEED_SOURCE_IDS).toContain('threatbase');
     // Removed dead sources
     expect(FEED_SOURCE_IDS).not.toContain('sslbl-c2');
     expect(FEED_SOURCE_IDS).not.toContain('andreafortuna-defacements');
     expect(FEED_SOURCE_IDS).not.toContain('mythreatintel');
+    // Removed 2026-09-30: upstream repo deleted, 404 on every fetch.
+    expect(FEED_SOURCE_IDS).not.toContain('threatbase');
+  });
+
+  it('flags capped=true when a feed fills the per-feed cap, so 300 is not read as small', async () => {
+    // The roster previously showed a bare "300" for every large feed, which is
+    // indistinguishable from a feed with exactly 300 indicators and reads as
+    // "not active". `capped` is the fix; this pins the boundary.
+    const many = Array.from({ length: 400 }, (_, i) => `1.1.1.${i % 250}`).join('\n');
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(many, { status: 200 }));
+
+    const result = await runFeedSourceById('emerging-threats', deps);
+    const src = result!.sources[0];
+    expect(src).toBeDefined();
+    expect(src).toMatchObject({ id: 'emerging-threats', ok: true, capped: true });
+    expect(src!.count).toBeGreaterThanOrEqual(300);
   });
 
   it("uses the 'phishing' runner label, not its response ids", () => {

@@ -37,6 +37,13 @@ interface LiveSource {
   id: string;
   ok: boolean;
   count: number;
+  /**
+   * Server sets this when the source returned >= the per-feed cap, i.e.
+   * `count` is a truncation rather than the feed's real size. Without it a
+   * 170k-line feed renders as a bare "300", indistinguishable from a small
+   * feed — which reads as "not active" when it is the opposite.
+   */
+  capped?: boolean;
   /** ISO 8601 newest per-entry observation timestamp from this source. */
   newest_observation?: string;
 }
@@ -212,6 +219,10 @@ export default function LiveIocs(): JSX.Element {
               const healthy = list.filter((s) => s.ok && s.count > 0).length;
               const unreachable = list.filter((s) => s.ok === false);
               const unreachableIds = unreachable.map((s) => s.id).join(', ');
+              // Feeds whose real size is unknown because the server truncated
+              // them at the per-feed cap. Shown separately so "capped" is never
+              // mistaken for "empty" — these are typically the LARGEST feeds.
+              const capped = list.filter((s) => s.capped);
               const dotCls = (cls: string) => `inline-block w-1.5 h-1.5 rounded-full ${cls}`;
               return (
                 <p
@@ -236,6 +247,18 @@ export default function LiveIocs(): JSX.Element {
                     <span className={dotCls('bg-rose-400 dark:bg-rose-500')} aria-label="unreachable" />
                     {unreachable.length} unreachable
                   </span>
+                  {capped.length > 0 && (
+                    <>
+                      <span className="mx-1.5 opacity-50">·</span>
+                      <span
+                        className="inline-flex items-center gap-1"
+                        title={`Truncated at the 300-per-feed cap, so the real feed is larger: ${capped.map((s) => s.id).join(', ')}`}
+                      >
+                        <span className={dotCls('bg-sky-400 dark:bg-sky-500')} aria-label="capped" />
+                        {capped.length} at cap
+                      </span>
+                    </>
+                  )}
                 </p>
               );
             })()}
@@ -349,7 +372,11 @@ export default function LiveIocs(): JSX.Element {
                       aria-label="unreachable"
                     />
                   )}
-                  {s.id} <span className="opacity-70">· {s.count}</span>
+                  {s.id}{' '}
+                  <span className="opacity-70" title={s.capped ? 'At or above the per-feed cap (300) — the real feed is larger' : undefined}>
+                    · {s.count}
+                    {s.capped ? '+' : ''}
+                  </span>
                 </button>
               );
             })}
