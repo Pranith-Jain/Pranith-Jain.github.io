@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
-import { FileCheck, Upload, FileSearch } from 'lucide-react';
+import { FileCheck, Upload, FileSearch, ShieldAlert } from 'lucide-react';
+import { sanitizeInvisibleText, scanInvisibleText } from '../../lib/invisible-prompt';
 
 interface Row {
   n: number;
@@ -115,6 +116,11 @@ export default function WebLogAnalyzer(): JSX.Element {
   const [text, setText] = useState('');
   const [fileError, setFileError] = useState<string | null>(null);
   const res = useMemo(() => (text.trim() ? analyze(text) : null), [text]);
+  // Self-diagnosing: if invisible characters are present we say so above the
+  // input rather than silently parsing around them. A log line can carry a
+  // prompt injection in the tag block that is blank to the analyst but read as
+  // an instruction by anything that later feeds this text to a model.
+  const invisible = useMemo(() => (text ? scanInvisibleText(text) : null), [text]);
   // Memoized so the array identity is stable across renders — DataTable's
   // sort memo depends on `rows`, and `res.rows.slice(...)` inline produced a
   // fresh 2000-element array on every parent render.
@@ -153,6 +159,41 @@ export default function WebLogAnalyzer(): JSX.Element {
         LFI/RFI, command injection, scanner UAs and sensitive-path probes. Export the hits as CSV. 100% client-side.
       </p>
 
+      {invisible && invisible.severity !== 'none' && (
+        <div
+          role="alert"
+          className={`mb-4 border-l-4 px-4 py-3 ${
+            invisible.severity === 'critical' || invisible.severity === 'high'
+              ? 'border-red-500 bg-red-50 dark:bg-red-950/30'
+              : 'border-amber-500 bg-amber-50 dark:bg-amber-950/30'
+          }`}
+        >
+          <p className="text-sm font-semibold flex items-center gap-2">
+            <ShieldAlert size={16} />
+            Invisible content detected
+            <span className="font-mono text-mini uppercase">{invisible.severity}</span>
+          </p>
+          <p className="text-mini font-mono mt-1">{invisible.reason}</p>
+          {invisible.hasTagCharacters && (
+            <>
+              <p className="text-mini font-mono mt-2">
+                Hidden payload ({invisible.decodedCharCount} chars, {invisible.tagRuns.length} run
+                {invisible.tagRuns.length === 1 ? '' : 's'}):
+              </p>
+              <pre className="text-mini font-mono mt-1 p-2 surface-card overflow-x-auto whitespace-pre-wrap break-all">
+                {invisible.decodedPayload}
+              </pre>
+              <button
+                type="button"
+                onClick={() => setText(sanitizeInvisibleText(text))}
+                className="mt-2 text-mini font-mono underline hover:text-brand-600 dark:hover:text-brand-400"
+              >
+                Strip all invisible characters from input
+              </button>
+            </>
+          )}
+        </div>
+      )}
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
