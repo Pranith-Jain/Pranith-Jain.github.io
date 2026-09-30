@@ -44,5 +44,6 @@
   "keywordOnly": true,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/injection.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "DirectInstructionManipulationDetection"
 }

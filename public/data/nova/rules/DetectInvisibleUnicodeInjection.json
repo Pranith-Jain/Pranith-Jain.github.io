@@ -43,5 +43,6 @@
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/hidden_unicode.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "DetectInvisibleUnicodeInjection"
 }

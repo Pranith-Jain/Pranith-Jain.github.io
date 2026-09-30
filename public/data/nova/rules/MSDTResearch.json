@@ -44,5 +44,6 @@
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_emerald_sleet.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "MSDTResearch"
 }

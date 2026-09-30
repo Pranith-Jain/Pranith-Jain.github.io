@@ -395,6 +395,35 @@ async function main() {
   let llmCount = 0;
   let keywordOnly = 0;
   const slim = [];
+
+  // Two upstream rules declare names that differ ONLY by case — `DANJailbreak`
+  // (jailbreak.nov) and `DanJailbreak` (promptintel/DanJailbreak.nov). Deriving
+  // the body filename straight from `name` made both write to the same path on a
+  // case-insensitive filesystem (macOS/Windows): one silently clobbered the
+  // other, so `nova-manifest.test.ts` failed on DAN mode text depending on which
+  // blob the checkout happened to materialise. On a case-sensitive FS (Linux CI)
+  // both files coexisted and the bug was invisible.
+  //
+  // Fix: keep `name` EXACTLY as upstream declares it (it is the public API — the
+  // loader, the /nova/rules/:name route and the SPA all address rules by it),
+  // and derive the filename from a case-insensitive-unique key. When a name has
+  // no case-only sibling it is used verbatim, so all 67 unaffected rule
+  // filenames stay byte-identical and no cached asset URL churns.
+  const nameLower = new Map();
+  for (const r of rules) {
+    const k = r.name.toLowerCase();
+    nameLower.set(k, (nameLower.get(k) || 0) + 1);
+  }
+  const bodyFileFor = (name) => {
+    if (nameLower.get(name.toLowerCase()) === 1) return name;
+    // Disambiguate deterministically: keep the name, lower-case every character
+    // (so the stem can never differ from another rule by case alone), and
+    // append the upstream source path for traceability. Stable across rebuilds.
+    const src = rules.find((r) => r.name === name)?.file || 'rule';
+    const stem = src.replace(/^promptintel\//, '').replace(/\.nov$/, '');
+    return `${name.toLowerCase()}-${stem.toLowerCase()}`;
+  };
+
   for (const r of rules) {
     const kw = Object.keys(r.keywords).length;
     const se = Object.keys(r.semantics).length;
@@ -407,9 +436,11 @@ async function main() {
     byCategory[cat] = (byCategory[cat] || 0) + 1;
     const sev = (r.meta.severity || 'unknown').toLowerCase();
     bySeverity[sev] = (bySeverity[sev] || 0) + 1;
-    writeFileSync(join(OUT, 'rules', `${r.name}.json`), JSON.stringify(r, null, 2) + '\n');
+    r.bodyFile = bodyFileFor(r.name);
+    writeFileSync(join(OUT, 'rules', `${r.bodyFile}.json`), JSON.stringify(r, null, 2) + '\n');
     slim.push({
       name: r.name,
+      bodyFile: r.bodyFile,
       file: r.file,
       category: r.meta.category,
       severity: r.meta.severity,

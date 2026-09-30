@@ -4,7 +4,7 @@
   "engineSource": "github.com/Nova-Hunting/nova-framework",
   "engineUrl": "https://github.com/Nova-Hunting/nova-framework",
   "license": "MIT",
-  "replicatedAt": "2026-09-29",
+  "replicatedAt": "2026-09-30",
   "edgeNote": "Only keywords patterns are evaluable on Workers. semantics/llm patterns are stored but unevaluable here (fail-closed, as upstream).",
   "counts": {
     "rules": 69,
@@ -45,6 +45,7 @@
   "rules": [
     {
       "name": "AdversarialInjectionDetection",
+      "bodyFile": "AdversarialInjectionDetection",
       "file": "injection.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "high",
@@ -56,6 +57,7 @@
     },
     {
       "name": "BindShellPrompt",
+      "bodyFile": "BindShellPrompt",
       "file": "promptintel/BindShellPrompt.nov",
       "category": "abusing_functions/malware_generation",
       "severity": "high",
@@ -67,6 +69,7 @@
     },
     {
       "name": "ClaudeConversationEnders",
+      "bodyFile": "ClaudeConversationEnders",
       "file": "claude_conversation_enders.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "medium",
@@ -78,6 +81,7 @@
     },
     {
       "name": "ClaudeRefusalMagicString",
+      "bodyFile": "ClaudeRefusalMagicString",
       "file": "claude_magic_string.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "medium",
@@ -89,6 +93,7 @@
     },
     {
       "name": "CodeExecutionInjectionDetection",
+      "bodyFile": "CodeExecutionInjectionDetection",
       "file": "injection.nov",
       "category": "prompt_manipulation/hidden_instructions",
       "severity": "high",
@@ -100,6 +105,7 @@
     },
     {
       "name": "CodeInjectionPrompt",
+      "bodyFile": "CodeInjectionPrompt",
       "file": "llm01_promptinject.nov",
       "category": "prompt_manipulation/hidden_instructions",
       "severity": "high",
@@ -111,6 +117,7 @@
     },
     {
       "name": "CodeSwitchingJailbreak",
+      "bodyFile": "CodeSwitchingJailbreak",
       "file": "promptintel/CodeSwitchingJailbreak.nov",
       "category": "abnormal_outputs/malicious_content",
       "severity": "high",
@@ -122,6 +129,7 @@
     },
     {
       "name": "CognitiveHackingJailbreak",
+      "bodyFile": "CognitiveHackingJailbreak",
       "file": "jailbreak.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "high",
@@ -133,6 +141,7 @@
     },
     {
       "name": "CVEInformationRequestRule",
+      "bodyFile": "CVEInformationRequestRule",
       "file": "ttps.nov",
       "category": "abusing_functions/reconnaissance",
       "severity": "medium",
@@ -144,6 +153,7 @@
     },
     {
       "name": "DanJailbreak",
+      "bodyFile": "danjailbreak-danjailbreak",
       "file": "promptintel/DanJailbreak.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "high",
@@ -155,6 +165,7 @@
     },
     {
       "name": "DANJailbreak",
+      "bodyFile": "danjailbreak-jailbreak",
       "file": "jailbreak.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "high",
@@ -166,6 +177,7 @@
     },
     {
       "name": "DataExfiltrationPrompt",
+      "bodyFile": "DataExfiltrationPrompt",
       "file": "llm01_promptinject.nov",
       "category": "abusing_functions/data_exfiltration",
       "severity": "high",
@@ -177,6 +189,7 @@
     },
     {
       "name": "DefenseEvasionAvCrimsonSandstorm",
+      "bodyFile": "DefenseEvasionAvCrimsonSandstorm",
       "file": "incidents/202402_crimson_sandstorm.nov",
       "category": "abusing_functions/attack_enablement",
       "severity": "medium",
@@ -188,6 +201,7 @@
     },
     {
       "name": "DefenseEvasionCodeCrimsonSandstorm",
+      "bodyFile": "DefenseEvasionCodeCrimsonSandstorm",
       "file": "incidents/202402_crimson_sandstorm.nov",
       "category": "abusing_functions/attack_enablement",
       "severity": "medium",
@@ -199,6 +213,7 @@
     },
     {
       "name": "DelimiterTerminationProbe",
+      "bodyFile": "DelimiterTerminationProbe",
       "file": "delimiter_termination_probe.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "medium",
@@ -210,6 +225,7 @@
     },
     {
       "name": "DestructiveSystemCleaner",
+      "bodyFile": "DestructiveSystemCleaner",
       "file": "incidents/20250723_wipingprompt.nov",
       "category": "abusing_functions/agentic_misuse",
       "severity": "critical",
@@ -221,6 +237,7 @@
     },
     {
       "name": "DetectDataExfiltration",
+      "bodyFile": "DetectDataExfiltration",
       "file": "skill_rules.nov",
       "category": "abusing_functions/data_exfiltration",
       "severity": "critical",
@@ -232,6 +249,7 @@
     },
     {
       "name": "DetectHiddenInstructions",
+      "bodyFile": "DetectHiddenInstructions",
       "file": "skill_rules.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "medium",
@@ -243,6 +261,7 @@
     },
     {
       "name": "DetectImpersonationAttempts",
+      "bodyFile": "DetectImpersonationAttempts",
       "file": "skill_rules.nov",
       "category": "abusing_functions/social_engineering",
       "severity": "medium",
@@ -254,6 +273,7 @@
     },
     {
       "name": "DetectInvisibleUnicodeInjection",
+      "bodyFile": "DetectInvisibleUnicodeInjection",
       "file": "hidden_unicode.nov",
       "category": "suspicious_patterns/unicode_tricks",
       "severity": "high",
@@ -265,6 +285,7 @@
     },
     {
       "name": "DetectMaliciousToolPermissions",
+      "bodyFile": "DetectMaliciousToolPermissions",
       "file": "skill_rules.nov",
       "category": "abusing_functions/agentic_misuse",
       "severity": "high",
@@ -276,6 +297,7 @@
     },
     {
       "name": "DetectScamMessageInjection",
+      "bodyFile": "DetectScamMessageInjection",
       "file": "promptintel/DetectScamMessageInjection.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "high",
@@ -287,6 +309,7 @@
     },
     {
       "name": "DetectSkillPromptInjection",
+      "bodyFile": "DetectSkillPromptInjection",
       "file": "skill_rules.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "critical",
@@ -298,6 +321,7 @@
     },
     {
       "name": "DetectSuspiciousScriptPatterns",
+      "bodyFile": "DetectSuspiciousScriptPatterns",
       "file": "skill_rules.nov",
       "category": "abusing_functions/supply_chain",
       "severity": "high",
@@ -309,6 +333,7 @@
     },
     {
       "name": "DeveloperModeJailbreak1",
+      "bodyFile": "DeveloperModeJailbreak1",
       "file": "jailbreak.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "medium",
@@ -320,6 +345,7 @@
     },
     {
       "name": "DirectInstructionManipulationDetection",
+      "bodyFile": "DirectInstructionManipulationDetection",
       "file": "injection.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "high",
@@ -331,6 +357,7 @@
     },
     {
       "name": "DirectPromptInjection",
+      "bodyFile": "DirectPromptInjection",
       "file": "llm01_promptinject.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "high",
@@ -342,6 +369,7 @@
     },
     {
       "name": "DPRKExpertSpearPhishing",
+      "bodyFile": "DPRKExpertSpearPhishing",
       "file": "incidents/202402_emerald_sleet.nov",
       "category": "abusing_functions/social_engineering",
       "severity": "high",
@@ -353,6 +381,7 @@
     },
     {
       "name": "DPRKNGORecon",
+      "bodyFile": "DPRKNGORecon",
       "file": "incidents/202402_emerald_sleet.nov",
       "category": "abusing_functions/reconnaissance",
       "severity": "high",
@@ -364,6 +393,7 @@
     },
     {
       "name": "ExfiltrateDocumentsOneLiner",
+      "bodyFile": "ExfiltrateDocumentsOneLiner",
       "file": "incidents/20250717_lamehug_apt_28.nov",
       "category": "abusing_functions/contextual_exfiltration",
       "severity": "high",
@@ -375,6 +405,7 @@
     },
     {
       "name": "GovernmentPhishingThemeRule",
+      "bodyFile": "GovernmentPhishingThemeRule",
       "file": "ttps.nov",
       "category": "abusing_functions/social_engineering",
       "severity": "high",
@@ -386,6 +417,7 @@
     },
     {
       "name": "HiddenHtmlLlmDestructiveCommandInjection",
+      "bodyFile": "HiddenHtmlLlmDestructiveCommandInjection",
       "file": "promptintel/HiddenHtmlLlmDestructiveCommandInjection.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "critical",
@@ -397,6 +429,7 @@
     },
     {
       "name": "IndirectInjectionDetection",
+      "bodyFile": "IndirectInjectionDetection",
       "file": "injection.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "medium",
@@ -408,6 +441,7 @@
     },
     {
       "name": "IndirectPromptInjection",
+      "bodyFile": "IndirectPromptInjection",
       "file": "llm01_promptinject.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "high",
@@ -419,6 +453,7 @@
     },
     {
       "name": "IndirectTaskDeflectionJailbreak",
+      "bodyFile": "IndirectTaskDeflectionJailbreak",
       "file": "jailbreak.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "medium",
@@ -430,6 +465,7 @@
     },
     {
       "name": "InjectDynamicContext",
+      "bodyFile": "InjectDynamicContext",
       "file": "inject_dynamic_context.nov",
       "category": "abusing_functions/agentic_misuse",
       "severity": "high",
@@ -441,6 +477,7 @@
     },
     {
       "name": "JobRecruitmentVariationRule",
+      "bodyFile": "JobRecruitmentVariationRule",
       "file": "ttps.nov",
       "category": "abusing_functions/social_engineering",
       "severity": "high",
@@ -452,6 +489,7 @@
     },
     {
       "name": "JoinInjectionString",
+      "bodyFile": "JoinInjectionString",
       "file": "promptintel/JoinInjectionString.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "medium",
@@ -463,6 +501,7 @@
     },
     {
       "name": "KawaiiPersonaEnforcementBypass",
+      "bodyFile": "KawaiiPersonaEnforcementBypass",
       "file": "promptintel/KawaiiPersonaEnforcementBypass.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "high",
@@ -474,6 +513,7 @@
     },
     {
       "name": "LLMImproperOutputHandling",
+      "bodyFile": "LLMImproperOutputHandling",
       "file": "llm05_ImproperOutput.nov",
       "category": "abnormal_outputs/malicious_content",
       "severity": "high",
@@ -485,6 +525,7 @@
     },
     {
       "name": "MalwareCreationRule",
+      "bodyFile": "MalwareCreationRule",
       "file": "ttps.nov",
       "category": "abusing_functions/malware_generation",
       "severity": "high",
@@ -496,6 +537,7 @@
     },
     {
       "name": "MessagingScriptingRule",
+      "bodyFile": "MessagingScriptingRule",
       "file": "ttps.nov",
       "category": "abusing_functions/crime_automation",
       "severity": "medium",
@@ -507,6 +549,7 @@
     },
     {
       "name": "MSDTResearch",
+      "bodyFile": "MSDTResearch",
       "file": "incidents/202402_emerald_sleet.nov",
       "category": "abusing_functions/reconnaissance",
       "severity": "high",
@@ -518,6 +561,7 @@
     },
     {
       "name": "MultimodalInjection",
+      "bodyFile": "MultimodalInjection",
       "file": "llm01_promptinject.nov",
       "category": "suspicious_patterns/cross_modal",
       "severity": "high",
@@ -529,6 +573,7 @@
     },
     {
       "name": "MultiTechniqueInjectionDetection",
+      "bodyFile": "MultiTechniqueInjectionDetection",
       "file": "injection.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "high",
@@ -540,6 +585,7 @@
     },
     {
       "name": "ObfuscationInjectionDetection",
+      "bodyFile": "ObfuscationInjectionDetection",
       "file": "injection.nov",
       "category": "suspicious_patterns/encoding_obfuscation",
       "severity": "medium",
@@ -551,6 +597,7 @@
     },
     {
       "name": "OperationsResearch",
+      "bodyFile": "OperationsResearch",
       "file": "incidents/202402_forest_blizzard.nov",
       "category": "abusing_functions/reconnaissance",
       "severity": "high",
@@ -562,6 +609,7 @@
     },
     {
       "name": "PayloadSplittingAttack",
+      "bodyFile": "PayloadSplittingAttack",
       "file": "llm01_promptinject.nov",
       "category": "suspicious_patterns/fragmentation",
       "severity": "high",
@@ -573,6 +621,7 @@
     },
     {
       "name": "PhishingCrimsonSandstorm",
+      "bodyFile": "PhishingCrimsonSandstorm",
       "file": "incidents/202402_crimson_sandstorm.nov",
       "category": "abusing_functions/social_engineering",
       "severity": "medium",
@@ -584,6 +633,7 @@
     },
     {
       "name": "PolicyPuppetryUniversalBypass",
+      "bodyFile": "PolicyPuppetryUniversalBypass",
       "file": "policy_puppetry.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "critical",
@@ -595,6 +645,7 @@
     },
     {
       "name": "PromptInjection",
+      "bodyFile": "PromptInjection",
       "file": "testrule2.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "medium",
@@ -606,6 +657,7 @@
     },
     {
       "name": "PromptInjection2",
+      "bodyFile": "PromptInjection2",
       "file": "testrule2.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "medium",
@@ -617,6 +669,7 @@
     },
     {
       "name": "PromptInjectionJailbreak",
+      "bodyFile": "PromptInjectionJailbreak",
       "file": "jailbreak.nov",
       "category": "prompt_manipulation/direct_injection",
       "severity": "high",
@@ -628,6 +681,7 @@
     },
     {
       "name": "PromptLeakageDetection",
+      "bodyFile": "PromptLeakageDetection",
       "file": "injection.nov",
       "category": "abnormal_outputs/system_prompt_leak",
       "severity": "high",
@@ -639,6 +693,7 @@
     },
     {
       "name": "ReceiveCommandExecPrompt",
+      "bodyFile": "ReceiveCommandExecPrompt",
       "file": "promptintel/ReceiveCommandExecPrompt.nov",
       "category": "abusing_functions/malware_generation",
       "severity": "high",
@@ -650,6 +705,7 @@
     },
     {
       "name": "ReconGatherWriteCommand",
+      "bodyFile": "ReconGatherWriteCommand",
       "file": "incidents/20250717_lamehug_apt_28.nov",
       "category": "abusing_functions/reconnaissance",
       "severity": "high",
@@ -661,6 +717,7 @@
     },
     {
       "name": "RoleplayJailbreak",
+      "bodyFile": "RoleplayJailbreak",
       "file": "jailbreak.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "medium",
@@ -672,6 +729,7 @@
     },
     {
       "name": "RoleplayManipulationSexualMisconduct",
+      "bodyFile": "RoleplayManipulationSexualMisconduct",
       "file": "promptintel/RoleplayManipulationSexualMisconduct.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "high",
@@ -683,6 +741,7 @@
     },
     {
       "name": "RoutineDataExfiltration",
+      "bodyFile": "RoutineDataExfiltration",
       "file": "promptintel/RoutineDataExfiltration.nov",
       "category": "prompt_manipulation/indirect_injection",
       "severity": "high",
@@ -694,6 +753,7 @@
     },
     {
       "name": "ScriptingSupport",
+      "bodyFile": "ScriptingSupport",
       "file": "incidents/202402_forest_blizzard.nov",
       "category": "abusing_functions/crime_automation",
       "severity": "high",
@@ -705,6 +765,7 @@
     },
     {
       "name": "SecurityToolExtensionRule",
+      "bodyFile": "SecurityToolExtensionRule",
       "file": "ttps.nov",
       "category": "abusing_functions/crime_automation",
       "severity": "medium",
@@ -716,6 +777,7 @@
     },
     {
       "name": "SensitiveInfoDisclosure",
+      "bodyFile": "SensitiveInfoDisclosure",
       "file": "llm02_SensitiveInfo.nov",
       "category": "abnormal_outputs/pii_exposure",
       "severity": "high",
@@ -727,6 +789,7 @@
     },
     {
       "name": "SimpleNovaRule",
+      "bodyFile": "SimpleNovaRule",
       "file": "basic_rule.nov",
       "category": "abusing_functions/malware_generation",
       "severity": "medium",
@@ -738,6 +801,7 @@
     },
     {
       "name": "TargetedExploitResearchRule",
+      "bodyFile": "TargetedExploitResearchRule",
       "file": "ttps.nov",
       "category": "abusing_functions/reconnaissance",
       "severity": "high",
@@ -749,6 +813,7 @@
     },
     {
       "name": "TokenSmugglingJailbreak",
+      "bodyFile": "TokenSmugglingJailbreak",
       "file": "jailbreak.nov",
       "category": "suspicious_patterns/encoding_obfuscation",
       "severity": "medium",
@@ -760,6 +825,7 @@
     },
     {
       "name": "UserEventResearch",
+      "bodyFile": "UserEventResearch",
       "file": "incidents/202402_emerald_sleet.nov",
       "category": "abusing_functions/attack_enablement",
       "severity": "high",
@@ -771,6 +837,7 @@
     },
     {
       "name": "VirtualizationInjectionDetection",
+      "bodyFile": "VirtualizationInjectionDetection",
       "file": "injection.nov",
       "category": "prompt_manipulation/jailbreak",
       "severity": "medium",
@@ -782,6 +849,7 @@
     },
     {
       "name": "VulnerabilityReconnaissanceRule",
+      "bodyFile": "VulnerabilityReconnaissanceRule",
       "file": "ttps.nov",
       "category": "abusing_functions/reconnaissance",
       "severity": "medium",
@@ -793,6 +861,7 @@
     },
     {
       "name": "WebShellExploitRule",
+      "bodyFile": "WebShellExploitRule",
       "file": "ttps.nov",
       "category": "abusing_functions/malware_generation",
       "severity": "high",

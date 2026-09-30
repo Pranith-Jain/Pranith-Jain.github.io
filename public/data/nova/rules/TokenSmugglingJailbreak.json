@@ -36,5 +36,6 @@
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/jailbreak.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "TokenSmugglingJailbreak"
 }

@@ -39,5 +39,6 @@
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/202402_crimson_sandstorm.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "DefenseEvasionAvCrimsonSandstorm"
 }
