@@ -67,5 +67,6 @@
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/promptintel/JoinInjectionString.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "JoinInjectionString"
 }

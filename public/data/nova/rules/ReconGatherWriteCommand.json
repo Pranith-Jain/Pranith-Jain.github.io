@@ -88,5 +88,6 @@
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/incidents/20250717_lamehug_apt_28.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "ReconGatherWriteCommand"
 }

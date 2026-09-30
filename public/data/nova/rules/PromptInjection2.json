@@ -43,5 +43,6 @@
   "keywordOnly": false,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/testrule2.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "PromptInjection2"
 }

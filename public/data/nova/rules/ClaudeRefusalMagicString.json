@@ -34,5 +34,6 @@
   "keywordOnly": true,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/claude_magic_string.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "ClaudeRefusalMagicString"
 }

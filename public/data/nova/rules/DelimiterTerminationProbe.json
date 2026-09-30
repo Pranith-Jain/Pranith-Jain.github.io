@@ -209,5 +209,6 @@
   "keywordOnly": true,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/delimiter_termination_probe.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "DelimiterTerminationProbe"
 }

@@ -40,6 +40,13 @@ export interface NovaRuleMeta {
 
 export interface NovaRule {
   name: string;
+  /**
+   * Filename stem under `data/nova/rules/`. Equals `name` for every rule
+   * except the DAN/Dan pair, whose upstream names differ only by case and so
+   * cannot both be filenames on a case-insensitive filesystem. Optional so
+   * data built before this field existed still resolves via the `name` fallback.
+   */
+  bodyFile?: string;
   file: string;
   meta: NovaRuleMeta;
   keywords: Record<string, NovaKeywordPattern>;
@@ -55,6 +62,7 @@ export interface NovaRule {
 
 export interface NovaRuleSlim {
   name: string;
+  bodyFile?: string;
   file: string;
   category: string | null;
   severity: string | null;
@@ -185,7 +193,17 @@ export async function getNovaRule(assets: Fetcher, name: string): Promise<NovaRu
     return hit;
   }
   ruleMisses++;
-  const body = await fetchJson<NovaRule>(assets, `${DATA_PREFIX}/rules/${encodeURIComponent(name)}.json`);
+  // Resolve the body filename through the index. `name` is the public address
+  // for a rule, but it is not always a safe filename (DAN/Dan), so the index
+  // carries the authoritative `bodyFile`. Falls back to `name` for data built
+  // before that field existed.
+  let stem = name;
+  const idx = cachedIndex;
+  if (idx?.rules) {
+    const entry = idx.rules.find((r) => r.name === name);
+    if (entry?.bodyFile) stem = entry.bodyFile;
+  }
+  const body = await fetchJson<NovaRule>(assets, `${DATA_PREFIX}/rules/${encodeURIComponent(stem)}.json`);
   if (!body) return null;
   ruleCache.set(name, body);
   while (ruleCache.size > RULE_CACHE_MAX) {

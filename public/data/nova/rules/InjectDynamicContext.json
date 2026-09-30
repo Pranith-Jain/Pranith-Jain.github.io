@@ -29,5 +29,6 @@
   "keywordOnly": true,
   "source": "github.com/Nova-Hunting/nova-rules",
   "fileUrl": "https://github.com/Nova-Hunting/nova-rules/blob/main/inject_dynamic_context.nov",
-  "license": "MIT"
+  "license": "MIT",
+  "bodyFile": "InjectDynamicContext"
 }
