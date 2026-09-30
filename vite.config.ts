@@ -68,10 +68,6 @@ const clientBuild = {
         if (id.includes('node_modules/tesseract.js')) {
           return 'vendor-ocr';
         }
-        // "vendor-md" (marked + isomorphic-dompurify) was removed in the same
-        // 2026-07-29 audit pass for the same reason: every importer uses a
-        // dynamic import(), and after the charts/pdf rules went away the
-        // manual chunk got hoisted into the entry's static imports instead.
         if (
           id.includes('src/data/threatintel-hubs') ||
           id.includes('src/data/dfir-hubs') ||
@@ -81,6 +77,30 @@ const clientBuild = {
         ) {
           return 'data-catalogs';
         }
+        // NOTE (2026-09-30 perf audit): a follow-up pass REMOVED the
+        // "data-catalogs" rule above, reasoning that — exactly as documented
+        // for recharts/jspdf — rolldown had hoisted the chunk into the entry's
+        // STATIC import list. That reasoning does not hold here, and the
+        // removal was a measured REGRESSION. Reverted.
+        //
+        // Measured A/B on the same tree (vite build, entry = dist/assets/index-*.js):
+        //   with data-catalogs (committed): 269.3KB raw / 79.1KB gzip  ✅ under
+        //     the 312KB/90KB budget in scripts/check-budgets.mjs
+        //   without data-catalogs:           350.4KB raw / 104.9KB gzip ❌ over
+        //     BOTH budgets — +81KB raw / +26KB gzip on every page load
+        //
+        // Why the recharts/jspdf analogy fails: with the rule in place the
+        // chunk is referenced ONLY from __vite__mapDeps (the lazy dependency
+        // map) and is never a static import of the entry. `grep -oE
+        // 'import[^;]{0,80}data-catalogs' dist/assets/index-*.js` returns
+        // nothing. The catalog data is then fetched by the lazy routes that
+        // need it. Removing the rule instead let rolldown fold the catalogs
+        // into the entry itself, so the landing page paid for them eagerly.
+        //
+        // The recharts/jspdf removals above are still correct: those libs are
+        // genuinely absent from the eager graph, so there is no eager payload
+        // to protect. Keep this rule; if entry size regresses again, measure
+        // with check-budgets.mjs before removing anything.
       },
       // Asset naming for better caching
       entryFileNames: 'assets/[name]-[hash].js',
