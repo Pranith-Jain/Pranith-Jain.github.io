@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T12:46:47.289Z",
+  "updatedAt": "2026-09-30T12:29:50.573Z",
   "total": 126,
   "bySource": {
     "ghsa": 60,
@@ -20,9 +20,59 @@
   "items": [
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v0.31.0rc1: [CI/Build] Skip the snapshot runtime on CUDA 12.x images (#59118)",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc1",
-      "updated": "2026-09-29T03:18:39Z",
+      "title": "v1.105.0-dev.1",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.105.0-dev.1",
+      "updated": "2026-09-30T08:44:29Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.104.0-rc.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.104.0-rc.2",
+      "updated": "2026-09-30T00:59:57Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.103.1",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.1",
+      "updated": "2026-09-30T00:59:43Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.102.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.102.2",
+      "updated": "2026-09-30T00:58:27Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.101.3",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.3",
+      "updated": "2026-09-30T00:58:12Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.31.0rc2",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc2",
+      "updated": "2026-09-30T00:33:58Z",
       "source": "vllm",
       "kind": "release",
       "cves": [],
@@ -32,8 +82,58 @@
       "id": "aHR0cHM6Ly9n",
       "title": "v0.35.0",
       "link": "https://github.com/ollama/ollama/releases/tag/v0.35.0",
-      "updated": "2026-09-29T01:54:15Z",
+      "updated": "2026-09-29T23:56:54Z",
       "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.35.1",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.35.1-rc0",
+      "updated": "2026-09-29T20:14:22Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Ask cubic for a review when the intake gate lets a PR back in (#3489)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/06d1d1e4d2106ef14a8c21d29e6cdafb39f66889",
+      "updated": "2026-09-29T19:11:23Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-anthropic==1.7.5",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-anthropic%3D%3D1.7.5",
+      "updated": "2026-09-29T15:22:22Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-core==1.6.6",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.6",
+      "updated": "2026-09-29T14:53:13Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.31.0rc1: [CI/Build] Skip the snapshot runtime on CUDA 12.x images (#59118)",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc1",
+      "updated": "2026-09-29T03:18:39Z",
+      "source": "vllm",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -80,26 +180,6 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v1.104.0-rc.1",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.104.0-rc.1",
-      "updated": "2026-09-28T08:01:07Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.103.0",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.0",
-      "updated": "2026-09-28T05:43:48Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "v0.40.0",
       "link": "https://github.com/ollama/ollama/releases/tag/v0.40.0-rc0",
       "updated": "2026-09-25T15:22:00Z",
@@ -114,66 +194,6 @@
       "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.6.3",
       "updated": "2026-09-25T12:57:40Z",
       "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.104.0-dev.2",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.104.0-dev.2",
-      "updated": "2026-09-25T06:38:48Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.100.3",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.100.3",
-      "updated": "2026-09-25T06:21:39Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.99.4",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.99.4",
-      "updated": "2026-09-25T06:20:07Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-core==1.6.5",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.5",
-      "updated": "2026-09-24T18:11:24Z",
-      "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "langchain-openai==1.6.6",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.6",
-      "updated": "2026-09-24T11:31:33Z",
-      "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.34.4",
-      "link": "https://github.com/ollama/ollama/releases/tag/v0.34.4",
-      "updated": "2026-09-24T04:45:43Z",
-      "source": "ollama",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -247,16 +267,6 @@
       "kind": "advisory",
       "cves": ["CVE-2026-59823"],
       "description": "### Summary A server-side request forgery in LiteLLM Proxy lets an authenticated caller redirect the proxy's outbound request to a host of their choosing by smuggling an `api_base` inside the `user_config` request body, bypassing the existing parameter guard. ### Details LiteLLM Proxy validates request bodies with `is_request_body_safe`, which blocks the `api_base` and `base_url` parameters but does not cover `user_config`. The `user_config` object is used to build the outbound router for a requ"
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.30.0rc1: [Bugfix] Isolate supplemental FlashInfer BF16 autotuning (#57285)",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0rc1",
-      "updated": "2026-09-17T10:37:53Z",
-      "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
     },
     {
       "id": "aHR0cHM6Ly9n",
@@ -433,16 +443,6 @@
       "title": "docs: refresh translations, and translate pages in parallel (#3458)",
       "link": "https://github.com/modelcontextprotocol/python-sdk/commit/fd66270926b98b28e6cca21b35ec5ba0e4855892",
       "updated": "2026-09-07T12:35:53Z",
-      "source": "mcp-sdk",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "docs: ask for AI disclosure on comments too (#3459)",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/08a3bc8eaf5bb69a6cb05ac708a86f5325977c20",
-      "updated": "2026-09-06T13:44:38Z",
       "source": "mcp-sdk",
       "kind": "release",
       "cves": [],
