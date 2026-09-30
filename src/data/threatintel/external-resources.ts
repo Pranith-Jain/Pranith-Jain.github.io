@@ -1727,4 +1727,66 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Lightweight self-hosted TIP for IoC/TTP storage (Yeti). No SaaS API to integrate — run your own instance alongside MISP/OpenCTI; export via its API into StixBuilder for correlation here.',
   },
+  // ── Evaluated 2026-09-30, reference-only. See each `why` for the blocker. ──
+  {
+    id: 'ai-security-playbook',
+    name: 'The AI Security Playbook',
+    url: 'https://aisecurity.zone/',
+    kind: 'research',
+    tags: ['ai-security', 'threat-intel'],
+    featured: true,
+    description:
+      'A 44-chapter practitioner field manual on attacking and defending AI systems (~91k words, one author, Iaroslav Mezin). Organised in eight layers — model, context window, agent loop, protocol/MCP, infrastructure, assessment, security program, governance — with a risk-ID scheme (LLM01, ASI06) and 49 mapped CVEs. Pairs well with the CAIRN/NOVA/Denali rule verticals, which cover detection mechanics rather than the narrative and governance layer.',
+    why: 'Robots.txt allows crawling ("AI crawlers welcome") but the site carries no reuse licence: /terms/ and /license/ both 404, no LICENSE file, and the repository named in its CONTRIBUTING page (github.com/anguiz7z/aisecurity-zone) returns 404. All rights reserved by default, so the prose cannot be replicated. Link and read it; if the author publishes a CC-BY-SA licence this becomes replicable immediately.',
+  },
+  {
+    id: 'darknyx',
+    name: 'DarkNyx — dark web search & threat intel',
+    url: 'https://darknyx.com/',
+    kind: 'directory',
+    tags: ['darkweb', 'osint', 'threat-intel'],
+    description:
+      'Onion search engine with a safety-rated directory (Verified / Unrated / Suspicious / Dangerous), ransomware-activity and Telegram monitoring, marketplace trends, and free checkers for fake shops, scam messages, phishing mail and crypto sanctions addresses. Operated by NexVision Lab.',
+    why: 'No public API — API access sits behind a paid Pro tier, and the free crawl is Tor-only, which Workers cannot reach (the same constraint that makes OnionWatch reachability probes unavailable here). Its directory and ransomware-victim content would also duplicate the darknetlist and breach-watch verticals already running. robots.txt additionally disallows /previews/ and /api/preview/.',
+  },
+  {
+    id: 'vulnsocial',
+    name: 'VulnSocial — attention-driven CVE intelligence',
+    url: 'https://vulnsocial.com/',
+    kind: 'dashboard',
+    tags: ['vulnerability', 'threat-intel'],
+    description:
+      'Ranks CVEs by attention and momentum rather than CVSS — mention volume and trend across researchers, advisories, exploit references and community discussion, with vendor/product (CPE) scoping and exploitation / PoC / patch indicators.',
+    why: 'Redundant with the CISA KEV + NVD pipeline already synced into public/data/threat-intel. Its headline ranked CVEs (e.g. CVE-2026-87902, CVE-2025-39682, CVE-2026-85046, CVE-2026-88771, CVE-2026-85706) are all already present in the local KEV feed, and the underlying data is "AI-classified social media analysis" of the same advisory sources. Its robots.txt also carries explicit content-signal licensing conditions.',
+  },
+  {
+    id: 'marginalia-search',
+    name: 'Marginalia Search',
+    url: 'https://marginalia-search.com/',
+    kind: 'tool',
+    tags: ['osint'],
+    description:
+      'Independent search engine prioritising non-commercial and long-tail web content — useful for finding overlooked blogs, personal research pages and legacy sites that commercial engines bury. Open source (AGPL), no AI in the ranking, and its crawler and index software are public.',
+    why: 'robots.txt disallows /search, /explore, /site, /links and /wiki — effectively the whole product surface — and there is no public API without a key, so there is no compliant way to replicate results. Worth using manually for OSINT; not integrable here.',
+  },
+  {
+    id: 'lupovis-insights',
+    name: 'Lupovis Insights',
+    url: 'https://insights.lupovis.io/',
+    kind: 'dashboard',
+    tags: ['threat-intel'],
+    description:
+      'Threat-intelligence and cyber-risk monitoring dashboard (client-side SPA, purple-branded) surfaced during a source-evaluation sweep on 2026-09-30.',
+    why: 'No reachable data surface: the app is a JavaScript SPA whose page body renders empty without a browser, it returns an HTML page rather than a robots.txt at /robots.txt (so no published crawl policy), and no API or licence is advertised. Nothing can be replicated or verified programmatically.',
+  },
+  {
+    id: 'webwiebe-invisible-prompt',
+    name: 'WebWiebe — Invisible Prompt Injection (tag characters)',
+    url: 'https://webwiebe.nl/en/tools/invisible-prompt',
+    kind: 'lab',
+    tags: ['ai-security', 'evasion', 'offensive'],
+    description:
+      'Demonstrates the Unicode tag-character vector: mapping each ASCII character to U+E0000+codePoint produces text that renders blank to a human but decodes back to the original instruction for any model or tokenizer reading it. Survives copy-paste through most editors, terminals and chat clients.',
+    why: 'Not replicated as data — the technique is a published Unicode mechanism, so it is implemented locally instead. See src/lib/invisible-prompt.ts: decode/strip/scan for the U+E0000 block, zero-width characters and bidi overrides, with detection wired into the Web Server Log Analyzer. Use the live tool to confirm behaviour; use ours to defend.',
+  },
 ];
