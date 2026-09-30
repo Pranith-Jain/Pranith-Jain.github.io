@@ -16,8 +16,8 @@ a local test that passes — loop until the contract test and the route test are
   requests before the handler runs; the contract test exists to catch exactly this.
 - Do NOT bypass the auth gate; external `/api/v1/*` reads are key-gated (with the
   `OPEN_PUBLIC_READS` valve for test/emergency only — not a way to ship an open endpoint).
-- Do NOT rely on CI to catch route bugs — CI skips `test/routes/`; run the route test
-  locally (sandbox disabled).
+- Do NOT rely on CI to catch route bugs — CI runs `test/routes/`, but still run the
+  route test locally first: `cd api && npx vitest run test/routes`.
 - If the endpoint accepts uploads, it MUST be multipart + self-cap (the global 256 KB
   `looseValidation` cap 413s larger non-multipart bodies).
 
@@ -28,7 +28,7 @@ Start the "Add CTI Endpoint" loop.
 
 Goal: A new /api/v1 endpoint is registered, schema-contracted, auth-gated, and tested green
 Max iterations: 8
-Between iterations run: the route-schema contract test + the new route's local test (sandbox disabled)
+Between iterations run: the route-schema contract test + the new route's test via `cd api && npx vitest run test/routes`
 Exit when: both tests pass and the handler is reachable through the auth gate
 
 Step 1: Add the handler, a validate() schema mirroring its reads, register the route, and
@@ -45,4 +45,4 @@ is reached. Give a short status update each pass.
 1. **Handler** — implement the route in `api/src/routes/`; register it.
 2. **Schema** — add a `validate()` schema in `validation-schemas` that mirrors every handler read.
 3. **Auth** — confirm it sits behind the key gate; only test config uses `OPEN_PUBLIC_READS`.
-4. **Test** — local route test (happy + rejected input) with the sandbox disabled; confirm the contract test stays green.
+4. **Test** — route test (happy + rejected input) via `cd api && npx vitest run test/routes`; confirm the contract test stays green.

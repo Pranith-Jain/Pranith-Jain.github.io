@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RefreshCw } from 'lucide-react';
 import { dedupRansomwareVictims } from '../lib/dedup-ransomware';
+import { fetchRansomwareRecent } from '../lib/ransomware-recent';
 
 /**
  * Hero-section sparkline that renders the last 7 days of ransomware
@@ -126,21 +127,18 @@ export function HeroLiveSparkline(): JSX.Element {
   const cancelledRef = useRef(false);
 
   // The actual fetch + state-update. Reused by initial-mount, the
-  // visibility-aware polling loop, AND the manual refresh button. Sends
-  // a cache-busting query string so a user who hits "refresh" right
-  // after a backend-cache rotation gets the new payload immediately
-  // instead of the previously-cached one.
+  // visibility-aware polling loop, AND the manual refresh button. Goes
+  // through the shared coalescing client so Home's live-signal strip
+  // (same endpoint) joins this request instead of firing its own; `force`
+  // is the manual-refresh path and adds a cache-busting query string so a
+  // user who hits "refresh" right after a backend-cache rotation gets the
+  // new payload instead of the previously-cached one.
   const reload = useCallback(async (manual = false): Promise<void> => {
     if (manual) setRefreshing(true);
     try {
-      const url = manual ? `/api/v1/ransomware-recent?cb=${Date.now()}` : '/api/v1/ransomware-recent';
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 4000);
-      const r = await fetch(url, { signal: ctrl.signal });
-      clearTimeout(timer);
-      if (!r.ok) throw new Error(`upstream ${r.status}`);
-      const j = (await r.json()) as { victims?: RansomwareVictim[] };
+      const j = await fetchRansomwareRecent({ force: manual, timeoutMs: 4000 });
       if (cancelledRef.current) return;
+      if (!j) throw new Error('unavailable');
       setData(computeBars(j.victims ?? []));
       setFetchedAt(Date.now());
       setFailed(false);
@@ -151,13 +149,19 @@ export function HeroLiveSparkline(): JSX.Element {
     }
   }, []);
 
-  // Initial fetch + visibility-aware polling. The interval pauses while
-  // the tab is backgrounded; when it returns to foreground we fetch
-  // immediately (so a user switching back to the tab after an hour
-  // doesn't keep seeing the stale data for another five minutes).
+  // Initial fetch + visibility-aware polling. The first fetch is deferred
+  // past hydration/LCP (same treatment the strip gets) — the shared client
+  // coalesces the two consumers regardless of who wins the race. The
+  // interval pauses while the tab is backgrounded; when it returns to
+  // foreground we fetch immediately (so a user switching back to the tab
+  // after an hour doesn't keep seeing the stale data for another five
+  // minutes).
   useEffect(() => {
     cancelledRef.current = false;
-    void reload();
+    const idle: number =
+      typeof requestIdleCallback !== 'undefined'
+        ? requestIdleCallback(() => void reload(), { timeout: 2000 })
+        : (setTimeout(() => void reload(), 200) as unknown as number);
 
     let intervalId: number | undefined;
 
@@ -192,6 +196,8 @@ export function HeroLiveSparkline(): JSX.Element {
     return () => {
       cancelledRef.current = true;
       stopPolling();
+      if (typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(idle);
+      else clearTimeout(idle);
       if (typeof document !== 'undefined') {
         document.removeEventListener('visibilitychange', onVisibility);
       }

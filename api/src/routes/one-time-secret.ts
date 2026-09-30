@@ -32,6 +32,34 @@ function isValidExpiry(v: string): v is ExpiryKey {
 // phishing-fp, daily briefs, bot state all draw from the same quota).
 const MAX_CIPHERTEXT_B64_CHARS = 64_000;
 
+/**
+ * Global creates/day cap, counted atomically in the CRON_LOCK_DO (the same
+ * op:'incr' protocol the rate limiter's strict buckets use). The per-IP
+ * 10/min AI bucket only bounds a single source — a distributed writer can
+ * still drain the shared 1k/day KV write quota (and every KV consumer with
+ * it). One global DO counter bounds the damage regardless of source IP.
+ * Falls back to the uncapped per-IP behavior when the DO is unbound.
+ */
+const OTS_DAILY_LIMIT = 400;
+
+async function dailyCreateCount(c: Context<{ Bindings: Env }>): Promise<number | null> {
+  const ns = (c.env as { CRON_LOCK_DO?: DurableObjectNamespace }).CRON_LOCK_DO;
+  if (!ns) return null;
+  try {
+    const dayBucket = Math.floor(Date.now() / 86_400_000);
+    const id = ns.idFromName(`ots:global:${dayBucket}`);
+    const res = await ns.get(id).fetch('https://cron-lock.internal/incr', {
+      method: 'POST',
+      body: JSON.stringify({ op: 'incr', cron: `ots:global:${dayBucket}`, ttlMs: 48 * 3600 * 1000 }),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { count?: number };
+    return typeof data.count === 'number' ? data.count : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function createSecretHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const parsed = await safeJsonBody<{ ciphertext?: unknown; iv?: unknown; expiresIn?: unknown }>(c, {
     maxBytes: 96 * 1024,
@@ -53,6 +81,15 @@ export async function createSecretHandler(c: Context<{ Bindings: Env }>): Promis
     typeof body.expiresIn === 'string' && isValidExpiry(body.expiresIn)
       ? EXPIRY_OPTIONS[body.expiresIn as ExpiryKey]
       : 3600;
+
+  // Global daily cap before touching KV — see OTS_DAILY_LIMIT.
+  const created = await dailyCreateCount(c);
+  if (created !== null && created > OTS_DAILY_LIMIT) {
+    return c.json({ error: 'rate_limited', message: 'secret creation quota reached, try later' }, 429, {
+      'retry-after': '3600',
+      'cache-control': 'no-store',
+    });
+  }
 
   const id = generateId();
   const kv = c.env.KV_CACHE;

@@ -17,8 +17,8 @@ or the `api/` vitest suite.
 - Do NOT write assertion-free or trivially-passing tests to bump the number; each test
   must actually exercise and verify behavior.
 - Do NOT lower the threshold to pass the loop — the threshold IS the goal.
-- For `api/` route coverage, remember CI skips `test/routes/`; run them locally (sandbox
-  disabled).
+- For `api/` route coverage, CI runs `test/routes/` as its own step; locally:
+  `cd api && npx vitest run test/routes`.
 
 ## Kickoff Prompt
 

@@ -169,6 +169,8 @@ describe('rate limiter — AI-costly strict bucket (10/min)', () => {
       ['https://api.example.com/api/v1/briefings/some-slug/feedback', 'POST'],
       ['https://api.example.com/api/v1/saved-reports', 'POST'],
       ['https://api.example.com/api/v1/auth/register', 'POST'],
+      ['https://api.example.com/api/v1/estate/config', 'PUT'],
+      ['https://api.example.com/api/v1/tool-chains/x/run', 'POST'],
     ] as const) {
       const { res } = await run(url, method, ip);
       expect(res?.status).toBe(429);
@@ -186,5 +188,40 @@ describe('rate limiter — AI-costly strict bucket (10/min)', () => {
     expect(other.nextCalled).toBe(true);
     const admin = await run('https://api.example.com/api/v1/admin/purge', 'POST', ip);
     expect(admin.nextCalled).toBe(true);
+  });
+
+  it('includes COSTLY_GET_EXACT endpoints regardless of method', async () => {
+    const ip = '198.51.100.204';
+    await seedAi(ip, 10);
+    // Paid/CPU-burn reads would otherwise sit on the global bucket alone.
+    for (const path of ['/api/v1/whoxy/reverse?q=a%40b.com&type=email', '/api/v1/si/render?slug=x&format=png']) {
+      const { res, nextCalled } = await run(`https://api.example.com${path}`, 'GET', ip);
+      expect(nextCalled).toBe(false);
+      expect(res?.status).toBe(429);
+      const body = (await res!.json()) as Record<string, unknown>;
+      expect(body.scope).toBe('ai-costly');
+      expect(body.limit).toBe(10);
+    }
+    // Under the limit, the same endpoint passes.
+    const okIp = '198.51.100.205';
+    await seedAi(okIp, 3);
+    const ok = await run('https://api.example.com/api/v1/traceix/lookup?hash=ab', 'GET', okIp);
+    expect(ok.nextCalled).toBe(true);
+  });
+
+  it('skips every bucket for internal service-binding hosts (self / x / self.internal)', async () => {
+    for (const host of ['self', 'x', 'self.internal']) {
+      const ip = '198.51.100.206';
+      await seedRateLimit(ip, 999);
+      const { res, nextCalled } = await run(`https://${host}/api/v1/cti/parse`, 'POST', ip);
+      expect(nextCalled).toBe(true);
+      expect(res).toBeUndefined();
+    }
+    // Control: same ip + seeds via the public hostname IS limited.
+    const ip = '198.51.100.206';
+    await seedRateLimit(ip, 999);
+    const ctrl = await run('https://api.example.com/api/v1/cti/parse', 'POST', ip);
+    expect(ctrl.nextCalled).toBe(false);
+    expect(ctrl.res?.status).toBe(429);
   });
 });

@@ -48,7 +48,10 @@ describe('POST /api/v1/tracer/expand', () => {
     expect(Array.isArray(body.nodes)).toBe(true);
     for (const e of body.edges) expect(e.confidence).toBe('candidate');
     expect(typeof body.generated_at).toBe('string');
-  });
+    // 60s: cold cache can burn 15s on ransomwhere + 10s on transfer fetches
+    // before everything degrades to empty; the suite timeout alone risks a
+    // flaky red on the slowest path.
+  }, 60_000);
 });
 
 describe('GET /api/v1/tracer/label', () => {

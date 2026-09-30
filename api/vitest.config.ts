@@ -5,7 +5,10 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [
     cloudflareTest({
-      singleWorker: true,
+      // `singleWorker: true` used to sit here — it is not in the pool's
+      // option schema (unknown keys are stripped), so it never did anything.
+      // If EADDRNOTAVAIL recurs, set `fileParallelism: false` in the test
+      // block below instead.
       // wrangler.jsonc declares an `ai` binding and a KV namespace with
       // `remote: true`; both force the pool to open a REMOTE proxy session
       // (needs Cloudflare credentials). CI has none, so tests fail with
@@ -37,7 +40,10 @@ export default defineConfig({
     }),
   ],
   test: {
-    testTimeout: 15_000,
+    // 30s: cold-cache loader routes can spend 15s on one upstream fetch
+    // (ransomwhere) + 10s on transfer fetches ≈ 25s before degrading to
+    // empty — 15s turned that into a flaky timeout instead of a green test.
+    testTimeout: 30_000,
     // Run only the TypeScript sources. Committed `*.test.js` build artifacts
     // in api/test would otherwise be executed alongside the `*.test.ts`
     // sources, producing duplicate and stale runs.

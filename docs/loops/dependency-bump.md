@@ -16,7 +16,7 @@ attribute. Loop until the target deps are current and everything is green.
 - Do NOT pin around a vulnerability or pass tests by reverting the bump silently; if a dep
   can't be updated, record why.
 - A green exit means typecheck + build + tests all pass — remember the api route tests
-  (CI skips `test/routes/`; run locally, sandbox disabled) and the worker typecheck
+  (`cd api && npx vitest run test/routes`, also run in CI) and the worker typecheck
   (`tsc -p api/tsconfig.worker.json`).
 - Do NOT ignore a real `npm audit` finding by suppressing it; fix or explicitly accept it.
 
@@ -42,5 +42,5 @@ iterations is reached. Give a short status update each pass.
 
 1. **Bump a group** — one related set of deps; reinstall.
 2. **Typecheck all three** — root, api, and `api/tsconfig.worker.json`.
-3. **Build + test** — `npm run build:check`, root tests, and the api route tests locally (sandbox disabled).
+3. **Build + test** — `npm run build:check`, root tests, and the api route tests (`cd api && npx vitest run test/routes`).
 4. **Audit** — `npm audit`; fix or explicitly accept findings; repeat per group.

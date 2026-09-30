@@ -68,39 +68,23 @@ const clientBuild = {
         if (id.includes('node_modules/tesseract.js')) {
           return 'vendor-ocr';
         }
-        if (
-          id.includes('src/data/threatintel-hubs') ||
-          id.includes('src/data/dfir-hubs') ||
-          id.includes('components/dfir/tool-sections') ||
-          id.includes('src/data/threatintel-sections') ||
-          id.includes('src/data/sidebar-nav')
-        ) {
-          return 'data-catalogs';
-        }
-        // NOTE (2026-09-30 perf audit): a follow-up pass REMOVED the
-        // "data-catalogs" rule above, reasoning that — exactly as documented
-        // for recharts/jspdf — rolldown had hoisted the chunk into the entry's
-        // STATIC import list. That reasoning does not hold here, and the
-        // removal was a measured REGRESSION. Reverted.
-        //
-        // Measured A/B on the same tree (vite build, entry = dist/assets/index-*.js):
-        //   with data-catalogs (committed): 269.3KB raw / 79.1KB gzip  ✅ under
-        //     the 312KB/90KB budget in scripts/check-budgets.mjs
-        //   without data-catalogs:           350.4KB raw / 104.9KB gzip ❌ over
-        //     BOTH budgets — +81KB raw / +26KB gzip on every page load
-        //
-        // Why the recharts/jspdf analogy fails: with the rule in place the
-        // chunk is referenced ONLY from __vite__mapDeps (the lazy dependency
-        // map) and is never a static import of the entry. `grep -oE
-        // 'import[^;]{0,80}data-catalogs' dist/assets/index-*.js` returns
-        // nothing. The catalog data is then fetched by the lazy routes that
-        // need it. Removing the rule instead let rolldown fold the catalogs
-        // into the entry itself, so the landing page paid for them eagerly.
-        //
-        // The recharts/jspdf removals above are still correct: those libs are
-        // genuinely absent from the eager graph, so there is no eager payload
-        // to protect. Keep this rule; if entry size regresses again, measure
-        // with check-budgets.mjs before removing anything.
+        // NOTE (2026-09-30 perf audit, pass 2): the "data-catalogs" manual
+        // chunk rule was removed here, reverted (#242) on an entry-file-only
+        // A/B, then removed again after measuring the FULL eager graph.
+        // With the rule the chunk lands in index.html's modulepreload list
+        // AND the entry statically imports it (`from"./data-catalogs-*.js"`),
+        // so every page load pays it either way — splitting only moves bytes
+        // out of the entry file:
+        //   with rule:    entry 269.8KB + preloaded chunk 173.0KB
+        //                 → eager total 491.8KB raw / 153.9KB gzip
+        //   without rule: entry ~350KB, no extra chunk
+        //                 → eager total ~450KB raw / ~139KB gzip
+        // The old 312KB per-file budget made the split look green while
+        // hiding ~41KB raw / ~15KB gzip of eager payload; check-budgets.mjs
+        // now gates the eager TOTAL instead. Keep this rule REMOVED — the
+        // catalogs are genuinely part of the eager graph (sidebar/hub nav),
+        // so natural bundling is the honest shape. Same class of footgun as
+        // the recharts/jspdf note above, measured with preload evidence.
       },
       // Asset naming for better caching
       entryFileNames: 'assets/[name]-[hash].js',

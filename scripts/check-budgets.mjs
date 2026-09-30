@@ -83,7 +83,16 @@ const BUDGETS = {
   // section only needs metadata); (3) dropped the dead '/' route preloader.
   // Budget set ~15KB above the measured size to lock in the win while
   // leaving room for ordinary shell growth.
-  'index-*.js': { uncompressed: 312_000, gzip: 90_000 },
+  // raw 312→365KB / gzip 90→112KB (2026-09-30 perf audit, pass 2): the
+  // "data-catalogs" manual chunk rule was removed from vite.config.ts (see
+  // the NOTE there for the full A/B). The catalogs are part of the eager
+  // graph, so without the rule they fold back into the entry — measured
+  // 350.9KB/105.1KB gzip, while the EAGER TOTAL drops 491.8→450.7KB raw
+  // (153.9→139.1KB gzip) because the rule's preloaded companion chunk
+  // (+173KB) cost more than the entry grew (+81KB). This per-file budget
+  // moved up only to stop it masking that trade; the eager-total gate below
+  // is the metric that guards real page-load cost.
+  'index-*.js': { uncompressed: 365_000, gzip: 112_000 },
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.
@@ -114,6 +123,45 @@ function globMatch(pattern, name) {
 // removed entirely 2026-09-13.)
 const MAX_DIST_FILES = 19980;
 const WORKERS_ASSET_CAP = 20000;
+
+// Eager-graph total: every JS file index.html actually loads on first paint —
+// all modulepreload links plus the module <script> entry. Per-file budgets
+// miss CHURN BETWEEN FILES: on 2026-09-30 the "data-catalogs" manual chunk
+// made index-*.js look 81KB smaller while its preloaded companion chunk grew
+// the eager total by 41KB raw / 15KB gzip (491.8/153.9 with the rule vs
+// 450.7/139.1 without, measured on the same tree). This gate is the metric
+// user-facing perf follows; budgets set ~14KB/~6KB above the measured
+// without-rule total.
+const EAGER_TOTAL = { uncompressed: 465_000, gzip: 145_000 };
+
+function checkEagerTotal() {
+  let html;
+  try {
+    html = readFileSync(join(distDir, 'index.html'), 'utf8');
+  } catch {
+    console.log('  \u26a0  no dist/index.html — skipping eager-total check');
+    return 0;
+  }
+  const tags = [...html.matchAll(/<link[^>]+>|<script[^>]+><\/script>/g)].map((m) => m[0]);
+  const jsHrefs = tags
+    .filter((t) => /rel="modulepreload"/.test(t) || /<script type="module"/.test(t))
+    .map((t) => (t.match(/(?:href|src)="([^"]+)"/) || [])[1])
+    .filter(Boolean);
+  let raw = 0;
+  let gz = 0;
+  for (const href of jsHrefs) {
+    const buf = readFileSync(join(distDir, href));
+    raw += buf.length;
+    gz += gzipSync(buf).length;
+  }
+  const ok = raw <= EAGER_TOTAL.uncompressed && gz <= EAGER_TOTAL.gzip;
+  console.log(
+    `  ${ok ? '\u2713' : '\u2717'} eager JS total (index.html preload + entry): ` +
+      `${(raw / 1000).toFixed(1)}KB raw / ${(gz / 1000).toFixed(1)}KB gzip ` +
+      `(limit ${(EAGER_TOTAL.uncompressed / 1000).toFixed(0)}KB / ${(EAGER_TOTAL.gzip / 1000).toFixed(0)}KB)`
+  );
+  return ok ? 0 : 1;
+}
 
 function countFiles(dir) {
   let n = 0;
@@ -156,6 +204,7 @@ function main() {
   let failed = 0;
 
   failed += checkAssetCount();
+  failed += checkEagerTotal();
   for (const [pattern, limits] of Object.entries(BUDGETS)) {
     const matches = files.filter((f) => globMatch(pattern, f));
     if (matches.length === 0) {

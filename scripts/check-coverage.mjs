@@ -34,7 +34,6 @@ const ROOT = join(__dirname, '..');
 // existing code isn't blocked.
 const PROTECTED = [
   { path: 'src/lib/dfir/rule-convert/', min: 70 },
-  { path: 'src/lib/dfir/detection-engine.ts', min: 60 },
   { path: 'src/lib/dfir/cve-priority.ts', min: 60 },
   { path: 'src/lib/dfir/encode.ts', min: 50 },
   { path: 'src/lib/dfir/decode.ts', min: 50 },

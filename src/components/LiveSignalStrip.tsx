@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, Flame, Radio, ShieldAlert } from 'lucide-react';
 import { dedupRansomwareVictims } from '../lib/dedup-ransomware';
+import { fetchRansomwareRecent } from '../lib/ransomware-recent';
 import { preloadRoute } from '../lib/route-preloaders';
 
 /**
@@ -90,9 +91,12 @@ export function LiveSignalStrip(): JSX.Element {
       const fallbackTimeout = setTimeout(() => ctrl.abort(), 5000);
       const opts = { signal: ctrl.signal } as const;
       const [rRes, dRes, iRes] = await Promise.allSettled([
-        fetch('/api/v1/ransomware-recent', opts).then((r) =>
-          r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`)
-        ),
+        // Shared coalescing client — joins the hero sparkline's read of the
+        // same endpoint so Home fires one request, not two. Resolves null
+        // on failure; the fulfilled-guard below treats that like a
+        // rejection (tile shows '-'). Has its own 4s timeout, so it sits
+        // safely inside the ctrl.abort() fallback below.
+        fetchRansomwareRecent(),
         fetch('/api/v1/detections', opts).then((r) => (r.ok ? r.json() : Promise.reject(`detections ${r.status}`))),
         fetch('/api/v1/ioc-correlation', opts).then((r) =>
           r.ok ? r.json() : Promise.reject(`correlation ${r.status}`)
@@ -109,7 +113,7 @@ export function LiveSignalStrip(): JSX.Element {
       // makes the relationship explicit so a quiet 24h doesn't read as
       // contradicting the week's larger total.
       let t1: Tile = { ...empty, icon: Flame, label: 'Ransomware claims · last 24h', accent: 'rose' };
-      if (rRes.status === 'fulfilled') {
+      if (rRes.status === 'fulfilled' && rRes.value !== null) {
         // Dedupe by (group + victim), keeping the earliest discovery date.
         // The upstream merge collapses same-day dupes, but the same victim
         // can still appear on multiple days when different trackers index
