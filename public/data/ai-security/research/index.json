@@ -1,8 +1,32 @@
 {
-  "updatedAt": "2026-09-29T12:46:47.290Z",
-  "total": 54,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 12, "bleepingcomputer": 3 },
+  "updatedAt": "2026-09-30T12:29:50.574Z",
+  "total": 53,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 11, "bleepingcomputer": 3 },
   "items": [
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Custom ChatGPTs push ClickFix attacks to deploy RAT malware",
+      "link": "https://www.bleepingcomputer.com/news/security/custom-chatgpts-push-clickfix-attacks-to-deploy-rat-malware/",
+      "pubDate": "Tue, 29 Sep 2026 16:59:39 -0400",
+      "source": "bleepingcomputer",
+      "description": "Custom variants of OpenAI's ChatGPT promoted in sponsored Google results are directing unsuspecting users to malicious sites that use ClickFix attacks to deliver malware. [...]"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "New Spectre v2 attack variant leaks Linux root password hash in minutes",
+      "link": "https://www.bleepingcomputer.com/news/security/new-spectre-v2-attack-variant-leaks-linux-root-password-hash-in-minutes/",
+      "pubDate": "Tue, 29 Sep 2026 13:10:11 -0400",
+      "source": "bleepingcomputer",
+      "description": "A new Branch Target Reuse (BTR) attack has been devised that can recover root password hashes on Intel computers running Linux in 3-5 minutes on average. [...]"
+    },
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "Automated AI agent used to breach cybersecurity nonprofit DIVD",
+      "link": "https://www.bleepingcomputer.com/news/security/automated-ai-agent-used-to-breach-cybersecurity-nonprofit-divd/",
+      "pubDate": "Tue, 29 Sep 2026 11:39:19 -0400",
+      "source": "bleepingcomputer",
+      "description": "The Dutch Institute for Vulnerability Disclosure (DIVD) suffered an AI-driven cyberattack that the organization described as \"loud and very, very messy.\" [...]"
+    },
     {
       "id": "aHR0cHM6Ly9j",
       "title": "CSA Welcomes NVIDIA Open Agent Safety Platform",
@@ -10,30 +34,6 @@
       "pubDate": "Mon, 28 Sep 2026 13:52:00 -0700",
       "source": "csa",
       "description": "Cloud Security Alliance is building industry consensus around governance and security controls for autonomous AI. We welcome the launch of the NVIDIA Open&amp;nbsp;Agent Safety Platform and NVIDIA’s commitment to making autonomous AI safer to deploy at enterprise scale. NVIDIA is bringing its engineering capabilities across software and hardware to one of the most consequential challenges facing our industry: giving agents the freedom to do useful work while maintaining control over their a..."
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "JadePuffer agentic AI attacks target Azure, destroy cloud resources",
-      "link": "https://www.bleepingcomputer.com/news/security/jadepuffer-agentic-ai-attacks-target-azure-destroy-cloud-resources/",
-      "pubDate": "Mon, 28 Sep 2026 11:49:27 -0400",
-      "source": "bleepingcomputer",
-      "description": "The JadePuffer ransomware operator is targeting Azure tenants with agent-driven attacks that conduct reconnaissance, steal credentials, and destroy core components. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "80,000+ Organizations Had AI Logins Stolen: From Shadow AI to LLMjacking",
-      "link": "https://www.bleepingcomputer.com/news/security/80-000-plus-organizations-had-ai-logins-stolen-from-shadow-ai-to-llmjacking/",
-      "pubDate": "Mon, 28 Sep 2026 10:00:10 -0400",
-      "source": "bleepingcomputer",
-      "description": "Infostealer logs exposed AI account credentials and sessions tied to more than 80,000 corporate domains, creating risks ranging from stolen conversations to LLMjacking. SOCRadar examines the growing market for stolen AI logins and how organizations can identify their exposure. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "OpenAI is preparing “o,” an always-on ChatGPT assistant that could handle email",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-is-preparing-o-an-always-on-chatgpt-assistant-that-could-handle-email/",
-      "pubDate": "Sun, 27 Sep 2026 19:40:39 -0400",
-      "source": "bleepingcomputer",
-      "description": "OpenAI is testing a new always-on assistant called \"o\", and references to the unannounced feature briefly showed up on the company's website. [...]"
     },
     {
       "id": "aHR0cHM6Ly9j",
@@ -154,14 +154,6 @@
       "pubDate": "Tue, 25 Aug 2026 10:00:57 +0000",
       "source": "unit42",
       "description": "Explore Unit 42 research on AI-enabled malware. Learn how existing behavioral detection and endpoint analytics stop AI-authored code before execution. The post The State of AI-Enabled Malware August 2026: From Brand Abuse to Agentic Execution appeared first on Unit 42 ."
-    },
-    {
-      "id": "aHR0cHM6Ly9j",
-      "title": "Beyond Deepfakes: Zero Trust Security for the AI Economy",
-      "link": "https://cloudsecurityalliance.org/articles/beyond-deepfakes-zero-trust-security-for-the-ai-economy",
-      "pubDate": "Wed, 19 Aug 2026 10:27:15 -0700",
-      "source": "csa",
-      "description": "TL;DR: Deepfakes are not merely a detection challenge. They expose fundamental weaknesses in how organizations establish identity, grant authority, and protect data. Appearances alone can no longer serve as proof. CSA research shows how Zero Trust, IAM, and AI data security can provide the trust infrastructure organizations need. A familiar face appears on a video call. A known voice delivers an urgent instruction. A senior executive requests an unusual payment, data transfer, or passwor..."
     },
     {
       "id": "aHR0cHM6Ly93",
