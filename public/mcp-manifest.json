@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 412 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 418 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,12 +16,42 @@
       "listChanged": false
     }
   },
-  "toolCount": 412,
+  "toolCount": 418,
   "generatedAt": "2026-09-25T11:17:30+05:30",
   "tools": [
     {
       "name": "ai_advisories",
       "description": "AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.",
+      "category": "other"
+    },
+    {
+      "name": "ai_playbook_cve_refs",
+      "description": "CVE references cited by the AI Security Playbook, enriched against our local CISA KEV snapshot so you can see which are known-exploited. Enrichment comes from our own feed, never upstream.",
+      "category": "other"
+    },
+    {
+      "name": "ai_playbook_get_layer",
+      "description": "Get one AI Security Playbook division by roman id (I..VIII) or slug, including the risk identifiers it defines.",
+      "category": "other"
+    },
+    {
+      "name": "ai_playbook_get_risk_id",
+      "description": "Get one AI-security risk identifier by id (e.g. LLM01, ASI06), with its name, taxonomy and defining division.",
+      "category": "other"
+    },
+    {
+      "name": "ai_playbook_list_layers",
+      "description": "List the 8 system divisions of the AI Security Playbook (I model .. VIII governance), with chapter counts and the risk identifiers each division defines.",
+      "category": "other"
+    },
+    {
+      "name": "ai_playbook_list_risk_ids",
+      "description": "List the 20 AI-security risk identifiers: OWASP Top 10 for LLM Applications (LLM01-LLM10) and the Agentic Security Index (ASI01-ASI10). Filter by scheme or layer, or search by id/name.",
+      "category": "other"
+    },
+    {
+      "name": "ai_playbook_stats",
+      "description": "AI Security Playbook manifest stats: division/chapter/identifier counts, KEV matches, licence scope, and edge cache state.",
       "category": "other"
     },
     {

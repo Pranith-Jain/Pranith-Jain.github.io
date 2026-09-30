@@ -1095,6 +1095,7 @@ import { engageRouter } from './routes/engage-edge-tools';
 import { cairnRouter } from './routes/cairn-edge-tools';
 import { novaRouter } from './routes/nova-edge-tools';
 import { denaliRouter } from './routes/denali-edge-tools';
+import { aiPlaybookRouter } from './routes/ai-playbook-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
@@ -2213,6 +2214,7 @@ app.route('/api/v1', novaRouter);
 // plus stateless sliding-window checks. Data ships in public/data/denali/
 // built by scripts/build-denali-manifest.mjs.
 app.route('/api/v1', denaliRouter);
+app.route('/api/v1', aiPlaybookRouter);
 
 // Reports & Reading Library — curated list of 28 security reports,
 // frameworks, standards, and learning resources. Data ships in

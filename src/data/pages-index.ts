@@ -3937,6 +3937,26 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['nova', 'prompt', 'jailbreak', 'injection', 'prompt hunting', 'llm security', 'scanner', 'taxonomy'],
   },
   {
+    path: '/threatintel/ai-playbook',
+    label: 'AI Security Playbook',
+    description:
+      'Taxonomy layer from aisecurity.zone - 8 system divisions across 44 chapters and 20 risk identifiers (OWASP LLM01-10 + Agentic Security Index ASI01-10), with cited CVEs joined to CISA KEV. Structure and identifiers only; upstream declares no reuse licence, so every card deep-links to the original.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+    keywords: [
+      'ai security',
+      'playbook',
+      'taxonomy',
+      'owasp llm',
+      'llm01',
+      'agentic',
+      'asi01',
+      'prompt injection',
+      'risk id',
+      'aisecurity.zone',
+    ],
+  },
+  {
     path: '/threatintel/denali',
     label: 'Denali AI Security',
     description:

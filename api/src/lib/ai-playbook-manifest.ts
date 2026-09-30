@@ -1,0 +1,1 @@
+../../../worker/lib/ai-playbook-manifest.ts

@@ -1,0 +1,291 @@
+{
+  "source": "aisecurity.zone — The AI Security Playbook (structure + risk identifiers)",
+  "sourceUrl": "https://aisecurity.zone/",
+  "author": "Iaroslav Mezin",
+  "license": "No reuse licence declared — structure, identifiers and CVE references only. Prose NOT replicated.",
+  "licenseNote": "The upstream work carries no reuse licence. This index replicates structure, published risk-identifier nomenclature and public CVE identifiers only — no prose, no chapter bodies, no diagrams. Every entry deep-links to the original.",
+  "replicatedAt": "2026-09-30T12:30:50.677Z",
+  "scope": "structure-only",
+  "structureVerifiedAt": "2026-09-30T12:30:50.680Z",
+  "counts": {
+    "layers": 8,
+    "chapters": 44,
+    "riskIds": 20,
+    "owaspLlm": 10,
+    "agenticAsi": 10,
+    "cveRefs": 10
+  },
+  "layers": [
+    {
+      "id": "I",
+      "name": "The model",
+      "slug": "model",
+      "chapters": 7,
+      "summary": "The model artifact itself: how it is shaped, how it breaks, and how to protect the weights.",
+      "url": "https://aisecurity.zone/model/",
+      "riskIds": [
+        "LLM04",
+        "LLM05"
+      ]
+    },
+    {
+      "id": "II",
+      "name": "The context window",
+      "slug": "context",
+      "chapters": 5,
+      "summary": "Tokens, attention and context — including prompt injection, jailbreaks and multimodal gaps.",
+      "url": "https://aisecurity.zone/context/",
+      "riskIds": [
+        "LLM01",
+        "LLM02",
+        "LLM07",
+        "LLM08"
+      ]
+    },
+    {
+      "id": "III",
+      "name": "The agent loop",
+      "slug": "loop",
+      "chapters": 5,
+      "summary": "Anatomy of an agent (model, tools, memory, loop), coding and browser agents, and containment.",
+      "url": "https://aisecurity.zone/loop/",
+      "riskIds": [
+        "LLM03",
+        "ASI01",
+        "ASI02",
+        "ASI05",
+        "ASI06",
+        "ASI09"
+      ]
+    },
+    {
+      "id": "IV",
+      "name": "The protocol layer",
+      "slug": "protocol",
+      "chapters": 6,
+      "summary": "Model APIs, tool use, MCP, multi-agent seams, and agent identity (NHI).",
+      "url": "https://aisecurity.zone/protocol/",
+      "riskIds": [
+        "LLM10",
+        "ASI03",
+        "ASI04",
+        "ASI07",
+        "ASI08",
+        "ASI10"
+      ]
+    },
+    {
+      "id": "V",
+      "name": "The infrastructure",
+      "slug": "infra",
+      "chapters": 3,
+      "summary": "Where AI runs — cloud, cloud red-teaming, and the data layer / retrieval entitlement.",
+      "url": "https://aisecurity.zone/infra/",
+      "riskIds": [
+        "LLM06",
+        "LLM09"
+      ]
+    },
+    {
+      "id": "VI",
+      "name": "The Security Assessment",
+      "slug": "method",
+      "chapters": 6,
+      "summary": "Scoping an engagement, threat modelling, the red-team playbook and capability evaluation.",
+      "url": "https://aisecurity.zone/method/",
+      "riskIds": []
+    },
+    {
+      "id": "VII",
+      "name": "The Security Program",
+      "slug": "program",
+      "chapters": 5,
+      "summary": "The secure AI SDLC, the Agent Development Lifecycle, detection/IR, shadow AI, retirement.",
+      "url": "https://aisecurity.zone/program/",
+      "riskIds": []
+    },
+    {
+      "id": "VIII",
+      "name": "The Security Governance",
+      "slug": "govern",
+      "chapters": 7,
+      "summary": "Frameworks and standards, Google SAIF, NIST AI RMF, ISO/IEC 42001, OWASP AIMA, jurisdictions.",
+      "url": "https://aisecurity.zone/govern/",
+      "riskIds": []
+    }
+  ],
+  "riskIds": [
+    {
+      "id": "LLM01",
+      "name": "Prompt Injection",
+      "scheme": "owasp-llm",
+      "layer": "II",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM01",
+      "layerName": "The context window"
+    },
+    {
+      "id": "LLM02",
+      "name": "Sensitive Information Disclosure",
+      "scheme": "owasp-llm",
+      "layer": "II",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM02",
+      "layerName": "The context window"
+    },
+    {
+      "id": "LLM03",
+      "name": "Excessive Agency",
+      "scheme": "owasp-llm",
+      "layer": "III",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM03",
+      "layerName": "The agent loop"
+    },
+    {
+      "id": "LLM04",
+      "name": "Supply Chain",
+      "scheme": "owasp-llm",
+      "layer": "I",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM04",
+      "layerName": "The model"
+    },
+    {
+      "id": "LLM05",
+      "name": "Data & Model Poisoning",
+      "scheme": "owasp-llm",
+      "layer": "I",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM05",
+      "layerName": "The model"
+    },
+    {
+      "id": "LLM06",
+      "name": "Unbounded Consumption",
+      "scheme": "owasp-llm",
+      "layer": "V",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM06",
+      "layerName": "The infrastructure"
+    },
+    {
+      "id": "LLM07",
+      "name": "Misinformation",
+      "scheme": "owasp-llm",
+      "layer": "II",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM07",
+      "layerName": "The context window"
+    },
+    {
+      "id": "LLM08",
+      "name": "Hidden Context Exposure",
+      "scheme": "owasp-llm",
+      "layer": "II",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM08",
+      "layerName": "The context window"
+    },
+    {
+      "id": "LLM09",
+      "name": "Vector & Embedding Weaknesses",
+      "scheme": "owasp-llm",
+      "layer": "V",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM09",
+      "layerName": "The infrastructure"
+    },
+    {
+      "id": "LLM10",
+      "name": "Improper Output Handling",
+      "scheme": "owasp-llm",
+      "layer": "IV",
+      "url": "https://aisecurity.zone/reference/by-id/#LLM10",
+      "layerName": "The protocol layer"
+    },
+    {
+      "id": "ASI01",
+      "name": "Agent Goal Hijack",
+      "scheme": "agentic-asi",
+      "layer": "III",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI01",
+      "layerName": "The agent loop"
+    },
+    {
+      "id": "ASI02",
+      "name": "Tool Misuse",
+      "scheme": "agentic-asi",
+      "layer": "III",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI02",
+      "layerName": "The agent loop"
+    },
+    {
+      "id": "ASI03",
+      "name": "Identity & Privilege Abuse",
+      "scheme": "agentic-asi",
+      "layer": "IV",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI03",
+      "layerName": "The protocol layer"
+    },
+    {
+      "id": "ASI04",
+      "name": "Agentic Supply Chain",
+      "scheme": "agentic-asi",
+      "layer": "IV",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI04",
+      "layerName": "The protocol layer"
+    },
+    {
+      "id": "ASI05",
+      "name": "Unexpected Code Execution",
+      "scheme": "agentic-asi",
+      "layer": "III",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI05",
+      "layerName": "The agent loop"
+    },
+    {
+      "id": "ASI06",
+      "name": "Memory & Context Poisoning",
+      "scheme": "agentic-asi",
+      "layer": "III",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI06",
+      "layerName": "The agent loop"
+    },
+    {
+      "id": "ASI07",
+      "name": "Insecure Inter-Agent Comms",
+      "scheme": "agentic-asi",
+      "layer": "IV",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI07",
+      "layerName": "The protocol layer"
+    },
+    {
+      "id": "ASI08",
+      "name": "Cascading Failures",
+      "scheme": "agentic-asi",
+      "layer": "IV",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI08",
+      "layerName": "The protocol layer"
+    },
+    {
+      "id": "ASI09",
+      "name": "Human-Agent Trust Exploitation",
+      "scheme": "agentic-asi",
+      "layer": "III",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI09",
+      "layerName": "The agent loop"
+    },
+    {
+      "id": "ASI10",
+      "name": "Rogue Agents",
+      "scheme": "agentic-asi",
+      "layer": "IV",
+      "url": "https://aisecurity.zone/reference/by-id/#ASI10",
+      "layerName": "The protocol layer"
+    }
+  ],
+  "cveRefs": [
+    "CVE-2025-1550",
+    "CVE-2025-32711",
+    "CVE-2025-66414",
+    "CVE-2025-66416",
+    "CVE-2026-16584",
+    "CVE-2026-18236",
+    "CVE-2026-52869",
+    "CVE-2026-54316",
+    "CVE-2026-64849",
+    "CVE-2026-67431"
+  ]
+}

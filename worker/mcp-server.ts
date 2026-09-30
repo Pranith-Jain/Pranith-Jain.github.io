@@ -106,6 +106,16 @@ import {
   novaCacheStats,
 } from './lib/nova-manifest';
 import {
+  loadAiPlaybookIndex,
+  listAiPlaybookLayers,
+  getAiPlaybookLayer,
+  filterAiPlaybookRiskIds,
+  getAiPlaybookRiskId,
+  getAiPlaybookCveRefs,
+  riskIdsForLayer,
+  aiPlaybookStats,
+} from './lib/ai-playbook-manifest';
+import {
   loadDenaliIndex,
   loadDenaliRules,
   listDenaliRules,
@@ -2480,6 +2490,89 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             cache: denaliCacheStats(),
           });
         }
+      );
+
+      // ── AI Security Playbook tools ────────────────────────────────────
+      // Taxonomy layer from aisecurity.zone: 8 system divisions (44 chapters) and
+      // 20 risk identifiers (OWASP LLM01-10 + the author's ASI01-10).
+      //
+      // LICENCE: upstream declares no reuse licence, so this surface is
+      // STRUCTURE ONLY — divisions, identifiers, CVE references and deep links.
+      // No chapter prose. See scripts/build-ai-playbook.mjs.
+
+      this.tools(
+        'ai_playbook_list_layers',
+        'List the 8 system divisions of the AI Security Playbook (I model .. VIII governance), with chapter counts and the risk identifiers each division defines.',
+        {},
+        async () => {
+          const layers = await listAiPlaybookLayers(ASSETS);
+          return untrustedToolResult({ total: layers.length, layers });
+        }
+      );
+
+      this.tools(
+        'ai_playbook_get_layer',
+        'Get one AI Security Playbook division by roman id (I..VIII) or slug, including the risk identifiers it defines.',
+        {
+          id: z.string().describe('Roman numeral (I, II, ... VIII) or slug (model, context, loop, protocol, infra, method, program, govern)'),
+        },
+        async ({ id }) => {
+          const layer = await getAiPlaybookLayer(ASSETS, id);
+          if (!layer) return untrustedToolResult({ error: `layer '${id}' not found`, valid: ['I','II','III','IV','V','VI','VII','VIII'] });
+          const idx = await loadAiPlaybookIndex(ASSETS);
+          return untrustedToolResult({ ...layer, riskIdsDetailed: riskIdsForLayer(idx, layer.id) });
+        }
+      );
+
+      this.tools(
+        'ai_playbook_list_risk_ids',
+        'List the 20 AI-security risk identifiers: OWASP Top 10 for LLM Applications (LLM01-LLM10) and the Agentic Security Index (ASI01-ASI10). Filter by scheme or layer, or search by id/name.',
+        {
+          scheme: z.enum(['owasp-llm', 'agentic-asi']).optional().describe('Filter by taxonomy'),
+          layer: z.string().optional().describe('Filter by defining division (I..VIII)'),
+          q: z.string().optional().describe('Substring match against id or name'),
+          limit: z.number().int().min(1).max(20).optional().describe('Max identifiers (default 20)'),
+        },
+        async ({ scheme, layer, q, limit }) => {
+          const ids = await filterAiPlaybookRiskIds(ASSETS, { scheme, layer, q, limit });
+          return untrustedToolResult({ total: ids.length, scope: 'structure-only', riskIds: ids });
+        }
+      );
+
+      this.tools(
+        'ai_playbook_get_risk_id',
+        'Get one AI-security risk identifier by id (e.g. LLM01, ASI06), with its name, taxonomy and defining division.',
+        { id: z.string().describe('Risk identifier, e.g. LLM01 or ASI06') },
+        async ({ id }) => {
+          const risk = await getAiPlaybookRiskId(ASSETS, id);
+          if (!risk) return untrustedToolResult({ error: `unknown risk identifier '${id}'` });
+          return untrustedToolResult(risk);
+        }
+      );
+
+      this.tools(
+        'ai_playbook_cve_refs',
+        'CVE references cited by the AI Security Playbook, enriched against our local CISA KEV snapshot so you can see which are known-exploited. Enrichment comes from our own feed, never upstream.',
+        {
+          kev_only: z.boolean().optional().describe('Only references present in our CISA KEV snapshot'),
+        },
+        async ({ kev_only }) => {
+          const refs = await getAiPlaybookCveRefs(ASSETS);
+          const out = kev_only ? refs.filter((r) => r.kev) : refs;
+          return untrustedToolResult({
+            total: out.length,
+            kevMatched: refs.filter((r) => r.kev).length,
+            enrichmentSource: 'local CISA KEV snapshot',
+            cves: out,
+          });
+        }
+      );
+
+      this.tools(
+        'ai_playbook_stats',
+        'AI Security Playbook manifest stats: division/chapter/identifier counts, KEV matches, licence scope, and edge cache state.',
+        {},
+        async () => untrustedToolResult(await aiPlaybookStats(ASSETS))
       );
 
       // ── Detection Wiki tools ────────────────────────────────────────
