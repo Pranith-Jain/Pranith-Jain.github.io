@@ -5,8 +5,8 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-29T06:00:24.000Z",
-  "lastSeen": "2026-09-29T06:00:24.000Z",
+  "firstSeen": "2026-09-29T15:38:48.000Z",
+  "lastSeen": "2026-09-29T15:38:48.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
@@ -17,27 +17,27 @@
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "camorim-com-br-b1c8",
-      "title": "camorim.com.br — claimed by lockbit5",
-      "pubDate": "2026-09-29T06:00:24.000Z"
+      "slug": "spg-co-kr-52c8",
+      "title": "spg.co.kr — claimed by lockbit5",
+      "pubDate": "2026-09-29T15:38:48.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
+      "slug": "other",
+      "name": "Other",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "camorim-com-br-b1c8",
-      "victim": "camorim.com.br — claimed by lockbit5",
-      "sector": "Retail & E-Commerce",
-      "country": "BR",
-      "pubDate": "2026-09-29T06:00:24.000Z"
+      "id": "spg-co-kr-52c8",
+      "victim": "spg.co.kr — claimed by lockbit5",
+      "sector": "Other",
+      "country": "KR",
+      "pubDate": "2026-09-29T15:38:48.000Z"
     }
   ]
 }

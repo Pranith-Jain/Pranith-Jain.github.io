@@ -4,25 +4,127 @@
   "name": "storm",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-27T17:53:23.000Z",
-  "lastSeen": "2026-09-27T17:53:23.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 11,
+  "firstSeen": "2026-09-30T03:31:27.000Z",
+  "lastSeen": "2026-09-30T06:19:03.000Z",
+  "summary": "Ransomware group with 11 leak-site victims across 8 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-27",
-      "count": 1
+      "date": "2026-09-30",
+      "count": 11
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "first-secure-bank-group-f27d",
-      "title": "First Secure Bank Group — claimed by storm",
-      "pubDate": "2026-09-27T17:53:23.000Z"
+      "slug": "west-county-health-centers-47dd",
+      "title": "West County Health Centers — claimed by storm",
+      "pubDate": "2026-09-30T06:19:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gardeners-guild-b47e",
+      "title": "Gardeners' Guild — claimed by storm",
+      "pubDate": "2026-09-30T06:18:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "north-hills-facility-services-c62b",
+      "title": "North Hills Facility Services — claimed by storm",
+      "pubDate": "2026-09-30T03:35:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "olnick-rentals-aa2b",
+      "title": "Olnick Rentals — claimed by storm",
+      "pubDate": "2026-09-30T03:35:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "century-management-services-ff09",
+      "title": "Century Management Services — claimed by storm",
+      "pubDate": "2026-09-30T03:34:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "silvercup-studios-e468",
+      "title": "Silvercup Studios — claimed by storm",
+      "pubDate": "2026-09-30T03:34:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "uc-components-dbc5",
+      "title": "UC Components — claimed by storm",
+      "pubDate": "2026-09-30T03:33:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "stockham-construction-6593",
+      "title": "Stockham Construction — claimed by storm",
+      "pubDate": "2026-09-30T03:33:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vintners-distributors-61f3",
+      "title": "Vintners Distributors — claimed by storm",
+      "pubDate": "2026-09-30T03:32:36.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "agra-industries-0d9e",
+      "title": "Agra Industries — claimed by storm",
+      "pubDate": "2026-09-30T03:32:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "poca-valley-bank-d0f6",
+      "title": "Poca Valley Bank — claimed by storm",
+      "pubDate": "2026-09-30T03:31:27.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
     {
       "type": "sector",
       "slug": "financial-services",
@@ -33,11 +135,81 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "first-secure-bank-group-f27d",
-      "victim": "First Secure Bank Group — claimed by storm",
+      "id": "west-county-health-centers-47dd",
+      "victim": "West County Health Centers — claimed by storm",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-30T06:19:03.000Z"
+    },
+    {
+      "id": "gardeners-guild-b47e",
+      "victim": "Gardeners' Guild — claimed by storm",
+      "sector": "Agriculture and Food Production",
+      "country": "US",
+      "pubDate": "2026-09-30T06:18:31.000Z"
+    },
+    {
+      "id": "north-hills-facility-services-c62b",
+      "victim": "North Hills Facility Services — claimed by storm",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-30T03:35:42.000Z"
+    },
+    {
+      "id": "olnick-rentals-aa2b",
+      "victim": "Olnick Rentals — claimed by storm",
+      "sector": "Hospitality",
+      "country": "US",
+      "pubDate": "2026-09-30T03:35:11.000Z"
+    },
+    {
+      "id": "century-management-services-ff09",
+      "victim": "Century Management Services — claimed by storm",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-30T03:34:40.000Z"
+    },
+    {
+      "id": "silvercup-studios-e468",
+      "victim": "Silvercup Studios — claimed by storm",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-09-30T03:34:09.000Z"
+    },
+    {
+      "id": "uc-components-dbc5",
+      "victim": "UC Components — claimed by storm",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-30T03:33:38.000Z"
+    },
+    {
+      "id": "stockham-construction-6593",
+      "victim": "Stockham Construction — claimed by storm",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-30T03:33:07.000Z"
+    },
+    {
+      "id": "vintners-distributors-61f3",
+      "victim": "Vintners Distributors — claimed by storm",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-09-30T03:32:36.000Z"
+    },
+    {
+      "id": "agra-industries-0d9e",
+      "victim": "Agra Industries — claimed by storm",
+      "sector": "Agriculture and Food Production",
+      "country": "US",
+      "pubDate": "2026-09-30T03:32:01.000Z"
+    },
+    {
+      "id": "poca-valley-bank-d0f6",
+      "victim": "Poca Valley Bank — claimed by storm",
       "sector": "Financial Services",
       "country": "US",
-      "pubDate": "2026-09-27T17:53:23.000Z"
+      "pubDate": "2026-09-30T03:31:27.000Z"
     }
   ]
 }

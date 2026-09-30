@@ -2,11 +2,11 @@
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/entities",
   "description": "Derived entity intelligence from ThreatCluster clusters, MISP galaxy attribution, dark-web victims and CVE feeds. Entities are extracted deterministically at build time from in-repo signals (MISP galaxy tags, victim group/sector fields, CVE regexes, Daily-Hunt family dictionary matching) — no LLM in the loop.",
-  "builtAt": "2026-09-29T11:32:31.270Z",
+  "builtAt": "2026-09-30T11:21:25.544Z",
   "counts": {
     "actor": 2,
-    "group": 19,
-    "malware": 30,
+    "group": 14,
+    "malware": 35,
     "cve": 121,
     "sector": 14
   },
@@ -34,120 +34,57 @@
     "group": [
       {
         "type": "group",
-        "slug": "safepay",
-        "name": "safepay",
+        "slug": "thegentlemen",
+        "name": "thegentlemen",
         "aliases": [],
-        "mentionCount": 9,
-        "firstSeen": "2026-09-28T07:30:29.000Z",
-        "lastSeen": "2026-09-28T08:34:02.000Z"
+        "mentionCount": 25,
+        "firstSeen": "2026-09-30T03:34:08.000Z",
+        "lastSeen": "2026-09-30T03:40:46.000Z"
       },
       {
         "type": "group",
-        "slug": "threeam",
-        "name": "threeam",
+        "slug": "storm",
+        "name": "storm",
         "aliases": [],
-        "mentionCount": 7,
-        "firstSeen": "2026-09-28T18:49:38.000Z",
-        "lastSeen": "2026-09-28T18:53:08.000Z"
+        "mentionCount": 11,
+        "firstSeen": "2026-09-30T03:31:27.000Z",
+        "lastSeen": "2026-09-30T06:19:03.000Z"
       },
       {
         "type": "group",
-        "slug": "qilin",
-        "name": "qilin",
+        "slug": "braincipher",
+        "name": "braincipher",
         "aliases": [],
-        "mentionCount": 5,
-        "firstSeen": "2026-09-27T17:03:11.000Z",
-        "lastSeen": "2026-09-28T20:01:05.000Z"
+        "mentionCount": 2,
+        "firstSeen": "2026-09-29T15:24:54.000Z",
+        "lastSeen": "2026-09-29T15:51:06.000Z"
       },
       {
         "type": "group",
-        "slug": "medusalocker",
-        "name": "medusalocker",
+        "slug": "gammax",
+        "name": "gammax",
         "aliases": [],
-        "mentionCount": 4,
-        "firstSeen": "2026-09-28T10:59:30.000Z",
-        "lastSeen": "2026-09-28T18:03:04.000Z"
+        "mentionCount": 2,
+        "firstSeen": "2026-09-29T16:22:06.000Z",
+        "lastSeen": "2026-09-29T16:22:45.000Z"
+      },
+      {
+        "type": "group",
+        "slug": "chaos",
+        "name": "chaos",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-29T17:55:38.000Z",
+        "lastSeen": "2026-09-29T17:55:38.000Z"
       },
       {
         "type": "group",
         "slug": "emperador",
         "name": "emperador",
         "aliases": [],
-        "mentionCount": 3,
-        "firstSeen": "2026-09-28T02:51:03.000Z",
-        "lastSeen": "2026-09-28T17:51:32.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "incransom",
-        "name": "incransom",
-        "aliases": [],
-        "mentionCount": 3,
-        "firstSeen": "2026-09-28T00:34:42.000Z",
-        "lastSeen": "2026-09-28T19:30:12.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "panzer",
-        "name": "panzer",
-        "aliases": [],
-        "mentionCount": 3,
-        "firstSeen": "2026-09-27T22:24:33.000Z",
-        "lastSeen": "2026-09-28T01:22:48.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "akira",
-        "name": "akira",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-28T14:25:30.000Z",
-        "lastSeen": "2026-09-28T14:55:10.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "doommageddon",
-        "name": "doommageddon",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-28T18:46:12.000Z",
-        "lastSeen": "2026-09-28T18:46:47.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "n0n",
-        "name": "n0n",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-28T05:51:12.000Z",
-        "lastSeen": "2026-09-29T05:51:30.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "payload",
-        "name": "payload",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-12T08:16:24.000Z",
-        "lastSeen": "2026-09-28T16:59:11.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "play",
-        "name": "play",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-28T18:32:52.000Z",
-        "lastSeen": "2026-09-28T18:33:25.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "cry0",
-        "name": "cry0",
-        "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T22:56:41.000Z",
-        "lastSeen": "2026-09-28T22:56:41.000Z"
+        "firstSeen": "2026-09-29T16:51:27.000Z",
+        "lastSeen": "2026-09-29T16:51:27.000Z"
       },
       {
         "type": "group",
@@ -155,8 +92,17 @@
         "name": "interlock",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T15:58:06.000Z",
-        "lastSeen": "2026-09-28T15:58:06.000Z"
+        "firstSeen": "2026-09-29T17:02:08.000Z",
+        "lastSeen": "2026-09-29T17:02:08.000Z"
+      },
+      {
+        "type": "group",
+        "slug": "kairos",
+        "name": "kairos",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-29T18:57:21.000Z",
+        "lastSeen": "2026-09-29T18:57:21.000Z"
       },
       {
         "type": "group",
@@ -164,73 +110,100 @@
         "name": "lockbit5",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T06:00:24.000Z",
-        "lastSeen": "2026-09-29T06:00:24.000Z"
+        "firstSeen": "2026-09-29T15:38:48.000Z",
+        "lastSeen": "2026-09-29T15:38:48.000Z"
       },
       {
         "type": "group",
-        "slug": "netrunner",
-        "name": "netrunner",
+        "slug": "m3rx",
+        "name": "m3rx",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T23:34:34.000Z",
-        "lastSeen": "2026-09-28T23:34:34.000Z"
+        "firstSeen": "2026-09-29T20:30:19.000Z",
+        "lastSeen": "2026-09-29T20:30:19.000Z"
       },
       {
         "type": "group",
-        "slug": "pear",
-        "name": "pear",
+        "slug": "rhysida",
+        "name": "rhysida",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T10:01:39.000Z",
-        "lastSeen": "2026-09-28T10:01:39.000Z"
+        "firstSeen": "2026-09-30T10:10:55.000Z",
+        "lastSeen": "2026-09-30T10:10:55.000Z"
       },
       {
         "type": "group",
-        "slug": "silentransomgroup",
-        "name": "silentransomgroup",
+        "slug": "shinyhunters",
+        "name": "shinyhunters",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T15:52:22.000Z",
-        "lastSeen": "2026-09-28T15:52:22.000Z"
+        "firstSeen": "2026-09-30T00:02:19.000Z",
+        "lastSeen": "2026-09-30T00:02:19.000Z"
       },
       {
         "type": "group",
-        "slug": "storm",
-        "name": "storm",
+        "slug": "ulose",
+        "name": "ulose",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-27T17:53:23.000Z",
-        "lastSeen": "2026-09-27T17:53:23.000Z"
+        "firstSeen": "2026-09-30T07:51:07.000Z",
+        "lastSeen": "2026-09-30T07:51:07.000Z"
+      },
+      {
+        "type": "group",
+        "slug": "wallstreet",
+        "name": "wallstreet",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-29T16:52:55.000Z",
+        "lastSeen": "2026-09-29T16:52:55.000Z"
       }
     ],
     "malware": [
       {
         "type": "malware",
-        "slug": "citrix",
-        "name": "Citrix",
-        "aliases": [],
-        "mentionCount": 6,
-        "firstSeen": "2026-09-26T17:46:28.000Z",
-        "lastSeen": "2026-09-28T18:32:17.000Z"
-      },
-      {
-        "type": "malware",
         "slug": "attrib",
         "name": "attrib",
         "aliases": [],
-        "mentionCount": 3,
+        "mentionCount": 9,
         "firstSeen": "2026-09-12T08:16:24.000Z",
-        "lastSeen": "2026-09-25T15:41:58.000Z"
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       },
       {
         "type": "malware",
-        "slug": "shell",
-        "name": "shell",
+        "slug": "citrix",
+        "name": "Citrix",
+        "aliases": [],
+        "mentionCount": 8,
+        "firstSeen": "2026-09-26T17:46:28.000Z",
+        "lastSeen": "2026-09-29T15:11:55.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "malware",
+        "name": "Malware",
         "aliases": [],
         "mentionCount": 3,
-        "firstSeen": "2026-09-29T09:17:09.000Z",
-        "lastSeen": "2026-09-29T09:17:10.000Z"
+        "firstSeen": "2026-09-23T18:07:17.000Z",
+        "lastSeen": "2026-09-29T18:30:57.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "route",
+        "name": "route",
+        "aliases": [],
+        "mentionCount": 3,
+        "firstSeen": "2026-09-01T22:17:12.000Z",
+        "lastSeen": "2026-09-25T07:16:53.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "zero-day-exploits",
+        "name": "Zero-day exploits",
+        "aliases": [],
+        "mentionCount": 3,
+        "firstSeen": "2026-09-26T08:23:53.000Z",
+        "lastSeen": "2026-09-29T04:52:08.000Z"
       },
       {
         "type": "malware",
@@ -247,26 +220,17 @@
         "name": "Global",
         "aliases": [],
         "mentionCount": 2,
-        "firstSeen": "2026-09-23T00:48:58.000Z",
-        "lastSeen": "2026-09-28T08:16:42.000Z"
+        "firstSeen": "2026-09-28T08:16:42.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       },
       {
         "type": "malware",
-        "slug": "guard",
-        "name": "Guard",
+        "slug": "javascript",
+        "name": "JavaScript",
         "aliases": [],
         "mentionCount": 2,
-        "firstSeen": "2026-09-29T09:17:10.000Z",
-        "lastSeen": "2026-09-29T09:17:10.000Z"
-      },
-      {
-        "type": "malware",
-        "slug": "malware",
-        "name": "Malware",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-23T18:07:17.000Z",
-        "lastSeen": "2026-09-27T09:02:32.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       },
       {
         "type": "malware",
@@ -279,6 +243,24 @@
       },
       {
         "type": "malware",
+        "slug": "payload",
+        "name": "Payload",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-09-12T08:16:24.000Z",
+        "lastSeen": "2026-09-29T09:45:40.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "phishing",
+        "name": "phishing",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-09-29T18:30:57.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "malware",
         "slug": "python",
         "name": "Python",
         "aliases": [],
@@ -288,30 +270,30 @@
       },
       {
         "type": "malware",
-        "slug": "route",
-        "name": "route",
+        "slug": "resident",
+        "name": "Resident",
         "aliases": [],
         "mentionCount": 2,
-        "firstSeen": "2026-09-01T22:17:12.000Z",
+        "firstSeen": "2026-09-28T06:35:32.000Z",
+        "lastSeen": "2026-09-29T15:00:11.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "stration",
+        "name": "Stration",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-09-14T11:17:08.000Z",
         "lastSeen": "2026-09-25T07:16:53.000Z"
       },
       {
         "type": "malware",
-        "slug": "zero-day-exploits",
-        "name": "Zero-day exploits",
+        "slug": "unicat",
+        "name": "UNICAT",
         "aliases": [],
         "mentionCount": 2,
-        "firstSeen": "2026-09-26T08:23:53.000Z",
-        "lastSeen": "2026-09-28T18:32:17.000Z"
-      },
-      {
-        "type": "malware",
-        "slug": "anyone",
-        "name": "AnyOne",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
+        "firstSeen": "2026-09-24T22:01:30.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
       },
       {
         "type": "malware",
@@ -319,8 +301,8 @@
         "name": "Backdoor",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-22T15:21:15.000Z",
-        "lastSeen": "2026-09-22T15:21:15.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
       },
       {
         "type": "malware",
@@ -328,8 +310,17 @@
         "name": "Backdoors",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-22T15:21:15.000Z",
-        "lastSeen": "2026-09-22T15:21:15.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "bifrost",
+        "name": "Bifrost",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-14T11:17:08.000Z",
+        "lastSeen": "2026-09-14T11:17:08.000Z"
       },
       {
         "type": "malware",
@@ -351,21 +342,12 @@
       },
       {
         "type": "malware",
-        "slug": "gdrive",
-        "name": "Gdrive",
+        "slug": "downloader",
+        "name": "Downloader",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
-      },
-      {
-        "type": "malware",
-        "slug": "google-drive",
-        "name": "Google Drive",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
+        "firstSeen": "2026-09-30T09:17:14.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
       },
       {
         "type": "malware",
@@ -384,15 +366,6 @@
         "mentionCount": 1,
         "firstSeen": "2026-09-29T01:06:22.000Z",
         "lastSeen": "2026-09-29T01:06:22.000Z"
-      },
-      {
-        "type": "malware",
-        "slug": "javascript",
-        "name": "JavaScript",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
       },
       {
         "type": "malware",
@@ -423,39 +396,48 @@
       },
       {
         "type": "malware",
-        "slug": "octopus",
-        "name": "Octopus",
+        "slug": "phishing-campaigns",
+        "name": "Phishing campaigns",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T08:17:19.000Z",
-        "lastSeen": "2026-09-29T08:17:19.000Z"
+        "firstSeen": "2026-09-29T18:30:57.000Z",
+        "lastSeen": "2026-09-29T18:30:57.000Z"
       },
       {
         "type": "malware",
-        "slug": "resident",
-        "name": "Resident",
+        "slug": "redcap",
+        "name": "RedCap",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T06:35:32.000Z",
-        "lastSeen": "2026-09-28T06:35:32.000Z"
+        "firstSeen": "2026-09-20T13:17:44.000Z",
+        "lastSeen": "2026-09-20T13:17:44.000Z"
       },
       {
         "type": "malware",
-        "slug": "stration",
-        "name": "Stration",
+        "slug": "romcom",
+        "name": "RomCom",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-25T07:16:53.000Z",
-        "lastSeen": "2026-09-25T07:16:53.000Z"
+        "firstSeen": "2026-09-29T09:45:40.000Z",
+        "lastSeen": "2026-09-29T09:45:40.000Z"
       },
       {
         "type": "malware",
-        "slug": "synchro",
-        "name": "SynChro",
+        "slug": "shell",
+        "name": "shell",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "sponsor",
+        "name": "Sponsor",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-29T18:30:57.000Z",
+        "lastSeen": "2026-09-29T18:30:57.000Z"
       },
       {
         "type": "malware",
@@ -468,41 +450,50 @@
       },
       {
         "type": "malware",
-        "slug": "unicat",
-        "name": "UNICAT",
+        "slug": "web-shell",
+        "name": "web shell",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-24T22:01:30.000Z",
-        "lastSeen": "2026-09-24T22:01:30.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "winrar",
+        "name": "Winrar",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-29T09:45:40.000Z",
+        "lastSeen": "2026-09-29T09:45:40.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "winrar-exploit",
+        "name": "WinRAR exploit",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-29T09:45:40.000Z",
+        "lastSeen": "2026-09-29T09:45:40.000Z"
       }
     ],
     "cve": [
       {
         "type": "cve",
-        "slug": "cve-2026-88772",
-        "name": "CVE-2026-88772",
-        "aliases": [],
-        "mentionCount": 5,
-        "firstSeen": "2026-09-28T08:02:49.000Z",
-        "lastSeen": "2026-09-28T18:32:17.000Z"
-      },
-      {
-        "type": "cve",
         "slug": "cve-2026-88771",
         "name": "CVE-2026-88771",
         "aliases": [],
-        "mentionCount": 4,
+        "mentionCount": 6,
         "firstSeen": "2026-09-28T08:02:49.000Z",
-        "lastSeen": "2026-09-28T18:32:17.000Z"
+        "lastSeen": "2026-09-29T15:11:55.000Z"
       },
       {
         "type": "cve",
-        "slug": "cve-2026-87902",
-        "name": "CVE-2026-87902",
+        "slug": "cve-2026-88772",
+        "name": "CVE-2026-88772",
         "aliases": [],
-        "mentionCount": 3,
-        "firstSeen": "2026-09-22T17:17:28.000Z",
-        "lastSeen": "2026-09-24T08:52:22.000Z"
+        "mentionCount": 6,
+        "firstSeen": "2026-09-28T08:02:49.000Z",
+        "lastSeen": "2026-09-29T04:52:08.000Z"
       },
       {
         "type": "cve",
@@ -533,12 +524,21 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-94127",
-        "name": "CVE-2026-94127",
+        "slug": "cve-2026-86950",
+        "name": "CVE-2026-86950",
         "aliases": [],
         "mentionCount": 2,
-        "firstSeen": "2026-09-22T20:02:34.000Z",
-        "lastSeen": "2026-09-26T08:23:53.000Z"
+        "firstSeen": "2026-09-28T20:17:11.000Z",
+        "lastSeen": "2026-09-29T14:35:57.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-87902",
+        "name": "CVE-2026-87902",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-09-22T17:17:28.000Z",
+        "lastSeen": "2026-09-24T08:52:22.000Z"
       },
       {
         "type": "cve",
@@ -551,21 +551,21 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2023-54391",
-        "name": "CVE-2023-54391",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-01T22:17:10.000Z",
-        "lastSeen": "2026-09-01T22:17:10.000Z"
-      },
-      {
-        "type": "cve",
         "slug": "cve-2024-35789",
         "name": "CVE-2024-35789",
         "aliases": [],
         "mentionCount": 1,
         "firstSeen": "2026-09-26T03:07:30.000Z",
         "lastSeen": "2026-09-26T03:07:30.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2025-14564",
+        "name": "CVE-2025-14564",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:11.000Z",
+        "lastSeen": "2026-09-30T09:17:11.000Z"
       },
       {
         "type": "cve",
@@ -587,12 +587,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-101169",
-        "name": "CVE-2026-101169",
+        "slug": "cve-2025-8088",
+        "name": "CVE-2025-8088",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T08:17:19.000Z",
-        "lastSeen": "2026-09-29T08:17:19.000Z"
+        "firstSeen": "2026-09-29T09:45:40.000Z",
+        "lastSeen": "2026-09-29T09:45:40.000Z"
       },
       {
         "type": "cve",
@@ -605,30 +605,201 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-102473",
-        "name": "CVE-2026-102473",
+        "slug": "cve-2026-102454",
+        "name": "CVE-2026-102454",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:10.000Z",
-        "lastSeen": "2026-09-29T10:17:10.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
       },
       {
         "type": "cve",
-        "slug": "cve-2026-102474",
-        "name": "CVE-2026-102474",
+        "slug": "cve-2026-102455",
+        "name": "CVE-2026-102455",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:10.000Z",
-        "lastSeen": "2026-09-29T10:17:10.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
       },
       {
         "type": "cve",
-        "slug": "cve-2026-10518",
-        "name": "CVE-2026-10518",
+        "slug": "cve-2026-102456",
+        "name": "CVE-2026-102456",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:10.000Z",
-        "lastSeen": "2026-09-29T10:17:10.000Z"
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102457",
+        "name": "CVE-2026-102457",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102458",
+        "name": "CVE-2026-102458",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102459",
+        "name": "CVE-2026-102459",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:13.000Z",
+        "lastSeen": "2026-09-30T09:17:13.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102508",
+        "name": "CVE-2026-102508",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:31.000Z",
+        "lastSeen": "2026-09-30T08:16:31.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102509",
+        "name": "CVE-2026-102509",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:14.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102510",
+        "name": "CVE-2026-102510",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:14.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102511",
+        "name": "CVE-2026-102511",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:14.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102577",
+        "name": "CVE-2026-102577",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:14.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102578",
+        "name": "CVE-2026-102578",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:14.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102579",
+        "name": "CVE-2026-102579",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:14.000Z",
+        "lastSeen": "2026-09-30T09:17:14.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102580",
+        "name": "CVE-2026-102580",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:15.000Z",
+        "lastSeen": "2026-09-30T09:17:15.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102581",
+        "name": "CVE-2026-102581",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:15.000Z",
+        "lastSeen": "2026-09-30T09:17:15.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102582",
+        "name": "CVE-2026-102582",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:15.000Z",
+        "lastSeen": "2026-09-30T09:17:15.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102583",
+        "name": "CVE-2026-102583",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:15.000Z",
+        "lastSeen": "2026-09-30T09:17:15.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102584",
+        "name": "CVE-2026-102584",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:15.000Z",
+        "lastSeen": "2026-09-30T09:17:15.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102585",
+        "name": "CVE-2026-102585",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:15.000Z",
+        "lastSeen": "2026-09-30T09:17:15.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102586",
+        "name": "CVE-2026-102586",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:15.000Z",
+        "lastSeen": "2026-09-30T09:17:15.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102587",
+        "name": "CVE-2026-102587",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:16.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-102588",
+        "name": "CVE-2026-102588",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:16.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       },
       {
         "type": "cve",
@@ -641,12 +812,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-11796",
-        "name": "CVE-2026-11796",
+        "slug": "cve-2026-11895",
+        "name": "CVE-2026-11895",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:11.000Z",
-        "lastSeen": "2026-09-29T10:17:11.000Z"
+        "firstSeen": "2026-09-30T08:16:32.000Z",
+        "lastSeen": "2026-09-30T08:16:32.000Z"
       },
       {
         "type": "cve",
@@ -695,12 +866,21 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-15390",
-        "name": "CVE-2026-15390",
+        "slug": "cve-2026-14876",
+        "name": "CVE-2026-14876",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:11.000Z",
-        "lastSeen": "2026-09-29T10:17:11.000Z"
+        "firstSeen": "2026-09-30T08:16:32.000Z",
+        "lastSeen": "2026-09-30T08:16:32.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-16596",
+        "name": "CVE-2026-16596",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:32.000Z",
+        "lastSeen": "2026-09-30T08:16:32.000Z"
       },
       {
         "type": "cve",
@@ -719,15 +899,6 @@
         "mentionCount": 1,
         "firstSeen": "2026-09-10T02:16:34.000Z",
         "lastSeen": "2026-09-10T02:16:34.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-19547",
-        "name": "CVE-2026-19547",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:11.000Z",
-        "lastSeen": "2026-09-29T10:17:11.000Z"
       },
       {
         "type": "cve",
@@ -785,15 +956,6 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-4523",
-        "name": "CVE-2026-4523",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:11.000Z",
-        "lastSeen": "2026-09-29T10:17:11.000Z"
-      },
-      {
-        "type": "cve",
         "slug": "cve-2026-51990",
         "name": "CVE-2026-51990",
         "aliases": [],
@@ -818,6 +980,42 @@
         "mentionCount": 1,
         "firstSeen": "2026-09-26T18:27:46.000Z",
         "lastSeen": "2026-09-26T18:27:46.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-6170",
+        "name": "CVE-2026-6170",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:33.000Z",
+        "lastSeen": "2026-09-30T08:16:33.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-6171",
+        "name": "CVE-2026-6171",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:33.000Z",
+        "lastSeen": "2026-09-30T08:16:33.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-6172",
+        "name": "CVE-2026-6172",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:33.000Z",
+        "lastSeen": "2026-09-30T08:16:33.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-6173",
+        "name": "CVE-2026-6173",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:33.000Z",
+        "lastSeen": "2026-09-30T08:16:33.000Z"
       },
       {
         "type": "cve",
@@ -848,6 +1046,15 @@
       },
       {
         "type": "cve",
+        "slug": "cve-2026-6806",
+        "name": "CVE-2026-6806",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:34.000Z",
+        "lastSeen": "2026-09-30T08:16:34.000Z"
+      },
+      {
+        "type": "cve",
         "slug": "cve-2026-72718",
         "name": "CVE-2026-72718",
         "aliases": [],
@@ -857,12 +1064,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-7395",
-        "name": "CVE-2026-7395",
+        "slug": "cve-2026-75098",
+        "name": "CVE-2026-75098",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
+        "firstSeen": "2026-09-30T09:17:16.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       },
       {
         "type": "cve",
@@ -929,33 +1136,6 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-76718",
-        "name": "CVE-2026-76718",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:11.000Z",
-        "lastSeen": "2026-09-29T10:17:11.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-76719",
-        "name": "CVE-2026-76719",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:11.000Z",
-        "lastSeen": "2026-09-29T10:17:11.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-76720",
-        "name": "CVE-2026-76720",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
-      },
-      {
-        "type": "cve",
         "slug": "cve-2026-77770",
         "name": "CVE-2026-77770",
         "aliases": [],
@@ -992,24 +1172,6 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-8066",
-        "name": "CVE-2026-8066",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:13.000Z",
-        "lastSeen": "2026-09-29T10:17:13.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-8067",
-        "name": "CVE-2026-8067",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:13.000Z",
-        "lastSeen": "2026-09-29T10:17:13.000Z"
-      },
-      {
-        "type": "cve",
         "slug": "cve-2026-81294",
         "name": "CVE-2026-81294",
         "aliases": [],
@@ -1037,48 +1199,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-81862",
-        "name": "CVE-2026-81862",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-81914",
-        "name": "CVE-2026-81914",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-81930",
-        "name": "CVE-2026-81930",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
-      },
-      {
-        "type": "cve",
         "slug": "cve-2026-82226",
         "name": "CVE-2026-82226",
         "aliases": [],
         "mentionCount": 1,
         "firstSeen": "2026-08-31T21:17:53.000Z",
         "lastSeen": "2026-08-31T21:17:53.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-82592",
-        "name": "CVE-2026-82592",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-08-30T23:17:08.000Z",
-        "lastSeen": "2026-08-30T23:17:08.000Z"
       },
       {
         "type": "cve",
@@ -1091,30 +1217,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-84154",
-        "name": "CVE-2026-84154",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T08:17:21.000Z",
-        "lastSeen": "2026-09-29T08:17:21.000Z"
-      },
-      {
-        "type": "cve",
         "slug": "cve-2026-84434",
         "name": "CVE-2026-84434",
         "aliases": [],
         "mentionCount": 1,
         "firstSeen": "2026-09-19T03:17:15.000Z",
         "lastSeen": "2026-09-19T03:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-84739",
-        "name": "CVE-2026-84739",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
       },
       {
         "type": "cve",
@@ -1154,21 +1262,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-86843",
-        "name": "CVE-2026-86843",
+        "slug": "cve-2026-88037",
+        "name": "CVE-2026-88037",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:12.000Z",
-        "lastSeen": "2026-09-29T10:17:12.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-87796",
-        "name": "CVE-2026-87796",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-17T05:17:02.000Z",
-        "lastSeen": "2026-09-17T05:17:02.000Z"
+        "firstSeen": "2026-09-30T08:16:34.000Z",
+        "lastSeen": "2026-09-30T08:16:34.000Z"
       },
       {
         "type": "cve",
@@ -1208,39 +1307,30 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-8937",
-        "name": "CVE-2026-8937",
+        "slug": "cve-2026-89294",
+        "name": "CVE-2026-89294",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:13.000Z",
-        "lastSeen": "2026-09-29T10:17:13.000Z"
+        "firstSeen": "2026-09-30T07:16:30.000Z",
+        "lastSeen": "2026-09-30T07:16:30.000Z"
       },
       {
         "type": "cve",
-        "slug": "cve-2026-91012",
-        "name": "CVE-2026-91012",
+        "slug": "cve-2026-90817",
+        "name": "CVE-2026-90817",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:09.000Z",
-        "lastSeen": "2026-09-29T09:17:09.000Z"
+        "firstSeen": "2026-09-20T13:17:44.000Z",
+        "lastSeen": "2026-09-20T13:17:44.000Z"
       },
       {
         "type": "cve",
-        "slug": "cve-2026-91048",
-        "name": "CVE-2026-91048",
+        "slug": "cve-2026-90898",
+        "name": "CVE-2026-90898",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:10.000Z",
-        "lastSeen": "2026-09-29T09:17:10.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-91085",
-        "name": "CVE-2026-91085",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:10.000Z",
-        "lastSeen": "2026-09-29T09:17:10.000Z"
+        "firstSeen": "2026-09-14T11:17:08.000Z",
+        "lastSeen": "2026-09-14T11:17:08.000Z"
       },
       {
         "type": "cve",
@@ -1262,21 +1352,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-91843",
-        "name": "CVE-2026-91843",
+        "slug": "cve-2026-92712",
+        "name": "CVE-2026-92712",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-16T14:17:13.000Z",
-        "lastSeen": "2026-09-16T14:17:13.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-92142",
-        "name": "CVE-2026-92142",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:10.000Z",
-        "lastSeen": "2026-09-29T09:17:10.000Z"
+        "firstSeen": "2026-09-30T09:17:16.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       },
       {
         "type": "cve",
@@ -1289,12 +1370,111 @@
       },
       {
         "type": "cve",
+        "slug": "cve-2026-92867",
+        "name": "CVE-2026-92867",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:34.000Z",
+        "lastSeen": "2026-09-30T08:16:34.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-92868",
+        "name": "CVE-2026-92868",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:34.000Z",
+        "lastSeen": "2026-09-30T08:16:34.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-92869",
+        "name": "CVE-2026-92869",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:34.000Z",
+        "lastSeen": "2026-09-30T08:16:34.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-92870",
+        "name": "CVE-2026-92870",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:35.000Z",
+        "lastSeen": "2026-09-30T08:16:35.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-92871",
+        "name": "CVE-2026-92871",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:35.000Z",
+        "lastSeen": "2026-09-30T08:16:35.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-92872",
+        "name": "CVE-2026-92872",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:35.000Z",
+        "lastSeen": "2026-09-30T08:16:35.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-92873",
+        "name": "CVE-2026-92873",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:35.000Z",
+        "lastSeen": "2026-09-30T08:16:35.000Z"
+      },
+      {
+        "type": "cve",
         "slug": "cve-2026-93337",
         "name": "CVE-2026-93337",
         "aliases": [],
         "mentionCount": 1,
         "firstSeen": "2026-09-29T01:06:22.000Z",
         "lastSeen": "2026-09-29T01:06:22.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-93460",
+        "name": "CVE-2026-93460",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:35.000Z",
+        "lastSeen": "2026-09-30T08:16:35.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-93462",
+        "name": "CVE-2026-93462",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:35.000Z",
+        "lastSeen": "2026-09-30T08:16:35.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-93463",
+        "name": "CVE-2026-93463",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:35.000Z",
+        "lastSeen": "2026-09-30T08:16:35.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-93464",
+        "name": "CVE-2026-93464",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T08:16:36.000Z",
+        "lastSeen": "2026-09-30T08:16:36.000Z"
       },
       {
         "type": "cve",
@@ -1307,12 +1487,12 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-93952",
-        "name": "CVE-2026-93952",
+        "slug": "cve-2026-93908",
+        "name": "CVE-2026-93908",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-22T14:08:14.000Z",
-        "lastSeen": "2026-09-22T14:08:14.000Z"
+        "firstSeen": "2026-09-30T09:17:16.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       },
       {
         "type": "cve",
@@ -1325,219 +1505,21 @@
       },
       {
         "type": "cve",
-        "slug": "cve-2026-95386",
-        "name": "CVE-2026-95386",
+        "slug": "cve-2026-94127",
+        "name": "CVE-2026-94127",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:14.000Z",
-        "lastSeen": "2026-09-29T10:17:14.000Z"
+        "firstSeen": "2026-09-26T08:23:53.000Z",
+        "lastSeen": "2026-09-26T08:23:53.000Z"
       },
       {
         "type": "cve",
-        "slug": "cve-2026-95387",
-        "name": "CVE-2026-95387",
+        "slug": "cve-2026-97150",
+        "name": "CVE-2026-97150",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:14.000Z",
-        "lastSeen": "2026-09-29T10:17:14.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95388",
-        "name": "CVE-2026-95388",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:14.000Z",
-        "lastSeen": "2026-09-29T10:17:14.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95389",
-        "name": "CVE-2026-95389",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95390",
-        "name": "CVE-2026-95390",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95391",
-        "name": "CVE-2026-95391",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95392",
-        "name": "CVE-2026-95392",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95393",
-        "name": "CVE-2026-95393",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95394",
-        "name": "CVE-2026-95394",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-95395",
-        "name": "CVE-2026-95395",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:15.000Z",
-        "lastSeen": "2026-09-29T10:17:15.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96415",
-        "name": "CVE-2026-96415",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:16.000Z",
-        "lastSeen": "2026-09-29T10:17:16.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96416",
-        "name": "CVE-2026-96416",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:16.000Z",
-        "lastSeen": "2026-09-29T10:17:16.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96417",
-        "name": "CVE-2026-96417",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:16.000Z",
-        "lastSeen": "2026-09-29T10:17:16.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96418",
-        "name": "CVE-2026-96418",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:16.000Z",
-        "lastSeen": "2026-09-29T10:17:16.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96419",
-        "name": "CVE-2026-96419",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:16.000Z",
-        "lastSeen": "2026-09-29T10:17:16.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96420",
-        "name": "CVE-2026-96420",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:16.000Z",
-        "lastSeen": "2026-09-29T10:17:16.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96421",
-        "name": "CVE-2026-96421",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:16.000Z",
-        "lastSeen": "2026-09-29T10:17:16.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96422",
-        "name": "CVE-2026-96422",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:17.000Z",
-        "lastSeen": "2026-09-29T10:17:17.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96423",
-        "name": "CVE-2026-96423",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T10:17:17.000Z",
-        "lastSeen": "2026-09-29T10:17:17.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96428",
-        "name": "CVE-2026-96428",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:10.000Z",
-        "lastSeen": "2026-09-29T09:17:10.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96429",
-        "name": "CVE-2026-96429",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:10.000Z",
-        "lastSeen": "2026-09-29T09:17:10.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96430",
-        "name": "CVE-2026-96430",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:11.000Z",
-        "lastSeen": "2026-09-29T09:17:11.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96431",
-        "name": "CVE-2026-96431",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:11.000Z",
-        "lastSeen": "2026-09-29T09:17:11.000Z"
-      },
-      {
-        "type": "cve",
-        "slug": "cve-2026-96440",
-        "name": "CVE-2026-96440",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-29T09:17:11.000Z",
-        "lastSeen": "2026-09-29T09:17:11.000Z"
+        "firstSeen": "2026-09-30T08:16:36.000Z",
+        "lastSeen": "2026-09-30T08:16:36.000Z"
       },
       {
         "type": "cve",
@@ -1565,6 +1547,24 @@
         "mentionCount": 1,
         "firstSeen": "2026-09-26T20:54:50.000Z",
         "lastSeen": "2026-09-26T20:54:50.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-97196",
+        "name": "CVE-2026-97196",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T07:16:31.000Z",
+        "lastSeen": "2026-09-30T07:16:31.000Z"
+      },
+      {
+        "type": "cve",
+        "slug": "cve-2026-97347",
+        "name": "CVE-2026-97347",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T09:17:16.000Z",
+        "lastSeen": "2026-09-30T09:17:16.000Z"
       }
     ],
     "sector": [
@@ -1573,63 +1573,63 @@
         "slug": "manufacturing",
         "name": "Manufacturing",
         "aliases": [],
-        "mentionCount": 10,
-        "firstSeen": "2026-09-28T02:51:03.000Z",
-        "lastSeen": "2026-09-29T05:51:30.000Z"
-      },
-      {
-        "type": "sector",
-        "slug": "healthcare",
-        "name": "Healthcare",
-        "aliases": [],
-        "mentionCount": 6,
-        "firstSeen": "2026-09-28T01:22:48.000Z",
-        "lastSeen": "2026-09-28T18:52:35.000Z"
-      },
-      {
-        "type": "sector",
-        "slug": "not-found",
-        "name": "Not Found",
-        "aliases": [],
-        "mentionCount": 6,
-        "firstSeen": "2026-09-27T17:03:11.000Z",
-        "lastSeen": "2026-09-28T23:34:34.000Z"
-      },
-      {
-        "type": "sector",
-        "slug": "retail-e-commerce",
-        "name": "Retail & E-Commerce",
-        "aliases": [],
-        "mentionCount": 5,
-        "firstSeen": "2026-09-28T07:31:38.000Z",
-        "lastSeen": "2026-09-29T06:00:24.000Z"
-      },
-      {
-        "type": "sector",
-        "slug": "technology",
-        "name": "Technology",
-        "aliases": [],
-        "mentionCount": 5,
-        "firstSeen": "2026-09-28T05:51:12.000Z",
-        "lastSeen": "2026-09-28T18:51:26.000Z"
+        "mentionCount": 9,
+        "firstSeen": "2026-09-29T15:51:06.000Z",
+        "lastSeen": "2026-09-30T03:40:25.000Z"
       },
       {
         "type": "sector",
         "slug": "professional-services",
         "name": "Professional Services",
         "aliases": [],
-        "mentionCount": 4,
-        "firstSeen": "2026-09-27T22:24:33.000Z",
-        "lastSeen": "2026-09-28T18:50:17.000Z"
+        "mentionCount": 8,
+        "firstSeen": "2026-09-30T03:34:40.000Z",
+        "lastSeen": "2026-09-30T10:10:55.000Z"
+      },
+      {
+        "type": "sector",
+        "slug": "healthcare",
+        "name": "Healthcare",
+        "aliases": [],
+        "mentionCount": 7,
+        "firstSeen": "2026-09-29T16:52:55.000Z",
+        "lastSeen": "2026-09-30T06:19:03.000Z"
+      },
+      {
+        "type": "sector",
+        "slug": "not-found",
+        "name": "Not Found",
+        "aliases": [],
+        "mentionCount": 5,
+        "firstSeen": "2026-09-29T17:02:08.000Z",
+        "lastSeen": "2026-09-30T07:51:07.000Z"
       },
       {
         "type": "sector",
         "slug": "other",
         "name": "Other",
         "aliases": [],
+        "mentionCount": 4,
+        "firstSeen": "2026-09-29T15:38:48.000Z",
+        "lastSeen": "2026-09-30T03:38:39.000Z"
+      },
+      {
+        "type": "sector",
+        "slug": "retail-e-commerce",
+        "name": "Retail & E-Commerce",
+        "aliases": [],
+        "mentionCount": 4,
+        "firstSeen": "2026-09-30T03:32:36.000Z",
+        "lastSeen": "2026-09-30T03:39:19.000Z"
+      },
+      {
+        "type": "sector",
+        "slug": "technology",
+        "name": "Technology",
+        "aliases": [],
         "mentionCount": 3,
-        "firstSeen": "2026-09-28T07:32:49.000Z",
-        "lastSeen": "2026-09-28T08:34:02.000Z"
+        "firstSeen": "2026-09-29T20:30:19.000Z",
+        "lastSeen": "2026-09-30T03:40:01.000Z"
       },
       {
         "type": "sector",
@@ -1637,53 +1637,53 @@
         "name": "Agriculture and Food Production",
         "aliases": [],
         "mentionCount": 2,
-        "firstSeen": "2026-09-28T07:31:04.000Z",
-        "lastSeen": "2026-09-28T16:00:23.000Z"
-      },
-      {
-        "type": "sector",
-        "slug": "financial-services",
-        "name": "Financial Services",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-27T17:53:23.000Z",
-        "lastSeen": "2026-09-28T18:03:04.000Z"
-      },
-      {
-        "type": "sector",
-        "slug": "government-defense",
-        "name": "Government & Defense",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-28T00:34:42.000Z",
-        "lastSeen": "2026-09-28T16:00:59.000Z"
-      },
-      {
-        "type": "sector",
-        "slug": "hospitality",
-        "name": "Hospitality",
-        "aliases": [],
-        "mentionCount": 2,
-        "firstSeen": "2026-09-28T02:51:39.000Z",
-        "lastSeen": "2026-09-28T07:30:29.000Z"
+        "firstSeen": "2026-09-30T03:32:01.000Z",
+        "lastSeen": "2026-09-30T06:18:31.000Z"
       },
       {
         "type": "sector",
         "slug": "education",
         "name": "Education",
         "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-09-28T18:49:38.000Z",
-        "lastSeen": "2026-09-28T18:49:38.000Z"
+        "mentionCount": 2,
+        "firstSeen": "2026-09-29T16:22:45.000Z",
+        "lastSeen": "2026-09-30T03:35:31.000Z"
       },
       {
         "type": "sector",
         "slug": "energy-utilities",
         "name": "Energy & Utilities",
         "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-09-30T03:39:40.000Z",
+        "lastSeen": "2026-09-30T03:39:46.000Z"
+      },
+      {
+        "type": "sector",
+        "slug": "financial-services",
+        "name": "Financial Services",
+        "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T10:59:30.000Z",
-        "lastSeen": "2026-09-28T10:59:30.000Z"
+        "firstSeen": "2026-09-30T03:31:27.000Z",
+        "lastSeen": "2026-09-30T03:31:27.000Z"
+      },
+      {
+        "type": "sector",
+        "slug": "government-defense",
+        "name": "Government & Defense",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T03:40:07.000Z",
+        "lastSeen": "2026-09-30T03:40:07.000Z"
+      },
+      {
+        "type": "sector",
+        "slug": "hospitality",
+        "name": "Hospitality",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-09-30T03:35:11.000Z",
+        "lastSeen": "2026-09-30T03:35:11.000Z"
       },
       {
         "type": "sector",
@@ -1691,8 +1691,8 @@
         "name": "Transportation",
         "aliases": [],
         "mentionCount": 1,
-        "firstSeen": "2026-09-28T18:46:47.000Z",
-        "lastSeen": "2026-09-28T18:46:47.000Z"
+        "firstSeen": "2026-09-29T15:24:54.000Z",
+        "lastSeen": "2026-09-29T15:24:54.000Z"
       }
     ]
   }

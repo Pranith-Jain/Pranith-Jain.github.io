@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "rhysida",
+  "name": "rhysida",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-30T10:10:55.000Z",
+  "lastSeen": "2026-09-30T10:10:55.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-30",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "law-offices-of-r-david-williams-p-a-0a2c",
+      "title": "Law Offices of R. David Williams, P.A. — claimed by rhysida",
+      "pubDate": "2026-09-30T10:10:55.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "law-offices-of-r-david-williams-p-a-0a2c",
+      "victim": "Law Offices of R. David Williams, P.A. — claimed by rhysida",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-30T10:10:55.000Z"
+    }
+  ]
+}

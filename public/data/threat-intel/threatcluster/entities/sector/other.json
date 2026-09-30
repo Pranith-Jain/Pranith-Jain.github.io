@@ -4,42 +4,70 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-09-28T07:32:49.000Z",
-  "lastSeen": "2026-09-28T08:34:02.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 1 ransomware group and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-29T15:38:48.000Z",
+  "lastSeen": "2026-09-30T03:38:39.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-28",
-      "count": 3
+      "date": "2026-09-29",
+      "count": 2
+    },
+    {
+      "date": "2026-09-30",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "manno-ch-71fc",
-      "title": "manno.ch — claimed by safepay",
-      "pubDate": "2026-09-28T08:34:02.000Z"
+      "slug": "groupe-aprosep-6d24",
+      "title": "Groupe APROSEP — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:38:39.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "lfgholding-com-4e48",
-      "title": "lfgholding.com — claimed by safepay",
-      "pubDate": "2026-09-28T07:33:24.000Z"
+      "slug": "silvercup-studios-e468",
+      "title": "Silvercup Studios — claimed by storm",
+      "pubDate": "2026-09-30T03:34:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "fedelmundo-com-ph-4a0a",
-      "title": "fedelmundo.com.ph — claimed by safepay",
-      "pubDate": "2026-09-28T07:32:49.000Z"
+      "slug": "unique-repair-services-a5ea",
+      "title": "Unique Repair Services — claimed by kairos",
+      "pubDate": "2026-09-29T18:57:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "spg-co-kr-52c8",
+      "title": "spg.co.kr — claimed by lockbit5",
+      "pubDate": "2026-09-29T15:38:48.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
-      "weight": 3
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "storm",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "kairos",
+      "name": "kairos",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "lockbit5",
+      "name": "lockbit5",
+      "weight": 1
     }
   ],
   "mitreTechniques": []
