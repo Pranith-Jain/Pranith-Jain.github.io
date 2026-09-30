@@ -270,12 +270,16 @@ export interface Env {
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */
   SITE_URL?: string;
-  /** Hostname (no scheme) of the tools surface. Set via
-   *  `wrangler.jsonc#vars.TOOLS_HOST`. Requests whose Host header matches it
-   *  get the tools nav + ToolsHome instead of the portfolio ones. Must stay
-   *  identical to `TOOLS_HOST` in `src/lib/surface.ts`, or the Worker and the
-   *  browser will disagree about which surface they are on. */
-  TOOLS_HOST?: string;
+  /** Path-prefix→hostname map for the tools surfaces, as a comma-separated
+   *  `pathPrefix=hostname` list. Set via `wrangler.jsonc#vars.TOOLS_HOSTS`
+   *  (see `api/src/lib/surface-hosts.ts` for the format). Requests whose Host
+   *  header matches any configured hostname get the tools nav + ToolsHome
+   *  instead of the portfolio ones, and each configured prefix is canonical on
+   *  its own host. Must stay identical to `TOOL_HOSTS_BY_PATH` in
+   *  `src/lib/surface.ts`, or the Worker and the browser will disagree about
+   *  which surface they are on. Unset/empty collapses everything onto the
+   *  apex — the pre-split behaviour. */
+  TOOLS_HOSTS?: string;
   /** Secret for signing internal tokens (HMAC-SHA256). When set, replaces the
    *  deterministic fallback. Set via `wrangler secret put INTERNAL_TOKEN_SECRET`. */
   INTERNAL_TOKEN_SECRET?: string;

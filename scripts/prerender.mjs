@@ -446,7 +446,8 @@ async function main() {
   await mkdir(prerenderDir, { recursive: true });
 
   // Tools surface: a second tree under dist/__prerendered-tools/, chosen by
-  // the Worker when the request Host is TOOLS_HOST. Only routes whose HTML
+  // the Worker when the request Host matches a hostname in TOOLS_HOSTS
+  // (crucible./panopticon./scout.…). Only routes whose HTML
   // actually differs are rendered — /dfir/*, /threatintel/*, /argus/* and
   // /radar/* render AppShell, which never reads navLinks, so their portfolio
   // HTML is already correct for the tools host. The Worker falls back to the

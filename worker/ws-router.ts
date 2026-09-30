@@ -4,6 +4,7 @@
  */
 
 import apiApp from '../api/src/index';
+import { toolHostList } from '../api/src/lib/surface-hosts';
 import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 import type { Env } from './env';
 
@@ -17,10 +18,10 @@ export function isWsOriginAllowed(request: Request, env: Env): boolean {
   const wsOrigin = request.headers.get('origin') ?? '';
   if (WS_ALLOWED_ORIGINS_STATIC.has(wsOrigin)) return true;
   if (env.SITE_URL && env.SITE_URL.replace(/\/$/, '') === wsOrigin) return true;
-  // Tools surface: the second front door is the same app. Without this every
-  // /api/v1/ws/* connection from tools.pranithjain.qzz.io 403s on origin.
-  const toolsHost = (env.TOOLS_HOST ?? '').trim().toLowerCase();
-  if (toolsHost && wsOrigin === `https://${toolsHost}`) return true;
+  // Tools surfaces: the same app on several front doors. Without this every
+  // /api/v1/ws/* connection from crucible./panopticon./scout.… 403s on origin.
+  const toolsOrigins = toolHostList(env.TOOLS_HOSTS).map((h) => `https://${h}`);
+  if (toolsOrigins.includes(wsOrigin)) return true;
   return false;
 }
 

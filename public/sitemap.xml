@@ -51,7 +51,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/radar</loc>
+    <loc>https://scout.pranithjain.qzz.io/radar</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -64,1636 +64,1636 @@
   </url>
   <!-- Landings (2) -->
   <url>
-    <loc>https://pranithjain.qzz.io/dfir</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <!-- DFIR tools (129) -->
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/catalog</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/catalog</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/threat-graph</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/threat-graph</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/ir-playbooks</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/ir-playbooks</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/stealer-parser</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/stealer-parser</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/whois-history</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/whois-history</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/passive-dns</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/passive-dns</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/open-directory</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/open-directory</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/diamond</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/diamond</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/owasp</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/owasp</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/lolbins</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/lolbins</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/kill-chain</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/kill-chain</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/grc</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/grc</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/data-classification</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/data-classification</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/privacy-hub</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/privacy-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/timestamp</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/timestamp</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/hash-calc</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/hash-calc</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/codec</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/codec</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/punycode</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/punycode</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/brand-impersonation</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/brand-impersonation</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/image-intel</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/image-intel</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/exif</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/exif</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/plist-protobuf</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/plist-protobuf</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/pcap-triage</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/pcap-triage</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/registry-hive</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/registry-hive</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/evtx</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/evtx</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/sqlite</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/sqlite</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/ios-backup</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/ios-backup</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/apk-analyzer</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/apk-analyzer</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/web-log</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/web-log</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/prefetch</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/prefetch</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/procedure-extract</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/procedure-extract</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/powershell-deobf</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/powershell-deobf</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/rule-converter</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/rule-converter</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/prompt-injection</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/prompt-injection</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/pi-taxonomy</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/pi-taxonomy</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/mcp-audit</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/mcp-audit</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/cve-prioritizer</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/cve-prioritizer</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/fusion-exposure</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/fusion-exposure</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/risk-register</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/risk-register</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/attack-path</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/attack-path</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/grc-evidence</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/grc-evidence</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/vulnerability-ops</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/vulnerability-ops</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/ransomware-quant</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/ransomware-quant</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/patch-task-mgr</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/patch-task-mgr</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/soc-automation</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/soc-automation</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/iam-hub</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/iam-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/sg-analyzer</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/sg-analyzer</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/cloudtrail-triage</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/cloudtrail-triage</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/terraform-scan</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/terraform-scan</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/openapi-audit</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/openapi-audit</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/secret-scan</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/secret-scan</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/medusa-scan</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/medusa-scan</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/graphql-audit</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/graphql-audit</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/osv-scan</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/osv-scan</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/nhi</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/nhi</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/jwt</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/jwt</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/zero-trust-ai-agents</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/zero-trust-ai-agents</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/pgp-tool</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/pgp-tool</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/domain-investigator</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/domain-investigator</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/ioc-investigate</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/ioc-investigate</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/username-investigator</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/username-investigator</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/yara-workbench</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/yara-workbench</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/stix-workbench</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/stix-workbench</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/malware-analyzer</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/malware-analyzer</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/attack-navigator</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/attack-navigator</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/vuln-toolkit</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/vuln-toolkit</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/sec-headers-live</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/sec-headers-live</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/osint-mapper</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/osint-mapper</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/notebooks</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/notebooks</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/dnscope</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/dnscope</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/crypto-tracer</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/crypto-tracer</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/tracerules</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/tracerules</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/phone-hub</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/phone-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/infostealer-intel</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/infostealer-intel</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/agent-suite</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/agent-suite</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/phishing</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/phishing</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/exposure</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/exposure</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/exposed-host</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/exposed-host</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/cve</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/cve</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/cert-search</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/cert-search</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/asn</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/asn</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/breach</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/breach</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/traceix</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/traceix</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/nhi-scan</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/nhi-scan</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/whoxy</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/whoxy</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/ai-threats</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/ai-threats</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/oss-feeds</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/oss-feeds</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/winreg</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/winreg</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/sigbase</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/sigbase</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/lots</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/lots</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/malapi</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/malapi</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/car</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/car</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/capec</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/capec</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/hijacklibs</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/hijacklibs</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/veris</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/veris</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/engage</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/engage</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/url-preview</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/url-preview</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/subdomain-takeover</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/subdomain-takeover</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/extract</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/extract</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/google-dorks</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/google-dorks</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/linux-triage</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/linux-triage</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/email-defense</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/email-defense</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/dmarc-analyzer</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/dmarc-analyzer</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/dlp-scan</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/dlp-scan</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/wayback</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/wayback</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/log-parser</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/log-parser</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/socmint</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/socmint</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/eml</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/eml</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/email-rep</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/email-rep</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/email-osnit</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/email-osnit</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/ai-suite</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/ai-suite</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/pivex</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/pivex</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/phishops</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/phishops</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/phishbook</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/phishbook</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/asset-intel</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/asset-intel</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/blocklists</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/blocklists</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/ct-monitor</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/ct-monitor</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/file</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/file</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/host-graph</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/host-graph</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/report-hub</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/report-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/export-hub</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/export-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/copilot</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/copilot</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/orkl</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/orkl</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/wifi-investigation</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/wifi-investigation</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/agent-history</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/agent-history</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/csrf-poc</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/csrf-poc</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/detection-chokepoints</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/detection-chokepoints</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/one-time-secret</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/one-time-secret</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/xss-payloads</loc>
+    <loc>https://crucible.pranithjain.qzz.io/dfir/xss-payloads</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Threat Intel — pages (127) -->
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/actors/hub</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/actors/hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/actors/attribution</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/actors/attribution</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/campaigns/active</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/campaigns/active</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/campaigns/cross</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/campaigns/cross</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/campaigns/reference</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/campaigns/reference</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/campaigns/generator</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/campaigns/generator</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/campaigns/lifecycle</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/campaigns/lifecycle</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cves/advisories</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/cves/advisories</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cves/cves</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/cves/cves</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cves/resources</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/cves/resources</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/bitcoin</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/bitcoin</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/crime</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/crime</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/deepdark</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/deepdark</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/infostealer</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/infostealer</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/leaks</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/leaks</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/markets</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/markets</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/ransomware-hub</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/ransomware-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/recon</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/recon</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/breach-hub</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/breach-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/darkweb/watch</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/darkweb/watch</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/detections/detections</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/detections/detections</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/detections/disarm</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/detections/disarm</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/detections/signal</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/detections/signal</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/detections/yara</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/detections/yara</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/detection-wiki</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/detection-wiki</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/external/awesome</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/external/awesome</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/supply-chain</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/supply-chain</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/external/external</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/external/external</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/entity-graph</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/entity-graph</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/feeds/catalog</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/feeds/catalog</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/feeds/mythreatintel</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/feeds/mythreatintel</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/feeds/quality</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/feeds/quality</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/feeds/scheduler</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/feeds/scheduler</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/feeds/sources</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/feeds/sources</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/feeds/threatfeeds</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/feeds/threatfeeds</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/infra/cloud</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/infra/cloud</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/infra/domain</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/infra/domain</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/infra/infra</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/infra/infra</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/infra/webamon</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/infra/webamon</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/aggregated</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/aggregated</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/c2</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/c2</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/correlation</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/correlation</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/cross</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/cross</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/enrichment</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/enrichment</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/entity</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/entity</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/feeds</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/feeds</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/live</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/live</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/map</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/map</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/iocs/observable</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/iocs/observable</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/malware/iocs</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/malware/iocs</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/malware/malpedia</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/malware/malpedia</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/malware/maltrail</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/malware/maltrail</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/osint/cli</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/osint/cli</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/osint/framework</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/osint/framework</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/osint/map</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/osint/map</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/osint/secops</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/osint/secops</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/osint/directory</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/osint/directory</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cti-bookmarks</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/cti-bookmarks</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/osint/certs</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/osint/certs</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/osint/toolbox</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/osint/toolbox</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/phishing/phish</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/phishing/phish</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/phishing/scam</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/phishing/scam</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/phishing/urls</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/phishing/urls</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/analyze</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/analyze</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/assessments</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/assessments</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/certstream</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/certstream</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/dashboard</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/dashboard</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/global-pulse</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/global-pulse</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/metrics</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/metrics</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/observe</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/observe</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/pir</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/pir</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/predictions</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/predictions</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/predictive</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/predictive</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predictive/threat-pulse</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predictive/threat-pulse</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/flowviz</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/flowviz</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/social/crypto-scam</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/social/crypto-scam</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/social/firehose</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/social/firehose</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/social/news</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/social/news</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/social/x-hub</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/social/x-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/copilot</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/copilot</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/investigation-suite</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/investigation-suite</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/mcp</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/mcp</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/misp</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/misp</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/directory</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/directory</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/darknet-intel</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/darknet-intel</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/settings</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/settings</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/stix-hub</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/stix-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/stix-bundles</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/stix-bundles</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/actionable-iocs</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/actionable-iocs</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/unified-search</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/unified-search</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/tg-intel-search</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/tg-intel-search</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/socradar-tools</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/tools/socradar-tools</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/vera</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/vera</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/f3ead</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/f3ead</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/f2t2ea</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/f2t2ea</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/ooda</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/ooda</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/kill-chain-v2</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/kill-chain-v2</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/unified-kill-chain</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/unified-kill-chain</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/insider</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/insider</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/llm</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/llm</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/mitre</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/mitre</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/owasp</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/owasp</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/wiki/wiki</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/wiki/wiki</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/external/cerast</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/external/cerast</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/external/threatmon</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/external/threatmon</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/most-wanted</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/most-wanted</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/apt-tracker</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/apt-tracker</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/extremists</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/extremists</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/predators</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/predators</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/about</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/about</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/mcp-search</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/mcp-search</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/live-center</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/live-center</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/telegram</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/telegram</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/source-health</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/source-health</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/soc-dashboard</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/soc-dashboard</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/cyberpulse</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/cyberpulse</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/ransomware-live</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/ransomware-live</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/onion-watch</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/onion-watch</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/dashboard-hub</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/dashboard-hub</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/detection-wiki</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/detection-wiki</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/threat-actor-monitor</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/threat-actor-monitor</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/alerts</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/alerts</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/apt-actors</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/apt-actors</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/aptmap</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/aptmap</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/estate</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/estate</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/infra/ai-honeypot</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/infra/ai-honeypot</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Threat Intel — research (14) -->
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/ach</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/ach</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/library</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/library</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/ai</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/ai</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/agentic</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/agentic</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/attack-flow</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/attack-flow</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/knowledge</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/knowledge</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/post</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/post</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/redhunt</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/redhunt</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/redhunt-labs</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/redhunt-labs</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/reports</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/reports</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/research</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/research</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/signal</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/signal</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/volexity</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/volexity</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research-hub/writeups</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research-hub/writeups</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1737,37 +1737,37 @@
   </url>
   <!-- Research articles (6) -->
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research/nova-lockbit5-qilin-may-2026</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research/nova-lockbit5-qilin-may-2026</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research/ioc-consensus-noise-floor-may-2026</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research/ioc-consensus-noise-floor-may-2026</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research/cobalt-strike-c2-dominance-may-2026</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research/cobalt-strike-c2-dominance-may-2026</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research/kev-vendor-concentration-may-2026</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research/kev-vendor-concentration-may-2026</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research/leak-listings-vs-hibp-may-2026</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research/leak-listings-vs-hibp-may-2026</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/threatintel/research/building-this-platform-may-2026</loc>
+    <loc>https://panopticon.pranithjain.qzz.io/threatintel/research/building-this-platform-may-2026</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
