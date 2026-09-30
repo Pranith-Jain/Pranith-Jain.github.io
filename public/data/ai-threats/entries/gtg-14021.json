@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-14021",
+  "name": "GTG-14021",
+  "akas": "PRC-aligned public security and state security organs",
+  "brief": "A China-based public-and-state-security \"stability maintenance\" and transnational-repression operation, run from inside the PRC via VPN/v2ray access (device timezone consistently UTC+8 regardless of exit node), targeting Hong Kong pro-democracy figures, Tiananmen-commemoration organizers, Uyghur advocacy groups, and overseas dissidents — in one case producing \"pre-operational venue intelligence\" on planned overseas protests (a Vancouver march route, Uyghur events in Turkey, the Oslo Freedom Forum). Anthropic",
+  "ttps": ["T1119", "T1591"],
+  "categories": ["LLM-directed Automated Collection", "LLM-informed reconnaissance"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 513,
+  "ttpMd": "**LLM-directed Automated Collection** T1119 - Automated Collection<br><br>**LLM-informed reconnaissance** T1591 - Gather Victim Org Information (protest/event pre-operational intelligence)"
+}

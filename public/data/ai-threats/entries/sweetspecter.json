@@ -1,0 +1,17 @@
+{
+  "slug": "sweetspecter",
+  "name": "SweetSpecter",
+  "akas": "Suspected China-based actor",
+  "brief": "OpenAI disrupted a cluster of accounts attributed to SweetSpecter, a suspected China-based actor. The group conducted unsuccessful spear-phishing against OpenAI's own employees (a malicious \"some problems.zip\" attachment delivering the SugarGh0st RAT, identified in collaboration with Proofpoint), and separately used ChatGPT for reconnaissance and vulnerability research — checking Log4Shell-vulnerable versions, seeking sqlmap web-shell-upload guidance, looking up CVEs, asking about building internet-wide scanners, debugging an SMS-spam framework, and requesting phishing-lure \"theme\" and attachment-naming suggestions. *Backfill note: see CyberAv3ngers row above — same October 2024 report, misdated by a secondary source as \"September 2026.\"* OpenAI",
+  "ttps": ["T1566.001", "T1588.006", "T1595"],
+  "categories": [
+    "LLM-supported social engineering",
+    "LLM-informed reconnaissance",
+    "LLM-assisted vulnerability research"
+  ],
+  "reported": "Oct 2024",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 755,
+  "ttpMd": "**LLM-supported social engineering** T1566.001 - Spearphishing Attachment<br><br>**LLM-informed reconnaissance** T1595 - Active Scanning<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities"
+}

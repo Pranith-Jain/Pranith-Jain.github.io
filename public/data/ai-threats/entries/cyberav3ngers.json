@@ -1,0 +1,17 @@
+{
+  "slug": "cyberav3ngers",
+  "name": "CyberAv3ngers",
+  "akas": "IRGC-affiliated per public reporting cited by OpenAI; publicly linked to PLC compromise at the Municipal Water Authority of Aliquippa, PA (Nov 2023) and a water-service disruption in County Mayo, Ireland (Dec 2023)",
+  "brief": "OpenAI banned ChatGPT accounts assessed, per a credible-source tip, to belong to CyberAv3ngers. Interactions included listing commonly used industrial routers in Jordan; requesting default credentials for a Tridium Niagara device and a Hirschmann RS-Series industrial router; researching recently disclosed CrushFTP and Cisco Integrated Management Controller vulnerabilities plus older Asterisk VoIP flaws; and asking how to obfuscate VBA/Excel macro code (supplying code for the model to obfuscate). Request details suggested interest in/targeting of Jordan and Central Europe. OpenAI: \"we believe that these interactions did not provide CyberAv3ngers with any novel capability, resource, or information, and only offered limited, incremental capabilities that are already achievable with publicly available, non-AI powered tools.\" *Backfill note: discovered this cycle via a secondary source that misdated this report as \"September 2026\"; it is actually OpenAI's October 2024 \"Influence and cyber operations: an update\" report, a genuine pre-existing gap in the tracker, not new October 2026 reporting.* OpenAI",
+  "ttps": ["T1027", "T1588.006", "T1592"],
+  "categories": [
+    "LLM-informed reconnaissance",
+    "LLM-assisted vulnerability research",
+    "LLM-optimized payload crafting"
+  ],
+  "reported": "Oct 2024",
+  "activity": "Unknown (ChatGPT interactions undated in the report; the group's own prior physical intrusions were Nov–Dec 2023, a distinct window from the ChatGPT-use activity)",
+  "table": "main",
+  "sizeBytes": 1112,
+  "ttpMd": "**LLM-informed reconnaissance** T1592 - Gather Victim Host Information (industrial routers/PLC credentials)<br><br>**LLM-assisted vulnerability research** T1588.006 - Obtain Capabilities: Vulnerabilities<br><br>**LLM-optimized payload crafting** T1027 - Obfuscated Files/Information (VBA obfuscation)"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "gtg-34007",
+  "name": "GTG-34007",
+  "akas": "Two linked Iranian paramilitary/domestic-security units",
+  "brief": "Anthropic banned 16 Claude accounts tied to two linked Iranian paramilitary/domestic-security units running surveillance systems and a malicious Firefox browser extension (\"al-Najm al-thāqib\") used to mass-harvest identities from social networks. One unit claimed to have surveilled/profiled 6,388 Iranians in a single year via a social-network-analysis pipeline over 155,216 tweets that named 39 Iranian opposition and diaspora accounts; both units fed a shared case-management system (\"Arman\"). Banned for Usage Policy and Supported-Regions-Policy violations, implying access-control circumvention. Anthropic",
+  "ttps": ["T1119", "T1195.001", "T1589"],
+  "categories": [
+    "LL Models used for backdoor deployment",
+    "LLM-directed Automated Collection",
+    "LLM-informed reconnaissance"
+  ],
+  "reported": "Sep 2026",
+  "activity": "Unknown (falls within the report's general \"Jan–Jul 2026\" surveillance-section framing, not case-specific)",
+  "table": "main",
+  "sizeBytes": 610,
+  "ttpMd": "**LL Models used for backdoor deployment** T1195.001 - Supply Chain Compromise (malicious browser extension)<br><br>**LLM-directed Automated Collection** T1119 - Automated Collection<br><br>**LLM-informed reconnaissance** T1589 - Gather Victim Identity Information"
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "unnamed-greek-organized-crime-ring-6-suspects-in-case-file-2-named-arrests",
+  "name": "Unnamed Greek organized-crime ring (6 suspects in case file; 2 named arrests)",
+  "akas": "",
+  "brief": "Greece's Financial Crime Squad broke up an organized-crime ring that used AI voice-cloning to impersonate victims' relatives in high-value phone fraud. \"Callers\" posed as staff of the national electricity distributor (HEDNO) or telecom/fiber providers to obtain a short voice sample of a victim's relative under pretext, then AI-cloned that voice to call the original victim back impersonating the trusted relative to validate fraudulent instructions; \"collectors\" then physically retrieved cash/valuables. Two suspects (aged 23 and 25) were arrested in Nea Ionia, Attica, caught leaving a victim's home with ~€30,000 in valuables; police estimate total illegal proceeds exceed €1 million across at least 5 documented cases since early July 2026. Euronews",
+  "ttps": [],
+  "categories": ["DeepFake for Impersonation"],
+  "reported": "Sep 2026",
+  "activity": "Jul 2026 – Sep 2026",
+  "table": "deepfake",
+  "sizeBytes": 755,
+  "ttpMd": "**DeepFake for Impersonation**<br><br>Financial fraud (voice-cloned relative-impersonation scam)"
+}

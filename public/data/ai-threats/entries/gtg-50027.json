@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-50027",
+  "name": "GTG-50027",
+  "akas": "Likely a Bamako-based independent consultant contracted to Mali's state intelligence service (Agence Nationale de la Sécurité d'État, ANSE)",
+  "brief": "A single Claude subscriber — likely a Bamako-based independent consultant working for Mali's state intelligence service (ANSE) — used Claude to build \"Lakana 360,\" a population-scale domestic-surveillance platform monitoring roughly 25 million SIM cards across all three of Mali's national mobile operators (call records, text messages, and voice-call capture). The actor directed Claude to design the system so its LLM-generated intelligence-dossier component bypassed Mali's own legal requirement for a court order before disclosing surveillance records — \"the warrant requirement was removed, at the operator's request, from the component that writes an LLM-generated intelligence dossier.\" Anthropic cites US State Department/Human Rights Watch documentation of Malian security-service detention of opposition figures as context. Anthropic",
+  "ttps": ["T1114", "T1119", "T1587"],
+  "categories": ["LLM-aided development", "LLM-directed Automated Collection"],
+  "reported": "Sep 2026",
+  "activity": "Unknown",
+  "table": "main",
+  "sizeBytes": 843,
+  "ttpMd": "**LLM-aided development** T1587 - Develop Capabilities (surveillance platform)<br><br>**LLM-directed Automated Collection** T1119 - Automated Collection / T1114 - Email Collection (bulk call/text/voice capture analog)"
+}

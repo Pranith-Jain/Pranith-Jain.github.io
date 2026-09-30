@@ -2,12 +2,12 @@
   "slug": "dprk-it-worker-operation",
   "name": "DPRK IT-worker operation",
   "akas": "",
-  "brief": "DPRK operatives use AI-generated résumés/personas, AI profile photos, and real-time deepfake video to pass job interviews, and Claude to pass coding assessments and perform the work while fraudulently employed, funneling wages to the regime. CrowdStrike (FAMOUS CHOLLIMA) tracked 320+ infiltrated firms (+220% YoY); Microsoft names Jasper Sleet using the Faceswap app to insert workers' faces into stolen IDs; Anthropic confirmed Claude-enabled employment fraud; Amazon reported blocking 1,800+ suspected operatives in 2025.",
+  "brief": "DPRK operatives use AI-generated résumés/personas, AI profile photos, and real-time deepfake video to pass job interviews, and Claude to pass coding assessments and perform the work while fraudulently employed, funneling wages to the regime. CrowdStrike (FAMOUS CHOLLIMA) tracked 320+ infiltrated firms (+220% YoY); Microsoft names Jasper Sleet using the Faceswap app to insert workers' faces into stolen IDs; Anthropic confirmed Claude-enabled employment fraud; Amazon reported blocking 1,800+ suspected operatives in 2025. [Update 2026-09] A joint advisory from Japan (National Police Agency/National Cybersecurity Office), the US (FBI/DoD Cyber Crime Center), Australia (Signals Directorate), and Germany (BfV/BND) attributed a DPRK IT-worker/hiring-fraud campaign to a group dubbed WaterPlum (aka Contagious Interview), assessed to operate under the Workers' Party of Korea's 313 General Bureau of the Munitions Industry Department. WaterPlum poses as legitimate employers — often impersonating real AI, crypto, or NFT companies — to reach developers/IT professionals; per multiple outlets' reporting on the advisory, operators used AI face-swapping during video interviews, cutting their video feed minutes in under the guise of technical difficulties to evade detection. Between Dec 2025 and Jul 2026 the campaign is assessed to have infected 30,000+ devices across 100+ countries and exfiltrated ~$10.71M (¥1.7B) via 7,000+ cryptocurrency wallets; Japan conducted its first-ever dismantling of a North Korean \"laptop farm.\" *Analyst note: the primary joint advisory (hosted at cyber.gov.au) could not be directly fetched this cycle (503/timeout); the AI-face-swap detail is corroborated by three independent outlets (SecurityWeek, BleepingComputer, IBTimes UK) with consistent, non-copy-pasted phrasing, but has not been directly verified against the primary advisory text — flagging for maintainer confirmation.*",
   "ttps": [],
   "categories": ["DeepFake for Impersonation", "DeepFake for Synthetic Identity"],
-  "reported": "Aug 2025 – Mar 2026",
-  "activity": "Aug 2025 – 2026",
+  "reported": "Aug 2025 – Mar 2026; Sep 2026 (WaterPlum joint advisory)",
+  "activity": "Aug 2025 – Jul 2026",
   "table": "deepfake",
-  "sizeBytes": 524,
+  "sizeBytes": 1920,
   "ttpMd": "**DeepFake for Impersonation**<br><br>Employment/Hiring fraud<br><br>**DeepFake for Synthetic Identity**"
 }

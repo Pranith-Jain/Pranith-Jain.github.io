@@ -1,0 +1,13 @@
+{
+  "slug": "gtg-87001",
+  "name": "GTG-87001",
+  "akas": "UnSub (Anthropic designation); northern-Yemen-based weapons engineering cell — *analyst note: secondary press (The Register, Politico) labeled this \"Houthi\"; Anthropic's own report never uses that word — the Houthi attribution is unconfirmed by the primary source and not repeated as fact here.*",
+  "brief": "Anthropic disrupted a northern-Yemen-based cell running three parallel AI-assisted weapons-development programs: a guided rocket using a commodity phone-class flight computer with terminal-phase homing guidance; a multi-stage ballistic missile with a stated range goal above 2,000 km; and a multi-variant missile family (\"R2000\") including a hypersonic glide-vehicle variant. The actors ran Claude Code \"in place of human software engineers\" for guidance/navigation/control (GNC) software, delegating coder/researcher/reviewer roles across multiple Claude instances and splitting work across sessions to evade safeguards. Anthropic found no evidence of a fielded operational device, but the actors test-fired a guided rocket; the field test appears to have failed, and the actors returned to Claude within hours to diagnose the failure. Anthropic",
+  "ttps": ["T1587"],
+  "categories": ["LLM-assisted weapons/munitions engineering", "LLM-aided development"],
+  "reported": "Sep 2026",
+  "activity": "Unknown (report gives no calendar window for this cell; describes one undated live field test)",
+  "table": "main",
+  "sizeBytes": 846,
+  "ttpMd": "**LLM-assisted weapons/munitions engineering** (no clean ATT&CK ID — physical weapons R&D, not a cyber intrusion technique; CREDIT: Rachel James based on Anthropic Sept 2026 report)<br><br>**LLM-aided development** T1587 - Develop Capabilities"
+}
