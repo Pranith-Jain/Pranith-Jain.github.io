@@ -5,6 +5,7 @@ import { TopBar } from './TopBar';
 import { MobileSidebarDrawer } from './MobileSidebarDrawer';
 import { BottomNav } from './BottomNav';
 import { getSidebarForSection } from '../data/sidebar-nav';
+import { PLATFORM_REPO_URL } from '../data/content';
 import { SectionErrorBoundary } from './ErrorBoundary';
 import { PjMark } from './PjMark';
 import { useDataFetch } from '../hooks/useDataFetch';
@@ -197,11 +198,17 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
             focus stays in the header, breaking it across the whole TI/DFIR app. */}
         <main
           id="main-content"
-          key={pageKey}
           tabIndex={-1}
           className="flex-1 min-w-0 outline-none pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0"
         >
-          <div className="animate-fade-in-up">
+          {/* The `key` lives here, on the animated wrapper, NOT on <main>.
+              Putting it on <main> forced a full unmount/remount of the routed
+              page on every client-side navigation purely to replay the fade —
+              discarding in-page state and re-running every mount effect /
+              re-subscribe on the highest-traffic surfaces (/dfir, /threatintel).
+              Keying the animated div replays the animation without remounting
+              the page subtree. */}
+          <div key={pageKey} className="animate-fade-in-up">
             <SectionErrorBoundary sectionName={section.label}>{children}</SectionErrorBoundary>
           </div>
         </main>
@@ -305,7 +312,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
           )}
           <span className="hidden md:inline text-muted tabular-nums">build {__BUILD_DATE__}</span>
           <a
-            href="https://github.com/Pranith-Jain/Pranith-Jain.github.io"
+            href={PLATFORM_REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="github (opens in new tab)"

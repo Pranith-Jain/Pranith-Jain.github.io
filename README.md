@@ -1,8 +1,26 @@
-# pranithjain.qzz.io
+# dfir-threat-intel-platform
 
-Portfolio of **Pranith Jain** — Security Analyst (Threat Intel · Email Defense · Security Automation) — bundled with a 135+ tool DFIR toolkit, a live self-updating threat-intel platform, and a 332-tool MCP server. One Cloudflare Workers deploy, edge-cached, free at the edge, no signup required.
+**A 135+ tool DFIR toolkit, a live self-updating threat-intel platform, and a 332-tool MCP server — on one Cloudflare Workers deploy.** Edge-cached, free at the edge, no signup required.
 
-**Live:** [pranithjain.qzz.io](https://pranithjain.qzz.io) · [/dfir](https://pranithjain.qzz.io/dfir) · [/threatintel](https://pranithjain.qzz.io/threatintel) · [/blog](https://pranithjain.qzz.io/blog)
+**[Live platform →](https://pranithjain.qzz.io/dfir)** · [Threat Intel →](https://pranithjain.qzz.io/threatintel) · [MCP catalog →](https://pranithjain.qzz.io/mcp)
+
+MIT licensed. Built and maintained by [Pranith Jain](https://github.com/Pranith-Jain) — Security Analyst, Threat Intel · Email Defense · Security Automation.
+
+---
+
+## 👋 The person behind it
+
+This repo is the **work**, not the résumé. For the personal portfolio — background, experience, certifications, case studies, and the reasoning behind these projects — go to:
+
+### **[pranithjain.qzz.io](https://pranithjain.qzz.io)**
+
+|               |                                                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Focus**     | Threat intelligence & IOC analysis · detection engineering · email security & BEC · security automation                      |
+| **Currently** | Associate Cyber Security Analyst, CERT Threat & Vulnerability Intelligence Group                                             |
+| **Also**      | [LinkedIn](https://www.linkedin.com/in/pranithjain) · [GitHub](https://github.com/Pranith-Jain) · `hello@pranithjain.qzz.io` |
+
+The portfolio is the _first surface_ of the same deploy (`/`, `/about`, `/skills`, `/experience`, `/projects`) — it is simply not what this repository is about. Everything below is the platform.
 
 ---
 
@@ -12,11 +30,11 @@ Portfolio of **Pranith Jain** — Security Analyst (Threat Intel · Email Defens
 
 React + Vite + TypeScript with SSR prerendering. Hero, skills grid, timeline experience, certifications, featured work, contact CTA. Dark/light, responsive, accessible, fast first paint via prerendered routes.
 
-### 2. DFIR Toolkit (`/dfir/*`)
+### 2. DFIR Toolkit — CRUCIBLE (`/dfir/*`)
 
 135+ interactive analyst tools across 21 categories — triage, OSINT, email security, detection engineering, AI security, data security, crypto tracing, malware analysis, and more. Zero signup, zero keys to start. Includes a **universal rule converter** (Sigma / KQL / SPL / Lucene / EQL / YARA / DLP) and a **purpose-built detection engine**.
 
-### 3. Threat Intel Platform (`/threatintel/*`)
+### 3. Threat Intel Platform — PANOPTICON (`/threatintel/*`)
 
 A live CTI surface that updates itself: ransomware leak-site + negotiation tracking, CVE/KEV feeds, cross-source IOC firehose with consensus scoring, actor timelines, dark-web/forum intelligence, social/Telegram/Reddit firehoses, a 3D Global Pulse threat globe, auto-generated briefings, and a fully autonomous case-study blog (discover → QA → publish) — all hourly-refreshed, all on the free tier.
 
@@ -201,12 +219,26 @@ Engineered for the **Cloudflare Workers free tier**:
 
 ```
 src/                    React app — pages/{dfir,threatintel}, components, lib, data, hooks
+  pages/                Top-level portfolio pages (About, Skills, Experience, Projects, Blog)
+  pages/dfir/           CRUCIBLE tool pages
+  pages/threatintel/    PANOPTICON platform pages
+  data/content.ts       personalInfo + projects (includes PLATFORM_REPO_URL, this repo)
 api/src/                Cloudflare Worker (Hono) — routes/, providers/ (60+ IOC), lib/, case-study/
 worker/                 Worker entry, MCP server (332 tools), Durable Objects, scheduled cron
-public/                 Static assets, data files (SI, threat-intel, winreg)
+public/data/            Generated data manifests (48 verticals) — build output, not hand-edited
 scripts/                Prerender, manifest builders, sync scripts
 docs/                   Design specs, decisions, loop templates
 ```
+
+**Renaming this repo?** The canonical self-reference is `PLATFORM_REPO_URL` in
+`src/data/content.ts`. Two other places must move in lockstep or they break silently:
+
+| Location                                 | Why it matters                                                      |
+| ---------------------------------------- | ------------------------------------------------------------------- |
+| `api/src/routes/reddit-feed.ts`          | `raw.githubusercontent.com` fallback — pairs with `reddit-feed.yml` |
+| `.github/workflows/reddit-feed.yml`      | Pushes the `reddit-feed-data` branch via `${GITHUB_REPOSITORY}`     |
+| `scripts/export-briefings-to-github.mjs` | Generates a README link pointing back at this repo                  |
+| `public/.well-known/security.txt`        | Security-disclosure contact + advisory URLs                         |
 
 ---
 
@@ -215,7 +247,7 @@ docs/                   Design specs, decisions, loop templates
 Built and maintained by **Pranith Jain** — Security Analyst (Threat Intel · Email Defense · Security Automation).
 [pranithjain.qzz.io](https://pranithjain.qzz.io) · [LinkedIn](https://www.linkedin.com/in/pranithjain) · [GitHub](https://github.com/Pranith-Jain)
 
-PRs that add genuinely distinctive sources or improve scoring/detection math are welcome.
+PRs that add genuinely distinctive sources or improve scoring/detection math are welcome. Security reports: see [`.well-known/security.txt`](public/.well-known/security.txt).
 
 ## License
 

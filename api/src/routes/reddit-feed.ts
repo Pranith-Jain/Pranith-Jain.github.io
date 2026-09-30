@@ -49,14 +49,18 @@ function emptyFeed(warning: string): RedditFeedResponse {
 }
 
 /**
- * Pure-data fetcher exposed for snapshot composition. Reads the feed from the
- * ASSETS bundle (public/data/reddit-feed.json, committed by the GitHub Action
- * on every run). Falls back to raw.githubusercontent.com for backward compat
- * with the older orphan-branch publishing approach.
- * Returns an empty feed (with a warning) if every source fails.
+ * Orphan-branch raw fallback for the pure-data fetcher below. Reads the feed
+ * from the ASSETS bundle (public/data/reddit-feed.json, committed by the GitHub
+ * Action on every run); this is the backward-compat path for the older
+ * orphan-branch publishing approach.
+ *
+ * MUST stay in lockstep with the repo name in `.github/workflows/reddit-feed.yml`
+ * (which pushes this branch via `${GITHUB_REPOSITORY}`) — rename one without
+ * the other and the feed 404s *silently*, because the primary ASSETS read fails
+ * open to an empty feed rather than surfacing an error.
  */
 const FEED_RAW_URL =
-  'https://raw.githubusercontent.com/Pranith-Jain/Pranith-Jain.github.io/reddit-feed-data/reddit-feed.json';
+  'https://raw.githubusercontent.com/Pranith-Jain/dfir-threat-intel-platform/reddit-feed-data/reddit-feed.json';
 
 function validFeed(data: unknown): data is RedditFeedResponse {
   const d = data as RedditFeedResponse;
