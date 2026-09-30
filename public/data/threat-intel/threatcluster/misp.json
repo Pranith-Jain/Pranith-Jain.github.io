@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-29T11:31:41.307Z",
-  "eventCount": 9,
+  "syncedAt": "2026-09-30T11:19:56.033Z",
+  "eventCount": 6,
   "events": [
     {
       "uuid": "7ddf6f0d-b311-59e7-a2d1-bd419d9ee628",
@@ -11,16 +11,6 @@
       "analysis": "2",
       "threat_level_id": "1",
       "timestamp": "1790439758",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "3d22ecef-a756-5061-9b21-bb6a21e9173a",
-      "info": "Critical Zero-Day Vulnerability in F5 BIG-IP APM Exploited for Remote Code Execution",
-      "date": "2026-09-22",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1790112347",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
@@ -64,16 +54,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "f86480c2-ed01-5608-9226-6b4e13becc73",
-      "info": "Massive Network of AI Proxy Servers Used for Malicious Activities Uncovered",
-      "date": "2026-09-23",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1790148435",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "1deab8fe-06da-5d1c-a0a5-fcc860f1f402",
       "info": "Critical WordPress Vulnerability CVE-2026-87902 Exploited Within Hours of Disclosure",
       "date": "2026-09-24",
@@ -81,16 +61,6 @@
       "threat_level_id": "1",
       "timestamp": "1790250928",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "289c6ece-0e9a-5216-b9cc-614ff85ef209",
-      "info": "Critical CVE-2026-93952 Vulnerability in VeloCloud Orchestrator Actively Exploited",
-      "date": "2026-09-22",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1790090936",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -112,13 +82,13 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "b8d0805c-f12d-5fd2-ac30-598dad801c9e",
-      "info": "North Korean Hackers Deploy Mac Backdoors via Fake Job Tests Targeting IT Firms",
-      "date": "2026-09-22",
+      "uuid": "5375c7d0-aede-5a54-96e4-729fb51b7924",
+      "info": "Critical LFI Vulnerability in Visual Composer Exposed",
+      "date": "2026-09-27",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1790094546",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
+      "timestamp": "1790502725",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     }
   ]

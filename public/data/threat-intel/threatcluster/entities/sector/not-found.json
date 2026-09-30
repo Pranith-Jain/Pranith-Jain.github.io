@@ -4,81 +4,75 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-09-27T17:03:11.000Z",
-  "lastSeen": "2026-09-28T23:34:34.000Z",
-  "summary": "Sector hit by 6 leak-site victims across 4 ransomware groups and 4 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-29T17:02:08.000Z",
+  "lastSeen": "2026-09-30T07:51:07.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-09-27",
+      "date": "2026-09-29",
       "count": 1
     },
     {
-      "date": "2026-09-28",
-      "count": 5
+      "date": "2026-09-30",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "m-p-m-db2e",
-      "title": "M*** P**** M*** — claimed by netrunner",
-      "pubDate": "2026-09-28T23:34:34.000Z"
+      "slug": "www-newyjh-com-0df6",
+      "title": "www.newyjh.com — claimed by ulose",
+      "pubDate": "2026-09-30T07:51:07.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "arnold-center-62f7",
-      "title": "Arnold Center — claimed by qilin",
-      "pubDate": "2026-09-28T20:01:05.000Z"
+      "slug": "agospap-2a32",
+      "title": "Agospap — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:37:14.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "s-d-a531",
-      "title": "S...d — claimed by silentransomgroup",
-      "pubDate": "2026-09-28T15:52:22.000Z"
+      "slug": "corswarem-group-4e8c",
+      "title": "Corswarem Group — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:34:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "sklg-5fd4",
-      "title": "SKLG — claimed by qilin",
-      "pubDate": "2026-09-28T14:03:31.000Z"
+      "slug": "warning-d2db",
+      "title": "WARNING — claimed by shinyhunters",
+      "pubDate": "2026-09-30T00:02:19.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "ahead-33c7",
-      "title": "AHEAD — claimed by incransom",
-      "pubDate": "2026-09-28T00:35:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "xico-5fd7",
-      "title": "XICO — claimed by qilin",
-      "pubDate": "2026-09-27T17:03:11.000Z"
+      "slug": "tekko-enterprises-inc-e7ef",
+      "title": "Tekko Enterprises, Inc — claimed by interlock",
+      "pubDate": "2026-09-29T17:02:08.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 3
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "netrunner",
-      "name": "netrunner",
+      "slug": "ulose",
+      "name": "ulose",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "silentransomgroup",
-      "name": "silentransomgroup",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
+      "slug": "interlock",
+      "name": "interlock",
       "weight": 1
     }
   ],

@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-28T15:58:06.000Z",
-  "lastSeen": "2026-09-28T15:58:06.000Z",
+  "firstSeen": "2026-09-29T17:02:08.000Z",
+  "lastSeen": "2026-09-29T17:02:08.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-28",
+      "date": "2026-09-29",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "the-center-for-kidney-care-1efb",
-      "title": "The Center for Kidney Care — claimed by interlock",
-      "pubDate": "2026-09-28T15:58:06.000Z"
+      "slug": "tekko-enterprises-inc-e7ef",
+      "title": "Tekko Enterprises, Inc — claimed by interlock",
+      "pubDate": "2026-09-29T17:02:08.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "the-center-for-kidney-care-1efb",
-      "victim": "The Center for Kidney Care — claimed by interlock",
-      "sector": "Healthcare",
+      "id": "tekko-enterprises-inc-e7ef",
+      "victim": "Tekko Enterprises, Inc — claimed by interlock",
+      "sector": "Not Found",
       "country": "US",
-      "pubDate": "2026-09-28T15:58:06.000Z"
+      "pubDate": "2026-09-29T17:02:08.000Z"
     }
   ]
 }

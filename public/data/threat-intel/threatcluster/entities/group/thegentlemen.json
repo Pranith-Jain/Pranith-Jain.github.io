@@ -1,0 +1,331 @@
+{
+  "type": "group",
+  "slug": "thegentlemen",
+  "name": "thegentlemen",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 25,
+  "firstSeen": "2026-09-30T03:34:08.000Z",
+  "lastSeen": "2026-09-30T03:40:46.000Z",
+  "summary": "Ransomware group with 25 leak-site victims across 10 sectors and 18 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-30",
+      "count": 25
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "legalwise-184e",
+      "title": "LegalWise — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:40:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "samwumed-3aec",
+      "title": "Samwumed — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:40:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "edcon-3353",
+      "title": "Edcon — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:40:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "defencebit-4ca2",
+      "title": "Defencebit — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:40:07.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "datacomm-services-1f3a",
+      "title": "Datacomm Services — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:40:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "webb-electric-company-of-florida-1361",
+      "title": "Webb Electric Company of Florida — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:39:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "solaria-a634",
+      "title": "Solaria — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:39:40.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "auren-3314",
+      "title": "Auren — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:39:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "quality-sport-topsport-italia-99e5",
+      "title": "QUALITY SPORT Topsport Italia — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:39:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "europrim-5df5",
+      "title": "Europrim — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:39:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "telrad-networks-ba77",
+      "title": "Telrad Networks — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:38:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "groupe-aprosep-6d24",
+      "title": "Groupe APROSEP — claimed by thegentlemen",
+      "pubDate": "2026-09-30T03:38:39.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 5
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 5
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "legalwise-184e",
+      "victim": "LegalWise — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "ZA",
+      "pubDate": "2026-09-30T03:40:46.000Z"
+    },
+    {
+      "id": "samwumed-3aec",
+      "victim": "Samwumed — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": "KR",
+      "pubDate": "2026-09-30T03:40:29.000Z"
+    },
+    {
+      "id": "edcon-3353",
+      "victim": "Edcon — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "ZA",
+      "pubDate": "2026-09-30T03:40:25.000Z"
+    },
+    {
+      "id": "defencebit-4ca2",
+      "victim": "Defencebit — claimed by thegentlemen",
+      "sector": "Government & Defense",
+      "country": "GB",
+      "pubDate": "2026-09-30T03:40:07.000Z"
+    },
+    {
+      "id": "datacomm-services-1f3a",
+      "victim": "Datacomm Services — claimed by thegentlemen",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-30T03:40:01.000Z"
+    },
+    {
+      "id": "webb-electric-company-of-florida-1361",
+      "victim": "Webb Electric Company of Florida — claimed by thegentlemen",
+      "sector": "Energy & Utilities",
+      "country": "US",
+      "pubDate": "2026-09-30T03:39:46.000Z"
+    },
+    {
+      "id": "solaria-a634",
+      "victim": "Solaria — claimed by thegentlemen",
+      "sector": "Energy & Utilities",
+      "country": "ID",
+      "pubDate": "2026-09-30T03:39:40.000Z"
+    },
+    {
+      "id": "auren-3314",
+      "victim": "Auren — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "ES",
+      "pubDate": "2026-09-30T03:39:25.000Z"
+    },
+    {
+      "id": "quality-sport-topsport-italia-99e5",
+      "victim": "QUALITY SPORT Topsport Italia — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "IT",
+      "pubDate": "2026-09-30T03:39:19.000Z"
+    },
+    {
+      "id": "europrim-5df5",
+      "victim": "Europrim — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": "FR",
+      "pubDate": "2026-09-30T03:39:04.000Z"
+    },
+    {
+      "id": "telrad-networks-ba77",
+      "victim": "Telrad Networks — claimed by thegentlemen",
+      "sector": "Technology",
+      "country": "IL",
+      "pubDate": "2026-09-30T03:38:58.000Z"
+    },
+    {
+      "id": "groupe-aprosep-6d24",
+      "victim": "Groupe APROSEP — claimed by thegentlemen",
+      "sector": "Other",
+      "country": "SN",
+      "pubDate": "2026-09-30T03:38:39.000Z"
+    },
+    {
+      "id": "drinks-wines-spirits-715c",
+      "victim": "Drinks Wines Spirits — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "TW",
+      "pubDate": "2026-09-30T03:38:18.000Z"
+    },
+    {
+      "id": "custom-rx-shoppe-183f",
+      "victim": "Custom Rx Shoppe — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-30T03:37:57.000Z"
+    },
+    {
+      "id": "williamson-dacar-associates-e1c4",
+      "victim": "Williamson Dacar Associates — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "GB",
+      "pubDate": "2026-09-30T03:37:36.000Z"
+    },
+    {
+      "id": "agospap-2a32",
+      "victim": "Agospap — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "GR",
+      "pubDate": "2026-09-30T03:37:14.000Z"
+    },
+    {
+      "id": "dbu-construction-dbf1",
+      "victim": "DBU Construction — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-09-30T03:36:53.000Z"
+    },
+    {
+      "id": "northern-nj-eye-institute-decb",
+      "victim": "Northern NJ Eye Institute — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-30T03:36:33.000Z"
+    },
+    {
+      "id": "tommy-garner-air-conditioning-heating-111c",
+      "victim": "Tommy Garner Air Conditioning Heating — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-09-30T03:36:12.000Z"
+    },
+    {
+      "id": "auto-holler-c302",
+      "victim": "Auto Holler — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "AT",
+      "pubDate": "2026-09-30T03:35:51.000Z"
+    },
+    {
+      "id": "vus-the-english-center-20b6",
+      "victim": "VUS - The English Center — claimed by thegentlemen",
+      "sector": "Education",
+      "country": "VN",
+      "pubDate": "2026-09-30T03:35:31.000Z"
+    },
+    {
+      "id": "josee-bendaaa-guerrero-asociados-14a9",
+      "victim": "Josee Bendaaa-Guerrero Asociados — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "BZ",
+      "pubDate": "2026-09-30T03:35:10.000Z"
+    },
+    {
+      "id": "don-hierro-6e88",
+      "victim": "Don Hierro — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "MX",
+      "pubDate": "2026-09-30T03:34:49.000Z"
+    },
+    {
+      "id": "corswarem-group-4e8c",
+      "victim": "Corswarem Group — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "BE",
+      "pubDate": "2026-09-30T03:34:28.000Z"
+    },
+    {
+      "id": "pulmonary-services-group-1eca",
+      "victim": "Pulmonary Services Group — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": "PR",
+      "pubDate": "2026-09-30T03:34:08.000Z"
+    }
+  ]
+}

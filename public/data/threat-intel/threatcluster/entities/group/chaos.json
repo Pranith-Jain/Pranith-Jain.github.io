@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "chaos",
+  "name": "chaos",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-29T17:55:38.000Z",
+  "lastSeen": "2026-09-29T17:55:38.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-29",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "advantech-com-a4d5",
+      "title": "advantech.com — claimed by chaos",
+      "pubDate": "2026-09-29T17:55:38.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "advantech-com-a4d5",
+      "victim": "advantech.com — claimed by chaos",
+      "sector": "Manufacturing",
+      "country": "TW",
+      "pubDate": "2026-09-29T17:55:38.000Z"
+    }
+  ]
+}
