@@ -163,44 +163,6 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
   });
 });
 
-// The site runs on two hosts that both serve every path. If each copy
-// self-declared canonical, search engines would see the whole site twice —
-// so exactly one origin owns each path: the tools host owns the platform
-// routes, the apex owns everything else. Pin that, and the fail-safe.
-describe('canonical ownership across the two surfaces', () => {
-  const TOOLS = 'tools.pranithjain.qzz.io';
-  const toolsEnv = { TOOLS_HOST: TOOLS };
-
-  const canonicalOf = (html: string): string | null => {
-    const match = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"/i);
-    return match ? match[1] : null;
-  };
-
-  it('gives platform routes the tools host as canonical + og:url', async () => {
-    for (const path of ['/dfir', '/threatintel']) {
-      expect(canonicalOf(await serve(path, toolsEnv)), `${path} canonical`).toBe(`https://${TOOLS}${path}`);
-      expect(metaByProperty(await serve(path, toolsEnv), 'og:url'), `${path} og:url`).toBe(`https://${TOOLS}${path}`);
-    }
-  });
-
-  it('keeps portfolio routes on the apex canonical', async () => {
-    for (const path of ['/projects', '/about', '/blog']) {
-      expect(canonicalOf(await serve(path, toolsEnv)), `${path} canonical`).toBe(`https://pranithjain.qzz.io${path}`);
-    }
-  });
-
-  it('canonicals a redirect route to its TARGET owner, not the source', async () => {
-    // /copilot is a thin route whose target lives under /threatintel, so the
-    // tools host owns the canonical.
-    expect(canonicalOf(await serve('/copilot', toolsEnv))).toBe(`https://${TOOLS}/threatintel/tools/copilot`);
-  });
-
-  it('fails safe to the apex everywhere when TOOLS_HOST is unset', async () => {
-    expect(canonicalOf(await serve('/dfir', {}))).toBe('https://pranithjain.qzz.io/dfir');
-    expect(canonicalOf(await serve('/projects', {}))).toBe('https://pranithjain.qzz.io/projects');
-  });
-});
-
 describe('blog structured data (worker-injected JSON-LD)', () => {
   it('injects BlogPosting JSON-LD into /blog/<slug> from KV', async () => {
     const html = await serve('/blog/unit-post', blogEnv({ 'posts:unit-post': POST }));

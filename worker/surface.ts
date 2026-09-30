@@ -14,22 +14,6 @@ import type { Env } from './env';
 export type Surface = 'portfolio' | 'tools';
 
 /**
- * Route prefixes that render the AppShell chrome — the platform itself, which
- * the tools surface owns. Mirrors the four `location.pathname.startsWith(...)`
- * checks in `src/App.tsx`'s `appMode`, and the copy of this list at the top of
- * `scripts/prerender.mjs` (a .mjs script can't import this .ts module).
- *
- * Used for two decisions: which routes need their own prerendered tree, and
- * which origin owns a path for canonical/og:url purposes.
- */
-export const APP_ROUTE_PREFIXES = ['/dfir', '/argus', '/threatintel', '/radar'];
-
-/** True when a path is rendered by AppShell rather than the portfolio shell. */
-export function isAppRoute(pathname: string): boolean {
-  return APP_ROUTE_PREFIXES.some((prefix) => (pathname || '/').startsWith(prefix));
-}
-
-/**
  * Resolve the surface for a request hostname against `env.TOOLS_HOST`.
  *
  * Fails safe: an unset, empty, or whitespace-only `TOOLS_HOST` collapses
