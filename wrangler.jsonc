@@ -97,7 +97,7 @@
 		// split and serves the portfolio surface + apex canonical everywhere.
 		// Only add a prefix once that hostname resolves: a canonical pointing
 		// at a host with no DNS record is worse than the duplicate it fixes.
-		"TOOLS_HOSTS": "/dfir=crucible.pranithjain.qzz.io,/threatintel=panopticon.pranithjain.qzz.io,/radar=scout.pranithjain.qzz.io"
+		"TOOLS_HOSTS": ""
 	},
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }

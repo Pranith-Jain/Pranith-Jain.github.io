@@ -33,11 +33,7 @@ const BASE_URL = 'https://pranithjain.qzz.io';
 // Worker serves for that same path — Google treats that mismatch as a signal
 // to ignore one of the two. Only prefixes whose hostname actually resolves may
 // appear here: a sitemap URL on a host with no DNS record is wasted crawl.
-const TOOL_HOSTS = {
-  '/dfir': 'crucible.pranithjain.qzz.io',
-  '/threatintel': 'panopticon.pranithjain.qzz.io',
-  '/radar': 'scout.pranithjain.qzz.io',
-};
+const TOOL_HOSTS = {};
 
 /** Origin that owns `path` — longest segment-aware prefix match, else apex.
  *  Same rule as `toolHostForPath` in api/src/lib/surface-hosts.ts. */
