@@ -29,7 +29,7 @@ inherits this repo's footguns. See [`loops/README.md`](loops/README.md). Current
 - **Deploy From Root** — dual-worker deploy from the repo root + smoke.
 - **Provider Verify Live** — catch silent provider rot against live upstream.
 - **Build Until Green** — build + budgets + both typecheck passes.
-- **API Tests Unsandboxed** — run `test/routes/` locally (CI skips them).
+- **API Tests Unsandboxed** — `test/routes/` runs in CI too (own step); local: `cd api && npx vitest run test/routes`.
 - **Briefing Cron Safety** — ≤1 build/invocation, <50 subrequests.
 - **MCP Mirror** — mirror `/api/mcp` changes to the standalone repo via PR.
 - **Typecheck Until Clean** — flush latent `tsc` debt that esbuild deploys past.

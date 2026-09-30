@@ -122,7 +122,7 @@ jobs:
           if-no-files-found: warn
 
   test-api:
-    name: Vitest (api lib + case-study)
+    name: Vitest (api: lib + case-study + routes)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -139,15 +139,18 @@ jobs:
         working-directory: api
         run: npm ci --legacy-peer-deps
       # The api suite runs under @cloudflare/vitest-pool-workers (miniflare).
-      # Route tests that need outbound DNS/TCP can flake under the pool's
-      # concurrency model (EADDRNOTAVAIL when many tests connect at once);
-      # we run the deterministic lib + case-study subset here. Route tests
-      # remain runnable locally via `cd api && npx vitest run test/routes`.
+      # Route tests run here too (they were long skipped; external /api/v1/*
+      # reads are key-gated and every source helper degrades to empty). If
+      # EADDRNOTAVAIL recurs under concurrency, set `fileParallelism: false`
+      # in api/vitest.config.ts rather than skipping routes again.
       - name: build assets for ASSETS binding
         run: npm run build:client
       - name: api vitest (lib + case-study + health)
         working-directory: api
         run: npx vitest run test/lib test/case-study test/health.test.ts
+      - name: api vitest (routes)
+        working-directory: api
+        run: npx vitest run test/routes
 
   # Secret scan — catches API keys / tokens committed to source or history.
   # Allowlisted files (.env.example, docs, upstream data) are in .gitleaks.toml.

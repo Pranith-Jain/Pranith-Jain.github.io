@@ -2,12 +2,31 @@ interface CacheEntry {
   data: unknown;
   fetchedAt: number;
   ttl: number;
+  /**
+   * JSON.stringify(data).length, computed once when the entry is set (or
+   * hydrated from an older snapshot that predates the field) and memoized.
+   * Without it every persist pass re-serialized every payload just to
+   * measure it, then serialized them all again as part of the snapshot.
+   * -1 marks a non-serializable payload (circular etc.) — those are
+   * excluded from the snapshot instead of poisoning the whole write.
+   */
+  jsonBytes?: number;
 }
 
 const store = new Map<string, CacheEntry>();
 const CACHE_MAX = 200;
 const inFlight = new Map<string, Promise<unknown>>();
 let evictTimer: ReturnType<typeof setInterval> | null = null;
+
+/** Byte length of `data` as JSON, or -1 when it cannot be serialized. */
+function jsonBytesOf(data: unknown): number {
+  try {
+    const s = JSON.stringify(data);
+    return s === undefined ? 0 : s.length;
+  } catch {
+    return -1;
+  }
+}
 
 // ── SessionStorage persistence ─────────────────────────────────────────────
 // The Map alone is wiped by a hard reload, so every page re-fetches all of
@@ -25,13 +44,9 @@ const PERSIST_MAX_ENTRY_BYTES = 200_000;
 let persistTimer: ReturnType<typeof setTimeout> | null = null;
 
 function approxSize(key: string, entry: CacheEntry): number {
-  let n = 0;
-  try {
-    n = JSON.stringify(entry.data).length;
-  } catch {
-    /* non-serializable payload - skip via the cap below */
-  }
-  return key.length + n + 96;
+  if (entry.jsonBytes === undefined) entry.jsonBytes = jsonBytesOf(entry.data);
+  if (entry.jsonBytes < 0) return Number.POSITIVE_INFINITY; // non-serializable — exclude
+  return key.length + entry.jsonBytes + 96;
 }
 
 function persistNow(): void {
@@ -81,6 +96,10 @@ function hydrate(): void {
     const now = Date.now();
     for (const [k, v] of entries) {
       if (now - v.fetchedAt >= v.ttl) continue; // never hydrate stale data
+      if (typeof v !== 'object' || v === null) continue;
+      // Older snapshots predate the memoized size field — compute once here
+      // rather than on every later persist pass.
+      if (typeof v.jsonBytes !== 'number') v.jsonBytes = jsonBytesOf(v.data);
       if (!store.has(k)) store.set(k, v);
     }
     if (store.size > 0) startEvictTimer();
@@ -104,11 +123,17 @@ function stopEvictTimer(): void {
 
 function evictExpired(): void {
   const now = Date.now();
+  let changed = false;
   for (const [k, v] of store) {
-    if (now - v.fetchedAt >= v.ttl) store.delete(k);
+    if (now - v.fetchedAt >= v.ttl) {
+      store.delete(k);
+      changed = true;
+    }
   }
   if (store.size === 0) stopEvictTimer();
-  schedulePersist();
+  // Only rewrite the snapshot when expiry actually dropped entries — the
+  // 60s tick otherwise re-serialized the whole store with no change.
+  if (changed) schedulePersist();
 }
 
 hydrate();
@@ -140,7 +165,7 @@ export const memoryCache = {
         else break;
       }
     }
-    store.set(key, { data, fetchedAt: now, ttl });
+    store.set(key, { data, fetchedAt: now, ttl, jsonBytes: jsonBytesOf(data) });
     startEvictTimer();
     schedulePersist();
   },

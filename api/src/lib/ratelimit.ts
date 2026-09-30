@@ -1,6 +1,5 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../env';
-import { safeNullLog } from './safe-catch';
 
 const LIMIT = 30; // keyless (website / anonymous) requests per minute per IP/colo
 // Authenticated API-key callers get 4x headroom. The same-origin website is
@@ -12,6 +11,13 @@ const LIMIT_KEYED = 120;
 const WINDOW_SEC = 60;
 
 /**
+ * Service-binding / test-harness hosts. Requests arriving with one of these
+ * URL hostnames are in-process (SELF fetch) or harness traffic — never an
+ * external caller — so they skip every bucket including the strict ones.
+ */
+const INTERNAL_HOSTS = new Set(['x', 'self', 'self.internal']);
+
+/**
  * Circuit-breaker for cache errors. After CACHE_ERROR_THRESHOLD consecutive
  * errors, the rate limiter returns 503 instead of failing open. Resets after
  * CACHE_ERROR_RESET_SEC. Prevents unlimited requests during a Cache-API outage.
@@ -20,23 +26,6 @@ let cacheErrorCount = 0;
 let cacheErrorWindowStart = Date.now();
 const CACHE_ERROR_THRESHOLD = 5;
 const CACHE_ERROR_RESET_SEC = 60;
-
-/**
- * Public CTI export feeds. These ARE rate-limited (abuse protection on
- * cache-miss bursts) but via the Cache API token bucket below — NOT KV —
- * because the handlers do their own Cache-API lookup, so the Worker (and
- * this middleware) runs on every request including cache hits. Using the
- * KV bucket here would burn 1 read + 1 write per poll against the
- * ~1k/day KV quota. Cache API has no such quota (it's the CDN cache),
- * so this keeps the limit free. The trade-off: the counter is per-colo
- * and eventually-consistent, i.e. the effective limit is ~LIMIT per
- * edge location — perfectly adequate for abusing a cached public feed.
- */
-// CTI export feeds (STIX/TAXII/MISP) were removed — nothing needs the
-// Cache-API rate-limit path anymore. Kept as empty hooks so the limiter
-// shape is unchanged and re-adding a public feed later is one line.
-const CACHE_RL_PREFIX: string[] = [];
-const CACHE_RL_EXACT = new Set<string>();
 
 /**
  * Circuit-breaker check. Returns true if the cache is healthy (allow request
@@ -54,42 +43,6 @@ function checkCacheHealth(): boolean {
 
 function recordCacheError(): void {
   cacheErrorCount++;
-}
-
-async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
-  const ip = c.req.header('cf-connecting-ip') ?? 'anon';
-  const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);
-  const cache = (caches as unknown as { default: Cache }).default;
-  const key = new Request(`https://rl.internal/${bucket}/${encodeURIComponent(ip)}`);
-  let count = 0;
-  try {
-    const hit = await cache.match(key);
-    if (hit) count = parseInt(await hit.text(), 10) || 0;
-  } catch {
-    recordCacheError();
-    if (!checkCacheHealth()) {
-      return c.json({ error: 'service_degraded', message: 'rate limiter temporarily unavailable' }, 503, {
-        'retry-after': String(CACHE_ERROR_RESET_SEC),
-      });
-    }
-    return next(); // cache error — fail open (below threshold)
-  }
-  if (count >= LIMIT) {
-    return c.json({ error: 'rate_limited', limit: LIMIT, window_seconds: WINDOW_SEC }, 429, {
-      'retry-after': String(WINDOW_SEC),
-      'x-ratelimit-limit': String(LIMIT),
-      'x-ratelimit-remaining': '0',
-      'x-ratelimit-reset': String((bucket + 1) * WINDOW_SEC),
-      'cache-control': 'no-store',
-    });
-  }
-  c.executionCtx.waitUntil(
-    safeNullLog(
-      'cache-put-ratelimit',
-      cache.put(key, new Response(String(count + 1), { headers: { 'cache-control': `max-age=${WINDOW_SEC}` } }))
-    )
-  );
-  return next();
 }
 
 /**
@@ -210,8 +163,12 @@ function isAdminStrict(pathname: string, method: string): boolean {
  * real cost. 10/min is ample for interactive use; internal SELF calls
  * (hostname 'self'/'x', incl. all MCP-agent fan-out) skip limiting entirely.
  *
- * GETs are excluded: parallel SPA tab loads must not trip a write-bucket,
- * and these GETs are reads (the briefings POSTs below stay covered).
+ * GETs are excluded from the prefix/exact lists: parallel SPA tab loads
+ * must not trip a write-bucket, and those GETs are reads (the briefings
+ * POSTs below stay covered). COSTLY_GET_EXACT below is the deliberate
+ * exception — paid/CPU-burn reads that would otherwise sit on the global
+ * 30/120-min bucket alone (120/min of $0.01 WHOIS queries or uncached
+ * resvg renders is real money/CPU for a leaked key).
  */
 const AI_STRICT_LIMIT = 10;
 /** Prefix-match (no trailing slash; matches the path itself + /...). */
@@ -226,6 +183,8 @@ const AI_STRICT_PREFIXES = [
   '/api/v1/saved-reports', // global-shared D1 writes
   '/api/v1/workspaces', // global-shared D1 writes
   '/api/v1/ioc-watchlist', // D1 writes + stored webhooks
+  '/api/v1/estate', // single-tenant whiteboard — D1 config/asset/alert writes (2026-09-30 audit)
+  '/api/v1/tool-chains', // POST run — chains of timed outbound fetches (2026-09-30 audit)
   '/api/v1/tg-saved-searches', // global-shared D1 writes
 ];
 /** Exact-match costly POSTs. */
@@ -288,6 +247,17 @@ function isAiStrict(pathname: string, method: string): boolean {
   return AI_STRICT_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
+/**
+ * Costly endpoints that are hit via GET (and must NOT be left on the global
+ * bucket alone). Method-agnostic on purpose: `/api/v1/si/render` is costly
+ * as both GET (deep-link render) and POST (manifest render).
+ */
+const COSTLY_GET_EXACT = new Set<string>([
+  '/api/v1/si/render', // resvg-wasm PNG render (CPU)
+  '/api/v1/whoxy/reverse', // paid $0.01/query upstream
+  '/api/v1/traceix/lookup', // multi-engine AV hash lookup upstream
+]);
+
 function isBypassed(pathname: string): boolean {
   if (BYPASS_EXACT.has(pathname)) return true;
   if (pathname.startsWith('/api/v1/briefings/') && !BRIEFINGS_ADMIN.has(pathname)) return true;
@@ -332,27 +302,29 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   if (!url.pathname.startsWith('/api/v1/') && !url.pathname.startsWith('/api/taxii2/')) return next();
   // Strict buckets (admin + AI-costly) are evaluated BEFORE the read-bypass:
   // a POST under a bypassed prefix (e.g. /api/v1/briefings/:slug/feedback)
-  // must still hit its strict bucket. Both predicates return false for
-  // GET/HEAD/OPTIONS, so read bypasses are unaffected.
+  // must still hit its strict bucket. isAdminStrict/isAiStrict return false
+  // for GET/HEAD/OPTIONS, so read bypasses are unaffected — except for
+  // COSTLY_GET_EXACT, which is method-agnostic by design.
   const adminStrict = isAdminStrict(url.pathname, c.req.method);
-  const aiStrict = isAiStrict(url.pathname, c.req.method);
+  const aiStrict = isAiStrict(url.pathname, c.req.method) || COSTLY_GET_EXACT.has(url.pathname);
   if (isBypassed(url.pathname) && !adminStrict && !aiStrict) return next();
 
   // Skip rate limiting in the vitest-pool-workers test environment and for
   // internal SELF service-binding calls. The test harness makes many requests
   // from the same IP within a minute, which would trip the 30/min keyless
-  // limit and cause 429s in later tests. Internal SELF.fetch calls (hostname
-  // 'self' or 'x') are in-process and should never be rate-limited.
-  if (url.hostname === 'x' || url.hostname === 'self') return next();
+  // limit and cause 429s in later tests. Internal SELF.fetch calls are
+  // in-process and should never be rate-limited. 'x' is the test-harness
+  // host (https://x/...), 'self' comes from lib/self-fetch.ts and
+  // case-study rendering, and 'self.internal' from the INTERNAL constant in
+  // ioc-enrich-deep / actor-profile / stix-ip-enrich — all three are
+  // service-binding hosts no external request can present.
+  if (INTERNAL_HOSTS.has(url.hostname)) return next();
 
   // Everything below uses caches.default — per-colo state, no KV quota.
   // The trade-off (an attacker can re-do their burst per CF colo) is
   // acceptable for a personal site; the limit is abuse-protection, not
   // a payment gate. Migrated from KV 2026-05-24 to drop the 1 read +
   // 1 write per request that was the biggest single KV consumer.
-  if (CACHE_RL_EXACT.has(url.pathname) || CACHE_RL_PREFIX.some((p) => url.pathname.startsWith(p))) {
-    return cacheApiRateLimit(c, next);
-  }
 
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
   // `authenticate` runs before this middleware and sets `c.user` only for a

@@ -107,8 +107,7 @@ function hasSvgWidgetsYaml(dir) {
 
 if (!existsSync(SI)) {
   console.error(`✘ Source folder missing: ${SI}`);
-  console.error('  Either restore it (e.g. `git checkout security-investigator-replication/`)');
-  console.error('  or re-fetch from upstream:');
+  console.error('  It is a transient clone (not committed) — re-fetch from upstream:');
   console.error('    node scripts/sync-si-from-upstream.mjs');
   process.exit(1);
 }

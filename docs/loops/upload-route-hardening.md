@@ -47,4 +47,4 @@ a short status update each pass.
 1. **Content type** — confirm the route reads `multipart/form-data` (the global 256 KB cap exemption).
 2. **Own cap** — enforce a per-route byte limit in the handler.
 3. **Integration test** — mount the real `looseValidation` middleware; assert valid upload passes and oversized body is rejected by the route.
-4. **Run locally** — sandbox disabled (CI skips `test/routes/`); confirm exit 0.
+4. **Run route tests** — `cd api && npx vitest run test/routes` (CI runs them too); confirm exit 0.

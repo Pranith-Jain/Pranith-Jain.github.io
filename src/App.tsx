@@ -1,4 +1,4 @@
-import { useEffect, Suspense, lazy, useMemo, type ComponentType } from 'react';
+import { useEffect, lazy, useMemo, type ComponentType } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -22,10 +22,7 @@ import { BackgroundLayer } from './components/BackgroundLayer';
 import { LazyRoute } from './components/LazyRoute';
 import { FeaturesProvider } from './components/FeaturesProvider';
 import { McpProvider } from './components/ti-mindmap-mcp/McpContext';
-
-const CommandPalette = lazy(() =>
-  import('./components/dfir/CommandPalette').then((m) => ({ default: m.CommandPalette }))
-);
+import { CommandPaletteGate } from './components/CommandPaletteGate';
 
 // Note (2026-05-12): tried React.lazy on these four shell components to
 // trim the entry chunk. Lighthouse showed desktop wiki regressed 77→71
@@ -1225,9 +1222,7 @@ export function AppContent() {
       <>
         <StructuredData personalInfo={personalInfo} stats={stats} />
         <BackgroundLayer isDark={isDark} />
-        <Suspense fallback={null}>
-          <CommandPalette />
-        </Suspense>
+        <CommandPaletteGate />
         <McpProvider>
           <AppShell mode={appMode} isDark={isDark} onToggleTheme={toggleTheme}>
             {routes}
@@ -1269,9 +1264,7 @@ function PortfolioShell({
 
       <ScrollProgress progress={progress} />
       <Header isDark={isDark} onToggleTheme={toggleTheme} navLinks={navLinks} />
-      <Suspense fallback={null}>
-        <CommandPalette />
-      </Suspense>
+      <CommandPaletteGate />
 
       <main id="main-content" tabIndex={-1}>
         <Layout>{children}</Layout>

@@ -46,4 +46,4 @@ Give a short status update each pass.
 1. **List touched routes** — `git diff --name-only origin/main -- api/src/routes/`.
 2. **Diff reads vs schema** — compare each handler's `c.req` reads to its `validate()` schema in `validation-schemas`.
 3. **Reconcile** — update whichever side drifted; mirror the UI payload + D1 columns.
-4. **Run contract test** — locally with the sandbox disabled (CI skips `test/routes/`); confirm exit 0.
+4. **Run contract test** — `cd api && npx vitest run test/routes` (CI runs them too); confirm exit 0.

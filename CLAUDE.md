@@ -22,8 +22,8 @@ repo's footguns so you don't rediscover them.
   accumulate invisibly and a single parse error masks the rest. Run all three projects:
   `tsc -p tsconfig.json`, `tsc -p api/tsconfig.json`, `tsc -p api/tsconfig.worker.json`.
   The per-edit hook checks api/src but skips `worker/`.
-- **API route tests.** CI skips `test/routes/`; run them locally (vitest-pool-workers
-  needs the sandbox disabled). External `/api/v1/*` reads are key-gated.
+- **API route tests.** CI runs `test/routes/` as its own step (`api vitest (routes)`),
+  no sandbox flag needed. External `/api/v1/*` reads are key-gated.
 - **D1 binding is `BRIEFINGS_DB`** (database `pranithjain-briefings`), not `DB`.
   Migrations are immutable; add new ones via `/create-migration`; `--remote` is
   destructive.
@@ -80,13 +80,14 @@ bodies) and is read back at runtime through `env.ASSETS` — no public internet 
 - `worker/lib/si-manifest.test.ts` — 12 unit tests (run via `npx vitest run worker/lib/si-manifest.test.ts`)
 - `worker/mcp-server.ts` — 6 new `this.server.tool(...)` registrations
 - `public/data/si/` — `index.json` (37 KB) + `skills/*.json` + `queries/*.json` + `automations/*.json` (3.2 MB total)
-- `scripts/build-si-manifest.mjs` — regenerates `public/data/si/` from `security-investigator-replication/` (the source of truth; can be deleted once the upstream sync is finished)
+- `scripts/build-si-manifest.mjs` — regenerates `public/data/si/` from `security-investigator-replication/` (transient sparse clone — run `scripts/sync-si-from-upstream.mjs` first if the folder is absent; it is NOT committed)
 
 **Source**: `github.com/SCStelz/security-investigator` (MIT, 210★). Bodies are raw
-markdown — clients should render markdown themselves. Replication is the
-`security-investigator-replication/` folder at the repo root; the MCP tools read
-the same data via ASSETS, not from the folder directly. Delete the folder after
-upstream sync is no longer needed (the data is now in `public/data/si/`).
+markdown — clients should render markdown themselves. The replication folder is a
+transient local clone (not tracked in git) recreated by the sync script; the MCP
+tools read the same data via `env.ASSETS` from `public/data/si/`, never from the
+folder directly. The weekly `si-upstream-sync.yml` runs sync + build, so a fresh
+checkout never needs the folder until someone rebuilds locally.
 
 **To rebuild the data** after editing upstream: `node scripts/build-si-manifest.mjs`
 **To re-fetch from upstream**: `node scripts/sync-si-from-upstream.mjs && node scripts/build-si-manifest.mjs`
@@ -651,8 +652,8 @@ GitHub tree API), `worker/lib/{cairn,nova,denali}-manifest.ts`
 (+ `.test.ts`: 15 + 18 + 9, + `api/` symlink — symlink target is
 `../../../worker/lib/`, not `../../`),
 `api/src/routes/{cairn,nova,denali}-edge-tools.ts`
-(`api/test/routes/cairn-nova-denali.test.ts`, 9 tests — run locally with the
-sandbox disabled, CI skips `test/routes/`),
+(`api/test/routes/cairn-nova-denali.test.ts`, 9 tests — runs in CI with the
+full route suite),
 `src/pages/threatintel/{Cairn,Nova,Denali}.tsx` (Rules/Families|Taxonomy|Docs +
 Scanner/Evaluate tabs; family/ADR bodies render via `renderMarkdown`).
 
