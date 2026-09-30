@@ -14,6 +14,13 @@ export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    // SAME @id as the static Person node in index.html. index.html ships a
+    // crawler-facing Person/WebSite pair (visible to crawlers that don't
+    // execute JS) and this component emits a richer pair client-side. Without
+    // matching @ids those are two independent entities, so a crawler sees
+    // conflicting jobTitle/description/sameAs values for the same person.
+    // Sharing the @id makes them merge into one node.
+    '@id': 'https://pranithjain.qzz.io/#person',
     name: personalInfo.name,
     jobTitle: personalInfo.title,
     description: personalInfo.description,
@@ -108,11 +115,14 @@ export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    // Matches the static WebSite node in index.html so the two merge rather
+    // than compete (see the note on personSchema above).
+    '@id': 'https://pranithjain.qzz.io/#website',
     name: `${personalInfo.name} Portfolio`,
     url: 'https://pranithjain.qzz.io',
     author: {
       '@type': 'Person',
-      name: personalInfo.name,
+      '@id': 'https://pranithjain.qzz.io/#person',
     },
     description: personalInfo.description,
   };
@@ -125,7 +135,7 @@ export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
       'Cyber security analyst on the Capgemini CERT Threat and Vulnerability Intelligence group: AI automation, autonomous workflows, and AI threat intelligence. Formerly security automation and threat intel at Qubit Capital. Builder of an open, edge-hosted DFIR toolkit on Cloudflare Workers.',
     provider: {
       '@type': 'Person',
-      name: personalInfo.name,
+      '@id': 'https://pranithjain.qzz.io/#person',
     },
     areaServed: 'Global',
     serviceType: [

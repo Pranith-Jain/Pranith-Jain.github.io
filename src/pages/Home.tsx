@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { PageMeta } from '../components/PageMeta';
-import { Hero, Contact, Toolkits } from '../components/sections';
+import { Hero } from '../components/sections/Hero';
+import { Contact } from '../components/sections/Contact';
+import { Toolkits } from '../components/sections/Toolkits';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
 import { FeedHealthBadge } from '../components/FeedHealthBadge';
 import { LatestBriefingCard } from '../components/threatintel/LatestBriefingCard';

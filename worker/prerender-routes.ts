@@ -67,6 +67,7 @@ export const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/detections/disarm', '/__prerendered/threatintel__detections__disarm'],
   ['/threatintel/detections/yara', '/__prerendered/threatintel__detections__yara'],
   ['/threatintel/detections/signal', '/__prerendered/threatintel__detections__signal'],
+  ['/threatintel/flowviz', '/__prerendered/threatintel__flowviz'],
   ['/threatintel/phishing/phish', '/__prerendered/threatintel__phishing__phish'],
   ['/threatintel/phishing/urls', '/__prerendered/threatintel__phishing__urls'],
   ['/threatintel/phishing/scam', '/__prerendered/threatintel__phishing__scam'],
@@ -182,6 +183,7 @@ export const PRERENDERED_ROUTES = new Map<string, string>([
   // ── DFIR: binary / log analyzers ──────────────────────────────
   ['/dfir/web-log', '/__prerendered/dfir__web-log'],
   ['/dfir/prefetch', '/__prerendered/dfir__prefetch'],
+  ['/dfir/procedure-extract', '/__prerendered/dfir__procedure-extract'],
   ['/dfir/powershell-deobf', '/__prerendered/dfir__powershell-deobf'],
 
   // ── DFIR: detection & analysis ────────────────────────────────

@@ -10,7 +10,9 @@
  * balanced-brace JSON extractor (same idea as extract-llm.ts parseLlmJson).
  */
 
-export const FLOWVIZ_NODE_TYPES = [
+import { PRIVATE_IPV4, isPrivateIpv6 } from './ssrf-guard';
+
+const FLOWVIZ_NODE_TYPES = [
   'action',
   'tool',
   'malware',
@@ -47,33 +49,22 @@ export interface FlowvizEdge {
   label?: string;
 }
 
-const PRIVATE_IPV4_RE =
-  /^(10\.|127\.|0\.|192\.168\.|169\.254\.|100\.(6[4-9]|[7-9]\d|1[0-1]\d|12[0-7])\.|192\.0\.0\.|224\.|225\.|226\.|227\.|228\.|229\.|23\d\.)/;
-const CGNAT_172_RE = /^172\.(1[6-9]|2\d|3[0-1])\./;
-
 function isPrivateHostname(host: string): boolean {
   const h = host.toLowerCase().trim();
   if (h === 'localhost' || h.endsWith('.localhost') || h === '[::1]' || h === '[::]') return true;
   // Strip brackets for IPv6 literals.
   const bare = h.startsWith('[') && h.endsWith(']') ? h.slice(1, -1) : h;
   if (bare.includes(':')) {
-    // IPv6: loopback, unspecified, ULA, link-local, IPv4-mapped private.
-    if (bare === '::1' || bare === '::') return true;
-    const lb = bare.toLowerCase();
-    if (lb.startsWith('fc') || lb.startsWith('fd')) return true;
-    if (lb.startsWith('fe80')) return true;
-    if (lb.startsWith('::ffff:')) {
-      const v4 = lb.slice('::ffff:'.length);
-      if (v4.includes('.')) return isPrivateHostname(v4);
-      return true; // hex form — treat as private (upstream does the same)
-    }
-    return false;
+    // Delegate IPv6 to the shared guard. The previous hand-rolled prefix tests
+    // here missed 64:ff9b::/96 (NAT64, which embeds arbitrary IPv4 targets),
+    // 2002::/16 (6to4, likewise), and ff00::/8 (multicast).
+    return isPrivateIpv6(bare);
   }
-  if (PRIVATE_IPV4_RE.test(bare)) return true;
-  if (CGNAT_172_RE.test(bare)) return true;
-  // Multicast / reserved 240+/225+ handled by prefix above (224.); 240-255:
-  const first = parseInt(bare.split('.')[0] ?? '', 10);
-  if (Number.isFinite(first) && first >= 224) return true;
+  // Delegate IPv4 to the shared guard, which additionally covers
+  // 168.63.129.16 (Azure WireServer, public space so it needs listing),
+  // 192.0.2.0/24 + 198.51.100.0/24 + 203.0.113.0/24 (TEST-NET),
+  // 198.18.0.0/15 (benchmarking), and 192.88.99.0/24 (6to4 relay anycast).
+  if (PRIVATE_IPV4.test(bare)) return true;
   return false;
 }
 
@@ -219,7 +210,8 @@ export function validateFlowvizGraph(
 ): FlowvizGraphValidation {
   const errors: string[] = [];
   const warnings: string[] = [];
-  if (!raw || typeof raw !== 'object') return { ok: false, nodeCount: 0, edgeCount: 0, errors: ['not-an-object'], warnings };
+  if (!raw || typeof raw !== 'object')
+    return { ok: false, nodeCount: 0, edgeCount: 0, errors: ['not-an-object'], warnings };
   const rec = raw as { nodes?: unknown; edges?: unknown };
   const nodes = Array.isArray(rec.nodes) ? (rec.nodes as FlowvizNode[]) : null;
   const edges = Array.isArray(rec.edges) ? (rec.edges as FlowvizEdge[]) : null;
@@ -260,10 +252,7 @@ export function validateFlowvizGraph(
       if (tid && !/^T\d{4}(\.\d{3})?$/.test(tid)) errors.push(`bad-technique-id:${id}:${tid}`);
     }
     if (type === 'vulnerability') {
-      const cve = asStr(
-        (data as Record<string, unknown>).cve_id ?? (data as Record<string, unknown>).name,
-        30
-      );
+      const cve = asStr((data as Record<string, unknown>).cve_id ?? (data as Record<string, unknown>).name, 30);
       if (cve && !/CVE-\d{4}-\d{4,7}/i.test(cve)) warnings.push(`vuln-without-cve:${id}`);
     }
   }

@@ -147,7 +147,20 @@ const BYPASS_EXACT = new Set<string>([
 
 /** Prefix-match exempt paths. Read-only endpoints only. */
 const BYPASS_PREFIX = [
-  '/api/v1/feeds/', // proxy, abuse-rss, ioc-summary, aggregate — all read-only feed aggregators
+  // NOTE: '/api/v1/feeds/aggregate' is deliberately NOT covered by this
+  // prefix. It is the one feed path whose cost is attacker-controlled: it
+  // fans out to up to MAX_FEEDS (40) upstreams, each costing a cache match +
+  // fetch + redirect hops + write-back put — 120-320 subrequests in a single
+  // invocation, well past Cloudflare's 50-subrequest cap. Fully bypassing it
+  // let an unauthenticated caller force subrequest exhaustion and use the
+  // Worker as an unmetered relay against ~70 allowlisted publishers. The
+  // sibling paths below (proxy, abuse-rss, ioc-summary) are single-target and
+  // cache-served, so they keep the bypass.
+  '/api/v1/feeds/proxy',
+  '/api/v1/feeds/abuse-rss',
+  '/api/v1/feeds/ioc-summary',
+  '/api/v1/feeds/mti-ransomware',
+  '/api/v1/feeds/ransomware-merged',
   '/api/v1/blog/', // public blog list + post detail — read-only, slug-validated, edge-cached
 ];
 

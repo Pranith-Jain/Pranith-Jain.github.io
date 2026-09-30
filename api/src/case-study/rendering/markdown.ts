@@ -59,18 +59,88 @@ const EVENT_HANDLER_ATTRS = /\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
 // Neutralise script-bearing URL schemes in any attribute that dereferences a
 // URL. Covers javascript:, vbscript:, and data:text/html (data:image/* is
 // intentionally still allowed so inline markdown images keep working).
-const DANGEROUS_URL_ATTRS =
-  /(\s(?:href|src|srcset|action|formaction|xlink:href)\s*=\s*)(?:"\s*(?:javascript|vbscript|data\s*:\s*text\/html)[^"]*"|'\s*(?:javascript|vbscript|data\s*:\s*text\/html)[^']*'|(?:javascript|vbscript|data:text\/html)[^\s>]+)/gi;
+const DANGEROUS_URL_ATTRS = /(\s(?:href|src|srcset|action|formaction|xlink:href)\s*=\s*)("[^"]*"|'[^']*'|[^\s>]+)/gi;
 // Inline style attributes enable CSS-based exfiltration / phishing overlays.
 // Generated post content never legitimately needs them.
 const STYLE_ATTRS = /\s+style\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
 
+// Characters a browser silently drops from a URL before resolving its scheme.
+// WHATWG URL parsing strips ASCII tab and newline anywhere in the input, and
+// leading/trailing C0 controls + space. `java\nscript:` therefore navigates as
+// `javascript:`. We must strip the same set before testing the scheme.
+const URL_IGNORED_CHARS = /[\u0000-\u0020\u007f]/g;
+// HTML named/numeric character references. Browsers decode these in attribute
+// values BEFORE the URL is parsed, so `jav&#x61;script:` is `javascript:`.
+// This is intentionally a small, well-known subset (enough to spell the
+// dangerous schemes) rather than a full entity table.
+const HTML_ENTITY_MAP: Record<string, string> = {
+  amp: '&',
+  lt: '<',
+  gt: '>',
+  quot: '"',
+  apos: "'",
+  nbsp: ' ',
+  tab: '\t',
+  newline: '\n',
+  colon: ':',
+  sol: '/',
+  semi: ';',
+};
+const HTML_ENTITY_RE = /&(?:#x([0-9a-f]+)|#(\d+)|([a-z]+));/gi;
+
+/**
+ * Reduce a URL attribute value to the form the browser will actually resolve:
+ * decode character references, then strip the characters URL parsing ignores.
+ * Both steps are required — a scheme spelled with either an entity or an
+ * embedded control character still navigates as that scheme.
+ */
+function normalizeUrlForSchemeCheck(value: string): string {
+  const decoded = value.replace(HTML_ENTITY_RE, (match, hex, dec, name) => {
+    if (hex) {
+      const code = Number.parseInt(hex, 16);
+      return Number.isFinite(code) && code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : match;
+    }
+    if (dec) {
+      const code = Number.parseInt(dec, 10);
+      return Number.isFinite(code) && code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : match;
+    }
+    const key = String(name).toLowerCase();
+    return Object.prototype.hasOwnProperty.call(HTML_ENTITY_MAP, key) ? HTML_ENTITY_MAP[key]! : match;
+  });
+  return decoded.replace(URL_IGNORED_CHARS, '').toLowerCase();
+}
+
+/** True if a URL attribute value resolves to a script-bearing scheme. */
+function isDangerousUrlValue(raw: string): boolean {
+  // `raw` is the raw attribute value INCLUDING its surrounding quotes (group 2
+  // of DANGEROUS_URL_ATTRS). Strip them first: the quote characters are not
+  // part of the URL, and leaving them in place would defeat the prefix checks
+  // below.
+  const unquoted = raw.length >= 2 && (raw.startsWith('"') || raw.startsWith("'")) ? raw.slice(1, -1) : raw;
+  const value = normalizeUrlForSchemeCheck(unquoted);
+  if (value === '') return false;
+  if (value.startsWith('javascript:') || value.startsWith('vbscript:')) return true;
+  if (value.startsWith('data:text/html')) return true;
+  return false;
+}
+
 function sanitizeHtml(html: string): string {
-  return html
-    .replace(DANGEROUS_TAGS, '')
-    .replace(EVENT_HANDLER_ATTRS, '')
-    .replace(STYLE_ATTRS, '')
-    .replace(DANGEROUS_URL_ATTRS, '$1"#"');
+  return (
+    html
+      .replace(DANGEROUS_TAGS, '')
+      .replace(EVENT_HANDLER_ATTRS, '')
+      .replace(STYLE_ATTRS, '')
+      // Decode-then-test rather than regex-matching the raw scheme, so entity
+      // encoded (`jav&#x61;script:`) and whitespace-split (`java\nscript:`)
+      // variants are caught. Preserve the original quote character so we do not
+      // rewrite markup we are leaving alone. Group 1 = `prefix`, group 2 = the
+      // raw attribute value including its quotes.
+      .replace(DANGEROUS_URL_ATTRS, (match: string, prefix: string, quoteAndValue: string) => {
+        if (!isDangerousUrlValue(quoteAndValue)) return match;
+        const quote = quoteAndValue.startsWith('"') ? '"' : quoteAndValue.startsWith("'") ? "'" : '"';
+        return `${prefix}${quote}#${quote}`;
+      })
+  );
 }
 
 /**
