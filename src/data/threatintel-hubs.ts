@@ -877,6 +877,15 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
+        path: '/threatintel/ai-playbook',
+        tabId: 'ai-playbook',
+        label: 'AI Security Playbook',
+        desc: 'Taxonomy layer from aisecurity.zone — 8 system divisions, 20 risk identifiers (OWASP LLM01-10 + ASI01-10), cited CVEs joined to KEV. Structure only; deep-links to the original.',
+        compVar: 'AiSecurityPlaybook',
+        keywords: ['ai security', 'playbook', 'taxonomy', 'owasp llm', 'agentic', 'risk id'],
+        badge: 'new',
+      },
+      {
         path: '/threatintel/denali',
         tabId: 'denali',
         label: 'Denali AI Security',

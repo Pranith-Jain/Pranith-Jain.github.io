@@ -5,6 +5,8 @@ name: AI-security verticals sync (weekly)
 #                          12 archetypes, 10 family reports — MIT)
 #   public/data/nova/    (Nova-Hunting nova-rules: 69 .nov rules + taxonomy — MIT)
 #   public/data/denali/  (transilienceai denali: 9 rules, taxonomy, 38 ADRs — Apache-2.0)
+#   public/data/ai-playbook/ (aisecurity.zone: 8 divisions, 20 risk identifiers —
+#                          NO reuse licence, so STRUCTURE ONLY: no prose is replicated)
 # If the data changed, opens a PR and auto-merges it (data-only; main is
 # unprotected), then self-deploys so the live site serves the fresh
 # manifests. Per-request serving stays fully static (env.ASSETS).
@@ -60,10 +62,17 @@ jobs:
         continue-on-error: true
         run: node scripts/build-denali-manifest.mjs
 
+      - name: Build AI Security Playbook index
+        # Structure only: 8 system divisions + 20 risk identifiers. Upstream has
+        # no reuse licence, so no chapter prose is fetched or stored. The script
+        # asserts the recorded identifiers are still present and warns on drift.
+        continue-on-error: true
+        run: node scripts/build-ai-playbook.mjs
+
       - name: Show diff stat
         run: |
           echo "=== public/data changed files ==="
-          git status --short public/data/cairn/ public/data/nova/ public/data/denali/ | head -40
+          git status --short public/data/cairn/ public/data/nova/ public/data/denali/ public/data/ai-playbook/ | head -40
 
       - name: Open PR if data changed
         id: pr
@@ -82,6 +91,8 @@ jobs:
             - Cisco-Talos/Cognitive-Artifact-Intelligence-Research-Network (MIT)
             - Nova-Hunting/nova-rules + nova-framework taxonomy (MIT)
             - transilienceai/denali ADRs + roadmap (Apache-2.0)
+            - aisecurity.zone (NO reuse licence — structure/identifiers only,
+              no prose replicated; every record deep-links upstream)
 
             Trigger: `${{ github.event_name }}`
             Run:     `${{ github.run_id }}`
@@ -91,6 +102,7 @@ jobs:
             public/data/cairn/
             public/data/nova/
             public/data/denali/
+            public/data/ai-playbook/
 
       - name: Auto-merge sync PR
         # Data-only output, main unprotected — merges itself (same pattern

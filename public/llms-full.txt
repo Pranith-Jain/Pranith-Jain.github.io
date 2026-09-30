@@ -259,6 +259,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Threat Signal RSS](https://pranithjain.qzz.io/threatintel/detections/signal) (threatintel): Threat-signal RSS feed with auto-classified indicators.
 - [CAIRN AI-Malware Rules](https://pranithjain.qzz.io/threatintel/cairn) (threatintel): Cisco-Talos cognitive artifact intel (MIT) — 26 tiered YARA rules (T1/T2/T3) spotting AI artifacts in malware, 10 family reports, A0–A11 archetypes, edge scanner.
 - [NOVA Prompt Hunting](https://pranithjain.qzz.io/threatintel/nova) (threatintel): Prompt pattern matching (MIT) — 69 .nov rules hunting jailbreaks, injections, and exfiltration prompts with an edge keyword scanner and 4-category taxonomy.
+- [AI Security Playbook](https://pranithjain.qzz.io/threatintel/ai-playbook) (threatintel): Taxonomy layer from aisecurity.zone — 8 system divisions, 20 risk identifiers (OWASP LLM01-10 + ASI01-10), cited CVEs joined to KEV. Structure only; deep-links to the original.
 - [Denali AI Security](https://pranithjain.qzz.io/threatintel/denali) (threatintel): Evidence-led AI security reference (Apache-2.0) — 9 deterministic rules, 16-kind asset taxonomy, 38 ADRs, plus stateless runtime-activity checks.
 - [Threat Intel Reports](https://pranithjain.qzz.io/threatintel/research-hub/reports) (threatintel): Original research reports with IOCs, detections, severity scoring.
 - [AI Reports](https://pranithjain.qzz.io/threatintel/research-hub/ai) (threatintel): AI-generated research reports from LLM analysis.
@@ -348,6 +349,12 @@ Manifest: https://pranithjain.qzz.io/mcp-manifest.json
 Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mcp}.json
 
 - [ai_advisories](https://pranithjain.qzz.io/mcp) (mcp:other): AI advisory firehose — per-package GHSA advisories, cvelistV5 CVE commits matched to known AI CVEs, tool release trains (garak, PyRIT, promptfoo, litellm, vllm, ollama, langchain, MCP SDK, MITRE ATLAS, OWASP GenAI), ExploitDB PoCs.
+- [ai_playbook_cve_refs](https://pranithjain.qzz.io/mcp) (mcp:other): CVE references cited by the AI Security Playbook, enriched against our local CISA KEV snapshot so you can see which are known-exploited. Enrichment comes from our own feed, never upstream.
+- [ai_playbook_get_layer](https://pranithjain.qzz.io/mcp) (mcp:other): Get one AI Security Playbook division by roman id (I..VIII) or slug, including the risk identifiers it defines.
+- [ai_playbook_get_risk_id](https://pranithjain.qzz.io/mcp) (mcp:other): Get one AI-security risk identifier by id (e.g. LLM01, ASI06), with its name, taxonomy and defining division.
+- [ai_playbook_list_layers](https://pranithjain.qzz.io/mcp) (mcp:other): List the 8 system divisions of the AI Security Playbook (I model .. VIII governance), with chapter counts and the risk identifiers each division defines.
+- [ai_playbook_list_risk_ids](https://pranithjain.qzz.io/mcp) (mcp:other): List the 20 AI-security risk identifiers: OWASP Top 10 for LLM Applications (LLM01-LLM10) and the Agentic Security Index (ASI01-ASI10). Filter by scheme or layer, or search by id/name.
+- [ai_playbook_stats](https://pranithjain.qzz.io/mcp) (mcp:other): AI Security Playbook manifest stats: division/chapter/identifier counts, KEV matches, licence scope, and edge cache state.
 - [ai_research](https://pranithjain.qzz.io/mcp) (mcp:other): AI security research feed — Hacktron, Palo Alto Unit42, Cloud Security Alliance, BleepingComputer AI-filtered items with links back upstream.
 - [ai_threats_get](https://pranithjain.qzz.io/mcp) (mcp:other): Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - [ai_threats_list](https://pranithjain.qzz.io/mcp) (mcp:other): List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
