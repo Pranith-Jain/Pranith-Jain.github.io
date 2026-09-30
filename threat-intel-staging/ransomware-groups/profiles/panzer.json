@@ -1,7 +1,7 @@
 {
   "slug": "panzer",
   "name": "panzer",
-  "fetchedAt": "2026-09-23T11:55:34.746Z",
+  "fetchedAt": "2026-09-30T12:52:29.346Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "Panzer",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:26:33.084",
+          "updated": "2026-09-30 12:29:26.220",
           "chat": false,
           "fs": false
         },
@@ -21,7 +21,7 @@
           "title": "Panzer | Cloud . festina-group",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:36:16.326",
+          "updated": "2026-09-30 12:02:11.788",
           "chat": false,
           "fs": true
         },
@@ -30,7 +30,7 @@
           "title": "Panzer | Cloud . surakarta-unv",
           "version": 3,
           "available": false,
-          "updated": "2026-09-23 10:28:35.491",
+          "updated": "2026-09-30 11:22:56.269",
           "chat": false,
           "fs": true
         },
@@ -39,7 +39,7 @@
           "title": "Panzer | Cloud . daily-trust",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:34:47.152",
+          "updated": "2026-09-30 12:35:46.463",
           "chat": false,
           "fs": true
         },
@@ -48,7 +48,7 @@
           "title": "Panzer | Cloud . siamoil",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:34:37.765",
+          "updated": "2026-09-30 12:02:52.839",
           "chat": false,
           "fs": true
         },
@@ -57,7 +57,7 @@
           "title": "Panzer | Cloud . Alpine Company",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:25:16.739",
+          "updated": "2026-09-30 12:29:30.729",
           "chat": false,
           "fs": true
         },
@@ -65,8 +65,8 @@
           "fqdn": "vqyux3rgt3ips2kecakobstj4ht2bmfjvpqdignb6zpjpstkmbun5fqd.onion",
           "title": "Panzer | Cloud . SAGASTA",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-22 23:01:39.771",
+          "available": true,
+          "updated": "2026-09-30 12:02:29.127",
           "chat": false,
           "fs": true
         },
@@ -74,8 +74,8 @@
           "fqdn": "sl3iwbho7zdqjc3phm24pcd2xnko3nympkiplp6xthkc4775lb6nmxqd.onion",
           "title": "Panzer | Cloud . doimocucine",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 05:16:59.397",
+          "available": true,
+          "updated": "2026-09-30 12:16:34.824",
           "chat": false,
           "fs": true
         },
@@ -84,7 +84,7 @@
           "title": "Panzer | Cloud . Castilla la mancha",
           "version": 3,
           "available": false,
-          "updated": "2026-09-23 09:05:25.127",
+          "updated": "2026-09-30 11:00:07.591",
           "chat": false,
           "fs": true
         },
@@ -92,8 +92,8 @@
           "fqdn": "czxzcu2smxtrbm7rj4eclskgydq5kiif4tgrvlsn2ri5rbndj5hu6wad.onion",
           "title": "Panzer | Cloud . dlenc",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 07:11:32.809",
+          "available": true,
+          "updated": "2026-09-30 12:00:08.444",
           "chat": false,
           "fs": true
         },
@@ -102,7 +102,7 @@
           "title": "Panzer | Cloud . Nteitalia",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:26:03.476",
+          "updated": "2026-09-30 12:32:56.842",
           "chat": false,
           "fs": true
         },
@@ -110,8 +110,8 @@
           "fqdn": "2v75pgpqlguqpflfjtz6iynwg3ndshjhh6vkxyldorarc6mpc5if5qqd.onion",
           "title": "Panzer | Cloud . Frisian",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 10:15:46.979",
+          "available": true,
+          "updated": "2026-09-30 12:17:10.500",
           "chat": false,
           "fs": true
         }

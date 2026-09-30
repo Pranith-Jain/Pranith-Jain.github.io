@@ -1,7 +1,7 @@
 {
   "slug": "clop",
   "name": "clop",
-  "fetchedAt": "2026-09-16T11:54:08.299Z",
+  "fetchedAt": "2026-09-30T12:52:27.329Z",
   "profiles": [
     {
       "captcha": true,
@@ -18,10 +18,10 @@
         },
         {
           "fqdn": "santat7kpllt6iyvqbr7q4amdv6dzrh6paatvyrzl7ry3zm72zigf4ad.onion",
-          "title": "HOME | CL0P^_- LEAKS",
+          "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 00:05:16.019",
+          "available": true,
+          "updated": "2026-09-30 12:03:42.912",
           "chat": false,
           "fs": false
         },
@@ -92,8 +92,8 @@
           "fqdn": "htmxyptur5wfjrd7uvg23snupub2pbtlfelk45n37b3augl2w4eearid.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 10:18:48.168",
+          "available": true,
+          "updated": "2026-09-30 12:36:08.774",
           "chat": true,
           "fs": false
         },
@@ -105,6 +105,15 @@
           "updated": "2025-10-09 10:02:35.837",
           "chat": false,
           "fs": true
+        },
+        {
+          "fqdn": "clopofffr7tth6hsvxx3cys4qkshrbbiitnxfwts6hj64mtnaovjieyd.onion",
+          "title": "HOME | CL0P^_- LEAKS",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:01:31.616",
+          "chat": false,
+          "fs": false
         }
       ]
     },

@@ -1,7 +1,7 @@
 {
   "slug": "chaos",
   "name": "chaos",
-  "fetchedAt": "2026-09-16T11:54:05.221Z",
+  "fetchedAt": "2026-09-30T12:52:30.016Z",
   "profiles": [
     {
       "captcha": false,
@@ -11,8 +11,8 @@
           "fqdn": "hptqq2o2qjva7lcaaq67w36jihzivkaitkexorauw7b2yul2z6zozpqd.onion",
           "title": "CHAOS",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 06:02:19.770",
+          "available": true,
+          "updated": "2026-09-30 12:23:46.167",
           "chat": false,
           "fs": false
         },
@@ -47,8 +47,8 @@
           "fqdn": "qf4p6ul3g7wyvynkxawlu7ganvgbk44myl35jqfa3aroass33dbvmdyd.onion",
           "title": "Index of /goosehead/",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 10:01:07.898",
+          "available": true,
+          "updated": "2026-09-30 12:18:45.637",
           "chat": false,
           "fs": true
         },
@@ -92,8 +92,8 @@
           "fqdn": "hptqq2o2qjva7lcaaq67w36jihzivkaitkexorauw7b2yul2z6zozpqd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 04:16:29.064",
+          "available": true,
+          "updated": "2026-09-30 12:00:05.984",
           "chat": false,
           "fs": true
         },
@@ -101,8 +101,8 @@
           "fqdn": "qf4p6ul3g7wyvynkxawlu7ganvgbk44myl35jqfa3aroass33dbvmdyd.onion",
           "title": "403 Forbidden",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 10:20:11.907",
+          "available": true,
+          "updated": "2026-09-30 12:17:21.442",
           "chat": false,
           "fs": true
         },
@@ -110,8 +110,17 @@
           "fqdn": "myz2p6mzvbawxggfmakgwshq3ohfk37zmgwjbft7ssggbf2tokonecad.onion",
           "title": "403 Forbidden",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-16 10:21:59.339",
+          "available": true,
+          "updated": "2026-09-30 12:23:07.093",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zebpn5espkgmgo2g4y7mdolit2yacumbeolq3w34sscphmxavfxpygad.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:26:11.732",
           "chat": false,
           "fs": true
         }

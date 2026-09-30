@@ -1,7 +1,7 @@
 {
   "slug": "storm",
   "name": "storm",
-  "fetchedAt": "2026-09-23T11:55:34.356Z",
+  "fetchedAt": "2026-09-30T12:52:26.603Z",
   "profiles": [
     {
       "captcha": false,
@@ -12,7 +12,7 @@
           "title": "Storm Blog",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:16:12.964",
+          "updated": "2026-09-30 12:27:24.713",
           "chat": false,
           "fs": false
         }

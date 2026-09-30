@@ -1,7 +1,7 @@
 {
   "slug": "braincipher",
   "name": "brain cipher",
-  "fetchedAt": "2026-09-23T11:55:37.585Z",
+  "fetchedAt": "2026-09-30T12:52:27.715Z",
   "profiles": [
     {
       "captcha": false,
@@ -21,7 +21,7 @@
           "title": "Brain Cipher Dataleak",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:25:54.302",
+          "updated": "2026-09-30 12:19:43.977",
           "chat": false,
           "fs": false
         },
@@ -254,8 +254,8 @@
           "fqdn": "3frnhzcnlkjnw5q3tm6elzizinm2k3bmrtf2xwqjzpcxzeqwn2tv6wyd.onion",
           "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-23 11:00:06.329",
+          "available": false,
+          "updated": "2026-09-30 11:04:30.589",
           "chat": false,
           "fs": true
         },
@@ -264,7 +264,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:00:05.827",
+          "updated": "2026-09-30 12:05:25.633",
           "chat": false,
           "fs": true
         },
@@ -272,8 +272,8 @@
           "fqdn": "zijgmuqjzb6dc7pofxhtaiz36qqyg35lhutybmzaz6whzgei2casjgid.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 07:00:06.187",
+          "available": true,
+          "updated": "2026-09-30 12:00:09.179",
           "chat": false,
           "fs": true
         },
@@ -281,8 +281,8 @@
           "fqdn": "inzk64xcf3sm6qzkehmio7piwhkslhnab3rlviniyg7alcgsxvy7kcyd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 09:36:10.283",
+          "available": true,
+          "updated": "2026-09-30 12:00:09.888",
           "chat": false,
           "fs": true
         },
@@ -290,8 +290,8 @@
           "fqdn": "upiqcdsgvh6v5owteasjzyxbj2xug574dj4fctthehd7zjq7wmuxbwqd.onion",
           "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-23 11:34:40.022",
+          "available": false,
+          "updated": "2026-09-30 11:14:16.358",
           "chat": false,
           "fs": true
         },
@@ -300,7 +300,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-23 08:00:06.136",
+          "updated": "2026-09-30 11:12:20.981",
           "chat": false,
           "fs": true
         },
@@ -308,8 +308,8 @@
           "fqdn": "lhsxojxowgtwdqlryl72d2v5cpgqv3sll4d47yyqdisersigvfbl5uid.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 09:13:56.150",
+          "available": true,
+          "updated": "2026-09-30 12:22:40.315",
           "chat": false,
           "fs": true
         },
@@ -318,7 +318,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:24:39.674",
+          "updated": "2026-09-30 12:18:58.170",
           "chat": false,
           "fs": true
         },
@@ -327,7 +327,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-22 21:30:14.066",
+          "updated": "2026-09-30 11:27:31.658",
           "chat": false,
           "fs": true
         },
@@ -336,7 +336,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:00:06.335",
+          "updated": "2026-09-30 12:00:09.275",
           "chat": false,
           "fs": true
         },
@@ -345,7 +345,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:00:06.402",
+          "updated": "2026-09-30 12:36:25.538",
           "chat": false,
           "fs": true
         },
@@ -353,8 +353,8 @@
           "fqdn": "x3nb7qcygpem2j5xzstyzdtgzofzkwkx4eko3ug4r73i6uhcgvyffjyd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 08:03:08.708",
+          "available": true,
+          "updated": "2026-09-30 12:36:11.104",
           "chat": false,
           "fs": true
         },
@@ -363,7 +363,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-23 08:19:50.196",
+          "updated": "2026-09-30 11:25:59.311",
           "chat": false,
           "fs": true
         },
@@ -371,8 +371,8 @@
           "fqdn": "7ept6u4u3bczpq5sagycyd2mapv47ctkehzzc3ybugs7vtjl23i52gid.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 10:30:16.983",
+          "available": true,
+          "updated": "2026-09-30 12:28:42.162",
           "chat": false,
           "fs": true
         },
@@ -381,7 +381,7 @@
           "title": "",
           "version": 3,
           "available": false,
-          "updated": "2026-09-23 09:13:25.631",
+          "updated": "2026-09-30 11:01:51.059",
           "chat": false,
           "fs": true
         },
@@ -389,8 +389,8 @@
           "fqdn": "zztabnlnggxpbeiyvpievqtxl6te4amttfobwusmgo2l3hcabfpcgyad.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 09:00:05.543",
+          "available": true,
+          "updated": "2026-09-30 12:20:35.962",
           "chat": false,
           "fs": true
         },
@@ -398,8 +398,8 @@
           "fqdn": "cjuogz6kvmozrapbw6cgf3ovfxgxe2fy3ajlgxm53w3xjve5x5sichyd.onion",
           "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-23 11:27:31.444",
+          "available": false,
+          "updated": "2026-09-30 06:02:42.234",
           "chat": false,
           "fs": true
         },
@@ -408,7 +408,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:28:28.208",
+          "updated": "2026-09-30 12:36:12.249",
           "chat": false,
           "fs": true
         },
@@ -417,7 +417,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:27:03.974",
+          "updated": "2026-09-30 12:18:38.002",
           "chat": false,
           "fs": true
         },
@@ -425,8 +425,8 @@
           "fqdn": "kxlw35vctxgbmwtz6474xwtkm2kywifg4efs6ixmvgdgbgi2uaurenid.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 10:28:31.745",
+          "available": true,
+          "updated": "2026-09-30 12:04:25.867",
           "chat": false,
           "fs": true
         },
@@ -435,7 +435,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:37:46.758",
+          "updated": "2026-09-30 12:29:55.106",
           "chat": false,
           "fs": true
         },
@@ -444,7 +444,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:15:25.289",
+          "updated": "2026-09-30 12:18:31.815",
           "chat": false,
           "fs": true
         },
@@ -452,8 +452,8 @@
           "fqdn": "hv5on6i3k3g24qtu3ac6vtbrcgl2imz3sasakhfslhbnbqbcri73mqad.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 10:36:24.579",
+          "available": true,
+          "updated": "2026-09-30 12:23:57.099",
           "chat": false,
           "fs": true
         },
@@ -462,7 +462,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:34:35.592",
+          "updated": "2026-09-30 12:16:39.338",
           "chat": false,
           "fs": true
         },
@@ -470,8 +470,8 @@
           "fqdn": "nxetaioe4eelwhdwagi3ikv6ee6tttwvnqikalgkrslz7bwvuwqzdeqd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 10:03:20.493",
+          "available": true,
+          "updated": "2026-09-30 12:03:07.203",
           "chat": false,
           "fs": true
         },
@@ -479,8 +479,8 @@
           "fqdn": "aj3ocrawf43r6u5miezvmzh5sjtuv2rx6na3tm26fao3laobu5unfhyd.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 10:34:13.681",
+          "available": true,
+          "updated": "2026-09-30 12:00:09.513",
           "chat": false,
           "fs": true
         },
@@ -488,8 +488,8 @@
           "fqdn": "7n4vqiaqxenaqy4t47ayqvurbmg6vfg2ir7iobwjazwizjncwyt7jhad.onion",
           "title": "",
           "version": 3,
-          "available": true,
-          "updated": "2026-09-23 11:36:21.217",
+          "available": false,
+          "updated": "2026-09-30 11:19:22.512",
           "chat": false,
           "fs": true
         },
@@ -497,8 +497,8 @@
           "fqdn": "rpoeu7zimfpwxbwmjmjyprqaprtvkj3ykfczhbc4x3voydopffn337id.onion",
           "title": "",
           "version": 3,
-          "available": false,
-          "updated": "2026-09-23 08:02:17.336",
+          "available": true,
+          "updated": "2026-09-30 12:29:30.684",
           "chat": false,
           "fs": true
         },
@@ -507,7 +507,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:14:11.556",
+          "updated": "2026-09-30 12:28:36.347",
           "chat": false,
           "fs": true
         },
@@ -516,7 +516,7 @@
           "title": "",
           "version": 3,
           "available": true,
-          "updated": "2026-09-23 11:00:06.331",
+          "updated": "2026-09-30 12:28:52.129",
           "chat": false,
           "fs": true
         },
@@ -526,6 +526,33 @@
           "version": 3,
           "available": false,
           "updated": "2026-09-17 20:19:42.084598",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "keoz3i32ljvnfrsxo3cwolzv2mhkvbi5y5wlwtn5ngbswu4qzdnjvrqd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:25:41.950",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "n2yygycbmyeguft4n6tfokfkbvgkyzchlyn4jbpg7har6goel4eskfqd.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:00:09.777",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "sjyd42k47guvygfiyfdv5dmllytpgdzr3ioiqsuytz726is6ss67imid.onion",
+          "title": "",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:00:09.578",
           "chat": false,
           "fs": true
         }

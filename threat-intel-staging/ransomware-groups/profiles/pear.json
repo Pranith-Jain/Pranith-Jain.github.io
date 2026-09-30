@@ -1,0 +1,185 @@
+{
+  "slug": "pear",
+  "name": "pear",
+  "fetchedAt": "2026-09-30T12:52:28.970Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "ABOUT US:\r<br/>\r<br/>\"Pure Extraction And Ransom (PEAR) Team is the community of highly responsible and strictly disciplined members. We are a private team and have nothing common with any other threat actors. We've been monitoring this field for a long-long time. So, we understand all the processes and know well how it all works.\"",
+      "locations": [
+        {
+          "fqdn": "peargxn3oki34c4savcbcfqofjjwjnnyrlrbszfv6ujlx36mhrh57did.onion",
+          "title": "PEAR",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:22:44.723",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "yxwomyfmexm3bfcuumnugrzwluol5qwsw6pmne7jklgmzthkp35l2jqd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:14:55.629",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "pearsmob5sn44ismokiusuld34pnfwi6ctgin3qbvonpoob4lh3rmtqd.onion",
+          "title": "PEAR",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:03:40.301",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "etus2tmakckdlkyjpevoyciuao7er5fj3qm26aev3nch4fusptefiayd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:24:54.622",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "csxilwnl7orv6rwfjen5ye3tefk5shjtr4tysuykgxjsyngpvoqrvbid.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:03:50.357",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "xq5m6ofel63h57by46algju25g37zkdwoxxt7ij45b6obo4mxzc3h6id.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:03:51.551",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "q2bg7ljsrpmy6736qqmpwsnqqm3w6d3hhrokohytnmldbom7sthp4sad.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:33:47.001",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "psvrn6ahevi6dgf55bzc26q3gjc7s6n7vcth34rmkl2y7e7dijhjfiqd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:26:40.350",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "5qynbyjl4u6vbtnmpokslaxaknyicdvty7vn2qgxmaty3lb7wwxpkbid.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:00:39.558",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "diyr2bnty7iktyxfd4kz65uigcfappjvux73dpgkkeocp3fmlgnuzyyd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:24:14.055",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "e7a6zgqfijn2ko6lzkz53tysjpnf22fxj4h2f3saufrmsts5pbul5eid.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:03:57.860",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "m3wwhkus4dxbnxbtihexlyd2cv63qrvex6jiebc4vqe22kg2z3udebid.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:26:36.274",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "xsomiaq5awxh3zkzn334s3dgwuvngy6z2to7265exgovnkwk66hjypid.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 10:16:09.781",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "3hzi7qjklm632atxj5k67p3bxdie5aipvf6tsbtc2xlfbcellujyxryd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:17:32.605",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "smnalvhqecyjf7reptunoevh6jd6x7ofpz4tj2plyg5a4q667givgqyd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:13:47.458",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "njqaowdto3tfbbco575fkmhahszxfw7fiprbfmt6y6kfy5fntt45akyd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:01:07.607",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "zvacnemrrluposfmwgp4bqvb34ipoorgh7yyqoozu6gcmh5z32wjgsad.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:01:51.917",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "wu22mxmkgd4hgs7j3x7aqurgzhwzy3gf5qpwngpobpnet4i6myebutyd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:02:09.448",
+          "chat": false,
+          "fs": true
+        },
+        {
+          "fqdn": "shtobqdovtbat7fvnoq6lqwi3rqirel6l2r6sqxiidfq5g33tqms6kyd.onion",
+          "title": "403 Forbidden",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:29:41.947",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

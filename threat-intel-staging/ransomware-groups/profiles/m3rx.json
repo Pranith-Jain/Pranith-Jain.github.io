@@ -1,0 +1,32 @@
+{
+  "slug": "m3rx",
+  "name": "m3rx",
+  "fetchedAt": "2026-09-30T12:52:27.840Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "pippahtohg6qgioqu3ixrsueefuw7thythmmeanyrgwn3eixcuu6jvqd.onion",
+          "title": "",
+          "version": 3,
+          "available": false,
+          "updated": "2026-05-03 09:22:42.715",
+          "chat": true,
+          "fs": false
+        },
+        {
+          "fqdn": "4k6plf4h2cm2nco6ae3inrsxnmqgl6lllmwefydhnlcq4tuhwbj4qpad.onion",
+          "title": "M3RX Data Leak Site",
+          "version": 3,
+          "available": true,
+          "updated": "2026-09-30 12:02:54.119",
+          "chat": false,
+          "fs": false
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "unsafe": {
+    "slug": "unsafe",
+    "name": "unsafe",
+    "victims_7d": 0,
+    "victims_total": 28,
+    "last_seen": "2026-09-21T23:42:13.000Z",
+    "origins": ["ransomlook", "ransomwarelive"],
+    "online": true,
+    "mirrors": 1,
+    "up_mirrors": 1,
+    "has_profile": true,
+    "blurb": "0 victims in the last 7d across 2 trackers.",
+    "meta": null,
+    "meta_source": "Ransomlook group profile (abridged, screen bytes omitted)",
+    "mirrors_detail": [
+      {
+        "fqdn": "unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion",
+        "title": "UnSafe",
+        "available": true,
+        "updated": "2026-09-23 11:35:04.934",
+        "version": 3
+      }
+    ],
+    "victims_sample": [
+      {
+        "victim": "kyyba.com",
+        "discovered": "2026-09-21T23:42:13.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion/reel/6ab17a43102e2455604e8859?page=1"
+      },
+      {
+        "victim": "voltgames.io",
+        "discovered": "2026-09-19T18:36:12.000Z",
+        "origin": "ransomlook",
+        "source_url": "https://www.ransomlook.io/http://unsafeipw6wbkzzmj7yqp7bz6j7ivzynggmwxsm6u2wwfmfqrxqrrhyd.onion/reel/6aaead79102e2455604e87ec?page=1"
+      }
+    ],
+    "source_urls": {
+      "ransomlook": "https://www.ransomlook.io/api/group/unsafe",
+      "ransomware_live": "https://www.ransomware.live/"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "gammax",
+  "name": "gammax",
+  "fetchedAt": "2026-09-30T12:52:30.137Z",
+  "profiles": [
+    {
+      "captcha": false,
+      "meta": "",
+      "locations": [
+        {
+          "fqdn": "gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion",
+          "title": "GAMMAX // BLOG",
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-30 11:05:58.713",
+          "chat": false,
+          "fs": false
+        },
+        {
+          "fqdn": "cdn2sgwsr62mcjmhehmqzqd5pr73gfzrpg2ekthooaagnxgur2nnepqd.onion",
+          "title": null,
+          "version": 3,
+          "available": false,
+          "updated": "2026-09-29 19:03:31.998920",
+          "chat": false,
+          "fs": true
+        }
+      ]
+    },
+    { "captcha": false, "meta": null, "locations": [] }
+  ]
+}

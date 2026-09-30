@@ -1,18 +1,18 @@
 {
-  "slug": "zawoo",
-  "name": "zawoo",
-  "fetchedAt": "2026-09-30T12:52:29.249Z",
+  "slug": "imnotavillian",
+  "name": "imnotavillian",
+  "fetchedAt": "2026-09-30T12:52:28.185Z",
   "profiles": [
     {
       "captcha": false,
       "meta": "",
       "locations": [
         {
-          "fqdn": "fyenuhkq3pfhnbpidj5jm2fl2lryxip4byhg6eozynrnlomu4szf2nyd.onion",
-          "title": "ZaWooBlog",
+          "fqdn": "o6rtgcjdjqyimjxexpejddhdfbehsjn4fcsazfkgwydeb27gqhtdntyd.onion",
+          "title": "ImNotAVillain",
           "version": 3,
           "available": false,
-          "updated": "2026-09-30 02:06:03.258",
+          "updated": "2026-09-30 11:17:41.990",
           "chat": false,
           "fs": false
         }
