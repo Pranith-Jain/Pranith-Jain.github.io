@@ -4,17 +4,23 @@
   "name": "rhysida",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-30T10:10:55.000Z",
-  "lastSeen": "2026-09-30T10:10:55.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-09-30T12:07:42.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-30",
-      "count": 1
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "clicks-digital-gmbh-information-6939",
+      "title": "clicks digital GmbH Information — claimed by rhysida",
+      "pubDate": "2026-09-30T12:07:42.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "law-offices-of-r-david-williams-p-a-0a2c",
@@ -25,6 +31,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
       "weight": 1
@@ -32,6 +44,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "clicks-digital-gmbh-information-6939",
+      "victim": "clicks digital GmbH Information — claimed by rhysida",
+      "sector": "Technology",
+      "country": "DE",
+      "pubDate": "2026-09-30T12:07:42.000Z"
+    },
     {
       "id": "law-offices-of-r-david-williams-p-a-0a2c",
       "victim": "Law Offices of R. David Williams, P.A. — claimed by rhysida",

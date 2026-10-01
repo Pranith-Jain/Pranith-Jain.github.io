@@ -1,0 +1,14 @@
+{
+  "id": "buford-thompson-company-ltd-2aef",
+  "victim": "Buford-Thompson Company, LTD",
+  "group": "aurora",
+  "sector": "Manufacturing",
+  "country": "US",
+  "title": "Buford-Thompson Company, LTD — claimed by aurora",
+  "link": "https://threatcluster.io/dark-web/victim/Buford-Thompson%20Company%2C%20LTD",
+  "guid": "darkweb-victim:aurora:buford-thompson company, ltd",
+  "pubDate": "2026-09-30T16:55:16.000Z",
+  "categories": ["Group: aurora", "Sector: Manufacturing", "Country: US"],
+  "description": "US · Manufacturing · [construction] Buford-Thompson Company, LTD, a Texas construction general contractor with 30+ years of history building schools for K-12 districts across the state.\n\nThe exposed dataset totals 1.707 TB and includes:\n\n5 years of W-2 EFW2 files (2021–2025) containing plaintext Social Security numbers, wages, and addresses for 350+ current and former employees — every SSN readable without any decrypt",
+  "sizeBytes": 421
+}

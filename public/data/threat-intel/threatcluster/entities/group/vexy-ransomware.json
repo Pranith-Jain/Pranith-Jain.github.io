@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "vexy-ransomware",
+  "name": "vexy ransomware",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-30T20:55:47.000Z",
+  "lastSeen": "2026-09-30T20:55:47.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-30",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "summit-electric-supply-7821",
+      "title": "Summit Electric Supply — claimed by vexy ransomware",
+      "pubDate": "2026-09-30T20:55:47.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "summit-electric-supply-7821",
+      "victim": "Summit Electric Supply — claimed by vexy ransomware",
+      "sector": "Energy & Utilities",
+      "country": "US",
+      "pubDate": "2026-09-30T20:55:47.000Z"
+    }
+  ]
+}

@@ -1,19 +1,9 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-09-30T11:19:56.033Z",
-  "eventCount": 6,
+  "syncedAt": "2026-10-01T11:47:14.983Z",
+  "eventCount": 2,
   "events": [
-    {
-      "uuid": "7ddf6f0d-b311-59e7-a2d1-bd419d9ee628",
-      "info": "Critical Zero-Day Exploits Target F5 and Check Point Products",
-      "date": "2026-09-26",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1790439758",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
     {
       "uuid": "558ee81f-5e54-52c5-a042-49b937c93432",
       "info": "Critical Citrix NetScaler Zero-Day Vulnerabilities Exploited",
@@ -21,74 +11,17 @@
       "analysis": "2",
       "threat_level_id": "1",
       "timestamp": "1790619539",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:apt",
-        "type:ransomware",
-        "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"Kimsuky\"",
-        "misp-galaxy:threat-actor=\"Salt Typhoon\"",
-        "misp-galaxy:ransomware=\"Clop\"",
-        "misp-galaxy:ransomware=\"Ryuk\""
-      ],
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "e2836a85-d5a7-583b-b474-ee058c9f4dd8",
-      "info": "Critical Zero-Day Vulnerabilities in Citrix NetScaler Under Active Exploitation",
-      "date": "2026-09-26",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1790457682",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:high",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability"
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "1deab8fe-06da-5d1c-a0a5-fcc860f1f402",
-      "info": "Critical WordPress Vulnerability CVE-2026-87902 Exploited Within Hours of Disclosure",
-      "date": "2026-09-24",
-      "analysis": "2",
-      "threat_level_id": "1",
-      "timestamp": "1790250928",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "b84ca52d-a8b5-5c81-b4d7-d27e8d236cf3",
-      "info": "Critical RCE Vulnerability Discovered in TACACS+ Protocol",
-      "date": "2026-09-25",
+      "uuid": "571632da-e2db-530c-9de4-d44efe84b729",
+      "info": "Star Blizzard Expands Phishing Operations with RedFlick Technique",
+      "date": "2026-09-29",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1790313761",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"Salt Typhoon\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "5375c7d0-aede-5a54-96e4-729fb51b7924",
-      "info": "Critical LFI Vulnerability in Visual Composer Exposed",
-      "date": "2026-09-27",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1790502725",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "timestamp": "1790709140",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
       "orgc": "ThreatCluster"
     }
   ]

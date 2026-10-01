@@ -1,0 +1,14 @@
+{
+  "id": "becker-logistik-5eb6",
+  "victim": "Becker Logistik",
+  "group": "lamashtu",
+  "sector": "Transportation",
+  "country": "DE",
+  "title": "Becker Logistik — claimed by lamashtu",
+  "link": "https://threatcluster.io/dark-web/victim/Becker%20Logistik",
+  "guid": "darkweb-victim:lamashtu:becker logistik",
+  "pubDate": "2026-09-30T13:06:09.000Z",
+  "categories": ["Group: lamashtu", "Sector: Transportation", "Country: DE"],
+  "description": "DE · Transportation · German logistics and transportation company specializing in national and international freight transport, particularly bulk goods. The company operates its own fleet and provides reliable transport services across Germany and Europe.",
+  "sizeBytes": 255
+}

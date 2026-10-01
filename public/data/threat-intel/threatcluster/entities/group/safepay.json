@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "safepay",
+  "name": "safepay",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-09-30T13:36:19.000Z",
+  "lastSeen": "2026-09-30T20:11:02.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-30",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "wolfusofsky-de-2210",
+      "title": "wolfusofsky.de — claimed by safepay",
+      "pubDate": "2026-09-30T20:11:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "econ-tec-com-d82a",
+      "title": "econ-tec.com — claimed by safepay",
+      "pubDate": "2026-09-30T13:36:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "assist2enjoy-be-cf09",
+      "title": "assist2enjoy.be — claimed by safepay",
+      "pubDate": "2026-09-30T13:36:19.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "wolfusofsky-de-2210",
+      "victim": "wolfusofsky.de — claimed by safepay",
+      "sector": "Not Found",
+      "country": "DE",
+      "pubDate": "2026-09-30T20:11:02.000Z"
+    },
+    {
+      "id": "econ-tec-com-d82a",
+      "victim": "econ-tec.com — claimed by safepay",
+      "sector": "Technology",
+      "country": "DE",
+      "pubDate": "2026-09-30T13:36:55.000Z"
+    },
+    {
+      "id": "assist2enjoy-be-cf09",
+      "victim": "assist2enjoy.be — claimed by safepay",
+      "sector": "Other",
+      "country": "BE",
+      "pubDate": "2026-09-30T13:36:19.000Z"
+    }
+  ]
+}

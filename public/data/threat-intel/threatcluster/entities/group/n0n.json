@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "n0n",
+  "name": "n0n",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-09-30T12:52:16.000Z",
+  "lastSeen": "2026-09-30T22:53:00.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-30",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "houston-thyroid-amp-endocrine-specialists-6b6f",
+      "title": "Houston Thyroid &amp; Endocrine Specialists — claimed by n0n",
+      "pubDate": "2026-09-30T22:53:00.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mcap-mortgagehub-commercial-lending-platform-acc2",
+      "title": "MCAP — MortgageHub commercial lending platform — claimed by n0n",
+      "pubDate": "2026-09-30T12:52:16.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "houston-thyroid-amp-endocrine-specialists-6b6f",
+      "victim": "Houston Thyroid &amp; Endocrine Specialists — claimed by n0n",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-09-30T22:53:00.000Z"
+    },
+    {
+      "id": "mcap-mortgagehub-commercial-lending-platform-acc2",
+      "victim": "MCAP — MortgageHub commercial lending platform — claimed by n0n",
+      "sector": "Financial Services",
+      "country": "CA",
+      "pubDate": "2026-09-30T12:52:16.000Z"
+    }
+  ]
+}
