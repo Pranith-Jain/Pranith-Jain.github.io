@@ -641,44 +641,138 @@ export const portfolioNavLinks: NavLinkExt[] = [
   { label: 'Contact', href: '/#contact', cta: true },
 ];
 
-/** Tools surface nav — served on `tools.pranithjain.qzz.io`. Platform only. */
+/**
+ * Tools-surface nav, keyed by the host that owns it.
+ *
+ * Every tools host is a front door for ONE product, so its nav lists that
+ * product's pages and nothing else. A single shared array was the reason
+ * `scout.` advertised PANOPTICON's eight-page threat-intel dropdown while
+ * showing the recon scanner underneath — the nav and the landing disagreed.
+ *
+ * Cross-host destinations (the brand switcher, Portfolio) are absolute URLs
+ * rather than paths, because each host serves the SAME route table: a
+ * relative `/threatintel` on `crucible.` would render the threat-intel pages
+ * under the CRUCIBLE chrome instead of navigating to panopticon.
+ */
+
+/** PANOPTICON — threat intel. */
+const PANOPTICON_NAV: NavLinkExt = {
+  label: 'PANOPTICON',
+  href: '/threatintel',
+  children: [
+    { label: 'Catalog', href: '/threatintel/catalog' },
+    { label: 'Briefings', href: '/threatintel/briefings' },
+    { label: 'Live IOCs', href: '/threatintel/iocs/live' },
+    { label: 'Global Pulse', href: '/threatintel/predictive/global-pulse' },
+    { label: 'Intel Dashboard', href: '/threatintel/predictive/dashboard' },
+    { label: 'Most Wanted', href: '/threatintel/most-wanted' },
+    { label: 'Actor KB', href: '/threatintel/actors/hub' },
+    { label: 'CVE & KEV Catalog', href: '/threat-intel' },
+  ],
+};
+
+/** CRUCIBLE — DFIR toolkit. */
+const CRUCIBLE_NAV: NavLinkExt = {
+  label: 'CRUCIBLE',
+  href: '/dfir',
+  children: [
+    { label: 'Catalog', href: '/dfir/catalog' },
+    { label: 'IOC Check', href: '/dfir/ioc-check' },
+    { label: 'CVE Lookup', href: '/dfir/cve' },
+    { label: 'Domain Rep', href: '/dfir/domain-rep' },
+    { label: 'Full Spectrum', href: '/dfir/full-spectrum' },
+    { label: 'Decode', href: '/dfir/decode' },
+    { label: 'Encoder', href: '/dfir/encoder' },
+    { label: 'DNSCOPE', href: '/dfir/dnscope' },
+    { label: 'TRACERULES', href: '/dfir/tracerules' },
+    { label: 'Rule Converter', href: '/dfir/rule-converter' },
+    { label: 'Blocklists', href: '/dfir/blocklists' },
+    { label: 'Threat Graph', href: '/dfir/threat-graph' },
+  ],
+};
+
+/**
+ * Other-tool switcher, appended to every tools host.
+ *
+ * Links are ABSOLUTE and point at the owning host, because every tools host
+ * serves the same route table: a relative `/threatintel` clicked on `crucible.`
+ * would render the threat-intel pages under CRUCIBLE's chrome and read as a
+ * broken CRUCIBLE sub-page rather than as a trip to PANOPTICON. An absolute
+ * URL makes the navigation actually cross hosts.
+ *
+ * Kept as a dropdown rather than a flat row so the nav reads as "this product,
+ * plus somewhere else to go" instead of putting PANOPTICON next to CRUCIBLE on
+ * the CRUCIBLE host.
+ */
+function otherToolsNav(selfHref: string): NavLinkExt {
+  const HOST_OF: ReadonlyArray<[string, NavLinkExt]> = [
+    ['panopticon.pranithjain.qzz.io', PANOPTICON_NAV],
+    ['crucible.pranithjain.qzz.io', CRUCIBLE_NAV],
+    ['scout.pranithjain.qzz.io', { label: 'SCOUT', href: '/radar' }],
+    ['argus.pranithjain.qzz.io', { label: 'ARGUS', href: '/argus' }],
+    ['brief.pranithjain.qzz.io', { label: 'Daily Briefs', href: '/daily-briefs' }],
+    ['agent.pranithjain.qzz.io', { label: 'Agent', href: '/dfir/agent-suite' }],
+    ['copilot.pranithjain.qzz.io', { label: 'Copilot', href: '/threatintel/tools/copilot' }],
+  ];
+
+  const others: NavLinkExt[] = HOST_OF.filter(([, link]) => link.href !== selfHref).map(([host, link]) => ({
+    label: link.label,
+    // Land on the target host's ROOT, which is where that host renders its own
+    // product. Using the apex path instead would ask a different host to serve
+    // a page whose canonical owner is this one.
+    href: `https://${host}/`,
+  }));
+
+  return { label: 'Other tools', href: others[0]!.href, children: others };
+}
+
+/**
+ * Build the nav for one tools host.
+ *
+ * `self` stays as the host's own (relative — same host) nav item; everything
+ * else moves into the cross-host "Other tools" switcher.
+ */
+function navForHost(self: NavLinkExt, selfHref: string): NavLinkExt[] {
+  return [
+    { label: 'Home', href: '/' },
+    self,
+    otherToolsNav(selfHref),
+    // The tools surface has no Contact section of its own, so the CTA returns
+    // to the portfolio apex.
+    { label: 'Portfolio', href: `${PORTFOLIO_ORIGIN}/`, cta: true },
+  ];
+}
+
+/**
+ * Hostname → nav. Mirrors `TOOL_HOSTS_BY_PATH`; a host missing here falls
+ * back to `toolsNavLinks` so an unrecognised tools hostname still gets a
+ * usable nav rather than a broken header.
+ */
+export const TOOLS_NAV_BY_HOST: Readonly<Record<string, NavLinkExt[]>> = {
+  'panopticon.pranithjain.qzz.io': navForHost(PANOPTICON_NAV, '/threatintel'),
+  'crucible.pranithjain.qzz.io': navForHost(CRUCIBLE_NAV, '/dfir'),
+  'scout.pranithjain.qzz.io': navForHost({ label: 'SCOUT', href: '/radar' }, '/radar'),
+  'argus.pranithjain.qzz.io': navForHost({ label: 'ARGUS', href: '/argus' }, '/argus'),
+  'agent.pranithjain.qzz.io': navForHost({ label: 'Agent', href: '/' }, '/dfir/agent-suite'),
+  'copilot.pranithjain.qzz.io': navForHost({ label: 'Copilot', href: '/' }, '/threatintel/tools/copilot'),
+  'brief.pranithjain.qzz.io': navForHost({ label: 'Daily Briefs', href: '/' }, '/daily-briefs'),
+};
+
+/**
+ * Fallback nav for a tools host with no entry above: every product listed, so
+ * nothing becomes unreachable. Prefer `TOOLS_NAV_BY_HOST`.
+ */
 export const toolsNavLinks: NavLinkExt[] = [
   { label: 'Home', href: '/' },
-  {
-    label: 'PANOPTICON',
-    href: '/threatintel',
-    children: [
-      { label: 'Catalog', href: '/threatintel/catalog' },
-      { label: 'Briefings', href: '/threatintel/briefings' },
-      { label: 'Live IOCs', href: '/threatintel/iocs/live' },
-      { label: 'Global Pulse', href: '/threatintel/predictive/global-pulse' },
-      { label: 'Intel Dashboard', href: '/threatintel/predictive/dashboard' },
-      { label: 'Most Wanted', href: '/threatintel/most-wanted' },
-      { label: 'Actor KB', href: '/threatintel/actors/hub' },
-      { label: 'CVE & KEV Catalog', href: '/threat-intel' },
-    ],
-  },
-  {
-    label: 'CRUCIBLE',
-    href: '/dfir',
-    children: [
-      { label: 'Catalog', href: '/dfir/catalog' },
-      { label: 'IOC Check', href: '/dfir/ioc-check' },
-      { label: 'CVE Lookup', href: '/dfir/cve' },
-      { label: 'Domain Rep', href: '/dfir/domain-rep' },
-      { label: 'Full Spectrum', href: '/dfir/full-spectrum' },
-      { label: 'Decode', href: '/dfir/decode' },
-      { label: 'Encoder', href: '/dfir/encoder' },
-      { label: 'DNSCOPE', href: '/dfir/dnscope' },
-      { label: 'TRACERULES', href: '/dfir/tracerules' },
-      { label: 'Rule Converter', href: '/dfir/rule-converter' },
-      { label: 'Blocklists', href: '/dfir/blocklists' },
-      { label: 'Threat Graph', href: '/dfir/threat-graph' },
-    ],
-  },
+  PANOPTICON_NAV,
+  CRUCIBLE_NAV,
+  { label: 'SCOUT', href: '/radar' },
+  { label: 'ARGUS', href: '/argus' },
   { label: 'Daily Briefs', href: '/daily-briefs' },
-  { label: 'Agent', href: '/agent' },
-  { label: 'Copilot', href: '/copilot' },
+  // Prefixes here must match TOOL_HOSTS_BY_PATH: a path owned by no host
+  // resolves to nothing. Asserted by data/__tests__/tools-nav.test.ts.
+  { label: 'Agent', href: '/dfir/agent-suite' },
+  { label: 'Copilot', href: '/threatintel/tools/copilot' },
   // Cross-host: the tools surface has no Contact section of its own, so the
   // CTA sends people back to the portfolio apex.
   { label: 'Portfolio', href: `${PORTFOLIO_ORIGIN}/`, cta: true },
