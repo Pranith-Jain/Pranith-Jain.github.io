@@ -26,10 +26,12 @@ const CHAINABUSE_API = 'https://api.chainabuse.com/v0/reports';
 
 const UA = 'pranithjain-threatintel-mcp/1.0';
 
-// Upper bound on any single .text() buffer from a tor2web gateway or Ahmia
-// search response. Onion pages via gateways are untrusted and unbounded — a
-// malicious/huge page could OOM the isolate (128 MB limit) before parsing.
-// 5 MB is well above any legitimate HTML search/scrape result.
+/**
+ * Upper bound on any single `.text()` buffer from a tor2web gateway or Ahmia
+ * search response. Onion pages via gateways are untrusted and unbounded — a
+ * malicious/huge page could OOM the isolate (128 MB limit) before parsing.
+ * 5 MB is well above any legitimate HTML search/scrape result.
+ */
 const MAX_FETCH_BYTES = 5_000_000;
 
 /**
@@ -150,7 +152,7 @@ export function tor2webUrl(onionUrl: string, gateway: string): string {
     clean = clean.replace(/^https?:\/\//, '');
   }
   clean = clean.replace(/\/+$/, '');
-  return `https://${clean}/${gateway}`;
+  return `https://${clean}.${gateway}/`;
 }
 
 export function parseHtmlBasic(html: string): {
@@ -193,8 +195,7 @@ export function extractOnionHostname(input: string): string | null {
   if (clean.startsWith('http://') || clean.startsWith('https://')) {
     try {
       clean = new URL(clean).hostname;
-    } catch (_catchErr) {
-      console.error('extractOnionHostname failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    } catch {
       return null;
     }
   }
@@ -223,6 +224,7 @@ export async function torFetchOnion(
   const res = await fetch(url, {
     headers: { 'User-Agent': UA, Accept: 'text/html,*/*' },
     redirect: 'follow',
+    signal: AbortSignal.timeout(12_000),
   });
   const html = await fetchTextBounded(res);
   return { html, statusCode: res.status, fetchedVia: `${hostname}.${gw}` };
@@ -236,6 +238,7 @@ export async function torScrapeOnion(onionUrl: string, gatewayIndex = 0): Promis
   const res = await fetch(url, {
     headers: { 'User-Agent': UA, Accept: 'text/html,*/*' },
     redirect: 'follow',
+    signal: AbortSignal.timeout(12_000),
   });
   const html = await fetchTextBounded(res);
   const { title, links, bodyText } = parseHtmlBasic(html);
@@ -249,8 +252,41 @@ export async function torScrapeOnion(onionUrl: string, gatewayIndex = 0): Promis
   };
 }
 
+async function fetchAhmiaCsrfToken(): Promise<{ name: string; value: string } | null> {
+  try {
+    const res = await fetch(AHMIA_SEARCH_URL, {
+      headers: {
+        'User-Agent': UA,
+        Accept: 'text/html,application/xhtml+xml,*/*',
+        'Accept-Language': 'en-US,en;q=0.5',
+      },
+    });
+    if (!res.ok) return null;
+    const html = await fetchTextBounded(res);
+    const m =
+      /<input[^>]*type\s*=\s*["']hidden["'][^>]*name\s*=\s*["']([^"']+)["'][^>]*value\s*=\s*["']([^"']+)["'][^>]*\/?>/i.exec(
+        html
+      );
+    if (m) return { name: m[1]!, value: m[2]! };
+    const m2 =
+      /<input[^>]*type\s*=\s*["']hidden["'][^>]*value\s*=\s*["']([^"']+)["'][^>]*name\s*=\s*["']([^"']+)["'][^>]*\/?>/i.exec(
+        html
+      );
+    if (m2) return { name: m2[2]!, value: m2[1]! };
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaResult[]> {
-  const searchUrl = `${AHMIA_SEARCH_URL}?q=${encodeURIComponent(query)}`;
+  const csrf = await fetchAhmiaCsrfToken();
+
+  let searchUrl = `${AHMIA_SEARCH_URL}?q=${encodeURIComponent(query)}`;
+  if (csrf) {
+    searchUrl += `&${encodeURIComponent(csrf.name)}=${encodeURIComponent(csrf.value)}`;
+  }
+
   const res = await fetch(searchUrl, {
     headers: {
       'User-Agent': UA,
@@ -279,8 +315,7 @@ export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaRe
         try {
           const parsed = new URL(href, 'https://ahmia.fi');
           href = parsed.searchParams.get('redirect_url') ?? href;
-        } catch (_catchErr) {
-          console.error('torSearchOnion failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        } catch {
           /* keep as-is */
         }
       }
@@ -294,12 +329,71 @@ export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaRe
   return results.slice(0, limit);
 }
 
-export async function torExitNodes(limit?: number): Promise<string[]> {
-  const res = await fetch(TOR_BULK_EXIT_URL, {
-    headers: { 'User-Agent': UA },
-  });
-  if (!res.ok) throw new Error(`Tor exit list failed: HTTP ${res.status}`);
-  const text = await res.text();
+const TOR_EXIT_CACHE_KEY = 'tor:exit:nodes';
+const TOR_EXIT_CACHE_TTL_S = 3600;
+
+// Per-colo Cache-API shadow (free) in front of the KV list. torExitNodes is
+// the hot path for /darkweb-osint tor-exit checks AND MCP tool calls; the
+// shadow collapses repeats to ~1 KV read per colo per window. The list only
+// churns on refresh (1h KV TTL), so a 30min shadow is safely fresh.
+const TOR_EXIT_SHADOW_TTL_S = 1800;
+function torExitShadowReq(): Request {
+  return new Request('https://tor-exit-cache.internal/v1/nodes');
+}
+
+export async function torExitNodes(
+  limit?: number,
+  kv?: KVNamespace,
+  waitUntil?: (p: Promise<unknown>) => void
+): Promise<string[]> {
+  // L1: per-colo Cache API first — no KV quota cost.
+  try {
+    const hit = await (caches as unknown as { default: Cache }).default.match(torExitShadowReq());
+    if (hit) {
+      const shadowed = (await hit.json()) as string[];
+      if (Array.isArray(shadowed) && shadowed.length > 0) {
+        return limit ? shadowed.slice(0, limit) : shadowed;
+      }
+    }
+  } catch {
+    /* fall through to KV */
+  }
+  if (kv) {
+    try {
+      const cached = await kv.get(TOR_EXIT_CACHE_KEY, 'json');
+      if (Array.isArray(cached) && cached.length > 0) {
+        // Populate the shadow so the next read in this colo skips KV.
+        try {
+          await (caches as unknown as { default: Cache }).default.put(
+            torExitShadowReq(),
+            new Response(JSON.stringify(cached), {
+              headers: { 'content-type': 'application/json', 'cache-control': `max-age=${TOR_EXIT_SHADOW_TTL_S}` },
+            })
+          );
+        } catch {
+          /* best-effort shadow */
+        }
+        return limit ? cached.slice(0, limit) : cached;
+      }
+    } catch {
+      /* fall through to fetch */
+    }
+  }
+  let text: string;
+  try {
+    const res = await fetch(TOR_BULK_EXIT_URL, {
+      headers: { 'User-Agent': UA },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    text = await fetchTextBounded(res);
+  } catch {
+    const fallback = await fetch(
+      'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/tor-exit.txt',
+      { headers: { 'User-Agent': UA } }
+    );
+    if (!fallback.ok) throw new Error(`Tor exit list failed: both upstreams unreachable`);
+    text = await fetchTextBounded(fallback);
+  }
   const ips = [
     ...new Set(
       text
@@ -308,14 +402,34 @@ export async function torExitNodes(limit?: number): Promise<string[]> {
         .filter((l) => l.length > 0 && !l.startsWith('#'))
     ),
   ];
+  if (kv) {
+    // Persist via waitUntil when the caller has an execution context;
+    // otherwise best-effort (a lost write just refetches next call).
+    const done = kv
+      .put(TOR_EXIT_CACHE_KEY, JSON.stringify(ips), { expirationTtl: TOR_EXIT_CACHE_TTL_S })
+      .then(() => {})
+      .catch(() => {});
+    if (waitUntil) waitUntil(done);
+  }
+  // Write-through the shadow so this colo's next check is free.
+  try {
+    await (caches as unknown as { default: Cache }).default.put(
+      torExitShadowReq(),
+      new Response(JSON.stringify(ips), {
+        headers: { 'content-type': 'application/json', 'cache-control': `max-age=${TOR_EXIT_SHADOW_TTL_S}` },
+      })
+    );
+  } catch {
+    /* best-effort shadow */
+  }
   return limit ? ips.slice(0, limit) : ips;
 }
 
-export async function torExitCheck(ip: string): Promise<TorExitCheckResult> {
+export async function torExitCheck(ip: string, kv?: KVNamespace): Promise<TorExitCheckResult> {
   const ipv4Ok = /^(\d{1,3}\.){3}\d{1,3}$/.test(ip);
   const ipv6Ok = /^[0-9a-fA-F:]+$/.test(ip);
   if (!ipv4Ok && !ipv6Ok) throw new Error(`Invalid IP address format: ${ip}`);
-  const exitIps = await torExitNodes();
+  const exitIps = await torExitNodes(undefined, kv);
   return { isTorExit: exitIps.includes(ip), ip };
 }
 
@@ -324,7 +438,7 @@ export async function torExitDetails(limit?: number): Promise<TorExitNode[]> {
     headers: { 'User-Agent': UA },
   });
   if (!res.ok) throw new Error(`Tor exit addresses failed: HTTP ${res.status}`);
-  const text = await res.text();
+  const text = await fetchTextBounded(res);
   const nodes: TorExitNode[] = [];
 
   let fingerprint = '';
@@ -439,7 +553,6 @@ export async function btcAbuseCheck(address: string, apiKey?: string): Promise<C
       count: data.count ?? 0,
     };
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return {
       address,
       reports: [],

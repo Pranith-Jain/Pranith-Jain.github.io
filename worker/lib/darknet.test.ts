@@ -45,12 +45,19 @@ describe('extractOnionHostname', () => {
 describe('tor2webUrl', () => {
   it('builds correct tor2web URL', () => {
     const result = tor2webUrl('facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion', 'tor2web.io');
-    expect(result).toBe('https://facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion/tor2web.io');
+    expect(result).toBe('https://facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion.tor2web.io/');
   });
 
   it('strips protocol prefix from input', () => {
     const result = tor2webUrl('http://example.onion', 'onion.ws');
-    expect(result).toBe('https://example.onion/onion.ws');
+    expect(result).toBe('https://example.onion.onion.ws/');
+  });
+
+  it('uses the subdomain form, not a path segment', () => {
+    // Regression guard: tor2web gateways are addressed as a subdomain of the
+    // onion host (`<onion>.<gateway>`). The path form (`<onion>/<gateway>`)
+    // requests a path on the onion address itself and never resolves.
+    expect(tor2webUrl('example.onion', 'tor2web.io')).not.toContain('.onion/');
   });
 });
 

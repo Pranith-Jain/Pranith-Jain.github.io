@@ -18,6 +18,11 @@
  * crawls are depth-capped and result-limited.
  */
 
+// `tor2webUrl` is shared with the darknet vertical rather than re-declared
+// here — a third copy of this builder previously drifted to the broken path
+// form (`<onion>/<gateway>`), which never resolves.
+import { tor2webUrl } from './darknet';
+
 const UA = 'pranithjain-darkweb-osint/1.0';
 const TOR2WEB_GATEWAYS = ['tor2web.io', 'onion.ws', 'onion.sh', 'tor2web.org'] as const;
 const MAX_CRAWL_PAGES = 15;
@@ -81,10 +86,6 @@ function onionHost(input: string): string | null {
   clean = clean.replace(/\/+$/, '');
   if (/^[a-z2-7]{16,56}\.onion$/i.test(clean)) return clean;
   return null;
-}
-
-function tor2webUrl(hostname: string, gw: string): string {
-  return `https://${hostname}.${gw}/`;
 }
 
 function extractEmails(text: string): string[] {

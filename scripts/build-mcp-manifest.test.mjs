@@ -10,10 +10,17 @@
  */
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { parseTools, findMatchingParen, extractStringLiterals, categorize } from './build-mcp-manifest.mjs';
+import {
+  parseTools,
+  parseAllTools,
+  toolSourcePaths,
+  findMatchingParen,
+  extractStringLiterals,
+  categorize,
+} from './build-mcp-manifest.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -76,9 +83,36 @@ test('parses multiple tools in one file', () => {
   assert.deepEqual(out.map((t) => t.name), ['first_tool', 'second_tool', 'third_tool']);
 });
 
-test('parses the real mcp-server.ts file (must find >= 250 unique tools)', () => {
-  const real = readFileSync(join(__dirname, '..', 'worker', 'mcp-server.ts'), 'utf8');
-  const out = parseTools(real);
+test('every registrar module imported by mcp-server.ts is scanned by the manifest builder', () => {
+  // Regression guard for the failure mode hit during the mcp-server.ts split:
+  // a registrar module can be correctly wired into init() and still be invisible
+  // to this script, which would silently shrink public/mcp-manifest.json (and
+  // therefore the MCP catalog page + llms.txt) instead of erroring.
+  const server = readFileSync(join(__dirname, '..', 'worker', 'mcp-server.ts'), 'utf8');
+
+  // Every register*Tools symbol imported by the DO.
+  const imported = [...server.matchAll(/import \{ (register\w+Tools) \} from/g)].map((m) => m[1]);
+  // Every register*Tools call inside init().
+  const called = [...server.matchAll(/^\s*(?:await )?(register\w+Tools)\(h\);$/gm)].map((m) => m[1]);
+
+  assert.ok(imported.length > 0, 'expected mcp-server.ts to import registrar modules');
+  assert.deepEqual(
+    [...called].sort(),
+    [...imported].sort(),
+    'registrar modules imported by mcp-server.ts must all be invoked from init()'
+  );
+
+  // And every one of those must resolve to a file the builder will actually read.
+  const paths = toolSourcePaths();
+  assert.equal(paths.length, imported.length, 'toolSourcePaths() must cover every registrar import');
+  for (const p of paths) {
+    assert.ok(existsSync(p), `registrar module missing on disk: ${p}`);
+    assert.ok(parseTools(readFileSync(p, 'utf8')).length > 0, `registrar module registers no tools: ${p}`);
+  }
+});
+
+test('parses the real tool registrar modules (must find >= 250 unique tools)', () => {
+  const out = parseAllTools();
   assert.ok(out.length >= 250, `expected >= 250 tools, got ${out.length}`);
   const names = out.map((t) => t.name);
   // The source historically registered get_live_iocs twice (a real bug, since

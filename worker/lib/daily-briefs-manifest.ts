@@ -58,7 +58,12 @@ export interface DbCyberBrief {
   ttps: { descriptions: string[]; mitreIds: string[] };
   outlook72h: string;
   relatedCves: string[];
-  rawMarkdown: string;
+  /**
+   * Present on only a subset of published briefs (16 of 196 in the shipped
+   * `public/data/daily-briefs` corpus), so it must stay optional — declaring
+   * it required misrepresents the on-disk data shape.
+   */
+  rawMarkdown?: string;
 }
 
 export interface DbDeepfakeBrief {
@@ -77,7 +82,8 @@ export interface DbDeepfakeBrief {
   emergingTrends: string[];
   geographicObservations: string[];
   detectionDevelopments: string[];
-  rawMarkdown: string;
+  /** Present on only a subset of published briefs — see `DbCyberBrief.rawMarkdown`. */
+  rawMarkdown?: string;
 }
 
 export interface DbDisasterBrief {
@@ -91,7 +97,8 @@ export interface DbDisasterBrief {
   monitorEvents: { title: string; severity: string; text: string; sources: { url: string; label: string }[] }[];
   outlook72h: string;
   regionalTrends: string[];
-  rawMarkdown: string;
+  /** Present on only a subset of published briefs — see `DbCyberBrief.rawMarkdown`. */
+  rawMarkdown?: string;
 }
 
 export type DbBriefBody = DbCyberBrief | DbDeepfakeBrief | DbDisasterBrief;

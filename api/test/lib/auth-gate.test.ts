@@ -67,6 +67,57 @@ describe('external-read auth gate (authenticate "external-only")', () => {
   });
 });
 
+/**
+ * KNOWN GAP — pins current (accepted) behaviour so it is tracked rather than
+ * accidental, and so any change to it is a deliberate decision.
+ *
+ * `authenticate('external-only')` waives the API key for same-origin-looking
+ * requests on EVERY method, because the isSameOrigin() check runs before any
+ * method check. Because those headers are forgeable, a non-browser client can
+ * reach mutation handlers with no credential:
+ *
+ *   curl -X POST -H 'Sec-Fetch-Site: same-origin' .../api/v1/estate/alerts
+ *
+ * This is load-bearing: the site is prerendered static HTML that cannot hold a
+ * secret, and ~128 SPA features POST keylessly. Restricting the exemption to
+ * GET/HEAD was implemented and measured (it passes the rest of this suite) but
+ * breaks those callers, so it is deliberately NOT applied. See the "Known gap"
+ * section in src/lib/csrf-guard.ts for the full write-up and the mitigation
+ * path (a real capability such as Turnstile).
+ *
+ * If this test ever starts failing, the gap was closed — update the docs too.
+ */
+describe('KNOWN GAP: external-only waives the key for forged-same-origin mutations', () => {
+  it('currently allows a POST that forges Sec-Fetch-Site: same-origin', async () => {
+    const res = await appWith({})({ method: 'POST', headers: { 'sec-fetch-site': 'same-origin' } });
+    expect(res.status).toBe(200);
+  });
+
+  it('currently allows a DELETE that forges a same-origin Referer', async () => {
+    const res = await appWith({ SITE_URL: 'https://site.test' })({
+      method: 'DELETE',
+      headers: { referer: 'https://site.test/x' },
+    });
+    expect(res.status).toBe(200);
+  });
+
+  it('does NOT extend to required-mode routes, which stay locked', async () => {
+    // The gap is scoped to 'external-only'. authenticate('required') — e.g.
+    // /api/v1/admin/* and agent sessions — still demands a real key.
+    const app = new Hono<{ Bindings: Env }>();
+    app.use('*', authenticate(true));
+    app.all('/x', (c) => c.text('ok'));
+    const res = await app.fetch(
+      new Request('https://api.test/x', {
+        method: 'POST',
+        headers: { 'sec-fetch-site': 'same-origin', origin: 'https://api.test' },
+      }),
+      { SITE_URL: 'https://api.test' } as Env
+    );
+    expect(res.status).toBe(401);
+  });
+});
+
 // Fix B: the valve expires deterministically across isolates (no per-isolate timer).
 describe('OPEN_PUBLIC_READS valve expiry', () => {
   it('opens reads while a future ISO/epoch-ms expiry has not passed', async () => {

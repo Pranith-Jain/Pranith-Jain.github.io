@@ -26,6 +26,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const MCP_SRC = join(ROOT, 'worker', 'mcp-server.ts');
+const MCP_TOOLS_DIR = join(ROOT, 'worker', 'mcp-tools');
 const OUT_DIR = join(ROOT, 'public', 'mcp');
 const MANIFEST_PATH = join(ROOT, 'public', 'mcp-manifest.json');
 
@@ -171,7 +172,11 @@ export function extractStringLiterals(block) {
 
 export function parseTools(src) {
   const tools = [];
-  const re = /this\.tools?\(/g;
+  // Tool registrations were moved out of mcp-server.ts into worker/mcp-tools/*,
+  // where each registrar receives the host and calls `h.tools(...)`. Accept the
+  // old `this.tools(...)` spelling too, so the parser keeps working for any
+  // registration still written directly against the class.
+  const re = /(?:this|h)\.tools?\(/g;
   let m;
   while ((m = re.exec(src)) !== null) {
     const openIdx = m.index + m[0].length - 1;
@@ -190,12 +195,37 @@ export function parseTools(src) {
 
 // ── Main ──────────────────────────────────────────────────────────────────
 
+/**
+ * Tool registrations no longer live in mcp-server.ts itself — they were split
+ * into per-domain registrar modules under worker/mcp-tools/. This derives that
+ * module list from the registrar imports in mcp-server.ts, so a newly added
+ * registrar is picked up automatically and in the same order init() calls it
+ * (which keeps the duplicate-name warning deterministic).
+ */
+export function toolSourcePaths() {
+  const server = readFileSync(MCP_SRC, 'utf8');
+  const mods = [
+    ...server.matchAll(/import \{ register\w+Tools \} from '\.\/mcp-tools\/([a-z0-9-]+)';/g),
+  ].map((m) => m[1]);
+  return mods.map((m) => join(MCP_TOOLS_DIR, `${m}.ts`));
+}
+
+/** Parse every tool registration across mcp-server.ts + all registrar modules. */
+export function parseAllTools() {
+  const tools = [];
+  // mcp-server.ts is included so any registration added directly to the class
+  // is still picked up (it currently contributes none).
+  for (const p of [MCP_SRC, ...toolSourcePaths()]) {
+    tools.push(...parseTools(readFileSync(p, 'utf8')));
+  }
+  return tools;
+}
+
 function main() {
-  const src = readFileSync(MCP_SRC, 'utf8');
-  const tools = parseTools(src);
+  const tools = parseAllTools();
 
   if (tools.length === 0) {
-    console.error('No tools parsed from worker/mcp-server.ts - refusing to write an empty manifest.');
+    console.error('No tools parsed from worker/mcp-tools/* - refusing to write an empty manifest.');
     process.exit(1);
   }
 
@@ -204,7 +234,7 @@ function main() {
   const uniq = [];
   for (const t of tools) {
     if (seen.has(t.name)) {
-      console.error(`WARN: duplicate tool name "${t.name}" in worker/mcp-server.ts - keeping first only`);
+      console.error(`WARN: duplicate tool name "${t.name}" in worker/mcp-tools/* - keeping first only`);
       continue;
     }
     seen.add(t.name);

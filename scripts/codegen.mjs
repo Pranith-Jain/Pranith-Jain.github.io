@@ -2,20 +2,26 @@
 /**
  * Generate TypeScript types from the API's OpenAPI spec.
  *
- * Reads the spec from `OPENAPI_URL` (default: production), pipes it
- * through `openapi-typescript`, and writes the resulting types to
- * `src/lib/api-types.ts` for the frontend to import.
+ * Reads the spec from `OPENAPI_URL`, pipes it through `openapi-typescript`,
+ * and writes the resulting types to `src/lib/api-types.ts`.
  *
  * Usage:
  *   npm run codegen                    # fetch from production
  *   OPENAPI_URL=http://localhost:8787/api/v1/openapi.json npm run codegen   # local dev
- *   npm run codegen:check              # verify generated file is up to date (CI)
+ *   npm run codegen:check              # verify generated file is up to date
  *
- * Why a script, not a build step:
- *   - The generated file is committed to the repo, so editors and
- *     `tsc` see the types without running codegen first.
- *   - The CI `codegen:check` script is the source-of-truth gate that
- *     catches drift between the spec and the committed types.
+ * STATUS: the upstream spec is not currently served. `api/src/lib/openapi.ts`
+ * builds a complete spec, but no route mounts it, so the default URL returns
+ * 401 and this script fails at the fetch step. Until that route is mounted
+ * this script cannot succeed, and:
+ *   - `src/lib/api-types.ts` does not exist,
+ *   - nothing imports it,
+ *   - `codegen:check` is not wired into any CI workflow.
+ *
+ * The script itself is functional and needs no changes — mounting the
+ * `/api/v1/openapi.json` route (see that module's header) is what re-enables
+ * it. Treat exposing the route as a deliberate decision, since it enumerates
+ * the whole API surface.
  */
 import { spawnSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync, existsSync, mkdtempSync, rmSync } from 'node:fs';

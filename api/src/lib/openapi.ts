@@ -2,16 +2,27 @@
  * OpenAPI 3.1 Specification Generator
  *
  * Generates an OpenAPI spec from the Hono route definitions.
- * Serves as living API documentation that stays in sync with the code.
  *
- * The spec is served at /api/v1/openapi.json and can be used with:
+ * STATUS: NOT MOUNTED. This generator is currently unreachable — no route in
+ * `api/src/index.ts` registers it, so `GET /api/v1/openapi.json` returns 401
+ * (it falls through to the `/api/*` auth gate) rather than a spec.
+ *
+ * Consequently `scripts/codegen.mjs` cannot run against its default URL, and
+ * the `src/lib/api-types.ts` it would generate does not exist. See that
+ * script's header for the current state of the chain.
+ *
+ * The generator itself is complete and kept current with the route table, so
+ * mounting it is a one-liner — but note that publishing it enumerates the
+ * entire API surface, which is an intentional decision rather than a default.
+ *
+ * To mount (only if the API surface is intended to be public):
+ *   import { generateOpenApiSpec } from './lib/openapi';
+ *   app.get('/api/v1/openapi.json', (c) => c.json(generateOpenApiSpec()));
+ *
+ * The spec can then be used with:
  *   - Swagger UI (interactive API explorer)
  *   - Postman (import collection)
  *   - Code generators (TypeScript, Python, Go clients)
- *
- * Usage:
- *   import { generateOpenApiSpec } from '../lib/openapi';
- *   app.get('/api/v1/openapi.json', (c) => c.json(generateOpenApiSpec()));
  */
 
 export function generateOpenApiSpec(): Record<string, unknown> {
