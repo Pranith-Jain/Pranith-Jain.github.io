@@ -9,6 +9,7 @@ import type {
 } from './types';
 import { COUNTRY_COORDS, countryNameToCode } from './geo';
 import { asSev } from './shared';
+import type { CveDigestEntry } from '../cve-digest';
 
 /* ─── Converters ────────────────────────────────────────────────────────── */
 
@@ -316,7 +317,189 @@ export function fromCisaKev(data: {
     severity: v.known_ransomware_campaign_use === 'Known' ? ('critical' as const) : ('high' as const),
     source: 'CISA KEV',
     url: v.cve_id ? `https://nvd.nist.gov/vuln/detail/${v.cve_id}` : undefined,
+    // Every row here is KEV-listed by construction — flag it so the frontend
+    // renders the 0-DAY chip and the merge sort ranks it with the 0-days.
+    kev: true,
   }));
+}
+
+// ── 24h CVE digest (cve-digest) ───────────────────────────────────────────
+// The digest is a COMPLETE 24h window (unlike cve-recent's paged sample) with
+// per-row exploit intelligence (KEV flag, exploit_status, EPSS). This is the
+// 0-day surface: KEV-listed rows are confirmed exploited in the wild, and
+// weaponized/PoC rows have public exploit code. Selection is signal-first —
+// KEV, then exploited, then criticals, then top-up with highs by score —
+// capped so one layer can't flood the map the way the C2 triple-source did.
+
+const CVE_DIGEST_CAP = 40;
+
+export function fromCveDigest(data: { entries?: CveDigestEntry[] }): PulseEvent[] {
+  const entries = data.entries ?? [];
+  const kev = entries.filter((e) => e.is_in_kev);
+  const exploited = entries.filter((e) => !e.is_in_kev && e.exploit_status != null && e.exploit_status !== 'none');
+  const critical = entries.filter(
+    (e) => !e.is_in_kev && (e.exploit_status == null || e.exploit_status === 'none') && e.severity === 'CRITICAL'
+  );
+  const picked = [...kev, ...exploited, ...critical];
+  if (picked.length < CVE_DIGEST_CAP) {
+    const pickedIds = new Set(picked.map((e) => e.cve_id));
+    const highs = entries
+      .filter((e) => !pickedIds.has(e.cve_id) && e.severity === 'HIGH')
+      .sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
+    picked.push(...highs.slice(0, CVE_DIGEST_CAP - picked.length));
+  }
+  return picked.slice(0, CVE_DIGEST_CAP).map((e) => {
+    const isKev = e.is_in_kev;
+    const exploitedStatus = e.exploit_status != null && e.exploit_status !== 'none' ? e.exploit_status : undefined;
+    // KEV-listed = confirmed exploited = critical, unconditionally. This also
+    // keeps the CVE-ID dedupe in the handler lossless: a digest KEV row never
+    // drops severity relative to the KEV-catalog row it displaces.
+    const severity: PulseEvent['severity'] = isKev
+      ? 'critical'
+      : e.severity === 'CRITICAL'
+        ? 'critical'
+        : e.severity === 'HIGH'
+          ? 'high'
+          : e.severity === 'MEDIUM'
+            ? 'medium'
+            : 'low';
+    const flags = [
+      isKev ? 'KEV-listed — exploited in the wild' : null,
+      exploitedStatus ? `exploit: ${exploitedStatus.replace(/_/g, ' ')}` : null,
+      e.score != null ? `CVSS ${e.score.toFixed(1)}` : null,
+    ]
+      .filter(Boolean)
+      .join(' · ');
+    return {
+      id: `digest-${e.cve_id}`,
+      kind: (isKev ? 'kev' : 'cve') as PulseEvent['kind'],
+      title: e.cve_id,
+      description: `${(e.description ?? '').slice(0, 140)}${flags ? ` — ${flags}` : ''}`,
+      lat: 0,
+      lng: 0,
+      ...(e.score != null ? { magnitude: e.score } : {}),
+      timestamp: e.published,
+      severity,
+      source: isKev ? 'CISA KEV · 24h digest' : 'CTIWatch · 24h digest',
+      url: e.ctiwatch_url,
+      kev: isKev || undefined,
+      ...(exploitedStatus ? { exploitStatus: exploitedStatus } : {}),
+    };
+  });
+}
+
+const CVE_ID_RE = /CVE-\d{4}-\d{4,7}/i;
+
+/** Extract a CVE ID from an event id or title, for cross-layer dedupe. */
+export function eventCveId(e: Pick<PulseEvent, 'id' | 'title'>): string | null {
+  return CVE_ID_RE.exec(`${e.id} ${e.title}`)?.[0]?.toUpperCase() ?? null;
+}
+
+/**
+ * Rank class for within-severity ordering — the fix for "C2 everytime".
+ * Severity still dominates (a critical C2 outranks a high CVE), but within a
+ * tier, confirmed-harm signals (ransom victims, KEV 0-days) sort above
+ * vulnerability records, which sort above raw infrastructure observations.
+ */
+export function signalClass(e: Pick<PulseEvent, 'kind' | 'trending'>): number {
+  const base =
+    e.kind === 'ransomware' || e.kind === 'kev'
+      ? 3
+      : e.kind === 'cve' || e.kind === 'exploit' || e.kind === 'cisa_advisory' || e.kind === 'github_advisory'
+        ? 2
+        : 1;
+  return base + (e.trending ? 1 : 0);
+}
+
+const sevRank = (s: PulseEvent['severity']): number =>
+  s === 'critical' ? 4 : s === 'high' ? 3 : s === 'medium' ? 2 : 1;
+
+/**
+ * Feed ordering: severity, then signal class, then recency. Exported so the
+ * handler and the tests share one comparator — the frontend mirrors it in
+ * GlobalPulse.tsx (see signalRank there; keep the two in sync).
+ */
+export function comparePulseEvents(a: PulseEvent, b: PulseEvent): number {
+  const sd = sevRank(b.severity) - sevRank(a.severity);
+  if (sd !== 0) return sd;
+  const cd = signalClass(b) - signalClass(a);
+  if (cd !== 0) return cd;
+  const ta = new Date(a.timestamp).getTime();
+  const tb = new Date(b.timestamp).getTime();
+  return Number.isNaN(ta) || Number.isNaN(tb) ? 0 : tb - ta;
+}
+
+/**
+ * Drop duplicate CVE sightings across the cve/kev layers, keeping the
+ * richest record. The 24h-digest rows carry exploit_status + EPSS + the
+ * freshest timestamps, so they win; KEV-catalog rows win over plain
+ * cve-recent rows (confirmed-exploited beats merely-published).
+ */
+export function dedupeCveEvents(events: PulseEvent[]): PulseEvent[] {
+  const rankSource = (e: PulseEvent): number => {
+    if (e.id.startsWith('digest-')) return 3;
+    if (e.kind === 'kev') return 2;
+    if (e.kind === 'cve') return 1;
+    return 0;
+  };
+  const seen = new Map<string, PulseEvent>();
+  const out: PulseEvent[] = [];
+  for (const e of events) {
+    if (e.kind !== 'cve' && e.kind !== 'kev') {
+      out.push(e);
+      continue;
+    }
+    const cve = eventCveId(e);
+    if (!cve) {
+      out.push(e);
+      continue;
+    }
+    const prev = seen.get(cve);
+    if (!prev) {
+      seen.set(cve, e);
+      out.push(e);
+    } else if (rankSource(e) > rankSource(prev)) {
+      seen.set(cve, e);
+      out[out.indexOf(prev)] = e;
+    }
+    // else: weaker duplicate dropped silently.
+  }
+  return out;
+}
+
+/**
+ * Stamp the "in trends" signal: a CVE id (or ransomware victim) reported by
+ * 2+ DISTINCT sources in this build. Mutates in place and returns the input
+ * for pipeline convenience.
+ */
+export function markTrendingEvents(events: PulseEvent[]): PulseEvent[] {
+  const byKey = new Map<string, Set<string>>();
+  const keyOf = (e: PulseEvent): string | null => {
+    const cve =
+      e.kind === 'cve' || e.kind === 'kev' || e.kind === 'exploit' || e.kind === 'github_advisory'
+        ? eventCveId(e)
+        : null;
+    if (cve) return `cve:${cve}`;
+    if (e.kind === 'ransomware') {
+      // Victim is the stable half of "victim — group" titles (also X-claim
+      // variants append " (X claim)" to the group half, so split there).
+      const victim = e.title.split('—')[0]?.trim().toLowerCase();
+      if (victim) return `victim:${victim}`;
+    }
+    return null;
+  };
+  for (const e of events) {
+    const k = keyOf(e);
+    if (!k) continue;
+    const sources = byKey.get(k) ?? new Set<string>();
+    sources.add(e.source);
+    byKey.set(k, sources);
+  }
+  for (const e of events) {
+    const k = keyOf(e);
+    if (k && (byKey.get(k)?.size ?? 0) >= 2) e.trending = true;
+  }
+  return events;
 }
 
 export function fromStealerForum(data: {

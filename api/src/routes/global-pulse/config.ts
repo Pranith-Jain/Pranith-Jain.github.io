@@ -1,4 +1,5 @@
 import type { FeedQueueMessage } from '../../lib/live-iocs-slices';
+import { CVE_DIGEST_CACHE_KEY } from '../cve-digest';
 
 /* ─── Global-pulse feed registry + queue warmer ─────────────────────────── */
 // Each feed is warmed into `gp:warm:<key>` by the queue consumer — ONE feed per
@@ -30,6 +31,9 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
   { key: 'exploit', path: '/api/v1/exploit-db?latest=1' },
   { key: 'ghsa', path: '/api/v1/github-security?ecosystem=npm' },
   { key: 'kev', path: '/api/v1/cisa-kev?days=30' },
+  // 24h CVE digest — the 0-day surface (complete window + exploit flags).
+  // Served from its own cron-warmed cache, so this slice is one cheap read.
+  { key: 'cvedigest', path: '/api/v1/cve-digest' },
   { key: 'rss', path: '/api/v1/cyber-news' },
   { key: 'webamon', path: '/api/v1/webamon/campaign-intel' },
   { key: 'honeypot', path: '/api/v1/ai-honeypot-feed' },
@@ -43,8 +47,8 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
 // global-pulse is served from any colo to a global audience, and the read path
 // must see whatever the (single-colo) cron+consumer warmed. KV is global; the
 // Cache API is per-colo, so a Cache-API slice warmed in one colo would be cold
-// for readers in every other colo. The cost is the KV write quota — ≤21 feeds/hour
-// ≈ 504 writes/day, under the 1000/day free tier — the deliberate tradeoff for
+// for readers in every other colo. The cost is the KV write quota — 28 feeds/hour
+// ≈ 672 writes/day, under the 1000/day free tier — the deliberate tradeoff for
 // cross-colo consistency.
 export const gpWarmKey = (key: string): string => `gp:warm:${key}`;
 
@@ -76,6 +80,9 @@ export const GP_FEED_CACHE_KEYS: Readonly<Record<string, string>> = {
   tm: 'https://threat-map-cache.internal/v5-1k',
   ioc: 'https://live-iocs-cache.internal/v13-freshness-filter',
   xclaims: 'https://x-claims-cache.internal/v2',
+  // Imported, not hardcoded like the rest: this key was created alongside the
+  // digest route and an import can't drift out of sync with it.
+  cvedigest: CVE_DIGEST_CACHE_KEY,
   stealer: 'https://stealer-forum-intel-cache.internal/v13-no-debug',
   secretleaks: 'https://secret-leaks-cache.internal/v5-noedgecache',
   malpkg: 'https://malicious-packages-cache.internal/v2?e=npm',
@@ -115,8 +122,8 @@ export async function markGpEnqueue(kv: KVNamespace | undefined): Promise<void> 
 // never has a feed dark waiting for its window to come around (a 7-per-hour
 // rotation left ~2/3 of feeds stale for up to 3h). This is only affordable
 // because each feed is its OWN consumer invocation (max_batch_size:1), so
-// warming 21 feeds costs 21 cheap invocations, not one over-budget one. KV cost:
-// ≤21 writes/hour ≈ 504/day, under the 1000/day free tier. GP_STAGGER_SECONDS
+// warming 28 feeds costs 28 cheap invocations, not one over-budget one. KV cost:
+// ≤28 writes/hour ≈ 672/day, under the 1000/day free tier. GP_STAGGER_SECONDS
 // just spaces the sends so a burst doesn't hammer a throttling upstream (t.me);
 // the budget guarantee comes from max_batch_size:1, not the stagger.
 const GP_STAGGER_SECONDS = 4;

@@ -64,6 +64,28 @@ export interface PulseEvent {
   url?: string;
   country?: string;
   cti?: 'ransomware' | 'cve' | 'ioc' | 'threat' | 'other';
+  /** CISA-KEV-listed (confirmed exploited) — rendered as a 0-DAY chip. */
+  kev?: boolean;
+  /** ctiwatch exploit_status ('poc' | 'weaponized' | 'in_the_wild') — PoC chip. */
+  exploitStatus?: string;
+  /** Reported by 2+ distinct sources this build — trending chip + rank boost. */
+  trending?: boolean;
+}
+
+/**
+ * Within-severity rank class. Mirrors signalClass() in
+ * api/src/routes/global-pulse/converters.ts — keep the two in sync: confirmed
+ * harm (ransom victims, KEV 0-days) above vulnerability records, which sit
+ * above raw infrastructure observations.
+ */
+export function signalRank(e: Pick<PulseEvent, 'kind' | 'trending'>): number {
+  const base =
+    e.kind === 'ransomware' || e.kind === 'kev'
+      ? 3
+      : e.kind === 'cve' || e.kind === 'exploit' || e.kind === 'cisa_advisory' || e.kind === 'github_advisory'
+        ? 2
+        : 1;
+  return base + (e.trending ? 1 : 0);
 }
 
 export interface GlobalPulseResponse {

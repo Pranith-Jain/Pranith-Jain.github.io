@@ -52,6 +52,23 @@ export interface PulseEvent {
   url?: string;
   country?: string;
   cti?: 'ransomware' | 'cve' | 'ioc' | 'threat' | 'other';
+  /**
+   * True when the CVE is CISA-KEV-listed (confirmed exploited in the wild).
+   * Set by the KEV-catalog and 24h-digest converters. The frontend renders
+   * these as 0-DAY chips — the closest thing this stack has to a 0-day flag.
+   */
+  kev?: boolean;
+  /**
+   * ctiwatch exploit_status for the CVE ('poc' | 'weaponized' | 'in_the_wild').
+   * Absent (or 'none') means no known public exploit. Rendered as a PoC chip.
+   */
+  exploitStatus?: string;
+  /**
+   * True when the same indicator (CVE id or ransomware victim) was reported
+   * by 2+ distinct sources in this build — the "in trends" signal. Stamped by
+   * markTrendingEvents, never by individual converters.
+   */
+  trending?: boolean;
 }
 
 export interface GlobalPulseResponse {
