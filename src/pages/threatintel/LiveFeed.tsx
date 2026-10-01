@@ -528,7 +528,7 @@ export default function LiveFeed(): JSX.Element {
               </div>
             </div>
             <p className="text-xs text-muted mt-3 leading-relaxed">
-              Consolidated across VulDB, Hacker News, SecurityWeek, BleepingComputer, CISA, SANS, Cisco Talos + 21 more.
+              Consolidated across Hacker News, SecurityWeek, BleepingComputer, CISA, SANS, Cisco Talos + 21 more.
               No paywall.
             </p>
             <Link

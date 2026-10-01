@@ -218,7 +218,9 @@ export const PROBE_SOURCES: Record<string, string[]> = {
   'phishing-urls': ['phish-tank', 'openphish'],
   'x-feed': ['x-twitter', 'bluesky'],
   'stealer-forum-intel': ['hudson-rock'],
-  'cve-recent': ['nvd', 'cisa-kev'],
+  // dbu.gs (B) sits alongside the A-grade advisory sources: it is a gap-filler,
+  // so NVD/KEV remain the probe's reliability anchor and the aggregate stays A.
+  'cve-recent': ['nvd', 'cisa-kev', 'dbugs', 'exploitgrid'],
   'malware-samples': ['abusech-malwarebazaar'],
   'ransomware-recent': ['ransomlook'],
   'onion-watch': ['ransomlook'],
@@ -276,20 +278,23 @@ export const PROBES: FeedProbeSpec[] = [
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const sources = arrField(body, 'sources') ?? [];
-      const nvd = sources.find((s) => (s as { id?: string }).id === 'nvd-published-14d');
-      const kev = sources.find((s) => (s as { id?: string }).id === 'cisa-kev-added-30d');
-      const nvdCount = (nvd as { count?: number })?.count ?? 0;
-      const kevCount = (kev as { count?: number })?.count ?? 0;
+      const find = (id: string) => sources.find((s) => (s as { id?: string }).id === id) as { count?: number } | undefined;
+      const nvdCount = find('nvd-published-14d')?.count ?? 0;
+      const kevCount = find('cisa-kev-added-30d')?.count ?? 0;
+      const dbugsCount = find('dbugs')?.count ?? 0;
+      const exploitGridCount = find('exploitgrid')?.count ?? 0;
       const status: Status = nvdCount > 0 && kevCount > 0 ? 'ok' : count > 0 ? 'degraded' : 'down';
       return {
         status,
         reason:
           nvdCount > 0 && kevCount > 0
-            ? `NVD ${nvdCount} + KEV ${kevCount} entries`
+            ? `NVD ${nvdCount} + KEV ${kevCount} entries${dbugsCount > 0 || exploitGridCount > 0 ? ` + ${dbugsCount} dbu.gs / ${exploitGridCount} exploitgrid gap-fills` : ''}`
             : nvdCount === 0
               ? 'NVD rate-limited — serving KEV only'
               : 'KEV unreachable — serving NVD only',
-        metrics: { count, nvd: nvdCount, kev: kevCount },
+        // Gap-filler counts ride along as metrics so a drop to 0 is visible here
+        // rather than only as a missing row on the CVE list.
+        metrics: { count, nvd: nvdCount, kev: kevCount, dbugs: dbugsCount, exploitgrid: exploitGridCount },
         ageS,
       };
     },

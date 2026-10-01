@@ -18,9 +18,16 @@ import {
   fetchFeedResilient,
   fetchMaliciousPackages,
   fetchDailyHuntIocFamilies,
+  fetchDbugsRecent,
   type MaliciousPackageEntry,
   type DailyHuntIocFamily,
+  type DbugsVuln,
 } from './feeds';
+import {
+  fetchVulnTrackerDaily,
+  type VulnTrackerBlogPost,
+  type VulnTrackerDayCounts,
+} from '../vulntracker';
 import {
   isoDate,
   isoYearWeek,
@@ -41,6 +48,47 @@ import {
   safeJsonParse,
 } from './aggregate';
 import type { Briefing, BriefingType, BriefingFinding, BriefingStats, Severity, NvdCve, KevEntry } from './types';
+
+/**
+ * Median daily CVE count across the VulnTracker archive, for the volume
+ * section's blurb. Median, not mean — VulnTracker's daily totals swing hard
+ * (single digits on weekends, 800+ on patch-Tuesday), and a mean would make a
+ * normal day read as quiet. Ignores entries with no total so a malformed row
+ * can't drag the figure.
+ */
+function medianDailyCount(archive: VulnTrackerDayCounts[]): number {
+  const totals = archive
+    .map((d) => d.total_count)
+    .filter((n): n is number => Number.isFinite(n) && n > 0)
+    .sort((a, b) => a - b);
+  if (totals.length === 0) return 0;
+  const mid = Math.floor(totals.length / 2);
+  const lo = totals[mid - 1];
+  const hi = totals[mid];
+  if (hi === undefined) return 0;
+  return totals.length % 2 === 1 ? hi : Math.round(((lo ?? hi) + hi) / 2);
+}
+
+/**
+ * Map a VulnTracker/dbu.gs uppercase severity label onto the builder's
+ * lowercase `Severity` union. UNKNOWN falls back to the CVSS-derived bucket so
+ * an unscored-but-rated row still lands in a real severity section instead of
+ * being dropped by `buildSections` (which has no bucket for 'unknown').
+ */
+function normalizeSeverity(label: string, score: number | null): Severity {
+  switch (label) {
+    case 'CRITICAL':
+      return 'critical';
+    case 'HIGH':
+      return 'high';
+    case 'MEDIUM':
+      return 'medium';
+    case 'LOW':
+      return 'low';
+    default:
+      return severityFromCvss(score ?? undefined);
+  }
+}
 
 export async function buildBriefing(
   type: BriefingType,
@@ -198,6 +246,8 @@ export async function buildBriefing(
     webamonIntel,
     malpkgEntries,
     dailyHuntFamilies,
+    vulntrackerBundle,
+    dbugsBundle,
   ] = await Promise.all([
     wrap(withLastGood(mtiEnv, 'briefing-kev', fetchKev), [] as KevEntry[]),
     fetchFeedResilient(mtiEnv, 'urlhaus'),
@@ -246,6 +296,30 @@ export async function buildBriefing(
       : Promise.resolve(null as WebamonCampaignIntel | null),
     fetchMaliciousPackages(mtiEnv, { since: rangeStart, until: rangeEnd }).catch(() => [] as MaliciousPackageEntry[]),
     fetchDailyHuntIocFamilies(mtiEnv, { since: rangeStart, until: rangeEnd }).catch(() => [] as DailyHuntIocFamily[]),
+    // VulnTracker is date-addressed: the digest for THIS window's date, plus
+    // the 30-day archive (volume trend) and the blog RSS (narrative). The three
+    // surfaces degrade independently inside fetchVulnTrackerDaily — only the
+    // per-day digest gates `ok`, since that's what the CVE findings rest on.
+    //
+    // DAILY ONLY: the digest endpoint addresses one date, and the daily cron
+    // (00:30) plus the hourly heal both build today's window, so this stays a
+    // fixed 3 subrequests on the daily path. Weekly reads the D1 daily rollup
+    // instead and skips the fan-out entirely, so it must not pay for a
+    // date-addressed fetch it can't window correctly.
+    type === 'daily'
+      ? fetchVulnTrackerDaily(dateLabel).catch(() => ({
+          digest: null,
+          archive: [] as VulnTrackerDayCounts[],
+          blog: [] as VulnTrackerBlogPost[],
+          ok: false,
+        }))
+      : Promise.resolve({
+          digest: null,
+          archive: [] as VulnTrackerDayCounts[],
+          blog: [] as VulnTrackerBlogPost[],
+          ok: false,
+        }),
+    fetchDbugsRecent().catch(() => ({ vulns: [] as DbugsVuln[], ok: false })),
   ]);
   let degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
@@ -327,7 +401,85 @@ export async function buildBriefing(
       mitre_techniques: deriveMitreTechniques(titleText),
     });
   }
-  let findings = [...kevFindings, ...nvdFindings, ...mtiCveFindings, ...cvefeedFindings];
+
+  // ── VulnTracker: daily digest counts + the (gated) top criticals ───────
+  // Two different jobs, deliberately kept separate:
+  //
+  //   a) The COUNTS are the point. `total_count` / `critical_count` /
+  //      `exploited_count` are how many CVEs VulnTracker recorded landing that
+  //      calendar day — a volume figure no other source in this builder
+  //      reports. They go into the stats block and a "daily CVE volume"
+  //      section so a reader can see 322-new-CVEs days without us having to
+  //      enumerate them.
+  //
+  //   b) The TOP_CVES (≤7, subscription-gated) become gap-fill findings. They
+  //      arrive with vendor + product + base_score already resolved, which is
+  //      cheaper than the per-CVE NVD lookups `fetchNvdByIds` would spend on
+  //      the same rows. Skipped when KEV/NVD/cvefeed/MTI already has the ID.
+  const vtDigest = vulntrackerBundle.digest;
+  const vtCveFindings: BriefingFinding[] = [];
+  for (const c of vtDigest?.top_cves ?? []) {
+    const id = c.cve_id.toUpperCase();
+    if (existingCveIds.has(id)) continue;
+    // The digest is addressed by date but its rows carry their own
+    // published_date; honour the window rather than trusting the digest's
+    // date label, or a boundary-shifted row leaks into the wrong briefing.
+    if (c.published_date && !withinRange(c.published_date, startMs, endMs)) continue;
+    existingCveIds.add(id);
+    const headline = c.vulnerability_name || id;
+    const where = [c.vendor_name, c.product_name].filter(Boolean).join(' ');
+    vtCveFindings.push({
+      id,
+      title: headline.length > 90 ? `${id}: ${headline.slice(0, 87)}…` : `${id}: ${headline}`,
+      description: `[VulnTracker digest] ${where ? `${where} — ` : ''}${headline}${
+        c.is_exploited ? ' — confirmed exploited in the wild.' : ''
+      }`,
+      severity: normalizeSeverity(c.severity, c.base_score),
+      ...(c.base_score !== null ? { cvss: c.base_score } : {}),
+      source: 'VulnTracker',
+      source_url: `https://vulntracker.io/digest/${vtDigest?.date ?? dateLabel}`,
+      mitre_techniques: deriveMitreTechniques(`${headline} ${where}`),
+      ...(c.vendor_name ? { vendor: c.vendor_name } : {}),
+      ...(c.product_name ? { product: c.product_name } : {}),
+    });
+  }
+
+  // ── dbu.gs: windowed gap-fillers with vendor/product/CWE + fix flags ────
+  // Same shape as the cvefeed tier: a source whose rows are authoritative for
+  // vendor/product but whose prose is thin, so it fills only IDs no prior tier
+  // has. `has_exploit` is called out in the description because "a PoC exists"
+  // is the single most actionable thing this source contributes.
+  const dbugsFindings: BriefingFinding[] = [];
+  for (const v of dbugsBundle.vulns) {
+    const id = v.cve_id.toUpperCase();
+    if (existingCveIds.has(id)) continue;
+    const created = Date.parse(`${v.created}T12:00:00Z`);
+    if (Number.isNaN(created) || created < startMs || created >= endMs) continue;
+    existingCveIds.add(id);
+    const where = [v.vendor, v.product].filter(Boolean).join(' ');
+    const flags = [v.has_exploits ? 'public exploit available' : null, v.has_fix ? 'fix available' : null]
+      .filter(Boolean)
+      .join(', ');
+    dbugsFindings.push({
+      id,
+      title: where ? `${id}: ${where}` : id,
+      description: `[dbu.gs] ${v.impacts.slice(0, 2).join('; ') || 'Tracked vulnerability'}${flags ? ` (${flags})` : ''}`,
+      severity: normalizeSeverity(v.severity, v.score),
+      ...(v.score !== null ? { cvss: v.score } : {}),
+      ...(v.cwes.length > 0 ? { cwes: v.cwes } : {}),
+      source: 'dbu.gs',
+      source_url: v.reference ?? `https://dbu.gs/vulnerability/${v.cve_id}`,
+      mitre_techniques: deriveMitreTechniques(`${where} ${v.impacts.join(' ')}`),
+      ...(v.vendor ? { vendor: v.vendor } : {}),
+      ...(v.product ? { product: v.product } : {}),
+    });
+  }
+
+  // dbu.gs joins the main `findings` array (and so gets categorized into the
+  // CWE/technique sections like every other CVE source). The VulnTracker
+  // criticals deliberately do NOT — they surface in the `cve-volume` section
+  // below, which carries the daily counts alongside them.
+  let findings = [...kevFindings, ...nvdFindings, ...mtiCveFindings, ...cvefeedFindings, ...dbugsFindings];
 
   const matchTimestamp = (e: IocEntry) =>
     e.timestamp ? withinRange(e.timestamp.replace(' ', 'T'), startMs, endMs) : false;
@@ -579,6 +731,78 @@ export async function buildBriefing(
     });
   }
 
+  // ── VulnTracker daily CVE volume ───────────────────────────────────────
+  // Its own section rather than a fold-into-`findings` contribution, for two
+  // reasons: the counts describe the whole day's CVE volume (conflating them
+  // with `findings`, which is only the critical/high subset, would imply the
+  // briefing enumerated every CVE published that day), and the VT criticals
+  // carry more context here — vendor, product, CVSS, exploited flag — than a
+  // generic category bucket preserves. Like the Webamon / Daily-Hunt sections
+  // they stay OUT of `findings` so nothing renders twice, but they DO feed the
+  // technique rollup further down.
+  if (vtDigest) {
+    const gatedNote = vtDigest.is_gated
+      ? ` VulnTracker gates the full CVE list behind a subscription — the ${vtCveFindings.length} below are the ${vtDigest.top_cves.length} top criticals it exposes, minus any already covered by NVD/KEV/cvefeed. Not the complete set.`
+      : '';
+    const archiveNote =
+      vulntrackerBundle.archive.length > 0
+        ? ` 30-day archive available (median ${medianDailyCount(vulntrackerBundle.archive)} CVEs/day).`
+        : '';
+    sections.push({
+      id: 'cve-volume',
+      title: 'Daily CVE volume (VulnTracker digest)',
+      count: vtCveFindings.length,
+      blurb:
+        `VulnTracker recorded ${vtDigest.total_count.toLocaleString()} CVEs landing on ${vtDigest.date}, ` +
+        `${vtDigest.critical_count.toLocaleString()} of them critical` +
+        `${vtDigest.exploited_count !== null ? ` and ${vtDigest.exploited_count.toLocaleString()} flagged as exploited` : ''}.` +
+        gatedNote +
+        archiveNote,
+      findings: vtCveFindings,
+    });
+  }
+
+  // ── VulnTracker blog: exploit-in-the-wild narrative ────────────────────
+  // Windowed by the RSS pubDate like every other source. These posts are
+  // hand-written analysis of confirmed exploitation, which is the framing no
+  // structured feed in this builder provides.
+  const vtBlogFindings: BriefingFinding[] = [];
+  const seenVtBlog = new Set<string>();
+  for (const post of vulntrackerBundle.blog) {
+    if (!withinRange(post.published, startMs, endMs)) continue;
+    if (seenVtBlog.has(post.link)) continue;
+    seenVtBlog.add(post.link);
+    const primaryId = post.cve_ids[0];
+    // Posts about a CVE already surfaced keep the advisory record's id so
+    // dedupeCveFindings collapses them; only genuinely-new topics get a slug.
+    const findingId =
+      primaryId && !existingCveIds.has(primaryId.toUpperCase())
+        ? primaryId.toUpperCase()
+        : `vt-blog-${post.link.split('/').pop() ?? post.link}`.replace(/[^a-zA-Z0-9-]/g, '-').slice(0, 90);
+    // A post about an already-surfaced CVE is still recorded — the written
+    // analysis is the value, not the CVE id — but it takes a slug id instead of
+    // the CVE id so it can't be deduped away by dedupeCveFindings.
+    vtBlogFindings.push({
+      id: findingId,
+      title: post.title.length > 120 ? `${post.title.slice(0, 117)}…` : post.title,
+      description: post.description ? `[VulnTracker] ${post.description.slice(0, 400)}` : `[VulnTracker] ${post.title}`,
+      severity: post.cve_ids.length > 0 ? 'high' : 'medium',
+      source: 'VulnTracker',
+      source_url: post.link,
+      mitre_techniques: deriveMitreTechniques(post.title),
+    });
+  }
+  if (vtBlogFindings.length > 0) {
+    const cveCount = new Set(vtBlogFindings.filter((f) => f.id.startsWith('CVE-')).map((f) => f.id)).size;
+    sections.push({
+      id: 'vulntracker-analysis',
+      title: 'Exploitation analysis (VulnTracker)',
+      count: vtBlogFindings.length,
+      blurb: `Hand-written exploitation analysis published by VulnTracker within this window, covering ${cveCount} CVE${cveCount === 1 ? '' : 's'}.`,
+      findings: vtBlogFindings,
+    });
+  }
+
   const stats = buildStats(findings, sections, iocsRawTotal, ransomwareFindings.length);
   const summaryArgs = {
     type,
@@ -598,12 +822,18 @@ export async function buildBriefing(
   const techniqueSet = new Set<string>();
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);
   for (const f of dailyHuntFindings) for (const t of f.mitre_techniques) techniqueSet.add(t);
+  // The VulnTracker criticals live in their own section rather than in
+  // `findings`, so their techniques have to be folded in explicitly or the
+  // briefing's MITRE coverage silently drops them.
+  for (const f of vtCveFindings) for (const t of f.mitre_techniques) techniqueSet.add(t);
 
   const sources: string[] = [];
   if (findings.some((f) => f.source === 'CISA KEV')) sources.push('CISA KEV');
   if (findings.some((f) => f.source === 'NVD')) sources.push('NVD');
   if (findings.some((f) => f.source === 'cvefeed.io')) sources.push('cvefeed.io');
   if (findings.some((f) => f.source === 'MyThreatIntel')) sources.push('MyThreatIntel');
+  if (vtDigest || vtBlogFindings.length > 0) sources.push('VulnTracker');
+  if (dbugsBundle.vulns.length > 0) sources.push('dbu.gs');
   if (ransomwareFindings.length > 0) sources.push('ransomware.live');
   if (webamonFindings.length > 0) sources.push('Webamon');
   if (malpkgFindings.length > 0) sources.push('ossf/malicious-packages');

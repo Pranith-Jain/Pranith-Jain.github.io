@@ -284,6 +284,40 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     category: 'primary',
     description: 'Commercial exploit & IP intelligence — C2/initial-access attribution, exploitation-in-the-wild',
   },
+  dbugs: {
+    id: 'dbugs',
+    name: 'dbu.gs',
+    reliability: 'B',
+    category: 'secondary',
+    description: 'Public vulnerability database — vendor/product/CWE mapping plus exploit- and fix-availability flags',
+    // Rows are largely mirrored from NVD/Mitre (its `cvss` block carries both,
+    // often identically), so it adds normalization and exploit/fix flags
+    // rather than new primary observations. Graded B, not A, for that reason.
+    known_bias: 'Derived from NVD/Mitre data, so not independent of them; exploit-availability flags are self-reported',
+  },
+  exploitgrid: {
+    id: 'exploitgrid',
+    name: 'ExploitGrid',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'Public exploit repository index — proof-of-concept availability per CVE',
+    // Existence of a PoC is a hard fact, but these are unreviewed submissions
+    // (every live row carried status PENDING) and many are non-functional or
+    // proof-of-concept-only. C, not B: treat as a lead, not a confirmed weapon.
+    known_bias: 'Community submissions, no validation step; `severity` classifies the exploit, not a CVSS score',
+  },
+  vulntracker: {
+    id: 'vulntracker',
+    name: 'VulnTracker',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'Daily CVE digest counters, top criticals, and hand-written exploitation analysis',
+    // The blog analysis is genuinely useful and human-written, but the digest
+    // counters and top_cves are a subscription product's gated preview: only
+    // 7 criticals/day are visible and vendor/product breakdowns are withheld,
+    // so coverage is partial by design. C reflects that partial-by-design view.
+    known_bias: 'Digest API is gated (top 7 criticals of the full day); most of the JSON API requires authentication',
+  },
   otx: {
     id: 'otx',
     name: 'AlienVault OTX',
