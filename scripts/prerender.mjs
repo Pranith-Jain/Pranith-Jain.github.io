@@ -464,8 +464,22 @@ async function main() {
 
   async function renderOne(route, surface, dir, treeLabel) {
     const { html: appHtml } = await render(route, surface);
-    const finalHtml = shell.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
-    if (finalHtml === shell) {
+    // Stamp `data-surface` onto <html> in BOTH prerender trees. The
+    // portfolio-only smooth-scroll anchor offset is scoped to
+    // `html[data-surface='portfolio']`, and this attribute is what
+    // main.tsx re-applies client-side. Without it in the served HTML the
+    // offset is missing on first paint — exactly when someone clicking an
+    // in-page anchor would land under the sticky header — and the tools tree
+    // would be wrong even if the attribute arrived after hydration.
+    const stamped = shell
+      .replace(/<html([^>]*)>/, `<html$1 data-surface="${surface}">`)
+      .replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
+    const finalHtml = stamped;
+    // Check the ROOT placeholder specifically, not `finalHtml === shell`.
+    // The <html> stamp above always changes the string, so an equality check
+    // against `shell` could never fire again - a shell missing the root div
+    // would silently prerender to an empty page instead of failing loudly.
+    if (!/<div id="root">/.test(finalHtml)) {
       throw new Error('prerender: shell did not contain <div id="root"></div> placeholder');
     }
     const slug = route === '/' ? 'home' : route.slice(1).replace(/\//g, '__');
