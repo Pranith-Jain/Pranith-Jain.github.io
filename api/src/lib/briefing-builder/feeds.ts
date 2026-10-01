@@ -3,6 +3,7 @@ import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } fr
 import { fetchResilient } from '../fetch-resilient';
 import { readLastGood, writeLastGood } from '../lastgood';
 import { NVD_UA, NVD_API, KEV_FEED, LASTGOOD_TTL_SEC, nvdHeaders } from './config';
+import { fetchDbugsRecent as fetchDbugsSource, type DbugsVuln } from '../dbugs';
 import type { KevDoc, KevEntry, NvdCve, NvdResponse } from './types';
 
 export interface MaliciousPackageEntry {
@@ -375,6 +376,21 @@ export async function fetchMaliciousPackages(
 // the weekly sync (scripts/sync-threat-intel.mjs → build-threat-intel.mjs).
 // We read the slim index via env.ASSETS — no public internet hop, no
 // subrequest budget cost (ASSETS is a binding, not a fetch).
+
+export type { DbugsVuln } from '../dbugs';
+
+/**
+ * dbu.gs rows for the briefing window.
+ *
+ * Re-exported through this module so the briefing's source adapters all live
+ * behind one import surface (and one last-good namespace) rather than build.ts
+ * reaching into three different libs. Returns `{ vulns, ok }` — a dead
+ * upstream yields an empty list so the builder degrades instead of failing.
+ */
+export async function fetchDbugsRecent(): Promise<{ vulns: DbugsVuln[]; ok: boolean }> {
+  const r = await fetchDbugsSource().catch(() => ({ vulns: [] as DbugsVuln[], ok: false }));
+  return r;
+}
 
 export async function fetchDailyHuntIocFamilies(
   env?: Env,

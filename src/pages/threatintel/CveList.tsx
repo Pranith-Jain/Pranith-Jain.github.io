@@ -23,7 +23,15 @@ interface RecentCve {
   kev_due?: string;
   kev_ransomware?: boolean;
   actors?: Array<{ slug: string; mitre_id?: string; mitre_url?: string; mitre_name?: string }>;
-  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed' | 'cvenotify' | 'tg';
+  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed' | 'cvenotify' | 'tg' | 'dbugs' | 'exploitgrid';
+  /** dbu.gs vendor (origin 'dbugs'). */
+  vendor?: string;
+  /** dbu.gs product (origin 'dbugs'). */
+  product?: string;
+  /** dbu.gs records a public exploit/PoC for this CVE. */
+  has_exploit?: boolean;
+  /** dbu.gs records an available fix or vendor advisory. */
+  has_fix?: boolean;
   /** Telegram permalink when origin is 'mti'. */
   mti_permalink?: string;
   /** Telegram permalink when origin is 'cvenotify'. */
@@ -90,6 +98,16 @@ const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; too
     label: 'Telegram',
     cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
     tooltip: 'Gap-filled from a CVE Telegram channel - not yet in NVD',
+  },
+  dbugs: {
+    label: 'dbu.gs',
+    cls: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
+    tooltip: 'Gap-filled from dbu.gs — carries vendor/product/CWE plus exploit- and fix-availability flags',
+  },
+  exploitgrid: {
+    label: 'ExploitGrid',
+    cls: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+    tooltip: 'Gap-filled from ExploitGrid — a public proof-of-concept exists for this CVE',
   },
 };
 
