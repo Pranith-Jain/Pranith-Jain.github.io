@@ -20,6 +20,7 @@
     "og:upload": "node scripts/generate-page-og.mjs && node scripts/upload-page-og.mjs",
     "check:budgets": "node scripts/check-budgets.mjs",
     "lint:baseline": "node scripts/update-raw-colors-baseline.mjs",
+    "check:deploy-secrets": "node scripts/check-deploy-secrets.mjs",
     "build:check": "npm run build && npm run check:budgets",
     "deploy": "npm run build && npm run og:upload && wrangler deploy",
     "preview": "vite preview",
