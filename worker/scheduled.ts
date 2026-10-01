@@ -290,8 +290,12 @@ export async function executeCronJob(
           // The request handler never builds (10ms cap), so this enqueue is
           // what keeps /api/v1/cve-digest from 503ing.
           try {
-            await env.FEEDS_QUEUE.send({ digestWarm: true });
-            console.log(JSON.stringify({ job: 'cve-digest-enqueue', status: 'sent' }));
+            if (env.FEEDS_QUEUE) {
+              await env.FEEDS_QUEUE.send({ digestWarm: true });
+              console.log(JSON.stringify({ job: 'cve-digest-enqueue', status: 'sent' }));
+            } else {
+              console.error(JSON.stringify({ job: 'cve-digest-enqueue', status: 'no_queue' }));
+            }
           } catch (e) {
             logCronFail('cve-digest-enqueue')(e);
           }
