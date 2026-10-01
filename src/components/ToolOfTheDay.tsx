@@ -77,7 +77,7 @@ export function ToolOfTheDay(): JSX.Element | null {
               <Wrench size={16} aria-hidden="true" />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h4 className="text-sm font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {tool.name}
               </h4>
               <p className="text-xs text-muted mt-0.5 leading-relaxed">{tool.desc}</p>

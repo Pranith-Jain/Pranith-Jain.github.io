@@ -16,7 +16,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { RAW_COLORS_BASELINE } from '../../eslint-rules/raw-colors-baseline.mjs';
 
@@ -56,10 +57,23 @@ describe('raw-colors baseline', () => {
     expect(config).toContain('files: RAW_COLORS_BASELINE');
     expect(config).toContain("'no-raw-colors/no-raw-colors': 'off'");
   });
+
+  // Spawning a full ESLint scan takes ~30s, well past the 10s default, so the
+  // timeout is explicit rather than left to fail on a slow machine.
+  it('matches what a fresh scan reports', { timeout: 120_000 }, () => {
+    // The scan forces the rule on with `--rule`, which overrides the
+    // baselined-files override -- so this sees every file, not just the
+    // unlisted ones. Catches drift in both directions: a cleaned file still
+    // listed, or a dirty file missing from the list (which would fail CI).
+    const res = spawnSync('node', [resolve(ROOT, 'scripts/update-raw-colors-baseline.mjs'), '--check'], {
+      cwd: ROOT,
+      encoding: 'utf8',
+    });
+    expect(res.status, `baseline check failed:\n${res.stdout}\n${res.stderr}`).toBe(0);
+  });
 });
 
 function readConfig(): string {
-  // Imported lazily so the assertion above reads the real on-disk config.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require('node:fs').readFileSync(resolve(ROOT, 'eslint.config.js'), 'utf8') as string;
+  // Read lazily so the assertion above reflects the real on-disk config.
+  return readFileSync(resolve(ROOT, 'eslint.config.js'), 'utf8');
 }

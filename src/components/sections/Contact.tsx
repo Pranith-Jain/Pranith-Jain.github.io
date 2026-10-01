@@ -35,10 +35,7 @@ export function Contact({ personalInfo }: ContactProps) {
           <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
             Get in touch
           </div>
-          <h2
-            id="contact-heading"
-            className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white"
-          >
+          <h2 id="contact-heading" className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
             Investigating an incident, or building detections before one happens?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-muted">
@@ -89,7 +86,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-slate-900 dark:hover:text-white focus-visible:outline-none rounded"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-heading dark:hover:text-white focus-visible:outline-none rounded"
                 aria-label="LinkedIn profile (opens in new tab)"
               >
                 <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
@@ -101,7 +98,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-slate-900 dark:hover:text-white focus-visible:outline-none rounded"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-heading dark:hover:text-white focus-visible:outline-none rounded"
                 aria-label="GitHub profile (opens in new tab)"
               >
                 <Github className="h-3.5 w-3.5" aria-hidden="true" />
@@ -113,7 +110,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-slate-900 dark:hover:text-white focus-visible:outline-none rounded"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-heading dark:hover:text-white focus-visible:outline-none rounded"
                 aria-label="Resume (opens in new tab)"
               >
                 <FileText className="h-3.5 w-3.5" aria-hidden="true" />
@@ -125,7 +122,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.featuredUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-slate-900 dark:hover:text-white focus-visible:outline-none rounded"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-heading dark:hover:text-white focus-visible:outline-none rounded"
                 aria-label="Featured Experts profile (opens in new tab)"
               >
                 <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

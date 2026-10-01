@@ -289,9 +289,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
                   {KIND_LABELS[selectedMarker.kind]}
                 </span>
               </div>
-              {selectedMarker.title && (
-                <p className="text-sm font-semibold text-slate-900 dark:text-white">{selectedMarker.title}</p>
-              )}
+              {selectedMarker.title && <p className="text-sm font-semibold text-heading">{selectedMarker.title}</p>}
               {selectedMarker.description && <p className="text-xs text-muted mt-1">{selectedMarker.description}</p>}
               <div className="flex items-center gap-3 mt-2">
                 <span
@@ -318,7 +316,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
             <button
               type="button"
               onClick={() => setSelectedMarker(null)}
-              className="text-muted hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+              className="text-muted hover:text-muted dark:hover:text-inverted transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

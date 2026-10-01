@@ -240,7 +240,7 @@ export default function VerdiktAi(): JSX.Element {
                 className="w-full rounded-xl border border-line-1 bg-surface-200 p-3 pr-20 text-sm text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
               />
               {iocValue.trim() && (
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-slate-200 dark:bg-surface-300 text-body">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-track text-body">
                   {TYPE_ICONS[iocType]}
                   {TYPE_LABELS[iocType]}
                 </div>
@@ -251,7 +251,7 @@ export default function VerdiktAi(): JSX.Element {
           <button
             onClick={handleEnrich}
             disabled={loading || !iocValue.trim()}
-            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
@@ -431,7 +431,7 @@ export default function VerdiktAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
-              <Search size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
+              <Search size={32} className="text-inverted dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Enter an IOC and click <span className="font-semibold">Enrich & Analyze</span>
               </p>

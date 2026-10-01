@@ -202,7 +202,7 @@ export default function PhoneOsintNew() {
               <button
                 onClick={handlePhoneScan}
                 disabled={!input.trim() || scanning}
-                className="px-7 py-4 rounded-xl font-bold text-white flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed bg-brand-600 hover:bg-brand-700 shadow-e2"
+                className="px-7 py-4 rounded-xl font-bold text-on-fill flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed bg-brand-600 hover:bg-brand-700 shadow-e2"
               >
                 {scanning ? <Loader2 size={16} className="animate-spin" /> : <Scan size={16} />}
                 {scanning ? 'Scanning...' : 'Deep Scan'}

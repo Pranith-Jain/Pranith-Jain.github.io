@@ -156,7 +156,7 @@ export default function PiTaxonomy() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         <div className="surface-card p-3 text-center">
-          <div className="text-xl font-bold font-mono text-slate-900 dark:text-white">{stats.total}</div>
+          <div className="text-xl font-bold font-mono text-heading">{stats.total}</div>
           <div className="text-mini text-muted uppercase">Total</div>
         </div>
         {cats.map((c) => (
@@ -225,7 +225,7 @@ export default function PiTaxonomy() {
                 {CAT[c].icon}
               </div>
               <div>
-                <h2 className="text-lg font-display font-bold text-slate-900 dark:text-white">{CAT[c].title}</h2>
+                <h2 className="text-lg font-display font-bold text-heading">{CAT[c].title}</h2>
                 <p className="text-tool text-muted">{CAT[c].subtitle}</p>
               </div>
             </div>
@@ -338,13 +338,13 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           <button
             aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-muted hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-200 transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-muted dark:hover:text-inverted hover:bg-surface-300 dark:hover:bg-surface-200 transition-colors"
           >
             <X size={16} />
           </button>
         </div>
         <div className="p-6 overflow-y-auto flex-1">
-          <h2 className="text-xl font-display font-bold text-slate-900 dark:text-white mb-1">{node.title}</h2>
+          <h2 className="text-xl font-display font-bold text-heading mb-1">{node.title}</h2>
           {node.local && (
             <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 mb-4">
               <Lock size={16} className="text-amber-500 shrink-0 mt-0.5" />
@@ -374,7 +374,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
             <div className="mb-6">
               <button
                 onClick={() => setShowIdeas(!showIdeas)}
-                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 hover:text-slate-700 dark:hover:text-slate-300"
+                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted mb-2 hover:text-body dark:hover:text-inverted"
               >
                 General Ideas ({node.ideas.length}) {showIdeas ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
               </button>
@@ -396,7 +396,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
             <div className="mb-6">
               <button
                 onClick={() => setShowExamples(!showExamples)}
-                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 hover:text-slate-700 dark:hover:text-slate-300"
+                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted mb-2 hover:text-body dark:hover:text-inverted"
               >
                 Example Prompts ({node.examples.length}){' '}
                 {showExamples ? <ChevronUp size={14} /> : <ChevronDown size={14} />}

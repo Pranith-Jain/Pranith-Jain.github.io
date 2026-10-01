@@ -275,7 +275,7 @@ export default function InfostealerIntel(): JSX.Element {
           <button
             onClick={handleSearch}
             disabled={loading || !query.trim()}
-            className="px-4 py-2.5 bg-brand-600 text-white font-medium rounded-xl text-sm hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-4 py-2.5 bg-brand-600 text-on-fill font-medium rounded-xl text-sm hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             {loading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
             Search
@@ -357,7 +357,7 @@ export default function InfostealerIntel(): JSX.Element {
                   </>
                 ) : null}
               </div>
-              <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
+              <div className="divide-y divide-line-1 dark:divide-slate-800/50">
                 {(entry.credentials ?? []).map((cred, j) => (
                   <div key={j} className="px-4 py-2 flex flex-wrap items-center gap-2.5 text-xs">
                     <span
@@ -461,7 +461,7 @@ export default function InfostealerIntel(): JSX.Element {
                       <div className="flex flex-col items-center">
                         <div className="w-2 h-2 rounded-full bg-brand-600 dark:bg-brand-400 shrink-0 mt-1.5" />
                         {i < infectionResult.analysis.infection_flow.length - 1 && (
-                          <div className="w-px flex-1 bg-slate-200 dark:bg-surface-300" />
+                          <div className="w-px flex-1 bg-track" />
                         )}
                       </div>
                       <div className="pb-3">
@@ -491,7 +491,7 @@ export default function InfostealerIntel(): JSX.Element {
           href="https://docs.hudsonrock.com/"
           target="_blank"
           rel="noopener"
-          className="hover:text-slate-600 dark:hover:text-slate-300 inline-flex items-center gap-1 transition-colors"
+          className="hover:text-muted dark:hover:text-inverted inline-flex items-center gap-1 transition-colors"
         >
           Docs <ExternalLink className="w-3 h-3" />
         </a>

@@ -191,7 +191,7 @@ export default function Watches(): JSX.Element {
         <button
           type="button"
           onClick={() => setShowForm(!showForm)}
-          className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 text-sm transition-colors"
+          className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 text-sm transition-colors"
         >
           <Plus size={14} /> New Watch
         </button>
@@ -223,7 +223,7 @@ export default function Watches(): JSX.Element {
             <DataState loading={true} rows={4} />
           ) : watches.length === 0 ? (
             <div className="rounded-xl border border-dashed border-line-2 px-4 py-10 text-center">
-              <Bell size={32} className="mx-auto mb-2 text-slate-300 dark:text-slate-500" />
+              <Bell size={32} className="mx-auto mb-2 text-inverted" />
               <p className="text-sm text-muted font-mono">No watches configured yet.</p>
               <p className="text-xs text-muted mt-1 font-mono">Click "New Watch" to get started.</p>
             </div>
@@ -280,7 +280,7 @@ export default function Watches(): JSX.Element {
                         <button
                           type="button"
                           onClick={() => handleUpdate(watch.id)}
-                          className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded text-xs hover:bg-rose-700 transition-colors"
+                          className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded text-xs hover:bg-rose-700 transition-colors"
                         >
                           Save
                         </button>
@@ -460,7 +460,7 @@ export default function Watches(): JSX.Element {
                   type="button"
                   onClick={() => void handleCreate()}
                   disabled={submitting || !form.label || !form.value || !form.webhook}
-                  className="w-full py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors flex items-center justify-center gap-2 text-sm"
+                  className="w-full py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors flex items-center justify-center gap-2 text-sm"
                 >
                   {submitting ? <RefreshCw size={14} className="animate-spin" /> : <Plus size={14} />}
                   {submitting ? 'Creating...' : 'Create Watch'}
@@ -478,7 +478,7 @@ export default function Watches(): JSX.Element {
                 aria-label="Refresh"
                 type="button"
                 onClick={fetchData}
-                className="ml-auto text-muted hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                className="ml-auto text-muted hover:text-muted dark:hover:text-inverted transition-colors"
               >
                 <RefreshCw size={12} />
               </button>

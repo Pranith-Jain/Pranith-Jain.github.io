@@ -923,7 +923,7 @@ function CountryMapView(): JSX.Element | null {
               </div>
               <Pill tone="brand">{c.victim_count} victims</Pill>
             </div>
-            <div className="h-1.5 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+            <div className="h-1.5 rounded-full bg-track overflow-hidden">
               <div
                 className="h-full bg-rose-500 rounded-full"
                 style={{ width: `${(c.victim_count / maxCount) * 100}%` }}

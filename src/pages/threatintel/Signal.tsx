@@ -259,7 +259,7 @@ export default function Signal(): JSX.Element {
                   {shortRel(it.published)}
                 </span>
               </div>
-              <h2 className="font-display font-semibold text-base text-slate-900 dark:text-white leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+              <h2 className="font-display font-semibold text-base text-heading leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                 {it.title}
                 <ExternalLink size={12} className="inline-block ml-1 opacity-50" aria-hidden="true" />
               </h2>

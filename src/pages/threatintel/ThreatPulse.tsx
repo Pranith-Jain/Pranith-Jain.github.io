@@ -311,7 +311,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setKindFilter(null)}
-                  className="inline-flex items-center gap-1.5 border border-line-1 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-muted transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
+                  className="inline-flex items-center gap-1.5 border border-line-1 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-muted transition-colors hover:border-line-3 hover:text-heading dark:hover:text-slate-100 rounded"
                 >
                   Clear {KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]} filter
                 </button>

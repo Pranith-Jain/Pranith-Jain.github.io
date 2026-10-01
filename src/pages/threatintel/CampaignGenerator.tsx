@@ -413,7 +413,7 @@ export default function CampaignGenerator(): JSX.Element {
             type="button"
             onClick={() => void generate()}
             disabled={empty || tooLong || loading}
-            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-4 py-2 text-xs font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-4 py-2 text-xs font-mono font-semibold text-on-fill hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
@@ -476,7 +476,7 @@ export default function CampaignGenerator(): JSX.Element {
                   type="button"
                   onClick={() => void saveCampaign()}
                   disabled={saving}
-                  className="inline-flex items-center gap-1.5 rounded bg-rose-600 px-2.5 py-1 text-mini font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40"
+                  className="inline-flex items-center gap-1.5 rounded bg-rose-600 px-2.5 py-1 text-mini font-mono font-semibold text-on-fill hover:bg-rose-500 disabled:opacity-40"
                 >
                   {saving ? <Loader2 size={11} className="animate-spin" /> : <Save size={11} />}
                   {saving ? 'saving' : 'save campaign'}

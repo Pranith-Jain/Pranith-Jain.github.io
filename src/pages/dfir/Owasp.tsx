@@ -212,7 +212,7 @@ export default function Owasp(): JSX.Element {
         </div>
         {/* Coverage bar */}
         {stats.total > 0 && (
-          <div className="mt-3 flex h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
+          <div className="mt-3 flex h-2 overflow-hidden rounded-full bg-track">
             <div className="bg-emerald-500" style={{ width: `${(stats.covered / stats.total) * 100}%` }} />
             <div className="bg-amber-500" style={{ width: `${(stats.partial / stats.total) * 100}%` }} />
             <div className="bg-rose-500" style={{ width: `${(stats.gap / stats.total) * 100}%` }} />

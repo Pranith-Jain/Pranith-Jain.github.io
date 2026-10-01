@@ -359,7 +359,7 @@ export default function TelegramHub(): JSX.Element {
               <button
                 type="submit"
                 disabled={searchLoading || !q.trim()}
-                className="inline-flex items-center gap-2 rounded bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-mono text-sm font-semibold px-4 py-2.5 transition-colors"
+                className="inline-flex items-center gap-2 rounded bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400 disabled:opacity-50 disabled:cursor-not-allowed text-on-fill font-mono text-sm font-semibold px-4 py-2.5 transition-colors"
               >
                 {searchLoading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
                 Search
@@ -520,7 +520,7 @@ export default function TelegramHub(): JSX.Element {
                       {card.title}
                     </span>
                     {card.badge && (
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-rose-600 dark:bg-rose-500 text-white">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-rose-600 dark:bg-rose-500 text-on-fill">
                         {card.badge}
                       </span>
                     )}

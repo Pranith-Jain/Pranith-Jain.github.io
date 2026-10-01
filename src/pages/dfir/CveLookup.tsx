@@ -219,7 +219,7 @@ export default function CveLookup(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <BookText size={16} className="inline mr-2" />
             Lookup
@@ -327,7 +327,7 @@ export default function CveLookup(): JSX.Element {
                   </span>
                 </div>
 
-                <div className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-3">
+                <div className="h-2 rounded bg-track overflow-hidden mb-3">
                   <div
                     className={`h-full transition-all ${TIER_BARS[p.tier]}`}
                     style={{ width: `${Math.max(2, p.score)}%` }}
@@ -463,7 +463,7 @@ export default function CveLookup(): JSX.Element {
                     setCopied('explain');
                     setTimeout(() => setCopied(null), 2000);
                   }}
-                  className="text-xs font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                  className="text-xs font-mono text-muted hover:text-muted dark:hover:text-inverted"
                 >
                   {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                 </button>

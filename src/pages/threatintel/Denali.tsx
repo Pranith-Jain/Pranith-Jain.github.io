@@ -320,7 +320,7 @@ export default function Denali(): JSX.Element {
           <button
             onClick={runEvaluate}
             disabled={evaluating}
-            className="px-4 py-2 rounded-xl bg-brand-600 text-white text-sm font-medium disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 rounded-xl bg-brand-600 text-on-fill text-sm font-medium disabled:opacity-50 flex items-center gap-2"
           >
             {evaluating ? <Loader2 size={15} className="animate-spin" /> : <ScanSearch size={15} />}
             Evaluate activity

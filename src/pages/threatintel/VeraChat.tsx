@@ -687,7 +687,7 @@ export default function VeraChat(): JSX.Element {
   const ModeIcon = activeModeDef.icon;
 
   return (
-    <div className="flex h-[calc(100vh-64px)] overflow-hidden text-slate-900 dark:text-white">
+    <div className="flex h-[calc(100vh-64px)] overflow-hidden text-heading">
       {/* ── Session sidebar ──────────────────────────────────────────── */}
       <SessionSidebar
         open={sidebarOpen}
@@ -840,7 +840,7 @@ export default function VeraChat(): JSX.Element {
                           setQuery(ex.query);
                           void submitChat(ex.query);
                         }}
-                        className="rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-200"
+                        className="rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-xs font-medium text-body transition-colors hover:bg-surface-200"
                       >
                         <span className="text-muted">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
@@ -883,7 +883,7 @@ export default function VeraChat(): JSX.Element {
                     msg.role === 'user' ? (
                       <div key={i} className="flex justify-end group">
                         <div className="relative max-w-[85%] sm:max-w-[70%]">
-                          <div className="rounded-2xl bg-rose-600 px-4 py-2.5 text-sm text-white shadow-sm">
+                          <div className="rounded-2xl bg-rose-600 px-4 py-2.5 text-sm text-on-fill shadow-sm">
                             {msg.content}
                           </div>
                           <button
@@ -1072,7 +1072,7 @@ export default function VeraChat(): JSX.Element {
                     value={template}
                     onChange={(e) => setTemplate(e.target.value)}
                     aria-label="Report template"
-                    className="rounded-xl border border-line-1 bg-surface-100 px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-slate-300"
+                    className="rounded-xl border border-line-1 bg-surface-100 px-2.5 py-1.5 text-xs font-mono text-muted focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20"
                   >
                     <option value="auto">Auto template</option>
                     <option value="ransomware-group">Ransomware Group</option>
@@ -1084,7 +1084,7 @@ export default function VeraChat(): JSX.Element {
                     value={tlp}
                     onChange={(e) => setTlp(e.target.value)}
                     aria-label="TLP classification"
-                    className="rounded-xl border border-line-1 bg-surface-100 px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-slate-300"
+                    className="rounded-xl border border-line-1 bg-surface-100 px-2.5 py-1.5 text-xs font-mono text-muted focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20"
                   >
                     <option value="CLEAR">TLP:CLEAR</option>
                     <option value="GREEN">TLP:GREEN</option>
@@ -1102,7 +1102,7 @@ export default function VeraChat(): JSX.Element {
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && submit(query)}
                     placeholder="Subject for a full report (group, actor, CVE, or IOC)…"
-                    className="h-14 w-full rounded-xl border border-line-1 bg-surface-100 pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-white dark:placeholder:text-slate-500"
+                    className="h-14 w-full rounded-xl border border-line-1 bg-surface-100 pl-12 pr-14 text-base text-heading shadow-sm transition-colors placeholder:text-muted focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:placeholder:text-muted"
                     disabled={loading || !!progress}
                   />
                   <button
@@ -1110,7 +1110,7 @@ export default function VeraChat(): JSX.Element {
                     onClick={() => submit(query)}
                     aria-label="Submit query"
                     disabled={loading || !!progress || !query.trim()}
-                    className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-rose-600 text-white transition-all hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-rose-600 text-on-fill transition-all hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed"
                   >
                     {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                   </button>
@@ -1148,7 +1148,7 @@ export default function VeraChat(): JSX.Element {
                           setQuery(ex.query);
                           void submit(ex.query);
                         }}
-                        className="rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-200"
+                        className="rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-xs font-medium text-body transition-colors hover:bg-surface-200"
                       >
                         <span className="text-muted">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
@@ -1170,7 +1170,7 @@ export default function VeraChat(): JSX.Element {
                       </span>
                       <span>{progress.pct}%</span>
                     </div>
-                    <div className="h-1.5 overflow-hidden rounded bg-slate-200 dark:bg-surface-300">
+                    <div className="h-1.5 overflow-hidden rounded bg-track">
                       <div className="h-full bg-rose-500 transition-all" style={{ width: `${progress.pct}%` }} />
                     </div>
                     <p className="mt-2 font-mono text-xs text-muted">{progress.detail}</p>
@@ -1224,7 +1224,7 @@ export default function VeraChat(): JSX.Element {
                               ? 'What read should I challenge?'
                               : 'Ask about any threat…'
                   }
-                  className="h-12 w-full rounded-xl border border-line-1 bg-surface-100 pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-white dark:placeholder:text-slate-500"
+                  className="h-12 w-full rounded-xl border border-line-1 bg-surface-100 pl-4 pr-12 text-sm text-heading shadow-sm transition-colors placeholder:text-muted focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:placeholder:text-muted"
                   disabled={streaming}
                 />
                 <button
@@ -1238,7 +1238,7 @@ export default function VeraChat(): JSX.Element {
                   }}
                   aria-label="Send message"
                   disabled={streaming || !query.trim()}
-                  className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl bg-rose-600 text-white transition-all hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl bg-rose-600 text-on-fill transition-all hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   {streaming ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                 </button>
@@ -1407,7 +1407,7 @@ function SessionSidebar({
             sessions.map((s) => (
               <div
                 key={s.id}
-                className={`group flex items-center gap-2 border-b border-slate-50 px-4 py-2.5 cursor-pointer transition-colors hover:bg-slate-50 dark:border-line-1 dark:hover:bg-surface-300 ${
+                className={`group flex items-center gap-2 border-b border-slate-50 px-4 py-2.5 cursor-pointer transition-colors hover:bg-surface-200 dark:border-line-1 dark:hover:bg-surface-300 ${
                   s.id === activeId ? 'bg-rose-50 dark:bg-rose-900/20' : ''
                 }`}
                 onClick={() => onSelect(s.id)}
@@ -1429,7 +1429,7 @@ function SessionSidebar({
                     e.stopPropagation();
                     onDelete(s.id);
                   }}
-                  className="shrink-0 rounded p-1 text-slate-300 opacity-0 transition-opacity hover:text-rose-500 group-hover:opacity-100"
+                  className="shrink-0 rounded p-1 text-inverted opacity-0 transition-opacity hover:text-rose-500 group-hover:opacity-100"
                   aria-label="Delete conversation"
                 >
                   <Trash2 size={12} />

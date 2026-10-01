@@ -327,7 +327,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setActiveTypes(new Set())}
-                    className="text-micro font-mono uppercase tracking-wider rounded-full border border-line-2 px-2.5 py-0.5 text-muted hover:text-slate-700 dark:hover:text-slate-300"
+                    className="text-micro font-mono uppercase tracking-wider rounded-full border border-line-2 px-2.5 py-0.5 text-muted hover:text-body dark:hover:text-inverted"
                   >
                     clear
                   </button>

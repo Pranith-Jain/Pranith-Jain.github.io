@@ -61,7 +61,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
           type="button"
           onClick={scan}
           disabled={!/^CVE-\d{4}-\d{4,7}$/.test(cveId.trim().toUpperCase())}
-          className="px-4 py-2 bg-rose-600 hover:bg-rose-700 disabled:opacity-40 text-white rounded-xl text-sm font-medium flex items-center gap-1.5 transition-colors"
+          className="px-4 py-2 bg-rose-600 hover:bg-rose-700 disabled:opacity-40 text-on-fill rounded-xl text-sm font-medium flex items-center gap-1.5 transition-colors"
         >
           <Search className="h-4 w-4" />
           Scan GitHub
@@ -71,7 +71,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
       {data && (
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-sm text-muted">
-            <span className="font-mono font-semibold text-slate-900 dark:text-white">{data.cve_id}</span>
+            <span className="font-mono font-semibold text-heading">{data.cve_id}</span>
             <span>{data.repos.length} PoC repos found</span>
             <span className="text-xs text-muted">({data.total_count} total on GitHub)</span>
           </div>

@@ -615,14 +615,12 @@ export default function LiveFeed(): JSX.Element {
                   <div className="font-mono text-[11px] tracking-widest text-sky-600 dark:text-sky-400 mb-2">
                     DESCRIPTION
                   </div>
-                  <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                    {selected.description || 'No description.'}
-                  </p>
+                  <p className="text-sm leading-relaxed text-body">{selected.description || 'No description.'}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                     <div className="font-mono text-[11px] tracking-widest text-orange-600 mb-2">RISK ASSESSMENT</div>
-                    <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                    <p className="text-xs leading-relaxed text-body">
                       {selected.aiSummary?.threat_assessment || 'Pending.'}
                     </p>
                   </div>
@@ -659,7 +657,7 @@ export default function LiveFeed(): JSX.Element {
                           ]
                         : ['No actions defined']
                       ).map((a, i) => (
-                        <li key={i} className="flex gap-2 text-xs text-slate-700 dark:text-slate-300">
+                        <li key={i} className="flex gap-2 text-xs text-body">
                           <span className="text-emerald-500">›</span> {a}
                         </li>
                       ))}
@@ -667,7 +665,7 @@ export default function LiveFeed(): JSX.Element {
                   </div>
                   <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                     <div className="font-mono text-[11px] tracking-widest text-amber-600 mb-2">DETECTION</div>
-                    <div className="font-mono text-xs p-2 rounded bg-slate-900 text-sky-300 border border-slate-700">
+                    <div className="font-mono text-xs p-2 rounded bg-surface-100 text-sky-300 border border-slate-700">
                       Sigma: {selected.mitre[0]?.id.toLowerCase()}_detect
                     </div>
                   </div>
@@ -816,7 +814,7 @@ export default function LiveFeed(): JSX.Element {
             <div className="h-14 px-5 flex items-center justify-between border-b border-line-1 bg-surface-100 shrink-0">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#ff3b3b]" />
-                <span className="text-xs font-mono uppercase px-2 py-1 rounded-full bg-slate-900 text-sky-400 border border-slate-700 font-bold">
+                <span className="text-xs font-mono uppercase px-2 py-1 rounded-full bg-surface-100 text-sky-400 border border-slate-700 font-bold">
                   {iocModal.type}
                 </span>
                 <span className="text-xs px-2 py-1 rounded-full bg-rose-500/15 text-rose-600 border border-rose-500/30 font-bold">
@@ -898,7 +896,7 @@ export default function LiveFeed(): JSX.Element {
                       </div>
                     ))}
                     <div className="flex items-center gap-2 pt-1">
-                      <div className="flex-1 h-1.5 bg-slate-200 dark:bg-surface-300 rounded-full overflow-hidden">
+                      <div className="flex-1 h-1.5 bg-track rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500" style={{ width: '82%' }} />
                       </div>
                       <span className="text-[10px] font-mono text-muted">MALICIOUS 82%</span>
@@ -923,7 +921,7 @@ export default function LiveFeed(): JSX.Element {
                     <div className="pt-2 border-t border-line-1">
                       <Link
                         to={`/dfir/ioc-investigate?indicator=${encodeURIComponent(iocModal.value)}`}
-                        className="w-full h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-mono grid place-items-center"
+                        className="w-full h-8 rounded-lg bg-surface-100 dark:bg-surface-100 text-white dark:text-heading text-xs font-mono grid place-items-center"
                       >
                         Open in IOC Investigate →
                       </Link>

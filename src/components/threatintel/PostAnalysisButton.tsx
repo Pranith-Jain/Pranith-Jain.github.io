@@ -243,14 +243,14 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                   aria-label="Refresh"
                   onClick={fetchAnalysis}
                   disabled={loading}
-                  className="p-1 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                  className="p-1 rounded text-muted hover:text-body dark:hover:text-inverted transition-colors"
                 >
                   <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
                 </button>
                 <button
                   aria-label="Close"
                   onClick={() => setOpen(false)}
-                  className="p-1 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200"
+                  className="p-1 rounded text-muted hover:text-body dark:hover:text-inverted"
                 >
                   <X size={12} />
                 </button>

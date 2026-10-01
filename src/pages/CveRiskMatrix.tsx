@@ -160,7 +160,7 @@ export default function CveRiskMatrix() {
                   </span>
                   <span className="text-xs font-mono font-bold text-heading">{count}</span>
                 </div>
-                <div className="h-1 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-1.5">
+                <div className="h-1 rounded bg-track overflow-hidden mb-1.5">
                   <div
                     className={`h-full ${meta.bar}`}
                     style={{ width: `${Math.max(2, (count / Math.max(1, data?.count ?? 1)) * 100)}%` }}

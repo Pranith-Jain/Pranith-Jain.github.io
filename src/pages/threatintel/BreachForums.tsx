@@ -300,7 +300,7 @@ export default function BreachForums(): JSX.Element {
                       </span>
                       <span className="flex items-center gap-1 shrink-0">
                         {r.onion && (
-                          <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-slate-500">
+                          <span className="rounded border border-line-3/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-muted">
                             onion
                           </span>
                         )}

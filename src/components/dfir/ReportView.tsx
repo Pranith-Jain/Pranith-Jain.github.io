@@ -171,7 +171,7 @@ function BlufPanel({ header }: { header: NonNullable<ReportActionCard['reportHea
           {header.posture}
         </span>
         {header.time_to_act && (
-          <span className="px-1.5 py-0.5 rounded text-micro font-mono font-bold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 inline-flex items-center gap-1">
+          <span className="px-1.5 py-0.5 rounded text-micro font-mono font-bold bg-surface-100 text-white dark:bg-surface-300 dark:text-heading inline-flex items-center gap-1">
             <Clock size={9} /> Time to act: {header.time_to_act}
           </span>
         )}
@@ -594,7 +594,7 @@ function DiamondModelCard({ diamond }: { diamond: ReportDiamond | undefined }): 
       <div className="px-3 py-2 border-b border-line-1 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-muted">
         <Diamond size={12} /> Diamond Model
       </div>
-      <div className="grid grid-cols-2 gap-px bg-slate-200 dark:bg-surface-300">
+      <div className="grid grid-cols-2 gap-px bg-track">
         <DiamondQuadrant title="Adversary" value={diamond.adversary} />
         <DiamondQuadrant title="Capability" items={diamond.capability} />
         <DiamondQuadrant title="Infrastructure" items={diamond.infrastructure} />
@@ -641,7 +641,7 @@ function ActionsList({
       <div className="px-3 py-2 border-b border-line-1 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-muted">
         <Shield size={12} /> Containment &amp; Response ({filtered.length})
       </div>
-      <ol className="divide-y divide-slate-100 dark:divide-slate-800/50">
+      <ol className="divide-y divide-line-1 dark:divide-slate-800/50">
         {filtered.map((a, idx) => {
           const c = SEVERITY_COLORS[a.severity];
           return (
@@ -696,7 +696,7 @@ function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
       <div className="px-3 py-2 border-b border-line-1 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-muted">
         <Flag size={12} /> Priority Intelligence Requirements
       </div>
-      <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+      <ul className="divide-y divide-line-1 dark:divide-slate-800/50">
         {pirs.map((p, idx) => (
           <li key={idx} className="px-3 py-2.5 flex items-start gap-3">
             <span
@@ -726,7 +726,7 @@ function TimelineList({ timeline }: { timeline: ReportActionCard['timeline'] }):
         <Activity size={12} /> Timeline
       </div>
       <ol className="relative pl-6 pr-3 py-2">
-        <div className="absolute left-3 top-3 bottom-3 w-px bg-slate-200 dark:bg-surface-300" />
+        <div className="absolute left-3 top-3 bottom-3 w-px bg-track" />
         {timeline.map((t, idx) => (
           <li key={idx} className="relative py-1.5">
             <div className="absolute -left-3 mt-1.5 w-2 h-2 rounded-full bg-brand-500 ring-2 ring-white dark:ring-slate-900" />
@@ -953,7 +953,7 @@ function NextActionsBar({
             </div>
           )}
           {result && (
-            <pre className="mt-3 rounded bg-slate-900 dark:bg-input-200 text-slate-100 p-3 text-xs overflow-x-auto font-mono leading-relaxed max-h-72">
+            <pre className="mt-3 rounded bg-surface-100 dark:bg-input-200 text-slate-100 p-3 text-xs overflow-x-auto font-mono leading-relaxed max-h-72">
               {JSON.stringify(result, null, 2)}
             </pre>
           )}
@@ -982,14 +982,14 @@ function NextActionsBar({
             <button
               type="button"
               onClick={() => setDrillOpen(false)}
-              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-3 py-1.5 text-tool text-muted hover:text-body dark:hover:text-inverted"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!drillText.trim()}
-              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
+              className="px-3 py-1.5 rounded bg-brand-600 text-on-fill text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
             >
               Ask Copilot
             </button>

@@ -431,7 +431,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onCopy}
-              className="inline-flex items-center gap-1.5 rounded border border-line-2 bg-surface-100 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded border border-line-2 bg-surface-100 px-2.5 py-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
             >
               <Copy size={12} />
               {copyStatus === 'copied' ? 'Copied' : copyStatus === 'failed' ? 'Failed' : 'Copy'}
@@ -439,7 +439,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onDownload}
-              className="inline-flex items-center gap-1.5 rounded border border-line-2 bg-surface-100 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded border border-line-2 bg-surface-100 px-2.5 py-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
             >
               <Download size={12} /> Download
             </button>
@@ -474,7 +474,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             </button>
           ))}
         </div>
-        <pre className="max-h-[480px] overflow-auto rounded-xl bg-surface-200 p-3 font-mono text-mini leading-relaxed text-slate-800 dark:text-slate-200">
+        <pre className="max-h-[480px] overflow-auto rounded-xl bg-surface-200 p-3 font-mono text-mini leading-relaxed text-inverted">
           {viewTab === 'pretty' ? pretty : raw}
         </pre>
       </Card>

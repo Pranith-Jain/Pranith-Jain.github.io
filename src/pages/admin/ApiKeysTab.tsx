@@ -140,7 +140,7 @@ export default function ApiKeysTab() {
           <button
             type="submit"
             disabled={creating || !label.trim()}
-            className="px-4 py-2 bg-brand-600 text-white text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-brand-600 text-on-fill text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
           >
             {creating ? 'Creating…' : 'Create'}
           </button>
@@ -157,7 +157,7 @@ export default function ApiKeysTab() {
               </code>
               <button
                 onClick={copyKey}
-                className="px-3 py-2 bg-slate-200 dark:bg-surface-300 rounded text-xs text-body hover:bg-slate-300 dark:hover:bg-surface-300 shrink-0 transition-colors"
+                className="px-3 py-2 bg-track rounded text-xs text-body hover:bg-slate-300 dark:hover:bg-surface-300 shrink-0 transition-colors"
               >
                 {copied ? 'Copied!' : 'Copy'}
               </button>

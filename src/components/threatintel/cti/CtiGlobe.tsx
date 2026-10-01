@@ -378,11 +378,11 @@ export default function CtiGlobe({
               />
             </svg>
           </div>
-          <p className="text-sm font-medium text-slate-300 mb-1">Globe Unavailable</p>
+          <p className="text-sm font-medium text-inverted mb-1">Globe Unavailable</p>
           <p className="text-xs text-muted mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 text-xs font-mono rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-surface-200 text-inverted hover:bg-slate-700 border border-slate-700 transition-colors"
           >
             Reload Page
           </button>
@@ -410,7 +410,7 @@ export default function CtiGlobe({
               <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-blue-500 animate-spin" />
             </div>
             <div className="text-center">
-              <p className="text-sm font-medium text-slate-300">Initializing Globe</p>
+              <p className="text-sm font-medium text-inverted">Initializing Globe</p>
               <p className="text-xs text-muted mt-1">Loading 3D renderer…</p>
             </div>
           </div>
@@ -430,7 +430,7 @@ export default function CtiGlobe({
               }}
             />
             <div>
-              <p className="text-sm font-medium text-slate-200">{hoveredPoint.label}</p>
+              <p className="text-sm font-medium text-inverted">{hoveredPoint.label}</p>
               <p className="text-xs text-muted mt-0.5">
                 {hoveredPoint.severity.toUpperCase()}
                 {hoveredPoint.kind ? ` · ${hoveredPoint.kind.replace(/_/g, ' ')}` : ''}
@@ -496,7 +496,7 @@ export default function CtiGlobe({
             <button
               onClick={() => setSelectedPoint(null)}
               aria-label="Close details"
-              className="text-slate-500 hover:text-slate-300 transition-colors"
+              className="text-muted hover:text-inverted transition-colors"
             >
               <svg className="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

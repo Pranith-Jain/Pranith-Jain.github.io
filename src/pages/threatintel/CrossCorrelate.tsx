@@ -97,7 +97,7 @@ export default function CrossCorrelate(): JSX.Element {
           <button
             type="button"
             onClick={() => load(sector)}
-            className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 transition-colors"
           >
             <Search size={14} /> Correlate
           </button>

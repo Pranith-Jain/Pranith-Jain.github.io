@@ -273,7 +273,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
                 </span>
                 scout
               </span>
-              <span className="text-slate-300 dark:text-slate-700">·</span>
+              <span className="text-inverted">·</span>
               <span className="hidden sm:inline">Domain recon - analyze any URL instantly.</span>
             </>
           ) : mode === 'dfir' ? (
@@ -285,7 +285,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
                 </span>
                 crucible
               </span>
-              <span className="text-slate-300 dark:text-slate-700">·</span>
+              <span className="text-inverted">·</span>
               <span className="hidden sm:inline">No signup, no key, runs in your browser.</span>
             </>
           ) : mode === 'argus' ? (
@@ -297,7 +297,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
                 </span>
                 argus
               </span>
-              <span className="text-slate-300 dark:text-slate-700">·</span>
+              <span className="text-inverted">·</span>
               <span className="hidden sm:inline">Nation-state threat intelligence.</span>
             </>
           ) : (
@@ -316,14 +316,14 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
             target="_blank"
             rel="noopener noreferrer"
             aria-label="github (opens in new tab)"
-            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-heading dark:hover:text-slate-100 transition-colors"
           >
             github
           </a>
-          <span className="text-slate-300 dark:text-slate-700">·</span>
+          <span className="text-inverted">·</span>
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
+            className="inline-flex items-center gap-1.5 min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-heading dark:hover:text-slate-100"
             aria-label="Built by Pranith Jain - back to portfolio"
           >
             <PjMark className="h-3.5 w-3.5" />
@@ -389,7 +389,7 @@ function StatusPip({
   return (
     <Link
       to="/threatintel/catalog?cat=social"
-      className="inline-flex min-w-[24ch] items-center gap-1.5 whitespace-nowrap hover:text-slate-900 dark:hover:text-slate-100"
+      className="inline-flex min-w-[24ch] items-center gap-1.5 whitespace-nowrap hover:text-heading dark:hover:text-slate-100"
     >
       <span className={`inline-block w-1.5 h-1.5 rounded-full ${pipCls}`} />
       {okCount}/{total} feeds · {label}

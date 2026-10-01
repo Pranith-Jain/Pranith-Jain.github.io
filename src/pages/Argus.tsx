@@ -111,13 +111,13 @@ export default function ArgusPage() {
             </span>
             <span className="text-rose-600 dark:text-rose-400 font-semibold">Live</span>
           </span>
-          <span className="text-slate-300 dark:text-slate-700">/</span>
+          <span className="text-inverted">/</span>
           <span>Nation-state CTI</span>
-          <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">/</span>
+          <span className="text-inverted hidden sm:inline">/</span>
           <span className="hidden sm:inline">Curated APT data</span>
         </div>
 
-        <h1 className="font-display text-4xl sm:text-6xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
+        <h1 className="font-display text-4xl sm:text-6xl font-bold leading-[0.95] tracking-[-0.04em] text-heading">
           ARGUS
           <span className="block text-rose-600 dark:text-rose-400">Threat Nexus</span>
         </h1>
@@ -135,7 +135,7 @@ export default function ArgusPage() {
             { label: 'Intel items', value: FEED_ITEMS.length },
           ].map((s) => (
             <div key={s.label} className="bg-surface-100 px-4 py-3.5">
-              <dd className="font-display text-2xl sm:text-3xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
+              <dd className="font-display text-2xl sm:text-3xl font-bold leading-none tabular-nums text-heading">
                 {s.value.toLocaleString()}
               </dd>
               <dt className="mt-1.5 font-mono text-micro uppercase tracking-[0.16em] text-muted">{s.label}</dt>

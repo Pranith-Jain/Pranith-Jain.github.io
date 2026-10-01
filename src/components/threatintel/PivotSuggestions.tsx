@@ -165,7 +165,7 @@ export function PivotSuggestions({
               </div>
               <ChevronRight
                 size={13}
-                className="mt-1 shrink-0 text-slate-300 transition-all group-hover:text-brand-500 group-hover:translate-x-0.5 dark:text-slate-500"
+                className="mt-1 shrink-0 text-inverted transition-all group-hover:text-brand-500 group-hover:translate-x-0.5"
               />
             </button>
           );

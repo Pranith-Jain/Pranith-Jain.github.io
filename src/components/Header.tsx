@@ -166,9 +166,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
             aria-label="PJ - Pranith Jain Portfolio, back to home"
           >
             <PjMark className="h-9 w-9" />
-            <span className="hidden text-sm font-semibold tracking-tight sm:inline text-slate-900 dark:text-white">
-              Pranith Jain
-            </span>
+            <span className="hidden text-sm font-semibold tracking-tight sm:inline text-heading">Pranith Jain</span>
           </Link>
 
           {/* Desktop Navigation - Home is skipped (logo already routes home)
@@ -230,7 +228,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                           key={child.href}
                           to={child.href}
                           aria-current={isActive(child.href) ? 'page' : undefined}
-                          className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
+                          className="block px-4 py-2 text-sm font-medium text-body transition hover:bg-surface-300 dark:hover:bg-surface-100/10 focus:outline-none focus:bg-surface-300 dark:focus:bg-surface-100/10"
                           onClick={() => setOpenDropdown(null)}
                           onMouseEnter={() => preloadRoute(child.href)}
                           onFocus={() => preloadRoute(child.href)}
@@ -270,7 +268,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               <Link
                 key={link.href}
                 to={link.href}
-                className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-e1 transition hover:bg-brand-500 hover:shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-on-fill shadow-e1 transition hover:bg-brand-500 hover:shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               >
                 {link.label}
                 <span aria-hidden="true">→</span>
@@ -289,7 +287,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                   });
                   window.dispatchEvent(ev);
                 }}
-                className="hidden md:inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border border-line-1 text-body hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-surface-200"
+                className="hidden md:inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border border-line-1 text-body hover:text-heading dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-surface-200 dark:hover:bg-surface-200"
                 aria-label="Search across tools, wiki, actors, CVEs, and Telegram channels"
                 title="Command palette"
               >
@@ -307,7 +305,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               ref={mobileMenuButtonRef}
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-line-1/60 bg-white/70 text-slate-700 shadow-e1 transition hover:shadow-e1 dark:bg-surface-200/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-line-1/60 bg-white/70 text-body shadow-e1 transition hover:shadow-e1 dark:bg-surface-200/60 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"

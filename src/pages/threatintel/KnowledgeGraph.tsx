@@ -200,7 +200,7 @@ export default function KnowledgeGraph(): JSX.Element {
             <button
               type="button"
               onClick={() => setTypes(new Set())}
-              className="text-micro font-mono rounded-full border border-line-2 px-2 py-0.5 text-muted hover:text-slate-700 dark:hover:text-slate-300"
+              className="text-micro font-mono rounded-full border border-line-2 px-2 py-0.5 text-muted hover:text-body dark:hover:text-inverted"
             >
               clear
             </button>

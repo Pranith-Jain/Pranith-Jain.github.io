@@ -109,14 +109,14 @@ export function Modal({
         className={`relative z-10 w-full ${SIZE[size]} max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-line-1/60 bg-surface-100 shadow-e3 dark:border-line-1 dark:bg-surface-200 animate-fade-in-up`}
       >
         <div className="flex items-center justify-between border-b border-line-1 px-6 py-4">
-          <h2 id={titleId} className="text-lg font-display font-bold text-slate-900 dark:text-white">
+          <h2 id={titleId} className="text-lg font-display font-bold text-heading">
             {title}
           </h2>
           {showCloseButton && (
             <button
               type="button"
               onClick={onClose}
-              className="grid h-11 w-11 sm:h-8 sm:w-8 place-items-center rounded text-muted transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-surface-300 dark:hover:text-slate-300"
+              className="grid h-11 w-11 sm:h-8 sm:w-8 place-items-center rounded text-muted transition-colors hover:bg-surface-300 hover:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-surface-300 dark:hover:text-inverted"
               aria-label="Close dialog"
             >
               <X className="h-4 w-4" aria-hidden="true" />

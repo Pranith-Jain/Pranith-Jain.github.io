@@ -494,7 +494,7 @@ export default function AgentInvestigator(): JSX.Element {
             type="button"
             onClick={startInvestigation}
             disabled={!query.trim() || isStarting || agentState?.status === 'running'}
-            className="inline-flex items-center gap-2 px-5 py-3 bg-brand-600 hover:bg-brand-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white rounded font-medium text-sm transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-brand-600 hover:bg-brand-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-on-fill rounded font-medium text-sm transition-colors"
           >
             {isStarting || agentState?.status === 'running' ? (
               <>
@@ -657,9 +657,7 @@ export default function AgentInvestigator(): JSX.Element {
             (agentState.cost || agentState.priorIntelligence || agentState.modelUsed) && (
               <div className="mb-3 flex flex-wrap items-center gap-2 text-micro font-mono">
                 {agentState.modelUsed && (
-                  <span className="rounded bg-surface-300 px-2 py-0.5 text-slate-600 dark:text-slate-300">
-                    {agentState.modelUsed}
-                  </span>
+                  <span className="rounded bg-surface-300 px-2 py-0.5 text-muted">{agentState.modelUsed}</span>
                 )}
                 {agentState.cost && (
                   <span className="rounded bg-emerald-500/10 px-2 py-0.5 text-emerald-700 dark:text-emerald-300">

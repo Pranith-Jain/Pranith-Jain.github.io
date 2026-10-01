@@ -7,7 +7,7 @@ export function Companies({ companies }: CompaniesProps) {
     <section id="companies" className="scroll-mt-24">
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Worked with</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Brands I&rsquo;ve worked with
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">

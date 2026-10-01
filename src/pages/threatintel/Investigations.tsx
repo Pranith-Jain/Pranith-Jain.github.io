@@ -472,7 +472,7 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addObservable()}
                   disabled={!obsValue.trim()}
-                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                 >
                   <Plus size={12} />
                 </button>
@@ -522,7 +522,7 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addTask()}
                   disabled={!taskTitle.trim()}
-                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                 >
                   <Plus size={12} />
                 </button>
@@ -602,7 +602,7 @@ function InvestigationsPage(): JSX.Element {
                     type="button"
                     onClick={() => void addNote()}
                     disabled={!noteText.trim()}
-                    className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+                    className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                   >
                     Add
                   </button>
@@ -634,7 +634,7 @@ function InvestigationsPage(): JSX.Element {
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
         >
           <Plus size={14} /> New Investigation
         </button>
@@ -730,14 +730,14 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="submit"
               disabled={!createForm.title.trim()}
-              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
+              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
             >
               Create
             </button>
             <button
               type="button"
               onClick={() => setShowCreate(false)}
-              className="px-4 py-2 border border-line-1 text-slate-500 font-mono text-meta rounded hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-4 py-2 border border-line-1 text-muted font-mono text-meta rounded hover:text-body dark:hover:text-inverted"
             >
               Cancel
             </button>
@@ -760,7 +760,7 @@ function InvestigationsPage(): JSX.Element {
 
       {!loading && filtered.length === 0 && !error && (
         <div className="surface-card p-12 text-center">
-          <AlertTriangle size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
+          <AlertTriangle size={32} className="mx-auto text-inverted mb-3" />
           <p className="text-sm font-mono text-muted">
             {search || filterSeverity !== 'all' || filterStatus !== 'all'
               ? 'No matching investigations'

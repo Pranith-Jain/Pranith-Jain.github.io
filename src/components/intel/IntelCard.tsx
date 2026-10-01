@@ -177,7 +177,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           <button
             type="button"
             onClick={() => setExpanded(true)}
-            className="ml-auto inline-flex items-center gap-1 rounded border border-line-2 bg-surface-100 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
+            className="ml-auto inline-flex items-center gap-1 rounded border border-line-2 bg-surface-100 px-2.5 py-1 text-xs font-medium text-body transition-colors hover:bg-surface-300 dark:hover:bg-surface-300"
             aria-expanded={false}
           >
             Show details
@@ -191,7 +191,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.sectors.map((s) => (
               <span
                 key={s}
-                className="rounded border border-line-1 bg-surface-200 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:text-slate-300"
+                className="rounded border border-line-1 bg-surface-200 px-1.5 py-0.5 font-mono text-mini text-body"
               >
                 {s}
               </span>
@@ -262,7 +262,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.attackPatterns.map((a) => (
               <span
                 key={a.mitreId}
-                className="rounded border border-line-1 bg-surface-200 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:text-slate-300"
+                className="rounded border border-line-1 bg-surface-200 px-1.5 py-0.5 font-mono text-mini text-body"
               >
                 {a.name} · {a.mitreId}
               </span>
@@ -351,20 +351,20 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             // belt-and-suspenders.
             download={`${view.bundleId}.stix.json`}
             rel="noopener"
-            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
+            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-body transition-colors hover:bg-surface-300 dark:hover:bg-surface-300"
           >
             Download STIX 2.1
           </a>
           <a
             href={`/dfir/stix-builder/b/${encodeURIComponent(view.bundleId)}`}
-            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
+            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-body transition-colors hover:bg-surface-300 dark:hover:bg-surface-300"
           >
             Open in STIX Builder
           </a>
           <button
             type="button"
             onClick={() => setExpanded(false)}
-            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
+            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-body transition-colors hover:bg-surface-300 dark:hover:bg-surface-300"
             aria-expanded={true}
           >
             Hide details
@@ -378,7 +378,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
 
 function CountPill({ label, n }: { label: string; n: number }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-line-1 bg-surface-200 px-2 py-0.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+    <span className="inline-flex items-center gap-1 rounded border border-line-1 bg-surface-200 px-2 py-0.5 text-mini font-mono text-muted">
       <span className="font-semibold text-heading">{n}</span>
       <span>
         {label}
@@ -467,12 +467,12 @@ export function IntelCard(props: IntelCardProps): JSX.Element {
 function CardSkeleton(): JSX.Element {
   return (
     <div className="rounded-xl border border-line-1 bg-surface-100 p-4 shadow-e1">
-      <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
-      <div className="mt-2 h-3 w-1/3 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
+      <div className="h-4 w-3/4 animate-pulse rounded bg-track" />
+      <div className="mt-2 h-3 w-1/3 animate-pulse rounded bg-track" />
       <div className="mt-4 space-y-2">
-        <div className="h-3 w-full animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
-        <div className="h-3 w-11/12 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
-        <div className="h-3 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
+        <div className="h-3 w-full animate-pulse rounded bg-track" />
+        <div className="h-3 w-11/12 animate-pulse rounded bg-track" />
+        <div className="h-3 w-3/4 animate-pulse rounded bg-track" />
       </div>
     </div>
   );

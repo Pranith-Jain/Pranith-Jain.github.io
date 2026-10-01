@@ -648,7 +648,7 @@ function SocialContentPanel({
         <h3 className="text-sm font-semibold uppercase tracking-wider text-body">Social Content</h3>
         <button
           onClick={onClose}
-          className="text-xs text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+          className="text-xs text-muted hover:text-body dark:hover:text-inverted transition-colors"
         >
           Close
         </button>
@@ -948,7 +948,7 @@ function SocialSection({
           <button
             onClick={onRegen}
             disabled={regenBusy}
-            className="text-micro uppercase tracking-wider text-muted hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-50 transition-colors"
+            className="text-micro uppercase tracking-wider text-muted hover:text-body dark:hover:text-inverted disabled:opacity-50 transition-colors"
             title="Regenerate"
           >
             {regenBusy ? '…' : 'Regenerate'}

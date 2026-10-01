@@ -471,7 +471,7 @@ export default function AttackNavigator(): JSX.Element {
             </span>
           )}
           <span className="inline-flex items-center gap-1.5 ml-2">
-            <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-surface-100" />
+            <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-line-1 bg-surface-100" />
             Observed (border)
           </span>
         </div>
@@ -578,7 +578,7 @@ export default function AttackNavigator(): JSX.Element {
           {/* Legend footer */}
           <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-muted">
             <div className="flex items-center gap-2">
-              <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-surface-100" />
+              <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-line-1 bg-surface-100" />
               Observed technique (clickable)
             </div>
             <div className="flex items-center gap-2">
@@ -617,7 +617,7 @@ export default function AttackNavigator(): JSX.Element {
                 type="button"
                 onClick={closeDrawer}
                 aria-label="Close details"
-                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
+                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-muted hover:text-heading dark:hover:text-slate-100 hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
               >
                 <X size={18} aria-hidden="true" />
               </button>

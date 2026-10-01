@@ -139,7 +139,7 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
       ) : rows.length === 0 ? (
         <p className="text-xs font-mono text-muted py-3">No {tab} claims in the current window.</p>
       ) : (
-        <ul className="divide-y divide-slate-200/70 dark:divide-slate-800">
+        <ul className="divide-y divide-line-1/70 dark:divide-slate-800">
           {tab === 'ransomware'
             ? ransomware.slice(0, 40).map((r, i) => (
                 <li key={`${r.group}-${r.victim}-${i}`} className="py-2 flex items-start justify-between gap-3">

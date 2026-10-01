@@ -795,7 +795,7 @@ export default function DetectionChokepointsHub() {
             {filtered.map((c) => (
               <div key={c.name} className={`${CARD} p-4`}>
                 <div className="flex items-start justify-between gap-3 mb-2">
-                  <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{c.name}</h3>
+                  <h3 className="font-mono text-sm font-semibold text-heading">{c.name}</h3>
                   <div className="flex gap-1.5 shrink-0">
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${PRIORITY_STYLES[c.priority]}`}
@@ -833,9 +833,7 @@ export default function DetectionChokepointsHub() {
       {tab === 'framework' && (
         <div className="space-y-8">
           <div>
-            <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4">
-              6-Step Chokepoint Identification
-            </h2>
+            <h2 className="font-display text-lg font-semibold text-heading mb-4">6-Step Chokepoint Identification</h2>
             <div className="space-y-2">
               {STEPS.map((s) => (
                 <div key={s.n} className={`${CARD} p-4 ${s.highlight ? 'ring-2 ring-brand-500/40' : ''}`}>
@@ -859,9 +857,7 @@ export default function DetectionChokepointsHub() {
             </div>
           </div>
           <div>
-            <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4">
-              Detection Maturity Model
-            </h2>
+            <h2 className="font-display text-lg font-semibold text-heading mb-4">Detection Maturity Model</h2>
             <div className="grid sm:grid-cols-3 gap-3">
               {MATURITY_LEVELS.map((m) => (
                 <div key={m.level} className={`${CARD} p-4 border-l-4 ${m.border}`}>
@@ -875,15 +871,13 @@ export default function DetectionChokepointsHub() {
             </div>
           </div>
           <div>
-            <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4">
-              4-Question Validation Test
-            </h2>
+            <h2 className="font-display text-lg font-semibold text-heading mb-4">4-Question Validation Test</h2>
             <div className="grid sm:grid-cols-2 gap-3">
               {VALIDATION.map((v) => (
                 <div key={v.q} className={`${CARD} p-4 flex gap-3`}>
                   <CheckCircle size={16} className="text-emerald-500 shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{v.q}</h3>
+                    <h3 className="font-mono text-sm font-semibold text-heading">{v.q}</h3>
                     <p className="text-xs text-muted mt-0.5">{v.d}</p>
                   </div>
                 </div>
@@ -891,9 +885,7 @@ export default function DetectionChokepointsHub() {
             </div>
           </div>
           <div>
-            <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4">
-              Chokepoint vs Tool Detection
-            </h2>
+            <h2 className="font-display text-lg font-semibold text-heading mb-4">Chokepoint vs Tool Detection</h2>
             <DataTable rows={CONTRAST} rowKey={(r) => r.dim} columns={CONTRAST_COLUMNS} />
           </div>
         </div>
@@ -916,7 +908,7 @@ export default function DetectionChokepointsHub() {
                   <span className={`text-xs font-mono px-2 py-0.5 rounded border ${ch.badge}`}>
                     {ch.stages.length} stages
                   </span>
-                  <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{ch.name}</span>
+                  <span className="font-mono text-sm font-semibold text-heading">{ch.name}</span>
                   <span className="text-xs text-muted font-mono">{ch.avgTTR}</span>
                 </div>
                 <span
@@ -949,7 +941,7 @@ export default function DetectionChokepointsHub() {
                       {ch.actors.map((a) => (
                         <div key={a.name} className="flex items-center gap-2 text-sm">
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                          <span className="font-mono text-slate-900 dark:text-white">{a.name}</span>
+                          <span className="font-mono text-heading">{a.name}</span>
                           {a.notes && <span className="text-xs text-muted">- {a.notes}</span>}
                         </div>
                       ))}
@@ -966,19 +958,19 @@ export default function DetectionChokepointsHub() {
       {tab === 'cross-chain' && (
         <div className="space-y-8">
           <div>
-            <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4">Chain Ecosystem</h2>
+            <h2 className="font-display text-lg font-semibold text-heading mb-4">Chain Ecosystem</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {ECOSYSTEM_NODES.map((n) => (
                 <div key={n.name} className={`${CARD} p-3`}>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">{n.name}</span>
+                    <span className="font-mono text-sm font-medium text-heading">{n.name}</span>
                   </div>
                 </div>
               ))}
             </div>
           </div>
           <div>
-            <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4">Connections</h2>
+            <h2 className="font-display text-lg font-semibold text-heading mb-4">Connections</h2>
             <div className="space-y-3">
               {ECOSYSTEM_LINKS.map((l, i) => (
                 <div key={i} className={`${CARD} p-4`}>
@@ -996,13 +988,13 @@ export default function DetectionChokepointsHub() {
             </div>
           </div>
           <div>
-            <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <h2 className="font-display text-lg font-semibold text-heading mb-4 flex items-center gap-2">
               <AlertTriangle size={18} /> Real-World Examples
             </h2>
             <div className="grid sm:grid-cols-2 gap-3">
               {EXAMPLES.map((e) => (
                 <div key={e.title} className={`${CARD} p-4`}>
-                  <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white mb-1">{e.title}</h3>
+                  <h3 className="font-mono text-sm font-semibold text-heading mb-1">{e.title}</h3>
                   <p className="text-xs font-mono text-brand-600 dark:text-brand-400 mb-2">{e.chains}</p>
                   <p className="text-sm text-body">{e.detail}</p>
                 </div>
@@ -1023,7 +1015,7 @@ export default function DetectionChokepointsHub() {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{tr.title}</h3>
+                    <h3 className="font-mono text-sm font-semibold text-heading">{tr.title}</h3>
                     <p className="text-xs text-muted font-mono mt-0.5">{tr.stat}</p>
                   </div>
                   <span
@@ -1041,9 +1033,7 @@ export default function DetectionChokepointsHub() {
                   <div className="grid sm:grid-cols-2 gap-3">
                     {tr.findings.map((f) => (
                       <div key={f.title} className="p-3 rounded bg-surface-200">
-                        <h4 className="font-mono text-xs font-semibold text-slate-900 dark:text-white mb-1">
-                          {f.title}
-                        </h4>
+                        <h4 className="font-mono text-xs font-semibold text-heading mb-1">{f.title}</h4>
                         <p className="text-xs text-muted">{f.detail}</p>
                       </div>
                     ))}
@@ -1057,10 +1047,8 @@ export default function DetectionChokepointsHub() {
                         {tr.variants.map((v) => (
                           <div key={v.name} className="p-2 rounded bg-surface-200">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="font-mono text-xs font-semibold text-slate-900 dark:text-white">
-                                {v.name}
-                              </span>
-                              <span className="text-micro font-mono px-1 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
+                              <span className="font-mono text-xs font-semibold text-heading">{v.name}</span>
+                              <span className="text-micro font-mono px-1 py-0.5 rounded bg-track text-muted">
                                 {v.mitre}
                               </span>
                             </div>

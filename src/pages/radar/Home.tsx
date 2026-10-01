@@ -61,9 +61,7 @@ export default function RadarHome() {
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-600/10">
               <Radar className="h-8 w-8 text-brand-600" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-              Domain Recon Scanner
-            </h1>
+            <h1 className="text-3xl font-bold tracking-tight text-heading sm:text-4xl">Domain Recon Scanner</h1>
             <p className="max-w-xl text-base text-muted">
               Enter any domain or URL to instantly analyze HTTP headers, technologies, JavaScript files, endpoints,
               security headers, and more.
@@ -87,7 +85,7 @@ export default function RadarHome() {
             <button
               onClick={handleScan}
               disabled={!url.trim() || scanning}
-              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 text-sm font-semibold text-white shadow-e1 transition-all hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 text-sm font-semibold text-on-fill shadow-e1 transition-all hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {scanning ? (
                 <>
@@ -117,7 +115,7 @@ export default function RadarHome() {
             ].map(({ Icon, label, desc }) => (
               <div key={label} className="flex items-start gap-3 rounded-xl border border-line-1 bg-surface-100 p-4">
                 <Icon className="h-5 w-5 text-brand-500" />
-                <span className="text-sm font-medium text-slate-900 dark:text-white">{label}</span>
+                <span className="text-sm font-medium text-heading">{label}</span>
                 <span className="text-xs text-muted">{desc}</span>
               </div>
             ))}

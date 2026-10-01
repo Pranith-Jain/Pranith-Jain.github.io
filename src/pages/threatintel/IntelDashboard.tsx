@@ -171,7 +171,7 @@ function reliabilityColor(grade?: string): string {
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }): JSX.Element {
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
-    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+    <div className="h-1.5 w-full rounded-full bg-track overflow-hidden">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
     </div>
   );
@@ -438,7 +438,7 @@ export default function IntelDashboard(): JSX.Element {
           {categoryBreakdown.length > 0 && (
             <section className="mb-8">
               <h2 className="font-display font-semibold text-lg text-body mb-3">Health by Category</h2>
-              <div className="surface-card divide-y divide-slate-100 dark:divide-slate-800">
+              <div className="surface-card divide-y divide-line-1">
                 {categoryBreakdown.map((cat) => (
                   <div key={cat.name} className="flex items-center gap-4 px-4 py-3">
                     <span className="font-mono text-sm text-body w-32 shrink-0 capitalize">{cat.name}</span>

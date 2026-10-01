@@ -77,7 +77,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{country} Intelligence</h3>
+              <h3 className="text-sm font-bold text-heading">{country} Intelligence</h3>
               {model && (
                 <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400">
                   {model}
@@ -92,14 +92,14 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             aria-label="Refresh"
             onClick={fetchIntel}
             disabled={loading}
-            className="p-1.5 rounded-xl text-muted hover:text-slate-200 transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-inverted transition-colors"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
           <button
             aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-muted hover:text-slate-200 transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-inverted transition-colors"
           >
             <X size={14} />
           </button>
@@ -137,7 +137,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
               </span>
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed">{intel.executive_summary}</p>
+            <p className="text-sm text-inverted leading-relaxed">{intel.executive_summary}</p>
 
             {intel.cyber_threats && (
               <div className="rounded-xl bg-rose-500/5 border border-rose-500/10 p-3">

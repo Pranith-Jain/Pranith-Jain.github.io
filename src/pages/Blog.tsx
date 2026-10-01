@@ -212,7 +212,7 @@ export default function Blog() {
         }
         canonicalPath={routeType ? `/blog/c/${routeType}` : inTagMode ? `/blog/t/${routeTag}` : '/blog'}
       />
-      <div className="max-w-3xl mx-auto text-slate-900 dark:text-white">
+      <div className="max-w-3xl mx-auto text-heading">
         {(inCategoryMode || inTagMode) && (
           <Link
             to="/blog"
@@ -372,18 +372,18 @@ export default function Blog() {
                       </span>
                     )}
                   </div>
-                  <h2 className="font-display text-xl font-semibold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                  <h2 className="font-display text-xl font-semibold text-heading transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
                     {p.title}
                   </h2>
                   <p className="text-muted mt-2 leading-relaxed">{p.excerpt}</p>
                 </Link>
                 <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-muted">
                   <span className="font-medium text-body">Pranith Jain</span>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-muted">
+                  <span aria-hidden="true" className="text-inverted dark:text-muted">
                     ·
                   </span>
                   <time>{formatDate(p.publishedAt)}</time>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-muted">
+                  <span aria-hidden="true" className="text-inverted dark:text-muted">
                     ·
                   </span>
                   <span>{estimateReadingTime(p.excerpt)} min read</span>
@@ -412,7 +412,7 @@ export default function Blog() {
         </DataState>
 
         <section className="mt-16 surface-card p-6">
-          <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Stay updated</h2>
+          <h2 className="font-display font-bold text-lg text-heading mb-1">Stay updated</h2>
           <p className="text-sm text-muted mb-4">
             New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
             <a

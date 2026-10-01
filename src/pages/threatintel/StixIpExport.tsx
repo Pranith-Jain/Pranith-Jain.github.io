@@ -195,7 +195,7 @@ export default function StixIpExport() {
               type="button"
               onClick={isBatch ? enrichBatch : enrichSingle}
               disabled={loading || !ipInput.trim()}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 transition-colors"
             >
               <Search size={14} />{' '}
               {loading

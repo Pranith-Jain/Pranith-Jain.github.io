@@ -165,9 +165,9 @@ export default function ResearchPost(): JSX.Element {
 
       {html === null ? (
         <div className="space-y-3 text-muted" aria-busy="true" aria-label="Loading research post">
-          <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
-          <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
-          <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
+          <div className="h-4 w-3/4 rounded bg-track animate-pulse" />
+          <div className="h-4 w-2/3 rounded bg-track animate-pulse" />
+          <div className="h-4 w-5/6 rounded bg-track animate-pulse" />
         </div>
       ) : (
         <div className="lg:grid lg:grid-cols-[1fr_200px] lg:gap-8">

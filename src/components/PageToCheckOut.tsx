@@ -72,7 +72,7 @@ export function PageToCheckOut(): JSX.Element | null {
               <Compass size={16} />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h4 className="text-sm font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {page.name}
               </h4>
               <p className="text-xs text-muted mt-0.5 leading-relaxed">{page.desc}</p>

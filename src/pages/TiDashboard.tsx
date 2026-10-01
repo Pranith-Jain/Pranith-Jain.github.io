@@ -326,7 +326,7 @@ export default function TiDashboard() {
             type="button"
             onClick={handleBuild}
             disabled={building}
-            className="inline-flex items-center gap-2 rounded-xl border border-brand-500 bg-brand-500 text-white px-4 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl border border-brand-500 bg-brand-500 text-on-fill px-4 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
           >
             {building ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />}
             {building ? 'Building…' : 'Build Report'}
@@ -398,7 +398,7 @@ export default function TiDashboard() {
                   </button>
                 )}
               </div>
-              <div className="w-px h-5 bg-slate-200 dark:bg-line-1" />
+              <div className="w-px h-5 bg-track dark:bg-line-1" />
               <span className="text-micro font-mono uppercase tracking-wider text-muted">Severity:</span>
               {SEVERITY_LEVELS.map((sev) => {
                 const active = severityFilter.includes(sev);
@@ -422,7 +422,7 @@ export default function TiDashboard() {
                     setSeverityFilter([]);
                     setKeywordSearch('');
                   }}
-                  className="text-xs text-muted hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+                  className="text-xs text-muted hover:text-body dark:hover:text-inverted ml-1"
                 >
                   Clear
                 </button>

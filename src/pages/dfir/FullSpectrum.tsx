@@ -535,7 +535,7 @@ export default function FullSpectrum(): JSX.Element {
           <button
             type="submit"
             disabled={!valid || TOOL_CONFIG.some((t) => state[t.key].loading)}
-            className="px-5 py-3 bg-brand-500 text-white font-mono font-semibold disabled:opacity-30 hover:bg-brand-700 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-500 text-on-fill font-mono font-semibold disabled:opacity-30 hover:bg-brand-700 inline-flex items-center gap-2"
           >
             {TOOL_CONFIG.some((t) => state[t.key].loading) ? (
               <Loader2 size={16} className="animate-spin" />

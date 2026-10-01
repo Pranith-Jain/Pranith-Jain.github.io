@@ -1151,7 +1151,7 @@ export default function Anarchy() {
                     href={sanitizeUrl(selected.href)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 dark:bg-brand-400 text-white dark:text-[#0b1220] text-sm font-bold py-3 hover:bg-brand-600 dark:hover:bg-brand-300 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 dark:bg-brand-400 text-on-fill dark:text-[#0b1220] text-sm font-bold py-3 hover:bg-brand-600 dark:hover:bg-brand-300 transition-colors"
                   >
                     Open course <ExternalLink className="w-4 h-4" />
                   </a>

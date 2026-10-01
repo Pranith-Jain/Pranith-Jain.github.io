@@ -275,7 +275,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
           STIX 2.1 Bundle · {objects.length} objects
         </p>
         <details className="text-xs">
-          <summary className="cursor-pointer text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
+          <summary className="cursor-pointer text-muted hover:text-body dark:hover:text-inverted font-mono">
             show raw JSON
           </summary>
           <pre className="mt-2 max-h-96 overflow-auto rounded border border-line-1 bg-surface-200 p-3 text-mini text-body">
@@ -565,7 +565,7 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
               {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
             </span>
           </div>
-          <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
+          <ul className="divide-y divide-line-1 dark:divide-slate-800/60">
             {p.techniques.map((t) => (
               <li key={t.id} className="flex items-start gap-3 px-4 py-2.5">
                 <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-micro font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
@@ -718,7 +718,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
         <button
           type="submit"
           disabled={disabled}
-          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-600 dark:bg-rose-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-600 dark:bg-rose-500 px-3 py-1.5 text-sm font-medium text-on-fill hover:bg-rose-700 disabled:opacity-50 transition-colors"
         >
           {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
           search

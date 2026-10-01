@@ -217,7 +217,7 @@ export default function Observe(): JSX.Element {
             type="button"
             onClick={() => fetchObserve(query)}
             disabled={loading || !query.trim()}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded bg-rose-600 dark:bg-rose-500 hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded bg-rose-600 dark:bg-rose-500 hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-30 disabled:cursor-not-allowed text-on-fill transition-colors"
             aria-label="Look up"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}

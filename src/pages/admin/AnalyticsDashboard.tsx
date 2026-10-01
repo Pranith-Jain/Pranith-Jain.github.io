@@ -88,13 +88,13 @@ export default function AnalyticsDashboard(): JSX.Element {
 
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-display font-bold text-slate-900 dark:text-white">Analytics Dashboard</h1>
+          <h1 className="text-2xl font-display font-bold text-heading">Analytics Dashboard</h1>
           <p className="text-xs font-mono text-muted mt-1">Page views, tool usage, and geographic data</p>
         </div>
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-line-2 rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-line-2 rounded text-sm text-muted hover:bg-surface-300 dark:hover:bg-surface-300 hover:text-heading dark:hover:text-white transition-colors"
         >
           <RefreshCw size={14} />
           Refresh
@@ -131,7 +131,7 @@ export default function AnalyticsDashboard(): JSX.Element {
 
       {/* Top events */}
       <section className="mb-8">
-        <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Top Events</h2>
+        <h2 className="font-display font-bold text-lg text-heading mb-4">Top Events</h2>
         <div className="surface-card divide-y divide-line-1">
           {(data?.topEvents ?? []).length === 0 ? (
             <p className="p-4 text-sm text-muted">No event data available yet.</p>
@@ -142,9 +142,7 @@ export default function AnalyticsDashboard(): JSX.Element {
                   <Activity size={14} className="text-muted" />
                   <span className="font-mono text-sm text-body">{e.type}</span>
                 </div>
-                <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
-                  {e.count.toLocaleString()}
-                </span>
+                <span className="font-mono text-sm font-medium text-heading">{e.count.toLocaleString()}</span>
               </div>
             ))
           )}
@@ -153,7 +151,7 @@ export default function AnalyticsDashboard(): JSX.Element {
 
       {/* Top countries */}
       <section className="mb-8">
-        <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Top Countries</h2>
+        <h2 className="font-display font-bold text-lg text-heading mb-4">Top Countries</h2>
         <div className="surface-card divide-y divide-line-1">
           {(data?.topCountries ?? []).length === 0 ? (
             <p className="p-4 text-sm text-muted">No country data available yet.</p>
@@ -164,9 +162,7 @@ export default function AnalyticsDashboard(): JSX.Element {
                   <Globe size={14} className="text-muted" />
                   <span className="font-mono text-sm text-body">{c.country}</span>
                 </div>
-                <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
-                  {c.count.toLocaleString()}
-                </span>
+                <span className="font-mono text-sm font-medium text-heading">{c.count.toLocaleString()}</span>
               </div>
             ))
           )}
@@ -175,7 +171,7 @@ export default function AnalyticsDashboard(): JSX.Element {
 
       {/* Recent events */}
       <section>
-        <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Recent Events</h2>
+        <h2 className="font-display font-bold text-lg text-heading mb-4">Recent Events</h2>
         <div className="surface-card divide-y divide-line-1">
           {(data?.recentEvents ?? []).length === 0 ? (
             <p className="p-4 text-sm text-muted">No recent events.</p>
@@ -219,7 +215,7 @@ function SummaryCard({
         <Icon size={14} className={color} />
         <span className="text-xs font-mono uppercase tracking-wider text-muted">{label}</span>
       </div>
-      <div className="text-2xl font-mono font-bold text-slate-900 dark:text-white">{value}</div>
+      <div className="text-2xl font-mono font-bold text-heading">{value}</div>
     </div>
   );
 }

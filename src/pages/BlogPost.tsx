@@ -620,7 +620,7 @@ export default function BlogPost() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white">Pranith Jain</h3>
+                  <h3 className="font-display text-lg font-bold text-heading">Pranith Jain</h3>
                   <p className="text-sm text-muted mt-1">
                     Detection & response practitioner specializing in threat intelligence, email security, and cloud
                     identity. Building tools that make CTI accessible to everyone.
@@ -678,9 +678,7 @@ export default function BlogPost() {
             <section className="mt-6 surface-card p-6 sm:p-8">
               <div className="sm:flex sm:items-center sm:justify-between gap-6">
                 <div className="mb-4 sm:mb-0">
-                  <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">
-                    Try the DFIR Toolkit
-                  </h3>
+                  <h3 className="font-display text-xl font-bold text-heading">Try the DFIR Toolkit</h3>
                   <p className="mt-1 text-sm text-muted leading-relaxed">
                     Free, edge-hosted tools for IOC enrichment, email analysis, and live threat intelligence. No signup,
                     no rate limits on core tools.
@@ -689,7 +687,7 @@ export default function BlogPost() {
                 <div className="flex flex-wrap gap-2 shrink-0">
                   <Link
                     to="/dfir"
-                    className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-500"
+                    className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-4 py-2 text-sm font-semibold text-on-fill transition hover:bg-brand-500"
                   >
                     Open DFIR Toolkit
                   </Link>
@@ -746,7 +744,7 @@ export default function BlogPost() {
                             <span className="text-micro font-mono text-muted self-center">+{p.tags.length - 2}</span>
                           )}
                         </div>
-                        <h3 className="font-display text-base font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400 line-clamp-2">
+                        <h3 className="font-display text-base font-bold text-heading transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400 line-clamp-2">
                           {p.title}
                         </h3>
                         <p className="mt-1.5 text-xs text-muted leading-relaxed line-clamp-2 flex-1">{p.excerpt}</p>

@@ -282,7 +282,7 @@ export default function WinReg() {
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No artifacts match your filters.</p>
           </div>
         ) : (
@@ -293,7 +293,7 @@ export default function WinReg() {
                 onClick={() => setDetailSlug(art.slug)}
                 className={`${CARD} text-left p-4 transition-colors hover:border-brand-400 dark:hover:border-brand-600 group`}
               >
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug">
                   {art.name}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">

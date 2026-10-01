@@ -65,7 +65,7 @@ export default function Research(): JSX.Element {
               <div className="text-micro font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-1.5">
                 {p.kicker}
               </div>
-              <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
+              <h2 className="font-display text-xl font-bold text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
                 {p.title}
                 <ExternalLink size={14} className="inline-block ml-2 opacity-50" aria-hidden="true" />
               </h2>

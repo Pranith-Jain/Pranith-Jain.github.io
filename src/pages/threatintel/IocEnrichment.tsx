@@ -180,7 +180,7 @@ export default function IocEnrichment(): JSX.Element {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={source.hint}
-                  className="w-full rounded-xl border border-line-1 bg-surface-100 py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:text-slate-100 dark:placeholder:text-slate-500"
+                  className="w-full rounded-xl border border-line-1 bg-surface-100 py-2.5 pl-9 pr-4 font-mono text-tool text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:placeholder:text-muted"
                   aria-label="Search query"
                 />
               </div>
@@ -193,7 +193,7 @@ export default function IocEnrichment(): JSX.Element {
                 aria-haspopup="listbox"
                 aria-expanded={showDropdown}
                 aria-label={`Data source: ${source.label}`}
-                className="flex items-center gap-2 rounded-xl border border-line-1 bg-surface-100 px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-rose-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:text-slate-100 min-w-[180px] justify-between"
+                className="flex items-center gap-2 rounded-xl border border-line-1 bg-surface-100 px-3 py-2.5 font-mono text-tool text-heading hover:border-rose-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 min-w-[180px] justify-between"
               >
                 <span>{source.label}</span>
                 <ChevronDown size={14} className="text-muted" />
@@ -229,7 +229,7 @@ export default function IocEnrichment(): JSX.Element {
               type="button"
               onClick={handleSearch}
               disabled={loading || !query.trim()}
-              className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 font-mono text-tool font-semibold text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+              className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 font-mono text-tool font-semibold text-on-fill hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'Searching…' : 'Search'}

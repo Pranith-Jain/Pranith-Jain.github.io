@@ -104,7 +104,7 @@ export default function ExposureCheck(): JSX.Element {
             <button
               type="submit"
               disabled={loading || !clean}
-              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
+              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
             >
               {loading ? (
                 <Loader2 size={16} className="animate-spin inline" />

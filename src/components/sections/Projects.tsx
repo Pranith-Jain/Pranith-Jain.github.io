@@ -27,7 +27,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   return (
     <div className="surface-card p-5">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white">{project.title}</h3>
+        <h3 className="font-display font-semibold text-lg text-heading">{project.title}</h3>
         {project.badge && (
           <Badge tone="success" className="shrink-0">
             {project.badge}
@@ -116,7 +116,7 @@ export function Projects({ projects }: ProjectsProps) {
     <section id="projects" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Projects</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Selected projects &amp; initiatives
         </h2>
         <p className="mt-3 text-base text-muted leading-relaxed">
@@ -137,7 +137,7 @@ export function Projects({ projects }: ProjectsProps) {
           {/* Timeline layout */}
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 dark:bg-surface-300 hidden sm:block" />
+            <div className="absolute left-4 top-0 bottom-0 w-px bg-track hidden sm:block" />
 
             <div className="space-y-4">
               {publishedCaseStudies.map((cs) => (
@@ -163,7 +163,7 @@ export function Projects({ projects }: ProjectsProps) {
                     </span>
                   </div>
 
-                  <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                  <h3 className="font-display font-semibold text-lg text-heading leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                     {cs.title}
                   </h3>
 

@@ -339,7 +339,7 @@ export default function Cairn(): JSX.Element {
             <button
               onClick={runScan}
               disabled={scanning || !scanText.trim()}
-              className="px-4 py-2 rounded-xl bg-brand-600 text-white text-sm font-medium disabled:opacity-50 flex items-center gap-2"
+              className="px-4 py-2 rounded-xl bg-brand-600 text-on-fill text-sm font-medium disabled:opacity-50 flex items-center gap-2"
             >
               {scanning ? <Loader2 size={15} className="animate-spin" /> : <ScanSearch size={15} />}
               Scan

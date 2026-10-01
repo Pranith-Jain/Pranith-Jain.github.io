@@ -507,7 +507,7 @@ export default function IocCheck(): JSX.Element {
               type="button"
               onClick={() => void runBulkScan()}
               disabled={bulkRunning || bulkIndicators.length === 0}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
             >
               {bulkRunning && <Loader2 size={14} className="animate-spin" />}
               {bulkRunning
@@ -602,7 +602,7 @@ export default function IocCheck(): JSX.Element {
                             <button
                               type="button"
                               onClick={() => toggleBulkSort(key)}
-                              className="inline-flex items-center gap-1 uppercase hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+                              className="inline-flex items-center gap-1 uppercase hover:text-heading dark:hover:text-inverted transition-colors"
                             >
                               {label}
                               <span
@@ -699,7 +699,7 @@ export default function IocCheck(): JSX.Element {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <Search size={16} className="inline mr-2" />
               Check
@@ -843,7 +843,7 @@ export default function IocCheck(): JSX.Element {
                         setCopied('explain');
                         setTimeout(() => setCopied(null), 2000);
                       }}
-                      className="text-xs font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                      className="text-xs font-mono text-muted hover:text-muted dark:hover:text-inverted"
                     >
                       {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                     </button>

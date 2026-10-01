@@ -93,7 +93,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
                 <div key={sub.id} className="border border-line-1 rounded-lg p-3">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-mono text-micro font-bold text-muted">ST{sub.id}</span>
-                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{sub.name}</span>
+                    <span className="text-sm font-semibold text-heading dark:text-slate-100">{sub.name}</span>
                     {sub.type && (
                       <span
                         className={`font-mono text-micro px-1.5 py-0.5 rounded border ${TYPE_TONE[sub.type] ?? ''}`}
@@ -258,7 +258,7 @@ export default function Cloak() {
                 <ChevronRight size={16} className="text-muted shrink-0" />
               )}
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">{tactic.name}</div>
+                <div className="text-sm font-semibold text-heading dark:text-slate-100">{tactic.name}</div>
                 <div className="text-micro text-muted">
                   {tactic.techniqueCount} techniques · {tactic.subtechniqueCount} sub-techniques ·{' '}
                   {tactic.procedureCount} procedures

@@ -422,7 +422,7 @@ export default function Tracer({ initialAddress = '' }: { initialAddress?: strin
             placeholder="Min amount"
           />
           <button
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 p-2 font-mono font-semibold text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30 transition-colors"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 p-2 font-mono font-semibold text-on-fill hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30 transition-colors"
             onClick={onSeed}
             disabled={loading || !seed.trim()}
           >
@@ -771,14 +771,14 @@ export default function Tracer({ initialAddress = '' }: { initialAddress?: strin
             <button
               type="button"
               onClick={() => setSaveOpen(false)}
-              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-3 py-1.5 text-tool text-muted hover:text-body dark:hover:text-inverted"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!traceTitle.trim()}
-              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
+              className="px-3 py-1.5 rounded bg-brand-600 text-on-fill text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
             >
               Save
             </button>

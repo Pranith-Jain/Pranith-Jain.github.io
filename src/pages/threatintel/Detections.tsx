@@ -194,7 +194,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         />
       </button>
       {open && (
-        <ul className="border-t border-line-1 divide-y divide-slate-100 dark:divide-slate-800/60">
+        <ul className="border-t border-line-1 divide-y divide-line-1 dark:divide-slate-800/60">
           {d.indicators.map((it, i) => (
             <li key={`${it.source}:${it.value}:${i}`} className="px-4 py-2 flex items-center gap-3">
               <span

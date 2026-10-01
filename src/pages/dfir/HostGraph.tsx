@@ -186,7 +186,7 @@ export default function HostGraphView(): JSX.Element {
         <button
           type="submit"
           disabled={!query.trim() || inputKind === 'unknown'}
-          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
         >
           <Search size={14} />
           Pivot

@@ -183,7 +183,7 @@ export default function CyberNewsFeed(): JSX.Element {
                             compact
                           />
                         </div>
-                        <h3 className="text-sm font-medium text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 line-clamp-2 flex items-center gap-1">
+                        <h3 className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 line-clamp-2 flex items-center gap-1">
                           <a
                             href={article.link}
                             target="_blank"

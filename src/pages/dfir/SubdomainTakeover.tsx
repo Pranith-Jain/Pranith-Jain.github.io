@@ -173,15 +173,13 @@ export default function SubdomainTakeover() {
   const vulnerableCount = results.filter((r) => r.status === 'vulnerable').length;
 
   return (
-    <div className="min-h-screen [background:rgb(var(--surface-100))] text-slate-900 dark:text-slate-200">
+    <div className="min-h-screen [background:rgb(var(--surface-100))] text-heading">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
         <BackLink to="/dfir">back</BackLink>
         <header className="mb-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-2 h-6 bg-brand-500 rounded" />
-            <h1 className="text-lg font-bold tracking-wider text-slate-900 dark:text-white">
-              SUBDOMAIN TAKEOVER SCANNER
-            </h1>
+            <h1 className="text-lg font-bold tracking-wider text-heading">SUBDOMAIN TAKEOVER SCANNER</h1>
           </div>
           <p className="text-[0.65rem] font-semibold tracking-widest uppercase text-muted">
             Detect dangling CNAMEs pointing to expired or unclaimed third-party services
@@ -197,13 +195,13 @@ export default function SubdomainTakeover() {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleScan()}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm bg-wash border border-line-1 text-slate-900 dark:text-slate-200 placeholder:text-slate-500 dark:placeholder:text-muted focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm bg-wash border border-line-1 text-heading placeholder:text-muted dark:placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
           </div>
           <button
             onClick={handleScan}
             disabled={loading || !domain.trim()}
-            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl text-sm font-medium transition-colors"
+            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed text-on-fill rounded-xl text-sm font-medium transition-colors"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Scan'}
           </button>
@@ -268,7 +266,7 @@ export default function SubdomainTakeover() {
                       href={`https://${r.subdomain}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="shrink-0 p-1.5 text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                      className="shrink-0 p-1.5 text-muted hover:text-body dark:hover:text-inverted transition-colors"
                       title="Test subdomain"
                     >
                       <ExternalLink className="w-4 h-4" />

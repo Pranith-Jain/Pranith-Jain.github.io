@@ -291,7 +291,7 @@ export default function RiskRegister(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowForm((v) => !v)}
-            className="ml-auto text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 inline-flex items-center gap-1.5"
+            className="ml-auto text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 inline-flex items-center gap-1.5"
           >
             <Plus size={12} /> Add Risk
           </button>
@@ -382,7 +382,7 @@ export default function RiskRegister(): JSX.Element {
                 type="button"
                 onClick={handleCreate}
                 disabled={!form.title}
-                className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 transition-colors"
               >
                 Create
               </button>
@@ -479,7 +479,7 @@ export default function RiskRegister(): JSX.Element {
                       return (
                         <div key={level} className="flex items-center gap-2">
                           <span className="text-micro font-mono text-muted w-16 shrink-0 capitalize">{level}</span>
-                          <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-surface-300">
+                          <div className="flex-1 h-2 rounded-full bg-track">
                             <div
                               className={`h-full rounded-full ${color} transition-all`}
                               style={{ width: `${pct}%` }}

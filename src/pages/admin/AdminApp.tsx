@@ -129,7 +129,7 @@ function PipelineBar() {
             onClick={() => run(s.stage)}
             disabled={busy !== null}
             title={s.hint}
-            className="px-3 py-1.5 border border-line-2 rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
+            className="px-3 py-1.5 border border-line-2 rounded text-sm text-body hover:bg-surface-300 dark:hover:bg-surface-300 hover:text-heading dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy === s.stage ? `${s.label}…` : s.label}
           </button>
@@ -216,7 +216,7 @@ export default function AdminApp() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-display font-bold text-slate-900 dark:text-white">Case Study Admin</h1>
+          <h1 className="text-xl font-display font-bold text-heading">Case Study Admin</h1>
           <p className="text-xs font-mono text-muted mt-0.5">Pipeline management and content admin</p>
         </div>
         <div className="flex items-center gap-3">
@@ -234,13 +234,13 @@ export default function AdminApp() {
           )}
           <a
             href="/admin/analytics"
-            className="px-3 py-1.5 border border-line-2 rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-line-2 rounded text-sm text-muted hover:bg-surface-300 dark:hover:bg-surface-300 hover:text-heading dark:hover:text-white transition-colors"
           >
             Analytics
           </a>
           <button
             onClick={logout}
-            className="px-3 py-1.5 border border-line-2 rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-line-2 rounded text-sm text-muted hover:bg-surface-300 dark:hover:bg-surface-300 hover:text-heading dark:hover:text-white transition-colors"
           >
             Logout
           </button>

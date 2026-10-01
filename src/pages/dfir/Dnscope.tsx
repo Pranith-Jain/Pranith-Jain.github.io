@@ -188,7 +188,7 @@ export default function Dnscope(): JSX.Element {
                 type="button"
                 onClick={runScan}
                 disabled={scanning || !domain.trim()}
-                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-xl text-sm font-semibold transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-on-fill rounded-xl text-sm font-semibold transition-colors"
               >
                 {scanning ? <Loader2 size={16} className="animate-spin" /> : <Globe size={16} />}
                 {scanning ? 'Scanning…' : 'Scan'}
@@ -218,7 +218,7 @@ export default function Dnscope(): JSX.Element {
 
           {!scanning && sections.length === 0 && !error && (
             <div className="rounded-xl border-2 border-dashed border-line-1 bg-surface-100/20 p-8 flex flex-col items-center justify-center text-center">
-              <Globe size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
+              <Globe size={48} className="text-inverted mb-4" />
               <p className="text-sm font-mono text-muted">Enter a domain above to map its infrastructure</p>
               <p className="text-micro font-mono text-muted mt-2">DNS · RDAP · CT logs · Email auth · Threat intel</p>
             </div>

@@ -256,7 +256,7 @@ export default function InsightAi(): JSX.Element {
           <button
             onClick={handleGenerate}
             disabled={loading || !alertText.trim() || selectedModes.size === 0}
-            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
@@ -378,7 +378,7 @@ export default function InsightAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
-              <Sparkles size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
+              <Sparkles size={32} className="text-inverted dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Paste an alert and select modes, then click <span className="font-semibold">Generate</span>
               </p>

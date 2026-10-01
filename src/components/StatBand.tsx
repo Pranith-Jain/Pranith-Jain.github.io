@@ -101,9 +101,7 @@ export function StatBand({ ariaLabel, indicator, note, children, gridCols = 4 }:
         <div className="flex items-center gap-2">{indicator}</div>
         {note}
       </div>
-      <div
-        className={`grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200/70 ${GRID_COLS_CLASS[gridCols]} dark:bg-line-1`}
-      >
+      <div className={`grid grid-cols-1 sm:grid-cols-2 gap-px bg-track/70 ${GRID_COLS_CLASS[gridCols]} dark:bg-line-1`}>
         {children}
       </div>
     </section>

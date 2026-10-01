@@ -248,7 +248,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
           {b.data_classes && b.data_classes.length > 0 && (
             <div className="flex flex-wrap gap-1 mb-2">
               {b.data_classes.slice(0, 8).map((d, j) => (
-                <span key={j} className="text-xs px-2 py-0.5 bg-slate-200 dark:bg-surface-300 text-body rounded">
+                <span key={j} className="text-xs px-2 py-0.5 bg-track text-body rounded">
                   {d}
                 </span>
               ))}
@@ -293,7 +293,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/sslboard/throwaway"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-body dark:hover:text-inverted transition-colors"
             >
               throwaway <ExternalLink size={9} />
             </a>
@@ -301,7 +301,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/umuterturk/email-verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-body dark:hover:text-inverted transition-colors"
             >
               rapid-verifier <ExternalLink size={9} />
             </a>
@@ -477,7 +477,7 @@ function PasswordTab(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-body dark:hover:text-inverted transition-colors"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -486,7 +486,7 @@ function PasswordTab(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>
@@ -691,7 +691,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>
@@ -931,7 +931,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>

@@ -184,7 +184,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
         <button
           type="button"
           onClick={onClose}
-          className="text-mini font-mono text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+          className="text-mini font-mono text-muted hover:text-body dark:hover:text-inverted transition-colors"
         >
           close
         </button>

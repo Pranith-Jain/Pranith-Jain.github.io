@@ -399,7 +399,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={downloadReport}
-              className="text-xs font-mono px-3 py-1.5 rounded-xl bg-brand-600 text-white hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-xl bg-brand-600 text-on-fill hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
             >
               <Download size={12} /> Export Report
             </button>
@@ -460,7 +460,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={() => goStep(nextStep)}
-              className="text-xs font-mono px-3 py-1.5 rounded-xl bg-brand-600 text-white hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-xl bg-brand-600 text-on-fill hover:bg-brand-500 transition-colors inline-flex items-center gap-1.5"
             >
               Next Step <ChevronRight size={12} />
             </button>

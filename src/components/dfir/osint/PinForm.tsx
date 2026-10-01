@@ -98,7 +98,7 @@ export function PinForm({
         <button type="button" onClick={onCancel} className="px-3 py-1 text-sm">
           Cancel
         </button>
-        <button type="submit" className="px-3 py-1 text-sm rounded bg-brand-600 text-white">
+        <button type="submit" className="px-3 py-1 text-sm rounded bg-brand-600 text-on-fill">
           {isEdit ? 'Save pin' : 'Add pin'}
         </button>
       </div>

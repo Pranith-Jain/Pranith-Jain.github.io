@@ -133,7 +133,7 @@ function EndpointsTab(): JSX.Element {
         <button
           onClick={loadClients}
           disabled={loading}
-          className="inline-flex items-center gap-1.5 rounded bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded bg-indigo-600 px-3 py-1.5 text-sm text-on-fill hover:bg-indigo-700 disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />} List
         </button>
@@ -187,7 +187,7 @@ function EndpointsTab(): JSX.Element {
               />
               <button
                 onClick={collect}
-                className="inline-flex items-center gap-1 rounded bg-emerald-600 px-2 py-1 text-xs text-white hover:bg-emerald-700"
+                className="inline-flex items-center gap-1 rounded bg-emerald-600 px-2 py-1 text-xs text-on-fill hover:bg-emerald-700"
               >
                 <Play size={12} /> Collect
               </button>
@@ -302,7 +302,7 @@ function SamplesTab(): JSX.Element {
       <button
         onClick={submit}
         disabled={!b64 || busy}
-        className="inline-flex items-center gap-2 rounded bg-rose-600 px-4 py-1.5 text-sm text-white hover:bg-rose-700 disabled:opacity-50"
+        className="inline-flex items-center gap-2 rounded bg-rose-600 px-4 py-1.5 text-sm text-on-fill hover:bg-rose-700 disabled:opacity-50"
       >
         {busy ? <Loader2 size={14} className="animate-spin" /> : <FlaskConical size={14} />} Submit for analysis
       </button>
@@ -414,7 +414,7 @@ function RulesTab(): JSX.Element {
         <button
           onClick={validate}
           disabled={!source.trim() || busy}
-          className="inline-flex items-center gap-1.5 rounded bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded bg-indigo-600 px-3 py-1.5 text-sm text-on-fill hover:bg-indigo-700 disabled:opacity-50"
         >
           {busy ? <Loader2 size={13} className="animate-spin" /> : <FileCheck2 size={13} />} Validate
         </button>
@@ -492,7 +492,7 @@ function ObservablesTab(): JSX.Element {
       <button
         onClick={extract}
         disabled={!text.trim() || busy}
-        className="inline-flex items-center gap-1.5 rounded bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 rounded bg-indigo-600 px-3 py-1.5 text-sm text-on-fill hover:bg-indigo-700 disabled:opacity-50"
       >
         {busy ? <Loader2 size={13} className="animate-spin" /> : <Search size={13} />} Extract observables
       </button>

@@ -285,7 +285,7 @@ function TgIntelSearch() {
             <button
               type="button"
               onClick={() => setShowSaved(false)}
-              className="text-muted hover:text-slate-900 dark:hover:text-slate-100"
+              className="text-muted hover:text-heading dark:hover:text-slate-100"
             >
               <X size={14} />
             </button>
@@ -303,7 +303,7 @@ function TgIntelSearch() {
                   <button
                     type="button"
                     onClick={() => handleDeleteSaved(s.id)}
-                    className="p-1 text-slate-300 dark:text-muted hover:text-rose-500 ml-2"
+                    className="p-1 text-inverted dark:text-muted hover:text-rose-500 ml-2"
                   >
                     <Trash2 size={12} />
                   </button>
@@ -345,7 +345,7 @@ function TgIntelSearch() {
                   setTotal(0);
                   setTimeline([]);
                 }}
-                className="px-2 text-muted hover:text-slate-900 dark:hover:text-slate-100"
+                className="px-2 text-muted hover:text-heading dark:hover:text-slate-100"
               >
                 <X size={14} />
               </button>
@@ -354,7 +354,7 @@ function TgIntelSearch() {
           <button
             aria-label="Search"
             type="submit"
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
           >
             <Search size={14} />
           </button>
@@ -362,7 +362,7 @@ function TgIntelSearch() {
             <button
               type="button"
               onClick={() => setShowSaveForm(true)}
-              className="px-2.5 py-2 border border-line-1 rounded-xl font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 hover:border-rose-300 transition-colors"
+              className="px-2.5 py-2 border border-line-1 rounded-xl font-mono text-muted hover:text-heading dark:hover:text-slate-100 hover:border-rose-300 transition-colors"
             >
               <Star size={14} />
             </button>
@@ -381,14 +381,14 @@ function TgIntelSearch() {
           <button
             type="button"
             onClick={handleSave}
-            className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded"
+            className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill text-mini font-mono font-semibold rounded"
           >
             Save
           </button>
           <button
             type="button"
             onClick={() => setShowSaveForm(false)}
-            className="text-muted hover:text-slate-900 dark:hover:text-slate-100"
+            className="text-muted hover:text-heading dark:hover:text-slate-100"
           >
             <X size={14} />
           </button>
@@ -471,7 +471,7 @@ function TgIntelSearch() {
             <button
               type="button"
               onClick={() => doSearch(query, 0)}
-              className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded"
+              className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill text-mini font-mono font-semibold rounded"
             >
               Apply
             </button>
@@ -565,7 +565,7 @@ function TgIntelSearch() {
                   background: `linear-gradient(to top, var(--color-emerald-500) 0%, var(--color-amber-500) ${Math.min(100, ((t.medium + t.high) / Math.max(t.count, 1)) * 100)}%, var(--color-red-500) ${Math.min(100, (t.critical / Math.max(t.count, 1)) * 100)}%)`,
                 }}
               >
-                <div className="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-1.5 py-0.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-micro font-mono rounded whitespace-nowrap z-10">
+                <div className="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-1.5 py-0.5 bg-surface-100 dark:bg-surface-300 text-white dark:text-heading text-micro font-mono rounded whitespace-nowrap z-10">
                   {t.day}: {t.count}
                 </div>
               </button>
@@ -605,7 +605,7 @@ function TgIntelSearch() {
                     setFilterChannel(tc.channel_handle);
                     doSearch(query, 0);
                   }}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted hover:bg-slate-200 dark:hover:bg-surface-300 transition-colors"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted hover:bg-track dark:hover:bg-surface-300 transition-colors"
                 >
                   @{tc.channel_handle} ({tc.count})
                 </button>

@@ -197,9 +197,9 @@ export default function Briefings(): JSX.Element {
           <div className="space-y-4" aria-busy="true" aria-label="Loading briefings">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="surface-card p-6 animate-pulse">
-                <div className="h-4 bg-slate-200 dark:bg-surface-300 rounded w-1/2 mb-2" />
-                <div className="h-3 bg-slate-200 dark:bg-surface-300 rounded w-1/4 mb-4" />
-                <div className="h-3 bg-slate-200 dark:bg-surface-300 rounded w-3/4" />
+                <div className="h-4 bg-track rounded w-1/2 mb-2" />
+                <div className="h-3 bg-track rounded w-1/4 mb-4" />
+                <div className="h-3 bg-track rounded w-3/4" />
               </div>
             ))}
           </div>

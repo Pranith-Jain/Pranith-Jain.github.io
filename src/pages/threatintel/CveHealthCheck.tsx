@@ -72,9 +72,7 @@ export default function CveHealthCheck({ bare }: CveHealthCheckProps): JSX.Eleme
             <div key={check.name} className="p-3 bg-surface-100 border border-line-1 rounded-xl">
               <div className="flex items-center gap-2">
                 <Icon className={`h-4 w-4 ${STATUS_COLOR[check.status]}`} />
-                <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
-                  {formatName(check.name)}
-                </span>
+                <span className="font-mono text-sm font-medium text-heading">{formatName(check.name)}</span>
               </div>
               <p className="text-xs text-muted mt-1 ml-6">{check.message}</p>
               {check.details && (

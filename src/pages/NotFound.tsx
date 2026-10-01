@@ -132,7 +132,7 @@ export default function NotFound(): JSX.Element {
             </p>
             <Link
               to={moved.to}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 text-white px-5 py-3 text-sm font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 text-on-fill px-5 py-3 text-sm font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <code className="text-white">{moved.to}</code>
               <ArrowRight size={14} aria-hidden="true" />
@@ -159,7 +159,7 @@ export default function NotFound(): JSX.Element {
                 <Link
                   key={s.href}
                   to={s.href}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-sm font-mono text-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:text-brand-300 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-sm font-mono text-body hover:border-brand-500/40 hover:text-brand-600 dark:hover:border-brand-500/40 dark:hover:text-brand-300 transition-colors"
                 >
                   {s.label}
                   <ArrowRight size={12} aria-hidden="true" />

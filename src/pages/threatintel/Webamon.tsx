@@ -715,7 +715,7 @@ function SandboxTab() {
           <button
             type="submit"
             disabled={!url.trim() || submitting}
-            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
+            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
           >
             {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
             {submitting ? 'Submitting…' : 'Scan'}
@@ -1018,11 +1018,7 @@ function SandboxTab() {
                           {r.monitor.map((m, i) => (
                             <div key={i} className="flex items-center gap-2 text-muted">
                               <span className="truncate">{m.url ?? '-'}</span>
-                              {m.status && (
-                                <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-surface-300">
-                                  {m.status}
-                                </span>
-                              )}
+                              {m.status && <span className="px-1.5 py-0.5 rounded bg-track">{m.status}</span>}
                               {m.last_checked && <span className="text-muted">{m.last_checked}</span>}
                             </div>
                           ))}
@@ -1220,7 +1216,7 @@ function InfraTab() {
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-5 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-white text-tool font-mono font-semibold hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-5 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-on-fill text-tool font-mono font-semibold hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             <Search size={14} /> Lookup
           </button>

@@ -60,6 +60,19 @@
   /* Translucent interaction wash (row hover / quiet tint). Not a surface: it
      is an alpha over whatever is beneath it, so it layers predictably. */
   --color-wash: rgb(var(--hover-100));
+  /* Ink for a light step that flips: light slate-200/300 is low-contrast on a
+     white card, dark slate-700/800 is high-contrast on a navy one. The
+     channel carries both ends so one utility expresses the pair. */
+  --color-inverted: rgb(var(--inverted));
+  /* Ink for a saturated fill (brand-600 button, rose-700 danger). White in
+     both modes: the fill decides the contrast, so the ink must not flip.
+     Distinct from --ink-heading, which is theme-reactive ink on a NEUTRAL
+     surface -- using that on a fill gives a muddy blue-white. */
+  --color-on-fill: rgb(var(--on-fill));
+  /* Loading placeholder / progress track. Sits ON a card, so it has to read
+     as a track rather than a surface: ~1.2:1 against the card in both modes,
+     matching what a raw bg-slate-200 + dark:bg-surface-300 pair produced. */
+  --color-track: rgb(var(--track));
   /* Brand step that must stay legible AS TEXT (links, focus ring). No single
      brand step clears both modes: brand-500 is 5.11:1 on white but 3.41:1 on
      the dark surfaces, and brand-400 falls to 2.88:1 on --surface-300. So the
@@ -185,6 +198,17 @@
        holds 4.69:1 on that surface and 5.11:1 on white. */
     --accent-text: 67 94 241;
     --focus-ring: 67 94 241;
+    /* Ink on a saturated fill. White in both modes; the fill sets the
+       contrast, so the ink must not flip with the theme. */
+    --on-fill: 255 255 255;
+    /* Loading track on a card. Matches the previous
+       `bg-slate-200 dark:bg-surface-300` pairing exactly. */
+    --track: 226 232 240;
+    /* Low-emphasis ink that stays low-emphasis in both modes. Replaces the raw
+       `text-slate-300 dark:text-slate-700` pair, whose LIGHT half measured
+       1.48:1 on white -- effectively invisible. Light uses --ink-body
+       (9.92:1 on surface-200), dark uses slate-400 (6.80:1). */
+    --inverted: 51 65 85;
   }
 
   html.dark {
@@ -212,6 +236,15 @@
        canvas, so it clears 4.5:1 as link text and 3:1 as a focus ring. */
     --accent-text: 109 139 247;
     --focus-ring: 109 139 247;
+    --on-fill: 255 255 255;
+    /* Track on a card: --surface-300 is the highest elevation in the ladder,
+       which is exactly what the old `dark:bg-surface-300` half resolved to. */
+    --track: 28 37 60;
+    /* slate-400 on surface-200 is 6.80:1, above the 4.5:1 text floor while
+       still reading as de-emphasized next to --ink-body (11.75:1). Chosen
+       over slate-500, which only reaches 3.66:1 here. Coincides with
+       --muted in dark mode; the two roles converge when the ramp inverts. */
+    --inverted: 148 163 184;
   }
 
   :focus-visible {

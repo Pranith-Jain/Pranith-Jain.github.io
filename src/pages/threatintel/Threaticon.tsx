@@ -159,7 +159,7 @@ function Confidence({ value }: { value: number | null }) {
   if (value == null) return null;
   return (
     <div className="flex items-center gap-1.5 text-mini text-muted font-mono">
-      <div className="w-14 h-1.5 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
+      <div className="w-14 h-1.5 rounded-full bg-track dark:bg-surface-100/10 overflow-hidden">
         <div
           className={`h-full rounded-full ${value >= 70 ? 'bg-emerald-500' : value >= 40 ? 'bg-amber-500' : 'bg-rose-500'}`}
           style={{ width: `${Math.min(100, Math.max(0, value))}%` }}

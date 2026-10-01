@@ -270,7 +270,7 @@ function SecretTypeRow({ name, count, max }: { name: string; count: number; max:
         </span>
         <span className="font-mono tabular-nums text-muted">{count.toLocaleString()}</span>
       </div>
-      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
+      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-track">
         <div className="h-full rounded-full bg-rose-500" style={{ width: `${pct}%` }} />
       </div>
     </li>
@@ -552,7 +552,7 @@ export default function RedHuntInsights(): JSX.Element {
             <TopDomainsCloud domains={topDomains} />
             {topDomainsEntries.length > 0 && (
               <details className="mt-3 border-t border-line-1 pt-3 text-xs">
-                <summary className="cursor-pointer text-muted hover:text-slate-700 dark:hover:text-slate-300 font-mono">
+                <summary className="cursor-pointer text-muted hover:text-body dark:hover:text-inverted font-mono">
                   show numeric table ({topDomainsEntries.length} domains)
                 </summary>
                 <div className="overflow-x-auto">
@@ -687,7 +687,7 @@ export default function RedHuntInsights(): JSX.Element {
               {latestSecrets.length === 0 ? (
                 <p className="mt-4 text-sm text-muted">no recent secrets in the latest snapshot</p>
               ) : (
-                <ul className="mt-4 divide-y divide-slate-100 dark:divide-slate-800">
+                <ul className="mt-4 divide-y divide-line-1">
                   {latestSecrets.slice(0, 10).map((s) => (
                     <li key={s.id} className="flex items-start gap-3 py-2.5">
                       <Key className="mt-0.5 h-4 w-4 shrink-0 text-rose-500 dark:text-rose-400" />

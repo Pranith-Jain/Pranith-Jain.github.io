@@ -148,7 +148,7 @@ export default function ExportHub(): JSX.Element {
           <button
             onClick={exportData}
             disabled={loading || !iocInput.trim()}
-            className="w-full px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2 transition-colors"
+            className="w-full px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill text-sm font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2 transition-colors"
           >
             {loading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />} Export
           </button>

@@ -75,7 +75,7 @@ export default function CampaignLifecycle(): JSX.Element {
         type="button"
         onClick={handleAnalyze}
         disabled={loading || !campaignName.trim()}
-        className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+        className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
       >
         {loading ? <Loader2 size={14} className="animate-spin" /> : <Target size={14} />}
         {loading ? 'Analyzing…' : 'Analyze Campaign'}

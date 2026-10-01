@@ -219,7 +219,7 @@ export default function Phishing(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2 transition-colors"
+            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2 transition-colors"
           >
             <ScanText size={16} /> Analyze
           </button>

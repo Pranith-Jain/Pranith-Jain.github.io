@@ -116,7 +116,7 @@ function Expandable({
   return (
     <div className="surface-card rounded-xl overflow-hidden">
       <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between px-4 py-3 text-left">
-        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+        <span className="text-sm font-semibold text-heading">
           {title}
           {count !== undefined && <span className="ml-2 text-xs font-normal text-muted">({count})</span>}
         </span>
@@ -232,7 +232,7 @@ export default function DailyBriefs() {
       {/* Header */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Daily Intelligence Briefs</h1>
+          <h1 className="text-2xl font-bold text-heading">Daily Intelligence Briefs</h1>
           <p className="mt-1 text-sm text-muted">
             Source: {indexData?.source ?? 'agentic-ai-daily-reports.netlify.app'} &middot; Generated{' '}
             {indexData?.generatedAt ?? '-'}
@@ -240,10 +240,7 @@ export default function DailyBriefs() {
         </div>
         <div className="flex gap-2">
           {Object.entries(indexData?.counts ?? {}).map(([type, count]) => (
-            <span
-              key={type}
-              className="rounded-full bg-surface-300 px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-300"
-            >
+            <span key={type} className="rounded-full bg-surface-300 px-3 py-1 text-xs font-medium text-muted">
               {type}: {count}
             </span>
           ))}
@@ -326,7 +323,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
 
       {/* Executive Summary */}
       <section className="surface-card rounded-xl p-5">
-        <h2 className="mb-2 text-lg font-bold text-slate-900 dark:text-white">Executive Summary</h2>
+        <h2 className="mb-2 text-lg font-bold text-heading">Executive Summary</h2>
         <p className="text-sm leading-relaxed text-body">{brief.executiveSummary}</p>
       </section>
 
@@ -343,7 +340,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {brief.dashboard.kpis.map((kpi, i) => (
             <div key={i} className="surface-card rounded-xl p-4 text-center">
-              <div className="text-3xl font-extrabold text-slate-900 dark:text-white">{kpi.value}</div>
+              <div className="text-3xl font-extrabold text-heading">{kpi.value}</div>
               <div className="mt-1 text-xs text-muted">{kpi.label}</div>
             </div>
           ))}
@@ -353,11 +350,11 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* Key Findings */}
       {brief.keyFindings?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Key Findings</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Key Findings</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {brief.keyFindings.map((f, i) => (
               <div key={i} className="rounded-xl border border-line-1 p-3">
-                <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{f.title}</h3>
+                <h3 className="text-sm font-semibold text-heading">{f.title}</h3>
                 <p className="mt-1 text-xs text-muted">{f.summary}</p>
               </div>
             ))}
@@ -368,7 +365,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* Top Priority Threats */}
       {brief.topThreats?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Top Priority Threats</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Top Priority Threats</h2>
           <div className="space-y-3">
             {brief.topThreats.map((t, i) => (
               <div key={i} className="rounded-xl border border-line-1 p-3">
@@ -376,7 +373,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-mini font-bold text-rose-700 dark:bg-rose-950/60 dark:text-rose-300">
                     {i + 1}
                   </span>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{t.title}</h3>
+                  <h3 className="text-sm font-semibold text-heading">{t.title}</h3>
                 </div>
                 {t.action && <p className="mt-1.5 ml-8 text-xs text-muted">{t.action}</p>}
               </div>
@@ -388,7 +385,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* Actively Exploited */}
       {brief.dashboard?.activelyExploited?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Actively Exploited</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Actively Exploited</h2>
           <div className="flex flex-wrap gap-2">
             {brief.dashboard.activelyExploited.map((item, i) => (
               <span
@@ -410,10 +407,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
               <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Affected Vendors</h2>
               <div className="flex flex-wrap gap-1.5">
                 {brief.dashboard.vendors.map((v, i) => (
-                  <span
-                    key={i}
-                    className="rounded-md bg-surface-300 px-2 py-1 text-xs text-slate-700 dark:text-slate-300"
-                  >
+                  <span key={i} className="rounded-md bg-surface-300 px-2 py-1 text-xs text-body">
                     {v}
                   </span>
                 ))}
@@ -441,11 +435,11 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* Threat Actor Activity */}
       {brief.threatActors?.length > 0 && (
         <section>
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Threat Actor Activity</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Threat Actor Activity</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {brief.threatActors.map((cat, i) => (
               <div key={i} className="surface-card rounded-xl p-4">
-                <h3 className="mb-2 text-sm font-bold text-slate-900 dark:text-white">{cat.category}</h3>
+                <h3 className="mb-2 text-sm font-bold text-heading">{cat.category}</h3>
                 <ul className="space-y-1.5">
                   {cat.items.map((item, j) => (
                     <li key={j} className="text-xs text-muted">
@@ -462,7 +456,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* CVE Watch */}
       {brief.cveWatch?.length > 0 && (
         <section>
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Vulnerability &amp; CVE Watch</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Vulnerability &amp; CVE Watch</h2>
           <div className="space-y-3">
             {brief.cveWatch.map((cat, i) => (
               <Expandable key={i} title={cat.category} count={cat.items.length} defaultOpen={i === 0}>
@@ -483,7 +477,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* MITRE ATT&CK */}
       {brief.ttps?.mitreIds?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">MITRE ATT&amp;CK Observations</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">MITRE ATT&amp;CK Observations</h2>
           <div className="flex flex-wrap gap-1.5">
             {brief.ttps.mitreIds.map((id, i) => (
               <a
@@ -492,7 +486,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                 href={`https://attack.mitre.org/techniques/${id.split('.')[0]}/${id.includes('.') ? id.split('.')[1] : ''}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-md bg-surface-300 px-2 py-1 text-xs font-mono text-slate-700 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-surface-300 transition-colors"
+                className="inline-flex items-center gap-1 rounded-md bg-surface-300 px-2 py-1 text-xs font-mono text-body hover:bg-track dark:hover:bg-surface-300 transition-colors"
               >
                 {id} <ExternalLink size={10} />
               </a>
@@ -513,9 +507,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* Related CVEs */}
       {brief.relatedCves?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">
-            Related CVEs ({brief.relatedCves.length})
-          </h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Related CVEs ({brief.relatedCves.length})</h2>
           <div className="flex flex-wrap gap-1.5">
             {brief.relatedCves.map((cve, i) => (
               <a
@@ -533,7 +525,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* Event Cards */}
       {brief.events?.length > 0 && (
         <section>
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Event Cards ({brief.events.length})</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Event Cards ({brief.events.length})</h2>
           <div className="space-y-3">
             {brief.events.map((ev, i) => (
               <Expandable key={i} title={ev.title} defaultOpen={ev.severity === 'red' && i < 3}>
@@ -578,7 +570,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
       {/* Outlook */}
       {brief.outlook72h && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-2 text-lg font-bold text-slate-900 dark:text-white">Next 72-Hour Outlook</h2>
+          <h2 className="mb-2 text-lg font-bold text-heading">Next 72-Hour Outlook</h2>
           <p className="text-sm leading-relaxed text-body">{brief.outlook72h}</p>
         </section>
       )}
@@ -602,7 +594,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
 
       {/* Executive Summary */}
       <section className="surface-card rounded-xl p-5">
-        <h2 className="mb-2 text-lg font-bold text-slate-900 dark:text-white">Executive Summary</h2>
+        <h2 className="mb-2 text-lg font-bold text-heading">Executive Summary</h2>
         <p className="text-sm leading-relaxed text-body">{brief.executiveSummary}</p>
       </section>
 
@@ -617,7 +609,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
       {/* Key Findings */}
       {brief.keyFindings?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Key Findings</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Key Findings</h2>
           <ul className="space-y-2">
             {brief.keyFindings.map((f, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-body">
@@ -634,9 +626,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
       {/* Incidents */}
       {brief.incidents?.length > 0 && (
         <section>
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">
-            Priority Incidents ({brief.incidents.length})
-          </h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Priority Incidents ({brief.incidents.length})</h2>
           <div className="space-y-3">
             {brief.incidents.slice(0, 15).map((inc, i) => (
               <Expandable
@@ -688,7 +678,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
       {/* Emerging Trends */}
       {brief.emergingTrends?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Emerging Trends</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Emerging Trends</h2>
           <ul className="space-y-2">
             {brief.emergingTrends.map((t, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-body">
@@ -703,7 +693,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
       {/* Geographic Observations */}
       {brief.geographicObservations?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Geographic Observations</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Geographic Observations</h2>
           <ul className="space-y-2">
             {brief.geographicObservations.map((obs, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-body">
@@ -748,7 +738,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
 
       {/* Executive Summary */}
       <section className="surface-card rounded-xl p-5">
-        <h2 className="mb-2 text-lg font-bold text-slate-900 dark:text-white">Executive Summary</h2>
+        <h2 className="mb-2 text-lg font-bold text-heading">Executive Summary</h2>
         <p className="text-sm leading-relaxed text-body">{brief.executiveSummary}</p>
       </section>
 
@@ -765,7 +755,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {brief.dashboard.kpis.map((kpi, i) => (
             <div key={i} className="surface-card rounded-xl p-4 text-center">
-              <div className="text-3xl font-extrabold text-slate-900 dark:text-white">{kpi.value}</div>
+              <div className="text-3xl font-extrabold text-heading">{kpi.value}</div>
               <div className="mt-1 text-xs text-muted">{kpi.label}</div>
             </div>
           ))}
@@ -775,13 +765,13 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
       {/* Top Events */}
       {brief.topEvents?.length > 0 && (
         <section>
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Top Critical Events</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Top Critical Events</h2>
           <div className="space-y-3">
             {brief.topEvents.map((ev, i) => (
               <div key={i} className="surface-card rounded-xl overflow-hidden">
                 {' '}
                 <div className="flex items-center justify-between border-b border-line-1 px-4 py-3">
-                  <span className="text-sm font-semibold text-slate-900 dark:text-white">{ev.title}</span>
+                  <span className="text-sm font-semibold text-heading">{ev.title}</span>
                   <span
                     className={`rounded-full px-2.5 py-0.5 text-micro font-bold uppercase tracking-wider border ${sevPill(ev.severity)}`}
                   >
@@ -823,7 +813,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
               >
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-rose-500" />
-                  <span className="text-sm font-medium text-slate-900 dark:text-white">{ev.title}</span>
+                  <span className="text-sm font-medium text-heading">{ev.title}</span>
                 </div>
                 {ev.text && <p className="mt-1 ml-4 text-xs text-muted">{ev.text}</p>}
                 {ev.sources?.length > 0 && (
@@ -858,7 +848,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
               >
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-orange-500" />
-                  <span className="text-sm font-medium text-slate-900 dark:text-white">{ev.title}</span>
+                  <span className="text-sm font-medium text-heading">{ev.title}</span>
                 </div>
                 {ev.text && <p className="mt-1 ml-4 text-xs text-muted">{ev.text}</p>}
                 {ev.sources?.length > 0 && (
@@ -885,7 +875,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
       {/* Regional Trends */}
       {brief.regionalTrends?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Regional &amp; Hazard Trends</h2>
+          <h2 className="mb-3 text-lg font-bold text-heading">Regional &amp; Hazard Trends</h2>
           <ul className="space-y-2">
             {brief.regionalTrends.map((t, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-body">
@@ -900,7 +890,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
       {/* Outlook */}
       {brief.outlook72h && (
         <section className="surface-card rounded-xl p-5">
-          <h2 className="mb-2 text-lg font-bold text-slate-900 dark:text-white">Next 72-Hour Outlook</h2>
+          <h2 className="mb-2 text-lg font-bold text-heading">Next 72-Hour Outlook</h2>
           <p className="text-sm leading-relaxed text-body">{brief.outlook72h}</p>
         </section>
       )}

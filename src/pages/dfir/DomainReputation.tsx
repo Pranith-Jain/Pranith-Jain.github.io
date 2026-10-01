@@ -155,7 +155,7 @@ export default function DomainReputation(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !clean}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             {loading ? (
               <Loader2 size={16} className="animate-spin inline mr-1" />
@@ -194,7 +194,7 @@ export default function DomainReputation(): JSX.Element {
                 );
               })()}
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-3">
+            <div className="h-2 rounded bg-track overflow-hidden mb-3">
               <div
                 className={`h-full transition-all ${getScoreColor(results.score)}`}
                 style={{ width: `${Math.max(2, results.score)}%` }}

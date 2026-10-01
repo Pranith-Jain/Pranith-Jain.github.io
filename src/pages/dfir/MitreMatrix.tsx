@@ -521,7 +521,7 @@ export default function MitreMatrix(): JSX.Element {
                 type="button"
                 onClick={closeDrawer}
                 aria-label="Close technique details"
-                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
+                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-muted hover:text-heading dark:hover:text-slate-100 hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
               >
                 <X size={18} aria-hidden="true" />
               </button>

@@ -130,7 +130,7 @@ export function renderMarkdown(md: string): string {
   s = s.replace(/```(\w*)\n([\s\S]*?)```/g, (_m, lang, body) => {
     const idx = codeBlocks.length;
     codeBlocks.push(
-      `<pre data-codeblock="${idx}" data-lang="${esc(lang)}" class="rounded bg-slate-900 dark:bg-input-200 text-slate-100 p-3 my-3 text-xs overflow-x-auto font-mono leading-relaxed"><code>${esc(body.trimEnd())}</code></pre>`
+      `<pre data-codeblock="${idx}" data-lang="${esc(lang)}" class="rounded bg-surface-100 dark:bg-input-200 text-slate-100 p-3 my-3 text-xs overflow-x-auto font-mono leading-relaxed"><code>${esc(body.trimEnd())}</code></pre>`
     );
     return `\n\n§§CODEBLOCK${idx}§§\n\n`;
   });

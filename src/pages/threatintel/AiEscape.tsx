@@ -670,7 +670,7 @@ export default function AiEscape(): JSX.Element {
                 type="button"
                 onClick={() => void submitReport()}
                 disabled={submitting}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono bg-rose-600 dark:bg-rose-500 text-white hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors disabled:opacity-40"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono bg-rose-600 dark:bg-rose-500 text-on-fill hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors disabled:opacity-40"
               >
                 <GitPullRequest className="w-3.5 h-3.5" /> {submitting ? 'Submitting…' : 'Submit for review'}
               </button>

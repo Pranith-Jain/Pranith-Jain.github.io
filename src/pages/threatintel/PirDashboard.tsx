@@ -594,7 +594,7 @@ export default function PirDashboard(): JSX.Element {
             <button
               type="submit"
               disabled={saving}
-              className="text-xs font-mono px-4 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
+              className="text-xs font-mono px-4 py-2 rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 transition-colors"
             >
               {saving ? 'Saving…' : editingId ? 'Update PIR' : 'Create PIR'}
             </button>
@@ -698,7 +698,7 @@ export default function PirDashboard(): JSX.Element {
                 </div>
               )}
 
-              <div className="divide-y divide-slate-100 dark:divide-slate-800 max-h-64 overflow-y-auto">
+              <div className="divide-y divide-line-1 max-h-64 overflow-y-auto">
                 {routing.map((r) => {
                   const c =
                     r.effective_cadence_hours <= 1
@@ -905,7 +905,7 @@ export default function PirDashboard(): JSX.Element {
                       </div>
                       {score && (
                         <div className="flex items-center gap-2 shrink-0">
-                          <div className="w-16 bg-slate-200 dark:bg-surface-300 rounded-full h-2">
+                          <div className="w-16 bg-track rounded-full h-2">
                             <div
                               className="bg-rose-500 h-2 rounded-full"
                               style={{ width: `${score.composite_coverage}%` }}
@@ -995,7 +995,7 @@ export default function PirDashboard(): JSX.Element {
                               <div>
                                 <p className="text-micro font-mono text-muted mb-0.5">Freshness</p>
                                 <div className="flex items-center gap-1.5">
-                                  <div className="w-12 bg-slate-200 dark:bg-surface-300 rounded-full h-1.5">
+                                  <div className="w-12 bg-track rounded-full h-1.5">
                                     <div
                                       className="bg-cyan-500 h-1.5 rounded-full"
                                       style={{ width: `${score.freshness_score}%` }}
@@ -1007,7 +1007,7 @@ export default function PirDashboard(): JSX.Element {
                               <div>
                                 <p className="text-micro font-mono text-muted mb-0.5">Confidence</p>
                                 <div className="flex items-center gap-1.5">
-                                  <div className="w-12 bg-slate-200 dark:bg-surface-300 rounded-full h-1.5">
+                                  <div className="w-12 bg-track rounded-full h-1.5">
                                     <div
                                       className="bg-violet-500 h-1.5 rounded-full"
                                       style={{ width: `${score.confidence?.score ?? 0}%` }}
@@ -1021,7 +1021,7 @@ export default function PirDashboard(): JSX.Element {
                               <div>
                                 <p className="text-micro font-mono text-muted mb-0.5">Composite</p>
                                 <div className="flex items-center gap-1.5">
-                                  <div className="w-12 bg-slate-200 dark:bg-surface-300 rounded-full h-1.5">
+                                  <div className="w-12 bg-track rounded-full h-1.5">
                                     <div
                                       className="bg-rose-500 h-1.5 rounded-full"
                                       style={{ width: `${score.composite_coverage}%` }}

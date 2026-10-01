@@ -172,7 +172,7 @@ export default function FeedSources(): JSX.Element {
       </div>
 
       <details className="mt-10">
-        <summary className="cursor-pointer text-mini font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-mini font-mono text-muted hover:text-muted dark:hover:text-inverted">
           Retired feeds ({Object.keys(RETIRED_FEEDS).length}) — do not re-add without a working live URL
         </summary>
         <div className="mt-3 grid gap-1 max-w-2xl">
@@ -186,7 +186,7 @@ export default function FeedSources(): JSX.Element {
       </details>
 
       <details className="mt-3">
-        <summary className="cursor-pointer text-mini font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-mini font-mono text-muted hover:text-muted dark:hover:text-inverted">
           How feed management works
         </summary>
         <div className="mt-3 text-mini font-mono text-muted leading-relaxed space-y-1 max-w-2xl">

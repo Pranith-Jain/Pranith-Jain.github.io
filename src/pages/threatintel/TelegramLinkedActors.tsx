@@ -522,7 +522,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <button
               type="button"
               onClick={onClearFilter}
-              className="text-micro font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+              className="text-micro font-mono text-muted hover:text-muted dark:hover:text-inverted transition-colors"
             >
               clear
             </button>

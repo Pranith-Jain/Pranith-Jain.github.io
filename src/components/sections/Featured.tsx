@@ -16,7 +16,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
           "Recent writing" section above. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">External coverage</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Press &amp; interviews
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">
@@ -40,7 +40,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
               </span>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h3 className="text-xl font-bold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {article.title}
               </h3>
               <p className="mt-3 text-sm text-muted leading-relaxed">{article.description}</p>

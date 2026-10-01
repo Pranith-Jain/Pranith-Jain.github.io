@@ -114,7 +114,7 @@ export default function AsnLookup(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Network size={16} className="inline mr-2" />
             Lookup

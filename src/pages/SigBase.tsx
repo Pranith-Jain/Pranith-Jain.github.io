@@ -122,7 +122,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
         </div>
         <button
           onClick={copyYara}
-          className="w-full px-4 py-2 rounded-xl text-sm font-semibold bg-brand-600 dark:bg-brand-500 text-white hover:bg-brand-700 dark:hover:bg-brand-600 transition-colors"
+          className="w-full px-4 py-2 rounded-xl text-sm font-semibold bg-brand-600 dark:bg-brand-500 text-on-fill hover:bg-brand-700 dark:hover:bg-brand-600 transition-colors"
         >
           {copyState === 'copied' ? 'Copied!' : `Copy full YARA source (${(body.body.length / 1024).toFixed(1)} KB)`}
         </button>
@@ -285,7 +285,7 @@ export default function SigBase() {
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No rules match your filters.</p>
           </div>
         ) : (
@@ -296,7 +296,7 @@ export default function SigBase() {
                 onClick={() => setDetailSlug(r.slug)}
                 className={`${CARD} text-left p-4 transition-colors hover:border-brand-400 dark:hover:border-brand-600 group`}
               >
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug break-all font-mono">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug break-all font-mono">
                   {r.filename}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">

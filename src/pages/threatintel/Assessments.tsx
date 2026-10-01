@@ -126,7 +126,7 @@ export default function Assessments(): JSX.Element {
                 </div>
                 <div className="text-micro text-muted">{new Date(a.created_at).toLocaleDateString()}</div>
               </div>
-              <ChevronRight size={14} className="text-slate-300" />
+              <ChevronRight size={14} className="text-inverted" />
             </div>
           </Link>
         ))}

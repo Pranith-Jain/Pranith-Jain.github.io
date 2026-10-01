@@ -175,7 +175,7 @@ export default function EmlExtractor(): JSX.Element {
             type="button"
             onClick={() => void run(input)}
             disabled={loading || !input.trim()}
-            className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
+            className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 text-on-fill font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <ScanText size={14} />}
             {loading ? 'parsing…' : 'parse + hash'}

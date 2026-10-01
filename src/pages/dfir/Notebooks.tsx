@@ -297,7 +297,7 @@ export default function Notebooks() {
             <button
               onClick={() => setShowCreate(true)}
               type="button"
-              className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm font-medium transition-colors"
+              className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill font-mono text-sm font-medium transition-colors"
             >
               <Plus size={16} />
             </button>
@@ -477,7 +477,7 @@ export default function Notebooks() {
                     </button>
                     <button
                       onClick={() => setShowAddEntry(true)}
-                      className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors whitespace-nowrap"
+                      className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill font-mono text-xs font-medium transition-colors whitespace-nowrap"
                     >
                       <Plus size={14} className="inline mr-1" />
                       Add Entry
@@ -545,14 +545,14 @@ export default function Notebooks() {
                         setShowAddEntry(false);
                         setEntryContent('');
                       }}
-                      className="px-4 py-2 rounded-xl text-sm font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+                      className="px-4 py-2 rounded-xl text-sm font-mono text-muted hover:text-heading dark:hover:text-slate-100 transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={addEntry}
                       disabled={addingEntry || !entryContent.trim()}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors disabled:opacity-50"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill font-mono text-xs font-medium transition-colors disabled:opacity-50"
                     >
                       {addingEntry ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
                       Add
@@ -689,14 +689,14 @@ export default function Notebooks() {
                   setNewTitle('');
                   setNewDesc('');
                 }}
-                className="px-4 py-2 rounded-xl text-sm font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+                className="px-4 py-2 rounded-xl text-sm font-mono text-muted hover:text-heading dark:hover:text-slate-100 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={createNotebook}
                 disabled={creating || !newTitle.trim()}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm font-medium transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill font-mono text-sm font-medium transition-colors disabled:opacity-50"
               >
                 {creating ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
                 Create

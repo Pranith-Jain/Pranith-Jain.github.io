@@ -113,7 +113,7 @@ export default function PcMedicalist() {
     >
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">PCMedicalist Security Intelligence Feed</h1>
+          <h1 className="text-2xl font-bold text-heading">PCMedicalist Security Intelligence Feed</h1>
           <p className="mt-1 text-sm text-muted">
             Source:{' '}
             <a
@@ -136,7 +136,7 @@ export default function PcMedicalist() {
               setSearchError(null);
               setActiveLayer(null);
             }}
-            className="rounded-lg border border-line-2 bg-surface-100 px-3 py-2 text-sm text-slate-900 dark:text-white"
+            className="rounded-lg border border-line-2 bg-surface-100 px-3 py-2 text-sm text-heading"
           >
             {digests.map((d) => (
               <option key={d.date} value={d.date}>
@@ -153,23 +153,19 @@ export default function PcMedicalist() {
         <div className="space-y-6">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-              <div className="text-2xl font-bold text-slate-900 dark:text-white">{digest.feedsTotal ?? '—'}</div>
+              <div className="text-2xl font-bold text-heading">{digest.feedsTotal ?? '—'}</div>
               <div className="text-xs text-muted">Feeds ingested</div>
             </div>
             <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-              <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                {(digest.itemsRaw ?? 0).toLocaleString()}
-              </div>
+              <div className="text-2xl font-bold text-heading">{(digest.itemsRaw ?? 0).toLocaleString()}</div>
               <div className="text-xs text-muted">Raw items</div>
             </div>
             <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-              <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                {(digest.itemsDeduped ?? 0).toLocaleString()}
-              </div>
+              <div className="text-2xl font-bold text-heading">{(digest.itemsDeduped ?? 0).toLocaleString()}</div>
               <div className="text-xs text-muted">Deduplicated</div>
             </div>
             <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-              <div className="text-2xl font-bold text-slate-900 dark:text-white">{digest.layers.length}</div>
+              <div className="text-2xl font-bold text-heading">{digest.layers.length}</div>
               <div className="text-xs text-muted">Intelligence layers</div>
             </div>
           </div>
@@ -178,9 +174,7 @@ export default function PcMedicalist() {
 
           {digest.perFeed && Object.keys(digest.perFeed).length > 0 && (
             <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-              <div className="mb-2 text-xs font-semibold text-slate-700 dark:text-slate-200">
-                Top contributing feeds
-              </div>
+              <div className="mb-2 text-xs font-semibold text-body">Top contributing feeds</div>
               <div className="flex flex-wrap gap-1.5">
                 {Object.entries(digest.perFeed)
                   .sort((a, b) => b[1] - a[1])
@@ -188,7 +182,7 @@ export default function PcMedicalist() {
                   .map(([feed, count]) => (
                     <span
                       key={feed}
-                      className="rounded-full bg-surface-300/60 px-2.5 py-1 text-mini font-medium text-slate-600 dark:text-slate-300"
+                      className="rounded-full bg-surface-300/60 px-2.5 py-1 text-mini font-medium text-muted"
                     >
                       {feed} <span className="opacity-70">{count.toLocaleString()}</span>
                     </span>
@@ -199,7 +193,7 @@ export default function PcMedicalist() {
 
           {digest.postA && (
             <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-heading">
                 <FileText size={14} className="text-brand-500" /> Daily Security &amp; Standards Brief
               </div>
               <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-body">{digest.postA}</pre>
@@ -208,7 +202,7 @@ export default function PcMedicalist() {
 
           {digest.postB && (
             <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-heading">
                 <FileText size={14} className="text-purple-500" /> Engineering &amp; Research Digest
               </div>
               <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-body">{digest.postB}</pre>
@@ -217,7 +211,7 @@ export default function PcMedicalist() {
 
           <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
             <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
+              <div className="flex items-center gap-2 text-sm font-semibold text-heading">
                 <Layers size={14} className="text-emerald-500" /> Layers
               </div>
               <div className="flex items-center gap-2">
@@ -227,12 +221,12 @@ export default function PcMedicalist() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && runDeepSearch(e.currentTarget.value)}
                   placeholder="Deep-dive: search the full day feed…"
-                  className="w-full rounded-lg border border-line-2 bg-surface-100 px-3 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 dark:text-white sm:w-72"
+                  className="w-full rounded-lg border border-line-2 bg-surface-100 px-3 py-1.5 text-xs text-heading placeholder:text-muted sm:w-72"
                 />
                 <button
                   onClick={() => runDeepSearch(searchQuery)}
                   disabled={searching}
-                  className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+                  className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-medium text-on-fill hover:bg-brand-700 disabled:opacity-50"
                 >
                   {searching ? <Loader2 size={12} className="animate-spin" /> : 'Search'}
                 </button>
@@ -327,7 +321,7 @@ function ItemRow({ item }: { item: PcmItem }) {
               {item.title} <ExternalLink size={11} />
             </a>
           ) : (
-            <span className="text-sm font-medium text-slate-900 dark:text-white">{item.title}</span>
+            <span className="text-sm font-medium text-heading">{item.title}</span>
           )}
           {item.summary && <p className="mt-0.5 line-clamp-2 text-xs text-muted">{item.summary}</p>}
         </div>
@@ -337,7 +331,7 @@ function ItemRow({ item }: { item: PcmItem }) {
           )}
           {item.trust_score != null && (
             <span className="inline-flex items-center gap-1 text-micro font-medium text-muted">
-              <span className="h-1 w-10 overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
+              <span className="h-1 w-10 overflow-hidden rounded-full bg-track">
                 <span
                   className={`block h-full rounded-full ${
                     item.trust_score >= 80 ? 'bg-emerald-500' : item.trust_score >= 50 ? 'bg-amber-500' : 'bg-slate-400'

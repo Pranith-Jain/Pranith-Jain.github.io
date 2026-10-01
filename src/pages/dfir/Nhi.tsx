@@ -380,7 +380,7 @@ export default function Nhi(): JSX.Element {
 
                     {/* Risk bar */}
                     <div className="px-4 pb-3">
-                      <div className="h-1 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden">
+                      <div className="h-1 rounded bg-track overflow-hidden">
                         <div
                           className={`h-full transition-all ${gradeBar(risk.grade)}`}
                           style={{ width: `${Math.max(2, risk.score)}%` }}

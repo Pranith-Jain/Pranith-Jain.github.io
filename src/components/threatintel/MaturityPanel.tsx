@@ -69,7 +69,7 @@ const RELIABILITY_LABEL: Record<string, string> = {
 function MaturityBar({ score, max }: { score: number; max: number }): JSX.Element {
   const pct = max > 0 ? (score / max) * 100 : 0;
   return (
-    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+    <div className="h-1.5 w-full rounded-full bg-track overflow-hidden">
       <div
         className="h-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 transition-all"
         style={{ width: `${pct}%` }}

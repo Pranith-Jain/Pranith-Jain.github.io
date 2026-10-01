@@ -101,7 +101,7 @@ function ToolRow({
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-muted hover:bg-slate-200/60 dark:hover:bg-surface-300/60"
+          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-muted hover:bg-track/60 dark:hover:bg-surface-300/60"
           aria-label={open ? 'Collapse' : 'Expand'}
         >
           {open ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -369,7 +369,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="text-mini font-mono rounded border border-line-2 px-2.5 py-1 text-muted hover:text-slate-700 dark:hover:text-slate-300"
+                className="text-mini font-mono rounded border border-line-2 px-2.5 py-1 text-muted hover:text-body dark:hover:text-inverted"
               >
                 clear
               </button>

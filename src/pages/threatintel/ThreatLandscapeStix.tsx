@@ -178,7 +178,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
             <button
               type="button"
               onClick={fetchData}
-              className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700 transition-colors"
+              className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-on-fill hover:bg-rose-700 transition-colors"
             >
               <Search size={12} /> Query
             </button>

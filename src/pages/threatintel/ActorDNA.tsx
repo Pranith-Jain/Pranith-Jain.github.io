@@ -218,7 +218,7 @@ export default function ActorDNA(): JSX.Element {
               type="button"
               onClick={() => void matchTTPs()}
               disabled={loading}
-              className="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2"
+              className="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-medium text-on-fill transition-colors flex items-center gap-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
               Match

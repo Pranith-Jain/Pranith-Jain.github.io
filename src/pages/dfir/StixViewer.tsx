@@ -288,7 +288,7 @@ export default function StixViewer(): JSX.Element {
               <button
                 type="submit"
                 disabled={fetching || !stixId.trim()}
-                className="px-2 py-1.5 rounded bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs disabled:opacity-50 inline-flex items-center gap-1 transition-colors"
+                className="px-2 py-1.5 rounded bg-brand-600 hover:bg-brand-700 text-on-fill font-mono text-xs disabled:opacity-50 inline-flex items-center gap-1 transition-colors"
               >
                 {fetching ? <Loader2 size={11} className="animate-spin" /> : 'fetch'}
               </button>

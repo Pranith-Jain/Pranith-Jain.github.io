@@ -230,7 +230,7 @@ export default function SocAutomation(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowCreate(!showCreate)}
-              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
             >
               <Plus size={11} /> New Playbook
             </button>
@@ -290,7 +290,7 @@ export default function SocAutomation(): JSX.Element {
                 </button>
                 <button
                   type="submit"
-                  className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
+                  className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
                 >
                   Create
                 </button>
@@ -342,7 +342,7 @@ export default function SocAutomation(): JSX.Element {
                         <button
                           type="button"
                           onClick={() => handleExecute(pb.id)}
-                          className="text-micro font-mono px-2 py-1 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+                          className="text-micro font-mono px-2 py-1 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
                         >
                           <Play size={10} /> Run
                         </button>
@@ -390,7 +390,7 @@ export default function SocAutomation(): JSX.Element {
                           )}
                           {pb.actions.map((a, i) => (
                             <div key={a.id} className="flex items-center gap-2 text-micro font-mono text-muted">
-                              <span className="w-4 h-4 rounded-full bg-slate-200 dark:bg-surface-300 flex items-center justify-center text-micro font-bold">
+                              <span className="w-4 h-4 rounded-full bg-track flex items-center justify-center text-micro font-bold">
                                 {i + 1}
                               </span>
                               <span className="text-brand-600">{a.type}</span>

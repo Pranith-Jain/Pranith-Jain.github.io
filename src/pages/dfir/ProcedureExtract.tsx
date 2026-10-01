@@ -182,7 +182,7 @@ export default function ProcedureExtract(): JSX.Element {
             <button
               onClick={submit}
               disabled={busy}
-              className="mt-2 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+              className="mt-2 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-on-fill disabled:opacity-50"
             >
               {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Extract procedures'}
             </button>

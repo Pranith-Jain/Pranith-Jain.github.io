@@ -146,7 +146,7 @@ export default function TelegramChannelSearch(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-on-fill text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
           Search

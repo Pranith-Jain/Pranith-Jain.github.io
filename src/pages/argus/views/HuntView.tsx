@@ -467,7 +467,7 @@ function TTPMatrixTab({
                             )}
                           </div>
                         ) : (
-                          <span className="text-slate-200 dark:text-line-1/30">—</span>
+                          <span className="text-inverted dark:text-line-1/30">—</span>
                         )}
                       </td>
                     );
@@ -510,7 +510,7 @@ function TTPMatrixTab({
                         </span>
                         <button
                           onClick={() => copyCell(tid)}
-                          className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                          className="text-muted hover:text-muted dark:hover:text-inverted transition-colors"
                         >
                           <Copy size={10} />
                         </button>

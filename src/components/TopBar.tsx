@@ -98,7 +98,7 @@ export function TopBar({
           <button
             type="button"
             onClick={onOpenMobileNav}
-            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-line-1 bg-white text-slate-700 transition-colors hover:bg-wash hover:border-line-2 dark:bg-transparent dark:text-slate-200 dark:hover:bg-wash focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-line-1 bg-surface-100 text-body transition-colors hover:bg-wash hover:border-line-2 dark:bg-transparent dark:hover:bg-wash focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileNavOpen ?? false}
             // Only while open: Drawer returns null when closed, so the target
@@ -146,7 +146,7 @@ export function TopBar({
             {SEARCH_PLACEHOLDERS[searchKey] ?? `Search ${sectionLabel}…`}
           </span>
           {isMac !== null && (
-            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-line-1 bg-surface-100 px-1.5 py-0.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-line-1 bg-surface-100 px-1.5 py-0.5 text-mini font-mono text-muted">
               {isMac ? '⌘' : 'Ctrl'} K
             </kbd>
           )}
@@ -156,7 +156,7 @@ export function TopBar({
         <button
           type="button"
           onClick={onToggleTheme}
-          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-line-1 bg-white text-slate-700 transition-colors hover:bg-wash hover:border-line-2 dark:bg-transparent dark:text-slate-200 dark:hover:bg-wash focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-line-1 bg-surface-100 text-body transition-colors hover:bg-wash hover:border-line-2 dark:bg-transparent dark:hover:bg-wash focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         >

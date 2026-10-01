@@ -441,7 +441,7 @@ export default function MedusaScanner(): JSX.Element {
           );
         })}
 
-        <div className="w-px h-5 bg-slate-200 dark:bg-line-1 mx-1" />
+        <div className="w-px h-5 bg-track dark:bg-line-1 mx-1" />
 
         {SAMPLES.map((s) => (
           <button

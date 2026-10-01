@@ -143,8 +143,8 @@ function IocChipInner({
     const skeletonFrame = bare ? '' : `rounded border border-line-1 bg-surface-200 dark:bg-surface-200/50 ${sz.box}`;
     return (
       <span className={`inline-flex items-center ${sz.gap} ${skeletonFrame} ${className}`} aria-hidden="true">
-        <span className={`${sz.icon} shrink-0 rounded bg-slate-200 dark:bg-surface-300 animate-pulse`} />
-        <span className="h-3 w-24 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
+        <span className={`${sz.icon} shrink-0 rounded bg-track dark:bg-surface-300 animate-pulse`} />
+        <span className="h-3 w-24 rounded bg-track animate-pulse" />
       </span>
     );
   }

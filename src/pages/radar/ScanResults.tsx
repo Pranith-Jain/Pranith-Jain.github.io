@@ -166,7 +166,7 @@ function SecurityScore({ score }: { score: number }) {
   const bg = score >= 80 ? 'bg-emerald-500' : score >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
     <div className="flex items-center gap-3">
-      <div className="relative h-3 w-32 overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
+      <div className="relative h-3 w-32 overflow-hidden rounded-full bg-track">
         <div className={`absolute inset-y-0 left-0 ${bg} rounded-full transition-all`} style={{ width: `${score}%` }} />
       </div>
       <span className={`text-sm font-bold ${color}`}>{score}/100</span>
@@ -177,7 +177,7 @@ function SecurityScore({ score }: { score: number }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="mb-2 text-sm font-semibold text-slate-900 dark:text-white">{title}</h3>
+      <h3 className="mb-2 text-sm font-semibold text-heading">{title}</h3>
       {children}
     </div>
   );
@@ -187,7 +187,7 @@ function StatBox({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-line-1 bg-surface-200/50 p-3">
       <p className="text-xs text-muted">{label}</p>
-      <p className="mt-1 truncate text-sm font-semibold text-slate-900 dark:text-white">{value}</p>
+      <p className="mt-1 truncate text-sm font-semibold text-heading">{value}</p>
     </div>
   );
 }
@@ -196,7 +196,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-3">
       <span className="min-w-[140px] text-muted">{label}</span>
-      <span className="break-all text-slate-900 dark:text-slate-200">{value}</span>
+      <span className="break-all text-heading">{value}</span>
     </div>
   );
 }
@@ -205,7 +205,7 @@ function StringList({ items, empty }: { items: string[]; empty?: string }) {
   if (items.length === 0) return <p className="text-sm text-muted">{empty || 'None found'}</p>;
   return (
     <div className="rounded-xl border border-line-1">
-      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+      <div className="divide-y divide-line-1">
         {items.map((item, i) => (
           <div key={i} className="flex items-center gap-2 px-4 py-2 text-sm">
             <span className="truncate font-mono text-body">{item}</span>
@@ -290,13 +290,13 @@ function HttpHeadersPanel({ data }: { data: ScanData }) {
   return (
     <div className="rounded-xl border border-line-1">
       <div className="border-b border-line-1 bg-surface-200/50 px-4 py-2">
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Response Headers</h3>
+        <h3 className="text-sm font-semibold text-heading">Response Headers</h3>
       </div>
-      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+      <div className="divide-y divide-line-1">
         {Object.entries(data.http.headers).map(([key, value]) => (
           <div key={key} className="flex gap-4 px-4 py-2 text-sm">
             <span className="min-w-[200px] font-mono font-medium text-muted">{key}</span>
-            <span className="break-all text-slate-900 dark:text-slate-200">{value}</span>
+            <span className="break-all text-heading">{value}</span>
           </div>
         ))}
       </div>
@@ -362,7 +362,7 @@ function TechPanel({ data }: { data: ScanData }) {
           <div className="space-y-2">
             {techs.map((t) => (
               <div key={t.name} className="flex items-center justify-between rounded bg-surface-200/50 px-3 py-2">
-                <span className="text-sm font-medium text-slate-900 dark:text-white">{t.name}</span>
+                <span className="text-sm font-medium text-heading">{t.name}</span>
                 <span className="text-xs text-muted">{t.confidence}% confidence</span>
               </div>
             ))}
@@ -377,7 +377,7 @@ function TechPanel({ data }: { data: ScanData }) {
 function JsPanel({ data }: { data: ScanData }) {
   return (
     <div className="rounded-xl border border-line-1">
-      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+      <div className="divide-y divide-line-1">
         {data.js_files.map((f) => (
           <div key={f.url} className="flex items-center gap-3 px-4 py-2.5 text-sm">
             <Code className="h-4 w-4 shrink-0 text-muted" />
@@ -398,7 +398,7 @@ function ApiPathsPanel({ data }: { data: ScanData }) {
 function EndpointsPanel({ data }: { data: ScanData }) {
   return (
     <div className="rounded-xl border border-line-1">
-      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+      <div className="divide-y divide-line-1">
         {data.endpoints.map((ep, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
             <span
@@ -439,7 +439,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
   return (
     <div className="space-y-6">
       <div className="rounded-xl border border-line-1 bg-surface-200/50 p-4">
-        <h3 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">Security Score</h3>
+        <h3 className="mb-3 text-sm font-semibold text-heading">Security Score</h3>
         <SecurityScore score={sec.score} />
       </div>
       {sec.issues.length > 0 && (
@@ -494,7 +494,7 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
             >
               {v.severity.toUpperCase()}
             </span>
-            <span className="text-sm font-semibold text-slate-900 dark:text-white">{v.type}</span>
+            <span className="text-sm font-semibold text-heading">{v.type}</span>
           </div>
           <p className="mt-1 text-sm text-muted">{v.detail}</p>
         </div>
@@ -534,12 +534,12 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
         return (
           <div key={section.label} className="rounded-xl border border-line-1">
             <div className="flex items-center gap-2 border-b border-line-1 px-4 py-2">
-              <span className="text-sm font-semibold text-slate-900 dark:text-white">{section.label}</span>
+              <span className="text-sm font-semibold text-heading">{section.label}</span>
               <span className="ml-auto rounded bg-surface-300 px-1.5 py-0.5 text-xs font-mono text-muted">
                 {items.length}
               </span>
             </div>
-            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+            <div className="divide-y divide-line-1">
               {items.slice(0, 20).map((item, i) => (
                 <div key={i} className="px-4 py-2 text-sm font-mono text-body">
                   {item}
@@ -557,11 +557,11 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
 function MetaPanel({ data }: { data: ScanData }) {
   return (
     <div className="rounded-xl border border-line-1">
-      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+      <div className="divide-y divide-line-1">
         {Object.entries(data.meta).map(([key, value]) => (
           <div key={key} className="flex gap-4 px-4 py-2 text-sm">
             <span className="min-w-[180px] font-mono font-medium text-muted">{key}</span>
-            <span className="break-all text-slate-900 dark:text-slate-200">{value}</span>
+            <span className="break-all text-heading">{value}</span>
           </div>
         ))}
         {Object.keys(data.meta).length === 0 && <div className="px-4 py-3 text-sm text-muted">No meta tags</div>}
@@ -577,7 +577,7 @@ function FormsPanel({ data }: { data: ScanData }) {
         data.forms.map((form, i) => (
           <div key={i} className="rounded-xl border border-line-1 p-4">
             <div className="mb-2 flex items-center gap-2 text-sm">
-              <span className="font-semibold text-slate-900 dark:text-white">Form {i + 1}</span>
+              <span className="font-semibold text-heading">Form {i + 1}</span>
               <span className="rounded bg-surface-300 px-1.5 py-0.5 text-xs font-mono text-muted">{form.method}</span>
               {form.action && <span className="text-xs text-muted">→ {form.action}</span>}
             </div>
@@ -606,7 +606,7 @@ function ImagesPanel({ data }: { data: ScanData }) {
       {data.images.map((img, i) => (
         <div key={i} className="overflow-hidden rounded-xl border border-line-1">
           <div className="flex h-24 items-center justify-center bg-surface-300">
-            <Image className="h-8 w-8 text-slate-300 dark:text-muted" />
+            <Image className="h-8 w-8 text-inverted dark:text-muted" />
           </div>
           <div className="p-2">
             <p className="truncate text-xs text-muted" title={img.src}>
@@ -624,7 +624,7 @@ function ImagesPanel({ data }: { data: ScanData }) {
 function LinksPanel({ data }: { data: ScanData }) {
   return (
     <div className="rounded-xl border border-line-1">
-      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+      <div className="divide-y divide-line-1">
         {data.links.slice(0, 200).map((link, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2 text-sm">
             <Link2 className="h-4 w-4 shrink-0 text-muted" />
@@ -647,7 +647,7 @@ function AwsAssetsPanel({ data }: { data: ScanData }) {
   if (assets.length === 0) return <p className="text-sm text-muted">No AWS assets found</p>;
   return (
     <div className="rounded-xl border border-line-1">
-      <div className="divide-y divide-slate-100 dark:divide-slate-800">
+      <div className="divide-y divide-line-1">
         {assets.map((a, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
             <Cloud className="h-4 w-4 shrink-0 text-amber-500" />
@@ -883,15 +883,15 @@ export default function ScanResults() {
         <Link to="/radar" className="hover:text-brand-600">
           Recent Radar Runs
         </Link>
-        <ChevronRight className="h-3.5 w-3.5 text-slate-300 dark:text-muted" />
-        <span className="truncate text-slate-900 dark:text-white">{data.target}</span>
+        <ChevronRight className="h-3.5 w-3.5 text-inverted dark:text-muted" />
+        <span className="truncate text-heading">{data.target}</span>
       </nav>
 
       <div className="rounded-xl border border-line-1 bg-surface-100 p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-xl font-bold text-slate-900 dark:text-white">{data.target}</h1>
+              <h1 className="text-xl font-bold text-heading">{data.target}</h1>
               <StatusBadge status={data.http.status} />
             </div>
             <p className="mt-1 text-sm text-muted">
@@ -986,7 +986,7 @@ function MiniStat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-xs text-muted">{label}</p>
-      <p className="text-sm font-semibold text-slate-900 dark:text-white">{value}</p>
+      <p className="text-sm font-semibold text-heading">{value}</p>
     </div>
   );
 }

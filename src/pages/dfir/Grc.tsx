@@ -168,7 +168,7 @@ export default function Grc(): JSX.Element {
                 </span>
                 <span className="text-xs font-mono font-bold text-heading">{c.score}%</span>
               </div>
-              <div className="h-1.5 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-1">
+              <div className="h-1.5 rounded bg-track overflow-hidden mb-1">
                 <div className={`h-full ${scoreColour(c.score)}`} style={{ width: `${Math.max(2, c.score)}%` }} />
               </div>
               <div className="text-micro font-mono text-muted">

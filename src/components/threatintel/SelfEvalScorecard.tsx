@@ -86,7 +86,7 @@ export function SelfEvalScorecard({ selfEval }: { selfEval: SelfEvalResult }): J
 
       {/* Evidence + improvements (collapsible) */}
       <details className="group">
-        <summary className="cursor-pointer text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1">
+        <summary className="cursor-pointer text-xs text-muted hover:text-body dark:hover:text-inverted flex items-center gap-1">
           <AlertCircle className="w-3 h-3" />
           Evidence &amp; improvements
         </summary>

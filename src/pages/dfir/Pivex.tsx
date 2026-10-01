@@ -283,7 +283,7 @@ export default function Pivex(): JSX.Element {
           <button
             onClick={handleBuildGraph}
             disabled={loading || !query.trim()}
-            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
             {loading ? 'Building…' : 'Build Graph'}
@@ -299,7 +299,7 @@ export default function Pivex(): JSX.Element {
 
       {!showGraph && !loading && (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
-          <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-muted" />
+          <Network size={48} className="mx-auto mb-3 text-inverted dark:text-muted" />
           <p className="text-sm text-muted">
             Enter an IP, domain, CVE, or actor name and click{' '}
             <span className="font-semibold text-body">Build Graph</span> to visualise the infrastructure pivot graph.

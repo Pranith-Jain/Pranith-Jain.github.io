@@ -193,7 +193,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-mono text-sm font-semibold text-heading">{ch.handle}</span>
                     {ch.reviewed === 1 && ch.added_to_watch === 0 ? (
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-400/40 bg-slate-400/10 text-muted">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-3/40 bg-slate-400/10 text-muted">
                         rejected
                       </span>
                     ) : ch.reviewed === 1 ? (

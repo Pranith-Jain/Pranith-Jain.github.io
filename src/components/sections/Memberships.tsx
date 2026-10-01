@@ -18,9 +18,7 @@ export function Memberships({ memberships }: MembershipsProps) {
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">
           Professional Affiliations
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Memberships
-        </h2>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">Memberships</h2>
         <p className="mt-3 text-base sm:text-lg text-muted">Member of the communities I learn the most from.</p>
       </div>
 
@@ -33,7 +31,7 @@ export function Memberships({ memberships }: MembershipsProps) {
                 <span className={MEMBER_PILL}>Member</span>
               </div>
               <div>
-                <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white">
+                <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-heading">
                   {membership.name}
                 </h3>
                 <p className="mt-1 text-xs font-semibold text-muted">{membership.period}</p>

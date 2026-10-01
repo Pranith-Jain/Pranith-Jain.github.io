@@ -204,7 +204,7 @@ export default function SupplyChainFeed(): JSX.Element {
             type="button"
             onClick={handleCheck}
             disabled={checkLoading || !checkInput.trim()}
-            className="flex h-10 items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-40 transition-colors"
+            className="flex h-10 items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-sm font-medium text-on-fill hover:bg-rose-700 disabled:opacity-40 transition-colors"
           >
             {checkLoading ? <Loader2 size={14} className="animate-spin" /> : <Shield size={14} />}
             Check
@@ -401,7 +401,7 @@ function PackageCard({ entry }: { entry: FeedEntry }) {
       >
         {meta?.icon ?? entry.ecosystem.slice(0, 2)}
       </span>
-      <ExternalLink size={10} className="shrink-0 text-slate-300 group-hover:text-rose-500 dark:text-slate-600" />
+      <ExternalLink size={10} className="shrink-0 text-inverted group-hover:text-rose-500" />
     </a>
   );
 }
@@ -415,7 +415,7 @@ function VerdictCard({ result }: { result: CheckResult }) {
         <Icon size={16} className={meta.color} />
         <span className={`text-sm font-bold ${meta.color}`}>{meta.label}</span>
         <span className="text-mini font-mono text-muted">{result.ref}</span>
-        <span className="ml-auto rounded bg-slate-200 px-1.5 py-0.5 text-micro font-mono text-muted dark:bg-surface-300">
+        <span className="ml-auto rounded bg-track px-1.5 py-0.5 text-micro font-mono text-muted">
           {result.confidence} confidence
         </span>
       </div>

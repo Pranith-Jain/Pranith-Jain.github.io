@@ -260,7 +260,7 @@ export default function GrcEvidence(): JSX.Element {
                   </span>
                 </div>
                 <div className="text-micro text-muted mb-2">{fw.description.slice(0, 80)}...</div>
-                <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+                <div className="w-full h-1.5 rounded-full bg-track overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-rose-500'}`}
                     style={{ width: `${Math.round(pct)}%` }}

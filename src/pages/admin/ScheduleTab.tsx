@@ -292,7 +292,7 @@ export default function ScheduleTab() {
           </div>
 
           {/* Calendar grid */}
-          <div className="grid grid-cols-7 gap-px bg-slate-200 dark:bg-line-1 rounded overflow-hidden">
+          <div className="grid grid-cols-7 gap-px bg-track dark:bg-line-1 rounded overflow-hidden">
             {calCells.map((cell, i) => {
               const key = cell.isCurrent
                 ? `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(cell.day).padStart(2, '0')}`
@@ -420,14 +420,14 @@ export default function ScheduleTab() {
             <button
               type="button"
               onClick={() => setRescheduleId(null)}
-              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-3 py-1.5 text-tool text-muted hover:text-body dark:hover:text-inverted"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!rescheduleAt}
-              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
+              className="px-3 py-1.5 rounded bg-brand-600 text-on-fill text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
             >
               Reschedule
             </button>

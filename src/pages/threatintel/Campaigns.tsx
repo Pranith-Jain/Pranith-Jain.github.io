@@ -99,7 +99,7 @@ export default function Campaigns(): JSX.Element {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Link
             to="/threatintel/catalog?cat=tools"
-            className="inline-flex items-center gap-1.5 rounded bg-rose-600 px-3 py-1.5 text-xs font-mono font-semibold text-white hover:bg-rose-500"
+            className="inline-flex items-center gap-1.5 rounded bg-rose-600 px-3 py-1.5 text-xs font-mono font-semibold text-on-fill hover:bg-rose-500"
           >
             <Wand2 size={12} /> Generate new campaign
           </Link>

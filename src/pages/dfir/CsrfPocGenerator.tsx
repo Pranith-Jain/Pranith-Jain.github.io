@@ -400,7 +400,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-surface-300 hover:bg-slate-200 dark:hover:bg-surface-300 transition-colors"
+                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-surface-300 hover:bg-track dark:hover:bg-surface-300 transition-colors"
                 >
                   <Copy size={12} /> {copied ? 'Copied!' : 'Copy'}
                 </button>
@@ -448,8 +448,8 @@ export default function CsrfPocGenerator(): JSX.Element {
               <li>XMLHttpRequest - sends request via XHR, useful for same-origin testing</li>
               <li>Fetch API - modern async request with Promise-based handling</li>
               <li>
-                <code className="px-1 py-0.5 bg-slate-200 dark:bg-surface-300 rounded">withCredentials</code> - include
-                cookies/auth headers (same-origin or CORS-enabled targets)
+                <code className="px-1 py-0.5 bg-track rounded">withCredentials</code> - include cookies/auth headers
+                (same-origin or CORS-enabled targets)
               </li>
               <li>Always obtain proper authorization before testing CSRF on live applications</li>
             </ul>

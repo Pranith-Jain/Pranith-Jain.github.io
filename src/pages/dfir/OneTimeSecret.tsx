@@ -209,7 +209,7 @@ export default function OneTimeSecret() {
             <button
               onClick={handleCreate}
               disabled={status === 'encrypting' || status === 'uploading'}
-              className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 transition-colors"
             >
               {status === 'encrypting' ? 'Encrypting...' : status === 'uploading' ? 'Storing...' : 'Generate Link'}
             </button>
@@ -260,7 +260,7 @@ export default function OneTimeSecret() {
                       setTimeout(() => setCopied(false), 1500);
                     }}
                     aria-live="polite"
-                    className="flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700"
+                    className="flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl bg-brand-600 text-on-fill hover:bg-brand-700"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     {copied ? 'Copied!' : 'Copy'}
@@ -330,7 +330,7 @@ export default function OneTimeSecret() {
                 window.location.hash = '';
                 window.location.reload();
               }}
-              className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700"
+              className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-on-fill hover:bg-brand-700"
             >
               Create a Secret
             </button>

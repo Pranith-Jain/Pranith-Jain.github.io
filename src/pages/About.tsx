@@ -60,9 +60,7 @@ export default function AboutPage() {
       <section id="story" className="mt-16 scroll-mt-24">
         <div className="mb-10 max-w-2xl">
           <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">The Story</div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            How I got here
-          </h2>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">How I got here</h2>
           <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
             From code to incidents: the path that shaped the work I do now.
           </p>
@@ -71,7 +69,7 @@ export default function AboutPage() {
         <div className="stagger space-y-12">
           {storyChapters.map((chapter) => (
             <div key={chapter.period} className="relative pl-8 sm:pl-10">
-              <div className="absolute left-0 top-1 bottom-0 w-px bg-slate-200 dark:bg-surface-300" />
+              <div className="absolute left-0 top-1 bottom-0 w-px bg-track" />
               <div className="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full border-2 border-brand-500 bg-surface-100" />
               <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-muted mb-3">{chapter.period}</div>
               <div className="space-y-4 text-base text-muted leading-relaxed">

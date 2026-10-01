@@ -375,7 +375,7 @@ export default function DfirCopilot(): JSX.Element {
               )}
             </div>
             <div
-              className="px-6 py-5 text-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-line-1 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-surface-200 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+              className="px-6 py-5 text-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-line-1 [&_h2]:dark:border-line-1 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-body [&_p]:dark:text-inverted [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-body [&_li]:dark:text-inverted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-surface-300 [&_code]:dark:bg-surface-200 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
               dangerouslySetInnerHTML={{ __html: narrativeHtml }}
             />
           </div>
@@ -383,7 +383,7 @@ export default function DfirCopilot(): JSX.Element {
           {/* Source details */}
           {result.sources.length > 0 && (
             <details className="group">
-              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-muted hover:text-slate-700 dark:hover:text-slate-300">
+              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-muted hover:text-body dark:hover:text-inverted">
                 <Sparkles size={14} />
                 Raw source data ({result.sources.length} sources)
               </summary>

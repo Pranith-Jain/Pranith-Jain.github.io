@@ -440,7 +440,7 @@ export default function ActorProfiles() {
             </button>
           );
         })}
-        <div className="w-px h-5 bg-slate-200 dark:bg-line-1" />
+        <div className="w-px h-5 bg-track dark:bg-line-1" />
         <span className="text-mini font-mono uppercase tracking-wider text-muted">Country:</span>
         {Object.entries(countryCounts)
           .sort((a, b) => b[1] - a[1])
@@ -470,7 +470,7 @@ export default function ActorProfiles() {
               setActiveStatus(null);
               setActiveCountry(null);
             }}
-            className="text-mini text-muted hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+            className="text-mini text-muted hover:text-body dark:hover:text-inverted ml-1"
           >
             Clear
           </button>
@@ -515,7 +515,7 @@ export default function ActorProfiles() {
           >
             Expand all
           </button>
-          <span className="text-slate-300 dark:text-slate-600">·</span>
+          <span className="text-inverted">·</span>
           <button
             type="button"
             onClick={collapseAll}

@@ -114,13 +114,13 @@ export default function AggregatedFeeds() {
           placeholder="Search feeds..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
+          className="w-full pl-10 pr-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-heading placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
         />
       </div>
       <select
         value={categoryFilter}
         onChange={(e) => setCategoryFilter(e.target.value)}
-        className="px-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+        className="px-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-heading focus:outline-none focus:border-rose-500"
       >
         <option value="all">All Categories</option>
         {Object.entries(CATEGORY_META).map(([key, meta]) => (
@@ -193,7 +193,7 @@ export default function AggregatedFeeds() {
                       href={sanitizeUrl(feed.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
+                      className="text-muted hover:text-muted dark:hover:text-inverted shrink-0 mt-1 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -215,7 +215,7 @@ export default function AggregatedFeeds() {
                   {feed.fetch_ok && feed.sample_entries.length > 0 && (
                     <div className="mt-3">
                       <details className="text-sm">
-                        <summary className="text-muted cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">
+                        <summary className="text-muted cursor-pointer hover:text-muted dark:hover:text-inverted">
                           Sample entries ({feed.sample_entries.length})
                         </summary>
                         <div className="mt-2 space-y-1">

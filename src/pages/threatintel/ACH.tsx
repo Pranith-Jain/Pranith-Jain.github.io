@@ -122,7 +122,7 @@ export default function ACH(): JSX.Element {
             type="button"
             onClick={() => void analyze()}
             disabled={loading || !topic.trim()}
-            className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 transition-colors"
           >
             {loading ? (
               <svg
@@ -323,7 +323,7 @@ export default function ACH(): JSX.Element {
               <ul className="space-y-2">
                 {result.key_assumptions.map((a, i) => (
                   <li key={a} className="flex items-start gap-2 text-xs text-muted">
-                    <span className="text-slate-300 mt-0.5">{i + 1}.</span>
+                    <span className="text-inverted mt-0.5">{i + 1}.</span>
                     {a}
                   </li>
                 ))}

@@ -61,16 +61,13 @@ export function Drawer({ open, onClose, title, children, side = 'right', size = 
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
         <div className="sticky top-0 z-10 flex items-center justify-between gap-3 sm:gap-4 border-b border-line-1 bg-surface-100/95 px-4 sm:px-6 py-3 sm:py-4 backdrop-blur">
-          <h2
-            id={titleId}
-            className="text-base sm:text-lg font-display font-bold text-slate-900 dark:text-white truncate"
-          >
+          <h2 id={titleId} className="text-base sm:text-lg font-display font-bold text-heading truncate">
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded text-muted transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-surface-300 dark:hover:text-slate-300"
+            className="shrink-0 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded text-muted transition-colors hover:bg-surface-300 hover:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-surface-300 dark:hover:text-inverted"
             aria-label="Close panel"
           >
             <X className="h-5 w-5" aria-hidden="true" />

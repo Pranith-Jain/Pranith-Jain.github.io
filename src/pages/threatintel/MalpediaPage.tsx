@@ -104,7 +104,7 @@ export default function MalpediaPage(): JSX.Element {
             type="button"
             onClick={() => void search()}
             disabled={loading || !query.trim()}
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
           >
             <Search size={15} className="inline mr-1.5" />
             {loading ? '…' : 'Lookup'}

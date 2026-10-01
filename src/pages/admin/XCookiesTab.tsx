@@ -340,7 +340,7 @@ export default function XCookiesTab() {
             <button
               type="submit"
               disabled={saving || !authToken.trim() || !ct0.trim()}
-              className="px-4 py-2 bg-brand-600 text-white text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 bg-brand-600 text-on-fill text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
             >
               {saving ? 'Saving…' : 'Save cookies'}
             </button>
@@ -398,7 +398,7 @@ export default function XCookiesTab() {
             <button
               type="submit"
               disabled={qidsSaving}
-              className="px-4 py-2 bg-brand-600 text-white text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 bg-brand-600 text-on-fill text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
             >
               {qidsSaving ? 'Saving…' : 'Save query IDs'}
             </button>

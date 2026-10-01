@@ -249,7 +249,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
           href={CITATIONS.liveReport(snapshot.domain)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1 rounded border border-line-1 px-2.5 py-1 text-mini font-mono text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-surface-300/50 transition-colors"
+          className="inline-flex shrink-0 items-center gap-1 rounded border border-line-1 px-2.5 py-1 text-mini font-mono text-body hover:border-line-2 hover:bg-surface-200 dark:hover:border-slate-600 dark:hover:bg-surface-300/50 transition-colors"
         >
           view full <ExternalLink size={9} aria-hidden="true" />
         </a>
@@ -348,7 +348,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="inline-flex items-center gap-1 text-mini font-mono text-muted hover:text-slate-700 dark:hover:text-slate-200"
+          className="inline-flex items-center gap-1 text-mini font-mono text-muted hover:text-body dark:hover:text-inverted"
           aria-expanded={expanded}
         >
           {expanded ? 'less' : 'more'}

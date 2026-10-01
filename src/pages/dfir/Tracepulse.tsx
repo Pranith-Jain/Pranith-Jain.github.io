@@ -795,7 +795,7 @@ export default function Tracepulse(): JSX.Element {
 
               {/* Queries (expandable) */}
               {expandedPack === pack.id && (
-                <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                <div className="divide-y divide-line-1">
                   {pack.queries.map((q, i) => (
                     <div key={i}>
                       <button

@@ -323,7 +323,7 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
       </p>
       {/* Coverage bar */}
       <div className="flex items-center gap-2 mb-3">
-        <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+        <div className="flex-1 h-2 rounded-full bg-track overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-brand-500 to-emerald-500 transition-all"
             style={{ width: `${Math.min((coverage.coveredCount / Math.max(coverage.totalTechIds, 1)) * 100, 100)}%` }}
@@ -459,7 +459,7 @@ function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-mono font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                  <span className="text-[10px] font-mono font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                     {lab.title}
                   </span>
                   <span className="text-[9px] font-mono text-muted">{lab.overlap} overlap</span>
@@ -748,11 +748,11 @@ export default function ThreatActorMonitor() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <Card padding="md">
           <div className="text-xs font-mono uppercase text-muted">Detections</div>
-          <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{detections.length}</div>
+          <div className="text-2xl font-bold font-mono text-heading">{detections.length}</div>
         </Card>
         <Card padding="md">
           <div className="text-xs font-mono uppercase text-muted">APT Groups</div>
-          <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+          <div className="text-2xl font-bold font-mono text-heading">
             {totalAptGroupsDetected}
             <span className="text-sm text-muted">/{Object.keys(APT_GROUPS).length}</span>
             <span className="block text-[10px] font-mono text-muted">
@@ -762,9 +762,7 @@ export default function ThreatActorMonitor() {
         </Card>
         <Card padding="md">
           <div className="text-xs font-mono uppercase text-muted">Techniques</div>
-          <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
-            {Object.keys(TECHNIQUES).length}
-          </div>
+          <div className="text-2xl font-bold font-mono text-heading">{Object.keys(TECHNIQUES).length}</div>
           <div className="text-xs text-muted">ATT&CK mapped</div>
         </Card>
         <Card padding="md">
@@ -788,7 +786,7 @@ export default function ThreatActorMonitor() {
               <div key={s} className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded ${KC_COLORS[s]}`} />
                 <span className="text-xs text-muted flex-1 truncate">{s}</span>
-                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">{kcMap[s] ?? 0}</span>
+                <span className="text-xs font-mono font-bold text-heading">{kcMap[s] ?? 0}</span>
               </div>
             ))}
           </div>
@@ -805,7 +803,7 @@ export default function ThreatActorMonitor() {
               .map(([o, c]) => (
                 <div key={o} className="flex items-center justify-between text-xs">
                   <span className="text-muted truncate">{o}</span>
-                  <span className="font-mono font-bold text-slate-900 dark:text-white">{c}</span>
+                  <span className="font-mono font-bold text-heading">{c}</span>
                 </div>
               ))}
           </div>
@@ -819,7 +817,7 @@ export default function ThreatActorMonitor() {
             {sourceList.slice(0, 10).map((s) => (
               <div key={s.source} className="flex items-center justify-between text-xs">
                 <span className="text-muted truncate max-w-[180px]">{s.source}</span>
-                <span className="font-mono font-bold text-slate-900 dark:text-white">{s.c}</span>
+                <span className="font-mono font-bold text-heading">{s.c}</span>
               </div>
             ))}
           </div>
@@ -1025,7 +1023,7 @@ export default function ThreatActorMonitor() {
                         href={d.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-medium text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 truncate"
+                        className="font-medium text-heading hover:text-brand-600 dark:hover:text-brand-400 truncate"
                       >
                         {d.title}
                       </a>

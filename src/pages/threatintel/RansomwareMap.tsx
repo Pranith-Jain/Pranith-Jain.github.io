@@ -432,7 +432,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                 />
               </Suspense>
               {hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/90 dark:bg-input-200/90 backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
+                <div className="absolute top-3 left-3 rounded-xl bg-surface-100/90 dark:bg-input-200/90 backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
                   <div className="font-bold text-rose-300">{hoveredAgg.country}</div>
                   <div>{hoveredAgg.victim_count} victims</div>
                   <div className="text-muted">
@@ -441,7 +441,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                 </div>
               )}
               {hovered && !hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
+                <div className="absolute top-3 left-3 rounded-xl bg-surface-100/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-inverted">
                   {hovered.name}: no victims reported
                 </div>
               )}

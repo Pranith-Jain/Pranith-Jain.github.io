@@ -129,7 +129,7 @@ export function DataPageLayout({
       {!hideBack && !insideLayout && (
         <Link
           to={backTarget}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-tool text-muted hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-wash rounded-xl mb-8 font-mono transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-tool text-muted hover:text-heading dark:hover:text-white hover:bg-surface-300 dark:hover:bg-wash rounded-xl mb-8 font-mono transition-colors"
         >
           <ArrowLeft size={14} /> {resolvedBackLabel}
         </Link>

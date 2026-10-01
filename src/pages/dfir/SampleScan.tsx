@@ -178,7 +178,7 @@ function FamilyTag({ name }: { name: string }): JSX.Element {
 
 function SignatureTag({ tag }: { tag: string }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-line-2 bg-surface-300 px-2 py-0.5 font-mono text-mini text-slate-700 dark:text-slate-300">
+    <span className="inline-flex items-center gap-1 rounded border border-line-2 bg-surface-300 px-2 py-0.5 font-mono text-mini text-body">
       <Tag size={10} />
       {tag}
     </span>
@@ -394,7 +394,7 @@ export default function SampleScan(): JSX.Element {
             type="button"
             disabled={!hashInput.trim() || busy}
             onClick={onHashSubmit}
-            className="inline-flex items-center gap-2 rounded bg-brand-600 px-4 py-2 font-mono text-meta font-semibold text-white hover:bg-brand-700 disabled:opacity-30 dark:bg-brand-500 transition-colors"
+            className="inline-flex items-center gap-2 rounded bg-brand-600 px-4 py-2 font-mono text-meta font-semibold text-on-fill hover:bg-brand-700 disabled:opacity-30 dark:bg-brand-500 transition-colors"
           >
             {busy ? <Loader2 size={14} className="animate-spin" /> : <Fingerprint size={14} />}
             {phase === 'hashing' ? 'Hashing…' : phase === 'streaming' ? 'Scanning…' : 'Scan hash'}
@@ -477,7 +477,7 @@ export default function SampleScan(): JSX.Element {
               providers
             </span>
           </div>
-          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
+          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-track">
             <div
               className={`h-full ${VERDICT_BAR[done.verdict]} transition-all`}
               style={{ width: `${Math.max(2, done.score)}%` }}

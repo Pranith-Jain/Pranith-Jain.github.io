@@ -387,7 +387,7 @@ function RansomwareIntelPanels(): JSX.Element {
           separate.
         </p>
       </div>
-      <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-800">
+      <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-line-1">
         {/* Recent attacks */}
         <div className="p-4">
           <h3 className="font-mono text-xs uppercase tracking-wider text-muted mb-2">Recent cyber-attacks</h3>

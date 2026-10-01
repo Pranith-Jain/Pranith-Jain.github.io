@@ -205,7 +205,7 @@ export default function PromptInjection(): JSX.Element {
                 {grade} · score {score}
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-3">
+            <div className="h-2 rounded bg-track overflow-hidden mb-3">
               <div className={`h-full transition-all ${gradeBar(grade)}`} style={{ width: `${Math.max(2, score)}%` }} />
             </div>
             <p className="text-sm font-mono text-muted">

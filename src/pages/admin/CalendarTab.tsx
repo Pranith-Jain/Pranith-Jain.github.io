@@ -227,7 +227,7 @@ export default function CalendarTab() {
                     <span className="text-micro font-mono text-muted">{pub.type}</span>
                   </div>
                 ))}
-              {!hasContent && <p className="text-micro text-slate-300 dark:text-slate-600">—</p>}
+              {!hasContent && <p className="text-micro text-inverted">—</p>}
             </div>
           );
         })}

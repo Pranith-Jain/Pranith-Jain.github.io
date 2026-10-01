@@ -225,7 +225,7 @@ export default function IocPivot(): JSX.Element {
         <button
           type="submit"
           disabled={streaming || !input.trim()}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
         >
           {streaming && <Loader2 size={14} className="animate-spin" />}
           {streaming ? 'enriching…' : 'pivot'}

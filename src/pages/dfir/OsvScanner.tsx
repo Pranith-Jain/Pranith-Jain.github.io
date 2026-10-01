@@ -224,7 +224,7 @@ export default function OsvScanner(): JSX.Element {
         type="button"
         onClick={() => void run()}
         disabled={running || !input.trim()}
-        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
       >
         {running && <Loader2 size={14} className="animate-spin" />} {running ? 'scanning OSV…' : 'scan dependencies'}
       </button>

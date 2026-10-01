@@ -154,11 +154,11 @@ export default function CveDetail(): JSX.Element {
           <span className="px-2 py-1 rounded bg-surface-300 border border-line-1 text-xs font-mono text-sky-700 dark:text-sky-300">
             Severity: {data.severity}
           </span>
-          <span className="px-2 py-1 rounded bg-slate-900 dark:bg-surface-200 border border-slate-700 text-xs font-mono text-muted">
+          <span className="px-2 py-1 rounded bg-surface-100 dark:bg-surface-200 border border-slate-700 text-xs font-mono text-muted">
             {data.hits ?? 1} hits
           </span>
           {data.kev?.in_kev && (
-            <span className="px-2 py-1 rounded bg-rose-500 text-white text-xs font-mono font-bold">CISA KEV</span>
+            <span className="px-2 py-1 rounded bg-rose-500 text-on-fill text-xs font-mono font-bold">CISA KEV</span>
           )}
         </span>
       }
@@ -173,7 +173,7 @@ export default function CveDetail(): JSX.Element {
           </button>
           <Link
             to={`/dfir/cve?cve=${encodeURIComponent(data.cve_id)}`}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-mono"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-100 dark:bg-surface-100 text-white dark:text-heading text-xs font-mono"
           >
             <Search size={12} /> Open in DFIR CVE
           </Link>
@@ -190,13 +190,13 @@ export default function CveDetail(): JSX.Element {
         <div className="space-y-4">
           <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
             <div className="font-mono text-[11px] tracking-widest text-sky-600 dark:text-sky-400 mb-2">DESCRIPTION</div>
-            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{data.description}</p>
+            <p className="text-sm leading-relaxed text-body">{data.description}</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-[11px] tracking-widest text-orange-600 mb-2">RISK ASSESSMENT</div>
-              <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">{data.risk}</p>
+              <p className="text-xs leading-relaxed text-body">{data.risk}</p>
               {data.cvss && (
                 <div className="mt-3 p-2 rounded bg-surface-200 border border-line-1 font-mono text-xs">
                   CVSS {data.cvss.base_score} ({data.cvss.severity}) {data.cvss.vector && `· ${data.cvss.vector}`}
@@ -240,7 +240,7 @@ export default function CveDetail(): JSX.Element {
               <div className="font-mono text-[11px] tracking-widest text-emerald-600 mb-2">REMEDIATION</div>
               <ul className="space-y-1.5">
                 {(data.remediation || []).map((a, i) => (
-                  <li key={i} className="flex gap-2 text-xs text-slate-700 dark:text-slate-300">
+                  <li key={i} className="flex gap-2 text-xs text-body">
                     <span className="text-emerald-500">›</span> {a}
                   </li>
                 ))}
@@ -252,7 +252,7 @@ export default function CveDetail(): JSX.Element {
                 {(data.detection || []).map((d, i) => (
                   <div
                     key={i}
-                    className="font-mono text-xs p-2 rounded bg-slate-900 text-sky-300 border border-slate-700"
+                    className="font-mono text-xs p-2 rounded bg-surface-100 text-sky-300 border border-slate-700"
                   >
                     {d}
                   </div>
@@ -405,7 +405,7 @@ export default function CveDetail(): JSX.Element {
             <div className="grid grid-cols-2 gap-2">
               <Link
                 to={`/dfir/cve?cve=${encodeURIComponent(data.cve_id)}`}
-                className="h-9 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-mono grid place-items-center"
+                className="h-9 rounded-lg bg-surface-100 dark:bg-surface-100 text-white dark:text-heading text-xs font-mono grid place-items-center"
               >
                 DFIR CVE
               </Link>

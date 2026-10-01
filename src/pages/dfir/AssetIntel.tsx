@@ -561,7 +561,7 @@ export default function AssetIntel(): JSX.Element {
           <button
             type="submit"
             disabled={!qtype || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 transition-colors"
           >
             {loading ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
             {loading ? 'Scanning…' : 'Scan'}
@@ -591,7 +591,7 @@ export default function AssetIntel(): JSX.Element {
 
       {!loading && !error && !hostIntel && !whoisData && !initial && (
         <div className="text-center py-16">
-          <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
+          <ScanLine size={48} className="mx-auto mb-4 text-inverted dark:text-muted" />
           <p className="text-muted">Enter an IP address or domain to begin asset intelligence</p>
           <p className="text-xs text-muted mt-1">
             IP → exposed host, open ports, CVEs, artifacts · Domain → WHOIS history, registration changes, related

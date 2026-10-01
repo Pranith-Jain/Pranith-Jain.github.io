@@ -117,12 +117,12 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe what to detect (or leave blank for auto-detect)"
-              className="min-w-0 flex-1 rounded border border-line-1 bg-surface-100 px-2 py-1 text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none dark:text-white"
+              className="min-w-0 flex-1 rounded border border-line-1 bg-surface-100 px-2 py-1 text-xs text-heading placeholder:text-muted focus:border-brand-500 focus:outline-none"
             />
             <button
               onClick={generate}
               disabled={loading}
-              className="shrink-0 rounded bg-brand-600 px-2.5 py-1 text-mini font-medium text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+              className="shrink-0 rounded bg-brand-600 px-2.5 py-1 text-mini font-medium text-on-fill hover:bg-brand-700 disabled:opacity-50 transition-colors"
             >
               {loading ? <Loader2 size={12} className="animate-spin" /> : 'Generate'}
             </button>

@@ -246,7 +246,7 @@ export default function ChronoAi(): JSX.Element {
           <button
             onClick={handleReconstruct}
             disabled={loading || !logs.trim()}
-            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
@@ -315,7 +315,7 @@ export default function ChronoAi(): JSX.Element {
                             <span className="text-micro text-muted">{PHASE_ICONS[p.id]}</span>
                             <span className="text-micro font-mono text-muted truncate">{p.label}</span>
                           </div>
-                          <div className="h-2 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+                          <div className="h-2 rounded-full bg-track overflow-hidden">
                             <div
                               className={`h-full rounded-full ${p.color} transition-all duration-500`}
                               style={{ width: `${pct}%` }}
@@ -343,7 +343,7 @@ export default function ChronoAi(): JSX.Element {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 text-xs text-muted font-mono">
                             <span>{event.timestamp}</span>
-                            <span className="text-slate-300 dark:text-muted">|</span>
+                            <span className="text-inverted dark:text-muted">|</span>
                             <span>{event.source}</span>
                             {event.isLateral && (
                               <span className="px-1 py-0.5 rounded text-micro font-mono bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
@@ -412,7 +412,7 @@ export default function ChronoAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
-              <Clock size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
+              <Clock size={32} className="text-inverted dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Paste log events and click <span className="font-semibold">Reconstruct</span>
               </p>

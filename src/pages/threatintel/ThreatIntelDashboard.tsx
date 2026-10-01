@@ -701,7 +701,7 @@ export function CveLandscapePanel(): JSX.Element {
                 </button>
               );
             })}
-            <div className="w-px h-5 bg-slate-200 dark:bg-line-1" />
+            <div className="w-px h-5 bg-track dark:bg-line-1" />
             <button
               type="button"
               onClick={() => setExploitedOnly((p) => !p)}
@@ -716,7 +716,7 @@ export function CveLandscapePanel(): JSX.Element {
             >
               On KEV only
             </button>
-            <div className="w-px h-5 bg-slate-200 dark:bg-line-1" />
+            <div className="w-px h-5 bg-track dark:bg-line-1" />
             <select
               value={topN}
               onChange={(e) => setTopN(Number(e.target.value))}
@@ -726,7 +726,7 @@ export function CveLandscapePanel(): JSX.Element {
               <option value={20}>Top 20</option>
               <option value={50}>Top 50</option>
             </select>
-            <div className="w-px h-5 bg-slate-200 dark:bg-line-1" />
+            <div className="w-px h-5 bg-track dark:bg-line-1" />
             <div className="flex gap-1">
               {[
                 { type: 'pie' as ChartType, icon: <PieIcon className="h-3.5 w-3.5" /> },
@@ -752,7 +752,7 @@ export function CveLandscapePanel(): JSX.Element {
                   setExploitedOnly(false);
                   setKevOnly(false);
                 }}
-                className="text-mini text-muted hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+                className="text-mini text-muted hover:text-body dark:hover:text-inverted ml-1"
               >
                 Clear
               </button>

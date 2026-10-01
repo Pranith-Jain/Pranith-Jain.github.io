@@ -313,7 +313,7 @@ export default function FeedScheduler(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowForm(true)}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
             >
               <Plus size={14} /> Add Feed
             </button>
@@ -412,7 +412,7 @@ export default function FeedScheduler(): JSX.Element {
             <button
               type="submit"
               disabled={creating || !form.name.trim() || !form.source_url.trim()}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-meta font-semibold rounded disabled:opacity-30"
             >
               {creating && <Loader2 size={12} className="animate-spin" />}Create
             </button>
@@ -446,7 +446,7 @@ export default function FeedScheduler(): JSX.Element {
 
       {filtered.length === 0 && (
         <div className="surface-card p-12 text-center">
-          <RefreshCw size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
+          <RefreshCw size={32} className="mx-auto text-inverted mb-3" />
           <p className="text-sm font-mono text-muted">{search ? 'No matching feeds' : 'No feed jobs configured'}</p>
           <p className="text-xs font-mono text-muted mt-1">
             {search
@@ -543,7 +543,7 @@ export default function FeedScheduler(): JSX.Element {
                         })
                       }
                       disabled={!editForm.name.trim() || !editForm.source_url.trim()}
-                      className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30"
+                      className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-meta font-semibold rounded disabled:opacity-30"
                     >
                       Save
                     </button>
@@ -615,7 +615,7 @@ export default function FeedScheduler(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void toggleJob(job.id, !job.enabled)}
-                        className="p-1.5 rounded text-muted hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-surface-300"
+                        className="p-1.5 rounded text-muted hover:text-muted dark:hover:text-inverted hover:bg-surface-300 dark:hover:bg-surface-300"
                         title={job.enabled ? 'Disable' : 'Enable'}
                       >
                         <CheckCircle2 size={13} />
@@ -632,7 +632,7 @@ export default function FeedScheduler(): JSX.Element {
                   </div>
                   {jobHistory.length > 0 && (
                     <details className="mt-3 pt-3 border-t border-line-1">
-                      <summary className="text-micro font-mono text-muted cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 select-none">
+                      <summary className="text-micro font-mono text-muted cursor-pointer hover:text-muted dark:hover:text-inverted select-none">
                         Run history ({jobHistory.length})
                       </summary>
                       <div className="mt-2 space-y-1 max-h-32 overflow-y-auto">

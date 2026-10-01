@@ -277,7 +277,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
+            className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-on-fill font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             {loading ? 'Exploring…' : 'Explore'}
@@ -296,7 +296,7 @@ export default function RelationshipGraphPage(): JSX.Element {
         {/* Graph actions */}
         {graphData && (
           <div className="flex gap-1.5 items-center">
-            <div className="h-6 w-px bg-slate-200 dark:bg-surface-300 mx-1" />
+            <div className="h-6 w-px bg-track mx-1" />
             <button
               type="button"
               onClick={toggleLayout}
@@ -414,7 +414,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             </Suspense>
           ) : (
             <div className="flex h-full flex-col items-center justify-center text-muted font-mono text-sm gap-4 p-8 text-center">
-              <Network size={40} className="text-slate-300 dark:text-muted" />
+              <Network size={40} className="text-inverted dark:text-muted" />
               <div className="font-semibold text-muted">Search any entity to see its relationships</div>
               <div className="text-xs text-muted max-w-md">
                 Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all

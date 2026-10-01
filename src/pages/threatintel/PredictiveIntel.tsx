@@ -71,7 +71,7 @@ export default function PredictiveIntel(): JSX.Element {
       onRetry={refetch}
       empty={!loading && forecasts.length === 0 && sectorRisks.length === 0}
       emptyMessage="No predictive data available yet."
-      emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-muted" />}
+      emptyIcon={<TrendingUp size={32} className="text-inverted dark:text-muted" />}
     >
       {summary && (
         <div className="rounded-xl border border-line-1 bg-gradient-to-br from-rose-500/5 to-rose-500/10 dark:from-rose-500/10 dark:to-rose-500/5 p-5 mb-6">
@@ -116,7 +116,7 @@ export default function PredictiveIntel(): JSX.Element {
                   </div>
                   <span className="text-lg font-display font-bold text-heading">{s.current_risk}</span>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-surface-300 rounded-full h-2 mb-3">
+                <div className="w-full bg-track rounded-full h-2 mb-3">
                   <div
                     className={`h-2 rounded-full ${RISK_BAR_COLOR[s.trend]}`}
                     style={{ width: `${s.current_risk}%` }}
@@ -160,7 +160,7 @@ export default function PredictiveIntel(): JSX.Element {
                     <div className="text-micro font-mono text-muted">probability</div>
                   </div>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-surface-300 rounded-full h-2 mb-3">
+                <div className="w-full bg-track rounded-full h-2 mb-3">
                   <div className="bg-rose-500 h-2 rounded-full" style={{ width: `${f.probability}%` }} />
                 </div>
                 {f.basis && f.basis.length > 0 && (

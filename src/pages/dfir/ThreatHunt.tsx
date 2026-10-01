@@ -117,7 +117,7 @@ export default function ThreatHunt(): JSX.Element {
           <button
             onClick={() => void doHunt()}
             disabled={hunting || query.length < 3}
-            className="px-5 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 disabled:opacity-50 transition-colors inline-flex items-center gap-2"
+            className="px-5 py-2.5 rounded-xl bg-brand-600 text-on-fill text-sm font-semibold hover:bg-brand-700 disabled:opacity-50 transition-colors inline-flex items-center gap-2"
           >
             {hunting ? (
               <>

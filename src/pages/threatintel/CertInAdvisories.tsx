@@ -198,7 +198,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         <button
           type="button"
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -211,7 +211,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
           type="button"
           onClick={exportJSON}
           disabled={!data}
-          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> JSON
         </button>
@@ -219,7 +219,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
           type="button"
           onClick={exportCSV}
           disabled={!data}
-          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> CSV
         </button>
@@ -235,7 +235,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             href="https://www.cert-in.org.in/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1 transition-colors"
+            className="hover:text-body dark:hover:text-inverted flex items-center gap-1 transition-colors"
           >
             Source: cert-in.org.in <ExternalLink className="w-3 h-3" />
           </a>

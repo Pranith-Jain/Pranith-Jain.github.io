@@ -73,7 +73,7 @@ export function SocBar({
                   x2={w - 8}
                   y2={y}
                   stroke="currentColor"
-                  className="text-slate-200 dark:text-slate-800"
+                  className="text-inverted"
                   strokeDasharray="2 3"
                 />
                 <text
@@ -261,7 +261,7 @@ export function SocDonut({
             r={r}
             fill="none"
             stroke="currentColor"
-            className="text-slate-200 dark:text-slate-800"
+            className="text-inverted"
             strokeWidth={thickness}
           />
           {slices.map((s, i) => {
@@ -414,7 +414,7 @@ export function SocSparkline({
                 x2={w - 8}
                 y2={y}
                 stroke="currentColor"
-                className="text-slate-200 dark:text-slate-800"
+                className="text-inverted"
                 strokeDasharray="2 3"
               />
               <text

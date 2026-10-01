@@ -81,7 +81,7 @@ export function Toolkits() {
     <section id="toolkits" className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Tooling</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Security tools I built
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
@@ -99,11 +99,11 @@ export function Toolkits() {
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div className="flex items-baseline gap-1 tabular-nums">
-                  <span className="font-display text-2xl font-bold text-slate-900 dark:text-white">{app.stat}</span>
+                  <span className="font-display text-2xl font-bold text-heading">{app.stat}</span>
                   <span className="text-mini font-mono text-muted">{app.statLabel}</span>
                 </div>
               </div>
-              <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {app.title}
               </h3>
               <p className="mt-0.5 text-xs font-medium text-muted">{app.subtitle}</p>

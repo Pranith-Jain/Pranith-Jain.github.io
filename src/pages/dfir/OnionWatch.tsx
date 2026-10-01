@@ -259,7 +259,7 @@ export default function OnionWatch(): JSX.Element {
             <span className="text-muted">show offline groups</span>
           </label>
 
-          <span className="text-slate-300 dark:text-slate-700">|</span>
+          <span className="text-inverted">|</span>
 
           <span className="text-muted">sort:</span>
           {(['last-active', 'name', 'mirror-count'] as SortMode[]).map((m) => (
@@ -431,7 +431,7 @@ export default function OnionWatch(): JSX.Element {
 
           {data.warnings.length > 0 && (
             <details className="mt-6 text-mini font-mono text-muted">
-              <summary className="cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
+              <summary className="cursor-pointer hover:text-body dark:hover:text-inverted">
                 {data.warnings.length} warning{data.warnings.length === 1 ? '' : 's'} from upstream
               </summary>
               <ul className="mt-2 ml-4 list-disc space-y-1">

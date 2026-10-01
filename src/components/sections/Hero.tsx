@@ -23,7 +23,7 @@ export function Hero({ personalInfo }: HeroProps) {
           {/* h1: Geist h-40 to h-72 tracking (-1.28 to -2.4px). We use
               -2.4px (heading-40) because the responsive sizes
               (28-52px) sit in that range. */}
-          <h1 className="font-display text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.04em] sm:text-5xl lg:text-[3.25rem] text-slate-900 dark:text-white">
+          <h1 className="font-display text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.04em] sm:text-5xl lg:text-[3.25rem] text-heading">
             Building at the intersection of{' '}
             <span className="text-brand-600 dark:text-brand-400">
               AI, threat intelligence, and edge-native security tooling.
@@ -46,7 +46,7 @@ export function Hero({ personalInfo }: HeroProps) {
               ['0', 'data egress'],
             ].map(([k, v]) => (
               <div key={v} className="flex flex-col">
-                <dt className="font-display text-2xl font-semibold tracking-[-0.4px] text-slate-900 dark:text-white tabular-nums sm:text-3xl">
+                <dt className="font-display text-2xl font-semibold tracking-[-0.4px] text-heading tabular-nums sm:text-3xl">
                   {k}
                 </dt>
                 <dd className="mt-0.5 font-mono text-mini uppercase tracking-[0.12em] text-muted">{v}</dd>
@@ -79,9 +79,7 @@ export function Hero({ personalInfo }: HeroProps) {
         <div className="shrink-0 lg:sticky lg:top-24">
           <div className="surface-card p-6 sm:p-7 flex flex-col items-center sm:items-start text-center sm:text-left">
             <PjMark className="h-14 w-14 sm:h-16 sm:w-16 mb-4" />
-            <h2 className="font-display text-lg font-semibold tracking-[-0.4px] text-slate-900 dark:text-white">
-              {personalInfo.name}
-            </h2>
+            <h2 className="font-display text-lg font-semibold tracking-[-0.4px] text-heading">{personalInfo.name}</h2>
             <p className="mt-0.5 text-meta text-muted font-mono">{personalInfo.shortTitle}</p>
             <Link
               to="/about"

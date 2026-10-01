@@ -256,7 +256,7 @@ export default function DfirRef() {
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No reference items match your filters.</p>
           </div>
         ) : (
@@ -274,7 +274,7 @@ export default function DfirRef() {
                     {CATEGORY_ICONS[item.category]} {item.categoryLabel}
                   </span>
                 </div>
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug">
                   {item.name}
                 </div>
                 {item.tags.length > 0 && (

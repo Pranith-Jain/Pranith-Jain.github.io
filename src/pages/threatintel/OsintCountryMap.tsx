@@ -285,14 +285,14 @@ export default function OsintCountryMap(): JSX.Element {
             placeholder={
               selectedCountry ? `Search within ${selectedCountry.name}...` : 'Search countries or resources...'
             }
-            className="w-full pl-9 pr-4 py-2 surface-card text-sm text-body placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-500"
+            className="w-full pl-9 pr-4 py-2 surface-card text-sm text-body placeholder-slate-400 focus:outline-none focus:border-line-3 dark:focus:border-slate-500"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
               aria-label="Clear search"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-muted dark:hover:text-inverted"
             >
               <X className="w-4 h-4" />
             </button>
@@ -373,7 +373,7 @@ export default function OsintCountryMap(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => handleSelect(null)}
-                    className="text-muted hover:text-slate-600 dark:hover:text-slate-300 p-1"
+                    className="text-muted hover:text-muted dark:hover:text-inverted p-1"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -418,7 +418,7 @@ export default function OsintCountryMap(): JSX.Element {
                         : 'No OSINT resources catalogued for this country.'}
                     </div>
                   ) : (
-                    <div className="divide-y divide-slate-200 dark:divide-slate-800">
+                    <div className="divide-y divide-line-1">
                       {selectedResources.map((r, i) => (
                         <ResourceRow key={`${r.url}-${i}`} resource={r} />
                       ))}
@@ -429,7 +429,7 @@ export default function OsintCountryMap(): JSX.Element {
             ) : (
               <div className="surface-card-faint h-[500px] flex items-center justify-center">
                 <div className="text-center p-6">
-                  <Globe className="w-10 h-10 text-slate-300 dark:text-muted mx-auto mb-3" />
+                  <Globe className="w-10 h-10 text-inverted dark:text-muted mx-auto mb-3" />
                   <p className="text-sm text-muted mb-1">Click a country on the map</p>
                   <p className="text-xs text-muted">or search for a country above to view its OSINT resources</p>
                 </div>
@@ -464,7 +464,7 @@ export default function OsintCountryMap(): JSX.Element {
             href="https://github.com/wddadk/OSINT-for-countries"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-slate-800 dark:hover:text-slate-200 underline transition-colors"
+            className="text-muted hover:text-heading dark:hover:text-inverted underline transition-colors"
           >
             wddadk/OSINT-for-countries
           </a>{' '}
@@ -473,7 +473,7 @@ export default function OsintCountryMap(): JSX.Element {
             href="https://map.wddadk.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-slate-800 dark:hover:text-slate-200 underline transition-colors"
+            className="text-muted hover:text-heading dark:hover:text-inverted underline transition-colors"
           >
             map.wddadk.com
           </a>

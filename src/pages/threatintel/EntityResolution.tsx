@@ -103,7 +103,7 @@ function ConfidenceBar({ score }: { score: number }) {
   const color = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
     <div className="flex items-center gap-2 text-mini font-mono text-muted">
-      <div className="h-1.5 w-16 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+      <div className="h-1.5 w-16 rounded-full bg-track overflow-hidden">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
       <span>{pct}%</span>
@@ -281,12 +281,12 @@ export default function EntityResolution(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="e.g. LockBit, CVE-2024-1709, 8.8.8.8, Scattered Spider, 185.234.72.0"
-                className="w-full rounded-xl border border-line-1 bg-surface-100 py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:text-slate-100 dark:placeholder:text-slate-500"
+                className="w-full rounded-xl border border-line-1 bg-surface-100 py-2.5 pl-9 pr-20 font-mono text-tool text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:placeholder:text-muted"
               />
               <button
                 type="submit"
                 disabled={loading || !query.trim()}
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded px-3 py-1 text-mini font-mono font-medium bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded px-3 py-1 text-mini font-mono font-medium bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : 'Resolve'}
               </button>
@@ -480,7 +480,7 @@ export default function EntityResolution(): JSX.Element {
                 type="button"
                 onClick={() => void extract()}
                 disabled={loading || !text.trim()}
-                className="inline-flex items-center gap-1.5 rounded px-4 py-1.5 text-mini font-mono font-medium bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center gap-1.5 rounded px-4 py-1.5 text-mini font-mono font-medium bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : <FileText size={14} />}
                 {loading ? 'Extracting...' : 'Extract entities'}

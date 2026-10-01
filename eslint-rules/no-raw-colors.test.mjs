@@ -83,6 +83,63 @@ describe('no-raw-colors: lookalike utilities are not colors', () => {
   ])('%s', (code) => expectClean(code));
 });
 
+describe('no-raw-colors: alpha overlays are never auto-fixed', () => {
+  it('refuses to rewrite dark:bg-white/10, which would invert the intent', () => {
+    // white/10 LIFTS a navy card; --surface-100/10 would DARKEN it, because
+    // surface-100 is near-black in dark mode. Same spelling, opposite effect.
+    const { messages, output } = lint('<div className="dark:bg-white/10" />');
+    expect(messages.map((m) => m.messageId)).toEqual(['rawColorNoToken']);
+    expect(output).toBe('<div className="dark:bg-white/10" />');
+  });
+
+  it('still fixes an opaque dark:bg-white', () => {
+    const { output } = lint('<div className="dark:bg-white" />');
+    expect(output).toBe('<div className="dark:bg-surface-100" />');
+  });
+
+  it('still fixes alpha on a mid-ramp step, where the mapping is safe', () => {
+    // slate-200 -> --track, both solid colours with the same role, so an
+    // alpha modifier means the same thing on either side.
+    const { output } = lint('<div className="bg-slate-200/70" />');
+    expect(output).toBe('<div className="bg-track/70" />');
+  });
+});
+
+describe('no-raw-colors: text-white is only a token on a saturated fill', () => {
+  it('maps white ink to text-on-fill when the element has a brand/severity bg', () => {
+    const { output } = lint('<button className="bg-brand-600 text-white">Go</button>');
+    expect(output).toBe('<button className="bg-brand-600 text-on-fill">Go</button>');
+  });
+
+  it('refuses to map white ink on a neutral surface (that is a contrast bug)', () => {
+    const { messages, output } = lint('<div className="bg-surface-100 text-white">x</div>');
+    expect(messages.map((m) => m.messageId)).toEqual(['rawColorNoToken']);
+    expect(output).toBe('<div className="bg-surface-100 text-white">x</div>');
+  });
+
+  it('does not treat a token surface as a saturated fill', () => {
+    const { output } = lint('<div className="bg-surface-200 text-white">x</div>');
+    expect(output).toBe('<div className="bg-surface-200 text-white">x</div>');
+  });
+});
+
+describe('no-raw-colors: phase 2 pair collapses', () => {
+  it('maps the loading track', () => {
+    const { output } = lint('<div className="h-2 rounded bg-slate-200" />');
+    expect(output).toBe('<div className="h-2 rounded bg-track" />');
+  });
+
+  it('maps low-emphasis ink', () => {
+    const { output } = lint('<span className="text-slate-300">x</span>');
+    expect(output).toBe('<span className="text-inverted">x</span>');
+  });
+
+  it('still keeps hover and disabled variants working', () => {
+    const { output } = lint('<a className="hover:text-slate-700 disabled:bg-slate-300">x</a>');
+    expect(output).toBe('<a className="hover:text-body disabled:bg-slate-300">x</a>');
+  });
+});
+
 describe('no-raw-colors: raw palette colors are reported and fixed', () => {
   it('collapses a redundant light/dark pair onto the token', () => {
     const code =
@@ -108,9 +165,12 @@ describe('no-raw-colors: raw palette colors are reported and fixed', () => {
   });
 
   it('reports a step with no safe mapping but refuses to guess', () => {
-    const { messages, output } = lint('<div className="text-slate-300" />');
+    // slate-950 sits below --ink-heading (slate-900) with no token to name it,
+    // and there is no "near-black" ink step. Nudging it to text-heading
+    // would be a guess, so it is reported and left alone.
+    const { messages, output } = lint('<div className="text-slate-950" />');
     expect(messages.map((m) => m.messageId)).toEqual(['rawColorNoToken']);
-    expect(output).toBe('<div className="text-slate-300" />');
+    expect(output).toBe('<div className="text-slate-950" />');
   });
 });
 
@@ -185,7 +245,11 @@ describe('no-raw-colors: token vocabulary tracks src/index.css', () => {
     );
     const theme = css.slice(css.indexOf('@theme'), css.indexOf('@layer base'));
     // Every --color-* registration should be reachable as a utility.
-    for (const name of ['surface-100', 'surface-200', 'surface-300', 'line-1', 'line-2', 'line-3', 'wash']) {
+    for (const name of [
+      'surface-100', 'surface-200', 'surface-300',
+      'line-1', 'line-2', 'line-3',
+      'wash', 'track', 'on-fill', 'inverted', 'accent-text', 'focus-ring',
+    ]) {
       expect(theme, `--color-${name} missing from @theme`).toContain(`--color-${name}:`);
     }
   });

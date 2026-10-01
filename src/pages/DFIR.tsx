@@ -279,7 +279,7 @@ export default function DFIRPage(): JSX.Element {
               </span>
               <span className="text-brand-600 dark:text-brand-400">Operational</span>
             </span>
-            <span aria-hidden className="text-slate-300 dark:text-slate-700">
+            <span aria-hidden className="text-inverted">
               /
             </span>
             <span>Free · No signup · Runs in your browser</span>
@@ -289,7 +289,7 @@ export default function DFIRPage(): JSX.Element {
             tracking, real display weight. The stat row now lives below the
             lead paragraph as a hairline-separated band, not a single
             inline string. */}
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.04em] text-heading">
             Investigate faster.
             <br className="hidden sm:inline" />
             <span className="sm:inline"> Respond with confidence.</span>
@@ -312,7 +312,7 @@ export default function DFIRPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${MAIN_TOOL_COUNT}+ tools - IOC check, phishing, CVEs, decoders...`}
-              className="w-full rounded-xl border border-line-1 bg-surface-200 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="w-full rounded-xl border border-line-1 bg-surface-200 py-3 pl-11 pr-24 font-mono text-sm text-heading placeholder:text-muted focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:placeholder:text-muted"
               aria-label="Search DFIR tools"
             />
             {query ? (
@@ -322,7 +322,7 @@ export default function DFIRPage(): JSX.Element {
                   setQuery('');
                   inputRef.current?.focus();
                 }}
-                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-surface-300 dark:hover:text-slate-100"
+                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-muted hover:bg-track hover:text-heading dark:hover:bg-surface-300 dark:hover:text-slate-100"
                 aria-label="Clear search"
               >
                 <X size={12} /> clear
@@ -350,7 +350,7 @@ export default function DFIRPage(): JSX.Element {
                 className={`flex flex-col gap-1.5 py-3 sm:py-4 ${i === 0 ? 'sm:pr-6' : i === 1 ? 'sm:px-6' : 'sm:pl-6'}`}
               >
                 <dt className="font-mono text-micro uppercase tracking-[0.16em] text-muted">{stat.label}</dt>
-                <dd className="font-display text-3xl sm:text-4xl font-bold leading-none text-slate-900 dark:text-white">
+                <dd className="font-display text-3xl sm:text-4xl font-bold leading-none text-heading">
                   <CountUp to={stat.to} duration={900} formatter={(v) => `${v.toLocaleString()}${stat.suffix}`} />
                 </dd>
                 <dd className="font-mono text-mini text-muted">{stat.sub}</dd>
@@ -377,7 +377,7 @@ export default function DFIRPage(): JSX.Element {
                   <Link
                     key={entry.path}
                     to={entry.path}
-                    className="group inline-flex items-center gap-2 rounded border border-line-1 bg-surface-200 px-3 py-2 text-xs font-medium text-slate-700 hover:border-brand-500/40 hover:bg-brand-50/50 dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
+                    className="group inline-flex items-center gap-2 rounded border border-line-1 bg-surface-200 px-3 py-2 text-xs font-medium text-body hover:border-brand-500/40 hover:bg-brand-50/50 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
                   >
                     <Icon size={12} className="text-muted group-hover:text-brand-500 dark:group-hover:text-brand-400" />
                     <span>{meta?.label ?? entry.label}</span>
@@ -409,7 +409,7 @@ export default function DFIRPage(): JSX.Element {
                 }
               }}
               placeholder="e.g. 8.8.8.8, evil.com, hash..."
-              className="flex-1 rounded border border-line-1 bg-surface-200 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="flex-1 rounded border border-line-1 bg-surface-200 px-3 py-2 font-mono text-xs text-heading placeholder:text-muted focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:placeholder:text-muted"
               aria-label="Enter IOC to check"
             />
             <button
@@ -420,7 +420,7 @@ export default function DFIRPage(): JSX.Element {
                 }
               }}
               disabled={!iocInput.trim()}
-              className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-4 py-2 text-xs font-medium text-white hover:bg-brand-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-4 py-2 text-xs font-medium text-on-fill hover:bg-brand-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               <Search size={12} />
               Check
@@ -449,7 +449,7 @@ export default function DFIRPage(): JSX.Element {
                             {category.label}
                           </span>
                         </div>
-                        <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
+                        <h3 className="font-display text-sm font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400">
                           {t.label}
                         </h3>
                         <p className="mt-1 text-xs text-muted line-clamp-2">{t.desc}</p>
@@ -505,7 +505,7 @@ export default function DFIRPage(): JSX.Element {
                       </div>
                       <ArrowRight
                         size={14}
-                        className="ml-auto text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors shrink-0"
+                        className="ml-auto text-inverted group-hover:text-brand-500 transition-colors shrink-0"
                       />
                     </Link>
                   );
@@ -546,7 +546,7 @@ export default function DFIRPage(): JSX.Element {
                             <dt className="uppercase tracking-wider opacity-70">tools</dt>
                             <dd className="font-semibold tabular-nums text-body">{hubPageCount(cat.id)}</dd>
                           </div>
-                          <span className="inline-flex items-center gap-0.5 text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                          <span className="inline-flex items-center gap-0.5 text-muted group-hover:text-heading dark:group-hover:text-white transition-colors">
                             open
                             <ArrowRight size={10} className="transition-transform group-hover:translate-x-0.5" />
                           </span>
@@ -653,7 +653,7 @@ export default function DFIRPage(): JSX.Element {
             <div className="flex justify-center">
               <Link
                 to="/dfir/catalog"
-                className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
+                className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-body hover:border-brand-300 hover:text-brand-600 dark:hover:border-brand-600 dark:hover:text-brand-400"
               >
                 <Compass size={16} />
                 Browse the full catalog

@@ -36,7 +36,7 @@ export function Experience({ experiences }: ExperienceProps) {
           small caps-mono kicker, display heading, no chrome. */}
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Experience</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Experience highlights
         </h2>
       </div>
@@ -59,7 +59,7 @@ export function Experience({ experiences }: ExperienceProps) {
                 className="flex w-full items-start gap-4 px-5 py-4 text-left"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="text-lg font-semibold text-slate-900 dark:text-white">{exp.title}</div>
+                  <div className="text-lg font-semibold text-heading">{exp.title}</div>
                   <div className="text-sm text-body">
                     {exp.company}
                     {exp.location && ` • ${exp.location}`} • {exp.period}

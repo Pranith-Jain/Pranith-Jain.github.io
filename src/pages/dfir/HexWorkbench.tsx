@@ -286,7 +286,7 @@ export default function HexWorkbench() {
             </div>
             <button
               onClick={doSearch}
-              className="rounded-lg bg-indigo-600 text-white px-3 py-1.5 text-sm hover:bg-indigo-700"
+              className="rounded-lg bg-indigo-600 text-on-fill px-3 py-1.5 text-sm hover:bg-indigo-700"
             >
               Search
             </button>

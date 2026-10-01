@@ -265,7 +265,7 @@ export default function ReportComposer(): JSX.Element {
             type="button"
             onClick={() => handleExport('pdf')}
             disabled={exporting !== null}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-on-fill text-xs font-medium disabled:opacity-50"
           >
             <FileText size={14} /> {exporting === 'pdf' ? 'Building…' : 'PDF'}
           </button>
@@ -273,7 +273,7 @@ export default function ReportComposer(): JSX.Element {
             type="button"
             onClick={() => handleExport('docx')}
             disabled={exporting !== null}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill text-xs font-medium disabled:opacity-50"
           >
             <FileType2 size={14} /> {exporting === 'docx' ? 'Building…' : 'DOCX'}
           </button>
@@ -537,7 +537,7 @@ export default function ReportComposer(): JSX.Element {
                     type="button"
                     onClick={() => moveSection(i, -1)}
                     disabled={i === 0}
-                    className="p-1 text-muted hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
+                    className="p-1 text-muted hover:text-body dark:hover:text-inverted disabled:opacity-30"
                     aria-label="Move up"
                     title="Move up"
                   >
@@ -547,7 +547,7 @@ export default function ReportComposer(): JSX.Element {
                     type="button"
                     onClick={() => moveSection(i, 1)}
                     disabled={i === doc.sections.length - 1}
-                    className="p-1 text-muted hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
+                    className="p-1 text-muted hover:text-body dark:hover:text-inverted disabled:opacity-30"
                     aria-label="Move down"
                     title="Move down"
                   >

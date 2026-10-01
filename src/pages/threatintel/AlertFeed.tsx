@@ -107,7 +107,7 @@ export default function AlertFeed() {
       onRetry={loadAlerts}
       empty={!loading && alerts.length === 0 && !error}
       emptyMessage="No alerts to show. Configure your estate to receive personalised threat intelligence."
-      emptyIcon={<BellOff size={32} className="text-slate-300" />}
+      emptyIcon={<BellOff size={32} className="text-inverted" />}
     >
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">

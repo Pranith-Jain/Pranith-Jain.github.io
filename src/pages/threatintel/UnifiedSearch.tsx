@@ -301,7 +301,7 @@ export default function UnifiedSearch(): JSX.Element {
             <span className="font-display font-semibold text-sm">Tools</span>
             <span className="text-mini font-mono opacity-70">· {toolMatches.length}</span>
           </div>
-          <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+          <ul className="divide-y divide-line-1 dark:divide-slate-800/50">
             {toolMatches.map(({ section, ...tool }) => (
               <li key={tool.to} className="px-4 py-2.5 hover:bg-surface-200 dark:hover:bg-input-200/50">
                 <Link to={tool.to} className="flex items-start justify-between gap-2 group">
@@ -331,7 +331,7 @@ export default function UnifiedSearch(): JSX.Element {
             <span className="font-display font-semibold text-sm">Pages</span>
             <span className="text-mini font-mono opacity-70">· {pageMatches.length}</span>
           </div>
-          <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+          <ul className="divide-y divide-line-1 dark:divide-slate-800/50">
             {pageMatches.map(({ page }) => {
               const Icon = PAGE_GROUP_ICONS[page.group] ?? Compass;
               const color = PAGE_GROUP_COLORS[page.group] ?? 'text-slate-500 border-slate-300 bg-slate-50';
@@ -379,7 +379,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {nothingAnywhere && (
         <div className="py-12 text-center">
-          <Search size={32} className="mx-auto text-slate-300 dark:text-muted mb-3" />
+          <Search size={32} className="mx-auto text-inverted dark:text-muted mb-3" />
           <p className="font-mono text-sm text-muted">
             No results for &ldquo;{query.trim()}&rdquo; across any tool or intelligence source.
           </p>
@@ -420,7 +420,7 @@ export default function UnifiedSearch(): JSX.Element {
                   <span className="font-display font-semibold text-sm">{section.label}</span>
                   <span className="text-mini font-mono opacity-70">· {section.total}</span>
                 </div>
-                <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                <ul className="divide-y divide-line-1 dark:divide-slate-800/50">
                   {(section.items ?? []).slice(0, 30).map((item, i) => (
                     <li
                       key={`${item.label}:${i}`}

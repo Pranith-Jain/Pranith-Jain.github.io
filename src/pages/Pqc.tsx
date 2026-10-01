@@ -147,7 +147,7 @@ export default function Pqc() {
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="font-mono text-micro font-bold text-brand-600 dark:text-brand-400">{alg.fips}</span>
                 </div>
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-1 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-1 leading-snug">
                   {alg.name}
                 </div>
                 <div className="text-micro font-mono text-muted leading-relaxed line-clamp-2">{alg.type}</div>

@@ -292,7 +292,7 @@ export default function PhoneOsint(): JSX.Element {
             aria-label="Search"
             type="submit"
             disabled={!input.trim()}
-            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded font-mono text-sm font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40 transition-colors"
+            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill rounded font-mono text-sm font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40 transition-colors"
           >
             <Search size={16} />
           </button>

@@ -176,7 +176,7 @@ export default function RansomwareQuant(): JSX.Element {
         <button
           type="button"
           onClick={() => setShowCreate(!showCreate)}
-          className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+          className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
         >
           <Plus size={11} /> New Scenario
         </button>
@@ -244,7 +244,7 @@ export default function RansomwareQuant(): JSX.Element {
             </button>
             <button
               type="submit"
-              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
             >
               Calculate
             </button>
@@ -276,7 +276,7 @@ export default function RansomwareQuant(): JSX.Element {
                 </span>
                 <span className="text-micro text-muted">{s.estimated_downtime_hours}h downtime</span>
               </div>
-              <div className="mt-1 w-full h-1 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+              <div className="mt-1 w-full h-1 rounded-full bg-track overflow-hidden">
                 <div
                   className="h-full rounded-full bg-emerald-500"
                   style={{ width: `${Math.min(100, (s.insurance_recovery / Math.max(s.total_impact, 1)) * 100)}%` }}

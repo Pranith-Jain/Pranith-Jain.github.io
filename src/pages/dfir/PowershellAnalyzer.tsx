@@ -267,7 +267,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                   type="button"
                   onClick={analyze}
                   disabled={!code.trim() || analyzing}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 text-on-fill text-sm font-medium hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <Sparkles size={14} /> {analyzing ? 'Analyzing…' : 'Analyze'}
                 </button>
@@ -302,7 +302,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                     setResult(null);
                     setFilename('Pasted Code');
                   }}
-                  className="ml-auto text-sm text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                  className="ml-auto text-sm text-muted hover:text-body dark:hover:text-inverted transition-colors"
                 >
                   Clear
                 </button>
@@ -418,7 +418,7 @@ export default function PowershellAnalyzer(): JSX.Element {
 
                   {/* Risk bar */}
                   <div className="mb-3">
-                    <div className="h-2 rounded-full bg-slate-200 dark:bg-line-1 overflow-hidden">
+                    <div className="h-2 rounded-full bg-track dark:bg-line-1 overflow-hidden">
                       <div
                         className={`h-full ${SEVERITY_BAR[result.risk.severity]} transition-all`}
                         style={{ width: `${result.risk.riskScore}%` }}
@@ -444,7 +444,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                 <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
                   <h3 className="text-sm font-display font-bold mb-2">Obfuscation Analysis</h3>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-line-1 overflow-hidden">
+                    <div className="flex-1 h-2 rounded-full bg-track dark:bg-line-1 overflow-hidden">
                       <div
                         className="h-full bg-sky-500 transition-all"
                         style={{ width: `${result.obfuscation.score}%` }}

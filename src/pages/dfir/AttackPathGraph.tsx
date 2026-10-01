@@ -480,7 +480,7 @@ export default function AttackPathGraph(): JSX.Element {
           <button
             type="button"
             onClick={fetchData}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 transition-colors"
           >
             <RefreshCw size={11} /> Refresh
           </button>

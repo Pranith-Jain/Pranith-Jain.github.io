@@ -476,7 +476,7 @@ function PillarBars({ feed }: { feed: FeedTifceScore }): JSX.Element {
         const s = feed[k].score;
         return (
           <div key={k} className="flex items-center gap-1.5" title={`${PILLAR_LABELS[k].label}: ${s.toFixed(1)}`}>
-            <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
+            <div className="flex-1 h-1.5 rounded-full bg-track overflow-hidden">
               <div
                 className={`h-full ${pillarBarColor(s)} transition-[width] duration-200`}
                 style={{ width: `${s}%` }}

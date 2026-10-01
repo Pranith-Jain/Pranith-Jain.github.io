@@ -293,7 +293,7 @@ export default function CyberPulse(): JSX.Element {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search incidents..."
-            className="pl-7 pr-2 py-1 text-sm rounded border border-line-2 bg-surface-100 text-slate-900 dark:text-white w-48"
+            className="pl-7 pr-2 py-1 text-sm rounded border border-line-2 bg-surface-100 text-heading w-48"
           />
         </div>
         <FilterSelect value={typeFilter} onChange={setTypeFilter} options={TYPE_LABELS} placeholder="Type" />
@@ -319,7 +319,7 @@ export default function CyberPulse(): JSX.Element {
           <button
             type="button"
             onClick={clearFilters}
-            className="text-xs text-muted hover:text-slate-900 dark:hover:text-white flex items-center gap-1 transition-colors"
+            className="text-xs text-muted hover:text-heading dark:hover:text-white flex items-center gap-1 transition-colors"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -365,7 +365,7 @@ export default function CyberPulse(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-surface-300"
+            className="p-1 rounded hover:bg-track dark:hover:bg-surface-300"
           >
             <RefreshCw className={`w-4 h-4 text-muted ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -467,7 +467,7 @@ export default function CyberPulse(): JSX.Element {
                       />
                       {TYPE_LABELS[t.incident_type] ?? t.incident_type}
                     </span>
-                    <span className="font-mono text-slate-900 dark:text-white">{t.count}</span>
+                    <span className="font-mono text-heading">{t.count}</span>
                   </button>
                 ))}
               </div>
@@ -490,7 +490,7 @@ export default function CyberPulse(): JSX.Element {
                   >
                     <span className="truncate">{a.name}</span>
                     <span className="flex items-center gap-1 font-mono">
-                      <span className="text-slate-900 dark:text-white">{a.this_week}</span>
+                      <span className="text-heading">{a.this_week}</span>
                       <span className="text-green-600 dark:text-green-400">+{a.delta}</span>
                     </span>
                   </button>
@@ -509,7 +509,7 @@ export default function CyberPulse(): JSX.Element {
                 {stats.top_victims.map((v) => (
                   <div key={v.victim_name} className="flex items-center justify-between px-2 py-1 text-xs text-body">
                     <span className="truncate">{v.victim_name}</span>
-                    <span className="font-mono text-slate-900 dark:text-white">{v.count}</span>
+                    <span className="font-mono text-heading">{v.count}</span>
                   </div>
                 ))}
               </div>

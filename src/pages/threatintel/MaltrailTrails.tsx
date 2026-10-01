@@ -132,7 +132,7 @@ export default function MaltrailTrails(): JSX.Element {
         <div className="lg:col-span-2">
           {!selected && !contentLoading && (
             <div className="surface-card p-8 text-center">
-              <Search size={32} className="mx-auto text-slate-300 mb-3" />
+              <Search size={32} className="mx-auto text-inverted mb-3" />
               <p className="text-sm font-mono text-muted">Select a trail file from the list to view its IOCs.</p>
             </div>
           )}

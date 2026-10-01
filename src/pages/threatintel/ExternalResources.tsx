@@ -543,14 +543,14 @@ export default function ExternalResources(): JSX.Element {
             <button
               type="button"
               onClick={() => setSignInOpen(false)}
-              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-3 py-1.5 text-tool text-muted hover:text-body dark:hover:text-inverted"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!tokenDraft.trim()}
-              className="px-3 py-1.5 rounded bg-rose-600 text-white text-tool font-semibold hover:bg-rose-500 disabled:opacity-40 transition-colors"
+              className="px-3 py-1.5 rounded bg-rose-600 text-on-fill text-tool font-semibold hover:bg-rose-500 disabled:opacity-40 transition-colors"
             >
               Sign in
             </button>
@@ -720,7 +720,7 @@ function AddResourceCard({
           <button
             type="submit"
             disabled={busy || !name.trim() || !url.trim()}
-            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-rose-600 dark:bg-rose-500 text-white font-semibold disabled:opacity-40 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center justify-center gap-1.5 transition-colors"
+            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-rose-600 dark:bg-rose-500 text-on-fill font-semibold disabled:opacity-40 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center justify-center gap-1.5 transition-colors"
           >
             {busy && <Loader2 size={12} className="animate-spin" />}
             {busy ? 'Saving…' : 'Save resource'}

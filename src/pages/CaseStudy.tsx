@@ -115,7 +115,7 @@ export default function CaseStudy(): JSX.Element {
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted mt-4">
           <span className="font-medium text-body">Pranith Jain</span>
-          <span aria-hidden="true" className="text-slate-300 dark:text-muted">
+          <span aria-hidden="true" className="text-inverted dark:text-muted">
             ·
           </span>
           <time dateTime={study.publishedAt}>
@@ -125,7 +125,7 @@ export default function CaseStudy(): JSX.Element {
               day: 'numeric',
             })}
           </time>
-          <span aria-hidden="true" className="text-slate-300 dark:text-muted">
+          <span aria-hidden="true" className="text-inverted dark:text-muted">
             ·
           </span>
           <span className="inline-flex items-center gap-1">
@@ -163,9 +163,9 @@ export default function CaseStudy(): JSX.Element {
 
       {html === null ? (
         <div className="space-y-3 text-muted" aria-busy="true" aria-label="Loading case study">
-          <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
-          <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
-          <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
+          <div className="h-4 w-3/4 rounded bg-track animate-pulse" />
+          <div className="h-4 w-2/3 rounded bg-track animate-pulse" />
+          <div className="h-4 w-5/6 rounded bg-track animate-pulse" />
         </div>
       ) : (
         <article

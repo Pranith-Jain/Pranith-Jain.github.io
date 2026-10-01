@@ -59,7 +59,7 @@ function CollapsibleCard({
     <div className="rounded-xl border border-line-1 bg-surface-100">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-slate-900 dark:text-white"
+        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-heading"
       >
         {title}
         {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -99,7 +99,7 @@ export default function WebamonDtb() {
     >
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Webamon Daily Threat Brief</h1>
+          <h1 className="text-2xl font-bold text-heading">Webamon Daily Threat Brief</h1>
           <p className="mt-1 text-sm text-muted">
             Source:{' '}
             <a
@@ -117,7 +117,7 @@ export default function WebamonDtb() {
           <select
             value={currentDate ?? ''}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="rounded-lg border border-line-2 bg-surface-100 px-3 py-2 text-sm text-slate-900 dark:text-white"
+            className="rounded-lg border border-line-2 bg-surface-100 px-3 py-2 text-sm text-heading"
           >
             {briefs.map((b) => (
               <option key={b.date} value={b.date}>
@@ -135,19 +135,15 @@ export default function WebamonDtb() {
           {brief.estate && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-                <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {brief.estate.campaignsTracked.toLocaleString()}
-                </div>
+                <div className="text-2xl font-bold text-heading">{brief.estate.campaignsTracked.toLocaleString()}</div>
                 <div className="text-xs text-muted">Campaigns Tracked</div>
               </div>
               <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-                <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {brief.estate.uniqueDomains.toLocaleString()}
-                </div>
+                <div className="text-2xl font-bold text-heading">{brief.estate.uniqueDomains.toLocaleString()}</div>
                 <div className="text-xs text-muted">Unique Domains</div>
               </div>
               <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
-                <div className="text-2xl font-bold text-slate-900 dark:text-white">{brief.estate.percentOnline}%</div>
+                <div className="text-2xl font-bold text-heading">{brief.estate.percentOnline}%</div>
                 <div className="text-xs text-muted">Online</div>
               </div>
             </div>
@@ -162,7 +158,7 @@ export default function WebamonDtb() {
                 const n = Number(String(kpi.value).replace(/,/g, ''));
                 return (
                   <div key={i} className="rounded-lg border border-line-1 bg-surface-100 p-3 text-center">
-                    <div className="text-lg font-bold text-slate-900 dark:text-white">
+                    <div className="text-lg font-bold text-heading">
                       {Number.isFinite(n) ? n.toLocaleString() : kpi.value}
                     </div>
                     <div className="text-mini leading-tight text-muted">{kpi.label}</div>
@@ -188,7 +184,7 @@ export default function WebamonDtb() {
                     <div key={i} className="flex gap-3">
                       <Icon size={16} className={`mt-0.5 shrink-0 ${cfg.color}`} />
                       <div>
-                        <div className="text-sm font-medium text-slate-900 dark:text-white">
+                        <div className="text-sm font-medium text-heading">
                           {m.url ? (
                             <a
                               href={m.url}

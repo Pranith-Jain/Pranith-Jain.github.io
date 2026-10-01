@@ -292,7 +292,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-surface-300"
+            className="p-1 rounded hover:bg-track dark:hover:bg-surface-300"
           >
             <RefreshCw className={`w-4 h-4 text-muted ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -328,7 +328,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                     <Icon className="w-4 h-4 text-muted" />
                     <span className="text-xs font-semibold text-heading truncate">{cfg?.label ?? cat}</span>
                   </div>
-                  <div className="text-lg font-bold text-slate-900 dark:text-white">{count}</div>
+                  <div className="text-lg font-bold text-heading">{count}</div>
                 </button>
               );
             })}
@@ -342,7 +342,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search IP or category..."
-          className="px-3 py-1.5 text-sm rounded border border-line-2 bg-surface-100 text-slate-900 dark:text-white w-48"
+          className="px-3 py-1.5 text-sm rounded border border-line-2 bg-surface-100 text-heading w-48"
         />
         <select
           value={confidenceFilter}
@@ -363,7 +363,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
               setConfidenceFilter('');
               setSearchQuery('');
             }}
-            className="text-xs text-muted hover:text-slate-900 dark:hover:text-white"
+            className="text-xs text-muted hover:text-heading dark:hover:text-white"
           >
             Clear filters
           </button>

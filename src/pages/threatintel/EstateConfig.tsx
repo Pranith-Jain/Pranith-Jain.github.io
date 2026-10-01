@@ -248,7 +248,7 @@ export default function EstateConfig() {
             <button
               type="button"
               onClick={() => addTech(techInput)}
-              className="px-3 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700"
+              className="px-3 py-2 rounded-xl bg-amber-600 text-on-fill text-sm font-medium hover:bg-amber-700"
             >
               <Plus size={16} />
             </button>
@@ -295,7 +295,7 @@ export default function EstateConfig() {
         type="button"
         onClick={saveConfig}
         disabled={saving}
-        className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 disabled:opacity-50 transition-colors"
+        className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-on-fill text-sm font-medium hover:bg-amber-700 disabled:opacity-50 transition-colors"
       >
         <Save size={16} /> {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Configuration'}
       </button>
@@ -343,7 +343,7 @@ export default function EstateConfig() {
           <button
             type="button"
             onClick={addAsset}
-            className="inline-flex items-center gap-1 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 transition-colors"
+            className="inline-flex items-center gap-1 px-4 py-2 rounded-xl bg-amber-600 text-on-fill text-sm font-medium hover:bg-amber-700 transition-colors"
           >
             <Plus size={16} /> Add
           </button>

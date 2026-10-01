@@ -39,7 +39,7 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="font-mono font-bold text-heading">{technique.id}</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-slate-200 dark:bg-surface-300 border border-line-2 text-muted font-mono">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-track border border-line-2 text-muted font-mono">
                   {technique.tactic || 'Unknown'}
                 </span>
                 {technique.count && (
@@ -65,7 +65,7 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
         <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
           <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
             <div className="font-mono text-xs tracking-widest text-muted mb-2">DESCRIPTION</div>
-            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            <p className="text-sm leading-relaxed text-body">
               {technique.description ||
                 `Adversaries may use ${technique.id} — ${technique.name} to achieve ${technique.tactic || 'objective'}. Observed ${technique.count || 12} times in recent intelligence.`}
             </p>

@@ -251,7 +251,7 @@ export default function GenerateTab() {
           <button
             onClick={() => void handleGenerate()}
             disabled={generating || !topic.trim() || Object.values(formats).every((v) => !v)}
-            className="px-4 py-2 bg-brand-600 text-white rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
+            className="px-4 py-2 bg-brand-600 text-on-fill rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
           >
             {generating ? 'Generating…' : 'Generate'}
           </button>
@@ -374,7 +374,7 @@ export default function GenerateTab() {
           <button
             onClick={() => void handlePublishManual()}
             disabled={sending || !title.trim() || !body.trim()}
-            className="px-4 py-2 bg-brand-600 text-white rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
+            className="px-4 py-2 bg-brand-600 text-on-fill rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
           >
             {sending ? 'Publishing…' : 'Publish'}
           </button>

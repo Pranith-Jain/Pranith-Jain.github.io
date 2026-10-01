@@ -106,11 +106,11 @@ export default function ThreatIntelHome(): JSX.Element {
             </span>
             <span className="text-rose-600 dark:text-rose-400">Live</span>
           </span>
-          <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
+          <span aria-hidden="true" className="text-inverted">
             /
           </span>
           <span>30+ feeds · 90s refresh · no login</span>
-          <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
+          <span aria-hidden="true" className="text-inverted">
             /
           </span>
           <span>edge-hosted on Cloudflare</span>
@@ -119,7 +119,7 @@ export default function ThreatIntelHome(): JSX.Element {
         {/* H1 - same treatment as the DFIR home: bigger, tighter, real
             display weight. The visual rule is the same on both landings
             so visitors who switch between them read it as one product. */}
-        <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
+        <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.04em] text-heading">
           See the threats.
           <br className="hidden sm:inline" />
           <span className="sm:inline"> Stop them before they strike.</span>
@@ -142,7 +142,7 @@ export default function ThreatIntelHome(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actors, CVEs, campaigns, feeds, tools..."
-            className="w-full rounded-xl border border-line-1 bg-surface-200 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="w-full rounded-xl border border-line-1 bg-surface-200 py-3 pl-11 pr-24 font-mono text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:placeholder:text-muted"
             aria-label="Search threat intelligence"
           />
           {query ? (
@@ -152,7 +152,7 @@ export default function ThreatIntelHome(): JSX.Element {
                 setQuery('');
                 inputRef.current?.focus();
               }}
-              className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-surface-300 dark:hover:text-slate-100"
+              className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-muted hover:bg-track hover:text-heading dark:hover:bg-surface-300 dark:hover:text-slate-100"
               aria-label="Clear search"
             >
               <X size={12} /> clear
@@ -176,7 +176,7 @@ export default function ThreatIntelHome(): JSX.Element {
             <Link
               key={link.href}
               to={link.href}
-              className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
+              className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-muted hover:border-rose-300 hover:text-rose-600 dark:hover:border-rose-600 dark:hover:text-rose-400"
             >
               {link.label}
             </Link>
@@ -197,7 +197,7 @@ export default function ThreatIntelHome(): JSX.Element {
               className={`flex flex-col gap-1.5 py-3 sm:py-4 ${i === 0 ? 'sm:pr-6' : i === 1 ? 'sm:px-6' : 'sm:pl-6'}`}
             >
               <dt className="font-mono text-micro uppercase tracking-[0.16em] text-muted">{stat.label}</dt>
-              <dd className="font-display text-3xl sm:text-4xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
+              <dd className="font-display text-3xl sm:text-4xl font-bold leading-none tabular-nums text-heading">
                 {stat.value}
               </dd>
               <dd className="font-mono text-mini text-muted">{stat.sub}</dd>
@@ -227,7 +227,7 @@ export default function ThreatIntelHome(): JSX.Element {
                           {category.label}
                         </span>
                       </div>
-                      <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-rose-600 dark:text-slate-100 dark:group-hover:text-rose-400">
+                      <h3 className="font-display text-sm font-semibold text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400">
                         {t.label}
                       </h3>
                       <p className="mt-1 text-xs text-muted line-clamp-2">{t.desc}</p>
@@ -301,7 +301,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     </div>
                     <ArrowRight
                       size={14}
-                      className="ml-auto text-slate-300 dark:text-slate-700 group-hover:text-rose-500 transition-colors shrink-0"
+                      className="ml-auto text-inverted group-hover:text-rose-500 transition-colors shrink-0"
                     />
                   </Link>
                 );
@@ -381,7 +381,7 @@ export default function ThreatIntelHome(): JSX.Element {
           <div className="mt-8 flex justify-center sm:mt-10">
             <Link
               to="/threatintel/catalog"
-              className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
+              className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-body hover:border-rose-300 hover:text-rose-600 dark:hover:border-rose-600 dark:hover:text-rose-400"
             >
               <Compass size={16} />
               Browse the full catalog

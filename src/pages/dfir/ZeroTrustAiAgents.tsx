@@ -431,7 +431,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
           </div>
           <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-start">
             <div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.05]">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-heading leading-[1.05]">
                 ZERO TRUST FOR AI AGENTS
               </h1>
               <p className="mt-3 text-base sm:text-lg text-muted max-w-2xl leading-relaxed">
@@ -523,7 +523,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   value={matrixQuery}
                   onChange={(e) => setMatrixQuery(e.target.value)}
                   placeholder="Filter domains, controls…"
-                  className="w-full pl-7 pr-3 py-1.5 bg-surface-100 ring-1 ring-slate-200 dark:ring-slate-800 focus-visible:ring-brand-500/40 text-meta font-mono text-heading placeholder:text-slate-500 focus:outline-none"
+                  className="w-full pl-7 pr-3 py-1.5 bg-surface-100 ring-1 ring-slate-200 dark:ring-slate-800 focus-visible:ring-brand-500/40 text-meta font-mono text-heading placeholder:text-muted focus:outline-none"
                   aria-label="Filter capability matrix"
                 />
               </div>
@@ -889,7 +889,7 @@ function SectionHeader({ label, tone }: { label: string; tone: 'brand' | 'rose' 
       <span className={`font-display font-bold text-eyebrow tracking-[0.18em] uppercase ${colorMap[tone]}`}>
         {label}
       </span>
-      <span className="flex-1 h-px bg-slate-200 dark:bg-surface-300" />
+      <span className="flex-1 h-px bg-track" />
     </div>
   );
 }

@@ -183,7 +183,7 @@ export default function Analyze(): JSX.Element {
   const SortHeader = ({ label, sort }: { label: string; sort: SortKey }) => (
     <th
       scope="col"
-      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-slate-500 cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-300"
+      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-muted cursor-pointer select-none hover:text-body dark:hover:text-inverted"
       onClick={() => toggleSort(sort)}
     >
       <span className="inline-flex items-center gap-1">
@@ -238,7 +238,7 @@ export default function Analyze(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || detectedType === 'unknown' || streaming}
-            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
+            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
           >
             {streaming ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
             {streaming ? 'Analyzing…' : 'Analyze'}
@@ -291,7 +291,7 @@ export default function Analyze(): JSX.Element {
             </div>
           </div>
           <div className="mb-3">
-            <div className="h-3 w-full bg-slate-200 dark:bg-surface-300 rounded-full overflow-hidden">
+            <div className="h-3 w-full bg-track rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-1000 ${scoreBarClass(summary.score)}`}
                 style={{ width: `${summary.score}%` }}
@@ -423,7 +423,7 @@ export default function Analyze(): JSX.Element {
                         </td>
                         <td className="px-3 py-2.5">
                           <div className="flex items-center gap-2">
-                            <div className="w-16 h-1.5 bg-slate-200 dark:bg-surface-300 rounded-full overflow-hidden">
+                            <div className="w-16 h-1.5 bg-track rounded-full overflow-hidden">
                               <div
                                 className={`h-full rounded-full ${scoreBarClass(r.score)}`}
                                 style={{ width: `${r.score}%` }}
@@ -489,7 +489,7 @@ export default function Analyze(): JSX.Element {
             </div>
 
             {expanded.size > 0 && (
-              <div className="border-t border-line-1 divide-y divide-slate-100 dark:divide-slate-800/50">
+              <div className="border-t border-line-1 divide-y divide-line-1 dark:divide-slate-800/50">
                 {sortedResults
                   .filter((r) => expanded.has(r.source))
                   .map((r) => {
@@ -563,7 +563,7 @@ export default function Analyze(): JSX.Element {
 
       {!streaming && results.length === 0 && !error && !summary && (
         <div className="surface-card p-12 text-center">
-          <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
+          <Search size={32} className="mx-auto text-inverted mb-3" />
           <p className="text-sm font-mono text-muted">Enter an observable above to run a multi-source analysis</p>
           <p className="text-xs font-mono text-muted mt-2">
             Fans out to 45 threat intel providers - Spamhaus, VirusTotal, AbuseIPDB, AlienVault OTX, ThreatFox, URLhaus,

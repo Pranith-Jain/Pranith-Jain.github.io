@@ -122,7 +122,7 @@ export function LandscapeView({ actors, feed }: Props) {
               {search && (
                 <button
                   onClick={() => setSearch('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-muted dark:hover:text-inverted"
                 >
                   <X size={12} />
                 </button>
@@ -361,7 +361,7 @@ export function LandscapeView({ actors, feed }: Props) {
 function KPI({ label, value, icon: Icon }: { label: string; value: number; icon: typeof ShieldAlert }) {
   return (
     <div className="surface-card p-4 flex items-center gap-3">
-      <span className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 bg-surface-300 text-slate-600 dark:text-slate-300">
+      <span className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 bg-surface-300 text-muted">
         <Icon size={18} />
       </span>
       <div>

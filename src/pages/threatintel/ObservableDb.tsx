@@ -291,7 +291,7 @@ export default function ObservableDb(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowAddForm(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
           >
             <Plus size={14} /> Add Observable
           </button>
@@ -333,7 +333,7 @@ export default function ObservableDb(): JSX.Element {
             <button
               type="submit"
               disabled={!addIndicator.trim()}
-              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30"
+              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-meta font-semibold rounded disabled:opacity-30"
             >
               Save
             </button>
@@ -397,7 +397,7 @@ export default function ObservableDb(): JSX.Element {
 
           {!loading && entries.length === 0 && (
             <div className="surface-card p-12 text-center">
-              <Database size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
+              <Database size={32} className="mx-auto text-inverted mb-3" />
               <p className="text-sm font-mono text-muted">No observables saved yet</p>
               <p className="text-xs font-mono text-muted mt-1">
                 Use the analysis page to check IOCs and save results here, or add manually
@@ -567,7 +567,7 @@ export default function ObservableDb(): JSX.Element {
                         aria-label="Add"
                         type="submit"
                         disabled={!tagDraft.trim()}
-                        className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-white rounded text-micro font-mono disabled:opacity-30"
+                        className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill rounded text-micro font-mono disabled:opacity-30"
                       >
                         <Plus size={12} />
                       </button>
@@ -637,7 +637,7 @@ export default function ObservableDb(): JSX.Element {
                       aria-label="Add"
                       type="submit"
                       disabled={!noteText.trim()}
-                      className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-white rounded text-micro font-mono disabled:opacity-30"
+                      className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill rounded text-micro font-mono disabled:opacity-30"
                     >
                       <Plus size={12} />
                     </button>

@@ -155,3 +155,107 @@ describe('design token contrast: decorative hairlines are not held to 3:1', () =
     }
   });
 });
+
+describe('design token contrast: --inverted (SC 1.4.3 AA, 4.5:1)', () => {
+  /**
+   * Why this token exists. Phase 2 collapsed the raw pair
+   * `text-slate-300 dark:text-slate-700` onto one token. The LIGHT half of
+   * that pair measured **1.48:1 on white** — effectively invisible. So the
+   * token is not a faithful average of the two ends: it is the first value
+   * that actually passes on both.
+   *
+   * These tests pin that floor, because "average the pair" is the intuitive
+   * (wrong) thing to do if someone revisits the value.
+   */
+  for (const mode of ['light', 'dark'] as const) {
+    it(`--inverted clears 4.5:1 on every surface (${mode})`, () => {
+      const color = token('inverted', mode);
+      for (const surface of ['surface-100', 'surface-200', 'surface-300'] as const) {
+        const bg = token(surface, mode);
+        expect(
+          contrast(color, bg),
+          `--inverted on --${surface} (${mode}) is ${contrast(color, bg).toFixed(2)}:1`
+        ).toBeGreaterThanOrEqual(TEXT_MIN);
+      }
+    });
+  }
+
+  it('is weaker than --ink-body in dark mode, and equal to it in light', () => {
+    // Light mode has no ink step below --ink-body that still clears 4.5:1,
+    // so --inverted IS --ink-body there (9.92:1 on surface-200). That
+    // collapse is the honest outcome, not an oversight: de-emphasising light
+    // mode further would mean dropping below the text floor.
+    const light = token('surface-200', 'light');
+    expect(contrast(token('inverted', 'light'), light)).toBe(contrast(token('ink-body', 'light'), light));
+
+    // Dark mode does have a weaker step, and uses it.
+    const dark = token('surface-200', 'dark');
+    expect(contrast(token('inverted', 'dark'), dark)).toBeLessThan(contrast(token('ink-body', 'dark'), dark));
+    expect(contrast(token('inverted', 'dark'), dark)).toBeGreaterThanOrEqual(TEXT_MIN);
+  });
+
+  it('would fail if someone averaged the original pair', () => {
+    // Guards the reasoning above: slate-300 on white is the value that made
+    // this token necessary in the first place.
+    expect(contrast([203, 213, 225], [255, 255, 255])).toBeLessThan(TEXT_MIN);
+  });
+});
+
+describe('design token contrast: --on-fill (white ink on saturated fills)', () => {
+  /**
+   * `--on-fill` is white in BOTH modes. That is deliberate: the fill decides
+   * the contrast, so the ink must not flip with the theme the way
+   * --ink-heading does (its dark value is a blue-tinted near-white, which
+   * goes muddy on brand-600).
+   */
+  for (const mode of ['light', 'dark'] as const) {
+    it(`--on-fill is pure white in ${mode}`, () => {
+      expect(token('on-fill', mode)).toEqual([255, 255, 255]);
+    });
+  }
+
+  it.each([
+    ['brand-600', '#2c3ee5'],
+    ['brand-500', '#435ef1'],
+    ['brand-700', '#232ebf'],
+    ['rose-600', '#e11d48'],
+    ['rose-700', '#be123c'],
+  ])('clears 4.5:1 on %s', (_name, hex) => {
+    const fill = hex
+      .replace('#', '')
+      .match(/../g)!
+      .map((h) => parseInt(h, 16)) as RGB;
+    expect(
+      contrast([255, 255, 255], fill),
+      `white on ${_name} is ${contrast([255, 255, 255], fill).toFixed(2)}:1`
+    ).toBeGreaterThanOrEqual(TEXT_MIN);
+  });
+});
+
+describe('design token contrast: --focus-ring (SC 1.4.11, 3:1)', () => {
+  /**
+   * The focus ring is drawn with a 3px outline-offset, so it can land on any
+   * surface including the highest-elevation one. This is the specific reason
+   * the channel exists rather than a hardcoded brand-400, which reached only
+   * 2.88:1 on --surface-300 in light mode.
+   */
+  for (const mode of ['light', 'dark'] as const) {
+    it(`--focus-ring clears 3:1 on every surface (${mode})`, () => {
+      const ring = token('focus-ring', mode);
+      for (const surface of ['surface-100', 'surface-200', 'surface-300'] as const) {
+        const bg = token(surface, mode);
+        expect(
+          contrast(ring, bg),
+          `--focus-ring on --${surface} (${mode}) is ${contrast(ring, bg).toFixed(2)}:1`
+        ).toBeGreaterThanOrEqual(NONTEXT_MIN);
+      }
+    });
+  }
+
+  it('differs from --accent-text so each can be tuned independently', () => {
+    // Both currently resolve to the same brand step; pinning the pairing
+    // makes an intentional divergence a deliberate edit.
+    expect(token('focus-ring', 'light')).toEqual(token('accent-text', 'light'));
+    expect(token('focus-ring', 'dark')).toEqual(token('accent-text', 'dark'));
+  });
+});

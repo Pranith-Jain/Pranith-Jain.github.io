@@ -315,7 +315,7 @@ export default function SecretLeaks(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setTab('live')}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-rose-600 text-white rounded-xl font-mono text-sm hover:bg-rose-700 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-rose-600 text-on-fill rounded-xl font-mono text-sm hover:bg-rose-700 transition-colors"
               >
                 <Key size={16} /> View Live Leaks
               </button>
@@ -332,7 +332,7 @@ export default function SecretLeaks(): JSX.Element {
                   <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
                     Related research
                   </p>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
+                  <h3 className="text-sm font-semibold text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400">
                     RedHunt Labs Research
                   </h3>
                   <p className="mt-1 text-xs text-muted leading-relaxed">
@@ -356,7 +356,7 @@ export default function SecretLeaks(): JSX.Element {
                   <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
                     Upstream
                   </p>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
+                  <h3 className="text-sm font-semibold text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400">
                     research.redhuntlabs.com
                   </h3>
                   <p className="mt-1 text-xs text-muted leading-relaxed">
@@ -377,7 +377,7 @@ export default function SecretLeaks(): JSX.Element {
                   <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
                     Live analytics
                   </p>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
+                  <h3 className="text-sm font-semibold text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400">
                     RedHunt Internet Insights
                   </h3>
                   <p className="mt-1 text-xs text-muted leading-relaxed">
@@ -411,7 +411,7 @@ export default function SecretLeaks(): JSX.Element {
                       setPage(1);
                     }}
                     placeholder="Repo, file, provider..."
-                    className="w-full pl-8 pr-3 py-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                    className="w-full pl-8 pr-3 py-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
                   />
                 </div>
               </label>
@@ -423,7 +423,7 @@ export default function SecretLeaks(): JSX.Element {
                     setSeverityFilter(e.target.value as Severity | 'all');
                     setPage(1);
                   }}
-                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All levels</option>
                   <option value="critical">Critical</option>
@@ -440,7 +440,7 @@ export default function SecretLeaks(): JSX.Element {
                     setProviderFilter(e.target.value);
                     setPage(1);
                   }}
-                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All providers</option>
                   {providers.map((p) => (
@@ -458,7 +458,7 @@ export default function SecretLeaks(): JSX.Element {
                     setSourceFilter(e.target.value as 'all' | Source);
                     setPage(1);
                   }}
-                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">Files and commits</option>
                   <option value="file">Files only</option>
@@ -470,7 +470,7 @@ export default function SecretLeaks(): JSX.Element {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                  className="py-2 px-2 bg-surface-100 border border-line-1 rounded text-xs font-mono text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="score">Exposure score</option>
                   <option value="secrets">Secret count</option>
@@ -531,7 +531,7 @@ export default function SecretLeaks(): JSX.Element {
                             </span>
                           </div>
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-sm font-mono font-semibold text-slate-900 dark:text-white">
+                            <span className="text-sm font-mono font-semibold text-heading">
                               {leak.owner}/{leak.repo}
                             </span>
                             <span className="text-xs text-muted">/</span>

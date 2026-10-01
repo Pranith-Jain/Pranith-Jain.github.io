@@ -276,7 +276,7 @@ export default function MispBrowser() {
             type="button"
             onClick={() => void connect()}
             disabled={loading || !baseUrl || !apiKey}
-            className="px-4 py-2 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50"
           >
             {loading ? 'Connecting...' : 'Connect'}
           </button>
@@ -550,7 +550,7 @@ export default function MispBrowser() {
           type="button"
           onClick={() => loadEvents(1)}
           disabled={loading}
-          className="px-3 py-1.5 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
+          className="px-3 py-1.5 text-xs font-mono rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50"
         >
           {loading ? 'Loading...' : 'Filter'}
         </button>
@@ -623,7 +623,7 @@ export default function MispBrowser() {
                   </span>
                   <ExternalLink
                     size={14}
-                    className="text-slate-400 dark:text-slate-300 group-hover:text-rose-500 transition-colors"
+                    className="text-muted dark:text-inverted group-hover:text-rose-500 transition-colors"
                   />
                 </div>
               </div>

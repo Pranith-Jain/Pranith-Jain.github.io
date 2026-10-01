@@ -377,7 +377,7 @@ function FortiBleedPanel() {
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : 'Check'}
           </button>
@@ -777,7 +777,7 @@ function ThreatReportsPanel() {
             type="button"
             onClick={handleGenerate}
             disabled={loading || (reportType === 'external' && !domain)}
-            className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
+            className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : 'Generate'}
           </button>

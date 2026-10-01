@@ -516,7 +516,7 @@ export default function ThreatMap(): JSX.Element {
                 />
               </Suspense>
               {hovered && !hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
+                <div className="absolute top-3 left-3 rounded-xl bg-surface-100/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-inverted">
                   {hovered.name}: no current IOCs
                 </div>
               )}

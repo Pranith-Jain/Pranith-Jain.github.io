@@ -27,9 +27,9 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
         {Array.from({ length: rows }).map((_, i) => (
           <div key={i} className="surface-card p-4 animate-pulse" style={{ animationDelay: `${i * 70}ms` }}>
-            <div className="h-4 w-1/3 rounded bg-slate-200/70 dark:bg-surface-300/70" />
-            <div className="mt-3 h-3 w-full rounded bg-slate-200/50 dark:bg-surface-300/50" />
-            <div className="mt-2 h-3 w-2/3 rounded bg-slate-200/50 dark:bg-surface-300/50" />
+            <div className="h-4 w-1/3 rounded bg-track/70 dark:bg-surface-300/70" />
+            <div className="mt-3 h-3 w-full rounded bg-track/50 dark:bg-surface-300/50" />
+            <div className="mt-2 h-3 w-2/3 rounded bg-track/50 dark:bg-surface-300/50" />
           </div>
         ))}
       </div>
@@ -42,7 +42,7 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
         {/* header row */}
         <div className="flex gap-4 pb-2 border-b border-line-1">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-3 flex-1 rounded bg-slate-200/70 dark:bg-surface-300/70 animate-pulse" />
+            <div key={i} className="h-3 flex-1 rounded bg-track/70 dark:bg-surface-300/70 animate-pulse" />
           ))}
         </div>
         {Array.from({ length: rows }).map((_, i) => (
@@ -50,7 +50,7 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
             {Array.from({ length: 4 }).map((_, j) => (
               <div
                 key={j}
-                className="h-3 flex-1 rounded bg-slate-200/50 dark:bg-surface-300/50 animate-pulse"
+                className="h-3 flex-1 rounded bg-track/50 dark:bg-surface-300/50 animate-pulse"
                 style={{ width: `${88 - (j % 3) * 12}%`, animationDelay: `${i * 70}ms` }}
               />
             ))}
@@ -66,7 +66,7 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
-          className="h-4 rounded bg-slate-200/70 dark:bg-surface-300/70 animate-pulse"
+          className="h-4 rounded bg-track/70 dark:bg-surface-300/70 animate-pulse"
           style={{ width: `${92 - (i % 4) * 11}%`, animationDelay: `${i * 70}ms` }}
         />
       ))}

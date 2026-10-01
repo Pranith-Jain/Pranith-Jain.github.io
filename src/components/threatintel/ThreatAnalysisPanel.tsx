@@ -161,7 +161,7 @@ export function ThreatAnalysisPanel({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">AI Threat Analysis</h3>
+              <h3 className="text-sm font-bold text-heading">AI Threat Analysis</h3>
               {model && (
                 <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
                   {model}
@@ -176,7 +176,7 @@ export function ThreatAnalysisPanel({
             type="button"
             onClick={() => fetchAnalysis()}
             disabled={loading}
-            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
+            className="p-1.5 rounded text-muted hover:text-body dark:hover:text-inverted hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
             title="Re-analyze"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -184,7 +184,7 @@ export function ThreatAnalysisPanel({
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
+            className="p-1.5 rounded text-muted hover:text-body dark:hover:text-inverted hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
           >
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
@@ -192,7 +192,7 @@ export function ThreatAnalysisPanel({
             aria-label="Close"
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
+            className="p-1.5 rounded text-muted hover:text-body dark:hover:text-inverted hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
           >
             <X size={14} />
           </button>
@@ -402,7 +402,7 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
         <span className="text-micro font-mono text-muted">confidence: {analysis.confidence}</span>
       </div>
 
-      <div className="rounded-xl bg-surface-300/50 p-3 font-mono text-xs text-slate-300 break-all">
+      <div className="rounded-xl bg-surface-300/50 p-3 font-mono text-xs text-inverted break-all">
         {analysis.indicator}
       </div>
 

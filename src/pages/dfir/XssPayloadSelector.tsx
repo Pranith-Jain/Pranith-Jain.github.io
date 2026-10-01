@@ -645,7 +645,7 @@ export default function XssPayloadSelector(): JSX.Element {
           <button
             type="button"
             onClick={() => setSelectedPayloads(new Set())}
-            className="text-xs px-2 py-1 rounded text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            className="text-xs px-2 py-1 rounded text-muted hover:text-body dark:hover:text-inverted"
           >
             Clear
           </button>
@@ -696,7 +696,7 @@ export default function XssPayloadSelector(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => copyPayload(p.payload, p.id)}
-                      className="shrink-0 p-1.5 rounded bg-surface-300 hover:bg-slate-200 dark:hover:bg-surface-300"
+                      className="shrink-0 p-1.5 rounded bg-surface-300 hover:bg-track dark:hover:bg-surface-300"
                       title="Copy payload"
                     >
                       <Copy size={12} />

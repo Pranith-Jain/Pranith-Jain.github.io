@@ -263,7 +263,7 @@ export default function Workspaces() {
                     <span className={isCurrent ? 'text-heading' : 'text-muted'}>{phase.label}</span>
                   </div>
                   {i < PHASES.length - 1 && (
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-muted mx-0.5 shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 text-inverted dark:text-muted mx-0.5 shrink-0" />
                   )}
                 </div>
               );
@@ -316,7 +316,7 @@ export default function Workspaces() {
               <Link
                 key={to}
                 to={to}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-surface-200 rounded border border-line-1 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors text-mini font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-surface-200 rounded border border-line-1 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors text-mini font-mono text-muted hover:text-heading dark:hover:text-slate-100"
               >
                 <Icon className="w-3 h-3" /> {label}
               </Link>
@@ -338,7 +338,7 @@ export default function Workspaces() {
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
         >
           <Plus size={14} /> New Workspace
         </button>
@@ -406,13 +406,13 @@ export default function Workspaces() {
             <button
               type="button"
               onClick={() => setShowCreate(false)}
-              className="px-3 py-1.5 text-meta font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
+              className="px-3 py-1.5 text-meta font-mono text-muted hover:text-heading dark:hover:text-slate-100"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
+              className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
             >
               Create
             </button>
@@ -482,7 +482,7 @@ export default function Workspaces() {
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
-                  <ChevronRight className="w-4 h-4 text-slate-300 dark:text-muted group-hover:text-rose-500 transition-colors" />
+                  <ChevronRight className="w-4 h-4 text-inverted dark:text-muted group-hover:text-rose-500 transition-colors" />
                 </div>
               </div>
             </div>

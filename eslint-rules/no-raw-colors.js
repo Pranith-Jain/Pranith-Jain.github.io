@@ -45,8 +45,9 @@ function readTheme() {
     surfaces: ['surface-100', 'surface-200', 'surface-300'],
     lines: ['line-1', 'line-2', 'line-3', 'line-input'],
     inputs: ['input-200'],
-    ink: ['muted', 'heading', 'body'],
-    accents: ['accent-text', 'focus-ring'],
+    ink: ['muted', 'heading', 'body', 'inverted'],
+    accents: ['accent-text', 'focus-ring', 'on-fill'],
+    tracks: ['track'],
   };
   let css;
   try {
@@ -69,8 +70,9 @@ function readTheme() {
   const surfaces = grab('surface-');
   const lines = grab('line-');
   const inputs = grab('input-');
-  const ink = ['muted', 'heading', 'body'].filter((t) => theme.includes(`--color-${t}:`));
-  const accents = ['accent-text', 'focus-ring'].filter((t) => theme.includes(`--color-${t}:`));
+  const ink = ['muted', 'heading', 'body', 'inverted'].filter((t) => theme.includes(`--color-${t}:`));
+  const accents = ['accent-text', 'focus-ring', 'on-fill'].filter((t) => theme.includes(`--color-${t}:`));
+  const tracks = ['track'].filter((t) => theme.includes(`--color-${t}:`));
 
   return {
     surfaces: surfaces.length ? surfaces : fallback.surfaces,
@@ -78,6 +80,7 @@ function readTheme() {
     inputs: inputs.length ? inputs : fallback.inputs,
     ink: ink.length ? ink : fallback.ink,
     accents: accents.length ? accents : fallback.accents,
+    tracks: tracks.length ? tracks : fallback.tracks,
   };
 }
 
@@ -98,6 +101,7 @@ const TOKEN_UTILITIES = new Set([
   ]),
   ...THEME.ink.map((v) => `text-${v}`),
   ...THEME.accents.map((v) => `text-${v}`),
+  ...THEME.tracks.map((v) => `bg-${v}`),
 ]);
 
 /**
@@ -117,6 +121,10 @@ const RAW_TO_TOKEN = {
   'bg-slate-100': 'bg-surface-300',
   'bg-slate-800': 'bg-surface-200',
   'bg-slate-900': 'bg-surface-100',
+  // A loading track on a card. Only safe as a HALF of a pair: a bare
+  // `bg-slate-200` is usually a skeleton, but the pairing with
+  // `dark:bg-surface-300` is what proves intent.
+  'bg-slate-200': 'bg-track',
   'border-slate-100': 'border-line-1',
   'border-slate-200': 'border-line-1',
   'border-slate-300': 'border-line-2',
@@ -129,7 +137,21 @@ const RAW_TO_TOKEN = {
   'text-slate-600': 'text-muted',
   'text-slate-500': 'text-muted',
   'text-slate-400': 'text-muted',
+  // White ink on a saturated fill. Only correct when the element actually
+  // carries a brand/severity background, which is why the check below
+  // gates it rather than the table doing it.
+  'text-white': 'text-on-fill',
+  'text-slate-300': 'text-inverted',
+  'text-slate-200': 'text-inverted',
 };
+
+/**
+ * `text-white` only maps to `text-on-fill` when the element actually has a
+ * saturated background. White text on a neutral surface is a contrast bug,
+ * and silently "fixing" it to a theme-reactive ink would hide that. The
+ * table above records the intent; this decides whether it is safe.
+ */
+const SATURATED_FILL = /^bg-(?:brand|rose|red|emerald|amber|orange|violet|sky|indigo|purple|teal|cyan|green)-\d{2,3}$/;
 
 const NEUTRAL = '(?:slate|gray|zinc|neutral|stone)';
 const RAW_VALUE = new RegExp(`^(?:white|${NEUTRAL}-\\d{2,3})$`);
@@ -304,6 +326,9 @@ function inspect(raw) {
   const issues = [];
   let changed = false;
 
+  // `text-white` is only a token when it sits on a saturated fill.
+  const onSaturatedFill = classes.some((c) => !c.includes(':') && SATURATED_FILL.test(c));
+
   for (const cls of classes) {
     if (!isSuspicious(cls)) continue;
 
@@ -333,7 +358,22 @@ function inspect(raw) {
     // (1) raw palette color.
     const u = splitUtility(cls);
     if (!COLOR_PROPS.includes(u.prop) || NON_COLOR.has(cls) || !RAW_VALUE.test(u.value)) continue;
-    const token = RAW_TO_TOKEN[`${u.prop}-${u.value}`];
+    const tableKey = `${u.prop}-${u.value}`;
+    // White ink only becomes a token on a saturated fill. Off one, it is a
+    // contrast bug worth reporting, not worth silently rewriting.
+    const gated = tableKey === 'text-white' && !onSaturatedFill;
+    const token = gated ? undefined : RAW_TO_TOKEN[tableKey];
+
+    // `dark:bg-white/10` is an overlay that LIFTS the surface (white at 10% on
+    // a navy card). Rewriting it to `dark:bg-surface-100/10` would DARKEN it,
+    // because --surface-100 is near-black in dark mode -- the opposite of the
+    // author's intent. Same for `black` under `dark:`. So an alpha-modified
+    // pure white/black is reported but never auto-fixed.
+    const alphaOnExtremes = Boolean(u.opacity) && (u.value === 'white' || u.value === 'black');
+    if (token && alphaOnExtremes) {
+      issues.push({ messageId: 'rawColorNoToken', data: { raw: cls }, fixable: false });
+      continue;
+    }
     const prefix = u.variants.length ? `${u.variants.join(':')}:` : '';
     if (token) {
       const rebuilt = `${prefix}${token}${u.opacity ? `/${u.opacity}` : ''}`;
@@ -353,30 +393,34 @@ function inspect(raw) {
   }
 
   if (!changed) return { fixed: null, issues };
-  // Rebuild preserving the original whitespace so the diff stays minimal.
-  let cursor = 0;
+  // Rebuild preserving the original whitespace. Each class is rewritten
+  // independently so an unmappable sibling cannot block a mappable one --
+  // an earlier all-or-nothing version left ~800 fixable warnings behind
+  // purely because something else in the same className had no mapping.
   let result = '';
-  const parts = raw.split(/(\s+)/);
-  for (const part of parts) {
-    const found = classes.indexOf(part, cursor);
-    if (found !== -1) {
-      cursor = found + 1;
-      if (!isSuspicious(part)) {
-        result += part;
-        continue;
-      }
-      result += rewriteArbitrary(part) ?? rawToToken(part) ?? part;
-    } else {
+  const seen = new Map();
+  for (const part of raw.split(/(\s+)/)) {
+    if (!part.trim()) {
       result += part;
+      continue;
     }
+    const n = (seen.get(part) ?? 0) + 1;
+    seen.set(part, n);
+    if (!isSuspicious(part)) {
+      result += part;
+      continue;
+    }
+    result += rewriteArbitrary(part) ?? rawToToken(part, onSaturatedFill) ?? part;
   }
   return { fixed: result, issues };
 }
 
 /** Rebuild a single class from the RAW_TO_TOKEN table, or null. */
-function rawToToken(cls) {
+function rawToToken(cls, onSaturatedFill = false) {
   const u = splitUtility(cls);
-  const token = RAW_TO_TOKEN[`${u.prop}-${u.value}`];
+  const tableKey = `${u.prop}-${u.value}`;
+  if (tableKey === 'text-white' && !onSaturatedFill) return null;
+  const token = RAW_TO_TOKEN[tableKey];
   if (!token) return null;
   const prefix = u.variants.length ? `${u.variants.join(':')}:` : '';
   return `${prefix}${token}${u.opacity ? `/${u.opacity}` : ''}`;
@@ -414,15 +458,26 @@ export default {
     const check = (node, raw) => {
       const { fixed, issues } = inspect(raw);
       if (!issues.length) return;
-      const allFixable = issues.every((i) => i.fixable);
+      // The fix rewrites the WHOLE className, so it is attached to the last
+      // FIXABLE issue rather than the last issue overall: an unmappable
+      // sibling (reported, left alone) must not suppress the fix for the
+      // mappable classes beside it. Gating on `every(fixable)` did exactly
+      // that and left ~800 fixable warnings stranded.
+      //
+      // A dead token is the exception. It is reported separately precisely
+      // because the class renders NOTHING today, and auto-renaming it would
+      // erase that signal on the next `--fix`. A human has to confirm the
+      // intended value, so no fix is offered at all.
+      const hasDeadToken = issues.some((i) => i.messageId === 'deadToken');
+      const lastFixable = hasDeadToken ? -1 : issues.reduce((acc, i, idx) => (i.fixable ? idx : acc), -1);
       issues.forEach((issue, idx) => {
-        const isLast = idx === issues.length - 1;
+        const isLast = idx === lastFixable;
         context.report({
           node,
           messageId: issue.messageId,
           data: issue.data,
           fix:
-            fixed !== null && allFixable && isLast
+            fixed !== null && isLast
               ? (fixer) => {
                   // A JSXAttribute Literal carries its string in `.value`; a TemplateElement
                   // has no quotable string and is replaced wholesale.
@@ -462,14 +517,19 @@ export default {
             });
             continue;
           }
+          // Same rule as the string-literal path: the last fixable issue carries the
+          // fix, and a dead token suppresses it entirely.
+          const hasDeadToken = issues.some((i) => i.messageId === 'deadToken');
+          const lastFixable = hasDeadToken ? -1 : issues.reduce((acc, i, n) => (i.fixable ? n : acc), -1);
           issues.forEach((issue, idx) => {
-            const allFixable = issues.every((i) => i.fixable);
             context.report({
               node: quasi,
               messageId: issue.messageId,
               data: issue.data,
+              // Same rule as the string-literal path: attach to the last
+              // fixable issue, not the last issue.
               fix:
-                allFixable && idx === issues.length - 1
+                idx === lastFixable
                   ? (fixer) => {
                       // A TemplateElement's range covers the surrounding
                       // delimiters, not just the cooked text:

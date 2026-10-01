@@ -158,7 +158,7 @@ export default function PhishingWordlists(): JSX.Element {
         emptyLabel={query ? 'No entries match the filter.' : 'List is empty or unreachable.'}
         rows={10}
       >
-        <ul className="surface-card divide-y divide-slate-100 dark:divide-slate-800 font-mono text-tool">
+        <ul className="surface-card divide-y divide-line-1 font-mono text-tool">
           {filtered.slice(0, visible).map((line, i) => (
             <li key={`${line}-${i}`} className="px-3 py-1.5 text-body break-all">
               {line}

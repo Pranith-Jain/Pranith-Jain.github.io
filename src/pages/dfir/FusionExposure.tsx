@@ -316,7 +316,7 @@ export default function FusionExposure(): JSX.Element {
                           <span className="text-micro font-mono text-muted">{d.name}</span>
                           <span className="text-xs font-mono font-semibold">{d.score}/100</span>
                         </div>
-                        <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-surface-300 mb-1.5">
+                        <div className="h-1.5 w-full rounded-full bg-track mb-1.5">
                           <div
                             className={`h-full rounded-full transition-all ${dimBar(d.score)}`}
                             style={{ width: `${d.score}%` }}

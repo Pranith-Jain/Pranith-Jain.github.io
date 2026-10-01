@@ -96,7 +96,7 @@ export default function Cerast() {
             <button
               type="submit"
               disabled={query.trim().length < 3 || loading}
-              className="px-5 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-white font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
+              className="px-5 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-on-fill font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
             </button>

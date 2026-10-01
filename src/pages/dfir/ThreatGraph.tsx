@@ -189,7 +189,7 @@ export default function ThreatGraph(): JSX.Element {
             <button
               onClick={searchNode}
               disabled={loading || !query.trim()}
-              className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
+              className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center gap-2"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />} Search
             </button>
@@ -283,7 +283,7 @@ export default function ThreatGraph(): JSX.Element {
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
-              <Network size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
+              <Network size={32} className="text-inverted dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">Node not found</p>
             </div>
           )}
@@ -293,7 +293,7 @@ export default function ThreatGraph(): JSX.Element {
         <div className="space-y-4 animate-fade-in-up">
           {communities.length === 0 ? (
             <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
-              <Users size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
+              <Users size={32} className="text-inverted dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">No communities detected</p>
             </div>
           ) : (

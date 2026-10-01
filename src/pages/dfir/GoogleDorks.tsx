@@ -201,7 +201,7 @@ export default function GoogleDorks(): JSX.Element {
           <button
             type="submit"
             disabled={status === 'loading' || !query.trim()}
-            className="px-4 py-2.5 rounded-xl bg-brand-600 text-white font-medium text-sm hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2 transition-colors"
+            className="px-4 py-2.5 rounded-xl bg-brand-600 text-on-fill font-medium text-sm hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2 transition-colors"
           >
             {status === 'loading' ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Search
@@ -274,7 +274,7 @@ export default function GoogleDorks(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void copyLink(r.link)}
-                    className="shrink-0 p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300"
+                    className="shrink-0 p-1.5 rounded text-muted hover:text-body dark:hover:text-inverted hover:bg-surface-300 dark:hover:bg-surface-300"
                     title="Copy link"
                     aria-label="Copy link"
                   >

@@ -164,7 +164,7 @@ export default function InfraSearch(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="px-5 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
+            className="px-5 py-2.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
           >
             <Search size={16} className="inline mr-2" />
             Search
@@ -182,7 +182,7 @@ export default function InfraSearch(): JSX.Element {
                   key={qs.label}
                   type="button"
                   onClick={(e) => onSubmit(e, qs.label)}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono px-2 py-0.5 rounded border border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-700 dark:hover:text-slate-200 transition"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono px-2 py-0.5 rounded border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300 hover:text-body dark:hover:text-inverted transition"
                 >
                   <Icon size={12} className="shrink-0" /> {qs.label}
                 </button>
@@ -238,7 +238,7 @@ export default function InfraSearch(): JSX.Element {
                 <div className="flex items-center gap-2 text-xs font-mono text-muted">
                   <Map size={12} />
                   <span>{mapGlobal ? 'Global view' : 'Zoomed to results'}</span>
-                  <span className="text-slate-300 dark:text-muted">·</span>
+                  <span className="text-inverted dark:text-muted">·</span>
                   <span>{filtered.length} shown</span>
                 </div>
                 <div className="flex items-center gap-1">

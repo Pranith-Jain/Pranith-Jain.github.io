@@ -158,9 +158,9 @@ export function LivePulse(): JSX.Element {
       {data === null ? (
         [0, 1, 2].map((i) => (
           <div key={i} className="flex min-h-[7rem] flex-col gap-3 bg-surface-100 px-4 py-4 sm:px-5">
-            <div className="h-3 w-20 animate-pulse rounded bg-slate-200 dark:bg-line-1" />
-            <div className="h-9 w-16 animate-pulse rounded bg-slate-200 dark:bg-line-1" />
-            <div className="mt-auto h-3 w-24 animate-pulse rounded bg-slate-200 dark:bg-line-1" />
+            <div className="h-3 w-20 animate-pulse rounded bg-track dark:bg-line-1" />
+            <div className="h-9 w-16 animate-pulse rounded bg-track dark:bg-line-1" />
+            <div className="mt-auto h-3 w-24 animate-pulse rounded bg-track dark:bg-line-1" />
           </div>
         ))
       ) : (

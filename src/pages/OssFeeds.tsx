@@ -84,7 +84,7 @@ export default function OssFeeds() {
         {loading && (
           <div className="grid grid-cols-3 gap-4">
             {['Total Feeds', 'Categories', 'Active'].map((label) => (
-              <div key={label} className="h-20 animate-pulse rounded-xl bg-slate-200 dark:bg-surface-300" />
+              <div key={label} className="h-20 animate-pulse rounded-xl bg-track" />
             ))}
           </div>
         )}

@@ -229,7 +229,7 @@ export default function TidCmm(): JSX.Element {
                     <span className="text-lg font-mono font-bold">{d.adjusted.toFixed(2)}</span>
                     <span className="text-mini font-mono text-muted">raw {d.raw.toFixed(2)}</span>
                   </div>
-                  <div className="h-1.5 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden">
+                  <div className="h-1.5 rounded bg-track overflow-hidden">
                     <div
                       className={`h-full ${pct >= 60 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-slate-400'}`}
                       style={{ width: `${Math.max(4, pct)}%` }}

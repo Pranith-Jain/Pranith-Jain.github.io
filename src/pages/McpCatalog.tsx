@@ -275,7 +275,7 @@ export default function McpCatalogPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-slate-700 dark:hover:text-slate-100"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-body dark:hover:text-slate-100"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
@@ -350,7 +350,7 @@ export default function McpCatalogPage(): JSX.Element {
             >
               REST API spec <ArrowRight className="h-3.5 w-3.5" />
             </a>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <span className="text-inverted">|</span>
             <a
               href="/api/docs"
               target="_blank"
@@ -359,7 +359,7 @@ export default function McpCatalogPage(): JSX.Element {
             >
               API browser <ArrowRight className="h-3.5 w-3.5" />
             </a>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <span className="text-inverted">|</span>
             <Link
               to="/dfir"
               className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"

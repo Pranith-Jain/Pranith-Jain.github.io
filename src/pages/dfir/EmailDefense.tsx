@@ -150,7 +150,7 @@ export default function EmailDefense(): JSX.Element {
                 {assessment.grade} · {assessment.spoofScore}/100
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-3">
+            <div className="h-2 rounded bg-track overflow-hidden mb-3">
               <div
                 className={`h-full transition-all ${SEVERITY_BAR[gradeSeverity(assessment.grade)]}`}
                 style={{ width: `${Math.max(2, assessment.spoofScore)}%` }}

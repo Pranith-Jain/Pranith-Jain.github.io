@@ -258,7 +258,7 @@ export default function StatusPage(): JSX.Element {
             >
               Full feed workbench →
             </Link>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <span className="text-inverted">|</span>
             {/* /api/docs is served by the Worker API, not an SPA route — a
                 <Link> would hit the React 404 catch-all. */}
             <a
@@ -269,7 +269,7 @@ export default function StatusPage(): JSX.Element {
             >
               API spec → <ExternalLink size={12} />
             </a>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <span className="text-inverted">|</span>
             <Link
               to="/mcp"
               className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"

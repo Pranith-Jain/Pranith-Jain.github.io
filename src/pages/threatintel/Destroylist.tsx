@@ -127,7 +127,7 @@ export default function Destroylist(): JSX.Element {
           ['Root domains', fmt(data?.counts.primaryRoots)],
         ].map(([label, value]) => (
           <div key={label} className="surface-card p-4 text-center">
-            <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums">{value}</div>
+            <div className="text-2xl font-display font-bold text-heading tabular-nums">{value}</div>
             <div className="text-micro font-mono uppercase tracking-wider text-muted mt-1">{label}</div>
           </div>
         ))}
@@ -135,7 +135,7 @@ export default function Destroylist(): JSX.Element {
 
       {/* Domain check */}
       <section className="surface-card p-5 mb-6">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Check a domain</h2>
+        <h2 className="text-lg font-bold text-heading mb-3">Check a domain</h2>
         <div className="flex gap-2">
           <input
             value={checkDomain}
@@ -148,7 +148,7 @@ export default function Destroylist(): JSX.Element {
           <button
             onClick={() => void runCheck()}
             disabled={checking || !checkDomain.trim()}
-            className="px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-500 disabled:opacity-50 whitespace-nowrap inline-flex items-center gap-2"
+            className="px-4 py-2 bg-brand-600 text-on-fill rounded-xl text-sm font-medium hover:bg-brand-500 disabled:opacity-50 whitespace-nowrap inline-flex items-center gap-2"
           >
             {checking ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Check
@@ -189,7 +189,7 @@ export default function Destroylist(): JSX.Element {
 
       {/* Root-domain search */}
       <section className="surface-card p-5 mb-6">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Search root domains</h2>
+        <h2 className="text-lg font-bold text-heading mb-3">Search root domains</h2>
         <div className="flex gap-2">
           <input
             value={searchQ}

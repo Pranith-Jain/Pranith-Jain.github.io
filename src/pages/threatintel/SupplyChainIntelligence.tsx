@@ -236,7 +236,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             type="button"
             onClick={checkVerdict}
             disabled={!query.trim() || verdictLoading}
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 text-sm flex items-center gap-2 transition-colors"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 text-sm flex items-center gap-2 transition-colors"
           >
             {verdictLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}
             Check

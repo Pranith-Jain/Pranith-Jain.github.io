@@ -175,7 +175,7 @@ export default function ExposedHostView(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !ip.trim()}
-          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
         >
           {loading ? <Clock size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Scanning…' : 'Analyze'}
@@ -512,7 +512,7 @@ export default function ExposedHostView(): JSX.Element {
 
       {!result && !loading && !error && (
         <div className="text-center py-16">
-          <Server size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
+          <Server size={48} className="mx-auto mb-4 text-inverted dark:text-muted" />
           <p className="text-muted">Enter an IP address to see exposed host intelligence</p>
           <p className="text-xs text-muted mt-1">
             Shows open ports, CVEs, hostnames, privacy flags, and artifact inventory

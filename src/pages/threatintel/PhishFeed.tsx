@@ -201,7 +201,7 @@ export default function PhishFeed(): JSX.Element {
         <button
           type="button"
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -237,7 +237,7 @@ export default function PhishFeed(): JSX.Element {
         <button
           type="button"
           onClick={doExport}
-          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 transition-colors"
+          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> Export ({filtered.length})
         </button>

@@ -234,7 +234,7 @@ export default function WhoisHistory(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !query.trim()}
-          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
         >
           {loading ? <RefreshCw size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Looking up…' : 'Search'}
@@ -482,7 +482,7 @@ export default function WhoisHistory(): JSX.Element {
 
       {!history && !loading && !error && (
         <div className="text-center py-16">
-          <Globe size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
+          <Globe size={48} className="mx-auto mb-4 text-inverted dark:text-muted" />
           <p className="text-muted">Enter a domain to explore its WHOIS registration history</p>
           <p className="text-xs text-muted mt-1">
             Track ownership changes, registrar transfers, and pivot across related domains

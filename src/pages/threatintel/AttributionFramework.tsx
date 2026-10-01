@@ -83,7 +83,7 @@ export default function AttributionFramework(): JSX.Element {
           type="button"
           onClick={() => void handleAssess()}
           disabled={loading || !indicators.trim()}
-          className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Scale size={14} />}
           {loading ? 'Analyzing…' : 'Assess Attribution'}
@@ -112,7 +112,7 @@ export default function AttributionFramework(): JSX.Element {
                 <div className="text-micro font-mono text-muted">confidence</div>
               </div>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-surface-300 rounded-full h-2">
+            <div className="w-full bg-track rounded-full h-2">
               <div className="bg-rose-500 h-2 rounded-full" style={{ width: `${assessment.confidence}%` }} />
             </div>
           </div>

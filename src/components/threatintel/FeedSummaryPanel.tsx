@@ -64,7 +64,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
             <BarChart3 size={16} className="text-brand-400" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Feed Summary</h3>
+            <h3 className="text-sm font-bold text-heading">Feed Summary</h3>
             <p className="text-micro text-muted">
               {summary.total} articles · {summary.sections.length} sections · {summary.sources.length}
               {summary.sources.length === 8 ? '+' : ''} sources
@@ -74,7 +74,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
         <button
           aria-label="Close"
           onClick={onClose}
-          className="p-1.5 rounded-xl text-muted hover:text-slate-200 transition-colors"
+          className="p-1.5 rounded-xl text-muted hover:text-inverted transition-colors"
         >
           <X size={14} />
         </button>
@@ -98,7 +98,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
             {summary.sections.map(([id, count]) => (
               <div key={id} className="flex items-center gap-2">
                 <span className="text-xs text-body w-40 truncate flex-shrink-0">{sectionLabels[id] ?? id}</span>
-                <div className="flex-1 h-2 rounded-full bg-slate-200/60 dark:bg-surface-300 overflow-hidden">
+                <div className="flex-1 h-2 rounded-full bg-track/60 dark:bg-surface-300 overflow-hidden">
                   <div
                     className="h-full rounded-full bg-brand-500/60"
                     style={{ width: `${Math.max(6, Math.round((count / summary.maxSection) * 100))}%` }}

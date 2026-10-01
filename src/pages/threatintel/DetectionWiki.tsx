@@ -508,7 +508,7 @@ export default function DetectionWiki(): JSX.Element {
                   onClick={() => setSelectedTactic(selectedTactic === col.tactic ? null : col.tactic)}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                 >
-                  <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{col.tactic}</span>
+                  <span className="font-mono text-sm font-semibold text-heading">{col.tactic}</span>
                   <span className="text-xs font-mono text-muted">
                     {col.totalRules.toLocaleString()} rules · {col.techniques.length} techniques
                   </span>
@@ -560,7 +560,7 @@ export default function DetectionWiki(): JSX.Element {
                   {t.ruleCount}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-mono text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                  <div className="font-mono text-sm font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                     {t.id} {t.name}
                   </div>
                   <div className="text-micro text-muted">{t.tactic}</div>
@@ -755,9 +755,7 @@ export default function DetectionWiki(): JSX.Element {
                 <div className="surface-card p-4 space-y-3">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-mono text-base font-bold text-slate-900 dark:text-white">
-                        {platformDetail.platform}
-                      </h3>
+                      <h3 className="font-mono text-base font-bold text-heading">{platformDetail.platform}</h3>
                       <p className="text-xs text-muted">{platformDetail.description}</p>
                       <a
                         href={platformDetail.source}
@@ -773,9 +771,7 @@ export default function DetectionWiki(): JSX.Element {
                   <div className="grid grid-cols-3 gap-2 text-xs font-mono">
                     <div className="surface-card p-2 text-center">
                       <div className="text-muted">Events</div>
-                      <div className="font-bold text-slate-900 dark:text-white">
-                        {platformDetail.events.toLocaleString()}
-                      </div>
+                      <div className="font-bold text-heading">{platformDetail.events.toLocaleString()}</div>
                     </div>
                     <div className="surface-card p-2 text-center">
                       <div className="text-muted">Rules w/ samples</div>
@@ -845,7 +841,7 @@ export default function DetectionWiki(): JSX.Element {
                   className="surface-card p-4 text-left hover:border-brand-500/40 hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors group"
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                    <h3 className="font-mono text-sm font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       {p.name}
                     </h3>
                     <span className="text-micro font-mono text-muted">{p.events.toLocaleString()} events</span>
@@ -898,7 +894,7 @@ export default function DetectionWiki(): JSX.Element {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <FlaskConical size={14} className="text-brand-600 dark:text-brand-400" />
-                    <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    <span className="font-mono text-sm font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                       {lab.title}
                     </span>
                   </div>

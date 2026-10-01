@@ -430,7 +430,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={run}
               disabled={loading}
-              className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-xl border border-brand-500 bg-brand-500 text-white px-3 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
+              className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-xl border border-brand-500 bg-brand-500 text-on-fill px-3 py-2 text-sm font-medium hover:bg-brand-600 transition-colors disabled:opacity-50"
             >
               {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               {loading ? 'Analyzing…' : 'Run analyzer'}
@@ -1043,7 +1043,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
               {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
             </span>
           </div>
-          <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
+          <ul className="divide-y divide-line-1 dark:divide-slate-800/60">
             {p.techniques.map((t) => (
               <li key={t.id} className="flex items-start gap-3 px-4 py-2.5">
                 <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-micro font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
@@ -1607,7 +1607,7 @@ function TimelineTab() {
       {/* Timeline visualization */}
       <div className="relative">
         {/* Vertical line */}
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-surface-300" />
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-track" />
 
         <div className="space-y-4">
           {timeline.map((report) => {

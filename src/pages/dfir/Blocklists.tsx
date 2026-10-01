@@ -220,7 +220,7 @@ export default function BlocklistsPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void downloadFormat(fmt.key, fmt.ext)}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-xs"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-on-fill font-mono text-xs"
               >
                 <Download size={12} /> Download
               </button>

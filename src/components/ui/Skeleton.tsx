@@ -45,7 +45,7 @@ export const Skeleton = memo(function Skeleton({
   label = 'Loading...',
 }: SkeletonProps) {
   const baseStyle = `
-    animate-pulse bg-slate-200 dark:bg-surface-300
+    animate-pulse bg-track dark:bg-surface-300
     ${VARIANT_STYLES[variant]}
     ${className}
   `;

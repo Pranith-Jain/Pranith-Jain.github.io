@@ -219,7 +219,7 @@ export default function AptmapPage() {
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
           <div className="surface-card/60 shadow-e1 p-4">
             <div className="text-eyebrow uppercase text-muted mb-1">Total Samples</div>
-            <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums">
+            <div className="text-2xl font-display font-bold text-heading tabular-nums">
               {index.aptmap.nodes.toLocaleString()}
             </div>
             <div className="text-micro font-mono text-muted mt-1">malware samples analyzed</div>
@@ -277,7 +277,7 @@ export default function AptmapPage() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* APT Groups */}
                 <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
-                  <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-display font-semibold text-heading mb-3 flex items-center gap-2">
                     <Crosshair size={14} className="text-rose-400" />
                     Top APT Groups
                   </h3>
@@ -301,7 +301,7 @@ export default function AptmapPage() {
 
                 {/* Tools */}
                 <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
-                  <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-display font-semibold text-heading mb-3 flex items-center gap-2">
                     <Wrench size={14} className="text-amber-400" />
                     Tools &amp; Malware Families
                   </h3>
@@ -325,7 +325,7 @@ export default function AptmapPage() {
 
                 {/* Countries + TTPs */}
                 <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
-                  <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-display font-semibold text-heading mb-3 flex items-center gap-2">
                     <Globe size={14} className="text-emerald-400" />
                     Countries &amp; TTPs
                   </h3>
@@ -343,7 +343,7 @@ export default function AptmapPage() {
                               setSelectedNode(n);
                               setActiveTab('graph');
                             }}
-                            className="px-2 py-0.5 rounded text-xs font-mono text-body bg-surface-300/40 hover:bg-slate-200 dark:bg-surface-300/50 transition-colors"
+                            className="px-2 py-0.5 rounded text-xs font-mono text-body bg-surface-300/40 hover:bg-track dark:bg-surface-300/50 transition-colors"
                           >
                             {n.name}
                           </button>
@@ -366,9 +366,7 @@ export default function AptmapPage() {
 
               {/* Relationship summary */}
               <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-2">
-                  Graph Structure
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading mb-2">Graph Structure</h3>
                 <div className="text-xs font-mono text-muted space-y-1">
                   <p>Total nodes: {graph?.nodes.length.toLocaleString()}</p>
                   <p>Total edges: {graph?.links.length.toLocaleString()}</p>
@@ -388,17 +386,13 @@ export default function AptmapPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {filetypes.length > 0 && (
               <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-3">
-                  File Type Distribution
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading mb-3">File Type Distribution</h3>
                 <TopBarChart items={filetypes} labelKey="filetype" maxItems={10} />
               </div>
             )}
             {filesizes.length > 0 && (
               <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-3">
-                  File Size Distribution
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading mb-3">File Size Distribution</h3>
                 <TopBarChart items={filesizes} labelKey="filesize" maxItems={10} />
               </div>
             )}
@@ -441,9 +435,7 @@ export default function AptmapPage() {
                       className="w-2 h-2 rounded-full inline-block"
                       style={{ backgroundColor: selectedNode.color || '#666' }}
                     />
-                    <span className="text-sm font-display font-semibold text-slate-900 dark:text-white">
-                      {selectedNode.name}
-                    </span>
+                    <span className="text-sm font-display font-semibold text-heading">{selectedNode.name}</span>
                     <span className="px-1.5 py-0.5 rounded text-micro font-mono uppercase bg-surface-200/40 text-muted">
                       {selectedNode.group}
                     </span>
@@ -481,7 +473,7 @@ export default function AptmapPage() {
                         key={`${l.source}-${l.target}`}
                         type="button"
                         onClick={() => setSelectedNode(node)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-300/20 hover:bg-slate-200 dark:bg-surface-300/30 transition-colors text-left"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-300/20 hover:bg-track dark:bg-surface-300/30 transition-colors text-left"
                       >
                         <span
                           className="w-2 h-2 rounded-full shrink-0"
@@ -539,9 +531,7 @@ export default function AptmapPage() {
           {filetypes.length > 0 && (
             <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white">
-                  File Type Distribution
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading">File Type Distribution</h3>
                 <span className="text-micro font-mono text-muted">{filetypes.length} types</span>
               </div>
               <HorizontalStackedChart items={filetypes} labelKey="filetype" maxItems={15} />
@@ -553,9 +543,7 @@ export default function AptmapPage() {
           {filesizes.length > 0 && (
             <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white">
-                  File Size Distribution
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading">File Size Distribution</h3>
                 <span className="text-micro font-mono text-muted">{filesizes.length} buckets</span>
               </div>
               <HorizontalStackedChart items={filesizes} labelKey="filesize" maxItems={10} />
@@ -564,9 +552,7 @@ export default function AptmapPage() {
           {sections.length > 0 && (
             <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white">
-                  PE Section Distribution
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading">PE Section Distribution</h3>
                 <span className="text-micro font-mono text-muted">{sections.length} sections</span>
               </div>
               <TopBarChart items={sections} labelKey="section" maxItems={15} />
@@ -575,9 +561,7 @@ export default function AptmapPage() {
           {resources.length > 0 && (
             <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white">
-                  PE Resource Distribution
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading">PE Resource Distribution</h3>
                 <span className="text-micro font-mono text-muted">{resources.length} types</span>
               </div>
               <TopBarChart items={resources} labelKey="resource" maxItems={15} />
@@ -592,7 +576,7 @@ export default function AptmapPage() {
           {imports.length > 0 && (
             <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white">Top DLL Imports</h3>
+                <h3 className="text-sm font-display font-semibold text-heading">Top DLL Imports</h3>
                 <span className="text-micro font-mono text-muted">{imports.length} DLLs</span>
               </div>
               <TopBarChart items={imports} labelKey="import" maxItems={20} />
@@ -602,9 +586,7 @@ export default function AptmapPage() {
             </div>
           )}
           <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
-            <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white mb-3">
-              PE Analysis Summary
-            </h3>
+            <h3 className="text-sm font-display font-semibold text-heading mb-3">PE Analysis Summary</h3>
             <div className="space-y-2 text-xs font-mono text-muted">
               {filetypes.length > 0 && (
                 <div className="flex justify-between">
@@ -650,9 +632,7 @@ export default function AptmapPage() {
           {certificates.length > 0 && (
             <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-display font-semibold text-slate-900 dark:text-white">
-                  Certificate Authority Distribution
-                </h3>
+                <h3 className="text-sm font-display font-semibold text-heading">Certificate Authority Distribution</h3>
                 <span className="text-micro font-mono text-muted">{certificates.length} unique certs</span>
               </div>
               <div className="overflow-x-auto">

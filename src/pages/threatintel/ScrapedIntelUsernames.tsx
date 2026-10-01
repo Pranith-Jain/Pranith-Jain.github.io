@@ -335,7 +335,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   return (
                     <div key={forum} className="flex items-center gap-2">
                       <span className="text-mini font-mono text-body truncate flex-1">{forum}</span>
-                      <div className="w-20 h-1.5 bg-slate-200 dark:bg-surface-300 rounded-full overflow-hidden">
+                      <div className="w-20 h-1.5 bg-track rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500 rounded-full" style={{ width: `${pct}%` }} />
                       </div>
                       <span className="text-mini font-mono text-muted w-8 text-right">{count}</span>

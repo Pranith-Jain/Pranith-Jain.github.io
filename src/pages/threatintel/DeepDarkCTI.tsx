@@ -127,7 +127,7 @@ export default function DeepDarkCTI(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search name, notes, actor…"
-                className="w-full rounded-xl border border-line-1 bg-surface-100 py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none dark:text-slate-100"
+                className="w-full rounded-xl border border-line-1 bg-surface-100 py-2 pl-9 pr-3 font-mono text-tool text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 aria-label="Search deepdarkCTI"
               />
             </div>

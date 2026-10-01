@@ -196,7 +196,7 @@ export default function PrivacyHub(): JSX.Element {
               </span>
               <span className="text-xs font-mono font-bold text-heading">{c.score}%</span>
             </div>
-            <div className="h-1.5 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-1">
+            <div className="h-1.5 rounded bg-track overflow-hidden mb-1">
               <div
                 className={`h-full ${
                   c.score >= 75 ? 'bg-emerald-500' : c.score >= 40 ? 'bg-amber-500' : 'bg-rose-500'

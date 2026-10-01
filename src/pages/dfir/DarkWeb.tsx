@@ -308,7 +308,7 @@ export default function DarkWeb(): JSX.Element {
             <button
               type="submit"
               disabled={!newTerm.trim()}
-              className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-white text-sm font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-on-fill text-sm font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <Plus size={14} /> Track
             </button>
@@ -893,7 +893,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                       triggerRef.current = document.activeElement as HTMLButtonElement;
                       setLightbox({ url: v.screen_url!, victim: v.victim, group: v.group });
                     }}
-                    className="shrink-0 group relative w-14 h-10 sm:w-20 sm:h-14 rounded overflow-hidden border border-line-2 bg-slate-200 dark:bg-surface-300 hover:border-brand-500/60"
+                    className="shrink-0 group relative w-14 h-10 sm:w-20 sm:h-14 rounded overflow-hidden border border-line-2 bg-track hover:border-brand-500/60"
                     title="Click to view full leak-site screenshot"
                     aria-label={`View leak-site screenshot for ${v.victim}`}
                   >
@@ -908,7 +908,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                         (e.currentTarget.parentElement as HTMLElement).style.display = 'none';
                       }}
                     />
-                    <span className="absolute bottom-0.5 right-0.5 text-micro font-mono px-1 rounded bg-slate-900/70 text-slate-100 opacity-0 group-hover:opacity-100">
+                    <span className="absolute bottom-0.5 right-0.5 text-micro font-mono px-1 rounded bg-surface-100/70 text-slate-100 opacity-0 group-hover:opacity-100">
                       zoom
                     </span>
                   </button>
@@ -1020,7 +1020,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                   setTimeout(() => triggerRef.current?.focus(), 0);
                 }}
                 id="lightbox-close"
-                className="text-slate-300 hover:text-slate-100 inline-flex items-center gap-1 text-sm font-mono"
+                className="text-inverted hover:text-slate-100 inline-flex items-center gap-1 text-sm font-mono"
                 aria-label="Close"
               >
                 <X size={14} /> close (esc)
@@ -1030,7 +1030,7 @@ export function RansomwareActivityPanel(): JSX.Element {
               loading="lazy"
               src={lightbox.url}
               alt={`Leak-site screenshot of ${lightbox.victim}`}
-              className="w-full max-h-[80vh] object-contain rounded border border-slate-700 bg-slate-800"
+              className="w-full max-h-[80vh] object-contain rounded border border-slate-700 bg-surface-200"
               referrerPolicy="no-referrer"
             />
             <p className="text-micro font-mono text-muted text-center">

@@ -43,7 +43,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
   return (
     <footer className="mt-24 pb-6" role="contentinfo">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-8 border-t border-slate-200/60 pt-10 dark:border-white/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-8 border-t border-line-1/60 pt-10 dark:border-white/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr]">
           {/* Brand column */}
           <div>
             <Link
@@ -54,9 +54,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
               <span className="h-9 w-9 rounded-xl flex items-center justify-center overflow-hidden transition">
                 <PjMark className="h-full w-full" />
               </span>
-              <span className="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
-                {personalInfo.name}
-              </span>
+              <span className="text-sm font-semibold tracking-tight text-heading">{personalInfo.name}</span>
             </Link>
             <p className="mt-3 max-w-xs text-xs text-muted leading-relaxed">
               Threat intel, email defense, and edge-native security tooling. Reference only - verify indicators in your
@@ -127,7 +125,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
         </div>
 
         {/* Bottom strip - copyright, view counter, stack credit */}
-        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-mini text-muted dark:border-white/10 sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-line-1/60 pt-5 text-mini text-muted dark:border-white/10 sm:flex-row sm:items-center">
           <span>
             © {currentYear} {personalInfo.name}. All rights reserved.
           </span>

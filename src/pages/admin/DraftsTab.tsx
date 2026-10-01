@@ -436,14 +436,14 @@ function DraftPreviewPanel({
           {!editing && (
             <button
               onClick={() => setEditing(true)}
-              className="text-xs text-muted hover:text-slate-900 dark:hover:text-slate-300"
+              className="text-xs text-muted hover:text-heading dark:hover:text-inverted"
             >
               Edit
             </button>
           )}
           <button
             onClick={onClose}
-            className="text-xs text-muted hover:text-slate-900 dark:hover:text-slate-300 transition-colors"
+            className="text-xs text-muted hover:text-heading dark:hover:text-inverted transition-colors"
           >
             Close
           </button>
@@ -505,7 +505,7 @@ function DraftPreviewPanel({
             <button
               onClick={() => void saveEdit()}
               disabled={saving}
-              className="px-3 py-1.5 border border-brand-500 rounded text-sm text-white bg-brand-500 hover:bg-brand-600 disabled:opacity-50"
+              className="px-3 py-1.5 border border-brand-500 rounded text-sm text-on-fill bg-brand-500 hover:bg-brand-600 disabled:opacity-50"
             >
               {saving ? 'Saving…' : 'Save'}
             </button>

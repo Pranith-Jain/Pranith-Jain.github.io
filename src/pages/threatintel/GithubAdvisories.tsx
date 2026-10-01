@@ -220,7 +220,7 @@ export default function GithubAdvisories(): JSX.Element {
             setRefreshKey((k) => k + 1);
             refetch();
           }}
-          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
         </button>

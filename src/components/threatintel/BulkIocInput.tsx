@@ -261,7 +261,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
               <button
                 onClick={handleInvestigate}
                 disabled={parsed.length === 0 || enriching}
-                className="rounded-xl bg-brand-600 px-3 py-1.5 font-mono text-xs text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+                className="rounded-xl bg-brand-600 px-3 py-1.5 font-mono text-xs text-on-fill hover:bg-brand-700 disabled:opacity-50 transition-colors"
               >
                 Investigate {parsed.length > 0 ? `(${parsed.length} IOCs)` : ''}
               </button>

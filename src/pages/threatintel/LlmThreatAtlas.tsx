@@ -250,9 +250,7 @@ export default function LlmThreatAtlas(): JSX.Element {
               <div key={key} className="rounded-xl border border-line-1 bg-surface-200 p-3">
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-mono text-lg font-bold text-rose-600 dark:text-rose-400">{key}</span>
-                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
-                    {count}
-                  </span>
+                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-track text-muted">{count}</span>
                 </div>
                 <h3 className="text-sm font-semibold text-heading mt-0.5 leading-snug">{first?.domain_title ?? ''}</h3>
                 <p className="text-xs text-muted mt-1 leading-relaxed line-clamp-2">{DOMAIN_DESCRIPTIONS[key] ?? ''}</p>
@@ -277,10 +275,8 @@ export default function LlmThreatAtlas(): JSX.Element {
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
-                      {item.id}
-                    </span>
-                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-track text-muted">{item.id}</span>
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-track text-muted">
                       {item.domain}
                     </span>
                     <span

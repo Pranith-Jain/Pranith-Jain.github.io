@@ -170,7 +170,7 @@ export default function Yarahub(): JSX.Element {
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
+              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
             >
               {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
               Search
@@ -190,7 +190,7 @@ export default function Yarahub(): JSX.Element {
 
       {!loading && !error && filtered.length === 0 && (
         <div className="surface-card p-12 text-center">
-          <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
+          <Search size={32} className="mx-auto text-inverted mb-3" />
           <p className="text-sm font-mono text-muted">{search ? 'No matching rules' : 'No YARA rules loaded'}</p>
           <p className="text-xs font-mono text-muted mt-1">
             {search ? 'Try a different search term' : 'The YARAhub API may be unavailable'}
@@ -303,7 +303,7 @@ export default function Yarahub(): JSX.Element {
                   setRuleContent(null);
                   setContentName(null);
                 }}
-                className="text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                className="text-muted hover:text-muted dark:hover:text-inverted"
               >
                 <X size={14} />
               </button>

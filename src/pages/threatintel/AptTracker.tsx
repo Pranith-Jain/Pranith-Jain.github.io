@@ -65,7 +65,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
             <button
               type="button"
               onClick={onClose}
-              className="text-muted hover:text-slate-600 dark:hover:text-slate-200 text-xl leading-none transition-colors"
+              className="text-muted hover:text-muted dark:hover:text-inverted text-xl leading-none transition-colors"
             >
               ×
             </button>

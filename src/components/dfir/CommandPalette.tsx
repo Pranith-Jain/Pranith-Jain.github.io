@@ -578,7 +578,7 @@ export function CommandPalette(): JSX.Element | null {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="p-1 rounded text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="p-1 rounded text-muted hover:text-body dark:hover:text-inverted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label="Close"
           >
             <X size={16} />

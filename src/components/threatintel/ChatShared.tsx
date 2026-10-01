@@ -117,7 +117,7 @@ export function ChatNarrative({ markdown }: { markdown: string }) {
   }, [markdown]);
   return (
     <div
-      className="text-heading [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-surface-200 [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
+      className="text-heading [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-body [&_p]:dark:text-inverted [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-body [&_li]:dark:text-inverted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-surface-300 [&_code]:dark:bg-surface-200 [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

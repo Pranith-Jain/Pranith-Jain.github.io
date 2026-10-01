@@ -199,7 +199,7 @@ export default function CertStreamLive(): JSX.Element {
             type="button"
             onClick={start}
             disabled={!keyword.trim()}
-            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-3 py-2 text-xs font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-3 py-2 text-xs font-mono font-semibold text-on-fill hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             <Play size={12} /> Start stream
           </button>

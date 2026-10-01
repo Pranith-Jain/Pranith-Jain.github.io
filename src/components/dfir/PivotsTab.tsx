@@ -174,9 +174,7 @@ export function PivotsTab({
                 <div className="flex items-center gap-1.5 mb-0.5">
                   <Icon size={11} className="text-muted shrink-0" />
                   <span className="text-micro font-mono uppercase tracking-wider text-muted">{p.kind}</span>
-                  <span className="text-micro font-mono rounded px-1 bg-slate-200 dark:bg-surface-300 text-slate-500">
-                    {p.source}
-                  </span>
+                  <span className="text-micro font-mono rounded px-1 bg-track text-muted">{p.source}</span>
                 </div>
                 <code className="text-meta font-mono text-heading break-all block truncate" title={p.value}>
                   {p.value}
@@ -208,7 +206,7 @@ export function PivotsTab({
         })}
       </div>
       <details className="mt-3">
-        <summary className="cursor-pointer text-micro font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-micro font-mono text-muted hover:text-muted dark:hover:text-inverted">
           Why some providers are missing
         </summary>
         <p className="mt-2 text-micro font-mono text-muted leading-relaxed">

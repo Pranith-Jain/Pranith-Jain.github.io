@@ -243,7 +243,7 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
           <button
             type="button"
             onClick={() => setCollapsed((c) => !c)}
-            className="grid h-6 w-6 place-items-center text-muted transition hover:text-muted dark:hover:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="grid h-6 w-6 place-items-center text-muted transition hover:text-muted dark:hover:text-inverted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? <ChevronRight size={14} aria-hidden="true" /> : <ChevronLeft size={14} aria-hidden="true" />}

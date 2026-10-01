@@ -19,11 +19,7 @@ function fmtNum(n: number | undefined): string {
 function EngagementBar({ value, max }: { value: number; max: number }) {
   const pct = max > 0 ? Math.round((value / max) * 100) : 0;
   return (
-    <div
-      className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden"
-      style={{ width: '4rem' }}
-      aria-hidden="true"
-    >
+    <div className="h-2 rounded bg-track overflow-hidden" style={{ width: '4rem' }} aria-hidden="true">
       <div className="h-full bg-brand-500 dark:bg-brand-400 rounded" style={{ width: `${pct}%` }} />
     </div>
   );
@@ -186,7 +182,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
           <button
             type="submit"
             disabled={busy}
-            className="px-4 py-1.5 border border-line-2 rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
+            className="px-4 py-1.5 border border-line-2 rounded text-sm text-body hover:bg-surface-300 dark:hover:bg-surface-300 hover:text-heading dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy ? 'Saving…' : 'Save metrics'}
           </button>

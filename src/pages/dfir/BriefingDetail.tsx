@@ -204,9 +204,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
   return (
     <article className={`surface-card p-5 ring-1 ${SEVERITY_RING[canon]}`}>
       <div className="flex items-start justify-between gap-3 mb-2">
-        <h4 className="font-display font-bold text-base text-slate-900 dark:text-white leading-snug">
-          {finding.title}
-        </h4>
+        <h4 className="font-display font-bold text-base text-heading leading-snug">{finding.title}</h4>
         <span
           className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${SEVERITY_TONE[canon]} shrink-0`}
         >
@@ -366,7 +364,7 @@ function IocDumpPanel({
           type="button"
           onClick={download}
           disabled={downloading}
-          className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white shadow-e1 transition-colors hover:bg-brand-700 disabled:opacity-60 dark:bg-brand-500 dark:hover:bg-brand-400"
+          className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-semibold text-on-fill shadow-e1 transition-colors hover:bg-brand-700 disabled:opacity-60 dark:bg-brand-500 dark:hover:bg-brand-400"
         >
           <Download className="h-3.5 w-3.5" />
           {downloading ? 'Downloading…' : 'Download .txt'}
@@ -374,7 +372,7 @@ function IocDumpPanel({
         <button
           type="button"
           onClick={copy}
-          className="inline-flex items-center gap-1.5 rounded border border-line-2 bg-surface-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:text-slate-200 dark:hover:border-brand-500 dark:hover:text-brand-300"
+          className="inline-flex items-center gap-1.5 rounded border border-line-2 bg-surface-100 px-3 py-1.5 text-xs font-semibold text-body transition-colors hover:border-brand-400 hover:text-brand-700 dark:hover:border-brand-500 dark:hover:text-brand-300"
         >
           {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? 'Copied' : 'Copy'}
@@ -383,7 +381,7 @@ function IocDumpPanel({
           blocklist seed · one indicator per line
         </span>
       </div>
-      <pre className="max-h-96 overflow-auto rounded-xl bg-surface-200 p-3 font-mono text-xs leading-5 text-slate-800 dark:text-slate-200">
+      <pre className="max-h-96 overflow-auto rounded-xl bg-surface-200 p-3 font-mono text-xs leading-5 text-inverted">
         {dump.content}
       </pre>
     </section>
@@ -556,9 +554,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
               {section.findings.map((f) => (
                 <article key={f.id} className="surface-card p-5">
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <h4 className="font-display font-bold text-base text-slate-900 dark:text-white leading-snug">
-                      {f.title}
-                    </h4>
+                    <h4 className="font-display font-bold text-base text-heading leading-snug">{f.title}</h4>
                     {f.count !== undefined && (
                       <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-surface-300 border-line-1 text-body shrink-0">
                         ×{f.count}
@@ -723,7 +719,7 @@ export default function BriefingDetail(): JSX.Element {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <BackLink to="/threatintel">back</BackLink>
-        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Briefing not found</h1>
+        <h1 className="font-display font-bold text-2xl text-heading mb-2">Briefing not found</h1>
         <p className="text-sm text-muted">
           {error ??
             'This briefing has not been generated yet. Daily briefings publish at 00:05 UTC; weekly at 00:15 UTC Monday.'}
@@ -740,7 +736,7 @@ export default function BriefingDetail(): JSX.Element {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-white">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-heading">
       <BackLink to="/threatintel">back</BackLink>
 
       <header className="animate-fade-in-up mb-8">
@@ -955,9 +951,7 @@ export default function BriefingDetail(): JSX.Element {
             <div className="flex items-start gap-3">
               <AlertTriangle size={18} className="text-amber-500 mt-0.5 shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
-                  No new critical/high CVEs in this period
-                </p>
+                <p className="text-sm font-semibold text-heading mb-1">No new critical/high CVEs in this period</p>
                 <p className="text-xs text-muted leading-relaxed">
                   The upstream feeds (CISA KEV, NVD) had no new high/critical vulnerabilities for this date range. The
                   IOC indicators below were still collected from URLhaus, MalwareBazaar, ThreatFox, and TweetFeed.

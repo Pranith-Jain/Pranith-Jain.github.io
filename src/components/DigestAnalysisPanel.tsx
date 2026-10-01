@@ -28,18 +28,16 @@ export function DigestAnalysisPanel({ endpoint }: { endpoint: string | null }) {
     <div className="rounded-xl border border-brand-200 bg-brand-50/50 dark:border-brand-900/40 dark:bg-brand-950/20">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-slate-900 dark:text-white"
+        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-heading"
       >
         <span className="inline-flex items-center gap-2">
           <Sparkles size={15} className="text-brand-500" />
           Analyst Note
           {data?.ai && (
-            <span className="rounded-full bg-brand-600 px-2 py-0.5 text-micro font-semibold text-white">AI</span>
+            <span className="rounded-full bg-brand-600 px-2 py-0.5 text-micro font-semibold text-on-fill">AI</span>
           )}
           {data && !data.ai && (
-            <span className="rounded-full bg-slate-200 px-2 py-0.5 text-micro font-semibold text-slate-600 dark:bg-surface-300 dark:text-slate-300">
-              deterministic
-            </span>
+            <span className="rounded-full bg-track px-2 py-0.5 text-micro font-semibold text-muted">deterministic</span>
           )}
         </span>
         {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -55,7 +53,7 @@ export function DigestAnalysisPanel({ endpoint }: { endpoint: string | null }) {
           {data && (
             <>
               <div>
-                <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
+                <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-body">
                   <ListChecks size={13} className="text-brand-500" /> Key signals
                 </div>
                 <ul className="space-y-1.5">
@@ -69,7 +67,7 @@ export function DigestAnalysisPanel({ endpoint }: { endpoint: string | null }) {
               </div>
               {data.ai ? (
                 <div>
-                  <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
+                  <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-body">
                     <BrainCircuit size={13} className="text-purple-500" /> AI assessment
                     <span className="font-normal text-muted">· {data.ai.model}</span>
                   </div>

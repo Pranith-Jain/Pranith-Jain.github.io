@@ -301,7 +301,7 @@ export default function EmailReputation(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !clean}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}{' '}
             {loading ? 'Checking' : 'Check'}
@@ -327,7 +327,7 @@ export default function EmailReputation(): JSX.Element {
                 {result.verdict} · {result.score}/100
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-4">
+            <div className="h-2 rounded bg-track overflow-hidden mb-4">
               <div
                 className={`h-full transition-all ${result.verdict === 'safe' ? 'bg-emerald-500' : result.verdict === 'suspicious' ? 'bg-amber-500' : 'bg-rose-500'}`}
                 style={{ width: `${Math.max(2, result.score)}%` }}

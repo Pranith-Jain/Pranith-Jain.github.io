@@ -195,7 +195,7 @@ export default function HuntHypotheses() {
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No hypotheses match your filters.</p>
           </div>
         ) : (
@@ -212,7 +212,7 @@ export default function HuntHypotheses() {
                     {h.tactic}
                   </span>
                 </div>
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug">
                   {h.title}
                 </div>
                 <div className="font-mono text-micro text-orange-600 dark:text-orange-400/70">{h.technique}</div>

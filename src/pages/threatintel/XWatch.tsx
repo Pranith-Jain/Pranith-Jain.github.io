@@ -531,7 +531,7 @@ export default function XWatch(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setShowInactive(true)}
-                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-line-2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-line-2 text-muted hover:text-muted dark:hover:text-inverted"
                     title={`Hidden - no posts in last ${sinceDays}d: ${inactive.map((h) => '@' + h).join(', ')}`}
                   >
                     +{inactive.length} inactive
@@ -545,7 +545,7 @@ export default function XWatch(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowInactive(false)}
-            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-line-2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
+            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-line-2 text-muted hover:text-muted dark:hover:text-inverted"
           >
             hide inactive again
           </button>
