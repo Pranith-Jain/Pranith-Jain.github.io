@@ -213,6 +213,11 @@ jobs:
       - name: Report Cloudflare deploy secret status
         # `gh` is preinstalled on ubuntu runners; it authenticates as the
         # repo via GITHUB_TOKEN, which can read secret NAMES (never values).
+        #
+        # Advisory: the script's non-zero exit must not fail the job, or every
+        # PR shows a red X for a repo-level config gap and people learn to
+        # ignore the checks list. The hard stop lives in deploy.yml, where a
+        # push to main actually fails.
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/check-deploy-secrets.mjs
+        run: node scripts/check-deploy-secrets.mjs && exit 0 || echo "::warning::Cloudflare deploy secret missing — pushes to main will FAIL at the deploy step until it is set."
