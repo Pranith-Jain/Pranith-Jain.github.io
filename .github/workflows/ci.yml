@@ -191,3 +191,33 @@ jobs:
         run: npm run build:client
       - name: Budget check
         run: node scripts/check-budgets.mjs
+
+  # Advisory only — reports whether CI can actually deploy, never blocks a PR.
+  #
+  # This workflow used to skip the deploy with a `::warning::` when
+  # CLOUDFLARE_API_TOKEN was missing, so every push to main went green while
+  # shipping nothing. Two secret names existed (CLOUDFLARE_API_TOKEN and
+  # CF_API_TOKEN) and both were empty. surfacing it here means the gap is
+  # visible in the PR status block instead of discovered in production.
+  deploy-credentials:
+    name: Deploy credentials present
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --no-fund
+      - name: Report Cloudflare deploy secret status
+        # `gh` is preinstalled on ubuntu runners; it authenticates as the
+        # repo via GITHUB_TOKEN, which can read secret NAMES (never values).
+        #
+        # Advisory: the script's non-zero exit must not fail the job, or every
+        # PR shows a red X for a repo-level config gap and people learn to
+        # ignore the checks list. The hard stop lives in deploy.yml, where a
+        # push to main actually fails.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/check-deploy-secrets.mjs && exit 0 || echo "::warning::Cloudflare deploy secret missing — pushes to main will FAIL at the deploy step until it is set."

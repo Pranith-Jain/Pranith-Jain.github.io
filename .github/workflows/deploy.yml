@@ -5,15 +5,22 @@ name: Deploy
 # an actual deploy plus post-deploy verification.
 #
 # Continuous deployment: every push to main runs the gate (tsc + build +
-# budgets) and deploys when CLOUDFLARE_API_TOKEN is present. Without the
-# token the gate still runs and the deploy step skips cleanly — so enabling
-# the push trigger is safe before the secret exists.
+# budgets) and then deploys.
+#
+# The deploy step REQUIRES CLOUDFLARE_API_TOKEN and fails without it. It used
+# to skip with only a warning, which made every push look green while nothing
+# shipped — see the "Deploy" step for the full reasoning. `workflow_dispatch`
+# degrades to gate-only so the pipeline can be exercised without a token.
 #
 # To finish the setup:
 #   1. Add CLOUDFLARE_API_TOKEN as a repository secret (a Cloudflare API token
-#      with Workers deploy permission).
+#      with Workers Scripts:Edit).
 #   2. Optionally add SMOKE_API_KEY (a readonly API key) to run the full
 #      post-deploy smoke suite instead of just the public-page check.
+#
+# This is the single canonical Cloudflare secret name. A second name
+# (CF_API_TOKEN) existed for telegram-mtproto-sync only, was never populated,
+# and is now mapped from this one — see that workflow.
 on:
   workflow_dispatch:
   push:
@@ -71,15 +78,31 @@ jobs:
         if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
         run: npm run og:upload
 
-      # ── Deploy (skips cleanly when the token is absent) ────────────
-      - name: Deploy to Cloudflare Workers
-        if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
-        run: npx wrangler deploy
-      - name: Deploy skipped (no CLOUDFLARE_API_TOKEN)
-        if: ${{ env.CLOUDFLARE_API_TOKEN == '' }}
+      # ── Deploy ──────────────────────────────────────────────────────
+      # A missing token now FAILS the job instead of warning and continuing.
+      #
+      # It used to skip with a warning, which meant a green run with nothing
+      # deployed: every push to main reported "success" while the Worker stayed
+      # on whatever version a local `wrangler deploy` happened to have pushed.
+      # That hid a broken deploy pipeline for the lifetime of this workflow.
+      # `workflow_dispatch` still degrades to a gate-only run, so the pipeline
+      # can be exercised without a token.
+      - name: Check deploy credentials
+        id: creds
         run: |
-          echo "::warning::CLOUDFLARE_API_TOKEN is not set — the gate ran but the deploy was skipped."
-          echo "Add it as a repository secret to enable continuous deployment."
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN is not set — refusing to report a green deploy that deploys nothing."
+            echo "Add it with: gh secret set CLOUDFLARE_API_TOKEN"
+            exit 1
+          fi
+      - name: Deploy to Cloudflare Workers
+        needs: creds
+        run: npx wrangler deploy
+      - name: Gate only (no token; manual dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' && env.CLOUDFLARE_API_TOKEN == '' }}
+        run: |
+          echo "::notice::CLOUDFLARE_API_TOKEN is not set — running the gate only, no deploy."
+          echo "::warning::Pushes to main will FAIL until the secret is added."
 
       # ── Post-deploy verification ───────────────────────────────────
       # Basic liveness: the prerendered shell + two app landings must serve 200.

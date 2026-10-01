@@ -35,11 +35,17 @@ jobs:
         id: secrets
         env:
           TG_SESSION: ${{ secrets.TG_SESSION }}
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          # Read the canonical Cloudflare secret, then expose it under the
+          # CF_* name the sync script documents (see the env contract at the
+          # top of scripts/sync-telegram-mtproto.mjs). Previously this read a
+          # separate `CF_API_TOKEN` secret, so Cloudflare credentials existed
+          # under two different names and only one of them was ever populated -
+          # the other 12 workflows silently skipped their deploys.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          if [ -z "$TG_SESSION" ] || [ -z "$CF_API_TOKEN" ]; then
+          if [ -z "$TG_SESSION" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
             echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::TG_SESSION/CF_API_TOKEN not set — skipping (see docs/telegram-mtproto-sidecar.md)"
+            echo "::notice::TG_SESSION/CLOUDFLARE_API_TOKEN not set — skipping (see docs/telegram-mtproto-sidecar.md)"
           else
             echo "present=true" >> "$GITHUB_OUTPUT"
           fi
@@ -51,8 +57,11 @@ jobs:
           TG_SESSION: ${{ secrets.TG_SESSION }}
           TG_CHANNELS: breachdetect
           TG_HISTORY_LIMIT: '40'
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          # One secret, mapped onto the two names the script reads.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CF_KV_NAMESPACE_ID: ${{ secrets.CF_KV_NAMESPACE_ID }}
           DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '0' }}
         run: node scripts/sync-telegram-mtproto.mjs
