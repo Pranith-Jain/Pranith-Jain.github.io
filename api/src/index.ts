@@ -106,6 +106,7 @@ import {
 import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
 import { cveDigestHandler } from './routes/cve-digest';
+import { cveDigestCsvHandler, cveDigestRssHandler } from './routes/cve-digest-export';
 import {
   promptintelHealthHandler,
   promptintelTaxonomyHandler,
@@ -1449,6 +1450,11 @@ app.get('/api/v1/cve-recent', cveRecentHandler);
 // recent SAMPLE bounded by NVD paging, this is a complete window. Cron-warmed,
 // same edge-cache → KV-last-good → 503 discipline.
 app.get('/api/v1/cve-digest', cveDigestHandler);
+// Same warmed payload, alternate representations — CSV for spreadsheets and
+// RSS for readers. Both derive from the cached JSON (never rebuild), each
+// with its own edge-cache key.
+app.get('/api/v1/cve-digest/csv', cveDigestCsvHandler);
+app.get('/api/v1/cve-digest/rss', cveDigestRssHandler);
 // PromptIntel IoPC registry (NovaHunting) — cached taxonomy/health + live
 // keyed prompt search. Keyed handlers degrade to 501 without the secret.
 app.get('/api/v1/promptintel/health', promptintelHealthHandler);

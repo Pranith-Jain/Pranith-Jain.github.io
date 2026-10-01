@@ -1,6 +1,15 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AlertTriangle, CalendarClock, ExternalLink, RefreshCw, Search, ShieldAlert } from 'lucide-react';
+import {
+  AlertTriangle,
+  CalendarClock,
+  Download,
+  ExternalLink,
+  RefreshCw,
+  Rss,
+  Search,
+  ShieldAlert,
+} from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { SEVERITY_TONE } from '../../components/severity';
 
@@ -171,6 +180,26 @@ export default function CveDigest({ bare }: { bare?: boolean }): JSX.Element {
         >
           <RefreshCw className="w-3.5 h-3.5" /> Refresh
         </button>
+        {/* Same warmed payload, alternate representations — native anchors so
+            the browser handles download (CSV) and feed preview (RSS) directly.
+            No extra fetch: these are just links. */}
+        <a
+          href="/api/v1/cve-digest/csv"
+          download
+          className="inline-flex items-center gap-1.5 rounded-lg border border-line-2 dark:border-line-1 px-3 py-2 text-xs font-mono text-muted hover:text-body"
+          title="Download this 24h window as CSV (spreadsheets, SIEM import)"
+        >
+          <Download className="w-3.5 h-3.5" /> CSV
+        </a>
+        <a
+          href="/api/v1/cve-digest/rss"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-line-2 dark:border-line-1 px-3 py-2 text-xs font-mono text-muted hover:text-body"
+          title="Subscribe to this digest as RSS (updates hourly)"
+        >
+          <Rss className="w-3.5 h-3.5" /> RSS
+        </a>
       </div>
 
       {loading && <p className="text-sm text-muted font-mono">Loading the last-24h digest…</p>}

@@ -39,6 +39,9 @@ export const KV_ALLOW_FILES = [
   // KV last-good → 503). The KV write is the cron-warm last-good, the read the
   // request-path fallback; both are the documented durability pattern.
   'api/src/routes/cve-digest.ts',
+  // Digest CSV/RSS exports — read the SAME last-good key as cve-digest.ts
+  // (fallback leg only; the edge-cache hit path never touches KV).
+  'api/src/routes/cve-digest-export.ts',
   'api/src/routes/onion-watch.ts',
   'api/src/routes/secret-leaks.ts',
   'api/src/routes/depx.ts',
