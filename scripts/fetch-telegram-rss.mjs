@@ -48,10 +48,15 @@ const CHANNELS = [
     blurb: 'Real-time CTI feed — IOCs, threat reports, advisories',
     topic: 'osint',
   },
-  // NOTE: cve0day + CVEDetector removed 2026-09-21 (0 preview messages —
+  // NOTE: cve0day removed 2026-09-21 (0 preview messages —
   // dead/preview-disabled). Do not re-add without a live t.me/s/ check.
+  // CVEDetector was on that removal list and is now BACK (re-verified live
+  // 2026-10-01: 20 preview messages). Keep in sync with telegram-feed.ts
+  // CHANNELS and cve-tg-parser.ts — the pre-baked cache is the PRIMARY path
+  // for these channels, so a missing handle here silently starves them.
   { handle: 'cvenotify', name: 'CVE Notify', blurb: 'High-cadence CVE alerts (NVD-style)', topic: 'osint' },
   { handle: 'cvefeed', name: 'CVE & Vulnerability RSS', blurb: 'CVE / vulnerability RSS aggregator', topic: 'osint' },
+  { handle: 'cvedetector', name: 'CVE Detector', blurb: 'Structured CVE alerts (20 recent posts)', topic: 'osint' },
   { handle: 'CyberMonitum', name: 'Cyber Monitum', blurb: 'Threat-intel + cyber-sec digest', topic: 'osint' },
   { handle: 'DWI_CVE_Alerts', name: 'DWI CVE Alerts', blurb: 'Dark Web Informer CVE alerts', topic: 'osint' },
   {

@@ -378,3 +378,110 @@ export async function fetchVulnTrackerDaily(date: string): Promise<VulnTrackerFe
   ]);
   return { digest, archive, blog, ok: digest !== null };
 }
+
+/** One row of the full /all-cves list (keyed surface only). */
+export interface VulnTrackerFullCve {
+  cve_id: string;
+  severity: VulnTrackerSeverity;
+  base_score: number | null;
+  vulnerability_name: string;
+  vendor_name?: string;
+  product_name?: string;
+  published_date?: string;
+  is_exploited: boolean;
+}
+
+export interface VulnTrackerFullFeedResult {
+  cves: VulnTrackerFullCve[];
+  total: number | null;
+  ok: boolean;
+}
+
+/**
+ * Full /all-cves feed — DORMANT until a key exists.
+ *
+ * The `/api/cves` list behind vulntracker.io/all-cves answers 401 without an
+ * `Authorization: Bearer` key on every query shape (verified live 2026-10-01
+ * across limit/sort/severity/date_type variants). So this function is a no-op
+ * returning `{ ok: false, cves: [] }` when `apiKey` is unset — the digest
+ * route and the briefing builder never call it, and the keyed path activates
+ * the moment `VULNTRACKER_API_KEY` is set via `wrangler secret put`.
+ *
+ * The response shape is assumed to mirror the digest's `top_cves` rows (same
+ * field names, paginated); `parseVulnTrackerFullFeed` is the seam that will
+ * absorb whatever the real envelope is once a key lets us see it, and it
+ * fails closed (null) on anything it doesn't recognise rather than emitting
+ * half-parsed rows.
+ */
+const FULL_CVES_ENDPOINT = 'https://vulntracker.io/api/cves';
+
+export function parseVulnTrackerFullFeed(
+  payload: unknown
+): { cves: VulnTrackerFullCve[]; total: number | null } | null {
+  if (typeof payload !== 'object' || payload === null) return null;
+  const d = payload as { data?: unknown };
+  const data = d.data;
+  let rows: unknown[] = [];
+  let total: number | null = null;
+  if (Array.isArray(data)) {
+    rows = data;
+  } else if (typeof data === 'object' && data !== null) {
+    const inner = data as { cves?: unknown; data?: unknown; total_count?: unknown; total?: unknown };
+    if (Array.isArray(inner.cves)) rows = inner.cves;
+    else if (Array.isArray(inner.data)) rows = inner.data;
+    else return null;
+    const t = inner.total ?? inner.total_count;
+    total = typeof t === 'number' && Number.isFinite(t) ? t : null;
+  } else {
+    return null;
+  }
+  const out: VulnTrackerFullCve[] = [];
+  const seen = new Set<string>();
+  for (const raw of rows) {
+    const c = mapVulnTrackerTopCve(raw);
+    if (!c || seen.has(c.cve_id)) continue;
+    seen.add(c.cve_id);
+    out.push({
+      cve_id: c.cve_id,
+      severity: c.severity,
+      base_score: c.base_score,
+      vulnerability_name: c.vulnerability_name,
+      ...(c.vendor_name ? { vendor_name: c.vendor_name } : {}),
+      ...(c.product_name ? { product_name: c.product_name } : {}),
+      ...(c.published_date ? { published_date: c.published_date } : {}),
+      is_exploited: c.is_exploited,
+    });
+  }
+  return { cves: out, total };
+}
+
+export async function fetchVulnTrackerFullFeed(opts: {
+  apiKey?: string;
+  limit?: number;
+  publishedAfter?: string;
+}): Promise<VulnTrackerFullFeedResult> {
+  if (!opts.apiKey) return { cves: [], total: null, ok: false };
+  try {
+    const qs = new URLSearchParams({
+      limit: String(Math.min(opts.limit ?? 100, 100)),
+      sort_by: 'published_date',
+      sort_order: 'desc',
+      ...(opts.publishedAfter ? { published_date_start: opts.publishedAfter, date_type: 'published' } : {}),
+    });
+    const res = await fetchResilient(
+      `${FULL_CVES_ENDPOINT}?${qs.toString()}`,
+      {
+        headers: { accept: 'application/json', authorization: `Bearer ${opts.apiKey}`, 'user-agent': UA },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        cf: { cacheTtlByStatus: { '200-299': 0, '400-599': 0 } },
+      } as RequestInit,
+      { attempts: 2, timeoutMs: FETCH_TIMEOUT_MS }
+    );
+    if (!res.ok) return { cves: [], total: null, ok: false };
+    const parsed = parseVulnTrackerFullFeed(await res.json().catch(() => null));
+    if (!parsed) return { cves: [], total: null, ok: false };
+    return { cves: parsed.cves, total: parsed.total, ok: true };
+  } catch {
+    return { cves: [], total: null, ok: false };
+  }
+}

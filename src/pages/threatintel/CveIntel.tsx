@@ -5,6 +5,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { Bug } from 'lucide-react';
 
 const CveList = lazy(() => import('./CveList'));
+const CveDigest = lazy(() => import('./CveDigest'));
 const ExploitableCves = lazy(() => import('./ExploitableCves'));
 const CisaKevCatalog = lazy(() => import('./CisaKevCatalog'));
 const K8sCve = lazy(() => import('./K8sCve'));
@@ -13,10 +14,15 @@ const PocScanner = lazy(() => import('./PocScanner'));
 const CyberNewsFeed = lazy(() => import('./CyberNewsFeed'));
 const CveHealthCheck = lazy(() => import('./CveHealthCheck'));
 
-type TabId = 'all' | 'exploitable' | 'kev' | 'k8s' | 'cert-in' | 'poc' | 'news' | 'health';
+type TabId = 'all' | 'digest' | 'exploitable' | 'kev' | 'k8s' | 'cert-in' | 'poc' | 'news' | 'health';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'all', label: 'All Recent', desc: 'NVD + KEV + MyThreatIntel + cvefeed.io + CVE Telegram channels + EPSS' },
+  {
+    id: 'digest',
+    label: '24h Digest',
+    desc: 'Every CVE published in the last 24 hours, anchored on ctiwatch — the complete window, not a sample',
+  },
   {
     id: 'exploitable',
     label: 'Exploitable',
@@ -90,6 +96,7 @@ export default function CveIntel(): JSX.Element {
       <div role="tabpanel" id={`tabpanel-${activeTab}`} aria-labelledby={`tab-${activeTab}`}>
         <Suspense fallback={<TabLoader />}>
           {activeTab === 'all' && <CveList bare />}
+          {activeTab === 'digest' && <CveDigest bare />}
           {activeTab === 'exploitable' && <ExploitableCves bare />}
           {activeTab === 'kev' && <CisaKevCatalog bare />}
           {activeTab === 'poc' && <PocScanner bare />}

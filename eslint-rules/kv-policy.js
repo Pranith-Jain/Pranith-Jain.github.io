@@ -35,6 +35,10 @@ export const KV_ALLOW_FILES = [
   // ── upstream-outage last-good durability / fallback reads ──
   'api/src/routes/ransomware-recent.ts',
   'api/src/routes/cve-recent.ts',
+  // Daily CVE digest — same three-layer discipline as cve-recent (edge cache →
+  // KV last-good → 503). The KV write is the cron-warm last-good, the read the
+  // request-path fallback; both are the documented durability pattern.
+  'api/src/routes/cve-digest.ts',
   'api/src/routes/onion-watch.ts',
   'api/src/routes/secret-leaks.ts',
   'api/src/routes/depx.ts',

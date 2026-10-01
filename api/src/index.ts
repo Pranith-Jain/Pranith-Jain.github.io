@@ -105,6 +105,7 @@ import {
 } from './routes/telegram-feed';
 import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
+import { cveDigestHandler } from './routes/cve-digest';
 import {
   promptintelHealthHandler,
   promptintelTaxonomyHandler,
@@ -1443,6 +1444,11 @@ app.post('/api/v1/research-digest', researchDigestHandler);
 app.post('/api/v1/darkweb-intel', darkwebIntelHandler);
 app.post('/api/v1/knowledge-graph', knowledgeGraphHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
+// Daily CVE digest — every CVE published in the last 24h. Separate route (and
+// cache key) from cve-recent because the promise is different: cve-recent is a
+// recent SAMPLE bounded by NVD paging, this is a complete window. Cron-warmed,
+// same edge-cache → KV-last-good → 503 discipline.
+app.get('/api/v1/cve-digest', cveDigestHandler);
 // PromptIntel IoPC registry (NovaHunting) — cached taxonomy/health + live
 // keyed prompt search. Keyed handlers degrade to 501 without the secret.
 app.get('/api/v1/promptintel/health', promptintelHealthHandler);

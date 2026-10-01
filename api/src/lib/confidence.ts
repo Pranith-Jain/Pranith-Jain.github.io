@@ -318,6 +318,34 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     // so coverage is partial by design. C reflects that partial-by-design view.
     known_bias: 'Digest API is gated (top 7 criticals of the full day); most of the JSON API requires authentication',
   },
+  ctiwatch: {
+    id: 'ctiwatch',
+    name: 'CTIWatch',
+    reliability: 'B',
+    category: 'secondary',
+    description:
+      'Public vulnerability database with a first-class published_after filter — the anchor for the 24h CVE digest, carrying CVSS, severity, exploit_status, KEV flag, EPSS and priority score',
+    // Catalogue is genuinely complete (382k CVEs) and the docs are unusually
+    // honest about their own footguns, but it is still a secondary aggregation
+    // of NVD-sourced data rather than a primary disclosure venue. B, not A.
+    known_bias: 'Anonymous scope caps at offset=1000; unknown query params are silently ignored upstream',
+  },
+  cvedetector: {
+    id: 'cvedetector',
+    name: 'CVE Detector (Telegram)',
+    reliability: 'D',
+    category: 'secondary',
+    description: 'High-cadence Telegram CVE relay with structured publish timestamps but no severity data',
+    known_bias: 'Relay, not primary disclosure; description-only, no CVSS',
+  },
+  'dwi-cve-alerts': {
+    id: 'dwi-cve-alerts',
+    name: 'DWI CVE Alerts (Telegram)',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'DarkWebInformer structured CVE advisories — explicit CVSS score, severity label and vector string',
+    known_bias: 'Relay with editorial selection; coverage skews toward WordPress/plugin CVEs via Patchstack',
+  },
   otx: {
     id: 'otx',
     name: 'AlienVault OTX',
