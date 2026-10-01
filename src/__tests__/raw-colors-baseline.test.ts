@@ -58,9 +58,12 @@ describe('raw-colors baseline', () => {
     expect(config).toContain("'no-raw-colors/no-raw-colors': 'off'");
   });
 
-  // Spawning a full ESLint scan takes ~30s, well past the 10s default, so the
-  // timeout is explicit rather than left to fail on a slow machine.
-  it('matches what a fresh scan reports', { timeout: 120_000 }, () => {
+  // Spawning a full `eslint src` scan takes ~35s locally but ~122s on a
+  // GitHub runner, so the budget has to clear the slower environment rather
+  // than the developer machine. 120s was not enough - CI timed out at 122s.
+  // 300s leaves ~2.5x headroom over the observed runner figure; the default
+  // 10s would fail on both.
+  it('matches what a fresh scan reports', { timeout: 300_000 }, () => {
     // The scan forces the rule on with `--rule`, which overrides the
     // baselined-files override -- so this sees every file, not just the
     // unlisted ones. Catches drift in both directions: a cleaned file still
