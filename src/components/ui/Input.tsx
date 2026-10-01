@@ -16,8 +16,15 @@ import type { InputHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes,
  * tool inputs; pass mono={false} for prose-style inputs).
  */
 
+/**
+ * Form-control boundary uses `border-line-input` rather than the decorative
+ * `line-1` hairline ladder. A field's border is the only thing identifying it
+ * as an interactive control, so WCAG 1.4.11 requires >=3:1; the hairline ladder
+ * tops out at ~1.7:1 on white, which cannot do that job. See the token
+ * definition in src/index.css for the measured values in both themes.
+ */
 const BASE_INPUT =
-  'w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 transition-colors';
+  'w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-line-input rounded-xl text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 transition-colors';
 
 const MONO = 'font-mono';
 

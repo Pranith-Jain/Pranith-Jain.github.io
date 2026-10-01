@@ -10,6 +10,18 @@ interface SidebarProps {
 const STORAGE_KEY = 'sidebar-collapsed';
 const GROUPS_KEY = 'sidebar-expanded-groups';
 
+/**
+ * DOM id for a collapsible group's `<ul>`.
+ *
+ * Was previously an inline `sidebar-group-${title.replace(...)}` expression
+ * duplicated at both the button's `aria-controls` and the list's `id`. Two
+ * copies of a string-building rule is exactly the kind of thing that drifts;
+ * one function keeps the two ends from ever disagreeing.
+ */
+function groupDomId(title: string): string {
+  return `sidebar-group-${title.replace(/\s+/g, '-').toLowerCase()}`;
+}
+
 function isActive(pathname: string, href: string): boolean {
   if (href === pathname) return true;
   if (href === '/threatintel') return false;
@@ -122,7 +134,13 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                     : 'text-muted hover:text-slate-700 dark:hover:text-slate-200'
                 }`}
                 aria-expanded={isExpanded}
-                aria-controls={`sidebar-group-${group.title.replace(/\s+/g, '-').toLowerCase()}`}
+                // Only reference the list when it is actually in the DOM.
+                // The group body renders conditionally (`{isExpanded && ...}`),
+                // so an unconditional aria-controls left ~20 collapsed groups
+                // pointing at IDs that do not exist - a dangling reference
+                // assistive tech reports as a broken control. Pairing the two
+                // keeps the relationship honest in both states.
+                aria-controls={isExpanded ? groupDomId(group.title) : undefined}
               >
                 <span className="truncate">{group.title}</span>
                 <ChevronDown
@@ -132,7 +150,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                 />
               </button>
               {isExpanded && (
-                <ul id={`sidebar-group-${group.title.replace(/\s+/g, '-').toLowerCase()}`} className="space-y-0.5 pb-2">
+                <ul id={groupDomId(group.title)} className="space-y-0.5 pb-2">
                   {group.items.map((item) => {
                     const active = isActive(location.pathname, item.href);
                     const Icon = item.icon;

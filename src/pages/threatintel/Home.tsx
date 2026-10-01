@@ -1,34 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Link } from 'react-router-dom';
-import {
-  Activity,
-  AlertTriangle,
-  ArrowRight,
-  Bug,
-  Compass,
-  Flame,
-  Globe,
-  Plug,
-  Radio,
-  Search,
-  Shield,
-  Users,
-  Database,
-  X,
-  type LucideIcon,
-} from 'lucide-react';
+import { ArrowRight, Compass, Flame, Globe, Radio, Search, Shield, Users, X } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
 import { LivePulse } from '../../components/threatintel/LivePulse';
+import { HubTabs } from '../../components/threatintel/HubTabs';
 import { CATALOG, catalogSearch } from '../../data/threatintel-catalog';
-
-/** Count pages in a category (hub) by its cat ID. */
-function catPageCount(catId: string): number {
-  const hub = CATALOG.find((h) => h.id === catId);
-  return hub ? hub.pages.length : 0;
-}
 import { ThreatIntelStructuredData } from '../../components/ToolStructuredData';
 import { FaqStructuredData } from '../../components/FaqStructuredData';
 import { BreadcrumbListSchema } from '../../components/BreadcrumbStructuredData';
@@ -46,131 +25,19 @@ import { THREATINTEL_FAQ } from '../../data/threatintel-faq';
  * Structure:
  *   1. Bold hero - "What is this?" in one sentence + primary search
  *   2. Live intelligence pulse - Real-time proof the platform works
- *   3. Category overview - 8 clean topic cards (NOT 100+ tools)
- *   4. Quick access - Most-used tools for returning users
+ *   3. Quick access - Most-used tools for returning users
+ *   4. Explore by topic - tabbed hub directory (<HubTabs />), one tab per
+ *      registry hub, deep-linked via ?hub=<id>
  *   5. Getting started - 3-step guide for novices
  *   6. Full catalog - One click away
  *
  * The key insight from competitor research: don't dump 100+ tools on
  * the landing page. Show categories, each leading to a focused sub-page.
  * Users think in problems ("ransomware", "phishing"), not in tool names.
+ * Categories were previously a hand-maintained 8-card grid; they are now
+ * generated from `data/threatintel-hubs.ts` so the tab list can never drift
+ * out of sync with the routes that actually exist.
  */
-
-/* ------------------------------------------------------------------ */
-/*  Category cards - the primary navigation surface                    */
-/* ------------------------------------------------------------------ */
-
-interface CategoryCard {
-  id: string;
-  label: string;
-  description: string;
-  icon: LucideIcon;
-  href: string;
-  tone: string;
-  pages: number;
-  highlight?: string;
-}
-
-const CATEGORY_CARDS: CategoryCard[] = [
-  {
-    id: 'actors',
-    label: 'Threat Actors',
-    description:
-      'Research APT groups, criminal organizations, and individual threat actors. TTPs, aliases, and infrastructure.',
-    icon: Users,
-    href: '/threatintel/catalog?cat=actors',
-    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
-    pages: catPageCount('actors'),
-  },
-  {
-    id: 'campaigns',
-    label: 'Campaigns & Briefings',
-    description: 'Track active and historical campaigns. Daily briefings, attribution, and cross-campaign correlation.',
-    icon: Activity,
-    href: '/threatintel/catalog?cat=campaigns',
-    tone: 'text-orange-600 dark:text-orange-400 hover:border-orange-500/40',
-    pages: catPageCount('campaigns'),
-  },
-  {
-    id: 'darkweb',
-    label: 'Dark Web & Ransomware',
-    description: 'Monitor ransomware leak sites, dark web forums, breach disclosures, and criminal marketplaces.',
-    icon: Flame,
-    href: '/threatintel/catalog?cat=darkweb',
-    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
-    pages: catPageCount('darkweb'),
-    highlight: 'live',
-  },
-  {
-    id: 'iocs',
-    label: 'IOCs & Indicators',
-    description: 'Live indicator feeds, enrichment, cross-correlation, and entity resolution across 60+ sources.',
-    icon: Shield,
-    href: '/threatintel/catalog?cat=iocs',
-    tone: 'text-emerald-600 dark:text-emerald-400 hover:border-emerald-500/40',
-    pages: catPageCount('iocs'),
-    highlight: 'live',
-  },
-  {
-    id: 'cves',
-    label: 'CVEs & Vulnerabilities',
-    description:
-      'Browse CVEs by severity, exploit status, and vendor advisories. Kubernetes and cloud-specific CVE tracking.',
-    icon: AlertTriangle,
-    href: '/threatintel/catalog?cat=cves',
-    tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
-    pages: catPageCount('cves'),
-  },
-  {
-    id: 'social',
-    label: 'Social & Open Source',
-    description:
-      'Streaming intelligence from Telegram, X/Twitter, Reddit, and crypto scam feeds. Real-time social monitoring.',
-    icon: Radio,
-    href: '/threatintel/catalog?cat=social',
-    tone: 'text-violet-600 dark:text-violet-400 hover:border-violet-500/40',
-    pages: catPageCount('social'),
-    highlight: 'live',
-  },
-  {
-    id: 'malware',
-    label: 'Malware Intelligence',
-    description: 'Malware families, IOCs, sample metadata, supply chain packages, and sandbox analysis.',
-    icon: Bug,
-    href: '/threatintel/catalog?cat=malware',
-    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
-    pages: catPageCount('malware'),
-  },
-  {
-    id: 'feeds',
-    label: 'Feeds & Sources',
-    description:
-      'Manage, quality-check, and schedule intelligence feeds. Source reliability scoring and health monitoring.',
-    icon: Globe,
-    href: '/threatintel/catalog?cat=feeds',
-    tone: 'text-sky-600 dark:text-sky-400 hover:border-sky-500/40',
-    pages: catPageCount('feeds'),
-  },
-  {
-    id: 'tools',
-    label: 'Tools & Integrations',
-    description: 'MCP Search, AI copilot, MISP browser, STIX export, investigations, and security tools directory.',
-    icon: Plug,
-    href: '/threatintel/catalog?cat=tools',
-    tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
-    pages: catPageCount('tools'),
-  },
-  {
-    id: 'detections',
-    label: 'Detections & Rules',
-    description:
-      '15,957 detection rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK. Detection labs, YARA rules, and rule conversion.',
-    icon: Database,
-    href: '/threatintel/catalog?cat=detections',
-    tone: 'text-brand-600 dark:text-brand-400 hover:border-brand-500/40',
-    pages: catPageCount('detections'),
-  },
-];
 
 /* ------------------------------------------------------------------ */
 /*  Main component                                                     */
@@ -466,64 +333,14 @@ export default function ThreatIntelHome(): JSX.Element {
             </div>
           </details>
 
-          {/* ── Explore by topic - open by default: these category cards are
-                the hub's primary navigation, so they shouldn't be hidden behind
-                a collapsed summary on landing. Secondary sections stay collapsed. */}
-          <details open className="group surface-card mt-8 sm:mt-10">
-            <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
-              <div>
-                <h2 className="font-display font-bold text-lg text-heading">Explore by topic</h2>
-                <p className="text-xs text-muted mt-0.5">
-                  {CATALOG.length} categories · {CATALOG.reduce((sum, h) => sum + h.pages.length, 0)} pages
-                </p>
-              </div>
-              <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
-            </summary>
-            <div className="px-4 sm:px-5 pb-4 sm:pb-5">
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {CATEGORY_CARDS.map((cat) => {
-                  const Icon = cat.icon;
-                  return (
-                    <Link
-                      key={cat.id}
-                      to={cat.href}
-                      className={`group relative surface-card card-hover block p-4 sm:p-5 ${cat.tone}`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <Icon size={16} aria-hidden="true" />
-                        <h3 className="font-display text-sm font-bold text-heading">{cat.label}</h3>
-                        {cat.highlight === 'live' && (
-                          <span className="ml-auto inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-rose-600 dark:text-rose-400">
-                            <span className="relative inline-flex h-1 w-1">
-                              <span
-                                className="absolute inset-0 rounded-full bg-rose-500 live-pulse"
-                                aria-hidden="true"
-                              />
-                              <span className="relative inline-block h-1 w-1 rounded-full bg-rose-500" />
-                            </span>
-                            live
-                          </span>
-                        )}
-                      </div>
-                      <p className="mt-2 text-xs leading-relaxed text-muted line-clamp-2 min-h-[2.5rem]">
-                        {cat.description}
-                      </p>
-                      <dl className="mt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] pt-2 font-mono text-micro">
-                        <div className="flex items-center gap-1.5 text-slate-500">
-                          <dt className="uppercase tracking-wider opacity-70">pages</dt>
-                          <dd className="font-semibold tabular-nums text-body">{cat.pages}</dd>
-                        </div>
-                        <span className="inline-flex items-center gap-0.5 text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                          open
-                          <ArrowRight size={10} className="transition-transform group-hover:translate-x-0.5" />
-                        </span>
-                      </dl>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </details>
+          {/* ── Explore by topic - tabbed hub directory ───────────────
+                Replaces the previous 8-card grid. Every hub in the registry
+                gets its own tab (there are 19, not 8), and the active hub is
+                mirrored to ?hub=<id> so it is deep-linkable and
+                reload-stable. Structure follows the novasky.io
+                /threat-intelligence reference: sticky tab rail, then a
+                panel with a section header and a widget grid. */}
+          <HubTabs />
 
           {/* ── Collapsible: Getting started */}
           <details className="group surface-card mt-8 sm:mt-10">

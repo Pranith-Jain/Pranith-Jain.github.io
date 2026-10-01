@@ -34,6 +34,14 @@ Object.defineProperty(window, 'scrollTo', {
   value: vi.fn(),
 });
 
+// Mock Element.prototype.scrollIntoView. jsdom does not implement it, so any
+// component that scrolls a ref into view on mount (tab rails, chat panes,
+// timeline highlights) throws "not a function" and takes the whole suite with
+// it. Stub it as a no-op rather than letting each test guard the call.
+if (!Element.prototype.scrollIntoView) {
+  Element.prototype.scrollIntoView = function scrollIntoView() {};
+}
+
 // Mock localStorage
 const localStorageMock = {
   getItem: vi.fn(),

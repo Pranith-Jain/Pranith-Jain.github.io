@@ -101,7 +101,11 @@ export function TopBar({
             className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileNavOpen ?? false}
-            aria-controls="mobile-sidebar-drawer"
+            // Only while open: Drawer returns null when closed, so the target
+            // id is absent in the collapsed state and referencing it there
+            // would be a dangling aria-controls. aria-expanded alone already
+            // conveys the collapsed state correctly.
+            aria-controls={mobileNavOpen ? 'mobile-sidebar-drawer' : undefined}
           >
             {mobileNavOpen ? (
               <X className="h-4 w-4" aria-hidden="true" />

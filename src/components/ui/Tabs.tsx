@@ -32,13 +32,32 @@ export function Tabs({
 }: TabsProps) {
   const baseId = useId();
 
+  /**
+   * WAI-ARIA APG tablist keyboard behaviour.
+   *
+   * Previously this only handled ArrowLeft/Right and bailed at the ends, so
+   * the first and last tabs were keyboard dead stops. The APG specifies
+   * wrap-around plus optional Home/End; both are cheap here because panels
+   * are plain render output, so activation on focus is instant (automatic
+   * activation is the recommended mode when panels need no fetch).
+   */
   function handleKeyDown(e: React.KeyboardEvent, currentIdx: number) {
+    const last = tabs.length - 1;
     let nextIdx = -1;
-    if (e.key === 'ArrowRight') nextIdx = currentIdx + 1;
-    if (e.key === 'ArrowLeft') nextIdx = currentIdx - 1;
-    if (nextIdx < 0 || nextIdx >= tabs.length) return;
-    const next = tabs[nextIdx]!;
-    if (next.disabled) return;
+    if (e.key === 'ArrowRight') nextIdx = currentIdx === last ? 0 : currentIdx + 1;
+    else if (e.key === 'ArrowLeft') nextIdx = currentIdx === 0 ? last : currentIdx - 1;
+    else if (e.key === 'Home') nextIdx = 0;
+    else if (e.key === 'End') nextIdx = last;
+    else return;
+
+    e.preventDefault();
+    // Walk forward past disabled tabs instead of landing on a dead stop.
+    let probe = nextIdx;
+    for (let i = 0; i < tabs.length && tabs[probe]?.disabled; i += 1) {
+      probe = probe === last ? 0 : probe + 1;
+    }
+    const next = tabs[probe];
+    if (!next || next.disabled) return;
     onChange(next.id);
     document.getElementById(`${baseId}-tab-${next.id}`)?.focus();
   }

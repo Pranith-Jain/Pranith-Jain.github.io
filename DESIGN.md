@@ -21,8 +21,31 @@ Channel triples consumed via `rgb(var(--token))`, so one definition serves both 
 | `--surface-300`        | #f5f5f5             | #1c253c             | highest elevation, inputs hover |
 | `--input-200`          | #fafafa             | #0b0f20             | form field backgrounds          |
 | `--border-400/500/600` | black @ 8/14/22%    | white @ 8/14/22%    | hairline ladder                 |
+| `--border-input`       | #7d8ca0             | #64748b             | form-control boundary only      |
 | `--muted`              | #475569 (slate-600) | #94a3b8 (slate-400) | secondary text (`text-muted`)   |
 | `--hover-100`          | black 4%            | white 4%            | hover washes                    |
+
+### Hairlines vs. control boundaries (WCAG 1.4.11)
+
+The `--border-4/5/6` ladder is **decorative** — it carries layout and grouping.
+Measured on white it runs 1.19:1 → 1.69:1, which is correct for a hairline and
+intentionally far below the 3:1 floor. Do not "fix" these: raising the ladder
+would flatten the elevation hierarchy for no accessibility gain, since a
+separator isn't what identifies a control.
+
+`--border-input` is different in kind. A field's border is the **only** thing
+identifying it as an interactive control, so SC 1.4.11 requires ≥3:1. It is
+therefore a separate token rather than a fourth ladder step:
+
+|                | light  | dark   |
+| -------------- | ------ | ------ |
+| on surface-100 | 3.43:1 | 3.94:1 |
+| on surface-200 | 3.28:1 | 3.66:1 |
+
+Rule of thumb: if removing the border would make the element stop reading as
+interactive, it needs `--border-input`. If it's only separating two regions,
+use the ladder. `src/__tests__/token-contrast.test.ts` pins both the floor and
+the intentional sub-threshold hairline values so neither drifts silently.
 
 `@theme` color utilities: `brand-50…950` (indigo family), `severity-critical/high/medium/low/info`,
 `muted`. Surfaces are consumed as arbitrary values today
