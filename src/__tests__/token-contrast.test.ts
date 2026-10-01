@@ -201,6 +201,27 @@ describe('design token contrast: --inverted (SC 1.4.3 AA, 4.5:1)', () => {
   });
 });
 
+describe('design token contrast: --disabled (exempt, pinned anyway)', () => {
+  /**
+   * Inactive controls are explicitly exempt from SC 1.4.3, so the 1.48:1
+   * white-on-slate-300 in light mode is not a violation. These tests pin the
+   * values anyway, for the opposite reason: if someone "fixes" the contrast
+   * by darkening the disabled fill, the button stops reading as disabled.
+   * The exemption is load-bearing here, and silent drift in either direction
+   * is the regression.
+   */
+  it('matches the raw pair it replaced, exactly', () => {
+    expect(token('disabled', 'light')).toEqual([203, 213, 225]); // slate-300
+    expect(token('disabled', 'dark')).toEqual([51, 65, 85]); // slate-700
+  });
+
+  it('records the light-mode ratio that must NOT be "fixed"', () => {
+    const r = contrast([255, 255, 255], token('disabled', 'light'));
+    expect(r).toBeLessThan(TEXT_MIN);
+    expect(r).toBeGreaterThan(1.0);
+  });
+});
+
 describe('design token contrast: --on-fill (white ink on saturated fills)', () => {
   /**
    * `--on-fill` is white in BOTH modes. That is deliberate: the fill decides

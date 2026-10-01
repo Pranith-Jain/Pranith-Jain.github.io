@@ -251,7 +251,7 @@ export default function VerdiktAi(): JSX.Element {
           <button
             onClick={handleEnrich}
             disabled={loading || !iocValue.trim()}
-            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
+            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>

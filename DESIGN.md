@@ -27,6 +27,7 @@ Channel triples consumed via `rgb(var(--token))`, so one definition serves both 
 | `--on-fill`            | #fff                | #fff                | ink on a saturated fill         |
 | `--track`              | #e2e8f0             | #1c253c             | loading/progress track on card  |
 | `--inverted`           | #334155             | #94a3b8             | low-emphasis ink, both modes    |
+| `--disabled`           | #cbd5e1 (slate-300) | #334155 (slate-700) | disabled button fill            |
 | `--accent-text`        | #435ef1 (brand-500) | #6d8bf7 (brand-400) | accent used as text / links     |
 | `--focus-ring`         | #435ef1 (brand-500) | #6d8bf7 (brand-400) | focus outline                   |
 
@@ -66,8 +67,9 @@ usable as a utility. **Write the utility, never an arbitrary value.**
 | `text-[rgb(var(--muted))]`        | `text-muted`     |
 
 Full set: `bg-surface-100/200/300`, `bg-input-200`, `bg-wash`, `bg-track`,
-`border-line-1/2/3/input`, `divide-line-1/2/3`, `text-muted/heading/body/inverted`,
-`text-on-fill`, `text-accent-text`.
+`bg-disabled` (under `disabled:` only), `border-line-1/2/3/input`,
+`divide-line-1/2/3`, `text-muted/heading/body/inverted`, `text-on-fill`,
+`text-accent-text`.
 
 ### Three roles that are not the surface ladder
 
@@ -86,6 +88,13 @@ way that is easy to miss:
   not an average of the pair's two ends; it is the first value that passes on
   both. In light mode it coincides with `--ink-body` because no lighter ink
   step clears 4.5:1 there.
+- **`--disabled`** — the fill of a disabled brand/severity button
+  (`disabled:bg-disabled`, replacing `disabled:bg-slate-300
+dark:disabled:bg-slate-700`). White-on-fill here is 1.48:1 in light mode,
+  which is _not_ a violation: inactive controls are explicitly exempt from SC
+  1.4.3. The value is pinned by tests precisely so nobody "fixes" it and
+  breaks the disabled affordance. Only the `disabled:`-variant spelling maps;
+  a bare `bg-slate-300` stays unmapped because its intent is unknown.
 
 These utilities resolve through the channel variables, so they adapt to both
 modes with **no `dark:` prefix**. `bg-surface-200 dark:bg-surface-200` is
@@ -184,7 +193,7 @@ shadows are accents, not defaults.
   last _fixable_ issue instead, and is withheld only when a dead token is
   present (an undefined variable is the one case where silently renaming
   would destroy the signal).
-- **804 findings remain**, all reported but deliberately **not** auto-fixed,
+- **239 findings remain**, all reported but deliberately **not** auto-fixed,
   because the rewrite would change rendering rather than spelling:
   - `dark:bg-white/10` and similar. White at 10% LIFTS a navy card; the token
     form DARKENS it, because `--surface-100` is near-black in dark mode. Same
@@ -210,4 +219,15 @@ shadows are accents, not defaults.
   low contrast (`dark:text-slate-700`, `dark:bg-slate-600`), opacity composites
   (`slate-500/10`, `/40`) used as washes, and dark-only emphasis overrides inside
   light-styled controls. These read correctly per-context; a blind swap would regress them.
-- ESLint rule `no-raw-dark-colors` warns on raw dark palette classes in touched files.
+- **Overlay scrims are not token debt.** `bg-black/50`-style scrims behind
+  modals and `dark:bg-white/10`-style lifts on navy cards are translucent
+  overlays whose effect depends on what is _beneath_ them. No solid token can
+  express "10% lighter than whatever is behind this element", so these stay raw
+  by design. The lint rule reports them but withholds the autofix (rewriting to
+  a surface token would invert the effect); see the `alphaOnExtremes` gate.
+- **Argus has its own token scope.** `--text-primary/secondary/tertiary`,
+  `--ink-600…950` and `--edge*` are defined in `src/pages/argus/argus.css` and
+  are only valid inside Argus views (`Argus.tsx` imports that stylesheet). They
+  are not part of the global ramp and must not be "unified" into it; the two
+  palettes serve different surfaces.
+- ESLint rule `no-raw-colors` warns on raw palette colors in touched files.

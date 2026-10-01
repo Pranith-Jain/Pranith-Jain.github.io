@@ -69,6 +69,13 @@
      Distinct from --ink-heading, which is theme-reactive ink on a NEUTRAL
      surface -- using that on a fill gives a muddy blue-white. */
   --color-on-fill: rgb(var(--on-fill));
+  /* Disabled fill for brand/severity buttons. Replaces the raw pair
+     `disabled:bg-slate-300 dark:disabled:bg-slate-700`, which was the only
+     remaining both-halves-raw pair with more than a couple of sites (15).
+     Disabled controls are exempt from SC 1.4.3, so the 1.48:1 white-on-fill
+     in light mode is not a violation -- but it is recorded here so nobody
+     "fixes" it by brightening the fill and breaking the disabled affordance. */
+  --color-disabled: rgb(var(--disabled));
   /* Loading placeholder / progress track. Sits ON a card, so it has to read
      as a track rather than a surface: ~1.2:1 against the card in both modes,
      matching what a raw bg-slate-200 + dark:bg-surface-300 pair produced. */
@@ -209,6 +216,9 @@
        1.48:1 on white -- effectively invisible. Light uses --ink-body
        (9.92:1 on surface-200), dark uses slate-400 (6.80:1). */
     --inverted: 51 65 85;
+    /* Disabled button fill: slate-300 light, slate-700 dark. Matches the
+       previous raw pair exactly, so the 15 converted buttons do not move. */
+    --disabled: 203 213 225;
   }
 
   html.dark {
@@ -245,6 +255,7 @@
        over slate-500, which only reaches 3.66:1 here. Coincides with
        --muted in dark mode; the two roles converge when the ramp inverts. */
     --inverted: 148 163 184;
+    --disabled: 51 65 85;
   }
 
   :focus-visible {

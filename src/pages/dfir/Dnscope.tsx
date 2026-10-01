@@ -188,7 +188,7 @@ export default function Dnscope(): JSX.Element {
                 type="button"
                 onClick={runScan}
                 disabled={scanning || !domain.trim()}
-                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-on-fill rounded-xl text-sm font-semibold transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled text-on-fill rounded-xl text-sm font-semibold transition-colors"
               >
                 {scanning ? <Loader2 size={16} className="animate-spin" /> : <Globe size={16} />}
                 {scanning ? 'Scanning…' : 'Scan'}

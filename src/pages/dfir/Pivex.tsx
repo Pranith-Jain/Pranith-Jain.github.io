@@ -283,7 +283,7 @@ export default function Pivex(): JSX.Element {
           <button
             onClick={handleBuildGraph}
             disabled={loading || !query.trim()}
-            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center gap-2"
+            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
             {loading ? 'Building…' : 'Build Graph'}

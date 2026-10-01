@@ -48,6 +48,7 @@ function readTheme() {
     ink: ['muted', 'heading', 'body', 'inverted'],
     accents: ['accent-text', 'focus-ring', 'on-fill'],
     tracks: ['track'],
+    fills: ['disabled'],
   };
   let css;
   try {
@@ -73,6 +74,7 @@ function readTheme() {
   const ink = ['muted', 'heading', 'body', 'inverted'].filter((t) => theme.includes(`--color-${t}:`));
   const accents = ['accent-text', 'focus-ring', 'on-fill'].filter((t) => theme.includes(`--color-${t}:`));
   const tracks = ['track'].filter((t) => theme.includes(`--color-${t}:`));
+  const fills = ['disabled'].filter((t) => theme.includes(`--color-${t}:`));
 
   return {
     surfaces: surfaces.length ? surfaces : fallback.surfaces,
@@ -81,6 +83,7 @@ function readTheme() {
     ink: ink.length ? ink : fallback.ink,
     accents: accents.length ? accents : fallback.accents,
     tracks: tracks.length ? tracks : fallback.tracks,
+    fills: fills.length ? fills : fallback.fills,
   };
 }
 
@@ -102,6 +105,7 @@ const TOKEN_UTILITIES = new Set([
   ...THEME.ink.map((v) => `text-${v}`),
   ...THEME.accents.map((v) => `text-${v}`),
   ...THEME.tracks.map((v) => `bg-${v}`),
+  ...THEME.fills.map((v) => `bg-${v}`),
 ]);
 
 /**
@@ -274,6 +278,24 @@ const ARB_TOKEN_MAP = {
 /** Tokens whose value already embeds an alpha channel. */
 const ALPHA_TOKENS = new Set(['border-400', 'border-500', 'border-600', 'border-300', 'card-bg', 'hover-100']);
 
+/**
+ * Variant-scoped single-class mappings. The bare form is deliberately NOT
+ * mapped: `bg-slate-300` on its own could be a mid-tone surface, a track, or
+ * a disabled fill, and guessing is worse than reporting. Under `disabled:`
+ * the intent is unambiguous, so only that spelling is rewritten.
+ */
+const VARIANT_MAP = {
+  'disabled:bg-slate-300': 'disabled:bg-disabled',
+};
+
+/**
+ * Whole-pair collapses. Both halves are raw, so neither maps on its own, but
+ * together they name a token exactly: the light half equals the token's light
+ * value AND the dark half equals its dark value. The replacement keeps the
+ * light half's position and drops the dark half.
+ */
+const PAIR_MAP = new Map([['disabled:bg-slate-300\ndark:disabled:bg-slate-700', 'disabled:bg-disabled']]);
+
 /** Split `hover:dark:bg-surface-200/50` into {variants, prop, value, opacity}. */
 function splitUtility(cls) {
   const segs = cls.split(':');
@@ -329,7 +351,33 @@ function inspect(raw) {
   // `text-white` is only a token when it sits on a saturated fill.
   const onSaturatedFill = classes.some((c) => !c.includes(':') && SATURATED_FILL.test(c));
 
-  for (const cls of classes) {
+  // Whole-pair collapse happens first: when both halves of a known raw pair
+  // are present, they become one utility instead of two independent rewrites.
+  // Members are skipped by the per-class loop below so nothing is reported
+  // twice.
+  const pairMember = new Set();
+  const pairRewrite = new Map();
+  const pairDrop = new Set();
+  for (const [key, target] of PAIR_MAP) {
+    const [light, dark] = key.split('\n');
+    const li = classes.indexOf(light);
+    const di = classes.indexOf(dark);
+    if (li === -1 || di === -1 || pairMember.has(li) || pairMember.has(di)) continue;
+    pairMember.add(li);
+    pairMember.add(di);
+    pairRewrite.set(li, target);
+    pairDrop.add(di);
+    issues.push({
+      messageId: 'rawColor',
+      data: { raw: `${light} + ${dark}`, token: target },
+      fixable: true,
+    });
+    changed = true;
+  }
+
+  for (let idx = 0; idx < classes.length; idx++) {
+    const cls = classes[idx];
+    if (pairMember.has(idx)) continue;
     if (!isSuspicious(cls)) continue;
 
     // (3) dead CSS variable -- report, never auto-fix (intent-dependent).
@@ -362,7 +410,12 @@ function inspect(raw) {
     // White ink only becomes a token on a saturated fill. Off one, it is a
     // contrast bug worth reporting, not worth silently rewriting.
     const gated = tableKey === 'text-white' && !onSaturatedFill;
-    const token = gated ? undefined : RAW_TO_TOKEN[tableKey];
+    // Variant-scoped mappings (e.g. `disabled:bg-slate-300`) take precedence:
+    // the bare form may be intentionally unmapped while one variant state is
+    // unambiguous. Opacity forms are excluded -- `disabled:bg-slate-300/50`
+    // is a different composite that needs a human.
+    const scoped = !u.opacity && Object.hasOwn(VARIANT_MAP, cls) ? VARIANT_MAP[cls] : undefined;
+    const token = gated ? undefined : (scoped ?? RAW_TO_TOKEN[tableKey]);
 
     // `dark:bg-white/10` is an overlay that LIFTS the surface (white at 10% on
     // a navy card). Rewriting it to `dark:bg-surface-100/10` would DARKEN it,
@@ -397,26 +450,44 @@ function inspect(raw) {
   // independently so an unmappable sibling cannot block a mappable one --
   // an earlier all-or-nothing version left ~800 fixable warnings behind
   // purely because something else in the same className had no mapping.
+  // Pair members are rewritten/dropped by index, so the dark half leaves no
+  // gap behind.
   let result = '';
-  const seen = new Map();
-  for (const part of raw.split(/(\s+)/)) {
+  let classIdx = -1;
+  let pendingWs = '';
+  const parts = raw.split(/(\s+)/);
+  for (const part of parts) {
     if (!part.trim()) {
-      result += part;
+      pendingWs += part;
       continue;
     }
-    const n = (seen.get(part) ?? 0) + 1;
-    seen.set(part, n);
+    classIdx++;
+    if (pairDrop.has(classIdx)) {
+      // Swallow the separator before a dropped token so no gap is left.
+      pendingWs = '';
+      continue;
+    }
+    result += pendingWs;
+    pendingWs = '';
+    if (pairRewrite.has(classIdx)) {
+      result += pairRewrite.get(classIdx);
+      continue;
+    }
     if (!isSuspicious(part)) {
       result += part;
       continue;
     }
     result += rewriteArbitrary(part) ?? rawToToken(part, onSaturatedFill) ?? part;
   }
+  result += pendingWs;
   return { fixed: result, issues };
 }
 
 /** Rebuild a single class from the RAW_TO_TOKEN table, or null. */
 function rawToToken(cls, onSaturatedFill = false) {
+  // Variant-scoped mappings first: the bare form may be intentionally
+  // unmapped while one variant state is unambiguous.
+  if (Object.hasOwn(VARIANT_MAP, cls)) return VARIANT_MAP[cls];
   const u = splitUtility(cls);
   const tableKey = `${u.prop}-${u.value}`;
   if (tableKey === 'text-white' && !onSaturatedFill) return null;

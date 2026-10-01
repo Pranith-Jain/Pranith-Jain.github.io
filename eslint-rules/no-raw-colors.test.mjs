@@ -105,6 +105,36 @@ describe('no-raw-colors: alpha overlays are never auto-fixed', () => {
   });
 });
 
+describe('no-raw-colors: phase 3 disabled pair', () => {
+  it('collapses the full pair onto one utility', () => {
+    const { messages, output } = lint(
+      '<button className="bg-brand-600 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-on-fill" />'
+    );
+    expect(messages.map((m) => m.messageId)).toEqual(['rawColor']);
+    expect(messages[0].message).toContain('disabled:bg-disabled');
+    expect(output).toBe('<button className="bg-brand-600 disabled:bg-disabled text-on-fill" />');
+  });
+
+  it('maps a lone disabled half without inventing a dark counterpart', () => {
+    const { output } = lint('<button className="bg-brand-600 disabled:bg-slate-300" />');
+    expect(output).toBe('<button className="bg-brand-600 disabled:bg-disabled" />');
+  });
+
+  it('leaves a bare bg-slate-300 alone (intent unknown outside disabled:)', () => {
+    const { messages, output } = lint('<div className="bg-slate-300" />');
+    expect(messages.map((m) => m.messageId)).toEqual(['rawColorNoToken']);
+    expect(output).toBe('<div className="bg-slate-300" />');
+  });
+
+  it('leaves the dark half alone when it appears without its pair', () => {
+    // dark:disabled:bg-slate-700 on its own is not the documented pair, so
+    // the rule reports it but refuses to guess the intended token.
+    const { messages, output } = lint('<div className="dark:disabled:bg-slate-700" />');
+    expect(messages.map((m) => m.messageId)).toEqual(['rawColorNoToken']);
+    expect(output).toBe('<div className="dark:disabled:bg-slate-700" />');
+  });
+});
+
 describe('no-raw-colors: text-white is only a token on a saturated fill', () => {
   it('maps white ink to text-on-fill when the element has a brand/severity bg', () => {
     const { output } = lint('<button className="bg-brand-600 text-white">Go</button>');
@@ -136,7 +166,7 @@ describe('no-raw-colors: phase 2 pair collapses', () => {
 
   it('still keeps hover and disabled variants working', () => {
     const { output } = lint('<a className="hover:text-slate-700 disabled:bg-slate-300">x</a>');
-    expect(output).toBe('<a className="hover:text-body disabled:bg-slate-300">x</a>');
+    expect(output).toBe('<a className="hover:text-body disabled:bg-disabled">x</a>');
   });
 });
 
@@ -248,7 +278,7 @@ describe('no-raw-colors: token vocabulary tracks src/index.css', () => {
     for (const name of [
       'surface-100', 'surface-200', 'surface-300',
       'line-1', 'line-2', 'line-3',
-      'wash', 'track', 'on-fill', 'inverted', 'accent-text', 'focus-ring',
+      'wash', 'track', 'disabled', 'on-fill', 'inverted', 'accent-text', 'focus-ring',
     ]) {
       expect(theme, `--color-${name} missing from @theme`).toContain(`--color-${name}:`);
     }

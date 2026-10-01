@@ -172,7 +172,7 @@ export default function IrPlaybooks(): JSX.Element {
         <button
           onClick={handleGenerate}
           disabled={loading || !incidentType}
-          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
+          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <BookOpen size={14} />}
           {loading ? 'Generating playbook…' : 'Generate IR Playbook'}
