@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-09-30T12:29:50.573Z",
-  "total": 126,
+  "updatedAt": "2026-10-01T13:07:10.770Z",
+  "total": 122,
   "bySource": {
+    "cvelistV5": 1,
     "ghsa": 60,
     "garak": 5,
     "pyrit": 5,
     "promptfoo": 5,
     "litellm": 5,
-    "vllm": 5,
     "ollama": 5,
     "langchain": 5,
     "mcp-sdk": 5,
@@ -18,6 +18,76 @@
     "exploitdb": 2
   },
   "items": [
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Bump anyio from 4.10.0 to 4.14.2 (#3547)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/6a0fe02a033c973c89055daee9855af59b418e6d",
+      "updated": "2026-10-01T12:56:20Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "3 changes (1 new | 2 updated):",
+      "link": "https://github.com/CVEProject/cvelistV5/commit/904ed426ec02d710eb404d7c16a2a983ebdea3b1",
+      "updated": "2026-10-01T12:22:33Z",
+      "source": "cvelistV5",
+      "kind": "cve",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.103.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.2",
+      "updated": "2026-10-01T06:37:31Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.101.4",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.4",
+      "updated": "2026-10-01T05:10:19Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "docs: remove v2 notice from top of README (#3604)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/d639cf7f97f77388fa7da60c0f9b04f8837b77fd",
+      "updated": "2026-09-30T21:15:12Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "LiteLLM: Authenticated SSRF and provider-credential exfiltration via unvalidated request-body routing parameters",
+      "link": "https://github.com/advisories/GHSA-3cv6-jpf6-8222",
+      "updated": "2026-09-30T21:11:25Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-84377"],
+      "description": "### Impact Any authenticated LiteLLM proxy user could redirect an outbound provider call to a destination they control and cause the proxy to send its own configured provider credentials to that destination. The proxy's request-body validation was a denylist that did not cover every sensitive parameter and did not inspect parameters nested inside other request fields, so a caller could supply a routing or credential value that the proxy applied without clearing the operator's stored key. Any aut"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "langchain-openai==1.6.7",
+      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.6.7",
+      "updated": "2026-09-30T15:12:19Z",
+      "source": "langchain",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
     {
       "id": "aHR0cHM6Ly9n",
       "title": "v1.105.0-dev.1",
@@ -44,36 +114,6 @@
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.1",
       "updated": "2026-09-30T00:59:43Z",
       "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.102.2",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.102.2",
-      "updated": "2026-09-30T00:58:27Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v1.101.3",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.3",
-      "updated": "2026-09-30T00:58:12Z",
-      "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.31.0rc2",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc2",
-      "updated": "2026-09-30T00:33:58Z",
-      "source": "vllm",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -130,16 +170,6 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v0.31.0rc1: [CI/Build] Skip the snapshot runtime on CUDA 12.x images (#59118)",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc1",
-      "updated": "2026-09-29T03:18:39Z",
-      "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "langchain-fireworks==1.7.0",
       "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.7.0",
       "updated": "2026-09-28T20:46:52Z",
@@ -190,50 +220,10 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "langchain-fireworks==1.6.3",
-      "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.6.3",
-      "updated": "2026-09-25T12:57:40Z",
-      "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "Bump httpcore2 from 2.5.0 to 2.10.0 (#3482)",
       "link": "https://github.com/modelcontextprotocol/python-sdk/commit/f1b6589088534632fef92238ee9750951e3c0185",
       "updated": "2026-09-23T08:50:55Z",
       "source": "mcp-sdk",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.30.1rc0: [ROCm][CI] Add MI355 dense NVFP4 and MoRI kernel mirrors (#58281)",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.1rc0",
-      "updated": "2026-09-23T08:06:15Z",
-      "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.30.0",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
-      "updated": "2026-09-22T05:20:54Z",
-      "source": "vllm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.30.0rc2",
-      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0rc2",
-      "updated": "2026-09-18T21:15:44Z",
-      "source": "vllm",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -430,26 +420,6 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "Replace RootModel wrappers with type aliases and TypeAdapter validati…",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/9972c21aa42054fb1450c5fc614761ed11847ec6",
-      "updated": "2026-09-07T15:40:21Z",
-      "source": "mcp-sdk",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "docs: refresh translations, and translate pages in parallel (#3458)",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/fd66270926b98b28e6cca21b35ec5ba0e4855892",
-      "updated": "2026-09-07T12:35:53Z",
-      "source": "mcp-sdk",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "vLLM: Incomplete CVE-2025-62164 remediation can be bypassed by concurrent prompt parts",
       "link": "https://github.com/advisories/GHSA-pr7f-p5mw-fc87",
       "updated": "2026-09-04T21:39:02Z",
@@ -487,6 +457,16 @@
       "kind": "advisory",
       "cves": ["CVE-2026-71486"],
       "description": "## Summary The `/v1/completions/derender` and `/v1/chat/completions/derender` endpoints accept caller-supplied `GenerateResponse` objects and postprocess every nested `choices[*].token_ids` list directly. Unlike the normal render/generate path, derender does not enforce model context length, resolved `max_tokens`, `max_num_seqs`, choice-count, or response-size bounds before detokenizing and returning the supplied token IDs. An authenticated API client can therefore make the CPU-only render front"
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Hugging Face Transformers downloads custom generation code before trust consent",
+      "link": "https://github.com/advisories/GHSA-x9r9-c232-4q39",
+      "updated": "2026-09-01T15:31:13Z",
+      "source": "ghsa",
+      "kind": "advisory",
+      "cves": ["CVE-2026-80047"],
+      "description": "A vulnerability in Hugging Face Transformers (versions 4.49.0, <= 5.8.1) allows remote Python files to be written to local disk without user consent when using GenerativePreTrainedModel.load_custom_generate(). The function fetches and caches a remote module file before performing the required trust_remote_code consent check, inverting the security model enforced by other code-loading paths (such as AutoConfig, AutoModel, and AutoTokenizer). As a result, attacker‑controlled Python code from custo"
     },
     {
       "id": "aHR0cHM6Ly9n",
@@ -830,16 +810,6 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "BerriAI litellm: SSO Login Does Not Invalidate Previous UI Session Tokens",
-      "link": "https://github.com/advisories/GHSA-w2mh-qq9q-453x",
-      "updated": "2026-06-21T12:30:52Z",
-      "source": "ghsa",
-      "kind": "advisory",
-      "cves": ["CVE-2026-12796"],
-      "description": "A vulnerability was identified in BerriAI litellm up to 1.82.2. This impacts the function get_redirect_response_from_openid of the file litellm/proxy/management_endpoints/ui_sso.py of the component SSO Authentication Flow. The manipulation leads to session expiration. The attack is possible to be carried out remotely. The exploit is publicly available and might be used. The vendor was contacted early about this disclosure."
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "LangChain: Path traversal and sandbox escape in LangChain file-search middleware and loaders",
       "link": "https://github.com/advisories/GHSA-gr75-jv2w-4656",
       "updated": "2026-06-16T15:03:14Z",
@@ -1047,16 +1017,6 @@
       "kind": "advisory",
       "cves": ["CVE-2025-3933"],
       "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically within the DonutProcessor class's `token2json()` method. This vulnerability affects versions 4.51.3 and earlier, and is fixed in version 4.52.1. The issue arises from the regex pattern `<s_(.*?)>` which can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. This vulnerability can lead to service disruption,"
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "Transformers's Improper Input Validation vulnerability can be exploited through username injection",
-      "link": "https://github.com/advisories/GHSA-phhr-52qp-3mj4",
-      "updated": "2025-07-07T12:30:22Z",
-      "source": "ghsa",
-      "kind": "advisory",
-      "cves": ["CVE-2025-3777"],
-      "description": "Hugging Face Transformers versions up to 4.49.0 are affected by an improper input validation vulnerability in the `image_utils.py` file. The vulnerability arises from insecure URL validation using the `startswith()` method, which can be bypassed through URL username injection. This allows attackers to craft URLs that appear to be from YouTube but resolve to malicious domains, potentially leading to phishing attacks, malware distribution, or data exfiltration. The issue is fixed in version 4.52.1"
     },
     {
       "id": "aHR0cHM6Ly9n",
