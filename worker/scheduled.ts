@@ -32,6 +32,7 @@ import {
 import { fetchXFeed } from '../api/src/routes/x-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmCveRecentCache } from '../api/src/routes/cve-recent';
+import { warmCveDigestCache } from '../api/src/routes/cve-digest';
 import { warmRansomwareRecentCache } from '../api/src/routes/ransomware-recent';
 import { warmPromptintelCache } from '../api/src/routes/promptintel';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
@@ -280,6 +281,19 @@ export async function executeCronJob(
             console.log(JSON.stringify({ job: 'cve-recent-warm', count: warm.count, ok: warm.ok }));
           } catch (e) {
             logCronFail('cve-recent-warm')(e);
+          }
+          // Daily CVE digest (last 24h). Same reasoning as the warm above: the
+          // request handler never builds it, so without this cron
+          // /api/v1/cve-digest answers 503 forever. Fans out over ctiwatch
+          // (~9 pages for a real 24h), so it runs here in the 30s DO budget
+          // rather than on a user fetch's 10ms cap. Runs AFTER the cve-recent
+          // warm so a budget-exhausted hour degrades the sample feed first and
+          // keeps the digest — which is the one with a completeness promise.
+          try {
+            const warm = await warmCveDigestCache(env as unknown as ApiEnv);
+            console.log(JSON.stringify({ job: 'cve-digest-warm', count: warm.count, ok: warm.ok }));
+          } catch (e) {
+            logCronFail('cve-digest-warm')(e);
           }
           try {
             const warm = await warmRansomwareRecentCache(env as unknown as ApiEnv);
