@@ -16,6 +16,7 @@ import apiApp from '../api/src/index';
 import { runFeedSourceById, type FeedDeps } from '../api/src/routes/live-iocs';
 import { writeSlice, type FeedQueueMessage } from '../api/src/lib/live-iocs-slices';
 import { gpWarmKey } from '../api/src/routes/global-pulse';
+import { warmCveDigestCache } from '../api/src/routes/cve-digest';
 import { concurrentMap } from '../api/src/lib/concurrent-map';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { fetchXAccountPosts, X_ACCOUNTS } from '../api/src/routes/cyberpulse-ingest';
@@ -107,6 +108,32 @@ export async function handleQueue(
               msg.retry({ delaySeconds: 60 });
               return;
             }
+          }
+          msg.ack();
+          return;
+        }
+
+        // ── Daily CVE digest warm ────────────────────────────────────────
+        // Calls warmCveDigestCache in-process (no HTTP round-trip needed —
+        // unlike gp slices there is no per-feed path to self-fetch; the
+        // builder writes its own cache + KV keys). Own invocation → own
+        // 50-subrequest budget, which the hourly alarm could not spare.
+        // Retry on !ok (transient upstream); the queue DLQ bounds a hard-down
+        // upstream so this cannot spin forever.
+        if (msg.body?.digestWarm === true) {
+          try {
+            const warm = await warmCveDigestCache(env as unknown as ApiEnv);
+            console.log(JSON.stringify({ job: 'cve-digest-warm', count: warm.count, ok: warm.ok }));
+            if (!warm.ok) {
+              msg.retry({ delaySeconds: 300 });
+              return;
+            }
+          } catch (e) {
+            console.error(
+              JSON.stringify({ job: 'cve-digest-warm', error: e instanceof Error ? e.message : String(e) })
+            );
+            msg.retry({ delaySeconds: 300 });
+            return;
           }
           msg.ack();
           return;

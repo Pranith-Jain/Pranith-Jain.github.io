@@ -49,6 +49,14 @@ export interface FeedQueueMessage {
    *  and writes to `cp:warm:<type>` KV key; the cron reads from KV and passes
    *  into runCyberPulseIngestion as prefetched data. */
   cp?: { type: 'x_accounts' };
+  /**
+   * Daily CVE digest warm. The digest build fans out over ctiwatch paging +
+   * VulnTracker + EPSS (~20 subrequests) — too heavy to share the hourly
+   * alarm with cve-recent's own ~25-fetch fan-out, where it starved two hours
+   * running (skipped-empty both times while the identical code path succeeded
+   * from a fresh budget). Its own consumer invocation → its own budget.
+   */
+  digestWarm?: true;
 }
 
 export const SLICE_KEY_PREFIX = 'live-iocs:slice:';
