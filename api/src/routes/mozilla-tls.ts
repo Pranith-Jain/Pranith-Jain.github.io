@@ -2,9 +2,14 @@ import { Hono } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, badGateway } from '../lib/api-error';
-import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 3600;
+
+// L1-only (Cache API): the HTTP Observatory is free and keyless, so a cold
+// colo refetching a scan costs nothing scarce. (Contrast opencve /
+// opensanctions in this same directory, which stay KV-backed because their
+// metered API keys make cross-colo reuse worth the write quota.)
 
 export const mozillaTlsRouter = new Hono<{ Bindings: Env }>();
 
@@ -13,7 +18,7 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
   if (!url) return badRequest(c, 'url parameter required');
 
   const cacheKey = `mozilla:tls:${url}`;
-  const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, CACHE_TTL);
+  const cached = await routeCacheGet<Record<string, unknown>>(cacheKey);
   if (cached) return c.json({ ...cached, cached: true });
 
   try {
@@ -32,7 +37,7 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
     const data = await res.json();
     const body = { url, results: data, generated_at: new Date().toISOString(), cached: false };
 
-    if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
+    c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
     logError('handler failed', e);

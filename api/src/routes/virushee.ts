@@ -2,9 +2,14 @@ import { Hono } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, badGateway } from '../lib/api-error';
-import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 86400;
+
+// L1-only (Cache API) by design: api.virushee.com is a free, keyless,
+// generous-quota hash lookup, so a per-colo refetch on a cold colo costs
+// nothing scarce — while every KV write here cost shared 1k/day quota for
+// zero correctness benefit (derived cache, content-addressed by hash).
 
 export const virusheeRouter = new Hono<{ Bindings: Env }>();
 
@@ -13,7 +18,7 @@ virusheeRouter.get('/virushee/check', async (c) => {
   if (!hash || hash.length > 128) return badRequest(c, 'hash parameter required (max 128 chars)');
 
   const cacheKey = `virushee:${hash}`;
-  const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, CACHE_TTL);
+  const cached = await routeCacheGet<Record<string, unknown>>(cacheKey);
   if (cached) return c.json({ ...cached, cached: true });
 
   try {
@@ -24,7 +29,7 @@ virusheeRouter.get('/virushee/check', async (c) => {
 
     if (res.status === 404) {
       const body = { hash, found: false, generated_at: new Date().toISOString(), cached: false };
-      if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
+      c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
       return c.json(body);
     }
     if (!res.ok) return badGateway(c, `Virushee upstream ${res.status}`);
@@ -32,7 +37,7 @@ virusheeRouter.get('/virushee/check', async (c) => {
     const data = await res.json();
     const body = { hash, results: data, generated_at: new Date().toISOString(), cached: false };
 
-    if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
+    c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
     logError('handler failed', e);

@@ -6,6 +6,7 @@ import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY, type TelegramFeedResponse }
 import { aggregateFeeds } from './feeds-aggregate';
 import { listBriefings } from '../lib/briefing-builder';
 import { safeNullLog } from '../lib/safe-catch';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { gpWarmKey } from './global-pulse/config';
 
 /**
@@ -224,8 +225,12 @@ async function warmTelegramCaches(c: Context<{ Bindings: Env }>, body: TelegramF
         headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
       })
     );
+    // Debounced: the queue consumer already warms this same slice hourly, so
+    // snapshot's copy only needs to fill gaps, not rewrite on every miss.
     const kv = c.env.KV_CACHE;
-    if (kv) await kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 });
+    if (kv && (await shouldWriteLastGood('snapshot:telegram-warm'))) {
+      await kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 });
+    }
     // Write-through the L1 shadow so readWarmTelegram stays coherent.
     try {
       await cache.put(

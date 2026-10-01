@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 const CACHE_TTL_SECONDS = 24 * 60 * 60; // 24h — MITRE data changes rarely
 const MITRE_ENTERPRISE_URL =
@@ -357,8 +358,9 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
 
   const json = JSON.stringify(response);
 
-  // Cache in KV (long-lived)
-  if (kv) {
+  // Cache in KV (long-lived, debounced to ~1 write/6h like the sibling
+  // matrix routes — navigator scores change per assessment, not per request).
+  if (kv && (await shouldWriteLastGood('attack-navigator:lastgood'))) {
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
     } catch (_catchErr) {

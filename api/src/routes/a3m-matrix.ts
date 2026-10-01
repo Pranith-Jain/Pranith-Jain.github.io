@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 const A3M_URL = 'https://www.cyberriskevaluator.com/A3M_Matrix_Agentic_AI_Attack_Matrix.html';
 const CACHE_TTL_SECONDS = 24 * 60 * 60; // 24h — A3M changes infrequently
@@ -105,7 +106,10 @@ export async function a3mMatrixHandler(c: Context<{ Bindings: Env }>): Promise<R
 
   const json = JSON.stringify(response);
 
-  if (kv) {
+  // Debounced to ~1 write/6h (same idiom as attack-flow-library /
+  // relationship-graph): reference matrices change on upstream-release
+  // cadence, not per request, so every-miss puts were pure quota burn.
+  if (kv && (await shouldWriteLastGood('a3m-matrix:lastgood'))) {
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
     } catch (_catchErr) {
