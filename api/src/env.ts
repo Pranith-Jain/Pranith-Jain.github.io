@@ -298,6 +298,14 @@ export interface Env {
   /** Secret for signing internal tokens (HMAC-SHA256). When set, replaces the
    *  deterministic fallback. Set via `wrangler secret put INTERNAL_TOKEN_SECRET`. */
   INTERNAL_TOKEN_SECRET?: string;
+  /** Secret for signing public-by-link FEED tokens (HMAC-SHA256, see
+   *  `api/src/lib/feed-token.ts`). Set via `wrangler secret put
+   *  FEED_TOKEN_SECRET`. Rotating it revokes every outstanding feed URL at
+   *  once. Optional — falls back to INTERNAL_TOKEN_SECRET, which is
+   *  domain-separated in the HMAC message so the two credential types can
+   *  never be confused. With neither set, feed-token-gated paths stay
+   *  key-gated (the module fails closed). */
+  FEED_TOKEN_SECRET?: string;
   /** When set to "true", allows localhost dev origins in CORS and auth checks.
    *  Unset in production to prevent local dev servers from authenticating. */
   ALLOW_DEV_ORIGINS?: string;

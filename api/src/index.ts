@@ -106,7 +106,7 @@ import {
 import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
 import { cveDigestHandler } from './routes/cve-digest';
-import { cveDigestCsvHandler, cveDigestRssHandler } from './routes/cve-digest-export';
+import { cveDigestCsvHandler, cveDigestRssHandler, cveDigestFeedUrlHandler } from './routes/cve-digest-export';
 import {
   promptintelHealthHandler,
   promptintelTaxonomyHandler,
@@ -1454,7 +1454,12 @@ app.get('/api/v1/cve-digest', cveDigestHandler);
 // RSS for readers. Both derive from the cached JSON (never rebuild), each
 // with its own edge-cache key.
 app.get('/api/v1/cve-digest/csv', cveDigestCsvHandler);
+// The RSS path is NOT in auth.ts EXEMPT_PATHS: it is unlocked by a signed,
+// path-scoped `?key=` feed token instead, so it works in any reader without
+// being world-enumerable. This endpoint mints that URL and sits behind the
+// normal API gate — it is the only place a token is handed out.
 app.get('/api/v1/cve-digest/rss', cveDigestRssHandler);
+app.get('/api/v1/cve-digest/feed-url', cveDigestFeedUrlHandler);
 // PromptIntel IoPC registry (NovaHunting) — cached taxonomy/health + live
 // keyed prompt search. Keyed handlers degrade to 501 without the secret.
 app.get('/api/v1/promptintel/health', promptintelHealthHandler);
