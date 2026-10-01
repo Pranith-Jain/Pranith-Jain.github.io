@@ -61,7 +61,9 @@ describe('feed tokens', () => {
 
   it('rejects tampered, truncated and malformed tokens', async () => {
     const token = await signFeedToken(SCOPE, SECRET);
-    const [exp, sig] = token.split('.');
+    // signFeedToken always returns `<expiry>.<signature>`, so the two-element
+    // shape is known here; the cast satisfies noUncheckedIndexedAccess.
+    const [exp, sig] = token.split('.') as [string, string];
     const bad = [
       `${exp}.${sig.slice(0, -1)}0`, // flipped last nibble
       `${exp}.${sig.slice(0, 32)}`, // truncated signature
