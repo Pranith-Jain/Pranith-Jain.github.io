@@ -237,6 +237,12 @@ export async function fetchGdacsAlerts(): Promise<PulseEvent[]> {
 // the C2IntelFeeds 30-day IP:port+framework set so the C2 layer reflects the
 // real C2 surface. Feodo carries a country → globe markers; the IP-only feeds
 // are non-geo → CTI feed panel. Deduped by IP across all sources.
+//
+// Caps are deliberately tight (25/15/15): every row here is stamped at fetch
+// time and severity critical/high, so an uncapped C2 triple-source permanently
+// tops any severity-first sort above ransomware victims and 0-day CVEs with
+// real (older) timestamps. Volume discipline here is what keeps the pulse
+// about threats, not infrastructure inventory.
 export async function fetchBotnetC2(): Promise<PulseEvent[]> {
   const IPV4 = /^\d{1,3}(?:\.\d{1,3}){3}$/;
   const get = (url: string, ms = 8000) =>
@@ -297,7 +303,7 @@ export async function fetchBotnetC2(): Promise<PulseEvent[]> {
             .filter((l) => IPV4.test(l))
         ),
       ];
-      for (const ip of ips.slice(0, 25)) {
+      for (const ip of ips.slice(0, 15)) {
         if (seen.has(ip)) continue;
         seen.add(ip);
         events.push({
@@ -328,7 +334,7 @@ export async function fetchBotnetC2(): Promise<PulseEvent[]> {
     if (res.ok) {
       let added = 0;
       for (const line of (await res.text()).split('\n').slice(1)) {
-        if (added >= 25) break;
+        if (added >= 15) break;
         const [ip, port, ...rest] = line.split(',');
         if (!ip || !IPV4.test(ip) || seen.has(ip)) continue;
         seen.add(ip);

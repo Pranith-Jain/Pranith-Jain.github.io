@@ -54,6 +54,10 @@ import {
   fromHoneypot,
   fromFirms,
   fromUkmto,
+  fromCveDigest,
+  dedupeCveEvents,
+  markTrendingEvents,
+  comparePulseEvents,
 } from './converters';
 import {
   fetchBotnetC2,
@@ -269,6 +273,10 @@ export async function buildGlobalPulseSync(
     ),
     ...safe(() => (merged.honeypot ? fromHoneypot(merged.honeypot as Parameters<typeof fromHoneypot>[0]) : [])),
     ...safe(() => (merged.cve ? fromCveRecent(merged.cve as Parameters<typeof fromCveRecent>[0]) : [])),
+    // 24h digest — the 0-day surface (KEV + exploited + criticals, capped).
+    // Warmed hourly via the cvedigest queue slice; shares the digest route's
+    // own cache key as the live leg.
+    ...safe(() => (merged.cvedigest ? fromCveDigest(merged.cvedigest as Parameters<typeof fromCveDigest>[0]) : [])),
     ...safe(() => (merged.ransom ? fromRansomware(merged.ransom as Parameters<typeof fromRansomware>[0]) : [])),
     ...safe(() =>
       (merged.firms ?? merged.ukmto) ? fromFirms((merged.firms ?? merged.ukmto) as Parameters<typeof fromFirms>[0]) : []
@@ -315,27 +323,30 @@ export async function buildGlobalPulseSync(
         return 'other';
     }
   };
-  const sevRank = (s: string): number => (s === 'critical' ? 4 : s === 'high' ? 3 : s === 'medium' ? 2 : 1);
-  const allEvents = [
-    ...warmEvents,
-    ...safe(() => briefingEvents),
-    ...safe(() => cyberpulseEvents),
-    ...safe(() => botnetC2),
-    ...safe(() => supplyChain),
-    ...safe(() => dshieldAttackers),
-    ...safe(() => compromisedIPs),
-    ...safe(() => blocklistAttackers),
-    ...safe(() => cisaKev),
-    ...safe(() => urlhausMalware),
-  ]
-    .map((e) => ({ ...e, cti: tagCti(e.kind) }))
-    .sort((a, b) => {
-      const sd = sevRank(b.severity) - sevRank(a.severity);
-      if (sd !== 0) return sd;
-      const ta = new Date(a.timestamp).getTime();
-      const tb = new Date(b.timestamp).getTime();
-      return Number.isNaN(ta) || Number.isNaN(tb) ? 0 : tb - ta;
-    });
+  // Trending is stamped BEFORE dedupe: dedupe collapses the same CVE to one
+  // row, which would erase the multi-source corroboration trending counts.
+  // The surviving (richest) row keeps the flag.
+  // Dedupe prefers digest rows (exploit_status + EPSS + freshest timestamps),
+  // so one CVE never triplicates across the digest/catalog/sample layers.
+  const mergedEvents = dedupeCveEvents(
+    markTrendingEvents([
+      ...warmEvents,
+      ...safe(() => briefingEvents),
+      ...safe(() => cyberpulseEvents),
+      ...safe(() => botnetC2),
+      ...safe(() => supplyChain),
+      ...safe(() => dshieldAttackers),
+      ...safe(() => compromisedIPs),
+      ...safe(() => blocklistAttackers),
+      ...safe(() => cisaKev),
+      ...safe(() => urlhausMalware),
+    ])
+  );
+  // Within a severity tier, confirmed harm (ransom victims, KEV 0-days)
+  // outranks vulnerability records, which outrank raw infrastructure
+  // observations — this is what stops 50 "now"-stamped critical C2 IPs from
+  // permanently topping the feed above real victims and 0-days.
+  const allEvents = mergedEvents.map((e) => ({ ...e, cti: tagCti(e.kind) })).sort(comparePulseEvents);
 
   // Full layer map (all PulseKind keys present, like the background build)
   // so the SPA's layer list shows every layer — zero for empty, not missing.
@@ -442,12 +453,14 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       const kvBody = JSON.stringify(cachedBody);
       maybeNudgeDo(cachedBody as { generated_at?: string } | null);
       c.executionCtx.waitUntil(
-        cache.put(
-          cacheReq,
-          new Response(kvBody, {
-            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL}` },
-          })
-        ).catch(() => {})
+        cache
+          .put(
+            cacheReq,
+            new Response(kvBody, {
+              headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_TTL}` },
+            })
+          )
+          .catch(() => {})
       );
       return new Response(kvBody, {
         headers: {

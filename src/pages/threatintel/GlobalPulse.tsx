@@ -34,7 +34,7 @@ import { ThreatAnalysisPanel } from '../../components/threatintel/ThreatAnalysis
 import { CountryIntelPanel } from '../../components/threatintel/CountryIntelPanel';
 import { useGlobalPulse } from '../../hooks/useGlobalPulse';
 import type { PulseKind, PulseEvent, GlobalPulseResponse, LayerDef } from './global-pulse-types';
-import { LAYER_DEFS, SEVERITY_CONFIG, ALL_KINDS, formatTime, formatTimeFull } from './global-pulse-types';
+import { LAYER_DEFS, SEVERITY_CONFIG, ALL_KINDS, formatTime, formatTimeFull, signalRank } from './global-pulse-types';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
@@ -308,10 +308,17 @@ export default function GlobalPulse(): JSX.Element {
       const sa = severityRank(a.severity);
       const sb = severityRank(b.severity);
       if (sa !== sb) return sb - sa;
-      // 2. Recency — newest first within the same severity tier
+      // 2. Signal class — confirmed harm (ransom victims, KEV 0-days) above
+      //    vulnerability records above infrastructure observations. Without
+      //    this, "now"-stamped C2 rows permanently top every tier above real
+      //    victims and 0-days with genuinely older timestamps.
+      const ca = signalRank(a);
+      const cb = signalRank(b);
+      if (ca !== cb) return cb - ca;
+      // 3. Recency — newest first within the same severity + signal tier
       const timeDiff = new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
       if (Math.abs(timeDiff) > 60_000) return timeDiff;
-      // 3. CTI priority as tiebreaker for events within the same minute
+      // 4. CTI priority as tiebreaker for events within the same minute
       const pa = ctiPriority(a.cti);
       const pb = ctiPriority(b.cti);
       return pb - pa;
@@ -436,6 +443,14 @@ export default function GlobalPulse(): JSX.Element {
   const kpis = useMemo(() => deriveKpis(globePoints, filteredEvents.length), [globePoints, filteredEvents]);
   const filteredCritical = useMemo(
     () => filteredEvents.filter((e) => e.severity === 'critical').length,
+    [filteredEvents]
+  );
+
+  // Trending now — corroborated across 2+ sources, critical/high only, top 5
+  // in feed order (which already ranks them). Empty most hours; when it fires
+  // it answers "what's hot" without scrolling the feed.
+  const trendingNow = useMemo(
+    () => filteredEvents.filter((e) => e.trending && (e.severity === 'critical' || e.severity === 'high')).slice(0, 5),
     [filteredEvents]
   );
 
@@ -1175,6 +1190,37 @@ export default function GlobalPulse(): JSX.Element {
                 )}
               </div>
 
+              {/* Trending now — corroborated critical/highs, jumps to the event */}
+              {trendingNow.length > 0 && (
+                <div className="px-4 py-2 border-b border-line-1 dark:border-white/[0.04] bg-amber-500/[0.04]">
+                  <div className="text-micro font-mono uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1.5">
+                    ▲ Trending now
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    {trendingNow.map((e) => (
+                      <button
+                        key={`trend-${e.id}`}
+                        type="button"
+                        onClick={() => {
+                          setSelectedEvent(e);
+                          if (e.lat !== 0 || e.lng !== 0) setFocus({ lat: e.lat, lng: e.lng });
+                        }}
+                        className="text-left text-mini font-mono text-body hover:text-rose-500 truncate"
+                        title={`${e.title} — ${e.description}`}
+                      >
+                        <span
+                          className={`inline-block w-1.5 h-1.5 rounded-full mr-1.5 ${
+                            e.severity === 'critical' ? 'bg-rose-500' : 'bg-orange-500'
+                          }`}
+                        />
+                        {e.title}
+                        <span className="text-muted/70 ml-1.5">{e.source}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Feed List */}
               <div className="flex-1 overflow-y-auto custom-scrollbar" aria-label="CTI live event feed">
                 <span className="sr-only" role="status" aria-live="polite">
@@ -1249,8 +1295,32 @@ export default function GlobalPulse(): JSX.Element {
                               </div>
                               <p className="text-mini font-medium text-heading line-clamp-1">{ev.title}</p>
                               <p className="text-micro text-muted line-clamp-1 mt-0.5">{ev.description}</p>
-                              <div className="flex items-center gap-1.5 mt-1">
+                              <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                                 <span className="text-micro font-mono text-muted/70">{ev.source}</span>
+                                {ev.kev && (
+                                  <span
+                                    className="text-micro font-mono font-bold px-1 rounded bg-rose-500/15 text-rose-600 dark:text-rose-400"
+                                    title="CISA KEV-listed — confirmed exploited in the wild"
+                                  >
+                                    0-DAY
+                                  </span>
+                                )}
+                                {ev.exploitStatus && (
+                                  <span
+                                    className="text-micro font-mono px-1 rounded bg-orange-500/15 text-orange-600 dark:text-orange-400"
+                                    title={`Public exploit code: ${ev.exploitStatus.replace(/_/g, ' ')}`}
+                                  >
+                                    PoC
+                                  </span>
+                                )}
+                                {ev.trending && (
+                                  <span
+                                    className="text-micro font-mono px-1 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400"
+                                    title="Reported by 2+ distinct sources in this build"
+                                  >
+                                    ▲ trending
+                                  </span>
+                                )}
                                 {ev.kind === 'cve' && ev.magnitude != null && (
                                   <span
                                     className={`text-micro font-mono font-bold px-1 rounded ${
