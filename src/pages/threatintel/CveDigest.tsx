@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   AlertTriangle,
   CalendarClock,
+  Check,
   Download,
   ExternalLink,
   RefreshCw,
@@ -11,6 +12,7 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
+import { useToast } from '../../components/ui/Toast';
 import { SEVERITY_TONE } from '../../components/severity';
 
 interface DigestEntry {
@@ -83,6 +85,39 @@ export default function CveDigest({ bare }: { bare?: boolean }): JSX.Element {
   const [sevFilter, setSevFilter] = useState<Set<DigestEntry['severity']>>(new Set());
   const [kevOnly, setKevOnly] = useState(false);
   const [exploitOnly, setExploitOnly] = useState(false);
+  const [feedUrl, setFeedUrl] = useState<string | null>(null);
+  const [feedCopied, setFeedCopied] = useState(false);
+  const toast = useToast();
+
+  /**
+   * Mint (once) and copy the RSS subscribe URL.
+   *
+   * The feed is gated by a signed path-scoped token, so the bare
+   * `/api/v1/cve-digest/rss` link only resolves same-origin — a reader app
+   * gets a 401. The token comes from /feed-url, which is itself behind the
+   * normal API gate, so it is minted on demand rather than on page load.
+   */
+  const copyFeedUrl = async (): Promise<void> => {
+    let url = feedUrl;
+    if (!url) {
+      try {
+        const res = await fetch('/api/v1/cve-digest/feed-url');
+        if (!res.ok) throw new Error(`feed-url ${res.status}`);
+        url = ((await res.json()) as { url: string }).url;
+        setFeedUrl(url);
+      } catch {
+        toast.error('Could not mint a feed link — is the API reachable?');
+        return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setFeedCopied(true);
+      setTimeout(() => setFeedCopied(false), 2000);
+    } catch {
+      toast.error('Clipboard blocked — open the link below and copy it manually');
+    }
+  };
 
   const filtered = useMemo(() => {
     if (!data) return [];
@@ -180,9 +215,10 @@ export default function CveDigest({ bare }: { bare?: boolean }): JSX.Element {
         >
           <RefreshCw className="w-3.5 h-3.5" /> Refresh
         </button>
-        {/* Same warmed payload, alternate representations — native anchors so
-            the browser handles download (CSV) and feed preview (RSS) directly.
-            No extra fetch: these are just links. */}
+        {/* Same warmed payload, alternate representations — a native anchor so
+            the browser handles the download (CSV) directly, no extra fetch.
+            RSS is different: the feed is token-gated so a reader app (which
+            sends no same-origin headers) needs the signed URL, not this link. */}
         <a
           href="/api/v1/cve-digest/csv"
           download
@@ -191,16 +227,33 @@ export default function CveDigest({ bare }: { bare?: boolean }): JSX.Element {
         >
           <Download className="w-3.5 h-3.5" /> CSV
         </a>
-        <a
-          href="/api/v1/cve-digest/rss"
-          target="_blank"
-          rel="noreferrer"
+        <button
+          type="button"
+          onClick={() => void copyFeedUrl()}
           className="inline-flex items-center gap-1.5 rounded-lg border border-line-2 dark:border-line-1 px-3 py-2 text-xs font-mono text-muted hover:text-body"
-          title="Subscribe to this digest as RSS (updates hourly)"
+          title="Copy the RSS subscribe link into your reader (Feedly, Inoreader…). Treat it like a password — anyone with it can read the feed."
         >
-          <Rss className="w-3.5 h-3.5" /> RSS
-        </a>
+          {feedCopied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Rss className="w-3.5 h-3.5" />}
+          {feedCopied ? 'Copied' : 'RSS'}
+        </button>
+        {feedUrl && (
+          <a
+            href={feedUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-lg border border-line-2 dark:border-line-1 px-2 py-2 text-muted hover:text-body"
+            title="Open the signed feed URL (this is what you paste into a reader)"
+            aria-label="Open the signed RSS feed URL"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        )}
       </div>
+      {feedUrl && (
+        <p className="mt-2 break-all font-mono text-[11px] text-muted">
+          Feed URL (valid until the 1st UTC): <span className="text-body">{feedUrl}</span>
+        </p>
+      )}
 
       {loading && <p className="text-sm text-muted font-mono">Loading the last-24h digest…</p>}
       {error && (

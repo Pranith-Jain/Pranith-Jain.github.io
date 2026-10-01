@@ -20,6 +20,7 @@ import type { Context, MiddlewareHandler, Next } from 'hono';
 import type { Env } from '../env';
 import { unauthorized } from './api-error';
 import { validateInternalToken, ALLOWED_INTERNAL_CALLERS } from './internal-token';
+import { feedTokenUnlocks } from './feed-token';
 import { getAllowedOrigins } from './site-config';
 import { logError } from './logger';
 
@@ -276,6 +277,17 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
   return async (c: Context<{ Bindings: Env }>, next: Next) => {
     // Exempt specific paths from auth (webhooks called by external services).
     if (EXEMPT_PATHS.has(c.req.path)) {
+      return next();
+    }
+
+    // Signed feed token. The older RSS feeds above solve this by being fully
+    // public (EXEMPT_PATHS) because RSS clients can send no credential at
+    // all; that makes them enumerable by anyone. A `?key=<hmac>` on a
+    // registered feed path is the same "works in any reader" property with an
+    // unguessable URL instead, and the HMAC is bound to this one path so the
+    // token cannot be replayed against the JSON/CSV siblings. One SHA-256
+    // verify, no I/O, and skipped entirely for non-feed paths.
+    if (await feedTokenUnlocks(c)) {
       return next();
     }
 
