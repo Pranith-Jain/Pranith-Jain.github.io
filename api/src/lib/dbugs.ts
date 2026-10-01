@@ -103,10 +103,28 @@ function mapSeverity(raw: unknown): DbugsSeverity {
   return 'UNKNOWN';
 }
 
+/**
+ * dbu.gs writes the literal string "Undefined" where it has no value —
+ * verified live across `priority_vendor`, `priority_product`, and entries
+ * inside the `vendors[]` / `products[]` arrays (4 of 50 rows on one sample).
+ * That is JSON, so it survives every `.trim()`/truthiness check and renders
+ * as "[dbu.gs] Undefined Undefined" in the UI. Treat it as absent.
+ */
+const SENTINEL_UNDEFINED = /^undefined$/i;
+
+/** Trim a value, or undefined when it is blank or dbu.gs's "Undefined" sentinel. */
+function cleanString(raw: unknown): string | undefined {
+  if (typeof raw !== 'string') return undefined;
+  const v = raw.trim();
+  if (!v || SENTINEL_UNDEFINED.test(v)) return undefined;
+  return v;
+}
+
 function firstString(raw: unknown): string | undefined {
   if (!Array.isArray(raw)) return undefined;
   for (const v of raw) {
-    if (typeof v === 'string' && v.trim()) return v.trim();
+    const c = cleanString(v);
+    if (c) return c;
   }
   return undefined;
 }
@@ -115,7 +133,8 @@ function stringList(raw: unknown, cap = 8): string[] {
   if (!Array.isArray(raw)) return [];
   const out: string[] = [];
   for (const v of raw) {
-    if (typeof v === 'string' && v.trim()) out.push(v.trim());
+    const c = cleanString(v);
+    if (c) out.push(c);
     if (out.length >= cap) break;
   }
   return out;
@@ -150,10 +169,8 @@ export function mapDbugsRow(raw: DbugsRawRow): DbugsVuln | null {
   if (!created) return null;
   const updated = typeof raw.updated === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(raw.updated) ? raw.updated : created;
   const score = typeof raw.max_score === 'number' && Number.isFinite(raw.max_score) ? raw.max_score : null;
-  const vendor =
-    (typeof raw.priority_vendor === 'string' && raw.priority_vendor.trim()) || firstString(raw.vendors) || undefined;
-  const product =
-    (typeof raw.priority_product === 'string' && raw.priority_product.trim()) || firstString(raw.products) || undefined;
+  const vendor = cleanString(raw.priority_vendor) ?? firstString(raw.vendors);
+  const product = cleanString(raw.priority_product) ?? firstString(raw.products);
   return {
     cve_id: cveId,
     created,

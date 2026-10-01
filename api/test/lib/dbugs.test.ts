@@ -61,6 +61,52 @@ describe('mapDbugsRow', () => {
     expect(v!.vendor).toBe('Acme');
   });
 
+  // Verified live on 2026-10-01: 4 of 50 page-1 rows carry the literal string
+  // "Undefined" in priority_vendor / priority_product AND inside the
+  // vendors[] / products[] arrays. It is valid JSON, so it survives trim and
+  // truthiness and used to render as "[dbu.gs] Undefined Undefined" in the
+  // live CVE list.
+  it('treats the literal "Undefined" sentinel as absent', () => {
+    // Live rows carry the sentinel in the arrays too, so a faithful fixture
+    // has to set all four fields — otherwise this just tests the fallthrough.
+    const v = mapDbugsRow(
+      row({
+        priority_vendor: 'Undefined',
+        priority_product: 'Undefined',
+        vendors: ['Undefined'],
+        products: ['Undefined'],
+      })
+    );
+    expect(v!.vendor).toBeUndefined();
+    expect(v!.product).toBeUndefined();
+  });
+
+  it('falls through a sentinel to a real value in vendors[]', () => {
+    const v = mapDbugsRow(row({ priority_vendor: 'Undefined', vendors: ['Undefined', 'Acme Corp'] }));
+    expect(v!.vendor).toBe('Acme Corp');
+    const p = mapDbugsRow(row({ priority_product: 'Undefined', products: ['Undefined', 'Widget'] }));
+    expect(p!.product).toBe('Widget');
+  });
+
+  it('drops the sentinel out of cwe_ids and impacts lists', () => {
+    const v = mapDbugsRow(row({ cwe_ids: ['Undefined', 'CWE-79'], impacts: ['Undefined', 'XSS'] }));
+    expect(v!.cwes).toEqual(['CWE-79']);
+    expect(v!.impacts).toEqual(['XSS']);
+  });
+
+  it('is case-insensitive on the sentinel', () => {
+    const v = mapDbugsRow(
+      row({
+        priority_vendor: 'undefined',
+        priority_product: 'UNDEFINED',
+        vendors: ['undefined'],
+        products: ['UNDEFINED'],
+      })
+    );
+    expect(v!.vendor).toBeUndefined();
+    expect(v!.product).toBeUndefined();
+  });
+
   it('prefers a vendor advisory reference over a third-party one', () => {
     const v = mapDbugsRow(
       row({
