@@ -16,6 +16,31 @@
 	},
 	"workers_dev": false,
 	"preview_urls": false,
+	// Worker routes for the three tools front doors.
+	//
+	// These must be declared here rather than only in the dashboard, because
+	// `wrangler deploy` reconciles triggers from this file: a host absent from
+	// `routes` gets its trigger dropped on the next deploy. That is how the
+	// tools hosts ended up broken — they had proxied DNS but no Worker route,
+	// so `/` happened to resolve while every deeper path had no origin and
+	// returned 522.
+	//
+	// Pattern routes (`host/*`) rather than `custom_domain: true`: the tools
+	// hosts already carry explicit proxied A records, and Cloudflare rejects a
+	// Custom Domain on a hostname that has them. Pattern routes coexist with
+	// existing DNS, so no DNS surgery is needed.
+	//
+	// The apex (`pranithjain.qzz.io`) is intentionally NOT listed: it is
+	// already a Custom Domain on this Worker, managed in the dashboard. Adding
+	// it here as a route would conflict with that.
+	//
+	// Keep this list in sync with `vars.TOOLS_HOSTS` below, which is what the
+	// worker and client use to decide which surface to render.
+	"routes": [
+		{ "pattern": "crucible.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
+		{ "pattern": "panopticon.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
+		{ "pattern": "scout.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" }
+	],
 	"assets": {
 		"directory": "./dist",
 		"binding": "ASSETS",
