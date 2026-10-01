@@ -1,8 +1,16 @@
 {
-  "updatedAt": "2026-09-30T12:29:50.574Z",
-  "total": 53,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 11, "bleepingcomputer": 3 },
+  "updatedAt": "2026-10-01T13:07:10.771Z",
+  "total": 50,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 2 },
   "items": [
+    {
+      "id": "aHR0cHM6Ly93",
+      "title": "AI's Third Wave: Coworkers Break the Security Model That Worked for Agents",
+      "link": "https://www.bleepingcomputer.com/news/security/ais-third-wave-coworkers-break-the-security-model-that-worked-for-agents/",
+      "pubDate": "Wed, 30 Sep 2026 10:01:11 -0400",
+      "source": "bleepingcomputer",
+      "description": "Persistent AI coworkers may operate continuously with standing access, creating identity risks that existing security models were not designed to handle. Token Security explains why these agents need their own identities, owners, scoped permissions, and lifecycle controls. [...]"
+    },
     {
       "id": "aHR0cHM6Ly93",
       "title": "Custom ChatGPTs push ClickFix attacks to deploy RAT malware",
@@ -10,22 +18,6 @@
       "pubDate": "Tue, 29 Sep 2026 16:59:39 -0400",
       "source": "bleepingcomputer",
       "description": "Custom variants of OpenAI's ChatGPT promoted in sponsored Google results are directing unsuspecting users to malicious sites that use ClickFix attacks to deliver malware. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "New Spectre v2 attack variant leaks Linux root password hash in minutes",
-      "link": "https://www.bleepingcomputer.com/news/security/new-spectre-v2-attack-variant-leaks-linux-root-password-hash-in-minutes/",
-      "pubDate": "Tue, 29 Sep 2026 13:10:11 -0400",
-      "source": "bleepingcomputer",
-      "description": "A new Branch Target Reuse (BTR) attack has been devised that can recover root password hashes on Intel computers running Linux in 3-5 minutes on average. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "Automated AI agent used to breach cybersecurity nonprofit DIVD",
-      "link": "https://www.bleepingcomputer.com/news/security/automated-ai-agent-used-to-breach-cybersecurity-nonprofit-divd/",
-      "pubDate": "Tue, 29 Sep 2026 11:39:19 -0400",
-      "source": "bleepingcomputer",
-      "description": "The Dutch Institute for Vulnerability Disclosure (DIVD) suffered an AI-driven cyberattack that the organization described as \"loud and very, very messy.\" [...]"
     },
     {
       "id": "aHR0cHM6Ly9j",
@@ -130,22 +122,6 @@
       "pubDate": "Wed, 26 Aug 2026 15:13:42 -0700",
       "source": "csa",
       "description": "&amp;nbsp; Why prompt analysis is emerging as a key AI security challenge If securing AI has been one of the defining cybersecurity conversations of the past year, prompt analysis is quickly becoming one of its most interesting frontiers. Security leaders are under pressure to understand how AI is being used across the business. In some organizations, that means governing employee use of chatbots. In others, it means overseeing copilots embedded into SaaS platforms, monitoring coding assis..."
-    },
-    {
-      "id": "aHR0cHM6Ly9j",
-      "title": "Enterprise Reality: Why Organizations Aren't as Prepared for AI Governance as They Think They Are",
-      "link": "https://cloudsecurityalliance.org/articles/enterprise-reality-why-organizations-aren-t-as-prepared-for-ai-governance-as-they-think-they-are",
-      "pubDate": "Wed, 26 Aug 2026 15:10:15 -0700",
-      "source": "csa",
-      "description": "If you ask most enterprise leaders, 74% would say their organization could pass an AI compliance audit today. Yet if you ask about the maturity of their AI governance program, only 27% say their programs are fully mature. That gap is the finding at the center of Schellman's new research, The 2026 State of AI Governance Report, based on a survey of more than 500 U.S. enterprise leaders. This disconnect is not a result of organizations ignoring AI governance, as nearly everyone is already ..."
-    },
-    {
-      "id": "aHR0cHM6Ly9j",
-      "title": "Top 6 Claude in Chrome Security Risks to Model Before You Roll It Out",
-      "link": "https://cloudsecurityalliance.org/articles/top-6-claude-in-chrome-security-risks-to-model-before-you-roll-it-out",
-      "pubDate": "Wed, 26 Aug 2026 15:09:00 -0700",
-      "source": "csa",
-      "description": "Most teams evaluate a browser agent like a browser extension. Check the permissions, check the vendor, check for open CVEs, approve or deny. That framing produced two clean patch cycles in 2026 and no reduction in exposure. Two problems are being treated as one. Implementation bugs, which vendors fix. And the authority the agent carries while it works, which no patch touches. Every hard question in agentic AI security lives in the gap between them. Six categories worth modeling separate..."
     },
     {
       "id": "aHR0cHM6Ly91",

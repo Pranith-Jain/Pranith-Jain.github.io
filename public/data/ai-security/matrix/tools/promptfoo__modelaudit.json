@@ -7,8 +7,8 @@
   "description": "Security scanner for AI/ML model files. Detects malicious code, backdoors, and vulnerabilities before deployment",
   "homepage": "https://www.promptfoo.dev/docs/model-audit/",
   "added": "2026-09-14",
-  "checkedAt": "2026-09-30T03:20:30Z",
-  "pushedAt": "2026-09-29",
+  "checkedAt": "2026-10-01T03:19:38Z",
+  "pushedAt": "2026-09-30",
   "daysIdle": 1,
   "archived": false,
   "license": "MIT",
@@ -18,21 +18,21 @@
       "description": "Covers the widest range of model formats of any of these, emits SARIF for a CI gate, and says plainly where its own analysis was bounded rather than reporting clean."
     },
     "derived": {
-      "checked_at": "2026-09-30T03:20:30Z",
+      "checked_at": "2026-10-01T03:19:38Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-29",
+        "pushed_at": "2026-09-30",
         "days_since_push": 1,
-        "total_commits": 1661,
-        "last100_span_days": 96,
+        "total_commits": 1664,
+        "last100_span_days": 97,
         "last100_authors": 8,
-        "last_commit_sha": "e215bef",
-        "last_commit_message": "chore(deps): update python:3.12-slim docker digest to f77ac9e (#1856)\n\nCo-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\nCo-authored-by: Michael D'Angelo <mdangelo@openai.com>",
-        "last_commit_at": "2026-09-29",
+        "last_commit_sha": "e32b430",
+        "last_commit_message": "chore(deps): update dependency ruff to >=0.16.9,<0.17.0 (#1861)\n\nCo-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>\nCo-authored-by: Michael D'Angelo <mdangelo@openai.com>",
+        "last_commit_at": "2026-09-30",
         "releases": 42,
         "latest_release_at": "2026-07-22",
-        "days_since_release": 70,
+        "days_since_release": 71,
         "days_idle": 1,
         "relocated": false
       },
@@ -50,7 +50,7 @@
       },
       "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
       "shape": {
-        "loc": 656768,
+        "loc": 656776,
         "code_files": 506,
         "files": 683,
         "has_ci": true,
@@ -67,7 +67,7 @@
       "substrate": { "bundled": [], "manifests": [] },
       "rebadge": [],
       "risk": { "licence": false, "install": false, "phones_home": true, "opaque": false, "host_access": false },
-      "risk_where": { "phones_home": "modelaudit/cli.py:6007" }
+      "risk_where": { "phones_home": "modelaudit/cli.py:6009" }
     }
   }
 }
