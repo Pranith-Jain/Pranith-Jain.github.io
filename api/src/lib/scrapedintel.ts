@@ -16,6 +16,7 @@
  */
 
 import { fetchResilient } from './fetch-resilient';
+import { shouldWriteLastGood } from './lastgood-debounce';
 
 export const SCRAPEDINTEL_SOURCE = 'threatactorusernames.com';
 export const SCRAPEDINTEL_SOURCE_URL = 'https://threatactorusernames.com';
@@ -344,7 +345,11 @@ export async function lookupHandle(
     /* cache write best-effort */
   }
   try {
-    if (kv) await kv.put(lastGoodKey(norm), body, { expirationTtl: LAST_GOOD_TTL_SECONDS });
+    // Debounced per query: the 3/min budget gate already caps fetch rate, but
+    // repeat lookups of a hot handle within the 7d TTL would otherwise rewrite
+    // the identical last-good on every lookup.
+    if (kv && (await shouldWriteLastGood(`scrapedintel:${norm}`)))
+      await kv.put(lastGoodKey(norm), body, { expirationTtl: LAST_GOOD_TTL_SECONDS });
     // Write-through the L1 shadow so the fallback read stays coherent.
     try {
       const cache = (caches as unknown as { default: Cache }).default;

@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { serviceUnavailable } from '../lib/api-error';
 import { selfFetchJson } from '../lib/self-fetch';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 export interface ExposureDimension {
   name: string;
@@ -160,7 +161,12 @@ async function fetchExploitIndex(env: Env): Promise<Map<string, number>> {
   }
 
   try {
-    await env.KV_CACHE?.put(cacheKey, JSON.stringify([...exploitByCve]), { expirationTtl: 21600 });
+    // Debounced: the GitLab CSV changes on Exploit-DB release cadence, not
+    // per request — every-miss puts were pure quota burn on a shared blob.
+    // The L1 shadow below still writes unconditionally (free, per-colo).
+    if (await shouldWriteLastGood('fusion:exploit-index')) {
+      await env.KV_CACHE?.put(cacheKey, JSON.stringify([...exploitByCve]), { expirationTtl: 21600 });
+    }
     // Write-through the L1 shadow so the next request in this colo is a hit.
     try {
       await cache.put(

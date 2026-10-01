@@ -12,6 +12,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { kvBackedGet } from '../lib/route-cache';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { logError } from '../lib/logger';
 import { trackEvent } from '../lib/analytics';
 import { badRequest, internalError, notFound } from '../lib/api-error';
@@ -107,7 +108,10 @@ export function buildRiskFactors(
       evidence: `${enrichment.sources.length} sources: ${enrichment.sources.slice(0, 3).join(', ')}`,
     });
   }
-  const risk_score = Math.min(100, factors.reduce((s, f) => s + f.contribution, 0));
+  const risk_score = Math.min(
+    100,
+    factors.reduce((s, f) => s + f.contribution, 0)
+  );
   return { factors, risk_score };
 }
 
@@ -303,8 +307,9 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
     tlp: 'CLEAR',
   };
 
-  // Cache for fast re-read
-  if (kv)
+  // Cache for fast re-read, debounced per CVE: regenerating the same dossier
+  // twice in 6h rewrites byte-identical JSON, so skip the repeat write.
+  if (kv && (await shouldWriteLastGood(`dossier:cve:${entity.value}`)))
     await kv
       .put(`dossier:cve:${entity.value}`, JSON.stringify(dossier), { expirationTtl: 7200 })
       .catch((err) => logError('dossier cache put failed:', err));

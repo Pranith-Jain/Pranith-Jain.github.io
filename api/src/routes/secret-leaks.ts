@@ -2,8 +2,14 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 const CACHE_TTL_SECONDS = 1800; // 30 min
+// Last-good entries expire after a day: the edge front (30m) is the hot path
+// and KV is only the outage fallback, so a day-old fallback is plenty stale
+// enough to prefer a live refetch — and, critically, entries stop
+// accumulating permanently (the old put had no TTL at all).
+const KV_LAST_GOOD_TTL_SECONDS = 24 * 60 * 60;
 const GITHUB_SEARCH_API = 'https://api.github.com/search/code';
 
 type Severity = 'critical' | 'high' | 'medium' | 'low';
@@ -329,11 +335,19 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
   // If no leaks found, return empty result — never fabricate demo data.
 
   // Persist successful non-empty scans to KV last-good so the fallback can
-  // never be permanently empty (the read path above depends on it).
+  // never be permanently empty (the read path above depends on it). Debounced
+  // to ~1 write/6h/colo: this handler rebuilds every 30m on traffic, and an
+  // undebounced put here was the highest-frequency permanent KV write on any
+  // hot route.
   if (kv && leaks.length > 0) {
     const body = JSON.stringify(response);
     c.executionCtx.waitUntil(
-      kv.put(kvKey, body).catch((e: unknown) => logError('secret-leaks lastgood write failed', e))
+      (async () => {
+        if (!(await shouldWriteLastGood('secret-leaks:lastgood'))) return;
+        await kv.put(kvKey, body, { expirationTtl: KV_LAST_GOOD_TTL_SECONDS }).catch((e: unknown) => {
+          logError('secret-leaks lastgood write failed', e);
+        });
+      })()
     );
   }
 

@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 const D3FEND_MATRIX_URL = 'https://d3fend.mitre.org/api/matrix.json';
 const CACHE_TTL_SECONDS = 24 * 60 * 60; // 24h — D3FEND updates infrequently
@@ -113,7 +114,10 @@ export async function d3fendMatrixHandler(c: Context<{ Bindings: Env }>): Promis
 
   const json = JSON.stringify(response);
 
-  if (kv) {
+  // Debounced to ~1 write/6h (same idiom as attack-flow-library /
+  // relationship-graph): reference matrices change on upstream-release
+  // cadence, not per request, so every-miss puts were pure quota burn.
+  if (kv && (await shouldWriteLastGood('d3fend-matrix:lastgood'))) {
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
     } catch (_catchErr) {
