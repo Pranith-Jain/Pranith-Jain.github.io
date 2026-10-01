@@ -168,12 +168,21 @@ const CHANNELS: ChannelSpec[] = [
   // CVE / vulnerability disclosure channels (verified 2026-05-12: each has
   // 40+ recent posts and a sub-day publish cadence). Classed as 'osint'
   // because they're disclosure intelligence rather than breaking news.
-  // REMOVED 2026-09-21 (all serving 0 preview messages — dead or
+  // REMOVED 2026-09-21 (serving 0 preview messages — dead or
   // preview-disabled, verified live from a non-throttled probe):
   //   - `cve0day` (was: CVE / 0day disclosure firehose)
-  //   - `CVEDetector` (was: CVE disclosure alerts)
-  // Do NOT re-add without a live t.me/s/ message check.
+  // `CVEDetector` was on that removal list and is now BACK (re-verified live
+  // 2026-10-01: 20 preview messages, sub-hour cadence). The 09-21 call was
+  // correct then and stale now — it also feeds the structured CVE parser in
+  // cve-tg-parser.ts, so removal here would silently starve that tier.
+  // Do NOT re-add cve0day without a live t.me/s/ message check.
   { handle: 'cvenotify', name: 'CVE Notify', blurb: 'High-cadence CVE alerts (NVD-style)', topic: 'osint' },
+  {
+    handle: 'cvedetector',
+    name: 'CVE Detector',
+    blurb: 'Structured CVE alerts with publish timestamps (20 recent posts, sub-hour cadence)',
+    topic: 'osint',
+  },
   {
     handle: 'cvefeed',
     name: 'CVE & Vulnerability RSS',

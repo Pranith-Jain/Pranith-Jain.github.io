@@ -256,6 +256,21 @@ export interface Env {
    *  Set via `wrangler secret put GITHUB_TOKEN`. Optional — the free
    *  anonymous GitHub API tier (60 req/hr) is the default. */
   GITHUB_TOKEN?: string;
+  /** CTIWatch API key (free at ctiwatch.com/settings/api-keys; format
+   *  `ctw_` + 64 hex). Set via `wrangler secret put CTIWATCH_API_KEY`.
+   *
+   *  OPTIONAL — and genuinely optional, which is unusual and worth stating
+   *  plainly: /api/v1/cve-digest works without it. CTIWatch 401s every
+   *  endpoint for a keyless caller, but it also mints an anonymous session
+   *  cookie on any HTML page load, which the client replays. That anonymous
+   *  scope is capped at `offset=1000` (HTTP 403 beyond) and 150 requests.
+   *  A free key lifts the pagination ceiling entirely, which matters on a
+   *  heavy patch day where a 24h window exceeds 1000 CVEs. */
+  CTIWATCH_API_KEY?: string;
+  /** VulnTracker API key for the full /all-cves feed. Optional — see
+   *  api/src/lib/vulntracker.ts. The digest-only endpoints need no key, so
+   *  this only unlocks the complete per-CVE list. */
+  VULNTRACKER_API_KEY?: string;
   /** PhishTank API key (free registration at phishtank.org/developer_info.php).
    *  Set via `wrangler secret put PHISHTANK_API_KEY`. Optional — the phish
    *  feed works without it using OpenPhish + brand detection; setting a key

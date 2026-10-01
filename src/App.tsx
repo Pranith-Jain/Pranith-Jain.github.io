@@ -966,6 +966,10 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/cves/k8s', to: '/threatintel/cves/cves' },
   { path: '/threatintel/cves/exploitable', to: '/threatintel/cves/cves' },
   { path: '/threatintel/cves/list', to: '/threatintel/cves/cves' },
+  // The 24h digest is a tab on CveIntel, but it gets its own deep-linkable
+  // path so it can be shared/bookmarked directly. `preserveQuery` is NOT set:
+  // the tab is the content, not a filter on the list view.
+  { path: '/threatintel/cves/digest', to: '/threatintel/cves/cves?tab=digest' },
   // ── Canonical 2-segment hub paths → real page (defensive - direct
   //    `to`/`href` from a component should use the real path; this
   //    redirect exists so external links, bookmarks, and copy-paste

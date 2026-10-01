@@ -205,6 +205,24 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
 
   const body = (
     <>
+      {/* Cross-link to the complete 24h window. This list is a recent SAMPLE
+          bounded by NVD paging; the digest is the complete window anchored on
+          ctiwatch. One line, no extra fetch — the digest page carries the data. */}
+      <div className="mb-4 rounded-lg border border-sky-500/30 bg-sky-500/10 p-3 text-xs text-sky-700 dark:text-sky-300 flex items-center justify-between gap-3 flex-wrap">
+        <span>
+          Looking for <strong>every CVE from the last 24 hours</strong>? The list below is a recent sample — the{' '}
+          <Link to="/threatintel/cves/cves?tab=digest" className="font-semibold underline">
+            24h Digest
+          </Link>{' '}
+          is the complete window.
+        </span>
+        <Link
+          to="/threatintel/cves/cves?tab=digest"
+          className="shrink-0 rounded border border-sky-500/40 px-2 py-1 font-mono text-mini hover:bg-sky-500/20"
+        >
+          Open digest →
+        </Link>
+      </div>
       {/* Top-level AI threat analysis for the filtered CVE set */}
       {filtered.length > 0 && (
         <div className="mb-6">

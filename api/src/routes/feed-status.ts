@@ -4,6 +4,7 @@ import { logError } from '../lib/logger';
 import { SOURCE_RELIABILITY_REGISTRY } from '../lib/confidence';
 import { SNAPSHOT_CACHE_KEY } from './snapshot';
 import { CVE_RECENT_CACHE_KEY } from './cve-recent';
+import { CVE_DIGEST_CACHE_KEY } from './cve-digest';
 import { MALWARE_SAMPLES_CACHE_KEY } from './malware-samples';
 import { PHISHING_URLS_CACHE_KEY } from './phishing-urls';
 import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
@@ -221,6 +222,9 @@ export const PROBE_SOURCES: Record<string, string[]> = {
   // dbu.gs (B) sits alongside the A-grade advisory sources: it is a gap-filler,
   // so NVD/KEV remain the probe's reliability anchor and the aggregate stays A.
   'cve-recent': ['nvd', 'cisa-kev', 'dbugs', 'exploitgrid'],
+  // The 24h digest is anchored on ctiwatch (B) with VulnTracker volume for
+  // context — best-evidence-wins keeps it at B.
+  'cve-digest': ['ctiwatch', 'vulntracker'],
   'malware-samples': ['abusech-malwarebazaar'],
   'ransomware-recent': ['ransomlook'],
   'onion-watch': ['ransomlook'],
@@ -278,7 +282,8 @@ export const PROBES: FeedProbeSpec[] = [
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const sources = arrField(body, 'sources') ?? [];
-      const find = (id: string) => sources.find((s) => (s as { id?: string }).id === id) as { count?: number } | undefined;
+      const find = (id: string) =>
+        sources.find((s) => (s as { id?: string }).id === id) as { count?: number } | undefined;
       const nvdCount = find('nvd-published-14d')?.count ?? 0;
       const kevCount = find('cisa-kev-added-30d')?.count ?? 0;
       const dbugsCount = find('dbugs')?.count ?? 0;
@@ -295,6 +300,34 @@ export const PROBES: FeedProbeSpec[] = [
         // Gap-filler counts ride along as metrics so a drop to 0 is visible here
         // rather than only as a missing row on the CVE list.
         metrics: { count, nvd: nvdCount, kev: kevCount, dbugs: dbugsCount, exploitgrid: exploitGridCount },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'cve-digest',
+    label: 'CVE digest — last 24h (CTIWatch)',
+    page_path: '/threatintel/cves/digest',
+    api_path: '/api/v1/cve-digest',
+    cache_key: CVE_DIGEST_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['cve-digest'],
+    evaluate: (body) => {
+      const count = intField(body, 'count') ?? 0;
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const partial = (body as { partial?: unknown }).partial === true;
+      const sources = arrField(body, 'sources') ?? [];
+      const ctw = sources.find((s) => (s as { id?: string }).id === 'ctiwatch') as
+        { ok?: boolean; count?: number } | undefined;
+      const status: Status = count > 0 ? (partial ? 'degraded' : 'ok') : ctw?.ok === false ? 'down' : 'down';
+      return {
+        status,
+        reason:
+          count > 0
+            ? `${count} CVEs in the last 24h${partial ? ' (partial — anonymous offset ceiling hit)' : ''}`
+            : ctw?.ok === false
+              ? 'CTIWatch unreachable (session mint failed)'
+              : 'no CVEs in window or cache cold',
+        metrics: { count },
         ageS,
       };
     },

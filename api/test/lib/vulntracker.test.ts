@@ -4,6 +4,8 @@ import {
   parseVulnTrackerArchive,
   parseVulnTrackerRss,
   mapVulnTrackerTopCve,
+  parseVulnTrackerFullFeed,
+  fetchVulnTrackerFullFeed,
   VULNTRACKER_TOP_CVE_CAP,
 } from '../../src/lib/vulntracker';
 
@@ -202,5 +204,57 @@ describe('parseVulnTrackerRss', () => {
   it('returns an empty array for non-RSS input', () => {
     expect(parseVulnTrackerRss('<html><body>404</body></html>')).toEqual([]);
     expect(parseVulnTrackerRss('')).toEqual([]);
+  });
+});
+
+describe('parseVulnTrackerFullFeed (keyed /all-cves surface)', () => {
+  it('parses a digest-shaped envelope', () => {
+    const p = parseVulnTrackerFullFeed({
+      success: true,
+      data: {
+        total: 2,
+        cves: [
+          {
+            cve_id: 'CVE-2026-76504',
+            severity: 'CRITICAL',
+            base_score: 9.8,
+            vulnerability_name: 'Cisco SD-WAN auth bypass',
+            vendor_name: 'Cisco',
+            is_exploited: true,
+          },
+        ],
+      },
+    });
+    expect(p).not.toBeNull();
+    expect(p!.total).toBe(2);
+    expect(p!.cves).toHaveLength(1);
+    expect(p!.cves[0]!.is_exploited).toBe(true);
+  });
+
+  it('parses a flat array envelope', () => {
+    const p = parseVulnTrackerFullFeed({
+      data: [{ cve_id: 'CVE-2026-10001', severity: 'HIGH', base_score: 7.5, vulnerability_name: 'x' }],
+    });
+    expect(p!.cves).toHaveLength(1);
+    expect(p!.total).toBeNull();
+  });
+
+  it('fails closed on anything it does not recognise', () => {
+    expect(parseVulnTrackerFullFeed({ data: { nope: true } })).toBeNull();
+    expect(parseVulnTrackerFullFeed({ data: 'nope' })).toBeNull();
+    expect(parseVulnTrackerFullFeed(null)).toBeNull();
+  });
+
+  it('dedupes by CVE id', () => {
+    const row = { cve_id: 'CVE-2026-10001', severity: 'HIGH', base_score: 7, vulnerability_name: 'x' };
+    const p = parseVulnTrackerFullFeed({ data: { cves: [row, row] } });
+    expect(p!.cves).toHaveLength(1);
+  });
+
+  // The whole point of the dormant client: without a key it must report
+  // "not configured" rather than burn a 401 against the upstream.
+  it('fetchVulnTrackerFullFeed is a no-op without an API key', async () => {
+    const r = await fetchVulnTrackerFullFeed({});
+    expect(r).toEqual({ cves: [], total: null, ok: false });
   });
 });
