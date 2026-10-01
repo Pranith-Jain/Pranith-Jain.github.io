@@ -287,7 +287,7 @@ export function FeedView({ feed, actors }: Props) {
               <button
                 onClick={fetchLiveFeeds}
                 disabled={liveStatus === 'loading'}
-                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-mini font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-mini font-medium border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors disabled:opacity-50"
               >
                 <RefreshCw size={11} className={liveStatus === 'loading' ? 'animate-spin' : ''} /> Refresh
               </button>
@@ -323,15 +323,12 @@ export function FeedView({ feed, actors }: Props) {
             </div>
             <div className="flex items-center gap-2 ml-auto">
               <div className="relative">
-                <Search
-                  size={12}
-                  className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
-                />
+                <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search titles, CVEs, actors…"
-                  className="w-56 h-7 pl-7 pr-2.5 rounded-md text-meta text-muted placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none transition-colors"
+                  className="w-56 h-7 pl-7 pr-2.5 rounded-md text-meta text-muted placeholder:text-muted dark:placeholder:text-muted focus:outline-none transition-colors"
                   style={{ background: 'var(--ink-700)', border: '1px solid var(--edge)' }}
                 />
               </div>
@@ -360,7 +357,7 @@ export function FeedView({ feed, actors }: Props) {
                 <select
                   value={sourceFilter ?? ''}
                   onChange={(e) => setSourceFilter(e.target.value || null)}
-                  className="h-6 px-2 rounded text-mini text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
+                  className="h-6 px-2 rounded text-mini text-muted border border-line-1 bg-surface-100 outline-none"
                 >
                   <option value="">All sources</option>
                   {sources.map((s) => (
@@ -464,7 +461,7 @@ export function FeedView({ feed, actors }: Props) {
               return (
                 <article
                   key={f.id}
-                  className="px-4 py-3.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200"
+                  className="px-4 py-3.5 hover:bg-surface-200 dark:hover:bg-surface-300 transition-all duration-200"
                 >
                   <div className="flex items-start gap-3">
                     <span

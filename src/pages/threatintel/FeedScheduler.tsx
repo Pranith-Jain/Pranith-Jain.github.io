@@ -325,7 +325,7 @@ export default function FeedScheduler(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search feeds…"
-              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+              className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-tool text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
             />
           </div>
         </div>
@@ -339,14 +339,14 @@ export default function FeedScheduler(): JSX.Element {
           <h2 className="font-display font-semibold text-sm mb-3">Add Feed Source</h2>
 
           <div className="mb-3">
-            <label htmlFor="preset-select" className="text-mini font-mono text-slate-500 block mb-1">
+            <label htmlFor="preset-select" className="text-mini font-mono text-muted block mb-1">
               Quick-add from preset:
             </label>
             <select
               id="preset-select"
               value={selectedPreset}
               onChange={(e) => applyPreset(e.target.value)}
-              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-body"
+              className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta text-body"
             >
               <option value="">- Select a preset -</option>
               {presets.map((p) => (
@@ -364,14 +364,14 @@ export default function FeedScheduler(): JSX.Element {
                 value={form.name}
                 onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                 placeholder="Feed name"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-tool focus:outline-none focus:border-rose-500"
               />
             </div>
             <div>
               <select
                 value={form.parser}
                 onChange={(e) => setForm((p) => ({ ...p, parser: e.target.value }))}
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-body"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta text-body"
               >
                 <option value="plaintext-ips">IP list (one per line)</option>
                 <option value="plaintext-domains">Domain list (one per line)</option>
@@ -385,7 +385,7 @@ export default function FeedScheduler(): JSX.Element {
                 value={form.source_url}
                 onChange={(e) => setForm((p) => ({ ...p, source_url: e.target.value }))}
                 placeholder="Source URL"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
             <div>
@@ -395,7 +395,7 @@ export default function FeedScheduler(): JSX.Element {
                 onChange={(e) => setForm((p) => ({ ...p, interval_minutes: Number(e.target.value) }))}
                 placeholder="Interval (minutes)"
                 min={5}
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
             <div>
@@ -404,7 +404,7 @@ export default function FeedScheduler(): JSX.Element {
                 value={form.tags}
                 onChange={(e) => setForm((p) => ({ ...p, tags: e.target.value }))}
                 placeholder="Tags (comma separated)"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -422,7 +422,7 @@ export default function FeedScheduler(): JSX.Element {
                 setShowForm(false);
                 setSelectedPreset('');
               }}
-              className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 font-mono text-meta rounded"
+              className="px-4 py-2 border border-line-1 text-muted font-mono text-meta rounded"
             >
               Cancel
             </button>
@@ -447,7 +447,7 @@ export default function FeedScheduler(): JSX.Element {
       {filtered.length === 0 && (
         <div className="surface-card p-12 text-center">
           <RefreshCw size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
-          <p className="text-sm font-mono text-slate-500">{search ? 'No matching feeds' : 'No feed jobs configured'}</p>
+          <p className="text-sm font-mono text-muted">{search ? 'No matching feeds' : 'No feed jobs configured'}</p>
           <p className="text-xs font-mono text-muted mt-1">
             {search
               ? 'Try a different search'
@@ -466,10 +466,10 @@ export default function FeedScheduler(): JSX.Element {
           return (
             <div
               key={job.id}
-              className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition-colors ${
+              className={`rounded-xl border bg-surface-100 dark:bg-surface-200 p-4 transition-colors ${
                 job.enabled
-                  ? 'border-slate-200 dark:border-[rgb(var(--border-400))]'
-                  : 'border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 opacity-60'
+                  ? 'border-slate-200 dark:border-line-1'
+                  : 'border-slate-200/50 dark:border-line-1/50 opacity-60'
               }`}
             >
               {isEditing ? (
@@ -479,7 +479,7 @@ export default function FeedScheduler(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setEditingId(null)}
-                      className="p-1 rounded text-muted hover:text-slate-600"
+                      className="p-1 rounded text-muted hover:text-muted"
                     >
                       <X size={13} />
                     </button>
@@ -490,12 +490,12 @@ export default function FeedScheduler(): JSX.Element {
                       value={editForm.name}
                       onChange={(e) => setEditForm((p) => ({ ...p, name: e.target.value }))}
                       placeholder="Feed name"
-                      className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                      className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
                     />
                     <select
                       value={editForm.parser}
                       onChange={(e) => setEditForm((p) => ({ ...p, parser: e.target.value }))}
-                      className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-body"
+                      className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta text-body"
                     >
                       <option value="plaintext-ips">IP list</option>
                       <option value="plaintext-domains">Domain list</option>
@@ -508,7 +508,7 @@ export default function FeedScheduler(): JSX.Element {
                         value={editForm.source_url}
                         onChange={(e) => setEditForm((p) => ({ ...p, source_url: e.target.value }))}
                         placeholder="Source URL"
-                        className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                        className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
                       />
                     </div>
                     <input
@@ -517,14 +517,14 @@ export default function FeedScheduler(): JSX.Element {
                       onChange={(e) => setEditForm((p) => ({ ...p, interval_minutes: Number(e.target.value) }))}
                       placeholder="Interval (minutes)"
                       min={5}
-                      className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                      className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
                     />
                     <input
                       type="text"
                       value={editForm.tags}
                       onChange={(e) => setEditForm((p) => ({ ...p, tags: e.target.value }))}
                       placeholder="Tags (comma separated)"
-                      className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                      className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
                     />
                   </div>
                   <div className="flex gap-2 mt-3">
@@ -550,7 +550,7 @@ export default function FeedScheduler(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setEditingId(null)}
-                      className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 font-mono text-meta rounded"
+                      className="px-4 py-2 border border-line-1 text-muted font-mono text-meta rounded"
                     >
                       Cancel
                     </button>
@@ -567,7 +567,7 @@ export default function FeedScheduler(): JSX.Element {
                         {isRunning && <Loader2 size={12} className="animate-spin text-brand-500 shrink-0" />}
                         {job.last_status === null && <Clock size={12} className="text-muted shrink-0" />}
                       </div>
-                      <p className="text-mini font-mono text-slate-500 mt-0.5 truncate max-w-xl">{job.source_url}</p>
+                      <p className="text-mini font-mono text-muted mt-0.5 truncate max-w-xl">{job.source_url}</p>
                       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-micro font-mono text-muted">
                         <span className="capitalize">{job.parser.replace(/-/g, ' ')}</span>
                         <span>Every {job.interval_minutes}m</span>
@@ -575,7 +575,7 @@ export default function FeedScheduler(): JSX.Element {
                         {job.last_status === 'ok' && <span>{job.last_item_count.toLocaleString()} items</span>}
                         {isDue && job.enabled && <span className="text-amber-500">Due</span>}
                         {job.tags.map((t) => (
-                          <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+                          <span key={t} className="px-1 py-0.5 rounded bg-surface-300">
                             {t}
                           </span>
                         ))}
@@ -589,7 +589,7 @@ export default function FeedScheduler(): JSX.Element {
                         type="button"
                         onClick={() => void runJob(job.id)}
                         disabled={isRunning}
-                        className="p-1.5 rounded text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30"
+                        className="p-1.5 rounded text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-30"
                         title="Run now"
                       >
                         <Play size={13} />
@@ -607,7 +607,7 @@ export default function FeedScheduler(): JSX.Element {
                           });
                         }}
                         disabled={isRunning}
-                        className="p-1.5 rounded text-muted hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                        className="p-1.5 rounded text-muted hover:text-muted hover:bg-surface-300 dark:hover:bg-surface-300"
                         title="Edit"
                       >
                         <Pencil size={13} />
@@ -615,7 +615,7 @@ export default function FeedScheduler(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void toggleJob(job.id, !job.enabled)}
-                        className="p-1.5 rounded text-muted hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                        className="p-1.5 rounded text-muted hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-surface-300"
                         title={job.enabled ? 'Disable' : 'Enable'}
                       >
                         <CheckCircle2 size={13} />
@@ -623,7 +623,7 @@ export default function FeedScheduler(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void deleteJob(job.id, job.name)}
-                        className="p-1.5 rounded text-muted hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                        className="p-1.5 rounded text-muted hover:text-rose-500 hover:bg-surface-300 dark:hover:bg-surface-300"
                         title="Delete"
                       >
                         <Trash2 size={13} />
@@ -631,7 +631,7 @@ export default function FeedScheduler(): JSX.Element {
                     </div>
                   </div>
                   {jobHistory.length > 0 && (
-                    <details className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+                    <details className="mt-3 pt-3 border-t border-line-1">
                       <summary className="text-micro font-mono text-muted cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 select-none">
                         Run history ({jobHistory.length})
                       </summary>
@@ -639,7 +639,7 @@ export default function FeedScheduler(): JSX.Element {
                         {jobHistory.slice(0, 10).map((h, i) => (
                           <div
                             key={`${h.started_at}-${i}`}
-                            className="flex items-center gap-2 text-micro font-mono text-slate-500"
+                            className="flex items-center gap-2 text-micro font-mono text-muted"
                           >
                             {h.status === 'ok' ? (
                               <CheckCircle2 size={10} className="text-emerald-500" />

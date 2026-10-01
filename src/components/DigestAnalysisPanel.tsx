@@ -37,7 +37,7 @@ export function DigestAnalysisPanel({ endpoint }: { endpoint: string | null }) {
             <span className="rounded-full bg-brand-600 px-2 py-0.5 text-micro font-semibold text-white">AI</span>
           )}
           {data && !data.ai && (
-            <span className="rounded-full bg-slate-200 px-2 py-0.5 text-micro font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300">
+            <span className="rounded-full bg-slate-200 px-2 py-0.5 text-micro font-semibold text-slate-600 dark:bg-surface-300 dark:text-slate-300">
               deterministic
             </span>
           )}
@@ -47,7 +47,7 @@ export function DigestAnalysisPanel({ endpoint }: { endpoint: string | null }) {
       {open && (
         <div className="space-y-4 border-t border-brand-200 px-4 py-3 dark:border-brand-900/40">
           {loading && (
-            <div className="flex items-center gap-2 py-4 text-xs text-slate-500">
+            <div className="flex items-center gap-2 py-4 text-xs text-muted">
               <Loader2 size={14} className="animate-spin" /> Analyzing digest…
             </div>
           )}
@@ -71,12 +71,12 @@ export function DigestAnalysisPanel({ endpoint }: { endpoint: string | null }) {
                 <div>
                   <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
                     <BrainCircuit size={13} className="text-purple-500" /> AI assessment
-                    <span className="font-normal text-slate-400">· {data.ai.model}</span>
+                    <span className="font-normal text-muted">· {data.ai.model}</span>
                   </div>
                   <p className="whitespace-pre-wrap text-xs leading-relaxed text-body">{data.ai.text}</p>
                 </div>
               ) : (
-                <p className="text-mini text-slate-400">
+                <p className="text-mini text-muted">
                   {data.ai_error === 'ai_unavailable'
                     ? 'LLM narrative unavailable (no AI provider configured) — deterministic signals above are complete.'
                     : 'LLM narrative unavailable for this digest — deterministic signals above are complete.'}

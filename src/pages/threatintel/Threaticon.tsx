@@ -114,7 +114,7 @@ const TLP_STYLES: Record<string, string> = {
   red: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   amber: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   green: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  white: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  white: 'border-slate-300 dark:border-line-1 text-slate-500',
 };
 
 function fmtDate(iso: string | null | undefined): string {
@@ -143,13 +143,13 @@ function SearchBox({
 }) {
   return (
     <div className="relative flex-1">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+        className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
       />
     </div>
   );
@@ -158,7 +158,7 @@ function SearchBox({
 function Confidence({ value }: { value: number | null }) {
   if (value == null) return null;
   return (
-    <div className="flex items-center gap-1.5 text-mini text-slate-500 font-mono">
+    <div className="flex items-center gap-1.5 text-mini text-muted font-mono">
       <div className="w-14 h-1.5 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
         <div
           className={`h-full rounded-full ${value >= 70 ? 'bg-emerald-500' : value >= 40 ? 'bg-amber-500' : 'bg-rose-500'}`}
@@ -174,7 +174,7 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
   const [open, setOpen] = useState(false);
   return (
     <details
-      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30"
+      className="group rounded-xl border border-line-1 bg-surface-100/50 p-4 open:border-rose-500/30"
       open={open}
       onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}
     >
@@ -183,7 +183,7 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-heading leading-snug">{item.name}</h3>
             {item.mitreId && (
-              <span className="text-mini font-mono text-slate-500">
+              <span className="text-mini font-mono text-muted">
                 <a
                   href={sanitizeUrl(`https://attack.mitre.org/groups/${item.mitreId}/`) ?? undefined}
                   target="_blank"
@@ -203,19 +203,14 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
                 cls={
                   item.status.toLowerCase() === 'active'
                     ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                    : 'border-slate-300 dark:border-line-1 text-slate-500'
                 }
               >
                 {item.status}
               </Badge>
             )}
             {item.tlp && (
-              <Badge
-                cls={
-                  TLP_STYLES[item.tlp.toLowerCase()] ??
-                  'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                }
-              >
+              <Badge cls={TLP_STYLES[item.tlp.toLowerCase()] ?? 'border-slate-300 dark:border-line-1 text-slate-500'}>
                 {item.tlp.toUpperCase()}
               </Badge>
             )}
@@ -231,16 +226,16 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
             </span>
           ))}
           {item.originCode && (
-            <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+            <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body">
               {item.countryOfOrigin ?? item.originCode}
             </span>
           )}
           <Confidence value={item.confidence} />
         </div>
-        <p className="text-mini text-slate-500 mt-1.5 font-mono">
+        <p className="text-mini text-muted mt-1.5 font-mono">
           {item.techniquesCount} techniques · {item.toolsCount} tools · {item.targetedCountriesCount} countries
         </p>
-        <span className="inline-block font-mono text-micro text-slate-400 group-open:text-rose-500 mt-1">profile</span>
+        <span className="inline-block font-mono text-micro text-muted group-open:text-rose-500 mt-1">profile</span>
       </summary>
       {open && <ActorDetailBody slug={item.slug} onCopy={onCopy} copied={copied} />}
     </details>
@@ -249,11 +244,11 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
 
 function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () => void; copied: boolean }) {
   const { body, loading } = useDetail<TiActorDetail>(`/api/v1/threat-intel/threaticon/actors/${slug}`);
-  if (loading) return <p className="text-mini text-slate-500 font-mono mt-3">loading profile…</p>;
+  if (loading) return <p className="text-mini text-muted font-mono mt-3">loading profile…</p>;
   if (!body)
-    return <p className="text-mini text-slate-500 font-mono mt-3">profile unavailable (is the sync build done?)</p>;
+    return <p className="text-mini text-muted font-mono mt-3">profile unavailable (is the sync build done?)</p>;
   return (
-    <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-sm">
+    <div className="mt-3 pt-3 border-t border-line-1 space-y-3 text-sm">
       {body.description && <p className="text-body leading-relaxed">{body.description}</p>}
       <PostAnalysisButton
         title={body.name}
@@ -262,12 +257,12 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
         compact
       />
       {body.goals && (
-        <p className="text-xs text-slate-500 leading-relaxed">
+        <p className="text-xs text-muted leading-relaxed">
           <span className="font-mono text-muted">goals: </span>
           {body.goals}
         </p>
       )}
-      <div className="grid sm:grid-cols-2 gap-2 text-mini font-mono text-slate-500">
+      <div className="grid sm:grid-cols-2 gap-2 text-mini font-mono text-muted">
         <div>sophistication: {body.sophistication ?? '—'}</div>
         <div>resource level: {body.resourceLevel ?? '—'}</div>
         <div>motivation: {body.motivation ?? '—'}</div>
@@ -275,9 +270,12 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       </div>
       {body.aliases.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">aliases:</span>
+          <span className="text-mini text-muted font-mono mr-1">aliases:</span>
           {body.aliases.map((a) => (
-            <span key={a} className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+            <span
+              key={a}
+              className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body"
+            >
               {a}
             </span>
           ))}
@@ -285,7 +283,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.tags.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">tags:</span>
+          <span className="text-mini text-muted font-mono mr-1">tags:</span>
           {body.tags.map((t) => (
             <span
               key={t}
@@ -298,7 +296,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.targetedSectors.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">sectors:</span>
+          <span className="text-mini text-muted font-mono mr-1">sectors:</span>
           {body.targetedSectors.map((s) => (
             <span
               key={s}
@@ -311,7 +309,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.targetedCountries.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">targeted:</span>
+          <span className="text-mini text-muted font-mono mr-1">targeted:</span>
           {body.targetedCountries.map((c) => (
             <span
               key={c}
@@ -324,7 +322,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.tactics.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">tactics:</span>
+          <span className="text-mini text-muted font-mono mr-1">tactics:</span>
           {body.tactics.map((t) => (
             <span
               key={t}
@@ -337,9 +335,12 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.techniques.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">techniques:</span>
+          <span className="text-mini text-muted font-mono mr-1">techniques:</span>
           {body.techniques.map((t) => (
-            <span key={t} className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+            <span
+              key={t}
+              className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body"
+            >
               {t}
             </span>
           ))}
@@ -347,7 +348,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       )}
       {body.tools.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini text-slate-500 font-mono mr-1">tools:</span>
+          <span className="text-mini text-muted font-mono mr-1">tools:</span>
           {body.tools.map((t) => (
             <span
               key={t}
@@ -359,13 +360,13 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
         </div>
       )}
       {body.iocPatterns.length > 0 && (
-        <div className="text-mini text-slate-500 font-mono">
+        <div className="text-mini text-muted font-mono">
           <div className="mb-1 text-muted">IOC patterns:</div>
           <div className="flex flex-wrap gap-1.5">
             {body.iocPatterns.map((p) => (
               <span
                 key={p}
-                className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-body font-mono text-micro break-all"
+                className="px-1.5 py-0.5 rounded bg-surface-300 dark:bg-surface-100/5 text-body font-mono text-micro break-all"
               >
                 {p}
               </span>
@@ -381,7 +382,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
         </ul>
       )}
       {body.campaignsText && (
-        <p className="text-xs text-slate-500 leading-relaxed">
+        <p className="text-xs text-muted leading-relaxed">
           <span className="font-mono text-muted">campaigns: </span>
           {body.campaignsText}
         </p>
@@ -396,7 +397,7 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
       <div className="flex flex-wrap items-center gap-2 text-mini">
         <button
           onClick={onCopy}
-          className="inline-flex items-center gap-1 px-2 py-1 rounded text-micro font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+          className="inline-flex items-center gap-1 px-2 py-1 rounded text-micro font-mono border border-line-1 text-muted hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           title="Copy source URL"
         >
           {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
@@ -429,16 +430,11 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
 
 function MalwareCard({ fam }: { fam: TiMalwareFamily }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
       <div className="flex items-start justify-between gap-2 mb-1.5">
         <h3 className="font-mono text-sm font-semibold text-heading truncate">{fam.name}</h3>
         {fam.tlp && (
-          <Badge
-            cls={
-              TLP_STYLES[fam.tlp.toLowerCase()] ??
-              'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-            }
-          >
+          <Badge cls={TLP_STYLES[fam.tlp.toLowerCase()] ?? 'border-slate-300 dark:border-line-1 text-slate-500'}>
             {fam.tlp.toUpperCase()}
           </Badge>
         )}
@@ -450,7 +446,7 @@ function MalwareCard({ fam }: { fam: TiMalwareFamily }) {
           </span>
         )}
         {fam.status && (
-          <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+          <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body">
             {fam.status}
           </span>
         )}
@@ -468,7 +464,7 @@ function MalwareCard({ fam }: { fam: TiMalwareFamily }) {
 
 function CoverageCard({ tech }: { tech: TiCoverageTechnique }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
       <div className="flex items-start justify-between gap-2 mb-1.5">
         <h3 className="font-mono text-sm font-semibold text-heading">{tech.techniqueId}</h3>
         <Badge cls="border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
@@ -476,7 +472,7 @@ function CoverageCard({ tech }: { tech: TiCoverageTechnique }) {
         </Badge>
       </div>
       <p className="text-sm text-body leading-snug">{tech.name}</p>
-      <p className="text-mini text-slate-500 mt-1 font-mono">{tech.tactic}</p>
+      <p className="text-mini text-muted mt-1 font-mono">{tech.tactic}</p>
       <PostAnalysisButton
         title={`${tech.techniqueId} — ${tech.name}`}
         description={`MITRE technique ${tech.techniqueId} (${tech.name}) in tactic ${tech.tactic}. ${tech.rules} detection rules mapped.`}
@@ -490,20 +486,20 @@ function CoverageCard({ tech }: { tech: TiCoverageTechnique }) {
 function CountryList({ title, entries, tone }: { title: string; entries: TiMapEntry[]; tone: string }) {
   const max = Math.max(1, ...entries.map((e) => e.count));
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
       <h3 className="text-sm font-bold text-heading mb-3">{title}</h3>
       <div className="space-y-1.5">
-        {entries.length === 0 && <p className="text-mini text-slate-500 font-mono">no data</p>}
+        {entries.length === 0 && <p className="text-mini text-muted font-mono">no data</p>}
         {entries.map((e) => (
           <div key={e.code} className="flex items-center gap-2">
-            <span className="font-mono text-mini text-slate-500 w-8 shrink-0">{e.code}</span>
-            <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-white/5 overflow-hidden">
+            <span className="font-mono text-mini text-muted w-8 shrink-0">{e.code}</span>
+            <div className="flex-1 h-2 rounded-full bg-surface-300 dark:bg-surface-100/5 overflow-hidden">
               <div
                 className={`h-full rounded-full ${tone}`}
                 style={{ width: `${Math.round((e.count / max) * 100)}%` }}
               />
             </div>
-            <span className="font-mono text-mini text-slate-500 w-10 text-right shrink-0">{e.count}</span>
+            <span className="font-mono text-mini text-muted w-10 text-right shrink-0">{e.count}</span>
           </div>
         ))}
       </div>
@@ -514,20 +510,20 @@ function CountryList({ title, entries, tone }: { title: string; entries: TiMapEn
 function SectorList({ sectors }: { sectors: { sector: string; count: number }[] }) {
   const max = Math.max(1, ...sectors.map((s) => s.count));
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
       <h3 className="text-sm font-bold text-heading mb-3">Targeted Sectors</h3>
       <div className="space-y-1.5">
-        {sectors.length === 0 && <p className="text-mini text-slate-500 font-mono">no data</p>}
+        {sectors.length === 0 && <p className="text-mini text-muted font-mono">no data</p>}
         {sectors.map((s) => (
           <div key={s.sector} className="flex items-center gap-2">
             <span className="text-mini text-body flex-1 truncate">{s.sector}</span>
-            <div className="w-24 h-2 rounded-full bg-slate-100 dark:bg-white/5 overflow-hidden">
+            <div className="w-24 h-2 rounded-full bg-surface-300 dark:bg-surface-100/5 overflow-hidden">
               <div
                 className="h-full rounded-full bg-violet-500"
                 style={{ width: `${Math.round((s.count / max) * 100)}%` }}
               />
             </div>
-            <span className="font-mono text-mini text-slate-500 w-10 text-right shrink-0">{s.count}</span>
+            <span className="font-mono text-mini text-muted w-10 text-right shrink-0">{s.count}</span>
           </div>
         ))}
       </div>
@@ -751,14 +747,14 @@ export default function ThreaticonFeeds() {
               { label: 'Targeted countries', value: idx.counts.targetedCountries, cls: 'text-slate-500' },
             ].map(({ label, value, cls }) => (
               <div key={label} className="surface-card/50 shadow-e1 p-2.5">
-                <div className="text-mini uppercase tracking-wider mb-0.5 text-slate-500">{label}</div>
+                <div className="text-mini uppercase tracking-wider mb-0.5 text-muted">{label}</div>
                 <div className={`text-lg font-bold ${cls}`}>{value}</div>
               </div>
             ))}
           </div>
 
           {/* Tab nav */}
-          <div className="flex flex-wrap gap-1.5 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-3">
+          <div className="flex flex-wrap gap-1.5 mb-4 border-b border-line-1 pb-3">
             {TABS.map((t) => {
               const Icon = t.icon;
               const active = tab === t.id;
@@ -770,7 +766,7 @@ export default function ThreaticonFeeds() {
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition ${
                     active
                       ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -808,7 +804,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All types</option>
                   {actorTypes.map(([t, n]) => (
@@ -820,7 +816,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={countryFilter}
                   onChange={(e) => setCountryFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All origins</option>
                   {actorCountries.map(([c, n]) => (
@@ -832,7 +828,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={tlpFilter}
                   onChange={(e) => setTlpFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All TLP</option>
                   {['red', 'amber', 'green', 'white'].map((t) => (
@@ -846,13 +842,13 @@ export default function ThreaticonFeeds() {
                   className={`px-3 py-2 rounded-xl text-sm font-mono border transition ${
                     hasMitre
                       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   MITRE only
                 </button>
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredActors.length} of {actors.length} actors · STIX 2.1 catalog replicated from
                 threaticon.com
               </div>
@@ -872,7 +868,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All categories</option>
                   {malwareCategories.map(([c, n]) => (
@@ -882,7 +878,7 @@ export default function ThreaticonFeeds() {
                   ))}
                 </select>
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredFamilies.length} of {families.length} malware families · the Threaticon catalog doubles
                 as the entity-extraction dictionary for ThreatCluster-derived profiles
               </div>
@@ -902,7 +898,7 @@ export default function ThreaticonFeeds() {
                 <select
                   value={tacticFilter}
                   onChange={(e) => setTacticFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All tactics</option>
                   {coverageTactics.map(([t, n]) => (
@@ -916,14 +912,14 @@ export default function ThreaticonFeeds() {
                 {Object.entries(idx.tactics ?? {}).map(([tactic, meta]) => (
                   <span
                     key={tactic}
-                    className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                    className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-1 text-muted"
                     title={`${meta.techniqueCount} techniques · ${meta.coveragePct}% covered`}
                   >
                     {tactic} {meta.coveragePct}%
                   </span>
                 ))}
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredCoverage.length} of {coverage.length} techniques · every technique the platform ships
                 detection content for, with rule counts
               </div>
@@ -938,7 +934,7 @@ export default function ThreaticonFeeds() {
           {/* Map tab */}
           {tab === 'map' && mapBody && (
             <>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Country-level attribution derived from {actors.length} actor profiles · built {fmtDate(mapBody.builtAt)}
               </div>
               <div className="grid gap-2 lg:grid-cols-2 mb-4">
@@ -949,7 +945,7 @@ export default function ThreaticonFeeds() {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+          <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
             Source: threaticon.com · catalog replicated on the threat-intel sync cadence
             {idx.syncedAt && <> · synced {fmtDate(idx.syncedAt)}</>}
           </div>

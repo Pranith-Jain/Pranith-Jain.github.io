@@ -623,7 +623,7 @@ export default function GlobalPulse(): JSX.Element {
                 ) : (
                   <span className="inline-flex items-center gap-1.5" aria-label="Paused">
                     <WifiOff size={11} className="text-muted" />
-                    <span className="text-mini font-semibold uppercase tracking-wider text-slate-500">PAUSED</span>
+                    <span className="text-mini font-semibold uppercase tracking-wider text-muted">PAUSED</span>
                   </span>
                 )}
               </div>
@@ -893,7 +893,7 @@ export default function GlobalPulse(): JSX.Element {
                     <div className="flex items-center justify-between mb-2.5">
                       <h4 className="text-mini font-semibold uppercase tracking-wider text-muted">
                         {groupLabels[group]}
-                        <span className="ml-2 text-muted/70 dark:text-slate-500/70">
+                        <span className="ml-2 text-muted/70">
                           {activeCount}/{layers.length}
                         </span>
                       </h4>
@@ -1010,7 +1010,7 @@ export default function GlobalPulse(): JSX.Element {
               {geoPoints.length === 0 && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <div className="backdrop-blur-xl bg-white/80 dark:bg-white/[0.04] rounded-2xl px-10 py-8 text-center border border-slate-200/50 dark:border-white/[0.08] max-w-sm">
-                    <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 dark:bg-white/[0.04] flex items-center justify-center">
+                    <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-surface-300 dark:bg-surface-100/[0.04] flex items-center justify-center">
                       <Crosshair size={24} className="text-muted" />
                     </div>
                     <p className="text-sm font-semibold text-heading mb-1">No Geolocated Events</p>
@@ -1040,7 +1040,7 @@ export default function GlobalPulse(): JSX.Element {
                         </div>
                         <div className="text-center">
                           <p className="text-sm font-medium text-slate-800 dark:text-slate-300">Loading Globe</p>
-                          <p className="text-xs text-slate-500 mt-1">Initializing 3D renderer…</p>
+                          <p className="text-xs text-muted mt-1">Initializing 3D renderer…</p>
                         </div>
                       </div>
                     </div>
@@ -1065,7 +1065,7 @@ export default function GlobalPulse(): JSX.Element {
                         </div>
                         <div className="text-center">
                           <p className="text-sm font-medium text-slate-800 dark:text-slate-300">Loading Map</p>
-                          <p className="text-xs text-slate-500 mt-1">Initializing 2D renderer…</p>
+                          <p className="text-xs text-muted mt-1">Initializing 2D renderer…</p>
                         </div>
                       </div>
                     </div>
@@ -1224,7 +1224,7 @@ export default function GlobalPulse(): JSX.Element {
                           className={`w-full text-left px-4 py-3 border-l-2 transition-all ${
                             isSelected
                               ? 'bg-rose-500/5 border-l-rose-500'
-                              : `hover:bg-slate-50/80 dark:hover:bg-white/[0.02] ${ctiBorder}`
+                              : `hover:bg-surface-200/80 dark:hover:bg-surface-100/[0.02] ${ctiBorder}`
                           }`}
                         >
                           <div className="flex items-start gap-2.5">
@@ -1243,16 +1243,14 @@ export default function GlobalPulse(): JSX.Element {
                                 <span className="text-micro font-mono uppercase tracking-wider text-muted">
                                   {def?.shortLabel}
                                 </span>
-                                <span className="text-micro font-mono text-muted/70 dark:text-slate-500/70 ml-auto">
+                                <span className="text-micro font-mono text-muted/70 ml-auto">
                                   {formatTime(ev.timestamp)}
                                 </span>
                               </div>
                               <p className="text-mini font-medium text-heading line-clamp-1">{ev.title}</p>
                               <p className="text-micro text-muted line-clamp-1 mt-0.5">{ev.description}</p>
                               <div className="flex items-center gap-1.5 mt-1">
-                                <span className="text-micro font-mono text-muted/70 dark:text-slate-500/70">
-                                  {ev.source}
-                                </span>
+                                <span className="text-micro font-mono text-muted/70">{ev.source}</span>
                                 {ev.kind === 'cve' && ev.magnitude != null && (
                                   <span
                                     className={`text-micro font-mono font-bold px-1 rounded ${

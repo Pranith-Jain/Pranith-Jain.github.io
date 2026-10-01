@@ -362,9 +362,9 @@ export default function CtiGlobe({
     return (
       <div className="flex items-center justify-center h-full w-full bg-[#0a0f1a]">
         <div className="text-center p-6 max-w-sm">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-surface-200/50 flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-slate-500"
+              className="w-8 h-8 text-muted"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -379,7 +379,7 @@ export default function CtiGlobe({
             </svg>
           </div>
           <p className="text-sm font-medium text-slate-300 mb-1">Globe Unavailable</p>
-          <p className="text-xs text-slate-500 mb-4">{error}</p>
+          <p className="text-xs text-muted mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
             className="px-4 py-2 text-xs font-mono rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors"
@@ -411,7 +411,7 @@ export default function CtiGlobe({
             </div>
             <div className="text-center">
               <p className="text-sm font-medium text-slate-300">Initializing Globe</p>
-              <p className="text-xs text-slate-500 mt-1">Loading 3D renderer…</p>
+              <p className="text-xs text-muted mt-1">Loading 3D renderer…</p>
             </div>
           </div>
         </div>
@@ -465,7 +465,7 @@ export default function CtiGlobe({
                   {selectedPoint.severity}
                 </span>
                 {selectedPoint.kind && (
-                  <span className="text-micro font-mono uppercase text-slate-500">
+                  <span className="text-micro font-mono uppercase text-muted">
                     {selectedPoint.kind.replace(/_/g, ' ')}
                   </span>
                 )}
@@ -489,9 +489,9 @@ export default function CtiGlobe({
               </div>
               <p className="text-sm font-semibold text-white">{selectedPoint.label}</p>
               {selectedPoint.description && (
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">{selectedPoint.description}</p>
+                <p className="text-xs text-muted mt-1 leading-relaxed">{selectedPoint.description}</p>
               )}
-              {selectedPoint.source && <p className="text-xs text-slate-500 mt-2">Source: {selectedPoint.source}</p>}
+              {selectedPoint.source && <p className="text-xs text-muted mt-2">Source: {selectedPoint.source}</p>}
             </div>
             <button
               onClick={() => setSelectedPoint(null)}
@@ -509,7 +509,7 @@ export default function CtiGlobe({
       {/* Controls Help */}
       {ready && (
         <div className="absolute bottom-4 right-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-2 pointer-events-none">
-          <div className="text-micro font-mono text-slate-500 space-y-1">
+          <div className="text-micro font-mono text-muted space-y-1">
             <div>Drag to rotate</div>
             <div>Scroll to zoom</div>
             <div>Click point for details</div>

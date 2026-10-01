@@ -703,7 +703,7 @@ function Diamond(): JSX.Element {
             value={autoFillIndicator}
             onChange={(e) => setAutoFillIndicator(e.target.value)}
             placeholder="e.g. 1.2.3.4 · evil.example.com · CVE-2024-1709 · sha256 · lockbit / akira / qilin"
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-emerald-500"
+            className="flex-1 px-3 py-2 bg-surface-100 border border-line-2 rounded font-mono text-sm focus:outline-none focus:border-emerald-500"
             aria-label="Indicator to auto-fill from"
           />
           <button
@@ -725,21 +725,21 @@ function Diamond(): JSX.Element {
             <button
               type="button"
               onClick={loadSample}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center transition-colors"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center transition-colors"
             >
               Load sample
             </button>
             <button
               type="button"
               onClick={exportMd}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5 transition-colors"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5 transition-colors"
             >
               <Download size={12} /> Export markdown
             </button>
             <button
               type="button"
               onClick={reset}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
             >
               <RotateCcw size={12} /> Reset
             </button>
@@ -752,13 +752,13 @@ function Diamond(): JSX.Element {
             return (
               <label key={v.id} className="block">
                 <span className="text-xs font-mono text-body mb-1 block">
-                  {v.name} <span className="text-slate-400">- {v.short}</span>
+                  {v.name} <span className="text-muted">- {v.short}</span>
                 </span>
                 <textarea
                   value={event[k]}
                   onChange={(e) => update(k, e.target.value)}
                   rows={3}
-                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
                   placeholder={v.examples[0]}
                 />
               </label>
@@ -780,7 +780,7 @@ function Diamond(): JSX.Element {
                   type="text"
                   value={event[k]}
                   onChange={(e) => update(k, e.target.value)}
-                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
                   placeholder={m.description}
                 />
               </label>
@@ -803,11 +803,11 @@ function Diamond(): JSX.Element {
                     value={event[k as keyof EventForm]}
                     onChange={(e) => update(k as keyof EventForm, e.target.value)}
                     rows={3}
-                    className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+                    className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
                     placeholder={a.description}
                   />
                 </label>
-                <ul className="mt-1.5 text-mini font-mono text-slate-400 space-y-0.5 list-disc pl-4">
+                <ul className="mt-1.5 text-mini font-mono text-muted space-y-0.5 list-disc pl-4">
                   {a.questions.map((q) => (
                     <li key={q}>{q}</li>
                   ))}

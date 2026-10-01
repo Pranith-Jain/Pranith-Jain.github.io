@@ -190,7 +190,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Username / handle (min 2 chars)…"
-              className="w-full pl-9 pr-9 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
+              className="w-full pl-9 pr-9 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500"
               aria-label="Search threat actor usernames"
               maxLength={80}
             />
@@ -198,7 +198,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setInput('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-muted"
               >
                 <X size={14} />
               </button>
@@ -216,7 +216,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
       {/* Quick searches */}
       {!data && !loading && (
         <div className="mb-6">
-          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2">Quick Search</h3>
+          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-muted mb-2">Quick Search</h3>
           <div className="flex flex-wrap gap-2">
             {QUICK_SEARCHES.map((q) => (
               <button
@@ -227,7 +227,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   setSubmitted(q);
                   setSearchParams({ q }, { replace: true });
                 }}
-                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded border border-line-1 hover:border-rose-500/40 text-muted transition-colors"
               >
                 {q}
               </button>
@@ -239,7 +239,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
       {/* Stats bar */}
       {data && data.results.length > 0 && (
         <div className="flex items-center gap-4 mb-4 flex-wrap">
-          <p className="text-mini font-mono text-slate-500">
+          <p className="text-mini font-mono text-muted">
             {data.total_matches} match{data.total_matches === 1 ? '' : 'es'} for "{data.query}"
             {data.truncated && <span className="text-amber-600 dark:text-amber-400"> · top {data.results.length}</span>}
             {data.stale && (
@@ -252,14 +252,14 @@ export default function ScrapedIntelUsernames(): JSX.Element {
             <button
               type="button"
               onClick={exportCsv}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-line-1 hover:border-rose-500/40 text-muted transition-colors"
             >
               <Download size={12} /> CSV
             </button>
             <button
               type="button"
               onClick={exportJson}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-line-1 hover:border-rose-500/40 text-muted transition-colors"
             >
               <Download size={12} /> JSON
             </button>
@@ -267,7 +267,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               href={`https://threatactorusernames.com/search?q=${encodeURIComponent(data.query)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-line-1 hover:border-rose-500/40 text-muted transition-colors"
             >
               <ExternalLink size={12} /> Upstream
             </a>
@@ -279,11 +279,11 @@ export default function ScrapedIntelUsernames(): JSX.Element {
         {/* Results */}
         <div>
           {submitted.trim().length < 2 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500">
+            <div className="rounded-xl border border-dashed border-line-2 p-8 text-center text-sm font-mono text-muted">
               Enter at least 2 characters and hit search.
             </div>
           ) : loading ? (
-            <div className="flex items-center justify-center py-12 gap-2 text-sm text-slate-500">
+            <div className="flex items-center justify-center py-12 gap-2 text-sm text-muted">
               <Loader2 size={16} className="animate-spin" /> Searching forums…
             </div>
           ) : (
@@ -292,7 +292,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                 <li key={m.username} className="surface-card p-4 group">
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <span className="font-mono font-bold text-sm text-heading break-all">{m.username}</span>
-                    <span className="text-mini font-mono text-slate-500 shrink-0">
+                    <span className="text-mini font-mono text-muted shrink-0">
                       {m.forum_count} forum{m.forum_count === 1 ? '' : 's'}
                     </span>
                   </div>
@@ -308,7 +308,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                     ))}
                   </div>
                   {/* Quick investigate link */}
-                  <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="mt-2 pt-2 border-t border-line-1/50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <a
                       href={`/dfir/agent-suite?query=Investigate+actor+${encodeURIComponent(m.username)}`}
                       className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
@@ -326,7 +326,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
         {data && data.results.length > 0 && topForums.length > 0 && (
           <aside className="space-y-4">
             <div className="surface-card p-4">
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-2">
                 <Globe size={12} /> Forum Breakdown
               </h3>
               <div className="space-y-2">
@@ -335,7 +335,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   return (
                     <div key={forum} className="flex items-center gap-2">
                       <span className="text-mini font-mono text-body truncate flex-1">{forum}</span>
-                      <div className="w-20 h-1.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+                      <div className="w-20 h-1.5 bg-slate-200 dark:bg-surface-300 rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500 rounded-full" style={{ width: `${pct}%` }} />
                       </div>
                       <span className="text-mini font-mono text-muted w-8 text-right">{count}</span>
@@ -346,10 +346,10 @@ export default function ScrapedIntelUsernames(): JSX.Element {
             </div>
 
             <div className="surface-card p-4">
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-2">
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-muted mb-2 flex items-center gap-2">
                 <Shield size={12} /> About
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-muted leading-relaxed">
                 {data.total_matches > 0
                   ? `"${data.query}" was seen across ${topForums.length} forum${topForums.length === 1 ? '' : 's'} in the ScrapedIntel corpus of 3M+ scraped records.`
                   : `No matches found in the ScrapedIntel corpus.`}

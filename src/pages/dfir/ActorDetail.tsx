@@ -115,7 +115,7 @@ export default function ActorDetail(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border ${
               actor.status === 'active'
                 ? 'bg-emerald-500/15 dark:bg-emerald-400/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40'
-                : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]'
+                : 'bg-slate-200 dark:bg-surface-300 text-slate-500 border-slate-300 dark:border-line-1'
             }`}
           >
             {actor.status}
@@ -124,9 +124,7 @@ export default function ActorDetail(): JSX.Element {
             {actor.sophistication}
           </span>
           {actor.country && (
-            <span className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
-              {actor.country}
-            </span>
+            <span className="text-xs font-mono px-2 py-1 rounded border border-line-1 text-muted">{actor.country}</span>
           )}
         </div>
       </div>
@@ -162,14 +160,14 @@ export default function ActorDetail(): JSX.Element {
             {actor.malware.map((m) => (
               <span
                 key={m}
-                className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-heading border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                className="text-xs font-mono px-2 py-1 rounded bg-surface-300 text-heading border border-line-1"
               >
                 {m}
               </span>
             ))}
           </div>
         ) : (
-          <p className="text-sm font-mono text-slate-500">No specific malware attributed.</p>
+          <p className="text-sm font-mono text-muted">No specific malware attributed.</p>
         )}
       </section>
 
@@ -179,16 +177,16 @@ export default function ActorDetail(): JSX.Element {
         <h2 className="font-display font-bold text-lg mb-1 inline-flex items-center gap-2">
           <ShieldAlert size={18} className="text-rose-500" /> Linked CVEs
           {linkedCves && linkedCves.length > 0 && (
-            <span className="text-xs font-mono text-slate-500">· {linkedCves.length}</span>
+            <span className="text-xs font-mono text-muted">· {linkedCves.length}</span>
           )}
         </h2>
         <p className="text-mini font-mono text-muted mb-3">
           CVEs publicly attributed to {actor.name} via CISA advisories, vendor PSIRT bulletins, and IR write-ups.
           Curated - narrow by design (does not include unattributed KEV entries).
         </p>
-        {cvesLoading && <p className="text-xs font-mono text-slate-500">Loading attribution…</p>}
+        {cvesLoading && <p className="text-xs font-mono text-muted">Loading attribution…</p>}
         {!cvesLoading && linkedCves && linkedCves.length === 0 && (
-          <p className="text-xs font-mono text-slate-500">
+          <p className="text-xs font-mono text-muted">
             No CVEs were found attributed to this actor in upstream sources. KEV-flagged exploits without named-actor
             attribution are not shown here.
           </p>
@@ -212,7 +210,7 @@ export default function ActorDetail(): JSX.Element {
       <section className="mb-8 rounded-xl border border-brand-300/40 dark:border-brand-700/40 bg-brand-50/30 dark:bg-brand-950/20 p-6">
         <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
           <Sparkles size={16} className="text-brand-500" /> Live Intelligence
-          <span className="text-xs font-mono text-slate-500 ml-1">
+          <span className="text-xs font-mono text-muted ml-1">
             ·{' '}
             {profileLoading
               ? 'fetching…'
@@ -222,16 +220,14 @@ export default function ActorDetail(): JSX.Element {
           </span>
         </h2>
         {!profile && !profileLoading && (
-          <p className="text-xs font-mono text-slate-500">
-            Live enrichment offline - curated data above still applies.
-          </p>
+          <p className="text-xs font-mono text-muted">Live enrichment offline - curated data above still applies.</p>
         )}
         {profile && (
           <div className="space-y-4">
             {/* Malpedia */}
             {profile.profile.malpedia && !(profile.profile.malpedia as { error?: string }).error && (
               <div>
-                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">Malpedia</div>
+                <div className="text-mini font-mono uppercase tracking-wider text-muted mb-1">Malpedia</div>
                 <p className="text-sm text-body leading-relaxed">
                   {(profile.profile.malpedia as { description?: string }).description ?? 'No description'}
                 </p>
@@ -240,7 +236,7 @@ export default function ActorDetail(): JSX.Element {
             {/* OTX Pulses */}
             {profile.profile.otx_pulses && profile.profile.otx_pulses.length > 0 && (
               <div>
-                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">
+                <div className="text-mini font-mono uppercase tracking-wider text-muted mb-1">
                   OTX Pulses ({profile.profile.otx_pulses.length})
                 </div>
                 <ul className="space-y-1 text-sm">
@@ -255,7 +251,7 @@ export default function ActorDetail(): JSX.Element {
                         {p.name}
                       </a>
                       {p.tags && p.tags.length > 0 && (
-                        <span className="text-xs text-slate-500 ml-2">[{p.tags.slice(0, 4).join(', ')}]</span>
+                        <span className="text-xs text-muted ml-2">[{p.tags.slice(0, 4).join(', ')}]</span>
                       )}
                     </li>
                   ))}
@@ -265,9 +261,7 @@ export default function ActorDetail(): JSX.Element {
             {/* Skeleton */}
             {profile.profile.skeleton && !(profile.profile.skeleton as { skipped?: string }).skipped && (
               <div>
-                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">
-                  Maltrail Skeleton
-                </div>
+                <div className="text-mini font-mono uppercase tracking-wider text-muted mb-1">Maltrail Skeleton</div>
                 <p className="text-sm text-body leading-relaxed">
                   {(profile.profile.skeleton as { description?: string }).description ?? 'Profile present'}
                 </p>
@@ -278,7 +272,7 @@ export default function ActorDetail(): JSX.Element {
               Array.isArray((profile.profile.dna as { techniques?: unknown[] }).techniques) &&
               (profile.profile.dna as { techniques: unknown[] }).techniques.length > 0 && (
                 <div>
-                  <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">Top Techniques</div>
+                  <div className="text-mini font-mono uppercase tracking-wider text-muted mb-1">Top Techniques</div>
                   <div className="flex flex-wrap gap-1.5">
                     {(profile.profile.dna as { techniques: Array<{ id: string; count?: number }> }).techniques
                       .slice(0, 10)
@@ -288,7 +282,7 @@ export default function ActorDetail(): JSX.Element {
                           href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
+                          className="text-xs font-mono px-2 py-1 rounded bg-surface-300 text-brand-600 dark:text-brand-400 border border-line-1 hover:border-brand-500/40 transition-colors"
                         >
                           {t.id}
                           {t.count ? ` (${t.count})` : ''}
@@ -300,7 +294,7 @@ export default function ActorDetail(): JSX.Element {
             {/* Union of curated + live CVEs */}
             {profile.linked_cves.length > 0 && (
               <div>
-                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">
+                <div className="text-mini font-mono uppercase tracking-wider text-muted mb-1">
                   Live CVE Count: {profile.linked_cves.length} (curated + live)
                 </div>
               </div>
@@ -318,7 +312,7 @@ export default function ActorDetail(): JSX.Element {
               href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded bg-surface-300 text-brand-600 dark:text-brand-400 border border-line-1 hover:border-brand-500/40 transition-colors"
             >
               {t}
             </a>

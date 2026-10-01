@@ -210,16 +210,13 @@ export default function SupplyChainIntelligence(): JSX.Element {
         </h2>
         <p className="text-xs text-muted mb-4">
           Check if a specific package is known-malicious. Enter a package name or use{' '}
-          <code className="px-1 py-0.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded text-mono">
-            ecosystem:package
-          </code>{' '}
-          format.
+          <code className="px-1 py-0.5 bg-surface-300 rounded text-mono">ecosystem:package</code> format.
         </p>
         <div className="flex gap-2 mb-4">
           <select
             value={verdictEco}
             onChange={(e) => setVerdictEco(e.target.value)}
-            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+            className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
           >
             {ECOSYSTEMS.map((e) => (
               <option key={e.id} value={e.id}>
@@ -233,7 +230,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && checkVerdict()}
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
+            className="flex-1 px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 font-mono"
           />
           <button
             type="button"
@@ -262,7 +259,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 ? 'border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/10'
                 : verdict.verdict === 'clean'
                   ? 'border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/10'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)]'
+                  : 'border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-surface-300/30'
             }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -275,7 +272,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 <div className={`text-lg font-bold font-mono ${VERDICT_META[verdict.verdict]!.color}`}>
                   {VERDICT_META[verdict.verdict]!.label}
                 </div>
-                <div className="text-xs text-slate-500 font-mono">
+                <div className="text-xs text-muted font-mono">
                   {verdict.ref} · confidence: {verdict.confidence}
                 </div>
               </div>
@@ -340,7 +337,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
               className={`px-3 py-1.5 rounded-xl border text-xs font-medium transition ${
                 ossfEco === e.id
                   ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
               }`}
             >
               <span className="w-5 inline-block font-mono text-xs font-bold opacity-60">{e.icon}</span>
@@ -351,18 +348,18 @@ export default function SupplyChainIntelligence(): JSX.Element {
 
         {/* Search */}
         <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             placeholder="Filter packages…"
             value={ossfSearch}
             onChange={(e) => setOssfSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 font-mono"
           />
         </div>
 
         {ossfLoading ? (
-          <div className="flex items-center justify-center py-12 text-slate-500 font-mono text-sm">
+          <div className="flex items-center justify-center py-12 text-muted font-mono text-sm">
             <Loader2 className="w-4 h-4 animate-spin mr-2" /> Loading {ossfEco} packages…
           </div>
         ) : ossfError ? (
@@ -380,21 +377,21 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 href={p.ossf_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] text-xs font-mono text-body hover:border-rose-500/50 hover:bg-rose-50 dark:hover:bg-rose-900/10 transition truncate"
+                className="px-3 py-2 rounded-xl border border-line-1 bg-surface-200/30 text-xs font-mono text-body hover:border-rose-500/50 hover:bg-rose-50 dark:hover:bg-rose-900/10 transition truncate"
                 title={p.name}
               >
                 {p.name}
               </a>
             ))}
             {filteredOssf.length > 100 && (
-              <div className="col-span-full text-center py-2 text-xs text-slate-500 font-mono">
+              <div className="col-span-full text-center py-2 text-xs text-muted font-mono">
                 Showing 100 of {filteredOssf.length} - use search to filter
               </div>
             )}
           </div>
         )}
 
-        <div className="mt-4 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between text-xs text-slate-500 font-mono">
+        <div className="mt-4 pt-3 border-t border-line-1 flex items-center justify-between text-xs text-muted font-mono">
           <span>
             Source:{' '}
             <a
@@ -418,12 +415,12 @@ export default function SupplyChainIntelligence(): JSX.Element {
         >
           <Package className="w-6 h-6 text-rose-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-heading">Malicious Packages</div>
-          <div className="text-xs text-slate-500">Full OSSF directory browser</div>
+          <div className="text-xs text-muted">Full OSSF directory browser</div>
         </a>
         <a href="/threatintel/supply-chain" className="surface-card/50 p-4 hover:shadow-e1 transition text-center">
           <AlertOctagon className="w-6 h-6 text-amber-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-heading">Supply Chain Attacks</div>
-          <div className="text-xs text-slate-500">Incident catalog from supplychainattack.org</div>
+          <div className="text-xs text-muted">Incident catalog from supplychainattack.org</div>
         </a>
         <a
           href="https://osv.dev"
@@ -433,7 +430,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         >
           <Shield className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-heading">OSV.dev</div>
-          <div className="text-xs text-slate-500">Open Source Vulnerabilities database</div>
+          <div className="text-xs text-muted">Open Source Vulnerabilities database</div>
         </a>
       </div>
     </DataPageLayout>

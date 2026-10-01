@@ -522,7 +522,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
       )}
 
       {(sharedMalware.size > 0 || sharedCves.size > 0 || sharedTtps.size > 0) && (
-        <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="mt-2 pt-2 border-t border-line-1">
           <div className="text-eyebrow font-mono text-muted mb-1">Shared tradecraft</div>
           <div className="flex flex-wrap gap-1">
             {[...sharedMalware].slice(0, 4).map((m) => (

@@ -183,7 +183,7 @@ export default function XLive(): JSX.Element {
           <select
             value={sinceHours}
             onChange={(e) => setSinceHours(Number(e.target.value))}
-            className="border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-rose-500"
+            className="border border-line-2 bg-surface-100 px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-rose-500"
           >
             {[6, 12, 24, 48, 72, 168].map((h) => (
               <option key={h} value={h}>
@@ -209,7 +209,7 @@ export default function XLive(): JSX.Element {
               className={`inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border transition-colors ${
                 category === c.id
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
               }`}
             >
               <c.icon size={11} /> {c.label}
@@ -223,14 +223,14 @@ export default function XLive(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter text, handle, or tag…"
-            className="w-full pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono focus:outline-none focus:border-rose-500"
+            className="w-full pl-7 pr-2 py-1 rounded border border-line-2 bg-surface-200 text-xs font-mono focus:outline-none focus:border-rose-500"
           />
         </div>
         <button
           type="button"
           onClick={() => load(sinceHours)}
           disabled={loading}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
         >
           <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
         </button>
@@ -244,7 +244,7 @@ export default function XLive(): JSX.Element {
             className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
               activeHandle === null
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
             }`}
           >
             all · {data?.items.length ?? 0}
@@ -257,7 +257,7 @@ export default function XLive(): JSX.Element {
               className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
                 activeHandle === handle
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
               }`}
             >
               @{handle} · {count}
@@ -300,7 +300,7 @@ export default function XLive(): JSX.Element {
             delivers <em>recent</em> X content - X gates anonymous timeline access, but per-tweet embed previews stay
             open because Discord/Slack/Telegram link cards depend on them.
           </span>
-          <span className="block text-mini font-mono text-slate-500 mt-2">
+          <span className="block text-mini font-mono text-muted mt-2">
             <strong>Coverage caveat:</strong> only tweets that TweetFeed surfaces (researcher-posted IOCs). Prose-only
             researcher takes won&apos;t appear here. For non-IOC chatter use{' '}
             <Link to="/threatintel/social/firehose" className="text-rose-600 dark:text-rose-400 hover:underline">
@@ -325,7 +325,7 @@ export default function XLive(): JSX.Element {
       <XClaimsPanel fallback={data?.claims} />
 
       {!loading && data && filtered.length === 0 && (
-        <p className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-4 text-center">
+        <p className="text-xs font-mono text-muted rounded border border-dashed border-line-2 p-4 text-center">
           {data.stale ? 'Showing cached data (upstream enrichment temporarily unavailable). ' : ''}
           {data.items.length === 0
             ? data.total_status_ids_seen > 0
@@ -369,7 +369,7 @@ export default function XLive(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => setActiveHandle(t.author.screen_name.toLowerCase())}
-                        className="text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                        className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
                         title="filter to this handle"
                       >
                         @{t.author.screen_name}
@@ -378,8 +378,7 @@ export default function XLive(): JSX.Element {
                         <span
                           key={iocType}
                           className={`text-micro font-mono px-1 py-0.5 rounded border ${
-                            IOC_TYPE_COLOR[iocType] ??
-                            'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                            IOC_TYPE_COLOR[iocType] ?? 'border-slate-300 dark:border-line-1 text-slate-500'
                           }`}
                         >
                           {iocType}
@@ -389,7 +388,7 @@ export default function XLive(): JSX.Element {
                         href={sanitizeUrl(t.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5 transition-colors"
+                        className="ml-auto text-micro font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5 transition-colors"
                         title={t.created_at}
                       >
                         {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
@@ -419,7 +418,7 @@ export default function XLive(): JSX.Element {
                             href={sanitizeUrl(t.url) || undefined}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                            className="block rounded overflow-hidden border border-line-1"
                           >
                             <img
                               src={m.url}
@@ -433,7 +432,7 @@ export default function XLive(): JSX.Element {
                         ))}
                       </div>
                     )}
-                    <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
+                    <div className="mt-2 flex items-center gap-3 text-micro font-mono text-muted">
                       <span className="inline-flex items-center gap-0.5">
                         <MessageSquare size={10} /> {compactNumber(t.replies) || '0'}
                       </span>

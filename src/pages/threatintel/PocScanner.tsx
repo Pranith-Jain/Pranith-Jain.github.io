@@ -54,7 +54,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
             value={cveId}
             onChange={(e) => setCveId(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && scan()}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-2 rounded-xl font-mono text-sm"
           />
         </div>
         <button
@@ -77,7 +77,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
           </div>
 
           {data.repos.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
+            <div className="rounded-xl border border-dashed border-line-2 p-8 text-center text-sm text-muted">
               No PoC repositories found for {data.cve_id}
             </div>
           ) : (
@@ -85,7 +85,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
               {data.repos.map((repo) => (
                 <div
                   key={repo.id}
-                  className="p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl hover:border-rose-300 dark:hover:border-rose-600 transition-colors"
+                  className="p-3 bg-surface-100 border border-line-1 rounded-xl hover:border-rose-300 dark:hover:border-rose-600 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">

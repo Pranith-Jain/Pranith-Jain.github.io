@@ -31,7 +31,7 @@ function Pill<T extends string>({
       className={`px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
         active
           ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'
-          : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'
+          : 'bg-white dark:bg-surface-200 text-muted border-slate-200 dark:border-line-1 hover:border-brand-500/30'
       }`}
     >
       {children}
@@ -47,7 +47,7 @@ export function ActorFilterBar(p: Props): JSX.Element {
         value={p.search}
         onChange={(e) => p.setSearch(e.target.value)}
         placeholder="search by name or alias…"
-        className="w-full px-4 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <div className="flex flex-wrap gap-2">
         {STATUSES.map((s) => (

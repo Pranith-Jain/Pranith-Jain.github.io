@@ -33,7 +33,7 @@ const DEFAULT_AUTO_SEED = 'CVE-2024-1709';
 
 function CanvasFallback(): JSX.Element {
   return (
-    <div className="flex h-full items-center justify-center text-slate-500 font-mono text-xs gap-2">
+    <div className="flex h-full items-center justify-center text-muted font-mono text-xs gap-2">
       <Loader2 size={14} className="animate-spin" /> loading graph engine…
     </div>
   );
@@ -243,7 +243,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           <div className="flex-1 min-w-[180px]">
             <label
               htmlFor="rel-graph-query"
-              className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+              className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5"
             >
               Search entity
             </label>
@@ -253,14 +253,14 @@ export default function RelationshipGraphPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="CVE ID, actor name, IP, domain, hash…"
-              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               spellCheck={false}
             />
           </div>
           <div>
             <label
               htmlFor="rel-graph-depth"
-              className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+              className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5"
             >
               Depth
             </label>
@@ -268,7 +268,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               id="rel-graph-depth"
               value={depth}
               onChange={(e) => setDepth(Number(e.target.value))}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             >
               <option value={1}>1 hop</option>
               <option value={2}>2 hops</option>
@@ -286,7 +286,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             <button
               type="button"
               onClick={clearGraph}
-              className="px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-sm transition-colors"
+              className="px-3 py-2 rounded-xl border border-line-1 hover:bg-surface-300 dark:hover:bg-surface-300 font-mono text-sm transition-colors"
             >
               Clear
             </button>
@@ -296,14 +296,14 @@ export default function RelationshipGraphPage(): JSX.Element {
         {/* Graph actions */}
         {graphData && (
           <div className="flex gap-1.5 items-center">
-            <div className="h-6 w-px bg-slate-200 dark:bg-[rgb(var(--surface-300))] mx-1" />
+            <div className="h-6 w-px bg-slate-200 dark:bg-surface-300 mx-1" />
             <button
               type="button"
               onClick={toggleLayout}
               className={`px-2.5 py-1.5 rounded-xl font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 layoutMode === 'force'
                   ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-300 dark:border-rose-500/40 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                  : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
               }`}
               title="Toggle between hierarchical (dagre) and force-directed layout"
             >
@@ -316,7 +316,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-xl font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 pathFinder.phase !== 'idle'
                   ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                  : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
               }`}
               title="Find shortest path between two nodes"
             >
@@ -334,7 +334,7 @@ export default function RelationshipGraphPage(): JSX.Element {
 
       {/* Example queries */}
       <div className="flex flex-wrap gap-2 mb-6">
-        <span className="text-mini font-mono text-slate-500 self-center">Try:</span>
+        <span className="text-mini font-mono text-muted self-center">Try:</span>
         {EXAMPLE_QUERIES.map((eq) => (
           <button
             key={eq}
@@ -343,7 +343,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               setQuery(eq);
               void fetchGraph(eq);
             }}
-            className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
+            className="text-mini font-mono px-2 py-1 rounded bg-surface-300 text-body hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
           >
             {eq}
           </button>
@@ -395,11 +395,11 @@ export default function RelationshipGraphPage(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Graph canvas */}
         <div
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
+          className="rounded-xl border border-line-1 bg-surface-200 overflow-hidden relative"
           style={{ height: '70vh', minHeight: 520 }}
         >
           {loading || initialLoading ? (
-            <div className="flex h-full items-center justify-center text-slate-500 font-mono text-xs gap-2">
+            <div className="flex h-full items-center justify-center text-muted font-mono text-xs gap-2">
               <Loader2 size={14} className="animate-spin" /> building relationship graph…
             </div>
           ) : graphData && graphData.nodes.length > 0 ? (
@@ -413,7 +413,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               />
             </Suspense>
           ) : (
-            <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-4 p-8 text-center">
+            <div className="flex h-full flex-col items-center justify-center text-muted font-mono text-sm gap-4 p-8 text-center">
               <Network size={40} className="text-slate-300 dark:text-muted" />
               <div className="font-semibold text-muted">Search any entity to see its relationships</div>
               <div className="text-xs text-muted max-w-md">
@@ -434,7 +434,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                           setQuery(cve.id);
                           void fetchGraph(cve.id);
                         }}
-                        className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
+                        className="text-mini font-mono px-2 py-1 rounded bg-surface-300 text-muted hover:bg-rose-100 dark:hover:bg-rose-900/30 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
                       >
                         {cve.id}
                       </button>
@@ -451,7 +451,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           {selectedNode ? (
             <div className="surface-card p-4 animate-fade-in-up">
               <div className="flex items-center justify-between mb-3">
-                <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected</div>
+                <div className="text-xs font-mono uppercase tracking-wider text-muted">Selected</div>
               </div>
               <div
                 className="text-micro uppercase tracking-wider font-bold mb-1"
@@ -461,10 +461,10 @@ export default function RelationshipGraphPage(): JSX.Element {
               </div>
               <div className="font-display font-semibold text-heading mb-1 break-words">{selectedNode.label}</div>
               {selectedNode.subtitle && (
-                <div className="text-xs font-mono text-slate-500 mb-3">{selectedNode.subtitle}</div>
+                <div className="text-xs font-mono text-muted mb-3">{selectedNode.subtitle}</div>
               )}
               {selectedNode.data && Object.keys(selectedNode.data).length > 0 && (
-                <pre className="font-mono text-mini text-body overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <pre className="font-mono text-mini text-body overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-surface-200 rounded p-2 border border-line-1">
                   {JSON.stringify(selectedNode.data, null, 2)}
                 </pre>
               )}
@@ -473,14 +473,14 @@ export default function RelationshipGraphPage(): JSX.Element {
                 type="button"
                 onClick={() => expandNode(selectedNode)}
                 disabled={loading}
-                className="mt-3 w-full px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
+                className="mt-3 w-full px-3 py-1.5 rounded-xl border border-line-1 hover:bg-surface-300 dark:hover:bg-surface-300 font-mono text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
               >
                 <Expand size={12} />
                 Expand node
               </button>
             </div>
           ) : graphData ? (
-            <div className="surface-card p-4 text-center text-xs font-mono text-slate-500 space-y-2">
+            <div className="surface-card p-4 text-center text-xs font-mono text-muted space-y-2">
               <Bug size={16} className="mx-auto text-muted" />
               <div>Click any node to inspect.</div>
               <div className="text-micro text-muted">
@@ -492,7 +492,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           {/* Legend */}
           {graphData && (
             <div className="surface-card p-4">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Legend</div>
+              <div className="text-xs font-mono uppercase tracking-wider text-muted mb-3">Legend</div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                 {(Object.entries(NODE_COLORS) as [GraphNodeData['type'], string][]).map(([type, color]) => (
                   <div key={type} className="flex items-center gap-2 text-mini font-mono text-muted">
@@ -508,7 +508,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           )}
 
           {graphData && (
-            <div className="text-micro font-mono text-slate-500 text-center space-y-0.5">
+            <div className="text-micro font-mono text-muted text-center space-y-0.5">
               <div>
                 {totalNodes} nodes · {totalEdges} edges · depth {graphData.depth}
               </div>

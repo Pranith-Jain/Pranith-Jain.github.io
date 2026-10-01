@@ -33,7 +33,7 @@ const VERDICT_TONE: Record<Verdict, string> = {
   high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-  unknown: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  unknown: 'border-slate-300 dark:border-line-1 text-slate-500',
 };
 
 export default function ExposureCheck(): JSX.Element {
@@ -98,7 +98,7 @@ export default function ExposureCheck(): JSX.Element {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="example.com"
                 aria-label="Domain to check"
-                className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+                className="w-full pl-9 pr-3 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               />
             </div>
             <button
@@ -145,15 +145,15 @@ export default function ExposureCheck(): JSX.Element {
               Ransomware victim claims ({result.sections.ransomware.hits.length})
             </h3>
             {result.sections.ransomware.status !== 'ok' ? (
-              <p className="text-xs font-mono text-slate-500">Feed unavailable — try again shortly.</p>
+              <p className="text-xs font-mono text-muted">Feed unavailable — try again shortly.</p>
             ) : result.sections.ransomware.hits.length === 0 ? (
-              <p className="text-xs font-mono text-slate-500">No victim claims match this domain.</p>
+              <p className="text-xs font-mono text-muted">No victim claims match this domain.</p>
             ) : (
               <ul className="space-y-1.5">
                 {result.sections.ransomware.hits.map((h) => (
                   <li key={`${h.victim}-${h.group}`} className="text-sm font-mono text-body">
                     {h.victim}{' '}
-                    <span className="text-slate-500">
+                    <span className="text-muted">
                       · {h.group} · {h.discovered.slice(0, 10)}
                     </span>
                   </li>
@@ -173,7 +173,7 @@ export default function ExposureCheck(): JSX.Element {
               Sender reputation (Heatwave)
             </h3>
             {result.sections.heatwave.status !== 'ok' ? (
-              <p className="text-xs font-mono text-slate-500">Lookup unavailable — try again shortly.</p>
+              <p className="text-xs font-mono text-muted">Lookup unavailable — try again shortly.</p>
             ) : result.sections.heatwave.listed ? (
               <div className="text-sm font-mono text-body space-y-1">
                 <p>
@@ -183,11 +183,11 @@ export default function ExposureCheck(): JSX.Element {
                   <p className="text-muted">warming {result.sections.heatwave.observation_age}</p>
                 )}
                 {result.sections.heatwave.dns_answer && (
-                  <p className="text-slate-500">{result.sections.heatwave.dns_answer}</p>
+                  <p className="text-muted">{result.sections.heatwave.dns_answer}</p>
                 )}
               </div>
             ) : (
-              <p className="text-xs font-mono text-slate-500">Not listed (not a clean verdict).</p>
+              <p className="text-xs font-mono text-muted">Not listed (not a clean verdict).</p>
             )}
           </section>
 
@@ -203,14 +203,14 @@ export default function ExposureCheck(): JSX.Element {
                 <section key={key} className="surface-card p-4">
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted font-mono mb-2">{label}</h3>
                   {s.status !== 'ok' ? (
-                    <p className="text-xs font-mono text-slate-500">Feed unavailable.</p>
+                    <p className="text-xs font-mono text-muted">Feed unavailable.</p>
                   ) : s.listed ? (
                     <p className="text-sm font-mono text-rose-600 dark:text-rose-400">
                       Listed{' '}
-                      {s.tags.length > 0 && <span className="text-slate-500">· {s.tags.slice(0, 4).join(', ')}</span>}
+                      {s.tags.length > 0 && <span className="text-muted">· {s.tags.slice(0, 4).join(', ')}</span>}
                     </p>
                   ) : (
-                    <p className="text-xs font-mono text-slate-500">Not listed.</p>
+                    <p className="text-xs font-mono text-muted">Not listed.</p>
                   )}
                 </section>
               );

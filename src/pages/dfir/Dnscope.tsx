@@ -181,7 +181,7 @@ export default function Dnscope(): JSX.Element {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="example.com"
-              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+              className="w-full rounded-xl border border-line-1 bg-surface-200 p-3 text-sm text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
             <div className="flex gap-2 mt-3">
               <button
@@ -200,7 +200,7 @@ export default function Dnscope(): JSX.Element {
                   setSections([]);
                   setError(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-surface-100/40 border border-line-1 text-muted text-sm font-medium rounded-xl hover:bg-surface-200 dark:hover:bg-surface-300/60 transition-colors"
               >
                 Clear
               </button>
@@ -212,12 +212,12 @@ export default function Dnscope(): JSX.Element {
           {scanning && (
             <div className="surface-card/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
-              <p className="text-sm font-mono text-slate-500">Querying DNS, RDAP, certificates, and threat intel…</p>
+              <p className="text-sm font-mono text-muted">Querying DNS, RDAP, certificates, and threat intel…</p>
             </div>
           )}
 
           {!scanning && sections.length === 0 && !error && (
-            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/20 p-8 flex flex-col items-center justify-center text-center">
+            <div className="rounded-xl border-2 border-dashed border-line-1 bg-surface-100/20 p-8 flex flex-col items-center justify-center text-center">
               <Globe size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
               <p className="text-sm font-mono text-muted">Enter a domain above to map its infrastructure</p>
               <p className="text-micro font-mono text-muted mt-2">DNS · RDAP · CT logs · Email auth · Threat intel</p>

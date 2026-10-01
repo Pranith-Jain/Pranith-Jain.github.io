@@ -58,8 +58,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   high: 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300 border-orange-300 dark:border-orange-700',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-700',
   low: 'bg-sky-100 text-cyan-800 dark:bg-sky-900/40 dark:text-sky-300 border-sky-300 dark:border-sky-700',
-  unknown:
-    'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-200))] dark:text-muted border-slate-300 dark:border-slate-600',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-surface-200 dark:text-muted border-slate-300 dark:border-slate-600',
 };
 
 function humanSize(bytes: number): string {
@@ -115,16 +114,14 @@ function BreachCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-rose-500/40 transition-colors [content-visibility:auto] [contain-intrinsic-size:auto_120px] ${
-        selected
-          ? 'border-rose-500/60 ring-1 ring-rose-500/30'
-          : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
+      className={`w-full text-left rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-4 hover:border-rose-500/40 transition-colors [content-visibility:auto] [contain-intrinsic-size:auto_120px] ${
+        selected ? 'border-rose-500/60 ring-1 ring-rose-500/30' : 'border-slate-200 dark:border-line-1'
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <h4 className="font-display font-semibold text-sm text-heading truncate">{entry.title}</h4>
-          <div className="flex items-center gap-2 mt-1 text-mini font-mono text-slate-500 flex-wrap">
+          <div className="flex items-center gap-2 mt-1 text-mini font-mono text-muted flex-wrap">
             <span className="text-rose-600 dark:text-rose-400">{entry.group}</span>
             {entry.country && <span>{entry.country}</span>}
             <span>{entry.discovered ? new Date(entry.discovered).toLocaleDateString() : ''}</span>
@@ -204,24 +201,24 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
         <div className="space-y-3 text-sm">
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-mini font-mono">
             <div>
-              <span className="text-slate-500">Group:</span> {body.group}
+              <span className="text-muted">Group:</span> {body.group}
             </div>
             <div>
-              <span className="text-slate-500">Category:</span> {CATEGORY_LABELS[body.category] ?? body.category}
+              <span className="text-muted">Category:</span> {CATEGORY_LABELS[body.category] ?? body.category}
             </div>
             <div>
-              <span className="text-slate-500">Severity:</span> {body.severity}
+              <span className="text-muted">Severity:</span> {body.severity}
             </div>
             <div>
-              <span className="text-slate-500">Discovered:</span> {formatDate(body.discovered)}
+              <span className="text-muted">Discovered:</span> {formatDate(body.discovered)}
             </div>
             {body.country && (
               <div>
-                <span className="text-slate-500">Country:</span> {body.country}
+                <span className="text-muted">Country:</span> {body.country}
               </div>
             )}
             <div>
-              <span className="text-slate-500">Size:</span> {humanSize(body.sizeBytes)}
+              <span className="text-muted">Size:</span> {humanSize(body.sizeBytes)}
             </div>
           </div>
 
@@ -229,20 +226,17 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
 
           {body.activity && (
             <div>
-              <span className="text-slate-500 font-mono text-mini">Activity:</span>
+              <span className="text-muted font-mono text-mini">Activity:</span>
               <p className="text-body mt-0.5">{body.activity}</p>
             </div>
           )}
 
           {body.groupAliases.length > 0 && (
             <div>
-              <span className="text-slate-500 font-mono text-mini">Aliases:</span>
+              <span className="text-muted font-mono text-mini">Aliases:</span>
               <div className="flex flex-wrap gap-1 mt-0.5">
                 {body.groupAliases.map((a, i) => (
-                  <span
-                    key={i}
-                    className="text-micro px-2 py-0.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded"
-                  >
+                  <span key={i} className="text-micro px-2 py-0.5 bg-surface-300 rounded">
                     {a}
                   </span>
                 ))}
@@ -263,7 +257,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
 
           {body.references.length > 0 && (
             <div>
-              <span className="text-slate-500 font-mono text-mini">References:</span>
+              <span className="text-muted font-mono text-mini">References:</span>
               <ul className="mt-0.5 space-y-0.5">
                 {body.references.map((r, i) => (
                   <li key={i}>
@@ -502,7 +496,7 @@ export default function BreachWatch(): JSX.Element {
             type="button"
             onClick={() => loadData(false)}
             disabled={loading}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40"
             aria-label="Refresh breach watch data"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -511,7 +505,7 @@ export default function BreachWatch(): JSX.Element {
       }
     >
       {loading && !index && (
-        <div className="surface-card p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="surface-card p-4 inline-flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> loading breach watch data…
         </div>
       )}
@@ -538,7 +532,7 @@ export default function BreachWatch(): JSX.Element {
                   className={`text-micro font-mono px-2.5 py-1 rounded-full border transition-colors ${
                     filterCategory === c.key
                       ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/40'
-                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40'
+                      : 'bg-white dark:bg-surface-200 text-slate-500 border-slate-200 dark:border-line-1 hover:border-rose-500/40'
                   }`}
                 >
                   {c.label} ({c.count})
@@ -556,7 +550,7 @@ export default function BreachWatch(): JSX.Element {
                 value={searchQuery}
                 onChange={(e) => setFilter('q', e.target.value)}
                 placeholder="Search breaches…"
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
               />
             </div>
 
@@ -565,7 +559,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterGroup}
                 onChange={(e) => setFilter('group', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 text-body"
               >
                 <option value="">All groups</option>
                 {groups.slice(0, 50).map((g) => (
@@ -578,7 +572,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterSeverity}
                 onChange={(e) => setFilter('severity', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 text-body"
               >
                 <option value="">All severity</option>
                 <option value="critical">Critical</option>
@@ -590,7 +584,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterCountry}
                 onChange={(e) => setFilter('country', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 text-body"
               >
                 <option value="">All countries</option>
                 {uniqueCountries.map((c) => (
@@ -603,7 +597,7 @@ export default function BreachWatch(): JSX.Element {
               <select
                 value={filterDays}
                 onChange={(e) => setFilter('days', e.target.value)}
-                className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
+                className="text-mini font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 text-body"
               >
                 <option value="">All time</option>
                 {DAYS_OPTIONS.map((d) => (
@@ -616,7 +610,7 @@ export default function BreachWatch(): JSX.Element {
           </div>
 
           <div className="flex items-center justify-between mb-3">
-            <p className="text-mini font-mono text-slate-500">
+            <p className="text-mini font-mono text-muted">
               {breaches.length} of {totalBreaches.toLocaleString()} breaches
               {loading && <Loader2 size={11} className="inline animate-spin ml-1" />}
             </p>
@@ -645,7 +639,7 @@ export default function BreachWatch(): JSX.Element {
 
           <div className="grid gap-2">
             {breaches.length === 0 && !loading && (
-              <p className="text-sm font-mono text-slate-500 italic py-4 text-center">
+              <p className="text-sm font-mono text-muted italic py-4 text-center">
                 No breaches match the current filters.
               </p>
             )}
@@ -665,7 +659,7 @@ export default function BreachWatch(): JSX.Element {
                 type="button"
                 onClick={loadMore}
                 disabled={loadingMore}
-                className="text-mini font-mono px-4 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 bg-white dark:bg-[rgb(var(--surface-200))] disabled:opacity-40 inline-flex items-center gap-2 transition-colors"
+                className="text-mini font-mono px-4 py-2 rounded-xl border border-line-2 hover:border-rose-500/40 bg-surface-100 disabled:opacity-40 inline-flex items-center gap-2 transition-colors"
               >
                 {loadingMore && <Loader2 size={12} className="animate-spin" />}
                 Load more
@@ -696,7 +690,7 @@ export default function BreachWatch(): JSX.Element {
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-display font-semibold text-sm text-heading truncate">{g.name}</span>
-                      <span className="text-micro font-mono text-slate-500 shrink-0 ml-2">{g.count}</span>
+                      <span className="text-micro font-mono text-muted shrink-0 ml-2">{g.count}</span>
                     </div>
                     <span className="text-micro font-mono text-muted">
                       {CATEGORY_LABELS[g.topCategory] ?? g.topCategory}

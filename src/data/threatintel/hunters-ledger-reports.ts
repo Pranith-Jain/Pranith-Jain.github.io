@@ -19,7 +19,7 @@ export const SEVERITY_COLORS: Record<Severity, string> = {
   medium:
     'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/50',
   low: 'text-brand-600 dark:text-brand-400 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/50',
-  info: 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.3)] border-slate-200 dark:border-[rgb(var(--border-400))]',
+  info: 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-input-200/30 border-slate-200 dark:border-line-1',
 };
 
 export const REPORTS: TIntelReport[] = [

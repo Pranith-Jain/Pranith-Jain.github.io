@@ -178,7 +178,7 @@ const SEVERITY_STYLE: Record<string, string> = {
   high: 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   low: 'border-sky-500/50 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-  info: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+  info: 'border-slate-300 dark:border-line-1 text-muted',
 };
 
 function downloadFile(filename: string, text: string, mime: string) {
@@ -307,7 +307,7 @@ export default function NhiScan() {
                     setResult(null);
                     setError(null);
                   }}
-                  className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                 >
                   load sample
                 </button>
@@ -340,7 +340,7 @@ export default function NhiScan() {
                     setResult(null);
                     setError(null);
                   }}
-                  className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                 >
                   load template
                 </button>
@@ -351,7 +351,7 @@ export default function NhiScan() {
                     setResult(null);
                     setError(null);
                   }}
-                  className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                  className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
                 >
                   clear
                 </button>
@@ -363,7 +363,7 @@ export default function NhiScan() {
               rows={12}
               spellCheck={false}
               placeholder='A JSON array of NHI records, or {"identities": [...]}. Only id and name are required per record — type, privilege, credential, secret_storage, last_rotated_days, last_used_days, exposure, scopes, autonomous, third_party, human_used, shared_across_env, used_by all fall back to safe defaults.'
-              className="w-full p-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs leading-relaxed focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full p-3 bg-surface-200 border border-line-1 rounded font-mono text-xs leading-relaxed focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <div className="flex items-center justify-between mt-3">
               <p className="text-mini text-muted">
@@ -397,7 +397,7 @@ export default function NhiScan() {
         </section>
 
         {loading && (
-          <div className="flex items-center justify-center py-12 text-slate-500">
+          <div className="flex items-center justify-center py-12 text-muted">
             <Spinner size="md" className="mr-3" />
             Assessing identities…
           </div>
@@ -440,19 +440,19 @@ export default function NhiScan() {
               <div className="flex flex-wrap gap-6">
                 <div>
                   <div className="text-2xl font-bold text-heading">{summary.total_identities}</div>
-                  <div className="text-mini font-mono text-slate-400">identities</div>
+                  <div className="text-mini font-mono text-muted">identities</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{summary.findings}</div>
-                  <div className="text-mini font-mono text-slate-400">findings</div>
+                  <div className="text-mini font-mono text-muted">findings</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{summary.orphaned}</div>
-                  <div className="text-mini font-mono text-slate-400">orphaned</div>
+                  <div className="text-mini font-mono text-muted">orphaned</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{summary.long_lived_secrets}</div>
-                  <div className="text-mini font-mono text-slate-400">long-lived secrets</div>
+                  <div className="text-mini font-mono text-muted">long-lived secrets</div>
                 </div>
               </div>
               <div className="flex flex-wrap gap-1.5 mt-3">
@@ -477,7 +477,7 @@ export default function NhiScan() {
                   {Object.entries(summary.owasp_counts).map(([code, count]) => (
                     <div
                       key={code}
-                      className="flex items-center justify-between text-sm py-1 border-b border-slate-100 dark:border-line-1 last:border-0"
+                      className="flex items-center justify-between text-sm py-1 border-b border-line-1 last:border-0"
                     >
                       <span className="font-mono text-heading">
                         {code}
@@ -518,33 +518,29 @@ export default function NhiScan() {
                         <p className="text-xs text-muted mt-1">Why this tier: {idn.reasons[0]?.rationale}</p>
                       </div>
                       {isOpen ? (
-                        <ChevronDown size={16} className="text-slate-400 flex-shrink-0 mt-1" />
+                        <ChevronDown size={16} className="text-muted flex-shrink-0 mt-1" />
                       ) : (
-                        <ChevronRight size={16} className="text-slate-400 flex-shrink-0 mt-1" />
+                        <ChevronRight size={16} className="text-muted flex-shrink-0 mt-1" />
                       )}
                     </button>
 
                     {isOpen && (
-                      <div className="mt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
+                      <div className="mt-3 border-t border-line-1 pt-3">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-mini font-mono text-muted mb-3">
                           <div>
-                            <span className="block text-micro uppercase tracking-wider text-slate-400">
-                              matched rules
-                            </span>
+                            <span className="block text-micro uppercase tracking-wider text-muted">matched rules</span>
                             <span className="text-heading">{idn.reasons.length}</span>
                           </div>
                           <div>
-                            <span className="block text-micro uppercase tracking-wider text-slate-400">top rule</span>
+                            <span className="block text-micro uppercase tracking-wider text-muted">top rule</span>
                             <span className="text-heading">{idn.reasons[0]?.rule}</span>
                           </div>
                           <div>
-                            <span className="block text-micro uppercase tracking-wider text-slate-400">
-                              OWASP findings
-                            </span>
+                            <span className="block text-micro uppercase tracking-wider text-muted">OWASP findings</span>
                             <span className="text-heading">{idn.findings.length}</span>
                           </div>
                           <div>
-                            <span className="block text-micro uppercase tracking-wider text-slate-400">risk score</span>
+                            <span className="block text-micro uppercase tracking-wider text-muted">risk score</span>
                             <span className="text-heading">{idn.risk_score}</span>
                           </div>
                         </div>
@@ -552,10 +548,7 @@ export default function NhiScan() {
                         {idn.findings.length > 0 && (
                           <div className="space-y-2">
                             {idn.findings.map((f, i) => (
-                              <div
-                                key={`${f.owasp_id}-${i}`}
-                                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3"
-                              >
+                              <div key={`${f.owasp_id}-${i}`} className="rounded-lg border border-line-1 p-3">
                                 <div className="flex flex-wrap items-center gap-2">
                                   <span
                                     className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_STYLE[f.severity] ?? SEVERITY_STYLE.info}`}
@@ -604,7 +597,7 @@ export default function NhiScan() {
           </section>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Port of{' '}
           <a
             href="https://github.com/rpmsft9/nhi-scan"

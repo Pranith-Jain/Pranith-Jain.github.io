@@ -219,7 +219,7 @@ export default function PlistProtobuf(): JSX.Element {
       </p>
 
       <div className="flex flex-wrap gap-2 mb-3 text-meta font-mono">
-        <label className="px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 cursor-pointer">
+        <label className="px-3 py-1.5 rounded border border-line-1 hover:border-brand-500/40 cursor-pointer">
           Drop a file…
           <input
             type="file"
@@ -240,11 +240,11 @@ export default function PlistProtobuf(): JSX.Element {
               setOut('Paste must be hex or base64.');
             }
           }}
-          className="px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="px-3 py-1.5 rounded border border-line-1 hover:border-brand-500/40"
         >
           Decode pasted hex/base64
         </button>
-        {kind && <span className="self-center text-slate-500">detected: {kind}</span>}
+        {kind && <span className="self-center text-muted">detected: {kind}</span>}
       </div>
 
       <textarea
@@ -256,7 +256,7 @@ export default function PlistProtobuf(): JSX.Element {
       />
 
       {out && (
-        <pre className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-heading max-h-[60vh]">
+        <pre className="mt-4 rounded-xl border border-line-1 bg-surface-200 p-3 overflow-auto font-mono text-mini text-heading max-h-[60vh]">
           {out}
         </pre>
       )}

@@ -91,13 +91,13 @@ export default function TelegramLeakStats(): JSX.Element {
                   return (
                     <div key={item.severity} className="flex items-center gap-3">
                       <span className="text-xs font-mono w-16 capitalize text-muted">{item.severity}</span>
-                      <div className="flex-1 h-4 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+                      <div className="flex-1 h-4 rounded-full bg-surface-300 overflow-hidden">
                         <div
                           className={`h-full rounded-full ${SEVERITY_BAR[toSeverity(item.severity)]}`}
                           style={{ width: `${Math.max(pct, 2)}%` }}
                         />
                       </div>
-                      <span className="text-xs font-mono text-slate-500 w-12 text-right">{item.n}</span>
+                      <span className="text-xs font-mono text-muted w-12 text-right">{item.n}</span>
                     </div>
                   );
                 })}
@@ -120,7 +120,7 @@ export default function TelegramLeakStats(): JSX.Element {
                       <span className="truncate text-body">
                         {i + 1}. {ch.channel_handle}
                       </span>
-                      <span className="text-slate-500 shrink-0 ml-2">{ch.n} entries</span>
+                      <span className="text-muted shrink-0 ml-2">{ch.n} entries</span>
                     </div>
                   ))}
                 </div>
@@ -140,7 +140,7 @@ export default function TelegramLeakStats(): JSX.Element {
                       <span className="truncate text-body">
                         {i + 1}. {d.domain}
                       </span>
-                      <span className="text-slate-500 shrink-0 ml-2">{d.count} hits</span>
+                      <span className="text-muted shrink-0 ml-2">{d.count} hits</span>
                     </div>
                   ))}
                 </div>

@@ -32,9 +32,9 @@ const SIZE_STYLES: Record<string, string> = {
 };
 
 const VARIANT_STYLES = {
-  icon: 'p-1 rounded text-muted hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]',
+  icon: 'p-1 rounded text-muted hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-surface-300',
   button:
-    'px-3 py-1.5 rounded text-tool font-medium bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]',
+    'px-3 py-1.5 rounded text-tool font-medium bg-slate-100 dark:bg-surface-300 text-body hover:bg-slate-200 dark:hover:bg-surface-300',
   ghost: 'p-1 rounded text-muted hover:text-brand-600 dark:hover:text-brand-400',
 };
 
@@ -180,7 +180,7 @@ export function CopyChip({
       onClick={() => void handleCopy()}
       title={title}
       aria-label={copied ? 'Copied!' : title}
-      className={`text-meta font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${className}`}
+      className={`text-meta font-mono px-1.5 py-0.5 rounded border border-line-2 dark:border-line-1 hover:border-brand-500/40 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${className}`}
     >
       {copied ? <Check size={11} /> : <Copy size={11} />}
       {copied ? 'copied' : label}

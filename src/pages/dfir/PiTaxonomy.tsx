@@ -138,7 +138,7 @@ export default function PiTaxonomy() {
         description="Loading..."
         maxWidthClass="max-w-7xl"
       >
-        <div className="h-64 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
+        <div className="h-64 rounded-xl bg-surface-300 animate-pulse" />
       </DataPageLayout>
     );
   }
@@ -157,12 +157,12 @@ export default function PiTaxonomy() {
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         <div className="surface-card p-3 text-center">
           <div className="text-xl font-bold font-mono text-slate-900 dark:text-white">{stats.total}</div>
-          <div className="text-mini text-slate-500 uppercase">Total</div>
+          <div className="text-mini text-muted uppercase">Total</div>
         </div>
         {cats.map((c) => (
           <div key={c} className={`surface-card p-3 text-center border-l-2 ${CAT[c].cardBorder}`}>
             <div className={`text-xl font-bold font-mono ${CAT[c].dot.replace('bg-', 'text-')}`}>{stats[c]}</div>
-            <div className="text-mini text-slate-500 uppercase">{CAT[c].label}</div>
+            <div className="text-mini text-muted uppercase">{CAT[c].label}</div>
           </div>
         ))}
       </div>
@@ -182,7 +182,7 @@ export default function PiTaxonomy() {
         <div className="flex gap-1.5 flex-wrap">
           <button
             onClick={() => setActiveCat('all')}
-            className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors ${activeCat === 'all' ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+            className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors ${activeCat === 'all' ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
           >
             All ({stats.total})
           </button>
@@ -190,7 +190,7 @@ export default function PiTaxonomy() {
             <button
               key={c}
               onClick={() => setActiveCat(c)}
-              className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors flex items-center gap-1.5 ${activeCat === c ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+              className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors flex items-center gap-1.5 ${activeCat === c ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
             >
               <span className={`w-2 h-2 rounded-full ${CAT[c].dot}`} />
               {CAT[c].label} ({stats[c]})
@@ -200,7 +200,7 @@ export default function PiTaxonomy() {
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-4 mb-4 text-mini text-slate-500">
+      <div className="flex flex-wrap gap-4 mb-4 text-mini text-muted">
         <span className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Direct
         </span>
@@ -220,13 +220,13 @@ export default function PiTaxonomy() {
       {activeCat === 'all' ? (
         cats.map((c) => (
           <section key={c} className="mb-8">
-            <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="flex items-center gap-3 mb-4 pb-3 border-b border-line-1">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg ${CAT[c].badge} border`}>
                 {CAT[c].icon}
               </div>
               <div>
                 <h2 className="text-lg font-display font-bold text-slate-900 dark:text-white">{CAT[c].title}</h2>
-                <p className="text-tool text-slate-500">{CAT[c].subtitle}</p>
+                <p className="text-tool text-muted">{CAT[c].subtitle}</p>
               </div>
             </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -249,8 +249,8 @@ export default function PiTaxonomy() {
       {visibleCards.length === 0 && <div className="text-center py-12 text-muted">No results for "{search}"</div>}
 
       {/* Footer */}
-      <div className="mt-8 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-center">
-        <p className="text-tool text-slate-500">
+      <div className="mt-8 pt-6 border-t border-line-1 text-center">
+        <p className="text-tool text-muted">
           Based on the{' '}
           <a
             href="https://github.com/Arcanum-Sec/arc_pi_taxonomy"
@@ -299,7 +299,7 @@ function Card({ cat, node, onClick }: { cat: Category; node: TaxonomyNode; onCli
           <span className="text-cyan-500 font-semibold">aka</span> {node.aliases.join(' · ')}
         </p>
       )}
-      <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50">
+      <div className="flex items-center justify-between mt-3 pt-2 border-t border-line-1/50">
         <span className="text-mini text-muted">{node.ideas?.length ?? 0} ideas</span>
         {cat !== 'inputs' && <span className="text-mini text-muted">{node.examples?.length ?? 0} prompts</span>}
         <span className="text-mini text-brand-500 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
@@ -321,16 +321,16 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col shadow-2xl"
+        className="bg-surface-100 border border-line-1 rounded-xl max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-white dark:bg-[rgb(var(--surface-100))] border-b border-slate-200 dark:border-[rgb(var(--border-400))] p-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-surface-100 border-b border-line-1 p-4 flex items-center justify-between">
           <div className="flex items-center gap-2 flex-wrap">
             <span className={`text-xs font-bold px-2 py-1 rounded-xl ${c.badge} border`}>{c.label}</span>
-            <span className="text-xs font-mono text-brand-500 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-0.5">
+            <span className="text-xs font-mono text-brand-500 dark:text-brand-400 border border-line-1 rounded px-2 py-0.5">
               {node.code}
             </span>
-            <span className="flex items-center gap-1 text-xs text-slate-500">
+            <span className="flex items-center gap-1 text-xs text-muted">
               <span className={`w-2.5 h-2.5 rounded-full ${DELIVERY_DOT[node.delivery]}`} />
               {node.delivery === 'direct' ? 'Direct' : node.delivery === 'indirect' ? 'Indirect' : 'Either'}
             </span>
@@ -338,7 +338,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           <button
             aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-muted hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-200 transition-colors"
           >
             <X size={16} />
           </button>
@@ -357,12 +357,12 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           <p className="text-tool text-muted leading-relaxed mb-6">{node.description}</p>
           {node.aliases && node.aliases.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Also Known As</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Also Known As</h3>
               <div className="flex flex-wrap gap-2">
                 {node.aliases.map((a, i) => (
                   <span
                     key={i}
-                    className="text-xs font-mono px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-body border-l-2 border-l-cyan-500"
+                    className="text-xs font-mono px-2.5 py-1 rounded-xl bg-surface-300 border border-line-1 text-body border-l-2 border-l-cyan-500"
                   >
                     {a}
                   </span>
@@ -383,7 +383,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
                   {node.ideas.map((idea, i) => (
                     <li
                       key={i}
-                      className="text-tool text-body pl-3 border-l-2 border-l-cyan-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 py-2 px-3 rounded-r-lg"
+                      className="text-tool text-body pl-3 border-l-2 border-l-cyan-500 bg-surface-200/50 py-2 px-3 rounded-r-lg"
                     >
                       {idea}
                     </li>
@@ -406,7 +406,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
                   {node.examples.map((ex, i) => (
                     <div
                       key={i}
-                      className="p-3 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] font-mono text-xs text-body break-all border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                      className="p-3 rounded-xl bg-surface-300 font-mono text-xs text-body break-all border border-line-1"
                     >
                       {ex}
                     </div>
@@ -415,7 +415,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
               )}
             </div>
           )}
-          <div className="pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="pt-4 border-t border-line-1">
             <a
               href="https://github.com/Arcanum-Sec/arc_pi_taxonomy"
               target="_blank"

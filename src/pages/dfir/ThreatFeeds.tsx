@@ -319,11 +319,11 @@ export default function ThreatFeeds(): JSX.Element {
 
       {/* ─── Top-level AI Feed Analysis Card ─── */}
       {annotated.length > 0 && (
-        <div className="relative mb-6 surface-card rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-sm overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
+        <div className="relative mb-6 surface-card rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-surface-200 dark:to-surface-200 shadow-sm overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
           <button
             type="button"
             onClick={() => void fetchTopAnalysis()}
-            className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/50 dark:hover:bg-white/5 transition-colors"
+            className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/50 dark:hover:bg-surface-100/5 transition-colors"
           >
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
@@ -377,21 +377,21 @@ export default function ThreatFeeds(): JSX.Element {
                       <Shield size={10} />
                       {topAnalysis.threat_level?.toUpperCase()}
                     </span>
-                    <span className="text-micro font-mono text-slate-500">conf: {topAnalysis.confidence}</span>
+                    <span className="text-micro font-mono text-muted">conf: {topAnalysis.confidence}</span>
                   </div>
 
                   <p className="text-sm text-body leading-relaxed">{topAnalysis.summary}</p>
 
                   {topAnalysis.impact && (
-                    <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
-                      <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Impact</span>
-                      <p className="text-xs text-slate-700 dark:text-muted">{topAnalysis.impact}</p>
+                    <div className="rounded-xl bg-surface-300/50 p-2.5">
+                      <span className="text-micro font-mono uppercase text-muted block mb-0.5">Impact</span>
+                      <p className="text-xs text-body">{topAnalysis.impact}</p>
                     </div>
                   )}
 
                   {topAnalysis.related_ttps?.filter(Boolean).length ? (
                     <div>
-                      <span className="text-micro font-mono uppercase text-slate-500 block mb-1">MITRE ATT&CK</span>
+                      <span className="text-micro font-mono uppercase text-muted block mb-1">MITRE ATT&CK</span>
                       <div className="flex flex-wrap gap-1">
                         {topAnalysis.related_ttps.filter(Boolean).map((t, i) => (
                           <span
@@ -407,7 +407,7 @@ export default function ThreatFeeds(): JSX.Element {
 
                   {topAnalysis.recommended_actions?.length > 0 && (
                     <div>
-                      <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
+                      <span className="text-micro font-mono uppercase text-muted block mb-1">Actions</span>
                       <ul className="space-y-0.5">
                         {topAnalysis.recommended_actions.map((a, i) => (
                           <li key={i} className="flex items-start gap-1.5 text-xs text-muted">
@@ -462,13 +462,13 @@ export default function ThreatFeeds(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title or description - e.g. CVE-2026, lockbit, exchange RCE"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Threat Feeds"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -481,7 +481,7 @@ export default function ThreatFeeds(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               activeSection === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All <span className="opacity-60">· {sectionCounts.all ?? 0}</span>
@@ -493,7 +493,7 @@ export default function ThreatFeeds(): JSX.Element {
               className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                 activeSection === sec.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
               }`}
             >
               {sec.label} <span className="opacity-60">· {sectionCounts[sec.id] ?? 0}</span>
@@ -504,7 +504,7 @@ export default function ThreatFeeds(): JSX.Element {
             className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
               showSourcePanel
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
             title="Pick which feeds to query"
             aria-pressed={showSourcePanel}
@@ -517,7 +517,7 @@ export default function ThreatFeeds(): JSX.Element {
           <button
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'fetching' : 'refresh'}
@@ -525,7 +525,7 @@ export default function ThreatFeeds(): JSX.Element {
         </div>
 
         {showSourcePanel && (
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
+          <div className="rounded-xl border border-line-1 bg-surface-200 p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
               <p className="text-mini font-mono text-muted">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
@@ -535,14 +535,14 @@ export default function ThreatFeeds(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setDisabled(new Set())}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 hover:border-brand-500/40"
                 >
                   enable all
                 </button>
                 <button
                   type="button"
                   onClick={() => setDisabled(new Set(ALL_FEED_IDS))}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 hover:border-rose-500/40"
                 >
                   disable all
                 </button>
@@ -550,7 +550,7 @@ export default function ThreatFeeds(): JSX.Element {
             </div>
             {SECTIONS.map((sec) => (
               <div key={sec.id}>
-                <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+                <h3 className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">
                   {sec.label}
                   <span className="ml-1.5 opacity-60">
                     · {sec.feedIds.filter((id) => !disabled.has(id)).length}/{sec.feedIds.length} on
@@ -575,8 +575,8 @@ export default function ThreatFeeds(): JSX.Element {
                         }
                         className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
                           isEnabled
-                            ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
-                            : 'border-slate-200/40 dark:border-[rgb(var(--border-400))]/40 bg-slate-100/40 dark:bg-[rgb(var(--input-200)/0.4)] opacity-60'
+                            ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
+                            : 'border-slate-200/40 dark:border-line-1/40 bg-slate-100/40 dark:bg-input-200/40 opacity-60'
                         }`}
                       >
                         <input
@@ -585,7 +585,7 @@ export default function ThreatFeeds(): JSX.Element {
                           onChange={() => {
                             /* button handles it */
                           }}
-                          className="rounded border-slate-400 shrink-0"
+                          className="rounded border-line-3 shrink-0"
                           tabIndex={-1}
                         />
                         <span className="flex-1 min-w-0">
@@ -621,7 +621,7 @@ export default function ThreatFeeds(): JSX.Element {
         )}
 
         {activeSection !== 'all' && (
-          <p className="text-mini font-mono text-slate-400">
+          <p className="text-mini font-mono text-muted">
             <span className="text-body">{SECTIONS.find((s) => s.id === activeSection)?.label}:</span>{' '}
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
@@ -634,7 +634,7 @@ export default function ThreatFeeds(): JSX.Element {
         </p>
       )}
 
-      <p className="text-mini font-mono text-slate-400 mb-3">
+      <p className="text-mini font-mono text-muted mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
         data
         {failedCount > 0 && (
@@ -660,7 +660,7 @@ export default function ThreatFeeds(): JSX.Element {
             className={`inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-xl border transition-colors ${
               showDigest
                 ? 'border-brand-500/50 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
+                : 'border-slate-200 dark:border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-surface-300'
             }`}
           >
             <BarChart3 size={14} />
@@ -689,7 +689,7 @@ export default function ThreatFeeds(): JSX.Element {
         {annotated.slice(0, 200).map(({ item, section }) => (
           <li
             key={item.link ?? `${item.title}-${item.pubDate}`}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 [content-visibility:auto] [contain-intrinsic-size:auto_140px]"
+            className="rounded border border-line-1 bg-surface-100 p-3 [content-visibility:auto] [contain-intrinsic-size:auto_140px]"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
               <a
@@ -702,7 +702,7 @@ export default function ThreatFeeds(): JSX.Element {
               </a>
               <div className="flex items-center gap-2">
                 <span
-                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-line-1 text-slate-500'}`}
                 >
                   {section}
                 </span>
@@ -715,7 +715,7 @@ export default function ThreatFeeds(): JSX.Element {
                 />
               </div>
             </div>
-            <div className="text-mini font-mono text-slate-400 mb-1">
+            <div className="text-mini font-mono text-muted mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>

@@ -68,7 +68,7 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
   // content underneath was what read as "blurry".
   const tone = VERDICT_TONE[ioc.verdict];
   return (
-    <div className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]">
+    <div className="flex items-center gap-2 rounded border border-line-1 bg-surface-200 px-2 py-1 text-xs">
       <IocChip value={ioc.value} size="sm" bare className="min-w-0" />
       {ioc.riskScore > 0 && (
         <Badge tone={tone} size="xs">
@@ -76,7 +76,7 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
         </Badge>
       )}
       {ioc.listedIn.length > 0 && <span className="text-micro text-muted">listed in {ioc.listedIn.length}</span>}
-      <span className="ml-auto text-micro uppercase tracking-wider text-slate-400">{VERDICT_LABEL[ioc.verdict]}</span>
+      <span className="ml-auto text-micro uppercase tracking-wider text-muted">{VERDICT_LABEL[ioc.verdict]}</span>
     </div>
   );
 }
@@ -177,7 +177,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           <button
             type="button"
             onClick={() => setExpanded(true)}
-            className="ml-auto inline-flex items-center gap-1 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="ml-auto inline-flex items-center gap-1 rounded border border-line-2 bg-surface-100 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
             aria-expanded={false}
           >
             Show details
@@ -191,7 +191,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.sectors.map((s) => (
               <span
                 key={s}
-                className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-300"
+                className="rounded border border-line-1 bg-surface-200 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:text-slate-300"
               >
                 {s}
               </span>
@@ -262,7 +262,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.attackPatterns.map((a) => (
               <span
                 key={a.mitreId}
-                className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-300"
+                className="rounded border border-line-1 bg-surface-200 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:text-slate-300"
               >
                 {a.name} · {a.mitreId}
               </span>
@@ -307,7 +307,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
       )}
 
       {expanded && ((view.actorCandidates?.length ?? 0) > 0 || (view.malwareCandidates?.length ?? 0) > 0) && (
-        <details className="mt-4 rounded border border-dashed border-slate-300 bg-slate-50/50 p-3 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.5)]">
+        <details className="mt-4 rounded border border-dashed border-line-2 bg-surface-200/50 p-3 text-xs">
           <summary className="cursor-pointer font-semibold uppercase tracking-wider text-muted">
             Suggested (unverified, LLM)
           </summary>
@@ -343,7 +343,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
       )}
 
       {expanded && (
-        <footer className="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-200 pt-3 text-xs dark:border-[rgb(var(--border-400))]">
+        <footer className="mt-4 flex flex-wrap items-center gap-2 border-t border-line-1 pt-3 text-xs">
           <a
             href={exportBundleUrl(view.bundleId)}
             // `download` hints at the browser-side filename; the server
@@ -351,25 +351,25 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             // belt-and-suspenders.
             download={`${view.bundleId}.stix.json`}
             rel="noopener"
-            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
           >
             Download STIX 2.1
           </a>
           <a
             href={`/dfir/stix-builder/b/${encodeURIComponent(view.bundleId)}`}
-            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
           >
             Open in STIX Builder
           </a>
           <button
             type="button"
             onClick={() => setExpanded(false)}
-            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="inline-flex items-center rounded border border-line-2 bg-surface-100 px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-surface-300"
             aria-expanded={true}
           >
             Hide details
           </button>
-          <span className="ml-auto font-mono text-micro text-slate-400">{view.bundleId.slice(0, 18)}…</span>
+          <span className="ml-auto font-mono text-micro text-muted">{view.bundleId.slice(0, 18)}…</span>
         </footer>
       )}
     </article>
@@ -378,7 +378,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
 
 function CountPill({ label, n }: { label: string; n: number }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-mini font-mono text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-300">
+    <span className="inline-flex items-center gap-1 rounded border border-line-1 bg-surface-200 px-2 py-0.5 text-mini font-mono text-slate-600 dark:text-slate-300">
       <span className="font-semibold text-heading">{n}</span>
       <span>
         {label}
@@ -466,13 +466,13 @@ export function IntelCard(props: IntelCardProps): JSX.Element {
 
 function CardSkeleton(): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-      <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
-      <div className="mt-2 h-3 w-1/3 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
+    <div className="rounded-xl border border-line-1 bg-surface-100 p-4 shadow-e1">
+      <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
+      <div className="mt-2 h-3 w-1/3 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
       <div className="mt-4 space-y-2">
-        <div className="h-3 w-full animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
-        <div className="h-3 w-11/12 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
-        <div className="h-3 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
+        <div className="h-3 w-full animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
+        <div className="h-3 w-11/12 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
+        <div className="h-3 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-surface-300" />
       </div>
     </div>
   );

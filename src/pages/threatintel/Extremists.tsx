@@ -190,7 +190,7 @@ const RISK_PILL: Record<string, string> = {
   CRITICAL: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border-rose-300 dark:border-rose-800',
   HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   MEDIUM: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
-  LOW: 'bg-slate-100 text-slate-800 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
+  LOW: 'bg-slate-100 text-slate-800 dark:bg-surface-300 dark:text-slate-300 border-slate-300 dark:border-line-1',
 };
 
 export default function Extremists(): JSX.Element {
@@ -227,7 +227,7 @@ export default function Extremists(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, ideology, region, indicator, or description…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+          className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -237,10 +237,7 @@ export default function Extremists(): JSX.Element {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {sorted.map((group) => (
-          <div
-            key={group.name}
-            className="surface-card p-5 flex flex-col border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl"
-          >
+          <div key={group.name} className="surface-card p-5 flex flex-col border border-line-1 rounded-xl">
             <div className="flex items-start justify-between gap-3 mb-2">
               <h3 className="font-display font-semibold text-heading">{group.name}</h3>
               <span
@@ -259,7 +256,7 @@ export default function Extremists(): JSX.Element {
               {group.regions.map((region) => (
                 <span
                   key={region}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted border border-line-1"
                 >
                   {region}
                 </span>

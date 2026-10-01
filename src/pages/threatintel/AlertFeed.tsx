@@ -46,7 +46,7 @@ const TLP_COLORS: Record<string, string> = {
   RED: 'bg-red-600 text-white',
   AMBER: 'bg-amber-500 text-white',
   GREEN: 'bg-green-500 text-white',
-  CLEAR: 'bg-slate-300 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-200',
+  CLEAR: 'bg-slate-300 text-slate-700 dark:bg-surface-300 dark:text-slate-200',
 };
 
 export default function AlertFeed() {
@@ -122,12 +122,12 @@ export default function AlertFeed() {
               className={`rounded-xl border p-4 text-left transition-all ${
                 filter === sev
                   ? 'border-amber-500 dark:border-amber-400 bg-amber-50 dark:bg-amber-900/10'
-                  : 'border-slate-200/60 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-amber-300'
+                  : 'border-slate-200/60 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-amber-300'
               }`}
             >
               <div className="flex items-center gap-2 mb-1">
                 <Icon size={16} className={cfg.color} />
-                <span className="text-xs font-medium uppercase text-slate-500">{sev}</span>
+                <span className="text-xs font-medium uppercase text-muted">{sev}</span>
               </div>
               <span className="text-2xl font-bold">{severityCount(sev)}</span>
             </button>
@@ -137,7 +137,7 @@ export default function AlertFeed() {
 
       {/* Controls */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2 text-sm text-slate-500">
+        <div className="flex items-center gap-2 text-sm text-muted">
           <Bell size={16} />
           <span>
             {stats.total} alerts · <span className="font-semibold text-amber-600">{stats.unread} unread</span>
@@ -146,7 +146,7 @@ export default function AlertFeed() {
         <button
           type="button"
           onClick={loadAlerts}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-200 transition-colors"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
         </button>
@@ -185,7 +185,7 @@ export default function AlertFeed() {
               className={`rounded-xl border p-4 transition-all ${
                 !alert.read
                   ? 'border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/5'
-                  : 'border-slate-200/60 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
+                  : 'border-slate-200/60 dark:border-line-1 bg-white dark:bg-surface-200'
               }`}
             >
               <div className="flex items-start gap-3">
@@ -212,7 +212,7 @@ export default function AlertFeed() {
                         <button
                           type="button"
                           onClick={() => markRead(alert.id)}
-                          className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted hover:text-green-500"
+                          className="p-1.5 rounded-xl hover:bg-surface-300 dark:hover:bg-surface-300 text-muted hover:text-green-500"
                           title="Mark read"
                         >
                           <CheckCircle size={14} />
@@ -221,14 +221,14 @@ export default function AlertFeed() {
                       <button
                         type="button"
                         onClick={() => dismiss(alert.id)}
-                        className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted hover:text-red-500"
+                        className="p-1.5 rounded-xl hover:bg-surface-300 dark:hover:bg-surface-300 text-muted hover:text-red-500"
                         title="Dismiss"
                       >
                         <XCircle size={14} />
                       </button>
                     </div>
                   </div>
-                  <p className="text-sm text-slate-500 mt-1 line-clamp-2">{alert.description}</p>
+                  <p className="text-sm text-muted mt-1 line-clamp-2">{alert.description}</p>
                   <div className="flex items-center gap-3 mt-2 text-xs text-muted">
                     <span>
                       {hoursAgo < 1
@@ -261,10 +261,7 @@ export default function AlertFeed() {
                   {alert.topics.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       {alert.topics.map((t) => (
-                        <span
-                          key={t}
-                          className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
-                        >
+                        <span key={t} className="text-xs px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                           {t}
                         </span>
                       ))}

@@ -74,7 +74,7 @@ export default function Lolbins(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search binary, technique, ATT&CK ID, or detection idea…"
-            className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded border border-line-2 bg-surface-100 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
             aria-label="Filter LOLBins"
           />
         </div>
@@ -86,7 +86,7 @@ export default function Lolbins(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               platform === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -100,7 +100,7 @@ export default function Lolbins(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   platform === p.id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {p.label} <span className="opacity-60">· {count}</span>
@@ -116,7 +116,7 @@ export default function Lolbins(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               category === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -131,7 +131,7 @@ export default function Lolbins(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   category === c.id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {c.label} <span className="opacity-60">· {count}</span>
@@ -158,7 +158,7 @@ export default function Lolbins(): JSX.Element {
               {b.platforms.map((p) => (
                 <span
                   key={p}
-                  className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
+                  className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-2 text-muted"
                 >
                   {p}
                 </span>
@@ -180,7 +180,7 @@ export default function Lolbins(): JSX.Element {
                 href={sanitizeUrl(b.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto text-micro font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5 transition-colors"
+                className="ml-auto text-micro font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5 transition-colors"
               >
                 source <ExternalLink size={10} />
               </a>
@@ -188,7 +188,7 @@ export default function Lolbins(): JSX.Element {
 
             <p className="text-sm font-mono text-heading mb-2">{b.technique}</p>
 
-            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 mb-2">
+            <div className="rounded border border-line-1 bg-surface-200 p-2.5 mb-2">
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400">
                   Abuse
@@ -199,13 +199,13 @@ export default function Lolbins(): JSX.Element {
             </div>
 
             <div className="grid gap-2 md:grid-cols-2">
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
+              <div className="rounded border border-line-1 bg-surface-200 p-2.5">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted block mb-1">
                   Legitimate use
                 </span>
                 <p className="text-meta font-mono text-body leading-relaxed">{b.legit}</p>
               </div>
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
+              <div className="rounded border border-line-1 bg-surface-200 p-2.5">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 block mb-1">
                   Detection
                 </span>

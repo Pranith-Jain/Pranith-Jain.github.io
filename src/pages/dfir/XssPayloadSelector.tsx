@@ -573,9 +573,7 @@ export default function XssPayloadSelector(): JSX.Element {
 
       {/* Stats bar */}
       <div className="flex flex-wrap gap-2 mt-4 mb-4">
-        <span className="px-2 py-1 rounded text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))]">
-          {stats.total} payloads
-        </span>
+        <span className="px-2 py-1 rounded text-xs font-mono bg-surface-300">{stats.total} payloads</span>
         <span className="px-2 py-1 rounded text-xs font-mono bg-rose-500/10 text-rose-600 dark:text-rose-400">
           {stats.bySev['critical'] ?? 0} critical
         </span>
@@ -599,7 +597,7 @@ export default function XssPayloadSelector(): JSX.Element {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search payloads, tags, descriptions..."
-            className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm font-mono"
+            className="w-full pl-9 pr-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm font-mono"
           />
         </div>
         <div className="flex items-center gap-1">
@@ -613,7 +611,7 @@ export default function XssPayloadSelector(): JSX.Element {
                 className={`px-2 py-1 rounded text-xs font-mono transition-colors ${
                   contextFilter === c.id
                     ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30'
-                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
+                    : 'bg-slate-100 dark:bg-surface-200 text-muted hover:bg-slate-200 dark:hover:bg-surface-300'
                 }`}
               >
                 {c.label}
@@ -668,7 +666,7 @@ export default function XssPayloadSelector(): JSX.Element {
               className={`rounded-xl border p-3 transition-colors ${
                 selectedPayloads.has(p.id)
                   ? 'border-purple-500/50 bg-purple-50 dark:bg-purple-500/5'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))]'
+                  : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-100'
               }`}
             >
               <div className="flex items-start gap-3">
@@ -686,19 +684,19 @@ export default function XssPayloadSelector(): JSX.Element {
                     >
                       {p.severity}
                     </span>
-                    <span className="px-1.5 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted">
+                    <span className="px-1.5 py-0.5 rounded text-micro font-mono bg-surface-300 text-muted">
                       {p.context}
                     </span>
                   </div>
                   <p className="text-xs text-muted mt-1">{p.description}</p>
                   <div className="mt-2 flex items-center gap-2">
-                    <code className="flex-1 px-2 py-1.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-heading text-xs font-mono overflow-x-auto whitespace-nowrap">
+                    <code className="flex-1 px-2 py-1.5 rounded bg-surface-300 text-heading text-xs font-mono overflow-x-auto whitespace-nowrap">
                       {p.payload}
                     </code>
                     <button
                       type="button"
                       onClick={() => copyPayload(p.payload, p.id)}
-                      className="shrink-0 p-1.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+                      className="shrink-0 p-1.5 rounded bg-surface-300 hover:bg-slate-200 dark:hover:bg-surface-300"
                       title="Copy payload"
                     >
                       <Copy size={12} />
@@ -719,10 +717,7 @@ export default function XssPayloadSelector(): JSX.Element {
                   {p.tags && p.tags.length > 0 && (
                     <div className="mt-1 flex flex-wrap gap-1">
                       {p.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="px-1.5 py-0.5 rounded text-micro bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted"
-                        >
+                        <span key={t} className="px-1.5 py-0.5 rounded text-micro bg-surface-300 text-muted">
                           #{t}
                         </span>
                       ))}
@@ -736,9 +731,9 @@ export default function XssPayloadSelector(): JSX.Element {
       </div>
 
       {/* Info */}
-      <div className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-4">
+      <div className="mt-6 rounded-xl border border-line-1 bg-surface-200 p-4">
         <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-          <Info size={14} className="text-slate-500" /> Usage Notes
+          <Info size={14} className="text-muted" /> Usage Notes
         </h4>
         <ul className="text-xs text-muted space-y-1 list-disc list-inside">
           <li>Select multiple payloads to copy/download in batch</li>

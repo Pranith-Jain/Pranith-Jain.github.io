@@ -116,7 +116,7 @@ export default function ExploratoresBoard(): JSX.Element {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder={`target username — arms all ${EXPLORATORES_TOTAL} pivots`}
-              className="w-full pl-9 pr-3 py-2.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none transition-colors"
+              className="w-full pl-9 pr-3 py-2.5 rounded border border-line-2 bg-surface-200 font-mono text-sm focus:border-brand-500/60 focus:outline-none transition-colors"
               aria-label="Target username"
               autoComplete="off"
               spellCheck={false}
@@ -126,7 +126,7 @@ export default function ExploratoresBoard(): JSX.Element {
             className={`inline-flex items-center gap-2 px-3 py-2 rounded border font-mono text-xs transition-colors ${
               armed
                 ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted'
+                : 'border-slate-300 dark:border-line-1 text-muted'
             }`}
             aria-live="polite"
           >
@@ -153,7 +153,7 @@ export default function ExploratoresBoard(): JSX.Element {
             className={`text-mini font-mono px-2.5 py-1 rounded-full border transition-colors ${
               categoryFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All surfaces <span className="opacity-60">· {EXPLORATORES_TOTAL}</span>
@@ -167,9 +167,7 @@ export default function ExploratoresBoard(): JSX.Element {
                 type="button"
                 onClick={() => setCategoryFilter(active ? 'all' : c.id)}
                 className={`inline-flex items-center gap-1.5 text-mini font-mono px-2.5 py-1 rounded-full border transition-colors ${
-                  active
-                    ? accent.chip
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                  active ? accent.chip : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
                 }`}
               >
                 <span className={`inline-block w-1.5 h-1.5 rounded-full ${accent.dot}`} aria-hidden="true" />
@@ -196,7 +194,7 @@ export default function ExploratoresBoard(): JSX.Element {
                 <h2 id={`exploratores-${cat.id}`} className={`font-display font-semibold text-lg ${accent.text}`}>
                   {cat.label}
                 </h2>
-                <span className="text-mini font-mono text-slate-400 dark:text-slate-500">{cat.links.length}</span>
+                <span className="text-mini font-mono text-muted">{cat.links.length}</span>
               </div>
               <p className="text-xs text-muted mb-3 ml-[18px]">{cat.blurb}</p>
 
@@ -232,13 +230,13 @@ export default function ExploratoresBoard(): JSX.Element {
                           href={href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`group block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2.5 transition-all hover:-translate-y-0.5 hover:shadow-e2 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 ${accent.ring}`}
+                          className={`group block rounded-lg border border-line-1 bg-surface-200 dark:bg-input-200 px-3 py-2.5 transition-all hover:-translate-y-0.5 hover:shadow-e2 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 ${accent.ring}`}
                         >
                           {inner}
                         </a>
                       ) : (
                         <span
-                          className="group block rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent px-3 py-2.5 opacity-55 cursor-not-allowed"
+                          className="group block rounded-lg border border-dashed border-line-2 bg-transparent px-3 py-2.5 opacity-55 cursor-not-allowed"
                           title="Enter a username above to arm this pivot"
                         >
                           {inner}
@@ -253,7 +251,7 @@ export default function ExploratoresBoard(): JSX.Element {
         })}
       </div>
 
-      <p className="mt-10 flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-500">
+      <p className="mt-10 flex items-center gap-1.5 text-mini font-mono text-muted">
         <Link2 size={11} aria-hidden="true" />
         Pivots open in a new tab · links are URL-encoded · no data leaves your browser
       </p>

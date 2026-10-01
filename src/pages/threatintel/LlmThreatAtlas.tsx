@@ -19,7 +19,7 @@ const TIER_COLORS: Record<string, string> = {
   Critical: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
   High: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   Medium: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700',
-  Low: 'text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
+  Low: 'text-muted bg-slate-100 dark:bg-surface-200 border-slate-300 dark:border-line-1',
 };
 
 const DOMAIN_DESCRIPTIONS: Record<string, string> = {
@@ -79,7 +79,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -195,7 +195,7 @@ export default function LlmThreatAtlas(): JSX.Element {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search vectors, IDs, or domains…"
           aria-label="Search LLM threat vectors"
-          className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
+          className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-line-2 bg-surface-100 text-heading placeholder:text-muted focus:outline-none focus:border-rose-500/60"
         />
       </div>
 
@@ -247,13 +247,10 @@ export default function LlmThreatAtlas(): JSX.Element {
             const count = domainCounts.get(key) ?? 0;
             const first = data.items.find((i) => i.domain === key);
             return (
-              <div
-                key={key}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-              >
+              <div key={key} className="rounded-xl border border-line-1 bg-surface-200 p-3">
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-mono text-lg font-bold text-rose-600 dark:text-rose-400">{key}</span>
-                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
+                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
                     {count}
                   </span>
                 </div>
@@ -276,18 +273,14 @@ export default function LlmThreatAtlas(): JSX.Element {
         {filtered.map((item) => {
           const expanded = expandedId === item.id;
           return (
-            <div
-              key={item.id}
-              id={item.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 scroll-mt-20"
-            >
+            <div key={item.id} id={item.id} className="rounded-xl border border-line-1 bg-surface-200 p-3 scroll-mt-20">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
                       {item.id}
                     </span>
-                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
                       {item.domain}
                     </span>
                     <span
@@ -303,7 +296,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                   {item.architectures.slice(0, 3).map((arch) => (
                     <span
                       key={arch}
-                      className="hidden sm:inline text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
+                      className="hidden sm:inline text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 text-muted"
                     >
                       {arch}
                     </span>
@@ -328,7 +321,7 @@ export default function LlmThreatAtlas(): JSX.Element {
               </div>
 
               {expanded && (
-                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-xs text-body">
+                <div className="mt-3 pt-3 border-t border-line-1 space-y-3 text-xs text-body">
                   {/* Framework cross-walk chips */}
                   <div className="flex flex-wrap gap-1.5">
                     {item.owasp_llm_2025.map((f) => (

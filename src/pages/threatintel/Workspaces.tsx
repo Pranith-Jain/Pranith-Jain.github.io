@@ -96,8 +96,7 @@ const SEV: Record<string, string> = {
   Elevated:
     'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   Critical: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
-  Unknown:
-    'bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]',
+  Unknown: 'bg-slate-50 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1',
 };
 
 export default function Workspaces() {
@@ -294,10 +293,7 @@ export default function Workspaces() {
           </h2>
           <div className="grid grid-cols-2 gap-1.5">
             {(PHASE_COMMANDS[selected.phase] || []).map((cmd) => (
-              <div
-                key={cmd}
-                className="px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded border border-slate-100 dark:border-[rgb(var(--border-300))]"
-              >
+              <div key={cmd} className="px-2.5 py-1.5 bg-surface-200 rounded border border-line-1">
                 <code className="text-mini font-mono text-rose-600 dark:text-rose-400">{cmd}</code>
               </div>
             ))}
@@ -320,7 +316,7 @@ export default function Workspaces() {
               <Link
                 key={to}
                 to={to}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded border border-slate-100 dark:border-[rgb(var(--border-300))] hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors text-mini font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-surface-200 rounded border border-line-1 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors text-mini font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
               >
                 <Icon className="w-3 h-3" /> {label}
               </Link>
@@ -367,7 +363,7 @@ export default function Workspaces() {
                 value={formTitle}
                 onChange={(e) => setFormTitle(e.target.value)}
                 placeholder="Investigation title"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-tool focus:outline-none focus:border-rose-500"
               />
             </div>
             <div>
@@ -376,7 +372,7 @@ export default function Workspaces() {
                 value={formTarget}
                 onChange={(e) => setFormTarget(e.target.value)}
                 placeholder="Target (domain, IP, email...)"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-tool focus:outline-none focus:border-rose-500"
               />
             </div>
             <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Target type">
@@ -388,7 +384,7 @@ export default function Workspaces() {
                   className={`flex items-center gap-1 px-2 py-1 rounded text-mini font-mono border transition-colors ${
                     formType === t.value
                       ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
-                      : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-300'
+                      : 'bg-slate-50 dark:bg-surface-100 border-slate-200 dark:border-line-1 text-muted hover:border-slate-300'
                   }`}
                 >
                   <t.icon className="w-3 h-3" /> {t.label}
@@ -402,7 +398,7 @@ export default function Workspaces() {
                 onChange={(e) => setFormDesc(e.target.value)}
                 rows={2}
                 placeholder="Description (optional)"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -472,7 +468,7 @@ export default function Workspaces() {
                     </span>
                     <span className="text-micro font-mono text-muted capitalize">{ws.phase}</span>
                   </div>
-                  {ws.target && <p className="text-meta font-mono text-slate-500 truncate">{ws.target}</p>}
+                  {ws.target && <p className="text-meta font-mono text-muted truncate">{ws.target}</p>}
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
                   <button

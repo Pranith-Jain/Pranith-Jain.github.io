@@ -111,24 +111,22 @@ export default function AiVulns(): JSX.Element {
     >
       <AiSummaryCard
         surface="AI Vulns"
-        items={filtered
-          .slice(0, 15)
-          .map((v) => ({
-            title: `${v.id} — ${v.title}`,
-            body: `${v.kev ? 'KEV · ' : ''}EPSS ${fmtEpss(v.epss)} · ${v.severity ?? 'unscored'}`,
-            source: v.link,
-          }))}
+        items={filtered.slice(0, 15).map((v) => ({
+          title: `${v.id} — ${v.title}`,
+          body: `${v.kev ? 'KEV · ' : ''}EPSS ${fmtEpss(v.epss)} · ${v.severity ?? 'unscored'}`,
+          source: v.link,
+        }))}
         requireAdmin={false}
       />
       <div className="flex flex-col sm:flex-row gap-3 my-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             placeholder="Search CVE/GHSA ids, packages, vendors…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
           />
         </div>
         <button
@@ -137,7 +135,7 @@ export default function AiVulns(): JSX.Element {
           className={`px-3 py-2 rounded-xl text-xs font-mono font-medium border transition inline-flex items-center gap-1.5 ${
             kevOnly
               ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+              : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
           }`}
         >
           <Flame className="w-3.5 h-3.5" /> KEV only · {kevTotal}
@@ -151,10 +149,7 @@ export default function AiVulns(): JSX.Element {
           const open = openId === v.id;
           const body = bodies[v.id];
           return (
-            <div
-              key={v.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
-            >
+            <div key={v.id} className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
               <button
                 type="button"
                 onClick={() => void openBody(v.id)}
@@ -162,37 +157,37 @@ export default function AiVulns(): JSX.Element {
                 aria-expanded={open}
               >
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-micro font-mono text-slate-500">{v.id}</span>
+                  <span className="text-micro font-mono text-muted">{v.id}</span>
                   {v.kev && (
                     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-micro font-mono rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                       <Flame className="w-2.5 h-2.5" /> KEV
                     </span>
                   )}
                   {v.cvssBase != null && (
-                    <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+                    <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body">
                       CVSS {v.cvssBase}
                     </span>
                   )}
-                  <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+                  <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body">
                     EPSS {fmtEpss(v.epss)}
                   </span>
                   {(v.sources ?? []).slice(0, 4).map((s) => (
                     <span
                       key={s}
-                      className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500"
+                      className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted"
                     >
                       {s}
                     </span>
                   ))}
                 </div>
                 <h3 className="text-sm font-bold text-heading mt-1 leading-snug">{v.title}</h3>
-                <p className="text-mini font-mono text-slate-500 mt-1">
+                <p className="text-mini font-mono text-muted mt-1">
                   {(v.packages ?? []).join(', ') || v.product || v.vendor || 'package n/a'} ·{' '}
                   {v.published ?? 'date n/a'}
                 </p>
               </button>
               {open && (
-                <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-2">
+                <div className="mt-2 pt-2 border-t border-line-1 space-y-2">
                   {body && <p className="text-xs text-body leading-relaxed">{body.description}</p>}
                   {body && body.references.length > 0 && (
                     <div className="flex flex-wrap gap-2">

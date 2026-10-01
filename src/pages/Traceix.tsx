@@ -30,7 +30,7 @@ const VERDICT_STYLE: Record<string, string> = {
   Safe: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   Malicious: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   Unknown: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  Failed: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+  Failed: 'border-slate-300 dark:border-line-1 text-muted',
 };
 
 export default function Traceix() {
@@ -87,13 +87,13 @@ export default function Traceix() {
         <section className="surface-card p-4">
           <form onSubmit={handleSubmit} className="flex gap-3">
             <div className="relative flex-1">
-              <Hash size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+              <Hash size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 placeholder="Enter a SHA-256 hash (64 hex characters)"
                 value={hash}
                 onChange={(e) => setHash(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -110,7 +110,7 @@ export default function Traceix() {
             </Button>
           </form>
           <div className="flex flex-wrap gap-1.5 mt-3">
-            <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
+            <span className="text-micro font-mono text-muted self-center mr-1">samples:</span>
             {SAMPLES.map((s) => (
               <button
                 key={s.hash}
@@ -119,7 +119,7 @@ export default function Traceix() {
                   setHash(s.hash);
                   setSubmittedHash(s.hash);
                 }}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -128,7 +128,7 @@ export default function Traceix() {
         </section>
 
         {loading && (
-          <div className="flex items-center justify-center py-12 text-slate-500">
+          <div className="flex items-center justify-center py-12 text-muted">
             <Spinner size="md" className="mr-3" />
             Looking up hash...
           </div>
@@ -148,15 +148,15 @@ export default function Traceix() {
               <div className="flex gap-6">
                 <div>
                   <div className="text-2xl font-bold text-heading">{safeCount}</div>
-                  <div className="text-mini font-mono text-slate-400">Safe</div>
+                  <div className="text-mini font-mono text-muted">Safe</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{maliciousCount}</div>
-                  <div className="text-mini font-mono text-slate-400">Malicious</div>
+                  <div className="text-mini font-mono text-muted">Malicious</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.avResults.length}</div>
-                  <div className="text-mini font-mono text-slate-400">Engines</div>
+                  <div className="text-mini font-mono text-muted">Engines</div>
                 </div>
               </div>
             </section>
@@ -213,7 +213,7 @@ export default function Traceix() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Powered by{' '}
           <a
             href="https://traceix.com"

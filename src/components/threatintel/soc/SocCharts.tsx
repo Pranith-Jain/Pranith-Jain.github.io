@@ -45,7 +45,7 @@ export function SocBar({
 }: SocBarProps): JSX.Element {
   const [hover, setHover] = useState<number | null>(null);
   if (items.length === 0) {
-    return <p className="text-meta font-mono text-slate-500 italic">{emptyText}</p>;
+    return <p className="text-meta font-mono text-muted italic">{emptyText}</p>;
   }
   const ceiling = max ?? Math.max(...items.map((i) => i.value), 1);
   const fmt = formatNumber;
@@ -162,14 +162,14 @@ export function SocBar({
               >
                 {it.label}
               </button>
-              <span className="text-slate-500 tabular-nums shrink-0 flex items-center gap-1.5">
+              <span className="text-muted tabular-nums shrink-0 flex items-center gap-1.5">
                 {fmt(it.value)}
                 {it.hint && <span className="text-muted">{it.hint}</span>}
                 {it.meta}
               </span>
             </div>
             <div
-              className="h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden"
+              className="h-1.5 rounded-full bg-surface-300 overflow-hidden"
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
             >
@@ -236,7 +236,7 @@ export function SocDonut({
   const total = slices.reduce((s, x) => s + x.value, 0);
 
   if (total === 0) {
-    return <p className="text-meta font-mono text-slate-500 italic">{emptyText}</p>;
+    return <p className="text-meta font-mono text-muted italic">{emptyText}</p>;
   }
 
   const r = size / 2 - thickness / 2;
@@ -315,14 +315,14 @@ export function SocDonut({
               <li
                 key={s.label}
                 className={`flex items-center gap-2 rounded px-1 -mx-1 transition-colors ${
-                  hover === s.label ? 'bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)]' : ''
+                  hover === s.label ? 'bg-slate-100 dark:bg-surface-300/60' : ''
                 }`}
                 onMouseEnter={() => setHover(s.label)}
                 onMouseLeave={() => setHover(null)}
               >
                 <span className="inline-block h-2.5 w-2.5 rounded shrink-0" style={{ backgroundColor: s.color }} />
                 <span className="truncate text-body">{s.label}</span>
-                <span className="ml-auto text-slate-500 tabular-nums">
+                <span className="ml-auto text-muted tabular-nums">
                   {s.value.toLocaleString('en-US')}{' '}
                   <span className="text-muted">({((s.value / total) * 100).toFixed(1)}%)</span>
                 </span>
@@ -340,7 +340,7 @@ export function SocDonut({
             >
               <span className="inline-block h-2 w-2 rounded shrink-0" style={{ backgroundColor: s.color }} />
               <span className="truncate text-body">{s.label}</span>
-              <span className="ml-auto text-slate-500 tabular-nums">{((s.value / total) * 100).toFixed(1)}%</span>
+              <span className="ml-auto text-muted tabular-nums">{((s.value / total) * 100).toFixed(1)}%</span>
             </li>
           ))}
         </ul>
@@ -375,7 +375,7 @@ export function SocSparkline({
   color,
 }: SocSparklineProps): JSX.Element {
   if (points.length === 0) {
-    return <p className="text-meta font-mono text-slate-500 italic">{emptyText}</p>;
+    return <p className="text-meta font-mono text-muted italic">{emptyText}</p>;
   }
   const w = 720;
   const padL = 32;

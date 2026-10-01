@@ -33,7 +33,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   High: 'bg-orange-500 text-white',
   Medium: 'bg-amber-500 text-white',
   Low: 'bg-emerald-500 text-white',
-  '(none)': 'bg-slate-300 dark:bg-[rgb(var(--surface-300))] text-body',
+  '(none)': 'bg-slate-300 dark:bg-surface-300 text-body',
 };
 
 const SEVERITY_PILL: Record<string, string> = {
@@ -41,8 +41,7 @@ const SEVERITY_PILL: Record<string, string> = {
   High: 'border-orange-300 dark:border-orange-600 bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   Medium: 'border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   Low: 'border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
-  '(none)':
-    'border-slate-300 dark:border-[rgb(var(--border-500))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted',
+  '(none)': 'border-slate-300 dark:border-line-2 bg-slate-50 dark:bg-surface-200 text-muted',
 };
 
 const SEV_ORDER = ['Critical', 'High', 'Medium', 'Low'];
@@ -82,7 +81,7 @@ function SeverityBar({ counts }: { counts: Record<string, number> }) {
     .map((b) => ({ ...b, pct: (b.count / total) * 100 }));
   return (
     <div className="space-y-1">
-      <div className="flex h-5 rounded-full overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="flex h-5 rounded-full overflow-hidden border border-line-1">
         {bars.map((b) => (
           <div
             key={b.sev}
@@ -252,7 +251,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, name..."
-            className="w-full pl-8 pr-3 py-2 text-sm surface-card text-heading placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50"
+            className="w-full pl-8 pr-3 py-2 text-sm surface-card text-heading placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/50"
           />
         </div>
         <select
@@ -295,7 +294,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             type="checkbox"
             checked={ransomwareOnly}
             onChange={(e) => setRansomwareOnly(e.target.checked)}
-            className="rounded border-slate-300 dark:border-[rgb(var(--border-500))]"
+            className="rounded border-line-2"
           />
           <AlertTriangle size={12} className="text-red-500" /> Ransomware only
         </label>
@@ -328,7 +327,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
           requireAdmin={false}
         />
       )}
-      <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="overflow-x-auto rounded-xl border border-line-1">
         <DataTable
           columns={
             [
@@ -432,7 +431,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
 
         {/* Pagination */}
         {filtered.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-t border-line-1 text-xs text-muted">
             <span>
               {filtered.length.toLocaleString()} result{filtered.length !== 1 ? 's' : ''}
               {pageSize < filtered.length && ` - page ${page + 1} of ${pageCount} (${pageEntries.length} shown)`}
@@ -445,7 +444,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   setPageSize(Number(e.target.value));
                   setPage(0);
                 }}
-                className="text-xs rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body px-2 py-1"
+                className="text-xs rounded-xl border border-line-1 bg-surface-100 text-body px-2 py-1"
               >
                 {PAGE_SIZES.map((s) => (
                   <option key={s} value={s}>
@@ -459,7 +458,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   type="button"
                   disabled={page === 0}
                   onClick={() => setPage(Math.max(0, page - 1))}
-                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-1 rounded-xl hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Previous page"
                 >
                   <ChevronLeft size={14} />
@@ -471,7 +470,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   type="button"
                   disabled={page >= pageCount - 1}
                   onClick={() => setPage(Math.min(pageCount - 1, page + 1))}
-                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-1 rounded-xl hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Next page"
                 >
                   <ChevronRight size={14} />

@@ -36,7 +36,11 @@ export interface InvestigationPdfInput {
   risk_score?: number;
 }
 
-const slug = (s: string) => s.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/, '').slice(0, 60) || 'investigation';
+const slug = (s: string) =>
+  s
+    .replace(/[^a-z0-9]+/gi, '-')
+    .replace(/^-|-$/, '')
+    .slice(0, 60) || 'investigation';
 
 const TLP_RGB: Record<string, [number, number, number]> = {
   white: [100, 116, 139],
@@ -164,7 +168,9 @@ export async function exportInvestigationPdf(inv: InvestigationPdfInput): Promis
     autoTable(doc, {
       startY: y,
       head: [['When', 'Event']],
-      body: inv.timeline.slice(0, 100).map((e) => [e.created_at.slice(0, 16).replace('T', ' '), `${e.type}: ${e.message}`.slice(0, 160)]),
+      body: inv.timeline
+        .slice(0, 100)
+        .map((e) => [e.created_at.slice(0, 16).replace('T', ' '), `${e.type}: ${e.message}`.slice(0, 160)]),
       margin: { left: margin, right: margin },
       styles: { fontSize: 8 },
     });

@@ -347,19 +347,19 @@ export default function DarknetMarketsTimeline(): JSX.Element {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             placeholder="Search market name, description, country…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={catFilter}
           onChange={(e) => setCatFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+          className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="">All categories</option>
           {ALL_CATEGORIES.map((c) => (
@@ -372,7 +372,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
 
       {/* Status filter pills */}
       <div className="flex flex-wrap items-center gap-1.5 mb-4">
-        <span className="text-xs text-slate-500 mr-1 font-mono">status:</span>
+        <span className="text-xs text-muted mr-1 font-mono">status:</span>
         {Object.entries(STATUS_META).map(([key, meta]) => {
           const active = statusFilter.has(key);
           return (
@@ -383,7 +383,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
               className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
                 active
                   ? `${meta.bg} ${meta.color}`
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
               }`}
             >
               {meta.label}
@@ -410,12 +410,12 @@ export default function DarknetMarketsTimeline(): JSX.Element {
               key={m.name}
               className={`rounded-xl border p-4 hover:shadow-e1 transition ${
                 m.status === 'active'
-                  ? 'border-emerald-200 dark:border-emerald-800/40 bg-white dark:bg-[rgb(var(--surface-200))]/50'
+                  ? 'border-emerald-200 dark:border-emerald-800/40 bg-white dark:bg-surface-200/50'
                   : m.status === 'seized'
                     ? 'border-rose-200 dark:border-rose-800/40 bg-rose-50/30 dark:bg-rose-900/5'
                     : m.status === 'exit-scam'
                       ? 'border-amber-200 dark:border-amber-800/40 bg-amber-50/30 dark:bg-amber-900/5'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50'
+                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/50'
               }`}
             >
               <div className="flex items-start gap-3">
@@ -426,13 +426,13 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                       {meta.label}
                     </span>
                     {m.country && (
-                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
+                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
                         {m.country}
                       </span>
                     )}
                   </div>
                   <p className="text-xs text-body leading-relaxed mb-1.5">{m.description}</p>
-                  <div className="flex items-center gap-2 flex-wrap text-mini text-slate-500">
+                  <div className="flex items-center gap-2 flex-wrap text-mini text-muted">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-2.5 h-2.5" /> Founded {m.founded}
                     </span>
@@ -467,10 +467,10 @@ export default function DarknetMarketsTimeline(): JSX.Element {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-slate-500 font-mono text-sm">No markets match your filters</div>
+        <div className="text-center py-12 text-muted font-mono text-sm">No markets match your filters</div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+      <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
         Sources: Dread, TorTaxi, public law-enforcement reporting · {MARKETS.length} markets tracked
       </div>
     </DataPageLayout>

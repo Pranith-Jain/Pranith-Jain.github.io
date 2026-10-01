@@ -96,7 +96,7 @@ export default function ReverseImage(): JSX.Element {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="https://example.com/path/to/image.jpg"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             spellCheck={false}
             autoComplete="off"
           />
@@ -107,13 +107,13 @@ export default function ReverseImage(): JSX.Element {
           </p>
         )}
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-muted self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
               type="button"
               onClick={() => setImageUrl(s.url)}
-              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -131,16 +131,16 @@ export default function ReverseImage(): JSX.Element {
                 loading="lazy"
                 src={trimmed}
                 alt="reverse-search target"
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-48 max-w-xs object-contain bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                className="rounded border border-line-1 max-h-48 max-w-xs object-contain bg-surface-200"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
               <div className="flex-1 min-w-0">
-                <code className="block text-mini font-mono text-body break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 mb-2">
+                <code className="block text-mini font-mono text-body break-all bg-surface-200 rounded border border-line-1 p-2 mb-2">
                   {trimmed}
                 </code>
-                <p className="text-mini font-mono text-slate-400">
+                <p className="text-mini font-mono text-muted">
                   If the preview doesn't load, the image host may block hot-linking. The reverse-search engines fetch
                   the image server-side regardless, so the lookups still work.
                 </p>
@@ -157,7 +157,7 @@ export default function ReverseImage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyAll()}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1"
               >
                 {copiedAll ? <Check size={11} /> : <Clipboard size={11} />}
                 {copiedAll ? 'copied' : 'copy all URLs'}
@@ -173,7 +173,7 @@ export default function ReverseImage(): JSX.Element {
                     className={`block rounded border px-3 py-2 hover:border-brand-500/60 transition-colors ${
                       engine.recommended
                         ? 'border-brand-500/30 bg-brand-500/5'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
+                        : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
                     }`}
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-0.5">
@@ -181,17 +181,17 @@ export default function ReverseImage(): JSX.Element {
                         {engine.recommended && <Star size={10} className="text-brand-600 dark:text-brand-400" />}
                         {engine.name}
                       </span>
-                      <ExternalLink size={11} className="text-slate-500 shrink-0" />
+                      <ExternalLink size={11} className="text-muted shrink-0" />
                     </div>
                     <p className="text-mini font-mono text-muted">{engine.blurb}</p>
                     {engine.coverage && (
-                      <p className="text-micro font-mono text-slate-400 mt-1 italic">{engine.coverage}</p>
+                      <p className="text-micro font-mono text-muted mt-1 italic">{engine.coverage}</p>
                     )}
                   </a>
                 </li>
               ))}
             </ul>
-            <p className="text-micro font-mono text-slate-400 mt-3">
+            <p className="text-micro font-mono text-muted mt-3">
               <Star size={9} className="inline text-brand-600 dark:text-brand-400" /> = recommended starting set. Run
               all four (Lens / Bing / Yandex / TinEye) - coverage barely overlaps.
             </p>

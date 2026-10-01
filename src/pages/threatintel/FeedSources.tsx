@@ -92,14 +92,14 @@ export default function FeedSources(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search feeds by name, source, or description…"
-            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 min-w-[200px] px-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-tool text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
-          <label className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 cursor-pointer select-none">
+          <label className="inline-flex items-center gap-1.5 text-mini font-mono text-muted cursor-pointer select-none">
             <input
               type="checkbox"
               checked={showDisabled}
               onChange={(e) => setShowDisabled(e.target.checked)}
-              className="rounded border-slate-400"
+              className="rounded border-line-3"
             />
             Show disabled
           </label>
@@ -115,7 +115,7 @@ export default function FeedSources(): JSX.Element {
               <h2 className="font-display font-semibold text-sm mb-3 inline-flex items-center gap-1.5">
                 <Icon size={14} className={meta.className} />
                 {meta.label}
-                <span className="font-mono text-mini text-slate-500">· {feeds.length}</span>
+                <span className="font-mono text-mini text-muted">· {feeds.length}</span>
               </h2>
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {feeds.map((f) => {
@@ -125,8 +125,8 @@ export default function FeedSources(): JSX.Element {
                       key={f.id}
                       className={`rounded-xl border p-3 transition-opacity ${
                         enabled
-                          ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
-                          : 'border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.5)] opacity-50'
+                          ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
+                          : 'border-slate-200/50 dark:border-line-1/50 bg-slate-50/50 dark:bg-input-200/50 opacity-50'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2 mb-1">
@@ -145,7 +145,7 @@ export default function FeedSources(): JSX.Element {
                           {enabled ? 'enabled' : 'disabled'}
                         </button>
                       </div>
-                      <p className="font-mono text-micro text-slate-500 line-clamp-2 mb-1">{f.description}</p>
+                      <p className="font-mono text-micro text-muted line-clamp-2 mb-1">{f.description}</p>
                       <div className="flex items-center gap-2 font-mono text-micro text-muted">
                         {f.source && <span className="truncate">{f.source}</span>}
                         {f.language && <span className="uppercase">{f.language}</span>}
@@ -177,9 +177,9 @@ export default function FeedSources(): JSX.Element {
         </summary>
         <div className="mt-3 grid gap-1 max-w-2xl">
           {Object.entries(RETIRED_FEEDS).map(([id, reason]) => (
-            <div key={id} className="flex items-baseline gap-2 text-mini font-mono text-slate-500">
+            <div key={id} className="flex items-baseline gap-2 text-mini font-mono text-muted">
               <span className="font-semibold text-muted">{id}</span>
-              <span className="text-slate-400">— {reason}</span>
+              <span className="text-muted">— {reason}</span>
             </div>
           ))}
         </div>
@@ -189,7 +189,7 @@ export default function FeedSources(): JSX.Element {
         <summary className="cursor-pointer text-mini font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300">
           How feed management works
         </summary>
-        <div className="mt-3 text-mini font-mono text-slate-500 leading-relaxed space-y-1 max-w-2xl">
+        <div className="mt-3 text-mini font-mono text-muted leading-relaxed space-y-1 max-w-2xl">
           <p>
             Disabling a feed hides it from the aggregated feed view. The server-side fetch still runs - this toggle
             controls display only, stored in your browser localStorage.

@@ -164,7 +164,7 @@ export default function CampaignDetail(): JSX.Element {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-heading text-center">
         <Trash2 size={28} className="mx-auto text-muted mb-2" />
-        <p className="text-sm font-mono text-slate-500 mb-3">Campaign deleted.</p>
+        <p className="text-sm font-mono text-muted mb-3">Campaign deleted.</p>
         <Link
           to="/threatintel/catalog?cat=campaigns"
           className="text-sm font-mono text-rose-600 dark:text-rose-400 hover:underline"
@@ -191,8 +191,8 @@ export default function CampaignDetail(): JSX.Element {
             <span className={`px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[data.campaign.confidence]}`}>
               confidence: {data.campaign.confidence}
             </span>
-            <span className="text-slate-500">model: {data.model_used}</span>
-            <span className="text-slate-500">saved: {new Date(data.saved_at).toLocaleString()}</span>
+            <span className="text-muted">model: {data.model_used}</span>
+            <span className="text-muted">saved: {new Date(data.saved_at).toLocaleString()}</span>
           </span>
         )
       }
@@ -202,7 +202,7 @@ export default function CampaignDetail(): JSX.Element {
             <button
               type="button"
               onClick={() => void copyMarkdown()}
-              className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
+              className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2.5 py-1 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
             >
               {copied ? (
                 <>
@@ -232,12 +232,12 @@ export default function CampaignDetail(): JSX.Element {
           {(data.input.actor || data.input.sector) && (
             <div className="flex flex-wrap gap-2 mb-4 text-mini font-mono">
               {data.input.actor && (
-                <span className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-0.5 text-body">
+                <span className="rounded border border-line-1 bg-surface-200 px-2 py-0.5 text-body">
                   actor: {data.input.actor}
                 </span>
               )}
               {data.input.sector && (
-                <span className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-0.5 text-body">
+                <span className="rounded border border-line-1 bg-surface-200 px-2 py-0.5 text-body">
                   sector: {data.input.sector}
                 </span>
               )}
@@ -246,7 +246,7 @@ export default function CampaignDetail(): JSX.Element {
 
           {data.campaign.summary && <p className="text-sm text-body leading-relaxed mb-4">{data.campaign.summary}</p>}
 
-          <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="mb-5 pt-3 border-t border-line-1">
             <ShareBar
               shareText={
                 data.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${data.campaign.campaign_name}`
@@ -259,20 +259,17 @@ export default function CampaignDetail(): JSX.Element {
 
           {data.campaign.actor_context && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">Actor context</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-1.5">Actor context</h3>
               <p className="text-sm text-body leading-relaxed">{data.campaign.actor_context}</p>
             </div>
           )}
 
           {orderedKillChain.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Kill chain</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Kill chain</h3>
               <ol className="space-y-2">
                 {orderedKillChain.map((k, i) => (
-                  <li
-                    key={`${k.phase}-${i}`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                  >
+                  <li key={`${k.phase}-${i}`} className="rounded-xl border border-line-1 bg-surface-200 p-3">
                     <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
                     </div>
@@ -285,13 +282,10 @@ export default function CampaignDetail(): JSX.Element {
 
           {data.campaign.mitre_techniques.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">MITRE ATT&amp;CK</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">MITRE ATT&amp;CK</h3>
               <ul className="space-y-1.5">
                 {data.campaign.mitre_techniques.map((m) => (
-                  <li
-                    key={m.id}
-                    className="text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                  >
+                  <li key={m.id} className="text-sm rounded-xl border border-line-1 bg-surface-200 p-2.5">
                     <a
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
                       target="_blank"
@@ -301,7 +295,7 @@ export default function CampaignDetail(): JSX.Element {
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}
                     <span className="font-semibold text-heading">- {m.name}</span>
-                    <div className="text-mini font-mono text-slate-500 mt-0.5">{m.rationale}</div>
+                    <div className="text-mini font-mono text-muted mt-0.5">{m.rationale}</div>
                   </li>
                 ))}
               </ul>
@@ -310,14 +304,14 @@ export default function CampaignDetail(): JSX.Element {
 
           {data.input.iocs && data.input.iocs.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">
                 Attached IOCs ({data.input.iocs.length})
               </h3>
               <ul className="space-y-1">
                 {data.input.iocs.map((ioc) => (
                   <li
                     key={ioc}
-                    className="flex items-center gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono"
+                    className="flex items-center gap-2 rounded border border-line-1 bg-surface-200 p-2 text-sm font-mono"
                   >
                     <span className="flex-1 truncate text-body" title={ioc}>
                       {ioc}
@@ -336,7 +330,7 @@ export default function CampaignDetail(): JSX.Element {
 
           {data.campaign.hunting_hypotheses.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Hunting hypotheses</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Hunting hypotheses</h3>
               <ul className="space-y-1.5 list-disc list-inside text-sm text-body">
                 {data.campaign.hunting_hypotheses.map((h) => (
                   <li key={h}>{h}</li>
@@ -347,15 +341,10 @@ export default function CampaignDetail(): JSX.Element {
 
           {data.campaign.detection_opportunities.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">
-                Detection opportunities
-              </h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Detection opportunities</h3>
               <ul className="space-y-1.5">
                 {data.campaign.detection_opportunities.map((d) => (
-                  <li
-                    key={d}
-                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 text-body"
-                  >
+                  <li key={d} className="text-sm font-mono rounded border border-line-1 bg-surface-200 p-2.5 text-body">
                     {d}
                   </li>
                 ))}
@@ -365,13 +354,10 @@ export default function CampaignDetail(): JSX.Element {
 
           {data.campaign.iocs_to_pivot.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">IOCs to pivot on</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">IOCs to pivot on</h3>
               <ul className="space-y-1">
                 {data.campaign.iocs_to_pivot.map((i, idx) => (
-                  <li
-                    key={idx}
-                    className="text-sm rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-body"
-                  >
+                  <li key={idx} className="text-sm rounded border border-line-1 bg-surface-200 p-2 text-body">
                     {i}
                   </li>
                 ))}

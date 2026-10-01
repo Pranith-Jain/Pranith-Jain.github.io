@@ -352,7 +352,7 @@ export default function SocIocs(): JSX.Element {
               className={`text-meta font-mono px-2.5 py-1 rounded border transition-colors ${
                 on
                   ? 'border-rose-500 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                  : 'border-slate-200 dark:border-line-1 text-muted hover:border-rose-500/40'
               }`}
             >
               {KIND_LABEL[k]}
@@ -363,13 +363,13 @@ export default function SocIocs(): JSX.Element {
           <button
             type="button"
             onClick={() => setKindFilter(new Set())}
-            className="text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 ml-1"
+            className="text-meta font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 ml-1"
           >
             clear
           </button>
         )}
         {kindFilter.size > 0 && (
-          <span className="text-meta font-mono text-slate-500 ml-2">{formatNumber(kindFilteredTotal)} matching</span>
+          <span className="text-meta font-mono text-muted ml-2">{formatNumber(kindFilteredTotal)} matching</span>
         )}
       </div>
 
@@ -380,7 +380,7 @@ export default function SocIocs(): JSX.Element {
           {typeSlices.length > 0 ? (
             <SocDonut slices={typeSlices} size={180} centerLabel={formatNumber(totalInWindow)} centerSub="in window" />
           ) : (
-            <p className="text-meta font-mono text-slate-500 italic">No IOCs in window.</p>
+            <p className="text-meta font-mono text-muted italic">No IOCs in window.</p>
           )}
         </SocPanel>
 
@@ -390,7 +390,7 @@ export default function SocIocs(): JSX.Element {
             right={
               <Link
                 to="/threatintel/catalog?cat=feeds"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
               >
                 feeds <ExternalLink size={10} />
               </Link>
@@ -414,7 +414,7 @@ export default function SocIocs(): JSX.Element {
               }
             />
           ) : (
-            <p className="text-meta font-mono text-slate-500 italic">No IOCs in window.</p>
+            <p className="text-meta font-mono text-muted italic">No IOCs in window.</p>
           )}
         </SocPanel>
       </div>
@@ -447,7 +447,7 @@ export default function SocIocs(): JSX.Element {
             right={
               <Link
                 to="/threatintel/iocs/live"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
               >
                 all <ExternalLink size={10} />
               </Link>
@@ -462,7 +462,7 @@ export default function SocIocs(): JSX.Element {
 
 function TopCriticalList({ rows }: { rows: { ioc: LiveIoc; score: number }[] }): JSX.Element {
   if (rows.length === 0) {
-    return <p className="text-meta font-mono text-slate-500 italic">No critical IOCs in window.</p>;
+    return <p className="text-meta font-mono text-muted italic">No critical IOCs in window.</p>;
   }
   return (
     <ul className="space-y-1.5">
@@ -473,7 +473,7 @@ function TopCriticalList({ rows }: { rows: { ioc: LiveIoc; score: number }[] }):
             <span className="text-body truncate" title={r.ioc.value}>
               {r.ioc.value}
             </span>
-            <span className="ml-auto text-slate-500 text-mini uppercase tracking-wider shrink-0">{r.ioc.kind}</span>
+            <span className="ml-auto text-muted text-mini uppercase tracking-wider shrink-0">{r.ioc.kind}</span>
           </div>
           <div className="text-mini text-muted truncate" title={r.ioc.context ?? ''}>
             {r.ioc.source}

@@ -128,7 +128,7 @@ export default function C2Tracker(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setRefreshKey((k) => k + 1)}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1"
                   aria-label="Refresh C2 tracker"
                 >
                   <RefreshCw size={11} /> refresh
@@ -136,7 +136,7 @@ export default function C2Tracker(): JSX.Element {
               </div>
             </div>
             {/* Source bar */}
-            <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-line-1">
               {data.sources.map((s) => (
                 <span
                   key={s.id}
@@ -145,14 +145,14 @@ export default function C2Tracker(): JSX.Element {
                   {s.name} · {s.count}
                 </span>
               ))}
-              <span className="text-micro font-mono text-slate-500">Total · {data.count}</span>
+              <span className="text-micro font-mono text-muted">Total · {data.count}</span>
             </div>
             {/* Framework filter */}
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={() => setFilter('all')}
-                className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}
+                className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'}`}
               >
                 All <span className="opacity-60">· {data.count}</span>
               </button>
@@ -161,13 +161,13 @@ export default function C2Tracker(): JSX.Element {
                   type="button"
                   key={fw}
                   onClick={() => setFilter(fw)}
-                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}
+                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'}`}
                 >
                   {fw} <span className="opacity-60">· {data.frameworks[fw]}</span>
                 </button>
               ))}
             </div>
-            <p className="text-xs font-mono text-slate-500 mt-3">
+            <p className="text-xs font-mono text-muted mt-3">
               Sources: C2IntelFeeds · ThreatFox · CriticalPathSecurity · CriminalIP · TweetFeed - cached 30 min
             </p>
           </section>
@@ -176,14 +176,11 @@ export default function C2Tracker(): JSX.Element {
           <section className="surface-card p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3">
               {filter === 'all' ? 'All C2 IPs' : `${filter} C2 IPs`}
-              <span className="ml-2 text-slate-500">({filtered.length})</span>
+              <span className="ml-2 text-muted">({filtered.length})</span>
             </h3>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.slice(0, 300).map((entry, i) => (
-                <div
-                  key={`${entry.ip}-${i}`}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                >
+                <div key={`${entry.ip}-${i}`} className="rounded border border-line-1 bg-surface-200 p-2.5">
                   <div className="flex items-center justify-between gap-2 mb-1">
                     <code className="font-mono text-sm text-heading font-semibold truncate">{entry.ip}</code>
                     <span
@@ -201,10 +198,10 @@ export default function C2Tracker(): JSX.Element {
                         {s}
                       </span>
                     ))}
-                    {entry.port && <span className="text-micro font-mono text-slate-500">:{entry.port}</span>}
+                    {entry.port && <span className="text-micro font-mono text-muted">:{entry.port}</span>}
                   </div>
                   {entry.context && (
-                    <p className="text-micro font-mono text-slate-500 mt-1 truncate" title={entry.context}>
+                    <p className="text-micro font-mono text-muted mt-1 truncate" title={entry.context}>
                       {entry.context}
                     </p>
                   )}
@@ -237,7 +234,7 @@ export default function C2Tracker(): JSX.Element {
                 </div>
               ))}
               {filtered.length > 300 && (
-                <p className="text-xs font-mono text-slate-500 col-span-full text-center py-2">
+                <p className="text-xs font-mono text-muted col-span-full text-center py-2">
                   Showing first 300 of {filtered.length} entries
                 </p>
               )}

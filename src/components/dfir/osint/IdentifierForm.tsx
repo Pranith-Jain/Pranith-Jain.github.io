@@ -37,7 +37,7 @@ export function IdentifierForm({
           setType(e.target.value);
           setFields({});
         }}
-        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] text-sm"
+        className="w-full rounded border border-line-2 px-2 py-1 bg-surface-100 text-sm"
       >
         {IDENTIFIER_TYPES.map((t) => (
           <option key={t.type} value={t.type}>
@@ -49,7 +49,7 @@ export function IdentifierForm({
         <label key={f.key} className="block text-sm">
           <span className="text-muted text-xs">{f.label}</span>
           <input
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))]"
+            className="w-full rounded border border-line-2 px-2 py-1 bg-surface-100"
             placeholder={f.placeholder}
             value={fields[f.key] ?? ''}
             onChange={(e) => setFields((p) => ({ ...p, [f.key]: e.target.value }))}

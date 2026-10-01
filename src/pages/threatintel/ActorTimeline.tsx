@@ -54,7 +54,7 @@ interface ActorTimelineResponse {
 }
 
 function cellColor(count: number, max: number): string {
-  if (count === 0) return 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]';
+  if (count === 0) return 'bg-slate-100 dark:bg-surface-200';
   const intensity = Math.min(1, count / Math.max(1, max));
   if (intensity < 0.2) return 'bg-rose-200 dark:bg-rose-900/40';
   if (intensity < 0.4) return 'bg-rose-300 dark:bg-rose-800/60';
@@ -148,7 +148,7 @@ export default function ActorTimeline(): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+            className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
             aria-label="refresh"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -167,7 +167,7 @@ export default function ActorTimeline(): JSX.Element {
             <div className="min-w-[640px]">
               {/* Day axis legend */}
               <div
-                className="font-mono text-micro text-slate-500 mb-1 grid"
+                className="font-mono text-micro text-muted mb-1 grid"
                 style={{ gridTemplateColumns: `200px repeat(${data.days.length}, minmax(0,1fr))` }}
               >
                 <div></div>
@@ -203,7 +203,7 @@ export default function ActorTimeline(): JSX.Element {
                             </div>
                             <AccelerationBadge buckets={g.buckets} />
                           </div>
-                          <div className="text-micro font-mono text-slate-500 mt-0.5">
+                          <div className="text-micro font-mono text-muted mt-0.5">
                             {g.posts_in_window} in {data.window_days}d ·{' '}
                             {g.partial ? 'recent-feed only' : `${g.all_time_count} all-time`}
                           </div>
@@ -218,7 +218,7 @@ export default function ActorTimeline(): JSX.Element {
                       </div>
 
                       {/* Per-group footer: MITRE link, raas tag, refs */}
-                      <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-mini font-mono text-slate-500">
+                      <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-mini font-mono text-muted">
                         {g.mitre ? (
                           <a
                             href={sanitizeUrl(g.mitre.url)}
@@ -229,9 +229,7 @@ export default function ActorTimeline(): JSX.Element {
                             MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
                           </a>
                         ) : (
-                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
-                            not in MITRE
-                          </span>
+                          <span className="px-1.5 py-0.5 rounded border border-line-2 text-muted">not in MITRE</span>
                         )}
                         {g.raas && (
                           <span className="px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
@@ -240,7 +238,7 @@ export default function ActorTimeline(): JSX.Element {
                         )}
                         {g.partial ? (
                           <span
-                            className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
+                            className="px-1.5 py-0.5 rounded border border-line-2 text-muted"
                             title="ransomlook per-group endpoint was unreachable; this row is rebuilt from the recent-claims feed. Heatmap is accurate for the window; all-time count, mirrors and references are unavailable."
                           >
                             recent-feed only
@@ -250,7 +248,7 @@ export default function ActorTimeline(): JSX.Element {
                             className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
                               g.mirrors_total > 0 && g.mirrors_reachable === 0
                                 ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                                : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
+                                : 'bg-slate-100 dark:bg-surface-300'
                             }`}
                             title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
                               g.mirrors_total > 0 && g.mirrors_reachable === 0 ? ' (site possibly down or seized)' : ''
@@ -306,7 +304,7 @@ export default function ActorTimeline(): JSX.Element {
             <ActorTtpsPanel />
           </div>
 
-          <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4">
+          <section className="mt-6 rounded-xl border border-line-1 bg-surface-200 p-4">
             <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
             <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
               <li>
@@ -351,7 +349,7 @@ function AccelerationBadge({ buckets }: { buckets: ActorBucket[] }): JSX.Element
       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
       : delta < 0
         ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+        : 'border-slate-300 dark:border-line-1 text-slate-500';
   const arrow = delta > 0 ? '▲' : delta < 0 ? '▼' : '·';
   return (
     <span
@@ -384,7 +382,7 @@ function MirrorDots({ reachable, total }: { reachable: number; total: number }):
         <span
           key={d.key}
           className={`inline-block w-1.5 h-1.5 rounded-full ${
-            d.on ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'
+            d.on ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-surface-300'
           }`}
         />
       ))}

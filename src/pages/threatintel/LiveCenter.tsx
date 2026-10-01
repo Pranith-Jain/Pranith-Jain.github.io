@@ -341,7 +341,7 @@ export default function LiveCenter(): JSX.Element {
             <div className="mb-3 flex items-center gap-2">
               <span className="text-rose-600 dark:text-rose-400">{cat.icon}</span>
               <h2 className="font-display font-bold text-lg text-heading">{cat.label}</h2>
-              <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-muted">
+              <span className="rounded-full border border-line-2 px-2 py-0.5 text-micro font-mono text-muted">
                 {cat.tools.length}
               </span>
             </div>
@@ -372,17 +372,17 @@ export default function LiveCenter(): JSX.Element {
                     {open && (
                       <div
                         id={`detail-${key}`}
-                        className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.6)] p-4 space-y-3 animate-fade-in-up"
+                        className="border-t border-line-1 bg-surface-200/60 p-4 space-y-3 animate-fade-in-up"
                       >
                         <div>
                           <span className="text-micro font-mono uppercase tracking-wider text-muted">Install</span>
-                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-2 text-xs font-mono text-heading">
+                          <pre className="mt-1 overflow-x-auto rounded border border-line-1 bg-surface-100 px-3 py-2 text-xs font-mono text-heading">
                             {tool.detail.install}
                           </pre>
                         </div>
                         <div>
                           <span className="text-micro font-mono uppercase tracking-wider text-muted">Example</span>
-                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-2 text-xs font-mono text-heading">
+                          <pre className="mt-1 overflow-x-auto rounded border border-line-1 bg-surface-100 px-3 py-2 text-xs font-mono text-heading">
                             {tool.detail.example}
                           </pre>
                         </div>

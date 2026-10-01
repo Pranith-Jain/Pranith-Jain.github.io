@@ -73,4 +73,3 @@ export function exportDetectionCsv(detection: AnalyzerOutput['detection']): stri
 
   return sections.join('\n');
 }
-

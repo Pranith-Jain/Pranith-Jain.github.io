@@ -43,10 +43,7 @@ export function DataGapsPanel({ dataGaps }: { dataGaps: ToolFailure[] }): JSX.El
           const meta = CAUSE_META[f.cause] ?? CAUSE_META.unknown;
           const Icon = meta.icon;
           return (
-            <div
-              key={i}
-              className="flex items-start gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5"
-            >
+            <div key={i} className="flex items-start gap-2 rounded-lg border border-line-1 bg-surface-100 p-2.5">
               <Icon className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${meta.color}`} />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -58,7 +55,7 @@ export function DataGapsPanel({ dataGaps }: { dataGaps: ToolFailure[] }): JSX.El
                   <span className={`text-xs font-mono ${meta.color}`}>{meta.label}</span>
                 </div>
                 <div className="mt-1 text-xs text-muted">
-                  <span className="font-mono text-slate-400">missed:</span> {f.missedCapability}
+                  <span className="font-mono text-muted">missed:</span> {f.missedCapability}
                 </div>
                 <div className="mt-0.5 text-xs text-muted italic">{f.diagnosis}</div>
                 {f.error && (

@@ -70,7 +70,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
               href={project.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-brand-600 dark:text-muted dark:hover:text-brand-400 transition-colors"
+              className="inline-flex items-center gap-1.5 text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               aria-label={`View ${project.title} on GitHub`}
             >
               <Github className="w-3.5 h-3.5" aria-hidden="true" />
@@ -137,7 +137,7 @@ export function Projects({ projects }: ProjectsProps) {
           {/* Timeline layout */}
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 dark:bg-[rgb(var(--surface-300))] hidden sm:block" />
+            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 dark:bg-surface-300 hidden sm:block" />
 
             <div className="space-y-4">
               {publishedCaseStudies.map((cs) => (
@@ -174,7 +174,7 @@ export function Projects({ projects }: ProjectsProps) {
                     {cs.outcome.split(' · ').map((metric) => (
                       <span
                         key={metric}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-body"
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-300 text-xs font-mono text-body"
                       >
                         {metric}
                       </span>
@@ -187,7 +187,7 @@ export function Projects({ projects }: ProjectsProps) {
                       {cs.tags.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted"
                         >
                           {tag}
                         </span>
@@ -221,7 +221,7 @@ export function Projects({ projects }: ProjectsProps) {
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-muted dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-brand-600 dark:hover:text-brand-400"
             aria-expanded={showAll}
           >
             {showAll ? (

@@ -255,7 +255,7 @@ export default function Analyze(): JSX.Element {
       {streaming && results.length === 0 && (
         <div className="surface-card p-8 text-center animate-pulse">
           <Loader2 size={24} className="animate-spin mx-auto text-muted mb-3" />
-          <p className="text-sm font-mono text-slate-500">Opening SSE stream to 45 providers…</p>
+          <p className="text-sm font-mono text-muted">Opening SSE stream to 45 providers…</p>
         </div>
       )}
 
@@ -291,7 +291,7 @@ export default function Analyze(): JSX.Element {
             </div>
           </div>
           <div className="mb-3">
-            <div className="h-3 w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+            <div className="h-3 w-full bg-slate-200 dark:bg-surface-300 rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-1000 ${scoreBarClass(summary.score)}`}
                 style={{ width: `${summary.score}%` }}
@@ -312,7 +312,7 @@ export default function Analyze(): JSX.Element {
               {flaggedCount} flagged, {cleanCount} clean
             </span>
             {summary.admiralty && (
-              <span className="text-slate-500">
+              <span className="text-muted">
                 admiralty: <span className="font-semibold">{summary.admiralty.label}</span>
               </span>
             )}
@@ -332,7 +332,7 @@ export default function Analyze(): JSX.Element {
                   className={`text-mini font-mono px-2.5 py-1 rounded border transition-colors ${
                     filterVerdict === f.key
                       ? 'bg-rose-500/15 border-rose-500/40 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                   }`}
                 >
                   {f.label}
@@ -352,14 +352,14 @@ export default function Analyze(): JSX.Element {
               <button
                 type="button"
                 onClick={exportCsv}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 <FileDown size={11} /> CSV
               </button>
               <button
                 type="button"
                 onClick={exportJson}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 <FileDown size={11} /> JSON
               </button>
@@ -369,7 +369,7 @@ export default function Analyze(): JSX.Element {
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[720px] text-sm">
-                <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <thead className="bg-surface-200/60 border-b border-line-1">
                   <tr>
                     <th className="w-8 px-2 py-2" />
                     <SortHeader label="Provider" sort="source" />
@@ -378,13 +378,13 @@ export default function Analyze(): JSX.Element {
                     <SortHeader label="Score" sort="score" />
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-slate-500"
+                      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-muted"
                     >
                       Evidence
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-slate-500"
+                      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-muted"
                     >
                       Tags
                     </th>
@@ -396,7 +396,7 @@ export default function Analyze(): JSX.Element {
                     return (
                       <tr
                         key={r.source}
-                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] cursor-pointer transition-colors"
+                        className="border-t border-line-1/50 hover:bg-surface-200 dark:hover:bg-surface-200/50 cursor-pointer transition-colors"
                         onClick={() =>
                           setExpanded((prev) => {
                             const next = new Set(prev);
@@ -423,13 +423,13 @@ export default function Analyze(): JSX.Element {
                         </td>
                         <td className="px-3 py-2.5">
                           <div className="flex items-center gap-2">
-                            <div className="w-16 h-1.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+                            <div className="w-16 h-1.5 bg-slate-200 dark:bg-surface-300 rounded-full overflow-hidden">
                               <div
                                 className={`h-full rounded-full ${scoreBarClass(r.score)}`}
                                 style={{ width: `${r.score}%` }}
                               />
                             </div>
-                            <span className="text-mini font-mono text-slate-500 tabular-nums w-6">{r.score}</span>
+                            <span className="text-mini font-mono text-muted tabular-nums w-6">{r.score}</span>
                           </div>
                         </td>
                         <td className="px-3 py-2.5">
@@ -471,7 +471,7 @@ export default function Analyze(): JSX.Element {
                             {r.tags.slice(0, 3).map((t) => (
                               <span
                                 key={t}
-                                className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 border border-slate-200 dark:border-[rgb(var(--border-400))] truncate max-w-[100px]"
+                                className="text-micro font-mono px-1 py-0.5 rounded bg-surface-300 text-muted border border-line-1 truncate max-w-[100px]"
                               >
                                 {t}
                               </span>
@@ -489,7 +489,7 @@ export default function Analyze(): JSX.Element {
             </div>
 
             {expanded.size > 0 && (
-              <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] divide-y divide-slate-100 dark:divide-slate-800/50">
+              <div className="border-t border-line-1 divide-y divide-slate-100 dark:divide-slate-800/50">
                 {sortedResults
                   .filter((r) => expanded.has(r.source))
                   .map((r) => {
@@ -499,11 +499,8 @@ export default function Analyze(): JSX.Element {
                         )
                       : [];
                     return (
-                      <div
-                        key={`detail-${r.source}`}
-                        className="p-4 bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/30"
-                      >
-                        <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-slate-500 mb-2">
+                      <div key={`detail-${r.source}`} className="p-4 bg-surface-200/50 dark:bg-surface-200/30">
+                        <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-muted mb-2">
                           {r.source} - raw evidence
                         </h4>
                         {r.source === 'secrets' && secretFindings.length > 0 && (
@@ -538,7 +535,7 @@ export default function Analyze(): JSX.Element {
             )}
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-3 text-xs font-mono text-slate-500">
+          <div className="mt-4 flex flex-wrap gap-3 text-xs font-mono text-muted">
             <span className="inline-flex items-center gap-1">
               <CheckCircle2 size={12} className="text-emerald-500" /> {respondedCount} ok
             </span>
@@ -567,7 +564,7 @@ export default function Analyze(): JSX.Element {
       {!streaming && results.length === 0 && !error && !summary && (
         <div className="surface-card p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
-          <p className="text-sm font-mono text-slate-500">Enter an observable above to run a multi-source analysis</p>
+          <p className="text-sm font-mono text-muted">Enter an observable above to run a multi-source analysis</p>
           <p className="text-xs font-mono text-muted mt-2">
             Fans out to 45 threat intel providers - Spamhaus, VirusTotal, AbuseIPDB, AlienVault OTX, ThreatFox, URLhaus,
             GreyNoise, and a local secrets regex bank

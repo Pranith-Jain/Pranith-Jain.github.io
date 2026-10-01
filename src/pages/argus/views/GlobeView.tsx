@@ -540,7 +540,7 @@ export function GlobeView({ actors, onOpen }: Props) {
   return (
     <div className="absolute inset-0 flex globe-bg">
       <aside className="w-72 border-r border-white/10 overflow-y-auto p-3 hidden md:block globe-panel">
-        <div className="text-eyebrow font-mono text-slate-400 mb-3">Threat origins</div>
+        <div className="text-eyebrow font-mono text-muted mb-3">Threat origins</div>
         <div className="space-y-0.5">
           {Object.entries(
             actors.reduce<Record<string, Actor[]>>((acc, a) => {
@@ -555,7 +555,7 @@ export function GlobeView({ actors, onOpen }: Props) {
                 <button
                   key={code}
                   onClick={() => onOpen(list[0]!)}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg hover:bg-white/5 text-left transition-all duration-200"
+                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg hover:bg-surface-100/5 text-left transition-all duration-200"
                 >
                   <span
                     className="h-3 w-3 rounded-full shrink-0"
@@ -563,15 +563,15 @@ export function GlobeView({ actors, onOpen }: Props) {
                   />
                   <div className="flex-1 min-w-0">
                     <div className="text-[12.5px] text-slate-100 truncate">{n.name}</div>
-                    <div className="text-micro font-mono text-slate-400">{list.map((a) => a.name).join(', ')}</div>
+                    <div className="text-micro font-mono text-muted">{list.map((a) => a.name).join(', ')}</div>
                   </div>
-                  <span className="text-mini font-mono text-slate-400 shrink-0">{list.length}</span>
+                  <span className="text-mini font-mono text-muted shrink-0">{list.length}</span>
                 </button>
               );
             })}
         </div>
-        <div className="text-eyebrow font-mono text-slate-400 mt-6 mb-2">Controls</div>
-        <div className="text-mini text-slate-400 leading-relaxed space-y-1">
+        <div className="text-eyebrow font-mono text-muted mt-6 mb-2">Controls</div>
+        <div className="text-mini text-muted leading-relaxed space-y-1">
           <p>Drag to rotate</p>
           <p>Scroll to zoom</p>
           <p>Click marker to open dossier</p>
@@ -584,13 +584,13 @@ export function GlobeView({ actors, onOpen }: Props) {
         <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex gap-1.5 sm:gap-2 pointer-events-none">
           <div className="globe-card px-2.5 sm:px-3 py-1.5">
             <div className="font-mono text-xl sm:text-2xl font-bold text-slate-100">{actors.length}</div>
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-400">actors</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted">actors</div>
           </div>
           <div className="globe-card px-2.5 sm:px-3 py-1.5">
             <div className="font-mono text-xl sm:text-2xl font-bold text-slate-100">
               {new Set(actors.map((a) => a.country)).size}
             </div>
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-400">nations</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted">nations</div>
           </div>
         </div>
 
@@ -618,10 +618,10 @@ export function GlobeView({ actors, onOpen }: Props) {
             }}
           >
             <div className="font-semibold text-slate-100">{hovered.actor.name}</div>
-            <div className="text-slate-400 font-mono text-mini mt-0.5">
+            <div className="text-muted font-mono text-mini mt-0.5">
               {hovered.actor.apt} · {NATION_PALETTE[hovered.actor.country]?.name}
             </div>
-            <div className="text-slate-400 text-mini mt-1">
+            <div className="text-muted text-mini mt-1">
               {hovered.actor.motivation} · {hovered.actor.sectors.slice(0, 2).join(', ')}
             </div>
           </div>

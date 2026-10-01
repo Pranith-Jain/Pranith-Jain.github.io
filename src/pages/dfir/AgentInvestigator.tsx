@@ -209,7 +209,7 @@ function SpecialistProgressBar({ steps }: { steps: AgentStep[] }): JSX.Element {
 
   return (
     <div className="mb-4 p-3 surface-card">
-      <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-2">
+      <div className="text-xs font-mono font-bold uppercase tracking-wider text-muted mb-2 flex items-center gap-2">
         <Bot size={12} /> Specialist Chain
       </div>
       <div className="flex items-center gap-1 flex-wrap">
@@ -444,7 +444,7 @@ export default function AgentInvestigator(): JSX.Element {
         </>
       }
       headerExtra={
-        <p className="text-xs text-slate-500 font-mono flex items-center gap-2">
+        <p className="text-xs text-muted font-mono flex items-center gap-2">
           <span>2-6 step CTI investigation</span>
           <span>·</span>
           <span>30+ intel tools</span>
@@ -470,7 +470,7 @@ export default function AgentInvestigator(): JSX.Element {
                 if (e.key === 'Enter' && !e.shiftKey) startInvestigation();
               }}
               placeholder="Investigate: IP, domain, hash, CVE, threat actor, ransomware group..."
-              className="w-full pl-9 pr-10 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-10 py-3 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Investigation query"
               disabled={agentState?.status === 'running'}
             />
@@ -521,7 +521,7 @@ export default function AgentInvestigator(): JSX.Element {
                 key={ex}
                 type="button"
                 onClick={() => setQuery(ex)}
-                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded border border-line-1 hover:border-brand-500/40 text-muted transition-colors"
               >
                 {ex}
               </button>
@@ -551,7 +551,7 @@ export default function AgentInvestigator(): JSX.Element {
       {agentState && agentState.steps?.length > 0 && (
         <section className="mb-6 space-y-3" aria-label="Investigation steps">
           <SpecialistProgressBar steps={agentState.steps} />
-          <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+          <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-muted flex items-center gap-2">
             <Terminal size={14} /> Steps ({agentState.steps.length}/{agentState.maxSteps})
           </h2>
           {agentState.steps.map((step, i) => (
@@ -581,7 +581,7 @@ export default function AgentInvestigator(): JSX.Element {
             <Shield size={16} className="text-emerald-600" />
             <h2 className="text-lg font-display font-bold">Intelligence Report</h2>
             {agentState.modelUsed && (
-              <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
+              <span className="text-micro font-mono px-2 py-0.5 rounded border border-line-1 text-muted">
                 {agentState.modelUsed}
               </span>
             )}
@@ -601,7 +601,7 @@ export default function AgentInvestigator(): JSX.Element {
             <div className="ml-auto flex gap-2">
               <button
                 onClick={() => downloadReport(agentState, 'md')}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-line-1 hover:border-brand-500/40 text-muted"
               >
                 <Download size={12} /> .md
               </button>
@@ -657,7 +657,7 @@ export default function AgentInvestigator(): JSX.Element {
             (agentState.cost || agentState.priorIntelligence || agentState.modelUsed) && (
               <div className="mb-3 flex flex-wrap items-center gap-2 text-micro font-mono">
                 {agentState.modelUsed && (
-                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300">
+                  <span className="rounded bg-surface-300 px-2 py-0.5 text-slate-600 dark:text-slate-300">
                     {agentState.modelUsed}
                   </span>
                 )}
@@ -795,7 +795,7 @@ export default function AgentInvestigator(): JSX.Element {
       {/* Sessions list */}
       {sessions && sessions.length > 0 && !agentState && (
         <section className="surface-card p-4">
-          <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
+          <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-2">
             <Clock size={14} /> Recent Investigations
           </h2>
           <div className="space-y-1.5">
@@ -815,7 +815,7 @@ export default function AgentInvestigator(): JSX.Element {
                       })
                       .catch(() => {});
                   }}
-                  className="flex-1 text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)] flex items-center gap-3"
+                  className="flex-1 text-left px-3 py-2 rounded hover:bg-surface-200 dark:hover:bg-input-200/40 flex items-center gap-3"
                 >
                   <span
                     aria-hidden="true"
@@ -874,7 +874,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
         type="button"
         onClick={() => setExpanded(!expanded)}
         aria-expanded={expanded}
-        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
+        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-surface-200/60 dark:hover:bg-input-200/40 text-left"
       >
         <span
           className={`shrink-0 inline-flex flex-col items-center justify-center w-8 h-8 rounded border text-xs font-mono font-bold ${
@@ -913,7 +913,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
                 {specialistLabel}
               </span>
             )}
-            <span className="text-xs font-mono text-slate-500 truncate">
+            <span className="text-xs font-mono text-muted truncate">
               {step.plan.replace(/^\[[^\]]+\]\s*/, '').slice(0, 100)}
             </span>
           </div>
@@ -921,7 +921,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
             {step.toolCalls?.map((tc, i) => (
               <span
                 key={`${tc.tool}-${i}`}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted"
               >
                 <Zap size={8} className="inline mr-0.5" />
                 {tc.tool}
@@ -937,17 +937,14 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
+        <div className="px-4 pb-4 border-t border-line-1 space-y-3 bg-surface-200/40">
           <div className="mt-3">
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Plan</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Plan</div>
             <p className="text-xs font-mono text-body">{step.plan}</p>
           </div>
 
           {(step.results ?? []).map((r, i) => (
-            <div
-              key={`${r.tool}-${i}`}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5"
-            >
+            <div key={`${r.tool}-${i}`} className="rounded border border-line-1 p-2.5">
               <div className="flex items-center gap-2 mb-1">
                 <span
                   className={`text-micro font-mono font-bold ${r.status === 'ok' ? 'text-emerald-600' : 'text-rose-600'}`}
@@ -967,7 +964,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
 
           {step.observation && (
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Observation</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Observation</div>
               <p className="text-xs font-mono text-body">{step.observation}</p>
             </div>
           )}

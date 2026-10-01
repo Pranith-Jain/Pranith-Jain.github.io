@@ -117,15 +117,13 @@ export default function CtiBookmarks(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {stats && (
             <>
-              <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
-                {stats.total} links
-              </span>
+              <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">{stats.total} links</span>
               <span className="rounded border border-emerald-300 dark:border-emerald-700 px-2 py-1 font-mono text-emerald-700 dark:text-emerald-400">
                 live {stats.statusCounts.live ?? 0}
               </span>
@@ -153,7 +151,7 @@ export default function CtiBookmarks(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.total} bookmarks…`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex gap-2">
@@ -165,7 +163,7 @@ export default function CtiBookmarks(): JSX.Element {
                     className={`text-mini font-mono rounded border px-2.5 py-1 transition-colors ${
                       statusFilter === v
                         ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                     }`}
                   >
                     {v}
@@ -185,7 +183,7 @@ export default function CtiBookmarks(): JSX.Element {
                   className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                     levelFilter === lvl
                       ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   {lvl}
@@ -202,7 +200,7 @@ export default function CtiBookmarks(): JSX.Element {
                     className={`text-micro font-mono rounded border px-2 py-0.5 transition-colors ${
                       categoryFilter === cat
                         ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-950/30 text-brand-600 dark:text-brand-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/50'
                     }`}
                   >
                     {cat}
@@ -232,12 +230,8 @@ export default function CtiBookmarks(): JSX.Element {
                 </div>
                 {b.description && <p className="mt-1 text-xs text-muted">{b.description}</p>}
                 <div className="mt-2 flex flex-wrap items-center gap-1.5 text-micro font-mono text-muted">
-                  <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5">
-                    {b.level}
-                  </span>
-                  <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5">
-                    {b.category}
-                  </span>
+                  <span className="rounded border border-line-2 px-1.5 py-0.5">{b.level}</span>
+                  <span className="rounded border border-line-2 px-1.5 py-0.5">{b.category}</span>
                   <span className="px-1">{b.host}</span>
                   {b.platformRef && <span className="text-emerald-600 dark:text-emerald-400">→ {b.platformRef}</span>}
                 </div>

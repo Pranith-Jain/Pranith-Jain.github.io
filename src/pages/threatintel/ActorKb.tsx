@@ -256,7 +256,7 @@ export default function ActorKb(): JSX.Element {
       </div>
 
       {kbLoading && (
-        <div className="flex items-center gap-2 text-sm text-slate-500 font-mono py-8">
+        <div className="flex items-center gap-2 text-sm text-muted font-mono py-8">
           <RefreshCw size={12} className="animate-spin" /> Loading actor knowledge-base…
         </div>
       )}
@@ -269,7 +269,7 @@ export default function ActorKb(): JSX.Element {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search actor, alias, Gxxxx, technique, malware…"
               aria-label="Search threat actors"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-3 py-2.5 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted dark:placeholder:text-muted focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             />
           </div>
           {selected && (
@@ -292,14 +292,14 @@ export default function ActorKb(): JSX.Element {
 
               {selected.software.length > 0 && (
                 <div className="mt-4">
-                  <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+                  <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-1.5">
                     Tooling / malware ({selected.software.length})
                   </h3>
                   <div className="flex flex-wrap gap-1.5">
                     {selected.software.map((s) => (
                       <span
                         key={s}
-                        className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
+                        className="text-mini font-mono px-1.5 py-0.5 rounded border border-line-2 text-muted"
                       >
                         {s}
                       </span>
@@ -310,7 +310,7 @@ export default function ActorKb(): JSX.Element {
 
               {techByTactic.length > 0 && (
                 <div className="mt-4">
-                  <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
+                  <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">
                     Techniques ({selected.techniques.length}) by tactic
                   </h3>
                   <div className="space-y-3">
@@ -327,7 +327,7 @@ export default function ActorKb(): JSX.Element {
                               target="_blank"
                               rel="noopener noreferrer"
                               title={tech.name}
-                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-line-1 bg-surface-200 text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                             >
                               {tech.id} {tech.name}
                             </a>
@@ -340,8 +340,8 @@ export default function ActorKb(): JSX.Element {
               )}
 
               {/* Enrichment */}
-              <div className="mt-5 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-3">
+              <div className="mt-5 pt-4 border-t border-line-1">
+                <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-3">
                   Enrichment · Malpedia / Maltrail / OTX
                 </h3>
                 <DataState loading={enrichLoading} error={enrichError} rows={3}>
@@ -349,7 +349,7 @@ export default function ActorKb(): JSX.Element {
                     <div className="space-y-4">
                       {enrich.malpedia.length > 0 && (
                         <div>
-                          <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+                          <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5 flex items-center gap-1.5">
                             <BookOpen size={11} /> Malpedia ({enrich.malpedia.length})
                           </h4>
                           <div className="flex flex-wrap gap-1.5">
@@ -369,7 +369,7 @@ export default function ActorKb(): JSX.Element {
                       )}
                       {enrich.maltrail.length > 0 && (
                         <div>
-                          <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+                          <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5 flex items-center gap-1.5">
                             <Bug size={11} /> Maltrail ({enrich.maltrail.length})
                           </h4>
                           <div className="flex flex-wrap gap-1.5">
@@ -379,7 +379,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(t.filename)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
+                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-line-2 text-muted hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
                               >
                                 {t.displayName} <ExternalLink size={10} />
                               </a>
@@ -389,7 +389,7 @@ export default function ActorKb(): JSX.Element {
                       )}
                       {enrich.otx.length > 0 && (
                         <div>
-                          <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+                          <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5 flex items-center gap-1.5">
                             <Globe size={11} /> OTX Pulses ({enrich.otx.length})
                           </h4>
                           <div className="space-y-1">
@@ -399,14 +399,12 @@ export default function ActorKb(): JSX.Element {
                                 href={`https://otx.alienvault.com/pulse/${p.id}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                                className="block text-mini font-mono px-1.5 py-1 rounded border border-line-1 text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                               >
                                 <span className="text-heading">{p.name}</span>
-                                {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
+                                {p.author && <span className="ml-2 text-muted">by {p.author}</span>}
                                 {p.tags && p.tags.length > 0 && (
-                                  <span className="ml-2 text-micro text-slate-500">
-                                    {p.tags.slice(0, 4).join(' · ')}
-                                  </span>
+                                  <span className="ml-2 text-micro text-muted">{p.tags.slice(0, 4).join(' · ')}</span>
                                 )}
                               </a>
                             ))}
@@ -451,19 +449,19 @@ export default function ActorKb(): JSX.Element {
               >
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="font-display font-semibold truncate">{a.name}</span>
-                  <span className="text-micro font-mono text-slate-500 shrink-0">{a.attackId}</span>
+                  <span className="text-micro font-mono text-muted shrink-0">{a.attackId}</span>
                 </div>
                 {a.aliases.length > 0 && (
-                  <p className="text-mini font-mono text-slate-500 mt-0.5 truncate">{a.aliases.join(' · ')}</p>
+                  <p className="text-mini font-mono text-muted mt-0.5 truncate">{a.aliases.join(' · ')}</p>
                 )}
-                <p className="text-mini text-slate-500 mt-1">
+                <p className="text-mini text-muted mt-1">
                   {a.techniques.length} TTPs · {a.software.length} tools
                 </p>
               </button>
             ))}
           </div>
           {filtered.length > 240 && (
-            <p className="text-meta text-slate-500 mt-3">Showing first 240 - refine the search to narrow.</p>
+            <p className="text-meta text-muted mt-3">Showing first 240 - refine the search to narrow.</p>
           )}
         </>
       )}
@@ -524,10 +522,7 @@ export default function ActorKb(): JSX.Element {
         {skeletonMatches.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {skeletonMatches.slice(0, 60).map((sk) => (
-              <div
-                key={sk.slug}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-              >
+              <div key={sk.slug} className="rounded-xl border border-line-1 bg-surface-200 p-2.5">
                 <div className="flex items-baseline justify-between gap-2 mb-0.5">
                   <span className="font-display font-semibold text-sm truncate" title={sk.canonical_name}>
                     {sk.canonical_name}
@@ -536,7 +531,7 @@ export default function ActorKb(): JSX.Element {
                     skeleton
                   </span>
                 </div>
-                <p className="text-micro font-mono text-slate-500 truncate">{sk.slug}</p>
+                <p className="text-micro font-mono text-muted truncate">{sk.slug}</p>
                 <a
                   href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(sk.maltrail_file)}`}
                   target="_blank"
@@ -546,7 +541,7 @@ export default function ActorKb(): JSX.Element {
                 >
                   <Bug size={9} /> {sk.maltrail_file}
                   {typeof sk.ioc_size_bytes === 'number' && (
-                    <span className="text-slate-500"> · {Math.round(sk.ioc_size_bytes / 1024)}KB</span>
+                    <span className="text-muted"> · {Math.round(sk.ioc_size_bytes / 1024)}KB</span>
                   )}
                 </a>
               </div>

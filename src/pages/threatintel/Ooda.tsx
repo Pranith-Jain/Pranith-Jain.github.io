@@ -342,15 +342,15 @@ export default function Ooda(): JSX.Element {
                   <div className={`absolute inset-0 rounded-xl ${p.accent} pointer-events-none opacity-60`} />
                   <div className="relative flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-body">
+                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-surface-300 text-xs font-mono text-body">
                         {p.number}
                       </span>
                       <Icon className="h-4 w-4 text-body" />
                     </div>
                     {openPhase === p.id ? (
-                      <ChevronDown className="h-4 w-4 text-slate-500" />
+                      <ChevronDown className="h-4 w-4 text-muted" />
                     ) : (
-                      <ChevronRight className="h-4 w-4 text-slate-500" />
+                      <ChevronRight className="h-4 w-4 text-muted" />
                     )}
                   </div>
                   <div className="relative mt-2">
@@ -360,7 +360,7 @@ export default function Ooda(): JSX.Element {
                 </button>
                 {/* Loop arrow back to Observe on the last card. */}
                 {isLast && (
-                  <div className="hidden lg:flex absolute -bottom-3 left-1/2 -translate-x-1/2 items-center gap-1 text-micro font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-300 bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <div className="hidden lg:flex absolute -bottom-3 left-1/2 -translate-x-1/2 items-center gap-1 text-micro font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-300 bg-surface-100 px-2 py-0.5 rounded border border-line-1">
                     <Sparkles className="h-3 w-3" /> loops back to Observe
                   </div>
                 )}
@@ -375,9 +375,9 @@ export default function Ooda(): JSX.Element {
             const p = PHASES.find((x) => x.id === openPhase)!;
             const PIcon = p.icon;
             return (
-              <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-5">
+              <div className="mt-4 rounded-xl border border-line-1 bg-surface-200 p-5">
                 <div className="flex flex-wrap items-start gap-3">
-                  <div className={`rounded p-2 ring-1 ${p.ringClass} bg-white dark:bg-[rgb(var(--surface-200))]`}>
+                  <div className={`rounded p-2 ring-1 ${p.ringClass} bg-surface-100 dark:bg-surface-200`}>
                     <PIcon className="h-5 w-5 text-body" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -470,7 +470,7 @@ export default function Ooda(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-mini font-mono transition-colors ${
                     active
                       ? 'border-rose-400 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+                      : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200 text-muted hover:border-slate-300 dark:hover:border-line-1'
                   }`}
                 >
                   <span className="opacity-70">{phase.number}</span>
@@ -482,7 +482,7 @@ export default function Ooda(): JSX.Element {
           </div>
 
           <div className="flex items-start gap-3 mb-3">
-            <div className={`rounded p-2 ring-1 ${currentPhase.ringClass} bg-slate-50 dark:bg-[rgb(var(--input-200))]`}>
+            <div className={`rounded p-2 ring-1 ${currentPhase.ringClass} bg-surface-200 dark:bg-input-200`}>
               <WalkIcon className="h-5 w-5 text-body" />
             </div>
             <div className="flex-1 min-w-0">
@@ -494,7 +494,7 @@ export default function Ooda(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+          <div className="rounded border border-line-1 bg-surface-200 p-3">
             <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">
               Artifacts produced at this step
             </p>
@@ -513,7 +513,7 @@ export default function Ooda(): JSX.Element {
               type="button"
               onClick={() => setWalkStep((s) => Math.max(0, s - 1))}
               disabled={walkStep === 0}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-body hover:border-rose-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-[rgb(var(--border-400))]"
+              className="rounded border border-line-2 px-3 py-1 text-xs font-mono text-body hover:border-rose-400 disabled:opacity-40 disabled:hover:border-line-2 dark:disabled:hover:border-line-1"
             >
               &larr; previous
             </button>
@@ -546,7 +546,7 @@ export default function Ooda(): JSX.Element {
           </p>
         </header>
 
-        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="overflow-x-auto rounded-xl border border-line-1">
           <DataTable
             columns={
               [
@@ -562,7 +562,7 @@ export default function Ooda(): JSX.Element {
                   sortValue: (row: (typeof COMPARISON)[number]) => row.kind,
                   render: (row) => (
                     <span
-                      className={`inline-block rounded border px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider ${row.kind === 'process' ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body'}`}
+                      className={`inline-block rounded border px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider ${row.kind === 'process' ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300' : 'border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-surface-200 text-body'}`}
                     >
                       {row.kind}
                     </span>
@@ -594,7 +594,7 @@ export default function Ooda(): JSX.Element {
                         <ExternalLink className="h-3 w-3" />
                       </Link>
                     ) : (
-                      <span className="text-slate-400 dark:text-slate-500">&mdash;</span>
+                      <span className="text-muted">&mdash;</span>
                     ),
                 },
                 {
@@ -606,9 +606,7 @@ export default function Ooda(): JSX.Element {
             }
             rows={COMPARISON}
             rowKey={(row) => row.name}
-            rowClassName={() =>
-              '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--input-200)/0.5)]'
-            }
+            rowClassName={() => '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-input-200/50'}
           />
         </div>
       </section>
@@ -616,7 +614,7 @@ export default function Ooda(): JSX.Element {
       {/* ── References ──────────────────────────────────────────────── */}
       <section>
         <header className="mb-3 flex items-center gap-2">
-          <BookOpen className="h-4 w-4 text-slate-500" />
+          <BookOpen className="h-4 w-4 text-muted" />
           <h2 className="text-base font-semibold text-heading">References</h2>
         </header>
         <ul className="space-y-1.5 text-xs text-muted">

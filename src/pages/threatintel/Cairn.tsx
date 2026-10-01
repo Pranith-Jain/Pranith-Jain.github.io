@@ -104,7 +104,7 @@ interface ScanResult {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 
 const TIER_STYLES: Record<string, string> = {
   T1: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
@@ -400,7 +400,7 @@ export default function Cairn(): JSX.Element {
             </div>
             <div>
               <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Condition</div>
-              <p className="font-mono text-xs text-heading bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-line-1 rounded px-3 py-2 break-all">
+              <p className="font-mono text-xs text-heading bg-surface-200 border border-line-1 rounded px-3 py-2 break-all">
                 {ruleBody.condition}
               </p>
             </div>

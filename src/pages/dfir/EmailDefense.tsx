@@ -105,7 +105,7 @@ export default function EmailDefense(): JSX.Element {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="example.com"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-line-2 bg-surface-200 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               aria-label="Domain to check"
             />
           </div>
@@ -150,14 +150,14 @@ export default function EmailDefense(): JSX.Element {
                 {assessment.grade} · {assessment.spoofScore}/100
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-3">
+            <div className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-3">
               <div
                 className={`h-full transition-all ${SEVERITY_BAR[gradeSeverity(assessment.grade)]}`}
                 style={{ width: `${Math.max(2, assessment.spoofScore)}%` }}
               />
             </div>
             <p className="text-sm font-mono text-body mb-3">{assessment.headline}</p>
-            <p className="text-mini font-mono text-slate-400">
+            <p className="text-mini font-mono text-muted">
               Higher score = easier for an attacker to send mail "from" {data.domain} that lands in someone's inbox. 0
               means well-defended.
             </p>
@@ -255,10 +255,7 @@ export default function EmailDefense(): JSX.Element {
               </h2>
               <ul className="space-y-3">
                 {assessment.gaps.map((g) => (
-                  <li
-                    key={g.id}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                  >
+                  <li key={g.id} className="rounded border border-line-1 bg-surface-200 p-3">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-heading">{g.title}</span>
                       <span
@@ -273,7 +270,7 @@ export default function EmailDefense(): JSX.Element {
                     </p>
                     <p className="text-sm font-mono text-emerald-700 dark:text-emerald-400 mb-2">→ {g.remediation}</p>
                     {g.record && (
-                      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5 mt-2">
+                      <div className="rounded border border-line-1 bg-surface-100 p-2.5 mt-2">
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted">
                             Suggested record · {g.record.name} {g.record.type}
@@ -361,7 +358,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
       className={`rounded-xl border p-3 ${
         good
           ? 'border-emerald-500/30 bg-emerald-500/5'
-          : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
+          : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
       }`}
     >
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>
@@ -374,7 +371,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
 
 function RecordRow({ name, value }: { name: string; value: string }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
+    <div className="rounded border border-line-1 bg-surface-200 p-2.5">
       <div className="flex items-center justify-between gap-2 mb-1">
         <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted">{name}</span>
         <CopyChip value={value} />

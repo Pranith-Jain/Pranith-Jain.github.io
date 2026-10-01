@@ -31,7 +31,7 @@ interface PredictiveReport {
 const CONFIDENCE_BADGE: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
+  low: 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted',
 };
 
 const TREND_ICON: Record<string, JSX.Element> = {
@@ -74,8 +74,8 @@ export default function PredictiveIntel(): JSX.Element {
       emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-muted" />}
     >
       {summary && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-rose-500/5 to-rose-500/10 dark:from-rose-500/10 dark:to-rose-500/5 p-5 mb-6">
-          <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Executive Summary</div>
+        <div className="rounded-xl border border-line-1 bg-gradient-to-br from-rose-500/5 to-rose-500/10 dark:from-rose-500/10 dark:to-rose-500/5 p-5 mb-6">
+          <div className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Executive Summary</div>
           <p className="text-sm text-body leading-relaxed">{summary}</p>
         </div>
       )}
@@ -109,14 +109,14 @@ export default function PredictiveIntel(): JSX.Element {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <h3 className="font-display font-bold text-sm capitalize">{s.sector}</h3>
-                    <span className="flex items-center gap-1 text-xs text-slate-500">
+                    <span className="flex items-center gap-1 text-xs text-muted">
                       {TREND_ICON[s.trend]}
                       {s.trend}
                     </span>
                   </div>
                   <span className="text-lg font-display font-bold text-heading">{s.current_risk}</span>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
+                <div className="w-full bg-slate-200 dark:bg-surface-300 rounded-full h-2 mb-3">
                   <div
                     className={`h-2 rounded-full ${RISK_BAR_COLOR[s.trend]}`}
                     style={{ width: `${s.current_risk}%` }}
@@ -124,15 +124,12 @@ export default function PredictiveIntel(): JSX.Element {
                 </div>
                 <div className="flex flex-wrap gap-1 mb-2">
                   {s.top_threats.map((t, j) => (
-                    <span
-                      key={j}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                    >
+                    <span key={j} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                       {t.replace(/_/g, ' ')}
                     </span>
                   ))}
                 </div>
-                <p className="text-mini text-slate-500 leading-relaxed">{s.rationale}</p>
+                <p className="text-mini text-muted leading-relaxed">{s.rationale}</p>
               </div>
             ))}
           </div>
@@ -163,7 +160,7 @@ export default function PredictiveIntel(): JSX.Element {
                     <div className="text-micro font-mono text-muted">probability</div>
                   </div>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
+                <div className="w-full bg-slate-200 dark:bg-surface-300 rounded-full h-2 mb-3">
                   <div className="bg-rose-500 h-2 rounded-full" style={{ width: `${f.probability}%` }} />
                 </div>
                 {f.basis && f.basis.length > 0 && (
@@ -187,7 +184,7 @@ export default function PredictiveIntel(): JSX.Element {
                       {f.indicators_to_watch.map((ind, j) => (
                         <span
                           key={j}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted"
                         >
                           {ind}
                         </span>

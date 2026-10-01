@@ -59,8 +59,8 @@ interface RowProps {
 function Row({ label, value }: RowProps) {
   if (value === null || value === undefined || value === '') return null;
   return (
-    <div className="flex items-baseline justify-between py-1.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))] first:border-t-0">
-      <span className="text-xs uppercase tracking-wider text-slate-500 font-mono">{label}</span>
+    <div className="flex items-baseline justify-between py-1.5 border-t border-line-1 first:border-t-0">
+      <span className="text-xs uppercase tracking-wider text-muted font-mono">{label}</span>
       <span className="text-sm font-mono text-heading text-right break-all max-w-[60%]">{String(value)}</span>
     </div>
   );
@@ -174,7 +174,7 @@ export default function ExifParse(): JSX.Element {
         className={`mb-8 rounded-xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors w-full ${
           dragging
             ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/10'
-            : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-400 dark:hover:border-brand-600'
+            : 'border-slate-300 dark:border-line-1 hover:border-brand-400 dark:hover:border-brand-600'
         }`}
       >
         <Upload
@@ -185,7 +185,7 @@ export default function ExifParse(): JSX.Element {
           Drop an image here or{' '}
           <span className="text-brand-600 dark:text-brand-400 hover:underline">click to browse</span>
         </p>
-        <p className="mt-1 text-xs font-mono text-slate-500">JPEG · PNG · HEIC · TIFF</p>
+        <p className="mt-1 text-xs font-mono text-muted">JPEG · PNG · HEIC · TIFF</p>
         <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={onFileChange} />
       </button>
 
@@ -199,7 +199,7 @@ export default function ExifParse(): JSX.Element {
       {metadata && (
         <div className="animate-fade-in-up space-y-6">
           {/* File name */}
-          <div className="font-mono text-xs text-slate-500">
+          <div className="font-mono text-xs text-muted">
             Parsed: <span className="text-body">{fileName}</span>
           </div>
 

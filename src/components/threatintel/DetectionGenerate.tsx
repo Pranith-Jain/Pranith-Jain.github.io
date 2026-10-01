@@ -84,17 +84,17 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
   }, [result, ruleType, description, context]);
 
   return (
-    <div className="mt-2 border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
+    <div className="mt-2 border-t border-line-1 pt-2">
       <button
         onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-1.5 rounded-xl px-2 py-1 text-mini font-mono text-slate-500 hover:text-brand-600 hover:bg-slate-50 transition-colors dark:hover:bg-[rgb(var(--surface-200))]"
+        className="inline-flex items-center gap-1.5 rounded-xl px-2 py-1 text-mini font-mono text-muted hover:text-brand-600 hover:bg-surface-200 transition-colors dark:hover:bg-surface-200"
       >
         <Shield size={12} />
         Generate detection rule
         {open ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
       </button>
       {open && (
-        <div className="mt-2 space-y-2 rounded-xl border border-slate-200 bg-slate-50/50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]">
+        <div className="mt-2 space-y-2 rounded-xl border border-line-1 bg-surface-200/50 p-3 dark:bg-surface-200/30">
           <div className="flex items-center gap-1.5">
             <span className="text-mini font-medium text-body">Format:</span>
             {RULE_TYPES.map((r) => (
@@ -104,7 +104,7 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
                 className={`rounded px-1.5 py-0.5 text-micro font-semibold transition-colors ${
                   ruleType === r.id
                     ? r.color
-                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-muted'
+                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-surface-300 dark:text-muted'
                 }`}
               >
                 {r.label}
@@ -117,7 +117,7 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe what to detect (or leave blank for auto-detect)"
-              className="min-w-0 flex-1 rounded border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
+              className="min-w-0 flex-1 rounded border border-line-1 bg-surface-100 px-2 py-1 text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none dark:text-white"
             />
             <button
               onClick={generate}
@@ -135,21 +135,21 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
           )}
           {result && (
             <div className="relative">
-              <pre className="max-h-48 overflow-auto rounded border border-slate-200 bg-slate-100 p-2 font-mono text-mini dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
+              <pre className="max-h-48 overflow-auto rounded border border-line-1 bg-surface-300 p-2 font-mono text-mini">
                 {result}
               </pre>
               <div className="absolute right-1.5 top-1.5 flex gap-1">
                 <button
                   onClick={handleSave}
                   disabled={saving || saved}
-                  className="rounded bg-white/90 p-1 text-muted hover:text-brand-600 disabled:opacity-50 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
+                  className="rounded bg-surface-100/90 p-1 text-muted hover:text-brand-600 disabled:opacity-50 transition-colors"
                   aria-label="Save rule"
                 >
                   {saved ? <Check size={12} className="text-emerald-500" /> : <Save size={12} />}
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="rounded bg-white/90 p-1 text-muted hover:text-brand-600 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
+                  className="rounded bg-surface-100/90 p-1 text-muted hover:text-brand-600 transition-colors"
                   aria-label="Copy rule"
                 >
                   {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}

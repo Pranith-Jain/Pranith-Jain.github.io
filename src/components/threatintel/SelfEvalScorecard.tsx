@@ -43,12 +43,12 @@ function scoreBg(score: number): string {
 
 export function SelfEvalScorecard({ selfEval }: { selfEval: SelfEvalResult }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 mt-3">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 p-4 mt-3">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Star className="w-4 h-4 text-amber-500" />
           <h4 className="text-sm font-bold text-heading">Self-Evaluation</h4>
-          <span className="text-xs text-slate-500 font-mono">via {selfEval.modelUsed}</span>
+          <span className="text-xs text-muted font-mono">via {selfEval.modelUsed}</span>
         </div>
         <div className={`text-lg font-bold ${scoreColor(selfEval.overallScore)}`}>
           {selfEval.overallScore.toFixed(1)}/5
@@ -64,7 +64,7 @@ export function SelfEvalScorecard({ selfEval }: { selfEval: SelfEvalResult }): J
               {[1, 2, 3, 4, 5].map((n) => (
                 <div
                   key={n}
-                  className={`h-2 flex-1 rounded-sm ${n <= axis.score ? scoreBg(axis.score) : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))]'}`}
+                  className={`h-2 flex-1 rounded-sm ${n <= axis.score ? scoreBg(axis.score) : 'bg-slate-200 dark:bg-surface-300'}`}
                 />
               ))}
             </div>
@@ -98,14 +98,14 @@ export function SelfEvalScorecard({ selfEval }: { selfEval: SelfEvalResult }): J
               style={{ borderColor: axis.score >= 4 ? '#10b981' : axis.score >= 3 ? '#f59e0b' : '#f43f5e' }}
             >
               <div className="flex items-center gap-1 mb-0.5">
-                <CheckCircle2 className="w-3 h-3 text-slate-400" />
+                <CheckCircle2 className="w-3 h-3 text-muted" />
                 <span className="font-semibold text-body">{AXIS_LABELS[axis.axis]}</span>
               </div>
               <div className="text-muted mb-1">
-                <span className="font-mono text-slate-400">evidence:</span> {axis.evidence}
+                <span className="font-mono text-muted">evidence:</span> {axis.evidence}
               </div>
               <div className="text-muted">
-                <span className="font-mono text-slate-400">improve:</span> {axis.improvement}
+                <span className="font-mono text-muted">improve:</span> {axis.improvement}
               </div>
             </div>
           ))}

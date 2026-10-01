@@ -28,7 +28,7 @@ const USERNAME_RE = /^[A-Za-z0-9_.-]{1,40}$/;
 function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform: PlatformDef }) {
   const CatIcon = CAT_ICONS[platform.category] ?? Globe;
   return (
-    <div className="surface-card/40 shadow-e1 p-3 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors">
+    <div className="surface-card/40 shadow-e1 p-3 hover:border-line-2 dark:hover:border-line-1 transition-colors">
       <div className="flex items-start gap-3">
         <div className="shrink-0">
           {profile.avatarUrl ? (
@@ -36,10 +36,10 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
               loading="lazy"
               src={profile.avatarUrl}
               alt=""
-              className="w-10 h-10 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))]"
+              className="w-10 h-10 rounded-full border border-line-1"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-muted">
+            <div className="w-10 h-10 rounded-full bg-surface-300 flex items-center justify-center text-lg text-muted">
               {platform.icon}
             </div>
           )}
@@ -50,7 +50,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
               {profile.displayName ?? profile.username}
             </span>
             <span className="text-micro font-mono text-muted">@{profile.username}</span>
-            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 flex items-center gap-1">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted flex items-center gap-1">
               <CatIcon size={10} /> {CATEGORY_LABELS[platform.category] ?? platform.category}
             </span>
           </div>
@@ -175,7 +175,7 @@ export default function IdentityLookup(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="username (letters / digits / . _ -)"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-line-2 bg-surface-200 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
             />
@@ -209,7 +209,7 @@ export default function IdentityLookup(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                 }`}
               >
                 All ({PLATFORMS.length})
@@ -224,7 +224,7 @@ export default function IdentityLookup(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
                       categoryFilter === cat
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                     }`}
                   >
                     <CatIcon size={11} /> {CATEGORY_LABELS[cat] ?? cat} <span className="opacity-60">· {count}</span>
@@ -242,14 +242,14 @@ export default function IdentityLookup(): JSX.Element {
                 ) : (
                   <div
                     key={platform.id}
-                    className="flex items-center gap-3 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
+                    className="flex items-center gap-3 rounded border border-line-1 bg-surface-200 p-3"
                   >
-                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-muted">
+                    <div className="w-10 h-10 rounded-full bg-surface-300 flex items-center justify-center text-lg text-muted">
                       {platform.icon}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-display font-semibold text-sm text-slate-500">{platform.name}</span>
+                        <span className="font-display font-semibold text-sm text-muted">{platform.name}</span>
                         <span className="text-micro font-mono text-muted">@{query}</span>
                       </div>
                       <p className="text-mini font-mono text-muted mt-0.5">

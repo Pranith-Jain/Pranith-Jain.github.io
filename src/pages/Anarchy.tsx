@@ -86,7 +86,7 @@ interface AnarchyCourseBody {
 // portfolio's token system: tinted *-500/10 pills over surface cards, with the
 // /30 borders matching the rest of the threat-intel pages.
 const FILTER_META: Record<string, { label: string; color: string }> = {
-  all: { label: 'All', color: 'border-[rgb(var(--border-400))] text-muted' },
+  all: { label: 'All', color: 'border-line-1 text-muted' },
   aiml: { label: 'AI/ML', color: 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300' },
   exploits: { label: 'Low Level', color: 'border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300' },
   psyops: { label: 'PsyOps', color: 'border-pink-500/30 bg-pink-500/10 text-pink-700 dark:text-pink-300' },
@@ -146,7 +146,7 @@ const ALL_FILTERS = [
 
 // Shared input styling — identical to the threat-intel pages.
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-400';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-400';
 
 function sanitizeUrl(url: string): string {
   try {
@@ -530,7 +530,7 @@ export default function Anarchy() {
             href={UPSTREAM}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-xs font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-line-1 px-3 py-1.5 text-xs font-medium hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
           >
             Open upstream <ExternalLink className="w-3 h-3" />
           </a>
@@ -538,7 +538,7 @@ export default function Anarchy() {
             href={UPSTREAM_AUTHOR}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-xs font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-line-1 px-3 py-1.5 text-xs font-medium hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
           >
             Source: @KazamaDono
           </a>
@@ -567,7 +567,7 @@ export default function Anarchy() {
               <div className="text-sm font-bold text-heading font-mono">
                 {new Date(idx.syncedAt).toLocaleDateString()}
               </div>
-              <div className="text-mini font-mono text-slate-500">{new Date(idx.syncedAt).toLocaleTimeString()}</div>
+              <div className="text-mini font-mono text-muted">{new Date(idx.syncedAt).toLocaleTimeString()}</div>
             </div>
           </div>
 
@@ -598,7 +598,7 @@ export default function Anarchy() {
                       tabIndex={0}
                       role="button"
                       aria-label={`#${i + 1}: ${c.title} — open details`}
-                      className="group shrink-0 w-64 text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:border-brand-400 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+                      className="group shrink-0 w-64 text-left rounded-xl border border-line-1 bg-surface-100/50 p-4 hover:border-brand-400 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-mono text-sm font-bold text-muted">#{i + 1}</span>
@@ -612,7 +612,7 @@ export default function Anarchy() {
                           className={`w-7 h-7 rounded-full border flex items-center justify-center transition-colors ${
                             saved
                               ? 'bg-brand-500/10 border-brand-400 text-brand-400'
-                              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:text-heading'
+                              : 'border-slate-200 dark:border-line-1 text-muted hover:text-heading'
                           }`}
                         >
                           <Bookmark className="w-3.5 h-3.5" fill={saved ? 'currentColor' : 'none'} />
@@ -645,7 +645,7 @@ export default function Anarchy() {
           {/* Controls */}
           <div className="surface-card p-4 mb-4 space-y-3">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 ref={searchRef}
                 value={q}
@@ -692,7 +692,7 @@ export default function Anarchy() {
                   className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                     difficulty === d
                       ? 'border-brand-400 bg-brand-500/10 text-brand-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-400/40'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-400/40'
                   }`}
                 >
                   {d}
@@ -730,7 +730,7 @@ export default function Anarchy() {
                 className={`inline-flex items-center gap-1.5 px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                   savedOnly
                     ? 'border-brand-400 bg-brand-500/10 text-brand-400'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-400/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-400/40'
                 }`}
               >
                 <Bookmark className="w-3 h-3" /> Saved ({libraryCounts.saved})
@@ -744,14 +744,14 @@ export default function Anarchy() {
                 className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                   hideDone
                     ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-emerald-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-emerald-500/40'
                 }`}
               >
                 Hide done{libraryCounts.done > 0 ? ` (${libraryCounts.done})` : ''}
               </button>
               <button
                 onClick={() => setShowSettings((v) => !v)}
-                className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-heading transition-colors"
+                className="px-2 py-1 rounded text-xs font-mono border border-line-2 text-muted hover:text-heading transition-colors"
                 title="Settings — library export/import"
               >
                 Library…
@@ -780,13 +780,13 @@ export default function Anarchy() {
 
           {filtered.length === 0 ? (
             <div className="surface-card p-12 text-center">
-              <Search className="w-8 h-8 mx-auto text-slate-400 mb-3" />
+              <Search className="w-8 h-8 mx-auto text-muted mb-3" />
               <p className="text-sm text-body">
                 No courses match “{q}”{savedOnly ? ' in your saved library' : ''}.
               </p>
               <button
                 onClick={resetFilters}
-                className="mt-4 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                className="mt-4 px-4 py-2 rounded-xl border border-line-1 text-sm font-medium hover:bg-surface-200 dark:hover:bg-surface-300"
               >
                 Reset filters
               </button>
@@ -811,10 +811,10 @@ export default function Anarchy() {
                       tabIndex={0}
                       role="button"
                       aria-label={`${c.title} — open details`}
-                      className="group text-left rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 hover:border-brand-400 transition-colors overflow-hidden flex flex-col h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+                      className="group text-left rounded-xl border border-line-1 bg-surface-100/50 hover:border-brand-400 transition-colors overflow-hidden flex flex-col h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
                     >
                       {/* Image */}
-                      <div className="h-28 bg-slate-100 dark:bg-[rgb(var(--surface-300))] relative overflow-hidden border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="h-28 bg-surface-300 relative overflow-hidden border-b border-line-1">
                         {c.img ? (
                           <img
                             src={`https://kazamadono.github.io/${c.img}`}
@@ -827,14 +827,14 @@ export default function Anarchy() {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <BookOpen className="w-8 h-8 text-slate-400" />
+                            <BookOpen className="w-8 h-8 text-muted" />
                           </div>
                         )}
                         <div className="absolute top-2 left-2 flex gap-1 flex-wrap">
                           {c.tags.slice(0, 2).map((t) => {
                             const meta = FILTER_META[t] ?? {
                               label: t,
-                              color: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+                              color: 'border-slate-300 dark:border-line-1 text-muted',
                             };
                             return (
                               <span
@@ -858,7 +858,7 @@ export default function Anarchy() {
                             className={`w-7 h-7 rounded-full backdrop-blur border flex items-center justify-center transition-colors ${
                               saved
                                 ? 'bg-brand-500/20 border-brand-400 text-brand-400'
-                                : 'bg-white/80 dark:bg-black/50 border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:text-heading'
+                                : 'bg-white/80 dark:bg-black/50 border-slate-200 dark:border-line-1 text-muted hover:text-heading'
                             }`}
                           >
                             <Bookmark className="w-3.5 h-3.5" fill={saved ? 'currentColor' : 'none'} />
@@ -867,7 +867,7 @@ export default function Anarchy() {
                       </div>
                       <div className="p-4 flex-1 flex flex-col">
                         <div className="flex items-center gap-2 flex-wrap mb-1">
-                          <span className="text-micro font-mono text-slate-500">#{c.id}</span>
+                          <span className="text-micro font-mono text-muted">#{c.id}</span>
                           <span
                             className={`px-1.5 py-0.5 text-micro font-mono rounded border ${DIFFICULTY_PILL[c.difficulty]}`}
                           >
@@ -881,7 +881,7 @@ export default function Anarchy() {
                           {c.title}
                         </h3>
                         <p className="mt-1.5 text-xs text-muted line-clamp-3 leading-relaxed flex-1">{c.preview}</p>
-                        <div className="mt-3 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
+                        <div className="mt-3 pt-2 border-t border-line-1 flex items-center justify-between">
                           <span className="inline-flex items-center gap-1 text-mini font-mono text-body truncate">
                             <span>{c.provider.icon}</span> {c.provider.name}
                           </span>
@@ -911,7 +911,7 @@ export default function Anarchy() {
                 <div className="flex justify-center">
                   <button
                     onClick={() => setVisibleCount((n) => n + 48)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-line-1 text-sm font-medium hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                   >
                     Load more <ChevronDown className="w-4 h-4" />
                     <span className="text-muted font-mono text-xs">({filtered.length - visible.length} remaining)</span>
@@ -960,8 +960,8 @@ export default function Anarchy() {
           return (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
               <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeSelected} />
-              <div className="relative w-full max-w-2xl max-h-[90vh] overflow-hidden rounded-2xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] shadow-xl flex flex-col">
-                <div className="h-48 relative overflow-hidden shrink-0 bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+              <div className="relative w-full max-w-2xl max-h-[90vh] overflow-hidden rounded-2xl border border-line-1 bg-surface-100 shadow-xl flex flex-col">
+                <div className="h-48 relative overflow-hidden shrink-0 bg-surface-300">
                   {selected.img ? (
                     <img
                       src={`https://kazamadono.github.io/${selected.img}`}
@@ -970,7 +970,7 @@ export default function Anarchy() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <BookOpen className="w-12 h-12 text-slate-400" />
+                      <BookOpen className="w-12 h-12 text-muted" />
                     </div>
                   )}
                   <div className="absolute top-3 right-3 flex items-center gap-2">
@@ -982,7 +982,7 @@ export default function Anarchy() {
                       className={`h-8 px-3 rounded-full backdrop-blur border flex items-center gap-1.5 text-xs font-medium transition-colors ${
                         modalSaved
                           ? 'bg-brand-500/20 border-brand-400 text-brand-400'
-                          : 'bg-white/80 dark:bg-black/60 border-slate-200 dark:border-[rgb(var(--border-400))] text-heading'
+                          : 'bg-white/80 dark:bg-black/60 border-slate-200 dark:border-line-1 text-heading'
                       }`}
                     >
                       <Bookmark className="w-3.5 h-3.5" fill={modalSaved ? 'currentColor' : 'none'} />
@@ -991,7 +991,7 @@ export default function Anarchy() {
                     <button
                       onClick={closeSelected}
                       aria-label="Close details"
-                      className="w-8 h-8 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur border border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-center text-heading hover:bg-slate-100 dark:hover:bg-black/80 transition-colors"
+                      className="w-8 h-8 rounded-full bg-surface-100/80 dark:bg-black/60 backdrop-blur border border-line-1 flex items-center justify-center text-heading hover:bg-surface-300 dark:hover:bg-black/80 transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -1001,7 +1001,7 @@ export default function Anarchy() {
                       {(selectedBody?.tags ?? selected.tags).map((t) => {
                         const meta = FILTER_META[t] ?? {
                           label: t,
-                          color: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+                          color: 'border-slate-300 dark:border-line-1 text-muted',
                         };
                         return (
                           <span
@@ -1025,7 +1025,7 @@ export default function Anarchy() {
                 <div className="p-6 overflow-y-auto flex-1">
                   <p className="text-sm text-body leading-relaxed">{selectedBody?.desc ?? selected.preview}</p>
                   <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                    <div className="rounded-xl border border-line-1 p-3">
                       <div className="text-micro font-mono uppercase tracking-wider text-muted">Provider</div>
                       <div className="text-heading mt-1 flex items-center gap-1.5 truncate">
                         <span>{(selectedBody?.provider ?? selected.provider).icon}</span>{' '}
@@ -1033,7 +1033,7 @@ export default function Anarchy() {
                         {(selectedBody?.provider ?? selected.provider).host}
                       </div>
                     </div>
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                    <div className="rounded-xl border border-line-1 p-3">
                       <div className="text-micro font-mono uppercase tracking-wider text-muted">
                         ID · Difficulty · Hours
                       </div>
@@ -1051,7 +1051,7 @@ export default function Anarchy() {
                     </div>
                   </div>
                   {selectedBody?.prereqs && selectedBody.prereqs.length > 0 && (
-                    <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                    <div className="mt-4 rounded-xl border border-line-1 p-3">
                       <div className="text-micro font-mono uppercase tracking-wider text-muted">
                         Prerequisites · tag graph
                       </div>
@@ -1059,7 +1059,7 @@ export default function Anarchy() {
                         {selectedBody.prereqs.map((p) => {
                           const meta = FILTER_META[p] ?? {
                             label: p,
-                            color: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+                            color: 'border-slate-300 dark:border-line-1 text-muted',
                           };
                           return (
                             <button
@@ -1082,14 +1082,14 @@ export default function Anarchy() {
                   )}
                   {/* Phase 4 — similar courses */}
                   {similar.length > 0 && (
-                    <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                    <div className="mt-4 rounded-xl border border-line-1 p-3">
                       <div className="text-micro font-mono uppercase tracking-wider text-muted">Similar courses</div>
                       <div className="mt-2 grid gap-1.5">
                         {similar.map(({ course: c, reasons }) => (
                           <button
                             key={c.id}
                             onClick={() => openCourse(c)}
-                            className="text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400 px-3 py-2 transition-colors"
+                            className="text-left rounded-lg border border-line-1 hover:border-brand-400 px-3 py-2 transition-colors"
                           >
                             <div className="text-xs font-medium text-heading truncate">{c.title}</div>
                             <div className="text-mini font-mono text-muted truncate">
@@ -1101,7 +1101,7 @@ export default function Anarchy() {
                     </div>
                   )}
                   {/* Phase 3 — my track: progress + share */}
-                  <div className="mt-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                  <div className="mt-4 rounded-xl border border-line-1 p-3">
                     <div className="text-micro font-mono uppercase tracking-wider text-muted">
                       My track · saved in this browser
                     </div>
@@ -1120,7 +1120,7 @@ export default function Anarchy() {
                                   : s === 'doing'
                                     ? 'bg-amber-500/10 border-amber-500 text-amber-600 dark:text-amber-400'
                                     : 'bg-brand-500/10 border-brand-400 text-brand-400'
-                                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-400/40'
+                                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-400/40'
                             }`}
                           >
                             {s === 'todo' ? 'Not started' : s === 'doing' ? 'In progress' : 'Done'}
@@ -1138,15 +1138,15 @@ export default function Anarchy() {
                       </button>
                       <button
                         onClick={() => shareCourse(selectedBody ?? selected)}
-                        className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:text-heading transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-line-1 text-muted hover:text-heading transition-colors"
                       >
                         <ExternalLink className="w-3.5 h-3.5" /> Share…
                       </button>
-                      <span className="text-mini font-mono text-slate-500 truncate">{courseUrl(selected.id)}</span>
+                      <span className="text-mini font-mono text-muted truncate">{courseUrl(selected.id)}</span>
                     </div>
                   </div>
                 </div>
-                <div className="p-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex gap-3">
+                <div className="p-4 border-t border-line-1 flex gap-3">
                   <a
                     href={sanitizeUrl(selected.href)}
                     target="_blank"
@@ -1157,7 +1157,7 @@ export default function Anarchy() {
                   </a>
                   <button
                     onClick={closeSelected}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] px-6 py-3 text-sm font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                    className="rounded-xl border border-line-1 px-6 py-3 text-sm font-medium hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                   >
                     Close
                   </button>
@@ -1171,19 +1171,19 @@ export default function Anarchy() {
       {showSettings && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowSettings(false)} />
-          <div className="relative w-full max-w-md rounded-2xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] p-6 shadow-xl">
+          <div className="relative w-full max-w-md rounded-2xl border border-line-1 bg-surface-100 p-6 shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-heading">My library</h3>
               <button
                 onClick={() => setShowSettings(false)}
                 aria-label="Close settings"
-                className="w-8 h-8 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-center text-muted hover:text-heading"
+                className="w-8 h-8 rounded-full border border-line-1 flex items-center justify-center text-muted hover:text-heading"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
             <div className="space-y-4">
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+              <div className="rounded-xl border border-line-1 p-3">
                 <div className="text-xs text-muted">
                   {libraryCounts.saved} saved · {libraryCounts.doing} in progress · {libraryCounts.done} done — stored
                   in this browser only.
@@ -1191,7 +1191,7 @@ export default function Anarchy() {
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   <button
                     onClick={exportLibrary}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-xs font-medium text-heading hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line-1 px-3 py-1.5 text-xs font-medium text-heading hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                   >
                     <Download className="w-3.5 h-3.5" /> Export
                   </button>
@@ -1200,7 +1200,7 @@ export default function Anarchy() {
                       setImportError(null);
                       importRef.current?.click();
                     }}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-xs font-medium text-heading hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line-1 px-3 py-1.5 text-xs font-medium text-heading hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                   >
                     <Upload className="w-3.5 h-3.5" /> Import
                   </button>
@@ -1227,7 +1227,7 @@ export default function Anarchy() {
                   <div className="mt-2 text-xs text-rose-600 dark:text-rose-400">Import failed: {importError}</div>
                 )}
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 text-xs text-muted">
+              <div className="rounded-xl border border-line-1 p-3 text-xs text-muted">
                 <div>
                   Source:{' '}
                   <a

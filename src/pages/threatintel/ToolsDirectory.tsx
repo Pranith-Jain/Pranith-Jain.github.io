@@ -99,14 +99,12 @@ export default function ToolsDirectory(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {data && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
-              {data.count} tools
-            </span>
+            <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">{data.count} tools</span>
           )}
         </div>
       }
@@ -139,7 +137,7 @@ export default function ToolsDirectory(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} tools…`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
 
@@ -151,7 +149,7 @@ export default function ToolsDirectory(): JSX.Element {
                   className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                     selectedCategory === null
                       ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   all
@@ -164,7 +162,7 @@ export default function ToolsDirectory(): JSX.Element {
                     className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                       selectedCategory === cat
                         ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                     }`}
                   >
                     {cat}
@@ -188,7 +186,7 @@ export default function ToolsDirectory(): JSX.Element {
                     className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                       offensiveFilter === opt.value
                         ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                     }`}
                   >
                     {opt.label}
@@ -200,8 +198,8 @@ export default function ToolsDirectory(): JSX.Element {
 
           {/* Tool grid */}
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400" />
+            <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
+              <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No tools match your filters
               {query && <> for &quot;{query}&quot;</>}.
             </div>
@@ -243,7 +241,7 @@ function ToolCard({ tool }: { tool: ToolEntry }) {
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5 mb-2">
-        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted">
+        <span className="text-micro font-mono rounded-full border border-line-2 px-2 py-0.5 text-muted">
           {tool.category}
         </span>
         {tool.isOpenSource && (

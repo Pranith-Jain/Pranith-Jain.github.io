@@ -101,7 +101,7 @@ export function DiamondView({ actors, onOpen }: Props) {
     <div className="absolute inset-0 flex flex-col lg:flex-row overflow-hidden">
       {/* Sidebar — actor list */}
       <aside
-        className="w-full lg:w-60 border-b lg:border-b-0 lg:border-r bg-white/60 dark:bg-[rgb(var(--surface-200))] overflow-y-auto p-3 shrink-0 lg:h-auto h-48"
+        className="w-full lg:w-60 border-b lg:border-b-0 lg:border-r bg-surface-100/60 overflow-y-auto p-3 shrink-0 lg:h-auto h-48"
         style={{ borderColor: 'var(--edge)' }}
       >
         <div className="text-eyebrow font-mono text-muted mb-2">Actors · {actors.length}</div>
@@ -113,7 +113,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                 key={x.id}
                 onClick={() => setActive(x.id)}
                 data-active={active === x.id}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-left text-[12.5px] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] shrink-0 lg:shrink transition-all duration-200 hover:-translate-y-px"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-left text-[12.5px] hover:bg-surface-300 dark:hover:bg-surface-300 shrink-0 lg:shrink transition-all duration-200 hover:-translate-y-px"
                 style={
                   active === x.id
                     ? { background: `${n?.color ?? '#5b8def'}18`, color: n?.color, borderLeft: `2px solid ${n?.color}` }
@@ -354,7 +354,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                   {fd.items.map((item, i) => (
                     <div
                       key={i}
-                      className="flex items-start gap-3 py-1.5 px-2 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200 hover:-translate-y-px"
+                      className="flex items-start gap-3 py-1.5 px-2 rounded-md hover:bg-surface-200 dark:hover:bg-surface-300 transition-all duration-200 hover:-translate-y-px"
                     >
                       <span className="text-micro font-mono uppercase tracking-wider text-muted w-20 shrink-0 pt-0.5">
                         {item.label}

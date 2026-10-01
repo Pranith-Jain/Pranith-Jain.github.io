@@ -56,14 +56,14 @@ const SEVERITY_PILL: Record<RecentCve['severity'], string> = {
   HIGH: SEVERITY_TONE.high,
   MEDIUM: SEVERITY_TONE.medium,
   LOW: SEVERITY_TONE.low,
-  NONE: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
-  UNKNOWN: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  NONE: 'border-slate-300 dark:border-line-1 text-slate-500',
+  UNKNOWN: 'border-slate-300 dark:border-line-1 text-slate-500',
 };
 
 const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; tooltip: string }> = {
   nvd: {
     label: 'NVD',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+    cls: 'border-slate-300 dark:border-line-1 text-muted',
     tooltip: 'Canonical NIST National Vulnerability Database entry',
   },
   kev: {
@@ -220,7 +220,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by CVE id or description text…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter CVEs"
             />
           </div>
@@ -230,7 +230,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border ${
               kevOnly
                 ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40'
+                : 'border-slate-200 dark:border-line-1 hover:border-rose-500/40'
             }`}
             title="Toggle CISA KEV-only (actively exploited CVEs)"
           >
@@ -253,13 +253,13 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">severity:</span>
+          <span className="text-mini font-mono text-muted mr-1">severity:</span>
           {(['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'] as const).map((s) => {
             const active = severityFilter.has(s);
             return (
@@ -268,7 +268,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                 type="button"
                 onClick={() => toggleSeverity(s)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? SEVERITY_PILL[s] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                  active ? SEVERITY_PILL[s] : 'border-slate-300 dark:border-line-1 text-slate-500'
                 }`}
               >
                 {s}
@@ -288,7 +288,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
       </section>
 
       {data && (
-        <p className="text-mini font-mono text-slate-500 mb-4">
+        <p className="text-mini font-mono text-muted mb-4">
           Showing page {page}/{totalPages} ({pageItems.length} of {filtered.length} filtered, {data.count} total) ·
           sources: {(data.sources ?? []).map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} ·
           snapshot <span className="text-body">{shortRel(data.generated_at)}</span>
@@ -306,7 +306,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                   ? 'border-emerald-500/50 bg-emerald-50/40 dark:bg-emerald-900/10 ring-1 ring-emerald-500/20'
                   : c.kev
                     ? 'border-rose-500/40 bg-rose-50/30 dark:bg-rose-900/10'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
+                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
               }`}
             >
               <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
@@ -373,7 +373,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                   >
                     {c.severity}
                   </span>
-                  {c.score !== null && <span className="text-slate-500">{c.score.toFixed(1)}</span>}
+                  {c.score !== null && <span className="text-muted">{c.score.toFixed(1)}</span>}
                   {c.epss !== undefined && (
                     <span
                       className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300"
@@ -426,18 +426,18 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-line-2 disabled:opacity-30 hover:border-rose-500/40"
           >
             ← prev
           </button>
-          <span className="text-xs font-mono text-slate-500 px-2">
+          <span className="text-xs font-mono text-muted px-2">
             {page} / {totalPages}
           </span>
           <button
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-line-2 disabled:opacity-30 hover:border-rose-500/40"
           >
             next →
           </button>

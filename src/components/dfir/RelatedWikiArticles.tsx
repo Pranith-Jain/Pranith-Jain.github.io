@@ -37,7 +37,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
           <li key={a.slug}>
             <Link
               to={`/threatintel/wiki/${a.slug}`}
-              className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 hover:border-cyan-500/40"
+              className="block rounded border border-line-1 bg-surface-100 px-3 py-2 hover:border-cyan-500/40"
             >
               <div className="font-display font-semibold text-sm text-heading mb-0.5">{a.title}</div>
               <div className="text-micro font-mono text-muted">

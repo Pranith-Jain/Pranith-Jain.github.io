@@ -88,10 +88,7 @@ export default function ApprovedTab() {
     return (
       <div>
         <p className="text-rose-600 dark:text-rose-400 mb-2">Failed to load: {error}</p>
-        <button
-          onClick={() => void load()}
-          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
-        >
+        <button onClick={() => void load()} className="px-3 py-1 border border-line-1 rounded text-sm">
           Retry
         </button>
       </div>
@@ -159,7 +156,7 @@ export default function ApprovedTab() {
                     </button>
                     <button
                       onClick={() => unapprove(c.key)}
-                      className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                      className="px-2 py-1 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300"
                     >
                       Unapprove
                     </button>

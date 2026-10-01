@@ -178,7 +178,7 @@ function FamilyTag({ name }: { name: string }): JSX.Element {
 
 function SignatureTag({ tag }: { tag: string }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-slate-300 bg-slate-100 px-2 py-0.5 font-mono text-mini text-slate-700 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-300">
+    <span className="inline-flex items-center gap-1 rounded border border-line-2 bg-surface-300 px-2 py-0.5 font-mono text-mini text-slate-700 dark:text-slate-300">
       <Tag size={10} />
       {tag}
     </span>
@@ -196,12 +196,12 @@ function ProviderRow({ r }: { r: ProviderResultWire }): JSX.Element {
           : 'bg-emerald-500'
       : 'bg-slate-400';
   return (
-    <li className="flex items-center justify-between gap-2 rounded bg-slate-50 px-2 py-1.5 font-mono text-meta dark:bg-[rgb(var(--input-200))]">
+    <li className="flex items-center justify-between gap-2 rounded bg-surface-200 px-2 py-1.5 font-mono text-meta">
       <span className="flex items-center gap-2 truncate">
         <span className={`inline-block size-1.5 shrink-0 rounded-full ${dot}`} />
         <span className="truncate text-body">{r.source}</span>
       </span>
-      <span className="flex items-center gap-2 text-slate-500">
+      <span className="flex items-center gap-2 text-muted">
         {r.status === 'ok' ? (
           <>
             <Icon
@@ -355,11 +355,11 @@ export default function SampleScan(): JSX.Element {
           role="button"
           tabIndex={0}
           aria-label="Drop a file here or click to choose"
-          className="mt-3 cursor-pointer rounded border-2 border-dashed border-slate-300 p-6 text-center hover:border-brand-500/40 focus-visible:border-brand-500 focus-visible:outline-none dark:border-[rgb(var(--border-400))]"
+          className="mt-3 cursor-pointer rounded border-2 border-dashed border-line-2 p-6 text-center hover:border-brand-500/40 focus-visible:border-brand-500 focus-visible:outline-none"
         >
-          <FileSearch size={28} className="mx-auto mb-2 text-slate-500" />
+          <FileSearch size={28} className="mx-auto mb-2 text-muted" />
           <p className="font-mono text-sm text-body">Drop a file here, or click to choose</p>
-          <p className="mt-1 font-mono text-mini text-slate-500">8 MB hard cap (in-browser analysis limit)</p>
+          <p className="mt-1 font-mono text-mini text-muted">8 MB hard cap (in-browser analysis limit)</p>
           <input
             id="sample-scan-file"
             type="file"
@@ -373,7 +373,7 @@ export default function SampleScan(): JSX.Element {
 
         <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
           <div className="flex-1">
-            <label htmlFor="sample-scan-hash" className="font-mono text-mini uppercase tracking-wider text-slate-500">
+            <label htmlFor="sample-scan-hash" className="font-mono text-mini uppercase tracking-wider text-muted">
               …or paste a hash
             </label>
             <input
@@ -387,7 +387,7 @@ export default function SampleScan(): JSX.Element {
               placeholder="MD5 / SHA-1 / SHA-256 hex"
               spellCheck={false}
               autoComplete="off"
-              className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
+              className="mt-1 w-full rounded border border-line-1 bg-surface-200 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
             />
           </div>
           <button
@@ -416,17 +416,17 @@ export default function SampleScan(): JSX.Element {
             <h2 className={H2}>
               <FileSearch size={12} /> static analysis
             </h2>
-            <span className="font-mono text-mini text-slate-500">
+            <span className="font-mono text-mini text-muted">
               {analysis.filename} · {fmtBytes(analysis.size)}
               {analysis.truncated ? ' (truncated)' : ''}
             </span>
           </div>
           <dl className="mt-3 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1 font-mono text-meta">
-            <dt className="text-slate-500">Type</dt>
+            <dt className="text-muted">Type</dt>
             <dd className="text-heading">
               {analysis.fileType} · family <span className="text-brand-600 dark:text-brand-400">{analysis.family}</span>
             </dd>
-            <dt className="text-slate-500">Entropy</dt>
+            <dt className="text-muted">Entropy</dt>
             <dd className="text-heading">
               {analysis.entropy.toFixed(3)} / 8.000
               {analysis.entropy > 7.5 ? ' · ! likely packed/encrypted' : analysis.entropy > 7.0 ? ' · elevated' : ''}
@@ -434,17 +434,17 @@ export default function SampleScan(): JSX.Element {
           </dl>
           <ul className="mt-3 space-y-1 font-mono text-mini">
             <li className="flex items-center justify-between gap-2">
-              <span className="w-16 text-slate-500">SHA-256</span>
+              <span className="w-16 text-muted">SHA-256</span>
               <span className="flex-1 truncate text-heading">{analysis.sha256}</span>
               <CopyChip value={analysis.sha256} label="copy" />
             </li>
             <li className="flex items-center justify-between gap-2">
-              <span className="w-16 text-slate-500">SHA-1</span>
+              <span className="w-16 text-muted">SHA-1</span>
               <span className="flex-1 truncate text-heading">{analysis.sha1}</span>
               <CopyChip value={analysis.sha1} label="copy" />
             </li>
             <li className="flex items-center justify-between gap-2">
-              <span className="w-16 text-slate-500">MD5</span>
+              <span className="w-16 text-muted">MD5</span>
               <span className="flex-1 truncate text-heading">{analysis.md5}</span>
               <CopyChip value={analysis.md5} label="copy" />
             </li>
@@ -472,26 +472,26 @@ export default function SampleScan(): JSX.Element {
               <Sparkles size={12} /> composite verdict
             </h2>
             <VerdictChip verdict={done.verdict} />
-            <span className="font-mono text-meta text-slate-500">
+            <span className="font-mono text-meta text-muted">
               {done.score}/100 · {done.confidence} confidence · {done.contributing}/{meta?.providers.length ?? 0}{' '}
               providers
             </span>
           </div>
-          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
             <div
               className={`h-full ${VERDICT_BAR[done.verdict]} transition-all`}
               style={{ width: `${Math.max(2, done.score)}%` }}
             />
           </div>
           <dl className="mt-3 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1 font-mono text-meta">
-            <dt className="text-slate-500">Hash</dt>
+            <dt className="text-muted">Hash</dt>
             <dd className="break-all text-heading">
-              {done.hash} <span className="text-slate-500">({done.hash_type})</span>
+              {done.hash} <span className="text-muted">({done.hash_type})</span>
             </dd>
           </dl>
           {done.families.length > 0 && (
             <div className="mt-3">
-              <h3 className="mb-1 font-mono text-mini font-semibold uppercase tracking-wider text-slate-500">
+              <h3 className="mb-1 font-mono text-mini font-semibold uppercase tracking-wider text-muted">
                 Families ({done.families.length})
               </h3>
               <div className="flex flex-wrap gap-1.5">
@@ -503,7 +503,7 @@ export default function SampleScan(): JSX.Element {
           )}
           {done.signatures.length > 0 && (
             <div className="mt-3">
-              <h3 className="mb-1 font-mono text-mini font-semibold uppercase tracking-wider text-slate-500">
+              <h3 className="mb-1 font-mono text-mini font-semibold uppercase tracking-wider text-muted">
                 Signatures / tags ({done.signatures.length})
               </h3>
               <div className="flex flex-wrap gap-1.5">
@@ -511,7 +511,7 @@ export default function SampleScan(): JSX.Element {
                   <SignatureTag key={s} tag={s} />
                 ))}
                 {done.signatures.length > 30 && (
-                  <span className="font-mono text-mini text-slate-500">+{done.signatures.length - 30} more</span>
+                  <span className="font-mono text-mini text-muted">+{done.signatures.length - 30} more</span>
                 )}
               </div>
             </div>
@@ -531,7 +531,7 @@ export default function SampleScan(): JSX.Element {
             ))}
           </ul>
           {done && (
-            <p className="mt-3 font-mono text-mini text-slate-500">
+            <p className="mt-3 font-mono text-mini text-muted">
               Streaming as each engine responds - finished in {meta ? 'one round-trip' : '?'} of the SSE feed. Verdict
               biased toward malicious when ≥2 weighted providers agree.
             </p>
@@ -545,7 +545,7 @@ export default function SampleScan(): JSX.Element {
           <h2 className={H2}>
             <ExternalLink size={12} /> detonate in a free public sandbox
           </h2>
-          <p className="mt-2 font-mono text-mini text-slate-500">
+          <p className="mt-2 font-mono text-mini text-muted">
             One-click deep links to {done.public_sandboxes.length} free public sandboxes / lookup engines. Most are
             click-through only; a few require a free community API key for full results.
           </p>
@@ -553,7 +553,7 @@ export default function SampleScan(): JSX.Element {
             {done.public_sandboxes.map((s) => (
               <li
                 key={s.name}
-                className="flex items-start justify-between gap-2 rounded border border-slate-200 bg-slate-50 p-2 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
+                className="flex items-start justify-between gap-2 rounded border border-line-1 bg-surface-200 p-2"
               >
                 <div className="min-w-0 flex-1">
                   <a
@@ -565,7 +565,7 @@ export default function SampleScan(): JSX.Element {
                     {s.name}
                     <ExternalLink size={10} />
                   </a>
-                  <p className="mt-0.5 font-mono text-mini text-slate-500">{s.description}</p>
+                  <p className="mt-0.5 font-mono text-mini text-muted">{s.description}</p>
                 </div>
                 {s.requires_key && (
                   <span className="inline-flex shrink-0 items-center gap-0.5 rounded border border-amber-300 bg-amber-50 px-1.5 py-0.5 font-mono text-micro text-amber-700 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300">
@@ -579,20 +579,20 @@ export default function SampleScan(): JSX.Element {
       )}
 
       {!done && !busy && (
-        <p className="font-mono text-meta text-slate-500">
+        <p className="font-mono text-meta text-muted">
           <CheckCircle2 size={12} className="mr-1 inline-block text-emerald-500" />
           Nothing scanned yet. Drop a file or paste a hash to start.
         </p>
       )}
 
       {busy && !done && (
-        <p className="inline-flex items-center gap-2 font-mono text-meta text-slate-500">
+        <p className="inline-flex items-center gap-2 font-mono text-meta text-muted">
           <Loader2 size={12} className="animate-spin" />
           {phase === 'hashing' ? 'hashing in your browser…' : 'streaming from 10 free public engines…'}
         </p>
       )}
 
-      <p className="mt-6 font-mono text-mini text-slate-500">
+      <p className="mt-6 font-mono text-mini text-muted">
         Pairs with{' '}
         <Link to="/dfir/ioc-investigate" className="text-brand-600 hover:underline dark:text-brand-400">
           IOC checker

@@ -191,7 +191,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-mini font-mono text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)] dark:text-muted">
+      <div className="flex items-center gap-2 rounded-xl border border-line-1 bg-surface-100/40 px-3 py-2 text-mini font-mono text-muted">
         <Loader2 size={12} className="animate-spin" aria-hidden="true" />
         fetching intodns.ai grade…
       </div>
@@ -249,7 +249,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
           href={CITATIONS.liveReport(snapshot.domain)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1 rounded border border-slate-200 px-2.5 py-1 text-mini font-mono text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
+          className="inline-flex shrink-0 items-center gap-1 rounded border border-line-1 px-2.5 py-1 text-mini font-mono text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-surface-300/50 transition-colors"
         >
           view full <ExternalLink size={9} aria-hidden="true" />
         </a>
@@ -277,7 +277,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
 
       {/* Issues - only show critical/high by default; expand for the rest */}
       {issues.length > 0 && (
-        <div className="mt-3 border-t border-slate-200 pt-3 dark:border-[rgb(var(--border-400))]">
+        <div className="mt-3 border-t border-line-1 pt-3">
           <div className="text-mini font-mono uppercase tracking-[0.16em] text-muted">top issues</div>
           <ul className="mt-2 space-y-1.5 text-xs text-body">
             {issues.map((iss, i) => (
@@ -314,7 +314,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
         </div>
       )}
 
-      <footer className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 pt-2 dark:border-[rgb(var(--border-400))]">
+      <footer className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-line-1 pt-2">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-micro font-mono text-muted">
           <span className="flex items-center gap-1.5">
             <Sparkles size={9} aria-hidden="true" />
@@ -348,7 +348,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 hover:text-slate-700 dark:text-muted dark:hover:text-slate-200"
+          className="inline-flex items-center gap-1 text-mini font-mono text-muted hover:text-slate-700 dark:hover:text-slate-200"
           aria-expanded={expanded}
         >
           {expanded ? 'less' : 'more'}

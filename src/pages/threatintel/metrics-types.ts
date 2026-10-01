@@ -104,4 +104,3 @@ export function dayKey(iso: string): string {
 }
 
 /* ─── SVG chart primitives ──────────────────────────────────────────── */
-

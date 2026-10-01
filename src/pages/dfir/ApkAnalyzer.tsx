@@ -82,10 +82,10 @@ export default function ApkAnalyzer(): JSX.Element {
           }}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileRef.current?.click()}
-          className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+          className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
           aria-label="Drop an APK file or click to choose"
         >
-          <Upload size={32} className="mx-auto mb-2 text-slate-500" />
+          <Upload size={32} className="mx-auto mb-2 text-muted" />
           <p className="text-sm font-mono text-body">Drop an APK here, or click to choose</p>
           <p className="text-mini font-mono text-muted mt-1">100% client-side. Max 100 MB.</p>
         </button>
@@ -102,7 +102,7 @@ export default function ApkAnalyzer(): JSX.Element {
       </section>
 
       {loading && (
-        <p className="text-sm font-mono text-slate-500 mb-4 inline-flex items-center gap-2">
+        <p className="text-sm font-mono text-muted mb-4 inline-flex items-center gap-2">
           <Loader2 size={14} className="animate-spin" /> Parsing APK, extracting DEX headers, scanning strings...
         </p>
       )}
@@ -118,20 +118,20 @@ export default function ApkAnalyzer(): JSX.Element {
           <section className="surface-card p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
               <h2 className="font-display font-bold text-lg">{result.fileName}</h2>
-              <span className="text-xs font-mono text-slate-500">{fmtBytes(result.size)}</span>
+              <span className="text-xs font-mono text-muted">{fmtBytes(result.size)}</span>
             </div>
             <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-meta font-mono">
-              <dt className="text-slate-500">Package</dt>
+              <dt className="text-muted">Package</dt>
               <dd className="text-heading break-all">{result.analysis.packageName || 'unknown'}</dd>
               {result.analysis.appName && (
                 <>
-                  <dt className="text-slate-500">App name</dt>
+                  <dt className="text-muted">App name</dt>
                   <dd className="text-heading">{result.analysis.appName}</dd>
                 </>
               )}
               {result.analysis.versionName && (
                 <>
-                  <dt className="text-slate-500">Version</dt>
+                  <dt className="text-muted">Version</dt>
                   <dd className="text-heading">
                     {result.analysis.versionName} ({result.analysis.versionCode})
                   </dd>
@@ -139,28 +139,28 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.minSdk && (
                 <>
-                  <dt className="text-slate-500">Min SDK</dt>
+                  <dt className="text-muted">Min SDK</dt>
                   <dd className="text-heading">{result.analysis.minSdk}</dd>
                 </>
               )}
               {result.analysis.targetSdk && (
                 <>
-                  <dt className="text-slate-500">Target SDK</dt>
+                  <dt className="text-muted">Target SDK</dt>
                   <dd className="text-heading">{result.analysis.targetSdk}</dd>
                 </>
               )}
-              <dt className="text-slate-500">Entropy</dt>
+              <dt className="text-muted">Entropy</dt>
               <dd className="text-heading">
                 {result.entropy.toFixed(3)} / 8{' '}
                 {result.entropy > 7.5 && <span className="text-rose-600 dark:text-rose-400">(likely packed)</span>}
               </dd>
-              <dt className="text-slate-500">DEX files</dt>
+              <dt className="text-muted">DEX files</dt>
               <dd className="text-heading">{result.analysis.dexFiles.length}</dd>
-              <dt className="text-slate-500">Native libs</dt>
+              <dt className="text-muted">Native libs</dt>
               <dd className="text-heading">{result.analysis.nativeLibs.length}</dd>
-              <dt className="text-slate-500">Files</dt>
+              <dt className="text-muted">Files</dt>
               <dd className="text-heading">{result.analysis.fileCount} entries</dd>
-              <dt className="text-slate-500">Suspicious</dt>
+              <dt className="text-muted">Suspicious</dt>
               <dd
                 className={`font-semibold ${result.analysis.suspicious.length > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}
               >
@@ -183,7 +183,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 ] as const
               ).map(([label, val]) => (
                 <div key={label} className="flex items-center gap-2">
-                  <span className="text-slate-500 w-20 shrink-0">{label}</span>
+                  <span className="text-muted w-20 shrink-0">{label}</span>
                   <code className="text-heading break-all flex-1">{val}</code>
                   <CopyChip value={val} label="copy" />
                 </div>
@@ -198,7 +198,7 @@ export default function ApkAnalyzer(): JSX.Element {
               </Link>
               <Link
                 to={`/dfir/malware-scan?hash=${result.sha256}`}
-                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
               >
                 <ExternalLink size={10} /> Malware Scanner
               </Link>
@@ -239,7 +239,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 {result.analysis.permissions.map((p) => (
                   <span
                     key={p.name}
-                    className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-0.5 rounded border ${p.dangerous ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'}`}
+                    className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-0.5 rounded border ${p.dangerous ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-line-1 text-muted'}`}
                   >
                     {p.dangerous ? (
                       <AlertTriangle size={10} aria-hidden="true" />
@@ -261,10 +261,7 @@ export default function ApkAnalyzer(): JSX.Element {
               </h3>
               <div className="grid gap-2 sm:grid-cols-2">
                 {result.analysis.dexFiles.map((dex) => (
-                  <div
-                    key={dex.name}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                  >
+                  <div key={dex.name} className="rounded border border-line-1 bg-surface-200 p-2.5">
                     <div className="font-semibold text-sm text-heading mb-1">{dex.name}</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 text-micro font-mono text-muted">
                       <span>DEX v{dex.version}</span>
@@ -340,10 +337,7 @@ export default function ApkAnalyzer(): JSX.Element {
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.activities.map((a) => (
-                      <span
-                        key={a}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                      >
+                      <span key={a} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                         {a.split('.').pop()}
                       </span>
                     ))}
@@ -357,10 +351,7 @@ export default function ApkAnalyzer(): JSX.Element {
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.services.map((s) => (
-                      <span
-                        key={s}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                      >
+                      <span key={s} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                         {s.split('.').pop()}
                       </span>
                     ))}
@@ -374,10 +365,7 @@ export default function ApkAnalyzer(): JSX.Element {
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.receivers.map((r) => (
-                      <span
-                        key={r}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                      >
+                      <span key={r} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                         {r.split('.').pop()}
                       </span>
                     ))}
@@ -395,10 +383,7 @@ export default function ApkAnalyzer(): JSX.Element {
               </h3>
               <div className="flex flex-wrap gap-1">
                 {result.analysis.nativeLibs.map((lib) => (
-                  <span
-                    key={lib}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                  >
+                  <span key={lib} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                     {lib.split('/').pop()}
                   </span>
                 ))}

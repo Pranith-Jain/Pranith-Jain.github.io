@@ -246,7 +246,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
       {/* Tooltip */}
       {hoveredMarker && !selectedMarker && (
         <div className="fixed z-50 pointer-events-none" style={{ left: tooltipPos.x + 10, top: tooltipPos.y - 10 }}>
-          <div className="bg-white/95 dark:bg-[rgb(var(--surface-200))]/95 rounded-xl border border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 px-3 py-2 shadow-e3 max-w-xs">
+          <div className="bg-surface-100/95 rounded-xl border border-line-1/50 px-3 py-2 shadow-e3 max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
               <span className="text-micro font-mono uppercase text-muted">{KIND_LABELS[hoveredMarker.kind]}</span>
@@ -266,9 +266,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
               >
                 {hoveredMarker.severity}
               </span>
-              {hoveredMarker.source && (
-                <span className="text-micro font-mono text-slate-500">{hoveredMarker.source}</span>
-              )}
+              {hoveredMarker.source && <span className="text-micro font-mono text-muted">{hoveredMarker.source}</span>}
             </div>
           </div>
         </div>
@@ -276,7 +274,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
 
       {/* Selected Marker Detail Panel */}
       {selectedMarker && (
-        <div className="absolute top-4 right-4 bg-white/95 dark:bg-[rgb(var(--surface-200))]/95 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 max-w-sm shadow-e3 z-10">
+        <div className="absolute top-4 right-4 bg-surface-100/95 rounded-xl border border-line-1 p-4 max-w-sm shadow-e3 z-10">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
@@ -310,9 +308,9 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
                   {selectedMarker.severity}
                 </span>
                 {selectedMarker.source && (
-                  <span className="text-micro font-mono text-slate-500">{selectedMarker.source}</span>
+                  <span className="text-micro font-mono text-muted">{selectedMarker.source}</span>
                 )}
-                <span className="text-micro font-mono text-slate-500">
+                <span className="text-micro font-mono text-muted">
                   {selectedMarker.lat.toFixed(2)}, {selectedMarker.lng.toFixed(2)}
                 </span>
               </div>
@@ -331,7 +329,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, fo
       )}
 
       {/* Marker count overlay */}
-      <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-[rgb(var(--surface-200))]/80 rounded px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="absolute bottom-2 left-2 bg-surface-100/80 rounded px-2 py-1 border border-line-1">
         <span className="text-micro font-mono text-muted">{markers.length} points · Click for details</span>
       </div>
     </div>

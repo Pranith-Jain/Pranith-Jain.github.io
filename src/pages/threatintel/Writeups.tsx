@@ -212,21 +212,21 @@ export default function Writeups(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, source, author, tag, or summary…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter writeups"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-3">
-            <span className="text-mini font-mono text-slate-500 mr-1">platform:</span>
+            <span className="text-mini font-mono text-muted mr-1">platform:</span>
             {(['rss', 'medium', 'devto', 'hashnode', 'manual'] as const).map((k) => {
               const count = kindCounts[k];
               if (count === 0) return null;
@@ -237,7 +237,7 @@ export default function Writeups(): JSX.Element {
                   type="button"
                   onClick={() => toggleKind(k)}
                   className={`text-mini font-mono px-2 py-1 rounded border ${
-                    active ? KIND_PILL[k] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                    active ? KIND_PILL[k] : 'border-slate-300 dark:border-line-1 text-slate-500'
                   }`}
                 >
                   {KIND_LABEL[k]} <span className="opacity-70">· {count}</span>
@@ -248,7 +248,7 @@ export default function Writeups(): JSX.Element {
         )}
         {data && sourceCounts.size > 1 && (
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="text-mini font-mono text-slate-500 mr-1">source:</span>
+            <span className="text-mini font-mono text-muted mr-1">source:</span>
             {Array.from(sourceCounts.entries())
               .sort((a, b) => b[1] - a[1])
               .map(([src, count]) => {
@@ -261,7 +261,7 @@ export default function Writeups(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                        : 'border-slate-300 dark:border-line-1 text-slate-500'
                     }`}
                   >
                     {src} <span className="opacity-70">· {count}</span>
@@ -283,7 +283,7 @@ export default function Writeups(): JSX.Element {
           </div>
         )}
         {data && (
-          <p className="text-mini font-mono text-slate-500 mt-3">
+          <p className="text-mini font-mono text-muted mt-3">
             Showing <span className="text-body">{filtered.length}</span> of{' '}
             <span className="text-body">{data.total}</span> writeups across{' '}
             <span className="text-body">
@@ -338,7 +338,7 @@ export default function Writeups(): JSX.Element {
               {it.description && (
                 <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{it.description}</p>
               )}
-              <div className="flex items-center gap-2 text-mini font-mono text-slate-500 flex-wrap">
+              <div className="flex items-center gap-2 text-mini font-mono text-muted flex-wrap">
                 <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
                 {it.published && (
                   <span title={formatDate(it.published)}>{shortRel(it.published) || formatDate(it.published)}</span>
@@ -347,10 +347,7 @@ export default function Writeups(): JSX.Element {
                 {it.tags && it.tags.length > 0 && (
                   <span className="flex flex-wrap gap-1 ml-1">
                     {it.tags.slice(0, 4).map((t) => (
-                      <span
-                        key={t}
-                        className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                      >
+                      <span key={t} className="px-1 py-0.5 rounded bg-surface-300 text-muted">
                         {t}
                       </span>
                     ))}

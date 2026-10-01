@@ -14,15 +14,7 @@
  */
 
 export type Category =
-  | 'developer'
-  | 'social'
-  | 'forum'
-  | 'gaming'
-  | 'professional'
-  | 'creative'
-  | 'video'
-  | 'music'
-  | 'finance';
+  'developer' | 'social' | 'forum' | 'gaming' | 'professional' | 'creative' | 'video' | 'music' | 'finance';
 
 export type CheckMode = 'active' | 'manual';
 

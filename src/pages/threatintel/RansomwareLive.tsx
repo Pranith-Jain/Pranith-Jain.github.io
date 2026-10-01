@@ -100,12 +100,12 @@ function CodeBlock({ code, lang }: { code: string; lang?: string }): JSX.Element
       <button
         type="button"
         onClick={() => copy(code)}
-        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-2 py-1 text-micro font-mono inline-flex items-center gap-1 hover:border-rose-500/40"
+        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity rounded border border-line-2 bg-surface-100 px-2 py-1 text-micro font-mono inline-flex items-center gap-1 hover:border-rose-500/40"
       >
         {copied ? <Check size={11} className="text-green-500" /> : <Copy size={11} />}
         {copied ? 'copied' : 'copy'}
       </button>
-      <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-body max-h-[50vh]">
+      <pre className="rounded-xl border border-line-1 bg-surface-200 p-3 overflow-auto font-mono text-mini text-body max-h-[50vh]">
         {lang && <div className="text-micro text-muted mb-1">{lang}</div>}
         {code}
       </pre>
@@ -115,7 +115,7 @@ function CodeBlock({ code, lang }: { code: string; lang?: string }): JSX.Element
 
 function RawJson({ value }: { value: unknown }): JSX.Element {
   return (
-    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-body max-h-[60vh]">
+    <pre className="rounded-xl border border-line-1 bg-surface-200 p-3 overflow-auto font-mono text-mini text-body max-h-[60vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -129,8 +129,7 @@ function Pill({
   tone?: 'slate' | 'brand' | 'amber' | 'green' | 'red';
 }): JSX.Element {
   const tones: Record<string, string> = {
-    slate:
-      'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-body',
+    slate: 'border-slate-300 dark:border-line-1 bg-slate-100 dark:bg-surface-200 text-body',
     brand: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     amber: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
     green: 'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300',
@@ -224,7 +223,7 @@ function StatsView({ data }: { data: unknown }): JSX.Element {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {entries.map(([k, v]) => (
           <div key={k} className="surface-card p-4">
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k.replace(/_/g, ' ')}</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-muted">{k.replace(/_/g, ' ')}</div>
             <div className="font-display font-bold text-xl text-heading">{String(v)}</div>
           </div>
         ))}
@@ -257,7 +256,7 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter groups…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-line-2 bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
         <span className="font-mono text-micro text-muted">{filtered.length} groups</span>
@@ -329,7 +328,7 @@ function GroupDetail({ group }: { group: string }): JSX.Element | null {
   const hasRansomnote = d.has_ransomnote === true || Boolean(d.ransomnotes_count);
 
   return (
-    <div className="px-3 pb-3 space-y-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
+    <div className="px-3 pb-3 space-y-3 border-t border-line-1 pt-2">
       {desc && <p className="font-mono text-mini text-muted line-clamp-4">{desc}</p>}
       <div className="flex flex-wrap gap-1.5">
         {firstseen && <Pill>first: {firstseen}</Pill>}
@@ -401,7 +400,7 @@ function GroupDetail({ group }: { group: string }): JSX.Element | null {
             {locations.slice(0, 5).map((l, i) => {
               const url = pick(l, ['url', 'onion', 'clearweb', 'location']) ?? '';
               return url ? (
-                <div key={i} className="font-mono text-micro text-slate-500 truncate">
+                <div key={i} className="font-mono text-micro text-muted truncate">
                   <MapPin size={9} className="inline mr-1" />
                   {url}
                 </div>
@@ -439,7 +438,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter victims…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-line-2 bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
         <span className="font-mono text-micro text-muted">{filtered.length} victims</span>
@@ -493,7 +492,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
                     loading="lazy"
                     src={screenshot}
                     alt={`${victim} leak screenshot`}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-32 w-full object-cover"
+                    className="rounded-xl border border-line-1 max-h-32 w-full object-cover"
                   />
                 </a>
               )}
@@ -588,7 +587,7 @@ function YaraRules({ group, onBack }: { group: string; onBack: () => void }): JS
               role="tab"
               type="button"
               onClick={() => setActiveRule(i)}
-              className={`px-2 py-1 rounded font-mono text-micro border ${i === activeRule ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}
+              className={`px-2 py-1 rounded font-mono text-micro border ${i === activeRule ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-line-1 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}
             >
               {fn}
             </button>
@@ -699,7 +698,7 @@ function IocValues({ group, onBack }: { group: string; onBack: () => void }): JS
                   {copied ? <Check size={10} /> : <Copy size={10} />} copy all
                 </button>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-2 max-h-48 overflow-auto">
+              <div className="rounded-xl border border-line-1 bg-surface-200 p-2 max-h-48 overflow-auto">
                 {arr.slice(0, 200).map((v, i) => (
                   <div key={i} className="font-mono text-mini text-muted py-0.5 break-all">
                     {typeof v === 'string' ? v : JSON.stringify(v)}
@@ -776,7 +775,7 @@ function KqlView(): JSX.Element | null {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter by title, group, MITRE…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-line-2 bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
         <span className="font-mono text-micro text-muted">
@@ -886,11 +885,11 @@ function CountryMapView(): JSX.Element | null {
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
         <div className="surface-card p-3">
-          <div className="text-micro font-mono uppercase text-slate-500">Victims</div>
+          <div className="text-micro font-mono uppercase text-muted">Victims</div>
           <div className="font-display font-bold text-xl">{data.total_victims}</div>
         </div>
         <div className="surface-card p-3">
-          <div className="text-micro font-mono uppercase text-slate-500">Countries</div>
+          <div className="text-micro font-mono uppercase text-muted">Countries</div>
           <div className="font-display font-bold text-xl">{data.total_countries}</div>
         </div>
       </div>
@@ -901,7 +900,7 @@ function CountryMapView(): JSX.Element | null {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter countries…"
-            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
+            className="w-full pl-7 pr-2 py-1.5 rounded-xl border border-line-2 bg-transparent text-sm font-mono focus:border-rose-500/40 outline-none"
           />
         </div>
       </div>
@@ -924,7 +923,7 @@ function CountryMapView(): JSX.Element | null {
               </div>
               <Pill tone="brand">{c.victim_count} victims</Pill>
             </div>
-            <div className="h-1.5 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+            <div className="h-1.5 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
               <div
                 className="h-full bg-rose-500 rounded-full"
                 style={{ width: `${(c.victim_count / maxCount) * 100}%` }}
@@ -1003,11 +1002,7 @@ export default function RansomwareLive(): JSX.Element {
       }
       headerExtra={
         <div className="space-y-4">
-          <div
-            role="tablist"
-            aria-label="Tabs"
-            className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-          >
+          <div role="tablist" aria-label="Tabs" className="flex flex-wrap gap-1 border-b border-line-1">
             {TABS.map((t) => {
               const Icon = t.icon;
               return (
@@ -1025,13 +1020,13 @@ export default function RansomwareLive(): JSX.Element {
             })}
           </div>
           <div className="flex items-center justify-between gap-3">
-            <p className="font-mono text-mini text-slate-500">{active.blurb}</p>
+            <p className="font-mono text-mini text-muted">{active.blurb}</p>
             {proxyUrl && (
               <button
                 type="button"
                 onClick={refresh}
                 disabled={loading}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50 transition-colors"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50 transition-colors"
                 aria-label={`Refresh ${active.label}`}
               >
                 <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh

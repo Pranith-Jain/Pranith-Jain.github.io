@@ -312,7 +312,7 @@ export default function Notebooks() {
                 className={`px-3 py-1 rounded-full text-xs font-mono transition-colors ${
                   statusFilter === s
                     ? 'bg-brand-600 text-white'
-                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:text-slate-900 dark:hover:text-slate-200'
+                    : 'bg-slate-100 dark:bg-surface-300 text-muted hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {s || 'All'}
@@ -346,7 +346,7 @@ export default function Notebooks() {
                     className={`p-4 rounded-xl cursor-pointer transition-all border ${
                       selectedNotebook === nb.id
                         ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10 dark:border-brand-500/40'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-300 dark:hover:border-brand-500/30'
+                        : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300 dark:hover:border-brand-500/30'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
@@ -423,7 +423,7 @@ export default function Notebooks() {
                       {selected.tags.map((t) => (
                         <span
                           key={t}
-                          className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                          className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-mono bg-surface-300 text-muted border border-line-1"
                         >
                           <Tag size={10} />
                           {t}
@@ -466,7 +466,7 @@ export default function Notebooks() {
                         }
                       }}
                       disabled={summaryLoading || entries.length === 0}
-                      className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50 whitespace-nowrap"
+                      className="px-3 py-2 rounded-xl border border-line-2 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50 whitespace-nowrap"
                     >
                       {summaryLoading ? (
                         <Loader2 size={14} className="inline mr-1 animate-spin" />
@@ -514,7 +514,7 @@ export default function Notebooks() {
                             className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono transition-colors ${
                               entryType === t
                                 ? 'bg-brand-600 text-white'
-                                : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]'
+                                : 'bg-white dark:bg-surface-200 text-muted border border-slate-200 dark:border-line-1'
                             }`}
                           >
                             <Icon size={12} />
@@ -581,7 +581,7 @@ export default function Notebooks() {
                         className={`p-4 rounded-xl border ${
                           entry.pinned
                             ? 'border-brand-200 dark:border-brand-500/30 bg-brand-50/50 dark:bg-brand-500/5'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
+                            : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -673,7 +673,7 @@ export default function Notebooks() {
                       className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-colors ${
                         newSeverity === s
                           ? `${SEVERITY_COLORS[s]} ring-1 ring-current`
-                          : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]'
+                          : 'bg-slate-100 dark:bg-surface-300 text-muted border border-slate-200 dark:border-line-1'
                       }`}
                     >
                       {s}

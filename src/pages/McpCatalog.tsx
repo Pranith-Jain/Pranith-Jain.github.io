@@ -117,13 +117,13 @@ function CopyableJson({ value, label }: { value: string; label: string }) {
     }
   };
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] overflow-hidden">
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-meta text-muted">
+    <div className="rounded-xl border border-line-1 bg-surface-200/40 overflow-hidden">
+      <div className="flex items-center justify-between border-b border-line-1 px-3 py-1.5 text-meta text-muted">
         <span className="font-mono">{label}</span>
         <button
           type="button"
           onClick={onCopy}
-          className="inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-body hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="inline-flex items-center gap-1 rounded border border-line-1 px-2 py-0.5 text-body hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? 'Copied' : 'Copy'}
@@ -211,15 +211,11 @@ export default function McpCatalogPage(): JSX.Element {
           <div className="flex flex-wrap items-center gap-3 text-meta text-muted">
             <span>
               <span className="text-heading font-medium">Endpoint</span>{' '}
-              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-body">
-                {ENDPOINT}
-              </code>
+              <code className="rounded bg-surface-300 px-2 py-0.5 text-meta font-mono text-body">{ENDPOINT}</code>
             </span>
             <span>
               <span className="text-heading font-medium">Transport</span>{' '}
-              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-body">
-                streamable-http
-              </code>
+              <code className="rounded bg-surface-300 px-2 py-0.5 text-meta font-mono text-body">streamable-http</code>
             </span>
           </div>
           <a
@@ -243,18 +239,12 @@ export default function McpCatalogPage(): JSX.Element {
             </li>
             <li>Drop one of the snippets below into the matching config file.</li>
             <li>
-              Replace{' '}
-              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 text-meta">
-                &lt;your-api-key&gt;
-              </code>{' '}
-              with the real key.
+              Replace <code className="rounded bg-surface-300 px-1 text-meta">&lt;your-api-key&gt;</code> with the real
+              key.
             </li>
             <li>
               Restart the client. Tools appear as{' '}
-              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 text-meta">
-                mcp__dfir-threatintel__&lt;tool_name&gt;
-              </code>
-              .
+              <code className="rounded bg-surface-300 px-1 text-meta">mcp__dfir-threatintel__&lt;tool_name&gt;</code>.
             </li>
           </ol>
           <div className="grid gap-4 lg:grid-cols-3">
@@ -279,7 +269,7 @@ export default function McpCatalogPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${manifest?.toolCount ?? ''} tools...`}
-              className="w-full rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-heading placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
+              className="w-full rounded border border-line-1 bg-surface-100 py-2 pl-9 pr-3 text-tool text-heading placeholder:text-muted focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
             />
             {query && (
               <button
@@ -331,7 +321,7 @@ export default function McpCatalogPage(): JSX.Element {
                   <li key={t.name} className="surface-card p-3">
                     <div className="flex items-baseline justify-between gap-2">
                       <code className="text-tool font-semibold text-brand-600 dark:text-brand-400">{t.name}</code>
-                      <span className="rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono uppercase tracking-wider text-muted">
+                      <span className="rounded-full border border-line-1 px-2 py-0.5 text-micro font-mono uppercase tracking-wider text-muted">
                         {t.category}
                       </span>
                     </div>
@@ -343,7 +333,7 @@ export default function McpCatalogPage(): JSX.Element {
           ))}
         </div>
 
-        <footer className="mt-12 pt-6 text-tool text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <footer className="mt-12 pt-6 text-tool text-muted border-t border-line-1">
           <p>
             The manifest at <code>/mcp-manifest.json</code> is auto-generated from <code>worker/mcp-server.ts</code> by{' '}
             <code>scripts/build-mcp-manifest.mjs</code> on every build. To add a tool, register it with{' '}
@@ -405,13 +395,13 @@ function FilterPill({
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
         active
           ? `${accent} border-current bg-current/10`
-          : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-muted hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-slate-100'
+          : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 text-muted hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-slate-100'
       }`}
     >
       {label}
       <span
         className={`rounded-full px-1.5 py-0.5 text-micro font-mono ${
-          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
+          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-surface-300'
         }`}
       >
         {count}

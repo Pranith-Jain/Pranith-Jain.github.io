@@ -40,7 +40,7 @@ function layouted(nodes: Node[], edges: Edge[]): { nodes: Node[]; edges: Edge[] 
   return {
     nodes: nodes.map((n) => {
       const p = g.node(n.id) ?? { x: 0, y: 0 };
-      const d = ((n.data ?? {}) as Record<string, unknown>);
+      const d = (n.data ?? {}) as Record<string, unknown>;
       const t = String(d.type ?? n.type ?? 'action');
       const color = NODE_COLORS[t] ?? '#94a3b8';
       return {
@@ -73,7 +73,13 @@ export default function FlowVizCanvas({
 }): JSX.Element {
   const laid = useMemo(() => layouted(nodes, edges), [nodes, edges]);
   return (
-    <ReactFlow nodes={laid.nodes} edges={laid.edges} onNodeClick={onNodeClick} fitView proOptions={{ hideAttribution: true }}>
+    <ReactFlow
+      nodes={laid.nodes}
+      edges={laid.edges}
+      onNodeClick={onNodeClick}
+      fitView
+      proOptions={{ hideAttribution: true }}
+    >
       <Background />
       <Controls />
       <MiniMap />

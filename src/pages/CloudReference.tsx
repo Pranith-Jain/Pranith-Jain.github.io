@@ -60,11 +60,11 @@ function QueryBlock({ query }: { query: string }) {
     <div className="relative">
       <button
         onClick={copy}
-        className="absolute top-2 right-2 inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-brand-500"
+        className="absolute top-2 right-2 inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-brand-500"
       >
         {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
       </button>
-      <pre className="font-mono text-mini leading-relaxed text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-mini leading-relaxed text-body bg-surface-200 border border-line-1 rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
         {query}
       </pre>
     </div>
@@ -150,7 +150,7 @@ export default function CloudReference() {
             className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
               tab === 'srm'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             Shared Responsibility
@@ -160,7 +160,7 @@ export default function CloudReference() {
             className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
               tab === 'queries'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             Hunt Queries ({index?.counts.queries ?? 40})
@@ -177,7 +177,7 @@ export default function CloudReference() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[720px] text-left text-sm border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <tr className="border-b border-line-1">
                     <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-muted w-56">Domain</th>
                     <th className="py-2 pr-4 text-micro font-mono uppercase tracking-wider text-muted">
                       IaaS (customer-managed)
@@ -188,24 +188,22 @@ export default function CloudReference() {
                 </thead>
                 <tbody>
                   {(index?.srm.domains ?? []).map((d) => (
-                    <tr key={d.id} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] align-top">
+                    <tr key={d.id} className="border-b border-line-1 align-top">
                       <td className="py-3 pr-4">
                         <div className="font-display font-semibold text-xs text-heading mb-0.5">{d.name}</div>
-                        <div className="text-micro font-mono text-slate-400 dark:text-slate-500 leading-relaxed">
-                          {d.description}
-                        </div>
+                        <div className="text-micro font-mono text-muted leading-relaxed">{d.description}</div>
                       </td>
                       <td className="py-3 pr-4 text-mini font-mono text-body leading-relaxed">
-                        {d.iaas.aws} <span className="text-slate-400">|</span> {d.iaas.azure}{' '}
-                        <span className="text-slate-400">|</span> {d.iaas.gcp}
+                        {d.iaas.aws} <span className="text-muted">|</span> {d.iaas.azure}{' '}
+                        <span className="text-muted">|</span> {d.iaas.gcp}
                       </td>
                       <td className="py-3 pr-4 text-mini font-mono text-body leading-relaxed">
-                        {d.paas.aws} <span className="text-slate-400">|</span> {d.paas.azure}{' '}
-                        <span className="text-slate-400">|</span> {d.paas.gcp}
+                        {d.paas.aws} <span className="text-muted">|</span> {d.paas.azure}{' '}
+                        <span className="text-muted">|</span> {d.paas.gcp}
                       </td>
                       <td className="py-3 text-mini font-mono text-body leading-relaxed">
-                        {d.saas.aws} <span className="text-slate-400">|</span> {d.saas.azure}{' '}
-                        <span className="text-slate-400">|</span> {d.saas.gcp}
+                        {d.saas.aws} <span className="text-muted">|</span> {d.saas.azure}{' '}
+                        <span className="text-muted">|</span> {d.saas.gcp}
                       </td>
                     </tr>
                   ))}
@@ -225,7 +223,7 @@ export default function CloudReference() {
                   placeholder="Search hunt queries..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+                  className="w-full px-9 py-2 rounded-xl text-sm bg-surface-200 border border-line-1 text-heading placeholder:text-muted focus:outline-none focus:border-brand-500"
                 />
               </div>
               <div className="text-xs text-muted font-mono">
@@ -246,8 +244,8 @@ export default function CloudReference() {
               ))}
             </div>
             {loading ? (
-              <div className="flex items-center justify-center py-16 text-slate-500">
-                <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
+              <div className="flex items-center justify-center py-16 text-muted">
+                <div className="w-6 h-6 border-2 border-line-2 border-t-brand-500 rounded-full animate-spin mr-3" />
                 Loading queries...
               </div>
             ) : filteredQueries.length === 0 ? (
@@ -283,7 +281,7 @@ export default function CloudReference() {
           </>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           SRM summarized from vendor documentation — verify against your cloud provider's current model before contract
           decisions.
         </div>

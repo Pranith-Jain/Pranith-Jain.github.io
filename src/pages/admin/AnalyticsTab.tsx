@@ -20,7 +20,7 @@ function EngagementBar({ value, max }: { value: number; max: number }) {
   const pct = max > 0 ? Math.round((value / max) * 100) : 0;
   return (
     <div
-      className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden"
+      className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden"
       style={{ width: '4rem' }}
       aria-hidden="true"
     >
@@ -97,13 +97,10 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
   }
 
   const inputCls =
-    'w-28 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50';
+    'w-28 px-2 py-1 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded text-sm text-heading disabled:opacity-50';
 
   return (
-    <section
-      aria-labelledby="manual-metrics-heading"
-      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
-    >
+    <section aria-labelledby="manual-metrics-heading" className="rounded border border-line-1 p-4">
       <h2 id="manual-metrics-heading" className="text-sm font-semibold uppercase tracking-wider text-body mb-3">
         Add / update metrics manually
       </h2>
@@ -124,7 +121,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
               disabled={busy}
               aria-label="Post slug"
               required
-              className="w-44 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+              className="w-44 px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
 
@@ -136,7 +133,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
               onChange={(e) => set('platform', e.target.value as MetricsFormState['platform'])}
               disabled={busy}
               aria-label="Platform"
-              className="px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+              className="px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
             >
               <option value="linkedin">LinkedIn</option>
               <option value="instagram">Instagram</option>
@@ -181,7 +178,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
             placeholder="https://www.linkedin.com/posts/…"
             disabled={busy}
             aria-label="Post URL"
-            className="w-full max-w-sm px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+            className="w-full max-w-sm px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
           />
         </label>
 
@@ -189,7 +186,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
           <button
             type="submit"
             disabled={busy}
-            className="px-4 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
+            className="px-4 py-1.5 border border-line-2 rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy ? 'Saving…' : 'Save metrics'}
           </button>
@@ -214,7 +211,7 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
       <h2 id="by-type-heading" className="text-sm font-semibold uppercase tracking-wider text-body mb-3">
         What performs - by content type
       </h2>
-      <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="overflow-x-auto rounded border border-line-1">
         <DataTable
           columns={
             [
@@ -261,7 +258,7 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
           }
           rows={rows}
           rowKey={(row) => row.type}
-          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/40'}
         />
       </div>
     </section>
@@ -276,7 +273,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
       <h2 id="posts-heading" className="text-sm font-semibold uppercase tracking-wider text-body mb-3">
         Per-post breakdown
       </h2>
-      <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="overflow-x-auto rounded border border-line-1">
         <DataTable
           columns={
             [
@@ -357,7 +354,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                       view
                     </a>
                   ) : (
-                    <span className="text-xs text-slate-400">-</span>
+                    <span className="text-xs text-muted">-</span>
                   ),
               },
               {
@@ -370,7 +367,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
           }
           rows={posts}
           rowKey={(p, i) => `${p.slug}-${p.platform}-${i}`}
-          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/40'}
         />
       </div>
     </section>
@@ -410,10 +407,7 @@ export default function AnalyticsTab() {
         <p className="text-rose-600 dark:text-rose-400 mb-2" role="alert">
           Failed to load: {error}
         </p>
-        <button
-          onClick={() => void load()}
-          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
-        >
+        <button onClick={() => void load()} className="px-3 py-1 border border-line-1 rounded text-sm">
           Retry
         </button>
       </div>

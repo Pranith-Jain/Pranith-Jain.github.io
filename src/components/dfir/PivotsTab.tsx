@@ -154,11 +154,11 @@ export function PivotsTab({
       <div className="flex items-center gap-2 mb-4">
         <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
         <h3 className="font-display font-semibold text-base">Pivots - extracted artifacts</h3>
-        <span className="text-mini font-mono text-slate-500">
+        <span className="text-mini font-mono text-muted">
           · {pivots.length} artifact{pivots.length !== 1 ? 's' : ''}
         </span>
       </div>
-      <p className="text-mini font-mono text-slate-500 mb-3">
+      <p className="text-mini font-mono text-muted mb-3">
         ASNs, domains, CVEs, orgs, and hashes extracted from provider raw results. → Pivot opens the artifact
         in-platform; ↗ Open follows up externally.
       </p>
@@ -168,13 +168,13 @@ export function PivotsTab({
           return (
             <div
               key={`${p.kind}-${p.value}-${i}`}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 flex items-center justify-between gap-2"
+              className="rounded-xl border border-line-1 bg-surface-200 p-3 flex items-center justify-between gap-2"
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 mb-0.5">
-                  <Icon size={11} className="text-slate-500 shrink-0" />
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{p.kind}</span>
-                  <span className="text-micro font-mono rounded px-1 bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500">
+                  <Icon size={11} className="text-muted shrink-0" />
+                  <span className="text-micro font-mono uppercase tracking-wider text-muted">{p.kind}</span>
+                  <span className="text-micro font-mono rounded px-1 bg-slate-200 dark:bg-surface-300 text-slate-500">
                     {p.source}
                   </span>
                 </div>
@@ -186,7 +186,7 @@ export function PivotsTab({
               <div className="flex items-center gap-1 shrink-0">
                 <a
                   href={pivotUrl(p)}
-                  className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-brand-600 hover:border-brand-500/40 transition-colors"
+                  className="rounded border border-line-2 p-1.5 text-muted hover:text-brand-600 hover:border-brand-500/40 transition-colors"
                   title="Pivot in-platform"
                 >
                   <ArrowRight size={12} />
@@ -196,7 +196,7 @@ export function PivotsTab({
                     href={externalUrl(p)!}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-brand-600 hover:border-brand-500/40 transition-colors"
+                    className="rounded border border-line-2 p-1.5 text-muted hover:text-brand-600 hover:border-brand-500/40 transition-colors"
                     title="Open externally"
                   >
                     <ExternalLink size={12} />

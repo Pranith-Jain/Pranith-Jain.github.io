@@ -47,10 +47,7 @@ export default function RansomwareHub(): JSX.Element {
       headerExtra={
         <div className="space-y-4">
           <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
-          <nav
-            className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-            aria-label="Ransomware hub tools"
-          >
+          <nav className="flex flex-wrap gap-1 border-b border-line-1" aria-label="Ransomware hub tools">
             {TABS.map((t) => (
               <button
                 key={t.id}

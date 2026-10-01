@@ -80,7 +80,7 @@ export default function Whoxy() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="flex gap-3">
               <div className="relative flex-1">
-                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   type="text"
                   placeholder={
@@ -94,7 +94,7 @@ export default function Whoxy() {
                   }
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                  className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   autoComplete="off"
                   spellCheck={false}
                 />
@@ -119,7 +119,7 @@ export default function Whoxy() {
                   className={`text-mini font-mono px-2 py-0.5 rounded border ${
                     searchType === st.value
                       ? 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                      : 'border-slate-300 dark:border-line-1 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
                   }`}
                 >
                   {st.label}
@@ -130,7 +130,7 @@ export default function Whoxy() {
         </section>
 
         {loading && (
-          <div className="flex items-center justify-center py-12 text-slate-500">
+          <div className="flex items-center justify-center py-12 text-muted">
             <Spinner size="md" className="mr-3" />
             Searching WHOIS records...
           </div>
@@ -150,15 +150,15 @@ export default function Whoxy() {
               <div className="flex gap-6">
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.total_results}</div>
-                  <div className="text-mini font-mono text-slate-400">Total Domains</div>
+                  <div className="text-mini font-mono text-muted">Total Domains</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.domains.length}</div>
-                  <div className="text-mini font-mono text-slate-400">Fetched</div>
+                  <div className="text-mini font-mono text-muted">Fetched</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.pages_fetched}</div>
-                  <div className="text-mini font-mono text-slate-400">Pages</div>
+                  <div className="text-mini font-mono text-muted">Pages</div>
                 </div>
               </div>
             </section>
@@ -239,7 +239,7 @@ export default function Whoxy() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Powered by{' '}
           <a
             href="https://www.whoxy.com/reverse-whois/"

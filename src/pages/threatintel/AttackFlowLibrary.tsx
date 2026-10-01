@@ -166,7 +166,7 @@ export default function AttackFlowLibrary(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Filter ${data.total} flows…`}
-          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading focus:outline-none focus:border-rose-500/60"
+          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-line-2 bg-surface-100 text-heading focus:outline-none focus:border-rose-500/60"
         />
       </div>
     ) : undefined;
@@ -190,7 +190,7 @@ export default function AttackFlowLibrary(): JSX.Element {
             <div>
               <h2 className="text-sm font-semibold text-heading">{activeFlow}</h2>
               {flowData && (
-                <p className="text-micro font-mono text-slate-500 mt-0.5">
+                <p className="text-micro font-mono text-muted mt-0.5">
                   {flowData.bundle.objects.length} STIX objects · spec{' '}
                   {(flowData.bundle as { spec_version?: string }).spec_version || '2.1'}
                 </p>
@@ -199,7 +199,7 @@ export default function AttackFlowLibrary(): JSX.Element {
             <button
               type="button"
               onClick={() => setActiveFlow(null)}
-              className="shrink-0 inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+              className="shrink-0 inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
             >
               <X size={12} /> close
             </button>
@@ -261,7 +261,7 @@ export default function AttackFlowLibrary(): JSX.Element {
               className={`rounded-xl border p-3 transition-colors ${
                 isActive
                   ? 'border-rose-500/60 bg-rose-500/5'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
+                  : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
               }`}
             >
               <div className="flex items-start justify-between gap-2">
@@ -271,7 +271,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 pt-2 border-t border-line-1">
                 <button
                   type="button"
                   onClick={() => setActiveFlow(isActive ? null : flow.name)}
@@ -284,7 +284,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                     href={ghHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
+                    className="text-micro font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
                     title="View .afb source on GitHub"
                   >
                     GitHub <ExternalLink size={10} className="opacity-60" />

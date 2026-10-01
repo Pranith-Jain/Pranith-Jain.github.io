@@ -118,7 +118,7 @@ export default function Domain(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -170,7 +170,7 @@ export default function Domain(): JSX.Element {
           {/* Cert Transparency (crt.sh) - metabigor cert equivalent */}
           {ctLoading && (
             <section className="surface-card p-6">
-              <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
+              <div className="flex items-center gap-2 text-sm text-muted font-mono">
                 <div className="animate-spin w-3 h-3 border-2 border-brand-500 border-t-transparent rounded-full" />
                 Querying crt.sh for certificate transparency logs…
               </div>
@@ -190,13 +190,13 @@ export default function Domain(): JSX.Element {
                 {certTransparency.subdomains.map((s) => (
                   <span
                     key={s}
-                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-body"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-line-1 bg-surface-200 text-body"
                   >
                     {s}
                   </span>
                 ))}
               </div>
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+              <div className="mt-3 pt-3 border-t border-line-1">
                 <a
                   href={`https://crt.sh/?q=${encodeURIComponent(`%.${result.domain}`)}`}
                   target="_blank"
@@ -211,7 +211,7 @@ export default function Domain(): JSX.Element {
 
           {webamonLoading && (
             <section className="surface-card p-6">
-              <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
+              <div className="flex items-center gap-2 text-sm text-muted font-mono">
                 <div className="animate-spin w-3 h-3 border-2 border-brand-500 border-t-transparent rounded-full" />
                 Checking Webamon scan data…
               </div>
@@ -234,7 +234,7 @@ export default function Domain(): JSX.Element {
                 <h2 className="font-display font-bold text-lg flex items-center gap-2">
                   <Globe size={18} className="text-brand-600 dark:text-brand-400" /> Webamon Scan Data
                 </h2>
-                <span className="text-sm font-mono text-slate-500 font-normal">
+                <span className="text-sm font-mono text-muted font-normal">
                   ({webamon.total_hits} scan{webamon.total_hits !== 1 ? 's' : ''})
                 </span>
               </button>
@@ -248,13 +248,13 @@ export default function Domain(): JSX.Element {
                       <div className="space-y-1.5">
                         {hit.page_title && (
                           <div className="flex justify-between">
-                            <span className="text-slate-500">Page Title</span>
+                            <span className="text-muted">Page Title</span>
                             <span className="text-body truncate ml-2">{hit.page_title}</span>
                           </div>
                         )}
                         {hit.meta?.risk_score !== undefined && (
                           <div className="flex justify-between">
-                            <span className="text-slate-500">Risk Score</span>
+                            <span className="text-muted">Risk Score</span>
                             <span
                               className={`font-mono font-semibold ${hit.meta.risk_score >= 7 ? 'text-rose-500' : hit.meta.risk_score >= 4 ? 'text-amber-500' : 'text-emerald-500'}`}
                             >
@@ -264,19 +264,19 @@ export default function Domain(): JSX.Element {
                         )}
                         {hit.meta?.script_count !== undefined && (
                           <div className="flex justify-between">
-                            <span className="text-slate-500">Scripts</span>
+                            <span className="text-muted">Scripts</span>
                             <span className="font-mono text-body">{hit.meta.script_count}</span>
                           </div>
                         )}
                         {hit.date && (
                           <div className="flex justify-between">
-                            <span className="text-slate-500">Scanned</span>
+                            <span className="text-muted">Scanned</span>
                             <span className="font-mono text-body">{hit.date}</span>
                           </div>
                         )}
                         {hit.resolved_url && (
                           <div className="flex justify-between">
-                            <span className="text-slate-500">Resolved</span>
+                            <span className="text-muted">Resolved</span>
                             <a
                               href={hit.resolved_url}
                               target="_blank"
@@ -302,7 +302,7 @@ export default function Domain(): JSX.Element {
                               <a
                                 key={key}
                                 href={`/threatintel/webamon?q=${encodeURIComponent(`fingerprint.${key}:${val}`)}`}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-surface-300 text-muted hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                                 title={`Search by ${key} fingerprint`}
                               >
                                 <Fingerprint size={10} />
@@ -315,7 +315,7 @@ export default function Domain(): JSX.Element {
                     )}
                   </div>
                 ))}
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+              <div className="mt-3 pt-3 border-t border-line-1">
                 <a
                   href={`/threatintel/webamon?q=${encodeURIComponent(`domain.name:${result.domain}`)}`}
                   className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1 transition-colors"

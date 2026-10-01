@@ -128,7 +128,7 @@ function EndpointsTab(): JSX.Element {
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && loadClients()}
           placeholder="hostname or client id…"
-          className="flex-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-1.5 font-mono text-sm"
+          className="flex-1 rounded border border-line-1 bg-surface-200 px-3 py-1.5 font-mono text-sm"
         />
         <button
           onClick={loadClients}
@@ -159,16 +159,13 @@ function EndpointsTab(): JSX.Element {
               }`}
             >
               <div className="font-mono">{c.hostname ?? c.client_id}</div>
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-muted">
                 {c.os} · {c.arch} · seen {c.lastSeen?.slice(0, 10) ?? '?'}
               </div>
               {(c.labels?.length ?? 0) > 0 && (
                 <div className="mt-0.5 flex gap-1">
                   {c.labels!.slice(0, 4).map((l) => (
-                    <span
-                      key={l}
-                      className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1 text-[10px] font-mono"
-                    >
+                    <span key={l} className="rounded bg-surface-300 px-1 text-[10px] font-mono">
                       {l}
                     </span>
                   ))}
@@ -185,7 +182,7 @@ function EndpointsTab(): JSX.Element {
               <input
                 value={artifactInput}
                 onChange={(e) => setArtifactInput(e.target.value)}
-                className="flex-1 rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 font-mono text-xs"
+                className="flex-1 rounded border border-line-1 bg-surface-200 px-2 py-1 font-mono text-xs"
                 placeholder="Windows.KapeFiles.Collect, Custom.…"
               />
               <button
@@ -195,17 +192,14 @@ function EndpointsTab(): JSX.Element {
                 <Play size={12} /> Collect
               </button>
             </div>
-            {collectMsg && <p className="text-xs text-slate-500">{collectMsg}</p>}
+            {collectMsg && <p className="text-xs text-muted">{collectMsg}</p>}
             <div>
-              <h4 className="mb-1 text-xs font-mono uppercase tracking-wider text-slate-500">Recent collections</h4>
-              {flows.length === 0 && <p className="text-xs text-slate-400">none</p>}
+              <h4 className="mb-1 text-xs font-mono uppercase tracking-wider text-muted">Recent collections</h4>
+              {flows.length === 0 && <p className="text-xs text-muted">none</p>}
               {flows.map((f) => (
-                <div
-                  key={f.flow_id}
-                  className="flex items-center justify-between border-b border-slate-100 dark:border-line-1 py-1 text-xs"
-                >
+                <div key={f.flow_id} className="flex items-center justify-between border-b border-line-1 py-1 text-xs">
                   <span className="font-mono">{f.flow_id}</span>
-                  <span className="truncate px-2 text-slate-500">{(f.artifacts ?? []).join(', ')}</span>
+                  <span className="truncate px-2 text-muted">{(f.artifacts ?? []).join(', ')}</span>
                   <span
                     className={`font-mono ${f.state === 'RUNNING' ? 'text-amber-500' : f.state === 'ERROR' ? 'text-rose-500' : 'text-emerald-600'}`}
                   >
@@ -283,7 +277,7 @@ function SamplesTab(): JSX.Element {
         }}
         onDragOver={(e) => e.preventDefault()}
         onClick={() => fileInput.current?.click()}
-        className="cursor-pointer rounded-xl border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-6 text-center hover:border-indigo-400"
+        className="cursor-pointer rounded-xl border-2 border-dashed border-line-2 p-6 text-center hover:border-indigo-400"
       >
         <input
           ref={(el) => {
@@ -296,10 +290,10 @@ function SamplesTab(): JSX.Element {
             if (f) onFile(f);
           }}
         />
-        <Upload className="mx-auto mb-2 text-slate-400" size={24} />
+        <Upload className="mx-auto mb-2 text-muted" size={24} />
         <p className="text-sm text-body">Drop sample (≤24MB) → Hybrid Analysis detonation + VirusTotal scan</p>
         {filename && (
-          <p className="mt-1 font-mono text-xs text-slate-500">
+          <p className="mt-1 font-mono text-xs text-muted">
             {filename} ({Math.round(b64.length / 1.37 / 1024)}KB)
           </p>
         )}
@@ -319,7 +313,7 @@ function SamplesTab(): JSX.Element {
       )}
       {statusResult && (
         <>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1">
+          <h4 className="text-xs font-mono uppercase tracking-wider text-muted flex items-center gap-1">
             <RefreshCw size={11} /> status
           </h4>
           <pre className="max-h-72 overflow-auto rounded-lg border border-line-1 p-3 font-mono text-xs whitespace-pre-wrap">
@@ -414,7 +408,7 @@ function RulesTab(): JSX.Element {
         rows={10}
         spellCheck={false}
         placeholder={`paste ${kind} rule…`}
-        className="w-full rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs"
+        className="w-full rounded border border-line-1 bg-surface-200 p-3 font-mono text-xs"
       />
       <div className="flex flex-wrap gap-2">
         <button
@@ -429,7 +423,7 @@ function RulesTab(): JSX.Element {
             <select
               value={target}
               onChange={(e) => setTarget(e.target.value as 'splunk' | 'kql')}
-              className="rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 text-sm"
+              className="rounded border border-line-1 bg-surface-200 px-2 text-sm"
             >
               <option value="kql">Sentinel KQL</option>
               <option value="splunk">Splunk SPL</option>
@@ -493,7 +487,7 @@ function ObservablesTab(): JSX.Element {
         onChange={(e) => setText(e.target.value)}
         rows={8}
         placeholder="paste threat report / log lines / defanged IOCs… (hxxp, [.], [at] all handled)"
-        className="w-full rounded border border-line-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs"
+        className="w-full rounded border border-line-1 bg-surface-200 p-3 font-mono text-xs"
       />
       <button
         onClick={extract}
@@ -506,7 +500,7 @@ function ObservablesTab(): JSX.Element {
       {counts && (
         <div className="flex flex-wrap gap-1.5">
           {nonZero.length === 0 ? (
-            <p className="text-sm text-slate-400">no observables found</p>
+            <p className="text-sm text-muted">no observables found</p>
           ) : (
             nonZero.map(([k, v]) => (
               <span
@@ -522,7 +516,7 @@ function ObservablesTab(): JSX.Element {
       {hits.length > 0 && (
         <div className="max-h-80 overflow-auto rounded-lg border border-line-1">
           <table className="w-full text-left text-xs">
-            <thead className="sticky top-0 bg-slate-50 dark:bg-[rgb(var(--surface-100))] font-mono uppercase text-slate-500">
+            <thead className="sticky top-0 bg-surface-200 font-mono uppercase text-muted">
               <tr>
                 <th className="px-3 py-1.5">type</th>
                 <th className="px-3 py-1.5">value</th>
@@ -530,8 +524,8 @@ function ObservablesTab(): JSX.Element {
             </thead>
             <tbody>
               {hits.slice(0, 500).map((h, i) => (
-                <tr key={`${h.type}-${h.value}-${i}`} className="border-t border-slate-100 dark:border-line-1">
-                  <td className="px-3 py-1 font-mono text-slate-500">{h.type}</td>
+                <tr key={`${h.type}-${h.value}-${i}`} className="border-t border-line-1">
+                  <td className="px-3 py-1 font-mono text-muted">{h.type}</td>
                   <td className="px-3 py-1 font-mono break-all">{h.value}</td>
                 </tr>
               ))}

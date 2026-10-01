@@ -171,7 +171,7 @@ function reliabilityColor(grade?: string): string {
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }): JSX.Element {
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
-    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
     </div>
   );
@@ -276,7 +276,7 @@ export default function IntelDashboard(): JSX.Element {
             <button
               type="button"
               onClick={handleRefresh}
-              className="ml-3 text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
+              className="ml-3 text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
             >
               <RefreshCw size={11} /> refresh
             </button>
@@ -297,7 +297,7 @@ export default function IntelDashboard(): JSX.Element {
             className={`text-mini font-mono rounded-full border px-3 py-1.5 transition-colors ${
               tab === t.id
                 ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             {t.label}
@@ -424,7 +424,7 @@ export default function IntelDashboard(): JSX.Element {
                       <div className={`text-2xl font-display font-bold ${reliabilityColor(grade)}`}>
                         {grade === 'ungraded' ? '-' : grade}
                       </div>
-                      <div className="text-mini font-mono text-slate-500 mt-1">
+                      <div className="text-mini font-mono text-muted mt-1">
                         {count} {count === 1 ? 'source' : 'sources'}
                       </div>
                     </div>
@@ -445,7 +445,7 @@ export default function IntelDashboard(): JSX.Element {
                     <div className="flex-1">
                       <MiniBar value={cat.ok} max={cat.total} color="bg-emerald-500" />
                     </div>
-                    <div className="flex items-center gap-2 text-mini font-mono text-slate-500 shrink-0">
+                    <div className="flex items-center gap-2 text-mini font-mono text-muted shrink-0">
                       <span className="text-emerald-600">{cat.ok}</span>
                       <span className="text-amber-600">{cat.degraded}</span>
                       <span className="text-rose-600">{cat.down}</span>
@@ -504,7 +504,7 @@ export default function IntelDashboard(): JSX.Element {
                           sortValue: (row: (typeof feedData.rows)[number]) => row.category ?? '',
                           className: 'hidden sm:table-cell',
                           render: (row) => (
-                            <span className="font-mono text-xs text-slate-500 capitalize">{row.category ?? '-'}</span>
+                            <span className="font-mono text-xs text-muted capitalize">{row.category ?? '-'}</span>
                           ),
                         },
                         {
@@ -526,7 +526,7 @@ export default function IntelDashboard(): JSX.Element {
                           sortValue: (row: (typeof feedData.rows)[number]) => row.upstream_age_s ?? 0,
                           className: 'hidden lg:table-cell',
                           render: (row) => (
-                            <span className="font-mono text-xs text-slate-500">{formatAge(row.upstream_age_s)}</span>
+                            <span className="font-mono text-xs text-muted">{formatAge(row.upstream_age_s)}</span>
                           ),
                         },
                         {
@@ -538,7 +538,7 @@ export default function IntelDashboard(): JSX.Element {
                     }
                     rows={feedData.rows}
                     rowKey={(row) => row.id}
-                    rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}
+                    rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-300/50'}
                   />
                 </div>
               </div>
@@ -557,7 +557,7 @@ export default function IntelDashboard(): JSX.Element {
                     <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" />
                     <div>
                       <span className="font-mono text-sm font-semibold text-heading">{src.id}</span>
-                      <span className="text-xs text-slate-500 ml-2">({src.status})</span>
+                      <span className="text-xs text-muted ml-2">({src.status})</span>
                       <p className="text-xs text-muted mt-0.5">{src.reason}</p>
                     </div>
                   </div>
@@ -574,7 +574,7 @@ export default function IntelDashboard(): JSX.Element {
                 {topMetrics.map((m, i) => (
                   <div key={`${m.source}-${m.key}-${i}`} className={`rounded-xl border p-3 ${STATUS_BG[m.status]}`}>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-mono text-xs text-slate-500">{m.source}</span>
+                      <span className="font-mono text-xs text-muted">{m.source}</span>
                       <span className="font-mono text-xs text-muted">{m.key}</span>
                     </div>
                     <div className="font-display font-bold text-xl text-heading">{m.value.toLocaleString()}</div>
@@ -646,7 +646,7 @@ export default function IntelDashboard(): JSX.Element {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -655,7 +655,7 @@ export default function IntelDashboard(): JSX.Element {
           </section>
 
           {/* ── Analytics Engine Note ────────────────────────────────── */}
-          <section className="mt-8 rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-5 text-center">
+          <section className="mt-8 rounded-xl border border-dashed border-line-2 p-5 text-center">
             <p className="text-sm text-muted">
               Visitor analytics (page views, geographic distribution, response times) are tracked in Cloudflare
               Analytics Engine. Query them from the{' '}
@@ -674,7 +674,7 @@ export default function IntelDashboard(): JSX.Element {
       )}
 
       {tab === 'cves' && (
-        <Suspense fallback={<div className="py-8 text-center text-sm text-slate-500">Loading charts…</div>}>
+        <Suspense fallback={<div className="py-8 text-center text-sm text-muted">Loading charts…</div>}>
           <CveLandscapePanel />
         </Suspense>
       )}

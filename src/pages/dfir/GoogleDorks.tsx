@@ -176,20 +176,20 @@ export default function GoogleDorks(): JSX.Element {
         </label>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
             <input
               id="dork-q"
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder='site:pastebin.com "password"  ·  intitle:"index of" .env  ·  filetype:sql intext:INSERT'
-              className="w-full pl-10 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-10 pr-3 py-2.5 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <select
             value={num}
             onChange={(e) => setNum(Number.parseInt(e.target.value, 10))}
-            className="px-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm"
+            className="px-3 py-2.5 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm"
             aria-label="Results per page"
           >
             {[10, 20, 30, 50].map((n) => (
@@ -221,7 +221,7 @@ export default function GoogleDorks(): JSX.Element {
                 void runSearch(p.query, num);
               }}
               title={p.hint}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+              className="text-mini font-mono px-2 py-1 rounded border border-line-1 bg-surface-200 text-body hover:bg-surface-300 dark:hover:bg-surface-300"
             >
               {p.label}
             </button>
@@ -274,7 +274,7 @@ export default function GoogleDorks(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void copyLink(r.link)}
-                    className="shrink-0 p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                    className="shrink-0 p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300"
                     title="Copy link"
                     aria-label="Copy link"
                   >

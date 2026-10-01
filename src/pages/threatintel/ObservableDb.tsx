@@ -86,7 +86,7 @@ function verdictIcon(v: string) {
 }
 
 const TLP_COLORS: Record<string, string> = {
-  white: 'bg-slate-200 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-200',
+  white: 'bg-slate-200 text-slate-700 dark:bg-surface-300 dark:text-slate-200',
   green: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300',
   amber: 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
   red: 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300',
@@ -310,12 +310,12 @@ export default function ObservableDb(): JSX.Element {
               value={addIndicator}
               onChange={(e) => setAddIndicator(e.target.value)}
               placeholder="Indicator value (IP, domain, hash…)"
-              className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
+              className="flex-1 min-w-[200px] px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-tool focus:outline-none focus:border-rose-500"
             />
             <select
               value={addType}
               onChange={(e) => setAddType(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta"
             >
               <option value="ip">IP</option>
               <option value="domain">Domain</option>
@@ -328,7 +328,7 @@ export default function ObservableDb(): JSX.Element {
               value={addTags}
               onChange={(e) => setAddTags(e.target.value)}
               placeholder="Tags (comma)"
-              className="w-48 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+              className="w-48 px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
             />
             <button
               type="submit"
@@ -340,7 +340,7 @@ export default function ObservableDb(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowAddForm(false)}
-              className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 font-mono text-meta rounded"
+              className="px-4 py-2 border border-line-1 text-muted font-mono text-meta rounded"
             >
               Cancel
             </button>
@@ -356,13 +356,13 @@ export default function ObservableDb(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search indicators or tags…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-tool focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta"
+          className="px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta"
         >
           <option value="">All types</option>
           <option value="ip">IP</option>
@@ -371,7 +371,7 @@ export default function ObservableDb(): JSX.Element {
           <option value="hash">Hash</option>
           <option value="email">Email</option>
         </select>
-        <div className="flex items-center gap-2 text-meta font-mono text-slate-500">
+        <div className="flex items-center gap-2 text-meta font-mono text-muted">
           <Filter size={12} />
           <span>Min score:</span>
           <input
@@ -398,7 +398,7 @@ export default function ObservableDb(): JSX.Element {
           {!loading && entries.length === 0 && (
             <div className="surface-card p-12 text-center">
               <Database size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
-              <p className="text-sm font-mono text-slate-500">No observables saved yet</p>
+              <p className="text-sm font-mono text-muted">No observables saved yet</p>
               <p className="text-xs font-mono text-muted mt-1">
                 Use the analysis page to check IOCs and save results here, or add manually
               </p>
@@ -416,14 +416,14 @@ export default function ObservableDb(): JSX.Element {
                     if (e.key === 'Enter' || e.key === ' ') setSelected(entry);
                   }}
                   onClick={() => setSelected(entry)}
-                  className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] p-3 cursor-pointer transition-all hover:border-rose-400 ${
+                  className={`rounded-xl border bg-surface-100 dark:bg-surface-200 p-3 cursor-pointer transition-all hover:border-rose-400 ${
                     selected?.id === entry.id
                       ? 'border-rose-500 ring-1 ring-rose-500'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
+                      : 'border-slate-200 dark:border-line-1'
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <span className="shrink-0 w-7 h-5 flex items-center justify-center rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro font-mono font-bold text-slate-500">
+                    <span className="shrink-0 w-7 h-5 flex items-center justify-center rounded bg-surface-300 text-micro font-mono font-bold text-muted">
                       {typeIcon(entry.type)}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -440,7 +440,7 @@ export default function ObservableDb(): JSX.Element {
                         <span>{entry.provider_count} sources</span>
                         <span>Updated {timeAgo(entry.updated_at)} ago</span>
                       </div>
-                      <div className="mt-1.5 w-full h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+                      <div className="mt-1.5 w-full h-1.5 rounded-full bg-surface-300 overflow-hidden">
                         <div
                           className={`h-full rounded-full ${scoreBg(entry.composite_score)} transition-all`}
                           style={{ width: `${entry.composite_score}%` }}
@@ -451,7 +451,7 @@ export default function ObservableDb(): JSX.Element {
                           {entry.tags.map((t) => (
                             <span
                               key={t}
-                              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro font-mono text-slate-500"
+                              className="px-1 py-0.5 rounded bg-surface-300 text-micro font-mono text-muted"
                             >
                               {t}
                             </span>
@@ -465,7 +465,7 @@ export default function ObservableDb(): JSX.Element {
                         e.stopPropagation();
                         void deleteObservable(entry.id);
                       }}
-                      className="p-1 rounded text-muted hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] shrink-0"
+                      className="p-1 rounded text-muted hover:text-rose-500 hover:bg-surface-300 dark:hover:bg-surface-300 shrink-0"
                     >
                       <Trash2 size={12} />
                     </button>
@@ -484,7 +484,7 @@ export default function ObservableDb(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="p-1 rounded text-muted hover:text-slate-600"
+                  className="p-1 rounded text-muted hover:text-muted"
                 >
                   <X size={14} />
                 </button>
@@ -561,7 +561,7 @@ export default function ObservableDb(): JSX.Element {
                         onChange={(e) => setTagDraft(e.target.value)}
                         placeholder="tag, tag…"
                         aria-label="Add tags (comma-separated)"
-                        className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-rose-500"
+                        className="flex-1 px-2 py-1.5 bg-surface-100 border border-line-1 rounded text-mini font-mono focus:outline-none focus:border-rose-500"
                       />
                       <button
                         aria-label="Add"
@@ -577,7 +577,7 @@ export default function ObservableDb(): JSX.Element {
                     {selected.tags.map((t) => (
                       <span
                         key={t}
-                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro"
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-300 text-micro"
                       >
                         {t}
                         <button
@@ -624,14 +624,14 @@ export default function ObservableDb(): JSX.Element {
                       value={noteText}
                       onChange={(e) => setNoteText(e.target.value)}
                       placeholder="Add note…"
-                      className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-rose-500"
+                      className="flex-1 px-2 py-1.5 bg-surface-100 border border-line-1 rounded text-mini font-mono focus:outline-none focus:border-rose-500"
                     />
                     <input
                       type="text"
                       value={noteAuthor}
                       onChange={(e) => setNoteAuthor(e.target.value)}
                       placeholder="Author"
-                      className="w-20 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-micro font-mono focus:outline-none focus:border-rose-500"
+                      className="w-20 px-2 py-1.5 bg-surface-100 border border-line-1 rounded text-micro font-mono focus:outline-none focus:border-rose-500"
                     />
                     <button
                       aria-label="Add"
@@ -647,10 +647,7 @@ export default function ObservableDb(): JSX.Element {
                       .slice()
                       .reverse()
                       .map((n) => (
-                        <div
-                          key={n.id}
-                          className="flex items-start gap-2 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] rounded p-2"
-                        >
+                        <div key={n.id} className="flex items-start gap-2 bg-surface-200/50 rounded p-2">
                           <FileText size={10} className="text-muted mt-0.5 shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-mini">{n.text}</p>

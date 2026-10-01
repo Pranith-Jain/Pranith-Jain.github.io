@@ -13,9 +13,9 @@ const CHECK_CYCLE: Record<Check, Check> = { unset: 'covered', covered: 'partial'
 const CHECK_STYLES: Record<Check, { label: string; bg: string; text: string; border: string }> = {
   unset: {
     label: '- unset',
-    bg: 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]',
+    bg: 'bg-slate-50 dark:bg-surface-200',
     text: 'text-slate-500',
-    border: 'border-slate-300 dark:border-[rgb(var(--border-400))]',
+    border: 'border-slate-300 dark:border-line-1',
   },
   covered: {
     label: 'covered',
@@ -173,11 +173,11 @@ export default function Owasp(): JSX.Element {
               className={`px-4 py-2 rounded-xl border text-sm font-mono transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-900/20 text-heading'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/30'
+                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-brand-500/30'
               }`}
             >
               <span className="font-display font-semibold">{l.label}</span>
-              <span className="text-xs ml-2 text-slate-500">{l.year}</span>
+              <span className="text-xs ml-2 text-muted">{l.year}</span>
             </button>
           );
         })}
@@ -187,24 +187,24 @@ export default function Owasp(): JSX.Element {
       <section className="mb-6 surface-card p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs font-mono">
-            <span className="text-slate-500">Coverage:</span>
+            <span className="text-muted">Coverage:</span>
             <span className="text-emerald-600 dark:text-emerald-400">{stats.covered} covered</span>
             <span className="text-amber-600 dark:text-amber-400">{stats.partial} partial</span>
             <span className="text-rose-600 dark:text-rose-400">{stats.gap} gap</span>
-            <span className="text-slate-500">{stats.unset} unset</span>
+            <span className="text-muted">{stats.unset} unset</span>
           </div>
           <div className="flex gap-2 text-xs font-mono">
             <button
               type="button"
               onClick={exportReport}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-line-1 hover:border-brand-500/40 transition-colors"
             >
               <Download size={11} /> export markdown
             </button>
             <button
               type="button"
               onClick={resetList}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-line-1 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             >
               <RotateCcw size={11} /> reset
             </button>
@@ -212,7 +212,7 @@ export default function Owasp(): JSX.Element {
         </div>
         {/* Coverage bar */}
         {stats.total > 0 && (
-          <div className="mt-3 flex h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+          <div className="mt-3 flex h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
             <div className="bg-emerald-500" style={{ width: `${(stats.covered / stats.total) * 100}%` }} />
             <div className="bg-amber-500" style={{ width: `${(stats.partial / stats.total) * 100}%` }} />
             <div className="bg-rose-500" style={{ width: `${(stats.gap / stats.total) * 100}%` }} />
@@ -232,14 +232,14 @@ export default function Owasp(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => cycleCheck(it.id)}
-                  className={`shrink-0 text-xs font-mono px-2 py-1 rounded border ${style.border} ${style.text} bg-white dark:bg-[rgb(var(--surface-200))] hover:opacity-80 transition-opacity`}
+                  className={`shrink-0 text-xs font-mono px-2 py-1 rounded border ${style.border} ${style.text} bg-surface-100 dark:bg-surface-200 hover:opacity-80 transition-opacity`}
                   aria-label={`mark ${it.id} status (current: ${c})`}
                 >
                   {style.label}
                 </button>
                 <button type="button" onClick={() => toggleExpanded(it.id)} className="flex-1 text-left">
                   <div className="flex items-baseline gap-2">
-                    <span className="font-mono text-xs text-slate-500">{it.id}</span>
+                    <span className="font-mono text-xs text-muted">{it.id}</span>
                     <h3 className="font-display font-semibold text-heading">{it.title}</h3>
                   </div>
                   <p className="text-sm text-muted mt-1 leading-relaxed">{it.summary}</p>
@@ -247,26 +247,26 @@ export default function Owasp(): JSX.Element {
               </header>
               {isExpanded && (
                 <div className="px-4 pb-4 pt-0 grid sm:grid-cols-2 gap-3 text-sm">
-                  <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 bg-white dark:bg-[rgb(var(--surface-200))]">
+                  <div className="rounded border border-line-1 p-3 bg-surface-100">
                     <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1">
                       Attack
                     </div>
                     <p className="text-body leading-relaxed">{it.example}</p>
                   </div>
-                  <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 bg-white dark:bg-[rgb(var(--surface-200))]">
+                  <div className="rounded border border-line-1 p-3 bg-surface-100">
                     <div className="text-micro font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
                       Mitigation
                     </div>
                     <p className="text-body leading-relaxed">{it.mitigation}</p>
                   </div>
                   {it.attack && it.attack.length > 0 && (
-                    <div className="sm:col-span-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
+                    <div className="sm:col-span-2 flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
                       <span>MITRE ATT&CK:</span>
                       {it.attack.map((t) => (
                         <Link
                           key={t}
                           to={`/threatintel/mitre?id=${encodeURIComponent(t)}`}
-                          className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                          className="px-1.5 py-0.5 rounded bg-surface-300 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                         >
                           {t} <ExternalLink size={10} />
                         </Link>
@@ -280,7 +280,7 @@ export default function Owasp(): JSX.Element {
         })}
       </section>
 
-      <footer className="mt-12 text-xs font-mono text-slate-500 leading-relaxed">
+      <footer className="mt-12 text-xs font-mono text-muted leading-relaxed">
         References:{' '}
         {OWASP_LISTS.map((l, i) => (
           <span key={l.id}>

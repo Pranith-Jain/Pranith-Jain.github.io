@@ -132,10 +132,10 @@ export default function ScreenshotIntel(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('screenshot-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop an image file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">
           {busy ? 'Analyzing...' : 'Drop an image here, or click to choose'}
         </p>
@@ -151,19 +151,19 @@ export default function ScreenshotIntel(): JSX.Element {
           if (f) void analyze(f);
         }}
       />
-      {stage && <p className="mt-3 font-mono text-meta text-slate-500">{stage}</p>}
+      {stage && <p className="mt-3 font-mono text-meta text-muted">{stage}</p>}
       {note && <p className="mt-3 font-mono text-meta text-amber-600 dark:text-amber-400">{note}</p>}
 
       {qr ? (
         <div className="mt-6 surface-card p-3">
-          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">QR / barcode payload</div>
+          <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">QR / barcode payload</div>
           <code className="font-mono text-meta break-all text-heading">{qr}</code>
         </div>
       ) : null}
 
       {ocr !== null && ocr !== '' && (
         <div className="mt-4 surface-card p-3">
-          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">OCR text</div>
+          <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">OCR text</div>
           <pre className="font-mono text-mini whitespace-pre-wrap break-words text-body max-h-[40vh] overflow-auto">
             {ocr}
           </pre>
@@ -174,15 +174,12 @@ export default function ScreenshotIntel(): JSX.Element {
         <div className="mt-4 grid gap-2 sm:grid-cols-2">
           {ents.map(([k, vs]) => (
             <div key={k} className="surface-card p-3">
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
+              <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
                 {k} · {vs.length}
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {vs.map((v) => (
-                  <span
-                    key={v}
-                    className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] break-all"
-                  >
+                  <span key={v} className="font-mono text-mini px-1.5 py-0.5 rounded border border-line-1 break-all">
                     {v}
                   </span>
                 ))}
@@ -194,7 +191,7 @@ export default function ScreenshotIntel(): JSX.Element {
 
       {meta && (
         <div className="mt-4 surface-card p-3">
-          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">EXIF / metadata</div>
+          <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">EXIF / metadata</div>
           <pre className="font-mono text-mini overflow-auto max-h-[40vh] text-body">
             {JSON.stringify(meta, (_k, v) => (v instanceof Date ? v.toISOString() : v), 2)}
           </pre>

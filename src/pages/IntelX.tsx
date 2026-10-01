@@ -86,7 +86,7 @@ export default function IntelX() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="flex gap-3">
               <div className="relative flex-1">
-                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   type="text"
                   placeholder={
@@ -96,7 +96,7 @@ export default function IntelX() {
                   }
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                  className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   autoComplete="off"
                   spellCheck={false}
                 />
@@ -121,7 +121,7 @@ export default function IntelX() {
                   className={`text-mini font-mono px-3 py-1 rounded border transition-colors ${
                     mode === m.value
                       ? 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                      : 'border-slate-300 dark:border-line-1 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
                   }`}
                 >
                   {m.label}
@@ -133,7 +133,7 @@ export default function IntelX() {
         </section>
 
         {loading && (
-          <div className="flex items-center justify-center py-12 text-slate-500">
+          <div className="flex items-center justify-center py-12 text-muted">
             <Spinner size="md" className="mr-3" />
             Searching IntelligenceX...
           </div>
@@ -153,18 +153,18 @@ export default function IntelX() {
               <div className="flex gap-6">
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.total}</div>
-                  <div className="text-mini font-mono text-slate-400">Records Found</div>
+                  <div className="text-mini font-mono text-muted">Records Found</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.mode}</div>
-                  <div className="text-mini font-mono text-slate-400">Search Mode</div>
+                  <div className="text-mini font-mono text-muted">Search Mode</div>
                 </div>
                 {data.search_id && (
                   <div>
                     <div className="text-2xl font-bold text-heading font-mono text-sm">
                       {data.search_id.slice(0, 8)}…
                     </div>
-                    <div className="text-mini font-mono text-slate-400">Search ID</div>
+                    <div className="text-mini font-mono text-muted">Search ID</div>
                   </div>
                 )}
               </div>
@@ -179,7 +179,7 @@ export default function IntelX() {
                   {data.records.map((r, i) => (
                     <div
                       key={`${r.value ?? i}`}
-                      className="flex items-start gap-3 p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200))]/50"
+                      className="flex items-start gap-3 p-3 rounded-lg border border-line-1 bg-surface-200/50"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="font-mono text-sm text-heading truncate">
@@ -207,7 +207,7 @@ export default function IntelX() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Powered by{' '}
           <a
             href="https://intelx.io"

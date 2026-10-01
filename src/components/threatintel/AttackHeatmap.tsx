@@ -101,9 +101,7 @@ export function AttackHeatmap({
 
   if (loading) {
     return (
-      <section
-        className={`${mbClass} surface-card p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
-      >
+      <section className={`${mbClass} surface-card p-5 inline-flex items-center gap-2 font-mono text-sm text-muted`}>
         <Loader2 size={14} className="animate-spin" /> loading ATT&CK technique heatmap…
       </section>
     );
@@ -117,7 +115,7 @@ export function AttackHeatmap({
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <div>
           <h3 className="font-display font-semibold text-base">{title}</h3>
-          <p className="text-mini font-mono text-slate-500 mt-1">
+          <p className="text-mini font-mono text-muted mt-1">
             {subtitle ??
               `MITRE ATT&CK techniques mapped to ${data.groups_with_ttp_data} active group${data.groups_with_ttp_data === 1 ? '' : 's'}. Columns = tactics (kill-chain order). Cell shade = prevalence.`}
           </p>

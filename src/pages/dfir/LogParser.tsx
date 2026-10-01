@@ -47,7 +47,7 @@ const FORMAT_PILL: Record<LogFormat, string> = {
   jsonl: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   syslog: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   kv: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  raw: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  raw: 'border-slate-300 dark:border-line-1 text-slate-500',
 };
 
 export default function LogParser(): JSX.Element {
@@ -112,7 +112,7 @@ export default function LogParser(): JSX.Element {
                 key={s.label}
                 type="button"
                 onClick={() => setInput(s.value)}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -129,7 +129,7 @@ export default function LogParser(): JSX.Element {
           placeholder="Paste log lines here - one per line, or paste a multi-line WinEvent XML blob (will be auto-collapsed per Event)…"
           rows={14}
           aria-label="Log lines input"
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-mini text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
       </section>
@@ -144,15 +144,15 @@ export default function LogParser(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
               <div>
                 <div className="text-2xl font-bold text-heading">{summary.total}</div>
-                <div className="text-mini font-mono text-slate-400">total lines</div>
+                <div className="text-mini font-mono text-muted">total lines</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-heading">{summary.unique_techniques.length}</div>
-                <div className="text-mini font-mono text-slate-400">unique MITRE techniques</div>
+                <div className="text-mini font-mono text-muted">unique MITRE techniques</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-heading">{summary.unique_event_ids.length}</div>
-                <div className="text-mini font-mono text-slate-400">unique event IDs</div>
+                <div className="text-mini font-mono text-muted">unique event IDs</div>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -178,7 +178,7 @@ export default function LogParser(): JSX.Element {
 
           {/* Severity filter */}
           <section className="flex flex-wrap items-center gap-2 mb-4">
-            <Filter size={12} className="text-slate-500" />
+            <Filter size={12} className="text-muted" />
             <span className="text-mini font-mono text-muted">filter:</span>
             {(['high', 'medium', 'low', 'info'] as const).map((s) => {
               const count = summary.by_severity[s];
@@ -189,7 +189,7 @@ export default function LogParser(): JSX.Element {
                   type="button"
                   onClick={() => toggleSeverity(s)}
                   disabled={count === 0}
-                  className={`text-mini font-mono px-2 py-1 rounded border ${active ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
+                  className={`text-mini font-mono px-2 py-1 rounded border ${active ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-line-1 text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
                 >
                   {s} · {count}
                 </button>
@@ -222,8 +222,8 @@ export default function LogParser(): JSX.Element {
                     {r.severity}
                   </span>
                   {r.event_id && <span className="text-mini font-mono text-body">EID {r.event_id}</span>}
-                  {r.source && <span className="text-mini font-mono text-slate-400">{r.source}</span>}
-                  {r.timestamp && <span className="text-mini font-mono text-slate-400 ml-auto">{r.timestamp}</span>}
+                  {r.source && <span className="text-mini font-mono text-muted">{r.source}</span>}
+                  {r.timestamp && <span className="text-mini font-mono text-muted ml-auto">{r.timestamp}</span>}
                 </div>
 
                 {r.mitre_techniques.length > 0 && (
@@ -252,11 +252,11 @@ export default function LogParser(): JSX.Element {
                 )}
 
                 <details>
-                  <summary className="text-mini font-mono text-slate-400 cursor-pointer">
+                  <summary className="text-mini font-mono text-muted cursor-pointer">
                     {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} - show
                     structured JSON
                   </summary>
-                  <pre className="mt-2 text-mini font-mono text-body whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-60 overflow-auto">
+                  <pre className="mt-2 text-mini font-mono text-body whitespace-pre-wrap break-all bg-surface-200 rounded p-2 border border-line-1 max-h-60 overflow-auto">
                     {JSON.stringify(r.fields, null, 2)}
                   </pre>
                 </details>
@@ -274,10 +274,7 @@ export default function LogParser(): JSX.Element {
                 {queries.map((q, i) => {
                   const id = `q-${i}`;
                   return (
-                    <li
-                      key={id}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                    >
+                    <li key={id} className="rounded border border-line-1 bg-surface-200 p-3">
                       <div className="flex items-baseline justify-between gap-2 mb-2">
                         <h3 className="text-meta font-mono text-body">{q.label}</h3>
                         <button

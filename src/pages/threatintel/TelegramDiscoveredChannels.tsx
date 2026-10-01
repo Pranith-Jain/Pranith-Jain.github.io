@@ -118,7 +118,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1"
             aria-label="Refresh"
           >
             <RefreshCw size={11} /> refresh
@@ -128,7 +128,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
     >
       {showToken && (
         <div className="animate-fade-in-up mb-6 surface-card p-3.5">
-          <label htmlFor="vt-admin-token" className="block text-micro uppercase tracking-wider text-slate-500 mb-1.5">
+          <label htmlFor="vt-admin-token" className="block text-micro uppercase tracking-wider text-muted mb-1.5">
             Admin token - stored locally, sent only with approve/reject requests
           </label>
           <div className="flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                 if (e.key === 'Enter') saveToken();
               }}
               placeholder="paste ADMIN_TOKEN…"
-              className="flex-1 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading placeholder:text-slate-400 font-mono"
+              className="flex-1 px-3 py-1.5 text-sm rounded border border-line-2 bg-surface-100 text-heading placeholder:text-muted font-mono"
             />
             <button
               type="button"
@@ -164,14 +164,14 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Filter handles…"
-            className="w-48 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading placeholder:text-slate-400 font-mono"
+            className="w-48 px-3 py-1.5 text-sm rounded border border-line-2 bg-surface-100 text-heading placeholder:text-muted font-mono"
           />
         </div>
 
         <select
           value={filterReviewed}
           onChange={(e) => setFilterReviewed(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading font-mono"
+          className="px-3 py-1.5 text-sm rounded border border-line-2 bg-surface-100 text-heading font-mono"
         >
           <option value="false">Unreviewed only</option>
           <option value="true">Reviewed only</option>

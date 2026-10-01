@@ -212,23 +212,23 @@ export default function AttackPathGraph(): JSX.Element {
       {data && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-5 gap-3">
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Nodes</div>
+            <div className="text-micro font-mono text-muted">Nodes</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.total_nodes}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Edges</div>
+            <div className="text-micro font-mono text-muted">Edges</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.total_edges}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Attack Paths</div>
+            <div className="text-micro font-mono text-muted">Attack Paths</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.total_paths}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Avg Path Length</div>
+            <div className="text-micro font-mono text-muted">Avg Path Length</div>
             <div className="text-lg font-bold font-mono mt-1">{data.stats.avg_path_length}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Worst Score</div>
+            <div className="text-micro font-mono text-muted">Worst Score</div>
             <div className="text-lg font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">
               {data.stats.worst_score}
             </div>
@@ -355,7 +355,7 @@ export default function AttackPathGraph(): JSX.Element {
             </svg>
 
             {/* Legend */}
-            <div className="flex flex-wrap items-center gap-4 mt-3 text-micro font-mono text-slate-500">
+            <div className="flex flex-wrap items-center gap-4 mt-3 text-micro font-mono text-muted">
               <span className="flex items-center gap-1">
                 <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block" /> Entry
               </span>
@@ -381,7 +381,7 @@ export default function AttackPathGraph(): JSX.Element {
           <div className="space-y-4">
             {/* Attack paths list */}
             <div className="surface-card p-4">
-              <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+              <h3 className="text-micro font-mono uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
                 <TrendingUp size={12} /> Attack Paths
               </h3>
               <div className="space-y-1.5 max-h-[240px] overflow-y-auto">
@@ -393,7 +393,7 @@ export default function AttackPathGraph(): JSX.Element {
                     className={`w-full text-left px-2.5 py-2 rounded-xl border transition-colors text-micro font-mono ${
                       selectedPath === i
                         ? 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                        : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/40'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-0.5">
@@ -423,7 +423,7 @@ export default function AttackPathGraph(): JSX.Element {
 
             {/* Choke points */}
             <div className="surface-card p-4">
-              <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+              <h3 className="text-micro font-mono uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
                 <ShieldAlert size={12} /> Choke Points
               </h3>
               <div className="space-y-1.5">
@@ -434,7 +434,7 @@ export default function AttackPathGraph(): JSX.Element {
                   >
                     <span className="font-medium text-amber-700 dark:text-amber-300 truncate">{cp.label}</span>
                     <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-slate-500">{cp.path_count} paths</span>
+                      <span className="text-muted">{cp.path_count} paths</span>
                       <span className="font-bold text-amber-600 dark:text-amber-400">{cp.score}%</span>
                     </div>
                   </div>
@@ -474,7 +474,7 @@ export default function AttackPathGraph(): JSX.Element {
       {!loading && !layout && (
         <div className="text-center py-12">
           <Info size={32} className="mx-auto mb-3 text-muted" />
-          <p className="font-mono text-sm text-slate-500 mb-4">
+          <p className="font-mono text-sm text-muted mb-4">
             No asset data found. Run an ASM domain scan first, or refresh to generate a demo graph.
           </p>
           <button

@@ -155,10 +155,7 @@ export default function ScheduleTab() {
     return (
       <div>
         <p className="text-rose-600 dark:text-rose-400 mb-2">Failed to load: {error}</p>
-        <button
-          onClick={() => void load()}
-          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
-        >
+        <button onClick={() => void load()} className="px-3 py-1 border border-line-1 rounded text-sm">
           Retry
         </button>
       </div>
@@ -180,7 +177,7 @@ export default function ScheduleTab() {
           className={`px-3 py-1 text-xs rounded border ${
             viewMode === 'list'
               ? 'bg-brand-500 text-white border-brand-500'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+              : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
           }`}
         >
           List
@@ -190,7 +187,7 @@ export default function ScheduleTab() {
           className={`px-3 py-1 text-xs rounded border ${
             viewMode === 'calendar'
               ? 'bg-brand-500 text-white border-brand-500'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+              : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
           }`}
         >
           Calendar
@@ -247,7 +244,7 @@ export default function ScheduleTab() {
                           <button
                             onClick={() => removeSlot(s.candidateId)}
                             disabled={publishing === s.candidateId}
-                            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                            className="px-2 py-1 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
                           >
                             Remove
                           </button>
@@ -270,7 +267,7 @@ export default function ScheduleTab() {
           <div className="flex items-center justify-between mb-3">
             <button
               onClick={() => setCalDate(new Date(calYear, calMonth - 1, 1))}
-              className="px-2 py-1 text-xs border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+              className="px-2 py-1 text-xs border border-line-1 rounded hover:bg-surface-300 dark:hover:bg-surface-300"
             >
               &larr; Prev
             </button>
@@ -279,7 +276,7 @@ export default function ScheduleTab() {
             </h3>
             <button
               onClick={() => setCalDate(new Date(calYear, calMonth + 1, 1))}
-              className="px-2 py-1 text-xs border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+              className="px-2 py-1 text-xs border border-line-1 rounded hover:bg-surface-300 dark:hover:bg-surface-300"
             >
               Next &rarr;
             </button>
@@ -295,7 +292,7 @@ export default function ScheduleTab() {
           </div>
 
           {/* Calendar grid */}
-          <div className="grid grid-cols-7 gap-px bg-slate-200 dark:bg-[rgb(var(--border-400))] rounded overflow-hidden">
+          <div className="grid grid-cols-7 gap-px bg-slate-200 dark:bg-line-1 rounded overflow-hidden">
             {calCells.map((cell, i) => {
               const key = cell.isCurrent
                 ? `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(cell.day).padStart(2, '0')}`
@@ -316,9 +313,9 @@ export default function ScheduleTab() {
                     }
                   }}
                   disabled={!cell.isCurrent}
-                  className={`min-h-[60px] p-1 text-xs text-left bg-white dark:bg-[rgb(var(--surface-100))] ${
+                  className={`min-h-[60px] p-1 text-xs text-left bg-surface-100 ${
                     isSelected ? 'ring-2 ring-brand-500 z-10' : ''
-                  } ${cell.isCurrent ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]' : 'opacity-40'}`}
+                  } ${cell.isCurrent ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-surface-300' : 'opacity-40'}`}
                 >
                   <span
                     className={`inline-block w-5 h-5 text-center leading-5 rounded-full text-micro ${
@@ -356,7 +353,7 @@ export default function ScheduleTab() {
               {selectedDaySlots.map((s) => (
                 <div
                   key={s.candidateId}
-                  className="flex items-center justify-between p-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))]"
+                  className="flex items-center justify-between p-2 rounded border border-line-1 bg-surface-100"
                 >
                   <div className="flex items-center gap-2">
                     <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[s.status] ?? 'bg-slate-300'}`} />
@@ -385,7 +382,7 @@ export default function ScheduleTab() {
                     {s.status === 'published' && s.publishedSlug && (
                       <a
                         href={`/blog/${s.publishedSlug}`}
-                        className="px-2 py-0.5 text-micro text-slate-500 underline"
+                        className="px-2 py-0.5 text-micro text-muted underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -416,7 +413,7 @@ export default function ScheduleTab() {
               autoFocus
               value={rescheduleAt}
               onChange={(e) => setRescheduleAt(e.target.value)}
-              className="mt-1 w-full px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-brand-500"
+              className="mt-1 w-full px-3 py-2 rounded border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-brand-500"
             />
           </label>
           <div className="flex justify-end gap-2">

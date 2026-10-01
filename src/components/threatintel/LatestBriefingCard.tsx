@@ -62,7 +62,7 @@ export function LatestBriefingCard(): JSX.Element | null {
       to={`/threatintel/briefings/${item.slug}`}
       onMouseEnter={() => preloadRoute('/threatintel/briefings')}
       onFocus={() => preloadRoute('/threatintel/briefings')}
-      className="group mb-6 flex items-center gap-4 rounded-xl border border-slate-200 bg-white px-4 py-3 transition-colors hover:border-rose-400 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-rose-500"
+      className="group mb-6 flex items-center gap-4 rounded-xl border border-line-1 bg-surface-100 px-4 py-3 transition-colors hover:border-rose-400 dark:hover:border-rose-500"
     >
       <FileText className="h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
       <div className="min-w-0 flex-1">

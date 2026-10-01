@@ -59,7 +59,7 @@ function slug(s: string): string {
 const NODE_STYLES: Record<MindmapNode['kind'], { light: string; dark: string; ring: string }> = {
   finding: {
     light: 'border-slate-400 bg-slate-50 text-slate-900',
-    dark: 'dark:border-[rgb(var(--border-500))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100',
+    dark: 'dark:border-line-2 dark:bg-surface-200 dark:text-slate-100',
     ring: '#64748b',
   },
   actor: {
@@ -93,7 +93,7 @@ function MindmapNode({ data }: { data: { label: string; kind: MindmapNode['kind'
   const s = NODE_STYLES[data.kind] ?? NODE_STYLES.finding;
   return (
     <div
-      className={`rounded-xl border-2 px-2.5 py-1.5 text-xs font-mono shadow-e1 bg-white ${s.light} ${s.dark}`}
+      className={`rounded-xl border-2 px-2.5 py-1.5 text-xs font-mono shadow-e1 bg-surface-100 ${s.light} ${s.dark}`}
       style={{ minWidth: 100, maxWidth: 220 }}
     >
       <Handle type="target" position={Position.Top} style={{ background: s.ring, width: 6, height: 6 }} />
@@ -374,7 +374,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste the report here. Plain text or markdown. Up to 80KB."
-              className="w-full h-40 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-40 rounded border border-line-2 bg-surface-200 p-2 text-sm font-mono text-heading placeholder:text-muted focus:border-brand-500/60 focus:outline-none"
             />
           </div>
           <div>
@@ -389,7 +389,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputUrl}
               onChange={(e) => setInputUrl(e.target.value)}
               placeholder="https://example.com/report"
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full rounded border border-line-2 bg-surface-200 p-2 text-sm font-mono text-heading placeholder:text-muted focus:border-brand-500/60 focus:outline-none"
             />
             <p className="mt-1 text-mini text-muted leading-snug">
               Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant,
@@ -406,7 +406,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={imageUrls}
               onChange={(e) => setImageUrls(e.target.value)}
               placeholder="https://example.com/screenshot1.png"
-              className="w-full h-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-xs font-mono text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-20 rounded border border-line-2 bg-surface-200 p-2 text-xs font-mono text-heading placeholder:text-muted focus:border-brand-500/60 focus:outline-none"
             />
             <div className="mt-3 flex items-start gap-2 text-xs text-muted">
               <input
@@ -414,7 +414,7 @@ export default function ReportAnalyzer(): JSX.Element {
                 type="checkbox"
                 checked={includeStix}
                 onChange={(e) => setIncludeStix(e.target.checked)}
-                className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-brand-500 focus:ring-brand-500"
+                className="mt-0.5 h-3.5 w-3.5 rounded border-line-2 text-brand-500 focus:ring-brand-500"
                 aria-label="Include STIX bundle"
               />
               <label htmlFor="report-analyzer-stix" className="cursor-pointer">
@@ -450,15 +450,13 @@ export default function ReportAnalyzer(): JSX.Element {
         <>
           {/* Status bar */}
           <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted">
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+            <span className="rounded border border-line-2 px-2 py-1 font-mono">
               title <span className="text-body">{data.title}</span>
             </span>
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+            <span className="rounded border border-line-2 px-2 py-1 font-mono">
               {data.textLength.toLocaleString()} chars
             </span>
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
-              {data.elapsed_ms} ms
-            </span>
+            <span className="rounded border border-line-2 px-2 py-1 font-mono">{data.elapsed_ms} ms</span>
             {data.errors.length > 0 && (
               <span
                 className="rounded border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 px-2 py-1 font-mono text-amber-700 dark:text-amber-300"
@@ -471,7 +469,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={exportPdf}
               disabled={pdfExporting}
-              className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="ml-auto inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               {pdfExporting ? <RefreshCw className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />}
               {pdfExporting ? 'exporting…' : 'export PDF'}
@@ -479,7 +477,7 @@ export default function ReportAnalyzer(): JSX.Element {
             <button
               type="button"
               onClick={exportMarkdown}
-              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               <Download className="h-3 w-3" /> MD
             </button>
@@ -487,7 +485,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={saveReportHandler}
               disabled={saving}
-              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               {saving ? <RefreshCw className="h-3 w-3 animate-spin" /> : <CheckCircle className="h-3 w-3" />}
               {saving ? 'saving…' : (savedMsg ?? 'save')}
@@ -496,7 +494,7 @@ export default function ReportAnalyzer(): JSX.Element {
               type="button"
               onClick={checkCorrelations}
               disabled={correlating}
-              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 font-mono text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               {correlating ? <RefreshCw className="h-3 w-3 animate-spin" /> : <Network className="h-3 w-3" />}
               {correlating ? 'checking…' : 'correlate'}
@@ -520,7 +518,7 @@ export default function ReportAnalyzer(): JSX.Element {
                 {Object.entries(correlations).map(([ioc, corr]) => (
                   <div
                     key={ioc}
-                    className="rounded border border-amber-200 dark:border-amber-800 bg-white dark:bg-amber-950/30 p-2"
+                    className="rounded border border-amber-200 dark:border-amber-800 bg-surface-100 dark:bg-amber-950/30 p-2"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <code className="font-mono text-sm font-semibold text-amber-900 dark:text-amber-100">{ioc}</code>
@@ -547,7 +545,7 @@ export default function ReportAnalyzer(): JSX.Element {
                 className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                   tab === t
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400 dark:hover:border-slate-500'
                 }`}
               >
                 {TAB_META[t].icon} {TAB_META[t].label}
@@ -615,7 +613,7 @@ function FilterInput({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-1.5 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+        className="w-full rounded border border-line-2 bg-surface-100 py-1.5 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-brand-500/60 focus:outline-none"
       />
     </div>
   );
@@ -659,7 +657,7 @@ function IocsTab({
         <button
           type="button"
           onClick={() => downloadCsv('iocs.csv', exportIocsCsv(iocs))}
-          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1.5 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3 w-3" /> CSV
         </button>
@@ -668,7 +666,7 @@ function IocsTab({
           onClick={() =>
             downloadBlob(new Blob([JSON.stringify(iocs, null, 2)], { type: 'application/json' }), 'iocs.json')
           }
-          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1.5 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3 w-3" /> JSON
         </button>
@@ -677,7 +675,7 @@ function IocsTab({
         {filtered.map((i, idx) => (
           <li
             key={`${i.kind}-${i.value}-${idx}`}
-            className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 pb-1.5 last:border-b-0"
+            className="flex flex-wrap items-center gap-2 border-b border-line-1/60 pb-1.5 last:border-b-0"
           >
             <span
               className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
@@ -704,9 +702,7 @@ function IocsTab({
               </span>
             )}
             {i.source === 'image-ocr' && (
-              <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-muted">
-                ocr
-              </span>
+              <span className="text-micro font-mono rounded border border-line-2 px-1.5 py-0.5 text-muted">ocr</span>
             )}
             <code className="font-mono text-sm text-heading break-all">{i.value}</code>
             {i.evidence && <span className="ml-auto text-xs text-muted truncate max-w-[40%]">{i.evidence}</span>}
@@ -742,10 +738,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
             <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">{tactic}</div>
             <ul className="space-y-1.5">
               {hits.map((t) => (
-                <li
-                  key={t.id}
-                  className="flex flex-col gap-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 pb-2 last:border-b-0"
-                >
+                <li key={t.id} className="flex flex-col gap-1 border-b border-line-1/60 pb-2 last:border-b-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <a
                       href={`https://attack.mitre.org/techniques/${t.id}/`}
@@ -808,10 +801,7 @@ function CvesTab({
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${cves.length} CVEs…`} />
       <div className="space-y-3">
         {filtered.map((c) => (
-          <div
-            key={c.id}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-          >
+          <div key={c.id} className="rounded border border-line-1 bg-surface-200 p-3">
             <div className="flex flex-wrap items-center gap-2 mb-1.5">
               <a
                 href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
@@ -835,7 +825,7 @@ function CvesTab({
               )}
               {c.epss != null && (
                 <span
-                  className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-body"
+                  className="text-micro font-mono rounded border border-line-2 px-1.5 py-0.5 text-body"
                   title={`EPSS percentile: ${c.epss_percentile != null ? (c.epss_percentile * 100).toFixed(1) : '?'}%`}
                 >
                   EPSS {(c.epss * 100).toFixed(1)}%
@@ -851,10 +841,7 @@ function CvesTab({
             {c.products && c.products.length > 0 && (
               <div className="flex flex-wrap gap-1 mb-1.5">
                 {c.products.map((p) => (
-                  <span
-                    key={p}
-                    className="text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-muted"
-                  >
+                  <span key={p} className="text-micro font-mono rounded border border-line-1 px-1.5 py-0.5 text-muted">
                     {p}
                   </span>
                 ))}
@@ -888,10 +875,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
       </div>
       <dl className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
         {rows.map((r) => (
-          <div
-            key={r.label}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-          >
+          <div key={r.label} className="rounded border border-line-1 bg-surface-200 p-2.5">
             <dt className="text-micro font-mono uppercase tracking-wider text-muted">{r.label}</dt>
             <dd className="mt-0.5 text-sm text-heading break-words">{r.value || '-'}</dd>
           </div>
@@ -900,10 +884,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
       {extraRows.length > 0 && (
         <div className="space-y-2">
           {extraRows.map((r) => (
-            <div
-              key={r.label}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-            >
+            <div key={r.label} className="rounded border border-line-1 bg-surface-200 p-2.5">
               <dt className="text-micro font-mono uppercase tracking-wider text-muted">{r.label}</dt>
               <dd className="mt-0.5 text-sm text-body leading-relaxed break-words">{r.value}</dd>
             </div>
@@ -923,7 +904,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
 function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element {
   if (!diamond) {
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+      <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
         <Diamond className="mx-auto mb-2 h-8 w-8 text-muted" />
         No adversary/capability/infrastructure/victim signal could be derived from this report.
       </div>
@@ -944,14 +925,14 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
       items:
         diamond.adversary.length === 0
           ? [
-              <span key="none" className="text-xs text-slate-500">
+              <span key="none" className="text-xs text-muted">
                 not identified in the report
               </span>,
             ]
           : diamond.adversary.map((a) => (
               <span
                 key={a}
-                className="inline-flex items-center rounded border border-rose-300 dark:border-rose-800 bg-white dark:bg-rose-950/40 px-2 py-0.5 text-xs font-mono text-rose-700 dark:text-rose-300"
+                className="inline-flex items-center rounded border border-rose-300 dark:border-rose-800 bg-surface-100 dark:bg-rose-950/40 px-2 py-0.5 text-xs font-mono text-rose-700 dark:text-rose-300"
               >
                 {a}
               </span>
@@ -965,18 +946,18 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
       items:
         diamond.capability.length === 0
           ? [
-              <span key="none" className="text-xs text-slate-500">
+              <span key="none" className="text-xs text-muted">
                 none extracted
               </span>,
             ]
           : diamond.capability.slice(0, 8).map((c) => (
               <span
                 key={c.id}
-                className="inline-flex items-center gap-1 rounded border border-violet-300 dark:border-violet-800 bg-white dark:bg-violet-950/40 px-2 py-0.5 text-xs font-mono text-violet-700 dark:text-violet-300"
+                className="inline-flex items-center gap-1 rounded border border-violet-300 dark:border-violet-800 bg-surface-100 dark:bg-violet-950/40 px-2 py-0.5 text-xs font-mono text-violet-700 dark:text-violet-300"
                 title={c.tactic}
               >
                 {c.id.startsWith('T') && /^T\d{4}(\.\d{3})?$/.test(c.id) ? (
-                  <span className="text-micro text-slate-500">{c.id}</span>
+                  <span className="text-micro text-muted">{c.id}</span>
                 ) : null}
                 <span className="truncate max-w-[180px]">{c.name}</span>
               </span>
@@ -990,14 +971,14 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
       items:
         diamond.infrastructure.length === 0
           ? [
-              <span key="none" className="text-xs text-slate-500">
+              <span key="none" className="text-xs text-muted">
                 no network IOCs
               </span>,
             ]
           : diamond.infrastructure.slice(0, 8).map((i) => (
               <span
                 key={i}
-                className="inline-flex items-center rounded border border-sky-300 dark:border-sky-800 bg-white dark:bg-sky-950/40 px-2 py-0.5 text-xs font-mono text-sky-700 dark:text-sky-300 truncate max-w-[200px]"
+                className="inline-flex items-center rounded border border-sky-300 dark:border-sky-800 bg-surface-100 dark:bg-sky-950/40 px-2 py-0.5 text-xs font-mono text-sky-700 dark:text-sky-300 truncate max-w-[200px]"
               >
                 {i}
               </span>
@@ -1011,15 +992,15 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
       items: [
         <div key="v" className="space-y-1 text-xs">
           <p>
-            <span className="text-micro font-mono uppercase text-slate-500">sector</span> ·{' '}
+            <span className="text-micro font-mono uppercase text-muted">sector</span> ·{' '}
             <span className="font-mono text-body">{diamond.victim.sector}</span>
           </p>
           <p>
-            <span className="text-micro font-mono uppercase text-slate-500">geography</span> ·{' '}
+            <span className="text-micro font-mono uppercase text-muted">geography</span> ·{' '}
             <span className="font-mono text-body">{diamond.victim.geography}</span>
           </p>
           <p>
-            <span className="text-micro font-mono uppercase text-slate-500">asset</span> ·{' '}
+            <span className="text-micro font-mono uppercase text-muted">asset</span> ·{' '}
             <span className="font-mono text-body">{diamond.victim.asset}</span>
           </p>
         </div>,
@@ -1033,7 +1014,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
           <div className="mb-2 flex items-center gap-2">
             <Diamond className="h-4 w-4 text-body" />
             <h3 className="text-sm font-semibold text-heading">{f.title}</h3>
-            <span className="ml-auto text-micro font-mono uppercase text-slate-500">{f.pillar}</span>
+            <span className="ml-auto text-micro font-mono uppercase text-muted">{f.pillar}</span>
           </div>
           <div className="flex flex-wrap gap-1.5">{f.items}</div>
         </div>
@@ -1045,7 +1026,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
 function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
   if (phases.length === 0) {
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+      <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
         <GitBranch className="mx-auto mb-2 h-8 w-8 text-muted" />
         No TTP signal to render as a kill chain.
       </div>
@@ -1054,14 +1035,11 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
   return (
     <div className="space-y-2">
       {phases.map((p) => (
-        <div
-          key={p.phase}
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
-        >
-          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
+        <div key={p.phase} className="rounded-xl border border-line-1 bg-surface-100 shadow-e1 overflow-hidden">
+          <div className="flex items-center gap-2 border-b border-line-1 bg-surface-200 px-4 py-2">
             <GitBranch className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-heading">{p.phase}</h3>
-            <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+            <span className="ml-auto text-micro font-mono uppercase text-muted">
               {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
             </span>
           </div>
@@ -1132,23 +1110,20 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
             .replace(/[^a-z0-9]+/gi, '-')
             .toLowerCase()
             .slice(0, 50)}.json`}
-          className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="ml-auto inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-xs text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3.5 w-3.5" /> download
         </a>
       </div>
       <div className="grid grid-cols-2 gap-2 mb-3 sm:grid-cols-3 md:grid-cols-4">
         {byType.map(([type, n]) => (
-          <div
-            key={type}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
-          >
+          <div key={type} className="rounded border border-line-1 bg-surface-200 px-2 py-1.5">
             <div className="text-micro font-mono uppercase tracking-wider text-muted">{type}</div>
             <div className="text-sm font-semibold text-heading">{n}</div>
           </div>
         ))}
       </div>
-      <details className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2">
+      <details className="rounded border border-line-1 bg-surface-200 p-2">
         <summary className="cursor-pointer text-micro font-mono uppercase tracking-wider text-muted">
           view raw JSON
         </summary>
@@ -1184,7 +1159,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
         <button
           type="button"
           onClick={() => downloadCsv('detection.csv', exportDetectionCsv(detection))}
-          className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-xs font-mono text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3 w-3" /> export CSV
         </button>
@@ -1195,16 +1170,13 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
           <div className="flex items-center gap-2 mb-3">
             <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-heading">SIEM Detection Rules</h3>
-            <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+            <span className="ml-auto text-micro font-mono uppercase text-muted">
               {detection.siemRules.length} rules
             </span>
           </div>
           <div className="space-y-3">
             {detection.siemRules.map((rule, i) => (
-              <div
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-              >
+              <div key={i} className="rounded border border-line-1 bg-surface-200 p-3">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <span className="text-sm font-medium text-heading">{rule.title}</span>
                   <span
@@ -1219,7 +1191,7 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
                 </div>
                 <p className="text-xs text-body mb-2">{rule.description}</p>
                 {rule.query && (
-                  <pre className="text-xs font-mono text-heading bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
+                  <pre className="text-xs font-mono text-heading bg-surface-300 rounded p-2 overflow-x-auto">
                     {rule.query}
                   </pre>
                 )}
@@ -1263,12 +1235,9 @@ function DetectionTab({ detection }: { detection: AnalyzerOutput['detection'] })
           </div>
           <div className="space-y-2">
             {detection.cliCommands.map((cmd, i) => (
-              <div
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2"
-              >
+              <div key={i} className="rounded border border-line-1 bg-surface-200 p-2">
                 <div className="text-xs text-body mb-1">{cmd.purpose}</div>
-                <pre className="text-xs font-mono text-heading bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto">
+                <pre className="text-xs font-mono text-heading bg-surface-300 rounded p-2 overflow-x-auto">
                   {cmd.command}
                 </pre>
                 {cmd.platform && <div className="mt-1 text-micro font-mono text-muted">{cmd.platform}</div>}
@@ -1350,10 +1319,7 @@ function ConclusionTab({ conclusion }: { conclusion: AnalyzerOutput['conclusion'
           </div>
           <div className="space-y-2">
             {conclusion.recommendedActions.map((action, i) => (
-              <div
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-              >
+              <div key={i} className="rounded border border-line-1 bg-surface-200 p-3">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <span
                     className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${priorityColor[action.priority] ?? priorityColor['long-term']}`}
@@ -1426,15 +1392,11 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-muted">MITRE ATT&CK Heatmap</div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
-            {uniqueTechniques} techniques
-          </span>
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
+          <span className="rounded bg-surface-300 px-2 py-0.5 font-mono text-body">{uniqueTechniques} techniques</span>
+          <span className="rounded bg-surface-300 px-2 py-0.5 font-mono text-body">
             {activeTactics.length + otherTactics.length} tactics
           </span>
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
-            {ttp.length} mappings
-          </span>
+          <span className="rounded bg-surface-300 px-2 py-0.5 font-mono text-body">{ttp.length} mappings</span>
         </div>
       </div>
 
@@ -1465,12 +1427,12 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
           return (
             <div
               key={tactic}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden"
+              className="rounded border border-line-1 overflow-hidden"
               style={{
                 background: `rgba(59, 130, 246, ${0.03 + density * 0.08})`,
               }}
             >
-              <div className="px-2 py-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/60 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="px-2 py-1.5 bg-surface-300/60 border-b border-line-1">
                 <div className="text-micro font-mono font-semibold uppercase tracking-wider text-body truncate">
                   {tactic}
                 </div>
@@ -1499,7 +1461,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
       </div>
 
       {/* Technique density bar chart */}
-      <div className="mt-4 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="mt-4 pt-3 border-t border-line-1">
         <div className="text-micro font-mono text-muted mb-2">Technique Density by Tactic</div>
         <div className="space-y-1">
           {[...activeTactics, ...otherTactics].map((tactic) => {
@@ -1509,7 +1471,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
             return (
               <div key={tactic} className="flex items-center gap-2 text-micro">
                 <span className="w-24 truncate font-mono text-muted">{tactic}</span>
-                <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
+                <div className="flex-1 h-2 bg-surface-300 rounded overflow-hidden">
                   <div
                     className="h-full bg-brand-500 dark:bg-brand-400 rounded transition-all"
                     style={{ width: `${pct}%` }}
@@ -1530,7 +1492,7 @@ function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
   return (
     <section className="surface-card p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-muted">
-        <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
+        <span className="rounded border border-line-2 px-2 py-1 font-mono">
           {data.textLength.toLocaleString()} chars
         </span>
         {url && (
@@ -1538,14 +1500,14 @@ function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
+            className="inline-flex items-center gap-1 rounded border border-line-2 px-2 py-1 font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             <ExternalLink className="h-3 w-3" /> {url}
           </a>
         )}
       </div>
       {displayText ? (
-        <pre className="max-h-[600px] overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs font-mono text-heading whitespace-pre-wrap break-words">
+        <pre className="max-h-[600px] overflow-auto rounded border border-line-1 bg-surface-200 p-3 text-xs font-mono text-heading whitespace-pre-wrap break-words">
           {displayText}
         </pre>
       ) : (
@@ -1614,9 +1576,7 @@ function TimelineTab() {
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="text-micro font-mono uppercase tracking-wider text-muted">Report Timeline</div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 font-mono text-body">
-            {timeline.length} reports
-          </span>
+          <span className="rounded bg-surface-300 px-2 py-0.5 font-mono text-body">{timeline.length} reports</span>
           <span className="rounded bg-amber-100 dark:bg-amber-900/40 px-2 py-0.5 font-mono text-amber-700 dark:text-amber-300">
             {sharedIocs.length} shared IOCs
           </span>
@@ -1647,7 +1607,7 @@ function TimelineTab() {
       {/* Timeline visualization */}
       <div className="relative">
         {/* Vertical line */}
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-surface-300" />
 
         <div className="space-y-4">
           {timeline.map((report) => {
@@ -1663,12 +1623,12 @@ function TimelineTab() {
                   className={`absolute left-2.5 top-2 w-3 h-3 rounded-full border-2 ${
                     sharedInReport.length > 0
                       ? 'border-amber-500 bg-amber-100 dark:bg-amber-900/40'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]'
+                      : 'border-slate-300 dark:border-line-2 bg-white dark:bg-surface-200'
                   }`}
                 />
 
                 {/* Report card */}
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+                <div className="rounded-xl border border-line-1 bg-surface-200 p-3">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     <span className="text-sm font-semibold text-heading">{report.title}</span>
                     <span className="text-xs text-muted font-mono">
@@ -1705,7 +1665,7 @@ function TimelineTab() {
                             className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-mono ${
                               isShared
                                 ? 'border border-amber-400 dark:border-amber-600 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 font-semibold'
-                                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-muted'
+                                : 'border border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 text-muted'
                             }`}
                             title={isShared ? 'Shared across reports' : ioc.kind}
                           >
@@ -1730,7 +1690,7 @@ function TimelineTab() {
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+    <section className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
       {message}
     </section>
   );

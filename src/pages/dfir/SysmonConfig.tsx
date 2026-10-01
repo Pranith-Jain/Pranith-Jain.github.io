@@ -130,7 +130,7 @@ export default function SysmonConfig() {
       <div className="space-y-6">
         <section className="surface-card p-4">
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Preset:</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-muted">Preset:</span>
             {(['verbose', 'baseline', 'lean'] as const).map((p) => (
               <button
                 key={p}
@@ -138,7 +138,7 @@ export default function SysmonConfig() {
                 className={`text-xs font-mono px-2.5 py-1 rounded-full border transition-colors ${
                   mode === p
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
                 }`}
               >
                 {p}
@@ -159,13 +159,13 @@ export default function SysmonConfig() {
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
             {SLIDERS.map((s) => (
               <label key={s.id} className="flex flex-col gap-1">
-                <span className="text-micro font-mono text-slate-400">{s.label}</span>
+                <span className="text-micro font-mono text-muted">{s.label}</span>
                 <select
                   value={level[s.id]}
                   onChange={(e) => {
                     setLevel((l) => ({ ...l, [s.id]: e.target.value as SysmonLevel }));
                   }}
-                  className="px-2 py-1.5 rounded-lg text-xs font-mono bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                  className="px-2 py-1.5 rounded-lg text-xs font-mono bg-surface-200 border border-line-1 focus:outline-none focus:border-brand-500"
                 >
                   <option value="verbose">verbose</option>
                   <option value="baseline">baseline</option>
@@ -179,7 +179,7 @@ export default function SysmonConfig() {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="flex-1 min-w-[180px] max-w-xs px-2.5 py-1.5 rounded-lg text-xs font-mono bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+              className="flex-1 min-w-[180px] max-w-xs px-2.5 py-1.5 rounded-lg text-xs font-mono bg-surface-200 border border-line-1 focus:outline-none focus:border-brand-500"
               placeholder="config file name"
             />
             <button
@@ -190,7 +190,7 @@ export default function SysmonConfig() {
             </button>
             <button
               onClick={download}
-              className="inline-flex items-center gap-1.5 text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm font-mono px-3 py-1.5 rounded border border-line-2 text-muted hover:border-brand-500/40 transition-colors"
             >
               <Download size={13} /> download
             </button>
@@ -210,12 +210,12 @@ export default function SysmonConfig() {
               <RefreshCw size={11} /> reset to baseline
             </button>
           </div>
-          <pre className="font-mono text-mini leading-relaxed text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 overflow-x-auto max-h-[480px] whitespace-pre">
+          <pre className="font-mono text-mini leading-relaxed text-body bg-surface-200 border border-line-1 rounded p-4 overflow-x-auto max-h-[480px] whitespace-pre">
             {xml}
           </pre>
         </section>
 
-        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-line-1">
           Test in a VM first — Sysmon schema evolves (current 4.90 at v15.x). Pair with event ID 22 for DNS hunting and
           the{' '}
           <a href="/dfir/siem-library" className="text-brand-600 dark:text-brand-400 hover:underline">

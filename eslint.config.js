@@ -2,7 +2,7 @@ import tseslint from 'typescript-eslint';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import * as noRawDarkColors from './eslint-rules/no-raw-dark-colors.js';
+import noRawColors from './eslint-rules/no-raw-colors.js';
 import * as noRawKvAccess from './eslint-rules/no-raw-kv-access.js';
 import { KV_ALLOW_FILES } from './eslint-rules/kv-policy.js';
 
@@ -63,7 +63,7 @@ export default tseslint.config(
       'jsx-a11y/scope': 'warn',
       'jsx-a11y/no-redundant-roles': 'warn',
       'jsx-a11y/alt-text': 'warn',
-      'no-raw-dark-colors/no-raw-dark-colors': 'warn',
+      'no-raw-colors/no-raw-colors': 'warn',
     },
     settings: {
       'jsx-a11y': {
@@ -78,9 +78,9 @@ export default tseslint.config(
   // Custom ESLint plugins
   {
     plugins: {
-      'no-raw-dark-colors': {
+      'no-raw-colors': {
         rules: {
-          'no-raw-dark-colors': noRawDarkColors.default,
+          'no-raw-colors': noRawColors,
         },
       },
       'no-raw-kv-access': {

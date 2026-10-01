@@ -117,9 +117,7 @@ export default function AiSecurityPlaybook(): JSX.Element {
               <ShieldQuestion size={16} />
               Structure replicated — prose is not
             </p>
-            <p className="text-mini font-mono mt-1 text-muted">
-              {index.data.licenseNote}
-            </p>
+            <p className="text-mini font-mono mt-1 text-muted">{index.data.licenseNote}</p>
             <a
               href={index.data.sourceUrl}
               target="_blank"
@@ -188,7 +186,9 @@ export default function AiSecurityPlaybook(): JSX.Element {
           <section>
             <h2 className="text-lg font-semibold flex items-center gap-2 mb-3">
               <Tag size={18} /> Risk identifiers
-              {selectedLayer && <span className="text-mini font-mono text-muted">filtered to division {selectedLayer}</span>}
+              {selectedLayer && (
+                <span className="text-mini font-mono text-muted">filtered to division {selectedLayer}</span>
+              )}
             </h2>
             {Object.entries(grouped).map(([scheme, ids]) => (
               <div key={scheme} className="mb-4">

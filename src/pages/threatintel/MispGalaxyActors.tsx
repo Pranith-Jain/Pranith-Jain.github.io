@@ -41,7 +41,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -134,7 +134,7 @@ export default function MispGalaxyActors(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actor or alias (e.g. APT28, Fancy Bear, Lazarus)…"
             aria-label="Search threat actor or alias"
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-line-2 bg-surface-100 text-heading placeholder:text-muted focus:outline-none focus:border-rose-500/60"
           />
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -168,10 +168,7 @@ export default function MispGalaxyActors(): JSX.Element {
       </p>
       <div className="grid gap-3 lg:grid-cols-2">
         {filtered.slice(0, 600).map((actor) => (
-          <div
-            key={actor.uuid || actor.value}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-          >
+          <div key={actor.uuid || actor.value} className="rounded-xl border border-line-1 bg-surface-200 p-3">
             <div className="flex items-start justify-between gap-2">
               <h3 className="font-semibold text-sm text-heading leading-snug">{actor.value}</h3>
               {actor.country && (
@@ -191,7 +188,7 @@ export default function MispGalaxyActors(): JSX.Element {
               </Link>
               <Link
                 to={`/dfir/ioc-check?indicator=${encodeURIComponent(actor.value)}`}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 text-body hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                 title="Pivot to IOC checker"
               >
                 ioc-check →
@@ -208,7 +205,7 @@ export default function MispGalaxyActors(): JSX.Element {
                 {actor.synonyms.map((alias) => (
                   <span
                     key={alias}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 text-body"
                   >
                     {alias}
                   </span>
@@ -222,7 +219,7 @@ export default function MispGalaxyActors(): JSX.Element {
 
             {actor.refs.length > 0 && (
               <details className="mt-2 group">
-                <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-rose-600 dark:hover:text-rose-400">
+                <summary className="text-micro font-mono text-muted cursor-pointer hover:text-rose-600 dark:hover:text-rose-400">
                   references · {actor.refs.length}
                 </summary>
                 <div className="flex flex-col gap-1 mt-1 ml-1">

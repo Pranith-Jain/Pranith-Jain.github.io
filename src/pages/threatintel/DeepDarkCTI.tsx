@@ -127,14 +127,14 @@ export default function DeepDarkCTI(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search name, notes, actor…"
-                className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100"
+                className="w-full rounded-xl border border-line-1 bg-surface-100 py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none dark:text-slate-100"
                 aria-label="Search deepdarkCTI"
               />
             </div>
             <select
               value={cat}
               onChange={(e) => setCat(e.target.value)}
-              className="rounded-xl border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+              className="rounded-xl border border-line-1 bg-surface-100 py-2 px-3 font-mono text-meta"
               aria-label="Category filter"
             >
               <option value="all">All categories ({data.total})</option>
@@ -147,7 +147,7 @@ export default function DeepDarkCTI(): JSX.Element {
             <select
               value={onionOnly}
               onChange={(e) => setOnionOnly(e.target.value as typeof onionOnly)}
-              className="rounded-xl border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+              className="rounded-xl border border-line-1 bg-surface-100 py-2 px-3 font-mono text-meta"
               aria-label="Network filter"
             >
               <option value="all">Onion + clearnet</option>
@@ -160,7 +160,7 @@ export default function DeepDarkCTI(): JSX.Element {
             </label>
           </div>
 
-          <p className="font-mono text-mini text-slate-500 mb-3">
+          <p className="font-mono text-mini text-muted mb-3">
             {filtered.length} shown · {data.total} total ·{' '}
             {data.sources.filter((s) => s.stale).length > 0 && (
               <span className="text-amber-600 dark:text-amber-400">
@@ -226,7 +226,7 @@ export default function DeepDarkCTI(): JSX.Element {
                         </span>
                       )}
                     </div>
-                    {e.actor && <div className="font-mono text-mini text-slate-500 mt-0.5">actor: {e.actor}</div>}
+                    {e.actor && <div className="font-mono text-mini text-muted mt-0.5">actor: {e.actor}</div>}
                     {e.onion ? (
                       <code className="block mt-1 font-mono text-mini text-muted break-all">{e.url}</code>
                     ) : (
@@ -240,12 +240,12 @@ export default function DeepDarkCTI(): JSX.Element {
                         <ExternalLink size={10} className="shrink-0" />
                       </a>
                     )}
-                    {e.notes && <p className="font-mono text-mini text-slate-500 mt-1">{e.notes}</p>}
+                    {e.notes && <p className="font-mono text-mini text-muted mt-1">{e.notes}</p>}
                   </div>
                   <button
                     type="button"
                     onClick={() => copy(e.url)}
-                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                    className="shrink-0 rounded border border-line-1 p-1.5 text-muted hover:text-rose-600 dark:hover:text-rose-400"
                     aria-label="Copy URL"
                   >
                     <Copy size={12} />

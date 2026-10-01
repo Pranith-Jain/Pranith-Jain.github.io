@@ -1257,12 +1257,7 @@ export function AppContent({ surface }: { surface?: Surface } = {}) {
   // ─── Portfolio render path ────────────────────────────────────────────
   return (
     <SurfaceContext.Provider value={activeSurface}>
-      <PortfolioShell
-        isDark={isDark}
-        toggleTheme={toggleTheme}
-        navLinks={activeNavLinks}
-        personalInfo={personalInfo}
-      >
+      <PortfolioShell isDark={isDark} toggleTheme={toggleTheme} navLinks={activeNavLinks} personalInfo={personalInfo}>
         {routes}
       </PortfolioShell>
     </SurfaceContext.Provider>

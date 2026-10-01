@@ -261,7 +261,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
   });
 
   return (
-    <footer className="border-t border-[rgb(var(--border-400))] chrome-glass pb-[env(safe-area-inset-bottom)]">
+    <footer className="border-t border-line-1 chrome-glass pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-mini font-mono text-muted">
         <div className="flex items-center gap-3 min-w-0">
           {mode === 'radar' ? (

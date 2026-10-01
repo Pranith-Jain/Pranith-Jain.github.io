@@ -41,10 +41,7 @@ export default function XHub(): JSX.Element {
       title="X/Twitter Hub"
       description="X/Twitter intelligence - firehose search, live stream monitoring, and watch lists."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="X/Twitter hub tools"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="X/Twitter hub tools">
         {TABS.map((t) => (
           <button
             key={t.id}

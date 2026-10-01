@@ -95,7 +95,7 @@ const IOC_TYPE_GLYPH: Record<IocType, LucideIcon> = {
 };
 
 const NEUTRAL_ACCENT = {
-  ring: 'border-slate-200 dark:border-[rgb(var(--border-400))]',
+  ring: 'border-slate-200 dark:border-line-1',
   glyph: 'text-muted',
 };
 
@@ -140,13 +140,11 @@ function IocChipInner({
   const sz = SIZE[size];
 
   if (loading) {
-    const skeletonFrame = bare
-      ? ''
-      : `rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] ${sz.box}`;
+    const skeletonFrame = bare ? '' : `rounded border border-line-1 bg-surface-200 dark:bg-surface-200/50 ${sz.box}`;
     return (
       <span className={`inline-flex items-center ${sz.gap} ${skeletonFrame} ${className}`} aria-hidden="true">
-        <span className={`${sz.icon} shrink-0 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse`} />
-        <span className="h-3 w-24 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
+        <span className={`${sz.icon} shrink-0 rounded bg-slate-200 dark:bg-surface-300 animate-pulse`} />
+        <span className="h-3 w-24 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
       </span>
     );
   }
@@ -190,7 +188,7 @@ function IocChipInner({
       </span>
     );
 
-  const frame = bare ? '' : `rounded border ${accent.ring} bg-white dark:bg-[rgb(var(--surface-200)/0.6)] ${sz.box}`;
+  const frame = bare ? '' : `rounded border ${accent.ring} bg-surface-100 dark:bg-surface-200/60 ${sz.box}`;
 
   return (
     <span className={`group inline-flex max-w-full items-center ${sz.gap} ${frame} ${className}`}>
@@ -292,7 +290,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
         aria-label={`Pivot ${ioc.value} to related tools`}
-        className={`grid place-items-center rounded p-0.5 text-muted transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-500 dark:hover:text-brand-400 ${
+        className={`grid place-items-center rounded p-0.5 text-muted transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-muted dark:hover:text-brand-400 ${
           open ? 'text-brand-600 dark:text-brand-400' : ''
         }`}
       >
@@ -303,7 +301,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
           id={menuId}
           role="menu"
           aria-label={`Pivots for ${ioc.value}`}
-          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-xl border border-line-1 bg-surface-100 py-1 shadow-e3"
         >
           {pivots.map((p, i) => {
             const content = (
@@ -316,7 +314,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
               </>
             );
             const cls =
-              'block w-full px-3 py-2 text-left transition-colors hover:bg-slate-100 focus:bg-slate-100 focus:outline-none dark:hover:bg-[rgb(var(--surface-300))] dark:focus:bg-[rgb(var(--surface-300))]';
+              'block w-full px-3 py-2 text-left transition-colors hover:bg-slate-100 focus:bg-slate-100 focus:outline-none dark:hover:bg-surface-300 dark:focus:bg-surface-300';
             return p.external ? (
               <a
                 key={p.path}

@@ -37,8 +37,7 @@ const SEVERITY_STYLES: Record<string, string> = {
   high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   low: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  unknown:
-    'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.4)] text-slate-500',
+  unknown: 'border-slate-300 dark:border-line-1 bg-slate-100 dark:bg-surface-300/40 text-slate-500',
 };
 
 function formatDate(iso: string): string {
@@ -164,19 +163,19 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             placeholder="Search CVE, product, ID, description…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={yearFilter}
           onChange={(e) => setYearFilter(e.target.value)}
-          className="w-full sm:w-32 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+          className="w-full sm:w-32 px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="">All years</option>
           {years.map((y) => (
@@ -188,7 +187,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         <select
           value={severityFilter}
           onChange={(e) => setSeverityFilter(e.target.value)}
-          className="w-full sm:w-36 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+          className="w-full sm:w-36 px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="">All severities</option>
           <option value="critical">Critical</option>
@@ -199,7 +198,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         <button
           type="button"
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -212,7 +211,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
           type="button"
           onClick={exportJSON}
           disabled={!data}
-          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> JSON
         </button>
@@ -220,7 +219,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
           type="button"
           onClick={exportCSV}
           disabled={!data}
-          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> CSV
         </button>
@@ -262,7 +261,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             requireAdmin={false}
           />
         )}
-        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="overflow-x-auto rounded-xl border border-line-1">
           <DataTable
             columns={
               [
@@ -318,7 +317,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                           {cve}
                         </a>
                       ))}
-                      {adv.cves.length > 3 && <span className="text-xs text-slate-500">+{adv.cves.length - 3}</span>}
+                      {adv.cves.length > 3 && <span className="text-xs text-muted">+{adv.cves.length - 3}</span>}
                     </div>
                   ),
                 },
@@ -330,15 +329,12 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                       {adv.products_affected.length > 0 ? (
                         <div className="flex flex-wrap gap-1">
                           {adv.products_affected.slice(0, 2).map((p, i) => (
-                            <span
-                              key={i}
-                              className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-muted"
-                            >
+                            <span key={i} className="text-xs px-1.5 py-0.5 rounded bg-surface-300/60 text-muted">
                               {p.length > 32 ? `${p.slice(0, 32)}…` : p}
                             </span>
                           ))}
                           {adv.products_affected.length > 2 && (
-                            <span className="text-xs text-slate-500">+{adv.products_affected.length - 2}</span>
+                            <span className="text-xs text-muted">+{adv.products_affected.length - 2}</span>
                           )}
                         </div>
                       ) : (
@@ -364,7 +360,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             }
             rows={data?.advisories ?? []}
             rowKey={(adv) => adv.id}
-            rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+            rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/40'}
           />
         </div>
       </DataState>

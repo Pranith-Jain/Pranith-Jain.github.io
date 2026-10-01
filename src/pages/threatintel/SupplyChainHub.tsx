@@ -25,10 +25,7 @@ export default function SupplyChainHub(): JSX.Element {
       title="Supply Chain Hub"
       description="Supply-chain attack tracking, malicious package feeds, and intelligence."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="Supply Chain Hub"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="Supply Chain Hub">
         {TABS.map((t) => (
           <button
             key={t.id}

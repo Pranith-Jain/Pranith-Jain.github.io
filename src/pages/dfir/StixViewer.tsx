@@ -265,7 +265,7 @@ export default function StixViewer(): JSX.Element {
           <section className="surface-card p-3">
             <div className="flex items-center gap-2 mb-2">
               <Globe2 size={12} className="text-brand-600 dark:text-brand-400" />
-              <label htmlFor="stix-id" className="text-xs font-mono uppercase tracking-wider text-slate-500">
+              <label htmlFor="stix-id" className="text-xs font-mono uppercase tracking-wider text-muted">
                 Fetch by STIX ID
               </label>
             </div>
@@ -282,7 +282,7 @@ export default function StixViewer(): JSX.Element {
                 value={stixId}
                 onChange={(e) => setStixId(e.target.value)}
                 placeholder="T1566.001 · S0001 · G0016 - or attack-pattern--<uuid>"
-                className="flex-1 min-w-0 px-2 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="flex-1 min-w-0 px-2 py-1.5 bg-surface-200 border border-line-1 rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 spellCheck={false}
               />
               <button
@@ -293,7 +293,7 @@ export default function StixViewer(): JSX.Element {
                 {fetching ? <Loader2 size={11} className="animate-spin" /> : 'fetch'}
               </button>
             </form>
-            <p className="text-micro font-mono text-slate-400 mt-2 leading-relaxed">
+            <p className="text-micro font-mono text-muted mt-2 leading-relaxed">
               Enter a MITRE ATT&amp;CK id (T1566.001, S0001, G0016, M1049, TA0001, DS0009, C0001) or a raw STIX id
               (&lt;type&gt;--&lt;uuid&gt;). Public MITRE ATT&amp;CK TAXII 2.1 - Enterprise / ICS / Mobile, cached 7d.
               Other STIX feeds need auth - paste a bundle below for those.
@@ -318,7 +318,7 @@ export default function StixViewer(): JSX.Element {
 
           <section>
             <div className="flex items-center justify-between mb-2">
-              <label htmlFor="stix-input" className="text-xs font-mono uppercase tracking-wider text-slate-500">
+              <label htmlFor="stix-input" className="text-xs font-mono uppercase tracking-wider text-muted">
                 STIX 2.1 Bundle (JSON)
               </label>
               <div className="flex gap-2">
@@ -332,7 +332,7 @@ export default function StixViewer(): JSX.Element {
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   <Trash2 size={12} /> clear
                 </button>
@@ -344,7 +344,7 @@ export default function StixViewer(): JSX.Element {
               onChange={(e) => setInput(e.target.value)}
               placeholder='{ "type": "bundle", "objects": [...] }'
               rows={12}
-              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-xs text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-xs text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               spellCheck={false}
             />
             {parseError && <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">{parseError}</p>}
@@ -352,7 +352,7 @@ export default function StixViewer(): JSX.Element {
 
           {bundle && (
             <section className="surface-card p-4">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-muted mb-3">
                 <Filter size={12} /> Types ({types.length})
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -366,10 +366,10 @@ export default function StixViewer(): JSX.Element {
                       className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                         active
                           ? 'border-brand-500/50 text-heading bg-brand-50 dark:bg-brand-900/20'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
+                          : 'border-slate-200 dark:border-line-1 text-slate-500'
                       }`}
                     >
-                      {t} <span className="text-slate-500">{stats[t]}</span>
+                      {t} <span className="text-muted">{stats[t]}</span>
                     </button>
                   );
                 })}
@@ -389,7 +389,7 @@ export default function StixViewer(): JSX.Element {
           {selected && (
             <section className="surface-card p-4">
               <div className="flex items-center justify-between mb-3">
-                <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected object</div>
+                <div className="text-xs font-mono uppercase tracking-wider text-muted">Selected object</div>
                 <button
                   type="button"
                   onClick={() => void copySelected()}
@@ -417,13 +417,13 @@ export default function StixViewer(): JSX.Element {
 
         {/* Right: graph */}
         <div
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden"
+          className="rounded-xl border border-line-1 bg-surface-200 overflow-hidden"
           style={{ height: '70vh', minHeight: 520 }}
         >
           {bundle && nodes.length > 0 ? (
             <Suspense
               fallback={
-                <div className="flex h-full items-center justify-center text-slate-500 font-mono text-xs gap-2">
+                <div className="flex h-full items-center justify-center text-muted font-mono text-xs gap-2">
                   <Loader2 size={14} className="animate-spin" /> loading graph viewer…
                 </div>
               }
@@ -431,7 +431,7 @@ export default function StixViewer(): JSX.Element {
               <StixGraph nodes={nodes} edges={edges} onNodeClick={onNodeClick} />
             </Suspense>
           ) : (
-            <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-3 p-8 text-center">
+            <div className="flex h-full flex-col items-center justify-center text-muted font-mono text-sm gap-3 p-8 text-center">
               {bundle ? (
                 <>
                   <div>No nodes match the current filter.</div>

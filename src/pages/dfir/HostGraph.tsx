@@ -73,7 +73,7 @@ const KIND_TONE: Record<InputKind, string> = {
   ip: 'bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300',
   asn: 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300',
   cidr: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
-  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500',
+  unknown: 'bg-slate-100 dark:bg-surface-300 text-slate-500',
 };
 
 export default function HostGraphView(): JSX.Element {
@@ -193,9 +193,7 @@ export default function HostGraphView(): JSX.Element {
         </button>
       </form>
 
-      <p className="text-xs font-mono text-slate-500 mb-8">
-        Tip: {exampleFor(inputKind === 'unknown' ? 'ip' : inputKind)}
-      </p>
+      <p className="text-xs font-mono text-muted mb-8">Tip: {exampleFor(inputKind === 'unknown' ? 'ip' : inputKind)}</p>
 
       {error && (
         <div className="mb-6 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
@@ -205,7 +203,7 @@ export default function HostGraphView(): JSX.Element {
       )}
 
       {!result && !error && submitted && (
-        <div className="p-6 rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-center text-sm text-slate-500">
+        <div className="p-6 rounded-xl border border-dashed border-line-2 text-center text-sm text-muted">
           <Clock size={20} className="inline-block mr-2 mb-1 animate-spin" />
           Resolving <span className="font-mono">{submitted}</span> across bgp.tools, RIPE Stat, and RDAP…
         </div>
@@ -248,7 +246,7 @@ function Section({
 function Row({ label, value, mono = true }: { label: string; value: React.ReactNode; mono?: boolean }): JSX.Element {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-y-1 gap-x-4 py-1.5 text-sm">
-      <span className="text-xs font-mono uppercase tracking-wider text-slate-500">{label}</span>
+      <span className="text-xs font-mono uppercase tracking-wider text-muted">{label}</span>
       <span className={mono ? 'font-mono' : ''}>{value || <span className="text-muted">-</span>}</span>
     </div>
   );
@@ -264,7 +262,7 @@ function IpView({ data, input }: { data: IpData; input: string }): JSX.Element {
               <h2 className="text-xl font-mono font-bold">{data.ip || input}</h2>
               <CopyButton value={data.ip || input} />
             </div>
-            <div className="text-sm text-slate-500 flex flex-wrap gap-x-3">
+            <div className="text-sm text-muted flex flex-wrap gap-x-3">
               {data.asn && (
                 <Link
                   to={`/dfir/host-graph?q=${data.asn}`}
@@ -319,7 +317,7 @@ function AsnView({ data, input }: { data: AsData; input: number }): JSX.Element 
               <h2 className="text-xl font-mono font-bold">AS{data.asn || input}</h2>
               <CopyButton value={`AS${data.asn || input}`} />
             </div>
-            <div className="text-sm text-slate-500">
+            <div className="text-sm text-muted">
               {data.name && <span>{data.name}</span>}
               {data.descr && data.descr !== data.name && <span className="ml-2 text-muted">· {data.descr}</span>}
             </div>
@@ -362,7 +360,7 @@ function PrefixView({ data, input }: { data: PrefixData; input: string }): JSX.E
               <CopyButton value={data.prefix || input} />
             </div>
             {data.asn !== undefined && (
-              <div className="text-sm text-slate-500">
+              <div className="text-sm text-muted">
                 <Link
                   to={`/dfir/host-graph?q=${data.asn}`}
                   className="font-mono text-brand-600 dark:text-brand-400 hover:underline"
@@ -392,8 +390,8 @@ function PrefixView({ data, input }: { data: PrefixData; input: string }): JSX.E
           mono={false}
         />
         {data.rdap_links.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+          <div className="mt-3 pt-3 border-t border-line-1">
+            <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">
               <Database size={10} className="inline mr-1" />
               RDAP links
             </p>

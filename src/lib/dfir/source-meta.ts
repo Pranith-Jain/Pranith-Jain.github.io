@@ -19,7 +19,7 @@ export interface SourceMeta {
 }
 
 /** Default pill classes for an unknown source (faithful to the old maps). */
-export const DEFAULT_SOURCE_COLOR = 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+export const DEFAULT_SOURCE_COLOR = 'border-slate-300 dark:border-line-1 text-slate-500';
 
 /** Default SOC criticality source weight for an unknown source. */
 export const DEFAULT_SOURCE_WEIGHT = 20;

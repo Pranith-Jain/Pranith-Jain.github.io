@@ -105,7 +105,7 @@ export function RecentWriting(): JSX.Element | null {
             <li key={e.href}>
               <Link
                 to={e.href}
-                className="group card-hover flex h-full flex-col gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-5 transition"
+                className="group card-hover flex h-full flex-col gap-3 rounded-xl border border-line-1 bg-surface-100/40 p-5 transition"
               >
                 <div className="flex items-center gap-2">
                   <span

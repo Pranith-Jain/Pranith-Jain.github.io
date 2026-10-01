@@ -60,7 +60,7 @@ const STATUS_BADGE: Record<string, string> = {
 function FunnelBar({ mix, target }: { mix: FunnelMix; target: { tofu: number; mofu: number; bofu: number } }) {
   const total = mix.tofu + mix.mofu + mix.bofu;
   if (total === 0) {
-    return <p className="text-xs text-slate-400">No content scheduled in this window.</p>;
+    return <p className="text-xs text-muted">No content scheduled in this window.</p>;
   }
   const pct = (n: number) => `${Math.round((n / total) * 100)}%`;
   const targetPct = (n: number) => `${Math.round(n * 100)}%`;
@@ -71,13 +71,13 @@ function FunnelBar({ mix, target }: { mix: FunnelMix; target: { tofu: number; mo
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2">
-        <span className="text-xs font-mono text-slate-500">Funnel mix</span>
+        <span className="text-xs font-mono text-muted">Funnel mix</span>
         <span className={`text-xs font-mono ${divergenceTone}`}>{divergenceLabel}</span>
-        <span className="text-xs font-mono text-slate-400">
+        <span className="text-xs font-mono text-muted">
           (target 60/30/10 · actual {pct(mix.tofu)}/{pct(mix.mofu)}/{pct(mix.bofu)})
         </span>
       </div>
-      <div className="flex h-3 rounded-full overflow-hidden bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+      <div className="flex h-3 rounded-full overflow-hidden bg-surface-300">
         <div
           className={FUNNEL_COLORS.tofu}
           style={{ width: pct(mix.tofu) }}
@@ -109,10 +109,7 @@ function FunnelBar({ mix, target }: { mix: FunnelMix; target: { tofu: number; mo
           {Object.entries(mix.byType)
             .sort((a, b) => b[1] - a[1])
             .map(([type, count]) => (
-              <span
-                key={type}
-                className="px-1.5 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-              >
+              <span key={type} className="px-1.5 py-0.5 rounded text-micro font-mono bg-surface-300 text-muted">
                 {type} ×{count}
               </span>
             ))}
@@ -164,22 +161,22 @@ export default function CalendarTab() {
     <div className="space-y-4">
       {/* Summary stats */}
       <div className="flex flex-wrap gap-3 text-xs">
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
+        <span className="px-2 py-1 rounded bg-surface-300 text-muted">
           <span className="font-mono">{data.pendingCount}</span> pending
         </span>
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
+        <span className="px-2 py-1 rounded bg-surface-300 text-muted">
           <span className="font-mono">{data.approvedCount}</span> approved
         </span>
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
+        <span className="px-2 py-1 rounded bg-surface-300 text-muted">
           <span className="font-mono">{data.scheduledCount}</span> scheduled
         </span>
-        <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
+        <span className="px-2 py-1 rounded bg-surface-300 text-muted">
           <span className="font-mono">{data.publishedCount}</span> published (14d)
         </span>
       </div>
 
       {/* Funnel mix */}
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+      <div className="rounded-lg border border-line-1 p-3">
         <FunnelBar mix={data.funnelMix} target={data.target} />
       </div>
 
@@ -191,14 +188,12 @@ export default function CalendarTab() {
             <div
               key={day.date}
               className={`rounded-lg border p-2 min-h-[80px] ${
-                hasContent
-                  ? 'border-slate-300 dark:border-[rgb(var(--border-500))]'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] opacity-60'
+                hasContent ? 'border-slate-300 dark:border-line-2' : 'border-slate-200 dark:border-line-1 opacity-60'
               }`}
             >
               <div className="flex items-center justify-between mb-1">
                 <span className="text-xs font-mono text-muted">{day.label}</span>
-                <span className="text-micro font-mono text-slate-400">{day.date.slice(5)}</span>
+                <span className="text-micro font-mono text-muted">{day.date.slice(5)}</span>
               </div>
               {day.slots.map((slot, i) => (
                 <div key={i} className="mb-1 last:mb-0">
@@ -213,7 +208,7 @@ export default function CalendarTab() {
                       {slot.title}
                     </p>
                   )}
-                  {slot.type && <span className="text-micro font-mono text-slate-400">{slot.type}</span>}
+                  {slot.type && <span className="text-micro font-mono text-muted">{slot.type}</span>}
                 </div>
               ))}
               {day.published
@@ -229,7 +224,7 @@ export default function CalendarTab() {
                     <p className="text-xs text-body truncate" title={pub.title}>
                       {pub.title}
                     </p>
-                    <span className="text-micro font-mono text-slate-400">{pub.type}</span>
+                    <span className="text-micro font-mono text-muted">{pub.type}</span>
                   </div>
                 ))}
               {!hasContent && <p className="text-micro text-slate-300 dark:text-slate-600">—</p>}

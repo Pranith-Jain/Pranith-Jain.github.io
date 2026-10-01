@@ -17,12 +17,12 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
           <Link
             key={actor.slug}
             to={`/threatintel/actors/${actor.slug}`}
-            className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 hover:border-brand-500/40 transition-colors"
+            className="block rounded-xl border border-line-1 p-3 hover:border-brand-500/40 transition-colors"
           >
             <div className="flex items-baseline justify-between mb-1">
               <span className="font-display font-semibold text-sm text-heading">{actor.name}</span>
               {actor.country && (
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500">
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">
                   {actor.country.length <= 3 ? actor.country : actor.country.slice(0, 3)}
                 </span>
               )}
@@ -30,10 +30,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
             <p className="text-xs text-muted line-clamp-2 mb-2">{actor.description.split('.')[0]}.</p>
             <div className="flex flex-wrap gap-1">
               {matched.slice(0, 3).map((m) => (
-                <span
-                  key={m}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                >
+                <span key={m} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                   {m}
                 </span>
               ))}

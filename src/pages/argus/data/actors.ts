@@ -25,26 +25,26 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'defence', 'media', 'political', 'think-tank', 'energy'],
     targets: ['United States', 'United Kingdom', 'Germany', 'France', 'Ukraine', 'Georgia', 'NATO members'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1078',     name: 'Valid Accounts',           tactic: 'defense-evasion' },
-      { id: 'T1110',     name: 'Brute Force',              tactic: 'credential-access' },
-      { id: 'T1027',     name: 'Obfuscated Files',         tactic: 'defense-evasion' },
-      { id: 'T1056.001', name: 'Keylogging',               tactic: 'collection' },
-      { id: 'T1041',     name: 'Exfiltration Over C2',     tactic: 'exfiltration' },
-      { id: 'T1071.001', name: 'Web Protocols',            tactic: 'command-and-control' },
-      { id: 'T1543.003', name: 'Windows Service',          tactic: 'persistence' },
-      { id: 'T1090',     name: 'Proxy',                    tactic: 'command-and-control' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1110', name: 'Brute Force', tactic: 'credential-access' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1056.001', name: 'Keylogging', tactic: 'collection' },
+      { id: 'T1041', name: 'Exfiltration Over C2', tactic: 'exfiltration' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
+      { id: 'T1543.003', name: 'Windows Service', tactic: 'persistence' },
+      { id: 'T1090', name: 'Proxy', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'X-Agent',     type: 'implant',     platform: 'windows' },
-      { name: 'Sofacy',      type: 'backdoor',    platform: 'windows' },
-      { name: 'Zebrocy',     type: 'loader',      platform: 'multi' },
-      { name: 'VPNFilter',   type: 'router-impl', platform: 'embedded' },
+      { name: 'X-Agent', type: 'implant', platform: 'windows' },
+      { name: 'Sofacy', type: 'backdoor', platform: 'windows' },
+      { name: 'Zebrocy', type: 'loader', platform: 'multi' },
+      { name: 'VPNFilter', type: 'router-impl', platform: 'embedded' },
     ],
     cves: [
-      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB',          year: 2017 },
-      { id: 'CVE-2015-4901', cvss: 6.8, product: 'Adobe Flash',          year: 2015 },
-      { id: 'CVE-2017-0263', cvss: 7.8, product: 'Microsoft Office',     year: 2017 },
+      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 },
+      { id: 'CVE-2015-4901', cvss: 6.8, product: 'Adobe Flash', year: 2015 },
+      { id: 'CVE-2017-0263', cvss: 7.8, product: 'Microsoft Office', year: 2017 },
     ],
     campaigns: [
       {
@@ -69,15 +69,25 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [
-      { platform: 'KQL',   title: 'UNC FISHER — Outlook NTLM auth flow',  url: 'https://github.com/a2awais/Threat-Hunting', description: 'Detects NTLM-over-Outlook patterns tied to APT28 tradecraft.' },
-      { platform: 'Sigma', title: 'X-Agent behavioural',                   url: 'https://github.com/SigmaHQ/sigma',          description: 'Process tree and registry patterns for the X-Agent implant.' },
+      {
+        platform: 'KQL',
+        title: 'UNC FISHER — Outlook NTLM auth flow',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'Detects NTLM-over-Outlook patterns tied to APT28 tradecraft.',
+      },
+      {
+        platform: 'Sigma',
+        title: 'X-Agent behavioural',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'Process tree and registry patterns for the X-Agent implant.',
+      },
     ],
     detections: [
-      { source: 'Elastic',  title: 'Potential X-Agent Persistence',  url: 'https://github.com/elastic/detection-rules' },
-      { source: 'Splunk',   title: 'Sofacy C2 Beacon Detection',     url: 'https://github.com/splunk/security_content' },
+      { source: 'Elastic', title: 'Potential X-Agent Persistence', url: 'https://github.com/elastic/detection-rules' },
+      { source: 'Splunk', title: 'Sofacy C2 Beacon Detection', url: 'https://github.com/splunk/security_content' },
     ],
     members: [
-      { name: 'GRU Unit 26165 (collectively indicted)', role: 'Operator',          status: 'indicted' },
+      { name: 'GRU Unit 26165 (collectively indicted)', role: 'Operator', status: 'indicted' },
       { name: 'GRU Unit 74455 (collectively indicted)', role: 'Leak / publication', status: 'indicted' },
     ],
     infra_patterns: [
@@ -87,13 +97,13 @@ export const ACTORS: Actor[] = [
     ],
     sector_scores: [
       { sector: 'government', score: 92, evidence: ['DNC intrusion (2016)'] },
-      { sector: 'defence',    score: 88, evidence: [] },
-      { sector: 'media',      score: 71, evidence: [] },
+      { sector: 'defence', score: 88, evidence: [] },
+      { sector: 'media', score: 71, evidence: [] },
     ],
     sources: [
       { label: 'DOJ indictment (2018)', url: 'https://www.justice.gov/file/1080281/download' },
-      { label: 'MITRE G0007',           url: 'https://attack.mitre.org/groups/G0007/' },
-      { label: 'Mandiant profile',      url: 'https://www.mandiant.com/resources/blog/tag/apt28' },
+      { label: 'MITRE G0007', url: 'https://attack.mitre.org/groups/G0007/' },
+      { label: 'Mandiant profile', url: 'https://www.mandiant.com/resources/blog/tag/apt28' },
     ],
   },
 
@@ -115,27 +125,27 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'diplomatic', 'healthcare', 'think-tank', 'technology', 'energy'],
     targets: ['United States', 'United Kingdom', 'EU institutions', 'NATO', 'Ukraine', 'Brazil', 'India'],
     ttps: [
-      { id: 'T1199',     name: 'Trusted Relationship',     tactic: 'initial-access' },
-      { id: 'T1078.004', name: 'Cloud Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1556.006', name: 'Multi-Factor Auth',        tactic: 'credential-access' },
-      { id: 'T1027.010', name: 'Command Obfuscation',       tactic: 'defense-evasion' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
-      { id: 'T1071.004', name: 'DNS',                       tactic: 'command-and-control' },
-      { id: 'T1573.002', name: 'Asymmetric Cryptography',   tactic: 'command-and-control' },
-      { id: 'T1530',     name: 'Data from Cloud Storage',   tactic: 'exfiltration' },
+      { id: 'T1199', name: 'Trusted Relationship', tactic: 'initial-access' },
+      { id: 'T1078.004', name: 'Cloud Accounts', tactic: 'defense-evasion' },
+      { id: 'T1556.006', name: 'Multi-Factor Auth', tactic: 'credential-access' },
+      { id: 'T1027.010', name: 'Command Obfuscation', tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1071.004', name: 'DNS', tactic: 'command-and-control' },
+      { id: 'T1573.002', name: 'Asymmetric Cryptography', tactic: 'command-and-control' },
+      { id: 'T1530', name: 'Data from Cloud Storage', tactic: 'exfiltration' },
     ],
     malware: [
-      { name: 'SUNBURST',     type: 'supply-chain', platform: 'multi' },
-      { name: 'TEARDROP',     type: 'dropper',      platform: 'windows' },
-      { name: 'Cobalt Strike',type: 'beacon',       platform: 'multi' },
-      { name: 'WELLMESS',     type: 'implant',      platform: 'multi' },
-      { name: 'CEELOADER',    type: 'loader',       platform: 'multi' },
+      { name: 'SUNBURST', type: 'supply-chain', platform: 'multi' },
+      { name: 'TEARDROP', type: 'dropper', platform: 'windows' },
+      { name: 'Cobalt Strike', type: 'beacon', platform: 'multi' },
+      { name: 'WELLMESS', type: 'implant', platform: 'multi' },
+      { name: 'CEELOADER', type: 'loader', platform: 'multi' },
     ],
     cves: [
-      { id: 'CVE-2020-1472', cvss: 10.0, product: 'Netlogon',             year: 2020 },
-      { id: 'CVE-2018-13379', cvss: 9.8,  product: 'Fortinet FortiOS',     year: 2018 },
-      { id: 'CVE-2019-11510', cvss: 10.0, product: 'Pulse Secure',         year: 2019 },
-      { id: 'CVE-2024-3400',  cvss: 10.0, product: 'PAN-OS GlobalProtect', year: 2024 },
+      { id: 'CVE-2020-1472', cvss: 10.0, product: 'Netlogon', year: 2020 },
+      { id: 'CVE-2018-13379', cvss: 9.8, product: 'Fortinet FortiOS', year: 2018 },
+      { id: 'CVE-2019-11510', cvss: 10.0, product: 'Pulse Secure', year: 2019 },
+      { id: 'CVE-2024-3400', cvss: 10.0, product: 'PAN-OS GlobalProtect', year: 2024 },
     ],
     campaigns: [
       {
@@ -161,29 +171,37 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [
-      { platform: 'Sigma', title: 'SUNBURST beacon behaviour',  url: 'https://github.com/SigmaHQ/sigma',          description: 'Sleep mask and DNS pattern detection.' },
-      { platform: 'KQL',   title: 'Cloud OAuth abuse',          url: 'https://github.com/a2awais/Threat-Hunting', description: 'OAuth application abuse patterns tied to APT29 cloud tradecraft.' },
+      {
+        platform: 'Sigma',
+        title: 'SUNBURST beacon behaviour',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'Sleep mask and DNS pattern detection.',
+      },
+      {
+        platform: 'KQL',
+        title: 'Cloud OAuth abuse',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'OAuth application abuse patterns tied to APT29 cloud tradecraft.',
+      },
     ],
     detections: [
-      { source: 'Splunk',  title: 'SUNBURST Network IOC',  url: 'https://github.com/splunk/security_content' },
-      { source: 'Elastic', title: 'TEARDROP Loader',       url: 'https://github.com/elastic/detection-rules' },
+      { source: 'Splunk', title: 'SUNBURST Network IOC', url: 'https://github.com/splunk/security_content' },
+      { source: 'Elastic', title: 'TEARDROP Loader', url: 'https://github.com/elastic/detection-rules' },
     ],
-    members: [
-      { name: 'SVR Center 18 (suspected)', role: 'Sponsoring service', status: 'identified' },
-    ],
+    members: [{ name: 'SVR Center 18 (suspected)', role: 'Sponsoring service', status: 'identified' }],
     infra_patterns: [
       'Bulletproof VPS providers (residential / hosting ASNs)',
       'Domain rotation over long-tail registrars',
       'Compromised WordPress sites as stage-1 redirects',
     ],
     sector_scores: [
-      { sector: 'government',  score: 95, evidence: ['SolarWinds SUNBURST (2020)'] },
-      { sector: 'diplomatic',  score: 84, evidence: [] },
-      { sector: 'technology',  score: 80, evidence: ['TeamCity intrusions (2023–)'] },
+      { sector: 'government', score: 95, evidence: ['SolarWinds SUNBURST (2020)'] },
+      { sector: 'diplomatic', score: 84, evidence: [] },
+      { sector: 'technology', score: 80, evidence: ['TeamCity intrusions (2023–)'] },
     ],
     sources: [
       { label: 'CISA advisory AA20-352A', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a' },
-      { label: 'MITRE G0016',            url: 'https://attack.mitre.org/groups/G0016/' },
+      { label: 'MITRE G0016', url: 'https://attack.mitre.org/groups/G0016/' },
     ],
   },
 
@@ -205,19 +223,19 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'water', 'transport', 'communications', 'government', 'defence-industrial'],
     targets: ['United States', 'Guam', 'United Kingdom', 'Australia', 'New Zealand', 'Canada'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1133',     name: 'External Remote Services',  tactic: 'persistence' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1059.003', name: 'Windows Command Shell',     tactic: 'execution' },
-      { id: 'T1569.002', name: 'Service Execution',         tactic: 'execution' },
-      { id: 'T1003',     name: 'OS Credential Dumping',     tactic: 'credential-access' },
-      { id: 'T1556',     name: 'Modify Authentication',    tactic: 'credential-access' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1133', name: 'External Remote Services', tactic: 'persistence' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1059.003', name: 'Windows Command Shell', tactic: 'execution' },
+      { id: 'T1569.002', name: 'Service Execution', tactic: 'execution' },
+      { id: 'T1003', name: 'OS Credential Dumping', tactic: 'credential-access' },
+      { id: 'T1556', name: 'Modify Authentication', tactic: 'credential-access' },
     ],
     malware: [
-      { name: 'KV-botnet',   type: 'botnet',   platform: 'router-iot' },
-      { name: 'TZG Door',    type: 'backdoor', platform: 'multi' },
-      { name: 'Custom RATs', type: 'implant',  platform: 'multi' },
+      { name: 'KV-botnet', type: 'botnet', platform: 'router-iot' },
+      { name: 'TZG Door', type: 'backdoor', platform: 'multi' },
+      { name: 'Custom RATs', type: 'implant', platform: 'multi' },
     ],
     cves: [
       { id: 'CVE-2024-39717', cvss: 9.8, product: 'Versa Director', year: 2024 },
@@ -236,28 +254,34 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [
-      { platform: 'KQL',   title: 'Living-off-the-land LOLBin sweep',  url: 'https://github.com/a2awais/Threat-Hunting', description: 'LOLBin anomalies consistent with Volt Typhoon tradecraft.' },
-      { platform: 'Sigma', title: 'Edge device lateral movement',       url: 'https://github.com/SigmaHQ/sigma',          description: 'Lateral movement from SOHO edge devices into OT segments.' },
+      {
+        platform: 'KQL',
+        title: 'Living-off-the-land LOLBin sweep',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'LOLBin anomalies consistent with Volt Typhoon tradecraft.',
+      },
+      {
+        platform: 'Sigma',
+        title: 'Edge device lateral movement',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'Lateral movement from SOHO edge devices into OT segments.',
+      },
     ],
-    detections: [
-      { source: 'Elastic', title: 'Volt Typhoon LOTL', url: 'https://github.com/elastic/detection-rules' },
-    ],
-    members: [
-      { name: 'PRC state-sponsored operators (collective)', role: 'Operators', status: 'identified' },
-    ],
+    detections: [{ source: 'Elastic', title: 'Volt Typhoon LOTL', url: 'https://github.com/elastic/detection-rules' }],
+    members: [{ name: 'PRC state-sponsored operators (collective)', role: 'Operators', status: 'identified' }],
     infra_patterns: [
       'Compromised SOHO routers as long-haul proxies',
       'Operational relay box (ORB) network across 5+ providers',
       'Minimal unique malware; reliance on built-in OS tools',
     ],
     sector_scores: [
-      { sector: 'energy',         score: 90, evidence: ['US critical infrastructure pre-positioning'] },
-      { sector: 'water',          score: 86, evidence: [] },
+      { sector: 'energy', score: 90, evidence: ['US critical infrastructure pre-positioning'] },
+      { sector: 'water', score: 86, evidence: [] },
       { sector: 'communications', score: 82, evidence: [] },
     ],
     sources: [
       { label: 'CISA advisory AA24-038A', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-038a' },
-      { label: 'MITRE G1017',            url: 'https://attack.mitre.org/groups/G1017/' },
+      { label: 'MITRE G1017', url: 'https://attack.mitre.org/groups/G1017/' },
     ],
   },
 
@@ -279,20 +303,18 @@ export const ACTORS: Actor[] = [
     sectors: ['telecommunications', 'government', 'technology'],
     targets: ['United States', 'United Kingdom', 'Southeast Asia', 'Africa'],
     ttps: [
-      { id: 'T1133',     name: 'External Remote Services', tactic: 'persistence' },
-      { id: 'T1078.002', name: 'Domain Accounts',          tactic: 'defense-evasion' },
-      { id: 'T1505.003', name: 'Web Shell',               tactic: 'persistence' },
-      { id: 'T1059.004', name: 'Unix Shell',              tactic: 'execution' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1133', name: 'External Remote Services', tactic: 'persistence' },
+      { id: 'T1078.002', name: 'Domain Accounts', tactic: 'defense-evasion' },
+      { id: 'T1505.003', name: 'Web Shell', tactic: 'persistence' },
+      { id: 'T1059.004', name: 'Unix Shell', tactic: 'execution' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'JumbledPath',   type: 'backdoor', platform: 'multi' },
-      { name: 'GhostSpider',   type: 'implant',  platform: 'windows' },
-      { name: 'SnappySpider',  type: 'loader',   platform: 'multi' },
+      { name: 'JumbledPath', type: 'backdoor', platform: 'multi' },
+      { name: 'GhostSpider', type: 'implant', platform: 'windows' },
+      { name: 'SnappySpider', type: 'loader', platform: 'multi' },
     ],
-    cves: [
-      { id: 'CVE-2023-46805', cvss: 8.2, product: 'Ivanti Connect Secure', year: 2024 },
-    ],
+    cves: [{ id: 'CVE-2023-46805', cvss: 8.2, product: 'Ivanti Connect Secure', year: 2024 }],
     campaigns: [
       {
         name: 'US telecom wire-tap targeting (2024)',
@@ -306,16 +328,22 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [
-      { platform: 'Sigma', title: 'Web shell on edge device',  url: 'https://github.com/SigmaHQ/sigma', description: 'Generic web shell patterns on perimeter devices.' },
+      {
+        platform: 'Sigma',
+        title: 'Web shell on edge device',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'Generic web shell patterns on perimeter devices.',
+      },
     ],
     detections: [],
     members: [],
     infra_patterns: ['ORB network overlap with other PRC clusters'],
-    sector_scores: [
-      { sector: 'telecommunications', score: 94, evidence: ['US telecom wire-tap targeting (2024)'] },
-    ],
+    sector_scores: [{ sector: 'telecommunications', score: 94, evidence: ['US telecom wire-tap targeting (2024)'] }],
     sources: [
-      { label: 'CISA guidance on Salt Typhoon', url: 'https://www.cisa.gov/news-events/news/cybersecurity-guidance-ccp-linked-hackers' },
+      {
+        label: 'CISA guidance on Salt Typhoon',
+        url: 'https://www.cisa.gov/news-events/news/cybersecurity-guidance-ccp-linked-hackers',
+      },
     ],
   },
 
@@ -337,24 +365,24 @@ export const ACTORS: Actor[] = [
     sectors: ['financial', 'cryptocurrency', 'media', 'defence', 'government'],
     targets: ['South Korea', 'United States', 'Japan', 'Vietnam', 'India', 'global crypto exchanges'],
     ttps: [
-      { id: 'T1566.002', name: 'Spearphishing Link',       tactic: 'initial-access' },
-      { id: 'T1204.002', name: 'Malicious File',           tactic: 'execution' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1027.013', name: 'Encrypted/Encoded File',   tactic: 'defense-evasion' },
-      { id: 'T1543.003', name: 'Windows Service',          tactic: 'persistence' },
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',  tactic: 'impact' },
-      { id: 'T1071.001', name: 'Web Protocols',            tactic: 'command-and-control' },
+      { id: 'T1566.002', name: 'Spearphishing Link', tactic: 'initial-access' },
+      { id: 'T1204.002', name: 'Malicious File', tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027.013', name: 'Encrypted/Encoded File', tactic: 'defense-evasion' },
+      { id: 'T1543.003', name: 'Windows Service', tactic: 'persistence' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'AppleJeus',     type: 'stealer',  platform: 'multi' },
-      { name: 'FASTCash 2.0',  type: 'banking',  platform: 'multi' },
-      { name: 'HOPLIGHT',      type: 'backdoor', platform: 'windows' },
-      { name: 'ELECTRICFISH',  type: 'tunnel',   platform: 'windows' },
-      { name: 'Volgmer',       type: 'backdoor', platform: 'windows' },
+      { name: 'AppleJeus', type: 'stealer', platform: 'multi' },
+      { name: 'FASTCash 2.0', type: 'banking', platform: 'multi' },
+      { name: 'HOPLIGHT', type: 'backdoor', platform: 'windows' },
+      { name: 'ELECTRICFISH', type: 'tunnel', platform: 'windows' },
+      { name: 'Volgmer', type: 'backdoor', platform: 'windows' },
     ],
     cves: [
-      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB',      year: 2017 },
+      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 },
       { id: 'CVE-2018-13379', cvss: 9.8, product: 'Fortinet FortiOS', year: 2018 },
     ],
     campaigns: [
@@ -376,30 +404,42 @@ export const ACTORS: Actor[] = [
         sectors: ['cryptocurrency'],
         targets: ['Axie Infinity (Vietnam)'],
         source: 'FBI',
-        summary: '~USD 620M theft from the Ronin bridge; one of the largest crypto heists on record. FBI attributed to Lazarus in April 2022.',
+        summary:
+          '~USD 620M theft from the Ronin bridge; one of the largest crypto heists on record. FBI attributed to Lazarus in April 2022.',
       },
     ],
     hunt_queries: [
-      { platform: 'KQL', title: 'AppleJeus loader behaviour', url: 'https://github.com/a2awais/Threat-Hunting', description: 'KQL for AppleJeus update-site tradecraft.' },
+      {
+        platform: 'KQL',
+        title: 'AppleJeus loader behaviour',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'KQL for AppleJeus update-site tradecraft.',
+      },
     ],
     detections: [
       { source: 'Elastic', title: 'HOPLIGHT implant IOC', url: 'https://github.com/elastic/detection-rules' },
-      { source: 'Splunk',  title: 'WannaCry SMB spread',  url: 'https://github.com/splunk/security_content' },
+      { source: 'Splunk', title: 'WannaCry SMB spread', url: 'https://github.com/splunk/security_content' },
     ],
     members: [
-      { name: 'Park Jin-hyok',        role: 'Developer / operator', status: 'indicted' },
-      { name: 'DPRK Chosun Expo JV',  role: 'Front company',        status: 'sanctioned' },
+      { name: 'Park Jin-hyok', role: 'Developer / operator', status: 'indicted' },
+      { name: 'DPRK Chosun Expo JV', role: 'Front company', status: 'sanctioned' },
     ],
     infra_patterns: ['Tornado Cash / mixers for crypto laundering', 'Bulletproof hosting in MA, NL, RU'],
     sector_scores: [
       { sector: 'cryptocurrency', score: 96, evidence: ['Ronin Network bridge heist (2022)'] },
-      { sector: 'financial',      score: 91, evidence: [] },
-      { sector: 'media',          score: 80, evidence: [] },
+      { sector: 'financial', score: 91, evidence: [] },
+      { sector: 'media', score: 80, evidence: [] },
     ],
     sources: [
-      { label: 'DOJ Park Jin-hyok indictment (2018)', url: 'https://www.justice.gov/opa/press-release/file/1092091/download' },
-      { label: 'FBI Ronin attribution (2022)',         url: 'https://www.fbi.gov/news/press-releases/fbi-statement-on-ronin-network' },
-      { label: 'MITRE G0082',                         url: 'https://attack.mitre.org/groups/G0082/' },
+      {
+        label: 'DOJ Park Jin-hyok indictment (2018)',
+        url: 'https://www.justice.gov/opa/press-release/file/1092091/download',
+      },
+      {
+        label: 'FBI Ronin attribution (2022)',
+        url: 'https://www.fbi.gov/news/press-releases/fbi-statement-on-ronin-network',
+      },
+      { label: 'MITRE G0082', url: 'https://attack.mitre.org/groups/G0082/' },
     ],
   },
 
@@ -421,20 +461,18 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'think-tank', 'academic', 'media', 'diplomatic'],
     targets: ['South Korea', 'United States', 'Japan', 'United Kingdom', 'Russia', 'India'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1589.002', name: 'Email Addresses',           tactic: 'reconnaissance' },
-      { id: 'T1656',     name: 'Impersonation',             tactic: 'defense-evasion' },
-      { id: 'T1534',     name: 'Internal Spearphishing',    tactic: 'lateral-movement' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1589.002', name: 'Email Addresses', tactic: 'reconnaissance' },
+      { id: 'T1656', name: 'Impersonation', tactic: 'defense-evasion' },
+      { id: 'T1534', name: 'Internal Spearphishing', tactic: 'lateral-movement' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'AppleSeed',  type: 'backdoor', platform: 'multi' },
-      { name: 'BabyShark',  type: 'implant',  platform: 'multi' },
-      { name: 'GoldDragon', type: 'macros',   platform: 'windows' },
+      { name: 'AppleSeed', type: 'backdoor', platform: 'multi' },
+      { name: 'BabyShark', type: 'implant', platform: 'multi' },
+      { name: 'GoldDragon', type: 'macros', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2021-26411', cvss: 8.8, product: 'Internet Explorer', year: 2021 },
-    ],
+    cves: [{ id: 'CVE-2021-26411', cvss: 8.8, product: 'Internet Explorer', year: 2021 }],
     campaigns: [
       {
         name: 'Think-tank credential theft (ongoing)',
@@ -448,18 +486,16 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [],
-    detections: [
-      { source: 'Elastic', title: 'Kimsuky AppleSeed', url: 'https://github.com/elastic/detection-rules' },
-    ],
+    detections: [{ source: 'Elastic', title: 'Kimsuky AppleSeed', url: 'https://github.com/elastic/detection-rules' }],
     members: [],
     infra_patterns: ['Compromised WordPress and Blogspot blogs for C2'],
     sector_scores: [
       { sector: 'think-tank', score: 88, evidence: ['Think-tank credential theft (ongoing)'] },
-      { sector: 'academic',   score: 75, evidence: [] },
+      { sector: 'academic', score: 75, evidence: [] },
     ],
     sources: [
       { label: 'CISA advisory AA18-075A', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa18-075a' },
-      { label: 'MITRE G0094',            url: 'https://attack.mitre.org/groups/G0094/' },
+      { label: 'MITRE G0094', url: 'https://attack.mitre.org/groups/G0094/' },
     ],
   },
 
@@ -481,20 +517,18 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'media', 'activist', 'academic', 'defence', 'diplomatic'],
     targets: ['United States', 'Israel', 'Saudi Arabia', 'UAE', 'United Kingdom', 'Germany'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1589.002', name: 'Email Addresses',           tactic: 'reconnaissance' },
-      { id: 'T1656',     name: 'Impersonation',             tactic: 'defense-evasion' },
-      { id: 'T1534',     name: 'Internal Spearphishing',    tactic: 'lateral-movement' },
-      { id: 'T1003.001', name: 'LSASS Memory',              tactic: 'credential-access' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1589.002', name: 'Email Addresses', tactic: 'reconnaissance' },
+      { id: 'T1656', name: 'Impersonation', tactic: 'defense-evasion' },
+      { id: 'T1534', name: 'Internal Spearphishing', tactic: 'lateral-movement' },
+      { id: 'T1003.001', name: 'LSASS Memory', tactic: 'credential-access' },
     ],
     malware: [
-      { name: 'DROPOUTJACK', type: 'dropper',  platform: 'windows' },
-      { name: 'POWERKNOW',   type: 'backdoor', platform: 'windows' },
-      { name: 'CHAOS',       type: 'rat',      platform: 'multi' },
+      { name: 'DROPOUTJACK', type: 'dropper', platform: 'windows' },
+      { name: 'POWERKNOW', type: 'backdoor', platform: 'windows' },
+      { name: 'CHAOS', type: 'rat', platform: 'multi' },
     ],
-    cves: [
-      { id: 'CVE-2021-26855', cvss: 9.8, product: 'Microsoft Exchange', year: 2021 },
-    ],
+    cves: [{ id: 'CVE-2021-26855', cvss: 9.8, product: 'Microsoft Exchange', year: 2021 }],
     campaigns: [
       {
         name: 'HBO / Microsoft Saudi impersonation (2023)',
@@ -508,22 +542,26 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [
-      { platform: 'KQL', title: 'APT35 Subtle-snail persistence', url: 'https://github.com/a2awais/Threat-Hunting', description: 'Registry persistence patterns for APT35.' },
+      {
+        platform: 'KQL',
+        title: 'APT35 Subtle-snail persistence',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'Registry persistence patterns for APT35.',
+      },
     ],
-    detections: [
-      { source: 'Elastic', title: 'DROPOUTJACK loader', url: 'https://github.com/elastic/detection-rules' },
-    ],
-    members: [
-      { name: 'IRGC operators (collective)', role: 'Operators', status: 'identified' },
-    ],
+    detections: [{ source: 'Elastic', title: 'DROPOUTJACK loader', url: 'https://github.com/elastic/detection-rules' }],
+    members: [{ name: 'IRGC operators (collective)', role: 'Operators', status: 'identified' }],
     infra_patterns: ['VPN/datacentre churn for short-lived C2'],
     sector_scores: [
-      { sector: 'media',      score: 78, evidence: [] },
+      { sector: 'media', score: 78, evidence: [] },
       { sector: 'government', score: 74, evidence: [] },
     ],
     sources: [
-      { label: 'Microsoft MSTIC profile', url: 'https://www.microsoft.com/security/blog/security-research/threat-intelligence/phosphorus/' },
-      { label: 'MITRE G0117',            url: 'https://attack.mitre.org/groups/G0117/' },
+      {
+        label: 'Microsoft MSTIC profile',
+        url: 'https://www.microsoft.com/security/blog/security-research/threat-intelligence/phosphorus/',
+      },
+      { label: 'MITRE G0117', url: 'https://attack.mitre.org/groups/G0117/' },
     ],
   },
 
@@ -545,20 +583,18 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'telecommunications', 'energy', 'defence'],
     targets: ['Israel', 'Saudi Arabia', 'UAE', 'Iraq', 'Jordan', 'Türkiye', 'India', 'Pakistan'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
-      { id: 'T1559',     name: 'Inter-Process Communication', tactic: 'execution' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
+      { id: 'T1559', name: 'Inter-Process Communication', tactic: 'execution' },
     ],
     malware: [
       { name: 'POWERSTATS', type: 'powershell-backdoor', platform: 'windows' },
-      { name: 'Mori',       type: 'backdoor',            platform: 'windows' },
-      { name: 'Canopy',     type: 'dropper',             platform: 'windows' },
+      { name: 'Mori', type: 'backdoor', platform: 'windows' },
+      { name: 'Canopy', type: 'dropper', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 }],
     campaigns: [
       {
         name: 'Israel government intrusions (2022–)',
@@ -572,20 +608,21 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [
-      { platform: 'KQL', title: 'RustyWater MuddyWater evolution', url: 'https://github.com/a2awais/Threat-Hunting', description: 'KQL hunting for MuddyWater rust-based evolution tradecraft.' },
+      {
+        platform: 'KQL',
+        title: 'RustyWater MuddyWater evolution',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'KQL hunting for MuddyWater rust-based evolution tradecraft.',
+      },
     ],
-    detections: [
-      { source: 'Elastic', title: 'POWERSTATS v3', url: 'https://github.com/elastic/detection-rules' },
-    ],
+    detections: [{ source: 'Elastic', title: 'POWERSTATS v3', url: 'https://github.com/elastic/detection-rules' }],
     members: [],
     infra_patterns: ['Compromised web servers with PHP webshells'],
     sector_scores: [
-      { sector: 'government',         score: 84, evidence: ['Israel government intrusions (2022–)'] },
+      { sector: 'government', score: 84, evidence: ['Israel government intrusions (2022–)'] },
       { sector: 'telecommunications', score: 73, evidence: [] },
     ],
-    sources: [
-      { label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' },
-    ],
+    sources: [{ label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' }],
   },
 
   {
@@ -606,20 +643,18 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'defence', 'diplomatic', 'think-tank'],
     targets: ['Pakistan', 'China', 'Bangladesh', 'Nepal', 'Sri Lanka', 'Myanmar'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1204.002', name: 'Malicious File',           tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
-      { id: 'T1543.003', name: 'Windows Service',          tactic: 'persistence' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1204.002', name: 'Malicious File', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
+      { id: 'T1543.003', name: 'Windows Service', tactic: 'persistence' },
     ],
     malware: [
-      { name: 'BADNEWS',  type: 'backdoor', platform: 'windows' },
-      { name: 'CRABTORCH',type: 'loader',   platform: 'windows' },
-      { name: 'C3PRO-RAT',type: 'rat',      platform: 'multi' },
+      { name: 'BADNEWS', type: 'backdoor', platform: 'windows' },
+      { name: 'CRABTORCH', type: 'loader', platform: 'windows' },
+      { name: 'C3PRO-RAT', type: 'rat', platform: 'multi' },
     ],
-    cves: [
-      { id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 }],
     campaigns: [
       {
         name: 'South Asian military targeting (ongoing)',
@@ -633,18 +668,23 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [
-      { platform: 'KQL', title: 'BADNEWS loader patterns', url: 'https://github.com/a2awais/Threat-Hunting', description: 'KQL for BADNEWS DLL side-loading.' },
+      {
+        platform: 'KQL',
+        title: 'BADNEWS loader patterns',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'KQL for BADNEWS DLL side-loading.',
+      },
     ],
     detections: [],
     members: [],
     infra_patterns: ['Dynamic DNS subdomains over .top, .xyz, .site'],
     sector_scores: [
       { sector: 'government', score: 81, evidence: [] },
-      { sector: 'defence',    score: 78, evidence: ['South Asian military targeting (ongoing)'] },
+      { sector: 'defence', score: 78, evidence: ['South Asian military targeting (ongoing)'] },
     ],
     sources: [
       { label: 'Kaspersky GReAT profile', url: 'https://securelist.com/sidewinder-apt/109081/' },
-      { label: 'MITRE G0121',             url: 'https://attack.mitre.org/groups/G0121/' },
+      { label: 'MITRE G0121', url: 'https://attack.mitre.org/groups/G0121/' },
     ],
   },
 
@@ -666,20 +706,18 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'defence', 'diplomatic', 'academic'],
     targets: ['India', 'United States', 'United Kingdom', 'NATO'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1204.002', name: 'Malicious File',           tactic: 'execution' },
-      { id: 'T1059.005', name: 'Visual Basic',             tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1204.002', name: 'Malicious File', tactic: 'execution' },
+      { id: 'T1059.005', name: 'Visual Basic', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'Crimson RAT', type: 'rat',      platform: 'windows' },
-      { name: 'CapraRAT',    type: 'implant',  platform: 'android' },
-      { name: 'ObliqueRAT',  type: 'implant',  platform: 'windows' },
+      { name: 'Crimson RAT', type: 'rat', platform: 'windows' },
+      { name: 'CapraRAT', type: 'implant', platform: 'android' },
+      { name: 'ObliqueRAT', type: 'implant', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2020-0932', cvss: 7.8, product: 'Windows', year: 2020 },
-    ],
+    cves: [{ id: 'CVE-2020-0932', cvss: 7.8, product: 'Windows', year: 2020 }],
     campaigns: [
       {
         name: 'Indian military phishing (ongoing)',
@@ -693,18 +731,16 @@ export const ACTORS: Actor[] = [
       },
     ],
     hunt_queries: [],
-    detections: [
-      { source: 'Elastic', title: 'Crimson RAT', url: 'https://github.com/elastic/detection-rules' },
-    ],
+    detections: [{ source: 'Elastic', title: 'Crimson RAT', url: 'https://github.com/elastic/detection-rules' }],
     members: [],
     infra_patterns: ['.top / .xyz / TLP-supporting subdomains', 'Compromised WordPress blogs'],
     sector_scores: [
       { sector: 'government', score: 79, evidence: [] },
-      { sector: 'defence',    score: 76, evidence: ['Indian military phishing (ongoing)'] },
+      { sector: 'defence', score: 76, evidence: ['Indian military phishing (ongoing)'] },
     ],
     sources: [
       { label: 'Recorded Future profile', url: 'https://www.recordedfuture.com/threat-actor/transparent-tribe' },
-      { label: 'MITRE G0136',             url: 'https://attack.mitre.org/groups/G0136/' },
+      { label: 'MITRE G0136', url: 'https://attack.mitre.org/groups/G0136/' },
     ],
   },
 
@@ -728,20 +764,20 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'government', 'defence', 'transport', 'media', 'olympics'],
     targets: ['Ukraine', 'Georgia', 'Estonia', 'United States', 'South Korea', 'Western Europe'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'NotPetya',      type: 'wiper',      platform: 'windows' },
-      { name: 'Industroyer2',  type: 'ics-attack', platform: 'windows' },
-      { name: 'Olympic Destroyer', type: 'wiper',  platform: 'windows' },
-      { name: 'BlackEnergy',   type: 'backdoor',   platform: 'windows' },
-      { name: 'GreyEnergy',    type: 'backdoor',   platform: 'windows' },
+      { name: 'NotPetya', type: 'wiper', platform: 'windows' },
+      { name: 'Industroyer2', type: 'ics-attack', platform: 'windows' },
+      { name: 'Olympic Destroyer', type: 'wiper', platform: 'windows' },
+      { name: 'BlackEnergy', type: 'backdoor', platform: 'windows' },
+      { name: 'GreyEnergy', type: 'backdoor', platform: 'windows' },
     ],
     cves: [
       { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB (EternalBlue)', year: 2017 },
@@ -755,18 +791,22 @@ export const ACTORS: Actor[] = [
         sectors: ['shipping', 'pharmaceutical', 'energy', 'government'],
         targets: ['Ukraine', 'global (Maersk, Merck, FedEx)'],
         source: 'US/CERT, NCSC-UK',
-        summary: 'Supply-chain attack via M.E.Doc tax software update; deployed NotPetya wiper disguised as ransomware. Caused an estimated $10 billion in damages worldwide, making it the most costly cyberattack in history.',
+        summary:
+          'Supply-chain attack via M.E.Doc tax software update; deployed NotPetya wiper disguised as ransomware. Caused an estimated $10 billion in damages worldwide, making it the most costly cyberattack in history.',
       },
     ],
     hunt_queries: [
-      { platform: 'Sigma', title: 'NotPetya wiper indicators', url: 'https://github.com/SigmaHQ/sigma', description: 'File hash and behaviour patterns for NotPetya family.' },
+      {
+        platform: 'Sigma',
+        title: 'NotPetya wiper indicators',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'File hash and behaviour patterns for NotPetya family.',
+      },
     ],
     detections: [
       { source: 'Elastic', title: 'NotPetya detection rules', url: 'https://github.com/elastic/detection-rules' },
     ],
-    members: [
-      { name: 'GRU Unit 74455 (collectively)', role: 'Operators', status: 'indicted' },
-    ],
+    members: [{ name: 'GRU Unit 74455 (collectively)', role: 'Operators', status: 'indicted' }],
     infra_patterns: ['Compromised Ukrainian software update infrastructure', 'Wiper + EternalBlue worm combination'],
     sector_scores: [
       { sector: 'energy', score: 90, evidence: ['Industroyer2 operations'] },
@@ -774,7 +814,7 @@ export const ACTORS: Actor[] = [
     ],
     sources: [
       { label: 'CISA advisory AA22-181A', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa22-181a' },
-      { label: 'MITRE G0041',             url: 'https://attack.mitre.org/groups/G0041/' },
+      { label: 'MITRE G0041', url: 'https://attack.mitre.org/groups/G0041/' },
     ],
   },
 
@@ -792,25 +832,23 @@ export const ACTORS: Actor[] = [
     last_seen: 2025,
     confidence: 'high',
     description:
-      'Russian FSB-attributed APT known for ultra-stealthy operations and repurposing other APTs\' tools. Notable for the Snake/Turla rootkit, satellite-based C2 hijacking, and compromising Iranian APT infrastructure to use as relay nodes.',
+      "Russian FSB-attributed APT known for ultra-stealthy operations and repurposing other APTs' tools. Notable for the Snake/Turla rootkit, satellite-based C2 hijacking, and compromising Iranian APT infrastructure to use as relay nodes.",
     sectors: ['government', 'defence', 'diplomatic', 'academic', 'technology'],
     targets: ['United States', 'United Kingdom', 'Germany', 'Ukraine', 'Iran', 'Middle East'],
     ttps: [
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
-      { id: 'T1090',     name: 'Proxy',                     tactic: 'command-and-control' },
-      { id: 'T1556',     name: 'Modify Authentication',    tactic: 'credential-access' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
+      { id: 'T1090', name: 'Proxy', tactic: 'command-and-control' },
+      { id: 'T1556', name: 'Modify Authentication', tactic: 'credential-access' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'Snake',         type: 'rootkit',    platform: 'windows' },
-      { name: 'Carbon',        type: 'backdoor',   platform: 'windows' },
-      { name: 'Mosquito',      type: 'backdoor',   platform: 'windows' },
-      { name: 'KopiLuwak',     type: 'implant',    platform: 'windows' },
+      { name: 'Snake', type: 'rootkit', platform: 'windows' },
+      { name: 'Carbon', type: 'backdoor', platform: 'windows' },
+      { name: 'Mosquito', type: 'backdoor', platform: 'windows' },
+      { name: 'KopiLuwak', type: 'implant', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-0199', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0199', cvss: 8.8, product: 'Microsoft Office', year: 2017 }],
     campaigns: [
       {
         name: 'Satellite C2 hijacking',
@@ -819,11 +857,17 @@ export const ACTORS: Actor[] = [
         sectors: ['government', 'defence'],
         targets: ['Middle East', 'Central Asia'],
         source: 'Kaspersky GReAT',
-        summary: 'Hijacked satellite internet connections in the Middle East and Central Asia to mask C2 traffic, making attribution and takedown extremely difficult.',
+        summary:
+          'Hijacked satellite internet connections in the Middle East and Central Asia to mask C2 traffic, making attribution and takedown extremely difficult.',
       },
     ],
     hunt_queries: [
-      { platform: 'Sigma', title: 'Turla Snake rootkit', url: 'https://github.com/SigmaHQ/sigma', description: 'Detection patterns for the Snake/Turla rootkit.' },
+      {
+        platform: 'Sigma',
+        title: 'Turla Snake rootkit',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'Detection patterns for the Snake/Turla rootkit.',
+      },
     ],
     detections: [
       { source: 'Elastic', title: 'Turla backdoor detection', url: 'https://github.com/elastic/detection-rules' },
@@ -836,7 +880,7 @@ export const ACTORS: Actor[] = [
     ],
     sources: [
       { label: 'Kaspersky Turla overview', url: 'https://securelist.com/the-epic-turla-operation/65545/' },
-      { label: 'MITRE G0010',              url: 'https://attack.mitre.org/groups/G0010/' },
+      { label: 'MITRE G0010', url: 'https://attack.mitre.org/groups/G0010/' },
     ],
   },
 
@@ -859,16 +903,16 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'Japan', 'South Korea', 'India', 'Vietnam', 'global'],
     ttps: [
       { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',              tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',        tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',           tactic: 'command-and-control' },
-      { id: 'T1560',     name: 'Archive Collected Data',  tactic: 'collection' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
+      { id: 'T1560', name: 'Archive Collected Data', tactic: 'collection' },
     ],
     malware: [
-      { name: 'Shadow Pad',    type: 'backdoor',   platform: 'windows' },
-      { name: 'CrossWalk',     type: 'implant',    platform: 'windows' },
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
-      { name: 'HiKit',         type: 'rootkit',    platform: 'windows' },
+      { name: 'Shadow Pad', type: 'backdoor', platform: 'windows' },
+      { name: 'CrossWalk', type: 'implant', platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
+      { name: 'HiKit', type: 'rootkit', platform: 'windows' },
     ],
     cves: [
       { id: 'CVE-2017-0199', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
@@ -882,18 +926,24 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'gaming'],
         targets: ['United States', 'Japan', 'South Korea'],
         source: 'FireEye / DOJ indictment',
-        summary: 'Compromised software update mechanisms of multiple technology vendors to distribute backdoors to downstream customers. Indicted by DOJ in 2020 for targeting over 100 companies.',
+        summary:
+          'Compromised software update mechanisms of multiple technology vendors to distribute backdoors to downstream customers. Indicted by DOJ in 2020 for targeting over 100 companies.',
       },
     ],
     hunt_queries: [
-      { platform: 'Sigma', title: 'APT41 Shadow Pad loader', url: 'https://github.com/SigmaHQ/sigma', description: 'Detection patterns for Shadow Pad implant family.' },
+      {
+        platform: 'Sigma',
+        title: 'APT41 Shadow Pad loader',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'Detection patterns for Shadow Pad implant family.',
+      },
     ],
     detections: [
       { source: 'Elastic', title: 'APT41 tooling detection', url: 'https://github.com/elastic/detection-rules' },
     ],
     members: [
       { name: 'Zhang Haoran', role: 'Operator', status: 'indicted' },
-      { name: 'Tan Dilin',    role: 'Operator', status: 'indicted' },
+      { name: 'Tan Dilin', role: 'Operator', status: 'indicted' },
     ],
     infra_patterns: ['Legitimate compromised update servers', 'Shared infrastructure with criminal operations'],
     sector_scores: [
@@ -901,8 +951,11 @@ export const ACTORS: Actor[] = [
       { sector: 'gaming', score: 85, evidence: [] },
     ],
     sources: [
-      { label: 'FireEye APT41 report', url: 'https://www.mandiant.com/resources/blog/apt41-dual-espionage-and-cyber-crime-operation' },
-      { label: 'MITRE G0096',           url: 'https://attack.mitre.org/groups/G0096/' },
+      {
+        label: 'FireEye APT41 report',
+        url: 'https://www.mandiant.com/resources/blog/apt41-dual-espionage-and-cyber-crime-operation',
+      },
+      { label: 'MITRE G0096', url: 'https://attack.mitre.org/groups/G0096/' },
     ],
   },
 
@@ -924,12 +977,12 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'government', 'defence', 'transport'],
     targets: ['Ukraine', 'Georgia', 'United States'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'Industroyer',  type: 'ics-attack', platform: 'windows' },
-      { name: 'CaddyWiper',   type: 'wiper',      platform: 'windows' },
+      { name: 'Industroyer', type: 'ics-attack', platform: 'windows' },
+      { name: 'CaddyWiper', type: 'wiper', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -940,7 +993,8 @@ export const ACTORS: Actor[] = [
         sectors: ['energy'],
         targets: ['Ukraine'],
         source: 'ICS-CERT',
-        summary: 'First known successful cyberattack on a power grid. BlackEnergy-based malware with Industroyer module caused outages across western Ukraine.',
+        summary:
+          'First known successful cyberattack on a power grid. BlackEnergy-based malware with Industroyer module caused outages across western Ukraine.',
       },
     ],
     hunt_queries: [],
@@ -949,12 +1003,10 @@ export const ACTORS: Actor[] = [
     ],
     members: [],
     infra_patterns: ['ICS-targeted tooling', 'PowerShell-heavy execution'],
-    sector_scores: [
-      { sector: 'energy', score: 95, evidence: ['Ukraine power grid attacks'] },
-    ],
+    sector_scores: [{ sector: 'energy', score: 95, evidence: ['Ukraine power grid attacks'] }],
     sources: [
       { label: 'ICS-CERT advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/icsa-16-352-01' },
-      { label: 'MITRE G0115',        url: 'https://attack.mitre.org/groups/G0115/' },
+      { label: 'MITRE G0115', url: 'https://attack.mitre.org/groups/G0115/' },
     ],
   },
 
@@ -976,18 +1028,16 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'defence', 'technology', 'telecommunications'],
     targets: ['United States', 'Hong Kong', 'Vietnam', 'Southeast Asia'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'DoublePulse',   type: 'backdoor',   platform: 'windows' },
-      { name: 'Sidewalk',      type: 'implant',    platform: 'windows' },
-      { name: 'Pirpi',         type: 'backdoor',   platform: 'windows' },
+      { name: 'DoublePulse', type: 'backdoor', platform: 'windows' },
+      { name: 'Sidewalk', type: 'implant', platform: 'windows' },
+      { name: 'Pirpi', type: 'backdoor', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 }],
     campaigns: [
       {
         name: 'Zero-day exploitation campaign (2017)',
@@ -996,13 +1046,12 @@ export const ACTORS: Actor[] = [
         sectors: ['government', 'defence'],
         targets: ['United States', 'Hong Kong'],
         source: 'FireEye',
-        summary: 'Exploited Internet Explorer zero-day (CVE-2017-0199) in targeted spearphishing campaigns against government agencies.',
+        summary:
+          'Exploited Internet Explorer zero-day (CVE-2017-0199) in targeted spearphishing campaigns against government agencies.',
       },
     ],
     hunt_queries: [],
-    detections: [
-      { source: 'Elastic', title: 'APT3 DoublePulse', url: 'https://github.com/elastic/detection-rules' },
-    ],
+    detections: [{ source: 'Elastic', title: 'APT3 DoublePulse', url: 'https://github.com/elastic/detection-rules' }],
     members: [],
     infra_patterns: ['Rapid zero-day exploitation', 'Compromised WordPress sites'],
     sector_scores: [
@@ -1011,7 +1060,7 @@ export const ACTORS: Actor[] = [
     ],
     sources: [
       { label: 'FireEye APT3 profile', url: 'https://www.mandiant.com/resources/blog/apt3-aka-gothic-panda' },
-      { label: 'MITRE G0022',           url: 'https://attack.mitre.org/groups/G0022/' },
+      { label: 'MITRE G0022', url: 'https://attack.mitre.org/groups/G0022/' },
     ],
   },
 
@@ -1033,21 +1082,19 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'government', 'finance', 'telecommunications', 'defence'],
     targets: ['Saudi Arabia', 'UAE', 'Israel', 'Qatar', 'Kuwait', 'Jordan'],
     ttps: [
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1071.004', name: 'DNS',                       tactic: 'command-and-control' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1071.004', name: 'DNS', tactic: 'command-and-control' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'Helix Kitten',  type: 'backdoor',   platform: 'windows' },
-      { name: 'TwoFace',       type: 'webshell',   platform: 'windows' },
-      { name: 'QUASARGHOST',   type: 'implant',    platform: 'windows' },
-      { name: 'RDAT',          type: 'backdoor',   platform: 'windows' },
+      { name: 'Helix Kitten', type: 'backdoor', platform: 'windows' },
+      { name: 'TwoFace', type: 'webshell', platform: 'windows' },
+      { name: 'QUASARGHOST', type: 'implant', platform: 'windows' },
+      { name: 'RDAT', type: 'backdoor', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-0199', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0199', cvss: 8.8, product: 'Microsoft Office', year: 2017 }],
     campaigns: [
       {
         name: 'TwoFace webshell campaign (2019)',
@@ -1056,11 +1103,17 @@ export const ACTORS: Actor[] = [
         sectors: ['government', 'energy'],
         targets: ['Saudi Arabia', 'UAE'],
         source: 'ClearSky',
-        summary: 'Deployed the TwoFace webshell on public-facing IIS servers across Middle Eastern government and energy targets.',
+        summary:
+          'Deployed the TwoFace webshell on public-facing IIS servers across Middle Eastern government and energy targets.',
       },
     ],
     hunt_queries: [
-      { platform: 'KQL', title: 'OilRig PowerShell patterns', url: 'https://github.com/a2awais/Threat-Hunting', description: 'KQL for OilRig PowerShell execution patterns.' },
+      {
+        platform: 'KQL',
+        title: 'OilRig PowerShell patterns',
+        url: 'https://github.com/a2awais/Threat-Hunting',
+        description: 'KQL for OilRig PowerShell execution patterns.',
+      },
     ],
     detections: [
       { source: 'Elastic', title: 'OilRig backdoor detection', url: 'https://github.com/elastic/detection-rules' },
@@ -1073,7 +1126,7 @@ export const ACTORS: Actor[] = [
     ],
     sources: [
       { label: 'ClearSky OilRig report', url: 'https://www.clearskysec.com/oilrig/' },
-      { label: 'MITRE G0049',             url: 'https://attack.mitre.org/groups/G0049/' },
+      { label: 'MITRE G0049', url: 'https://attack.mitre.org/groups/G0049/' },
     ],
   },
 
@@ -1096,19 +1149,17 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'United Kingdom', 'Japan', 'India', 'Australia', 'Southeast Asia'],
     ttps: [
       { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',              tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',        tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',           tactic: 'command-and-control' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'PlugX',          type: 'backdoor',   platform: 'windows' },
-      { name: 'QUASARTOOL',     type: 'implant',    platform: 'windows' },
-      { name: 'ChChes',         type: 'backdoor',   platform: 'windows' },
-      { name: 'WINNTI',         type: 'implant',    platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
+      { name: 'QUASARTOOL', type: 'implant', platform: 'windows' },
+      { name: 'ChChes', type: 'backdoor', platform: 'windows' },
+      { name: 'WINNTI', type: 'implant', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-11882', cvss: 8.8, product: 'Microsoft Office', year: 2017 }],
     campaigns: [
       {
         name: 'Cloud Hopper (2016–2018)',
@@ -1117,7 +1168,8 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'aerospace'],
         targets: ['United States', 'United Kingdom', 'Japan', 'Australia'],
         source: 'FireEye / NCSC-UK',
-        summary: 'Compromised at least 12 MSPs globally to gain persistent access to their clients across government and defence sectors.',
+        summary:
+          'Compromised at least 12 MSPs globally to gain persistent access to their clients across government and defence sectors.',
       },
     ],
     hunt_queries: [],
@@ -1132,7 +1184,7 @@ export const ACTORS: Actor[] = [
     ],
     sources: [
       { label: 'FireEye Cloud Hopper', url: 'https://www.mandiant.com/resources/blog/apt10-cloud-hopper-campaign' },
-      { label: 'MITRE G0045',           url: 'https://attack.mitre.org/groups/G0045/' },
+      { label: 'MITRE G0045', url: 'https://attack.mitre.org/groups/G0045/' },
     ],
   },
 
@@ -1155,14 +1207,14 @@ export const ACTORS: Actor[] = [
     targets: ['China', 'United States', 'Southeast Asia', 'Germany'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.006', name: 'Python',                   tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',         tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',            tactic: 'command-and-control' },
+      { id: 'T1059.006', name: 'Python', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'Kproy',        type: 'backdoor',   platform: 'macos' },
-      { name: 'WindSHield',   type: 'backdoor',   platform: 'windows' },
-      { name: 'Tinypipe',     type: 'implant',    platform: 'windows' },
+      { name: 'Kproy', type: 'backdoor', platform: 'macos' },
+      { name: 'WindSHield', type: 'backdoor', platform: 'windows' },
+      { name: 'Tinypipe', type: 'implant', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -1182,12 +1234,10 @@ export const ACTORS: Actor[] = [
     ],
     members: [],
     infra_patterns: ['WordPress-based C2 infrastructure', 'macOS-targeted malware'],
-    sector_scores: [
-      { sector: 'government', score: 80, evidence: ['Hotel & hospitality targeting'] },
-    ],
+    sector_scores: [{ sector: 'government', score: 80, evidence: ['Hotel & hospitality targeting'] }],
     sources: [
       { label: 'Kaspersky OceanLotus', url: 'https://securelist.com/the-oceanlotus-apt/80716/' },
-      { label: 'MITRE G0050',           url: 'https://attack.mitre.org/groups/G0050/' },
+      { label: 'MITRE G0050', url: 'https://attack.mitre.org/groups/G0050/' },
     ],
   },
 
@@ -1209,17 +1259,13 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'manufacturing', 'healthcare', 'technology'],
     targets: ['United States', 'Germany', 'France'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1489',     name: 'Service Stop',              tactic: 'impact' },
-      { id: 'T1566.002', name: 'Spearphishing Link',        tactic: 'initial-access' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1489', name: 'Service Stop', tactic: 'impact' },
+      { id: 'T1566.002', name: 'Spearphishing Link', tactic: 'initial-access' },
     ],
-    malware: [
-      { name: 'DarkSide Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
-    cves: [
-      { id: 'CVE-2021-34473', cvss: 9.8, product: 'Microsoft Exchange (ProxyShell)', year: 2021 },
-    ],
+    malware: [{ name: 'DarkSide Ransomware', type: 'ransomware', platform: 'windows' }],
+    cves: [{ id: 'CVE-2021-34473', cvss: 9.8, product: 'Microsoft Exchange (ProxyShell)', year: 2021 }],
     campaigns: [
       {
         name: 'Colonial Pipeline attack (2021)',
@@ -1228,7 +1274,8 @@ export const ACTORS: Actor[] = [
         sectors: ['energy'],
         targets: ['United States'],
         source: 'FBI / CISA',
-        summary: 'Ransomware attack on Colonial Pipeline, the largest refined fuel pipeline in the US. Disrupted fuel supply across the East Coast for 6 days and triggered a national emergency.',
+        summary:
+          'Ransomware attack on Colonial Pipeline, the largest refined fuel pipeline in the US. Disrupted fuel supply across the East Coast for 6 days and triggered a national emergency.',
       },
     ],
     hunt_queries: [],
@@ -1237,12 +1284,10 @@ export const ACTORS: Actor[] = [
     ],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Double extortion'],
-    sector_scores: [
-      { sector: 'energy', score: 95, evidence: ['Colonial Pipeline attack'] },
-    ],
+    sector_scores: [{ sector: 'energy', score: 95, evidence: ['Colonial Pipeline attack'] }],
     sources: [
       { label: 'CISA advisory AA21-131A', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-131a' },
-      { label: 'MITRE G0118',              url: 'https://attack.mitre.org/groups/G0118/' },
+      { label: 'MITRE G0118', url: 'https://attack.mitre.org/groups/G0118/' },
     ],
   },
 
@@ -1264,16 +1309,12 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'agriculture', 'legal', 'manufacturing'],
     targets: ['United States', 'Germany', 'France', 'Australia'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1195.002', name: 'Supply Chain Compromise',   tactic: 'initial-access' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
-    malware: [
-      { name: 'REvil Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
-    cves: [
-      { id: 'CVE-2021-30116', cvss: 9.8, product: 'Kaseya VSA', year: 2021 },
-    ],
+    malware: [{ name: 'REvil Ransomware', type: 'ransomware', platform: 'windows' }],
+    cves: [{ id: 'CVE-2021-30116', cvss: 9.8, product: 'Kaseya VSA', year: 2021 }],
     campaigns: [
       {
         name: 'Kaseya supply-chain attack (2021)',
@@ -1282,7 +1323,8 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'managed-services'],
         targets: ['United States', 'global MSPs'],
         source: 'FBI / CISA',
-        summary: 'Exploited zero-day in Kaseya VSA to deploy ransomware to ~1,500 downstream businesses via their MSPs. Demanded $70M for universal decryptor.',
+        summary:
+          'Exploited zero-day in Kaseya VSA to deploy ransomware to ~1,500 downstream businesses via their MSPs. Demanded $70M for universal decryptor.',
       },
     ],
     hunt_queries: [],
@@ -1291,12 +1333,10 @@ export const ACTORS: Actor[] = [
     ],
     members: [
       { name: 'Yaroslav Vasinskyi', role: 'Operator', status: 'indicted' },
-      { name: 'Yevgeniy Polyanin',  role: 'Operator', status: 'indicted' },
+      { name: 'Yevgeniy Polyanin', role: 'Operator', status: 'indicted' },
     ],
     infra_patterns: ['RaaS affiliate model', 'Supply-chain initial access'],
-    sector_scores: [
-      { sector: 'technology', score: 92, evidence: ['Kaseya supply-chain attack'] },
-    ],
+    sector_scores: [{ sector: 'technology', score: 92, evidence: ['Kaseya supply-chain attack'] }],
     sources: [
       { label: 'CISA advisory AA21-193A', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-193a' },
     ],
@@ -1321,14 +1361,14 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'Germany', 'France', 'UK', 'India'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.005', name: 'Visual Basic',             tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',         tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',            tactic: 'command-and-control' },
+      { id: 'T1059.005', name: 'Visual Basic', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'Carbanak',     type: 'backdoor',   platform: 'windows' },
-      { name: 'Dridex',       type: 'banking',    platform: 'windows' },
-      { name: 'Cobalt Strike', type: 'beacon',    platform: 'multi' },
+      { name: 'Carbanak', type: 'backdoor', platform: 'windows' },
+      { name: 'Dridex', type: 'banking', platform: 'windows' },
+      { name: 'Cobalt Strike', type: 'beacon', platform: 'multi' },
     ],
     cves: [],
     campaigns: [
@@ -1339,7 +1379,8 @@ export const ACTORS: Actor[] = [
         sectors: ['hospitality', 'retail'],
         targets: ['United States'],
         source: 'FireEye',
-        summary: 'Deployed custom POS malware across US restaurant and hotel chains to harvest payment card data via RAM scraping.',
+        summary:
+          'Deployed custom POS malware across US restaurant and hotel chains to harvest payment card data via RAM scraping.',
       },
     ],
     hunt_queries: [],
@@ -1347,7 +1388,7 @@ export const ACTORS: Actor[] = [
       { source: 'Elastic', title: 'FIN7 Carbanak detection', url: 'https://github.com/elastic/detection-rules' },
     ],
     members: [
-      { name: 'Dmytro Fedorov',  role: 'Operator', status: 'indicted' },
+      { name: 'Dmytro Fedorov', role: 'Operator', status: 'indicted' },
       { name: 'Oleksandr Yeremenko', role: 'Operator', status: 'indicted' },
     ],
     infra_patterns: ['Legitimate-looking spearphishing emails', 'Custom POS malware for RAM scraping'],
@@ -1357,7 +1398,7 @@ export const ACTORS: Actor[] = [
     ],
     sources: [
       { label: 'FireEye FIN7 profile', url: 'https://www.mandiant.com/resources/blog/fin7-shapeshifting' },
-      { label: 'MITRE G0046',           url: 'https://attack.mitre.org/groups/G0046/' },
+      { label: 'MITRE G0046', url: 'https://attack.mitre.org/groups/G0046/' },
     ],
   },
 
@@ -1380,13 +1421,13 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'United Kingdom', 'Germany', 'France', 'EU institutions'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',         tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'CozyDuke',      type: 'backdoor',   platform: 'windows' },
-      { name: 'CosmicStrand',  type: 'implant',    platform: 'windows' },
-      { name: 'MiniDuke',      type: 'backdoor',   platform: 'windows' },
+      { name: 'CozyDuke', type: 'backdoor', platform: 'windows' },
+      { name: 'CosmicStrand', type: 'implant', platform: 'windows' },
+      { name: 'MiniDuke', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -1397,7 +1438,8 @@ export const ACTORS: Actor[] = [
         sectors: ['government', 'diplomatic'],
         targets: ['United States', 'Germany'],
         source: 'Kaspersky GReAT',
-        summary: 'CozyDuke campaign targeting government email systems via spearphishing with malicious PDF attachments.',
+        summary:
+          'CozyDuke campaign targeting government email systems via spearphishing with malicious PDF attachments.',
       },
     ],
     hunt_queries: [],
@@ -1410,7 +1452,7 @@ export const ACTORS: Actor[] = [
     ],
     sources: [
       { label: 'Kaspersky The Dukes', url: 'https://securelist.com/the-dukes/67953/' },
-      { label: 'MITRE G0060',          url: 'https://attack.mitre.org/groups/G0060/' },
+      { label: 'MITRE G0060', url: 'https://attack.mitre.org/groups/G0060/' },
     ],
   },
 
@@ -1433,13 +1475,13 @@ export const ACTORS: Actor[] = [
     targets: ['Japan', 'South Korea', 'China'],
     ttps: [
       { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',              tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',        tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'Besiege',       type: 'backdoor',   platform: 'windows' },
-      { name: 'DesertExpress', type: 'backdoor',   platform: 'windows' },
-      { name: 'Sivatron',      type: 'implant',    platform: 'windows' },
+      { name: 'Besiege', type: 'backdoor', platform: 'windows' },
+      { name: 'DesertExpress', type: 'backdoor', platform: 'windows' },
+      { name: 'Sivatron', type: 'implant', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -1450,7 +1492,8 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'manufacturing'],
         targets: ['Japan'],
         source: 'Trend Micro',
-        summary: 'Compromised Japanese software update mechanisms to distribute malware to defence and manufacturing companies.',
+        summary:
+          'Compromised Japanese software update mechanisms to distribute malware to defence and manufacturing companies.',
       },
     ],
     hunt_queries: [],
@@ -1462,8 +1505,11 @@ export const ACTORS: Actor[] = [
       { sector: 'technology', score: 78, evidence: [] },
     ],
     sources: [
-      { label: 'Trend Micro Bronze Butler', url: 'https://www.trendmicro.com/en_us/research/19/l/bronze-butler-targets-japanese-businesses.html' },
-      { label: 'MITRE G0062',                url: 'https://attack.mitre.org/groups/G0062/' },
+      {
+        label: 'Trend Micro Bronze Butler',
+        url: 'https://www.trendmicro.com/en_us/research/19/l/bronze-butler-targets-japanese-businesses.html',
+      },
+      { label: 'MITRE G0062', url: 'https://attack.mitre.org/groups/G0062/' },
     ],
   },
 
@@ -1485,17 +1531,17 @@ export const ACTORS: Actor[] = [
     sectors: ['healthcare', 'government', 'finance', 'technology', 'education'],
     targets: ['United States', 'United Kingdom', 'Germany', 'Israel', 'Japan'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
     ],
     malware: [
-      { name: 'TrickBot',       type: 'banking',    platform: 'windows' },
-      { name: 'Conti',          type: 'ransomware', platform: 'windows' },
-      { name: 'BazarLoader',    type: 'loader',     platform: 'windows' },
-      { name: 'Anchor',         type: 'implant',    platform: 'windows' },
+      { name: 'TrickBot', type: 'banking', platform: 'windows' },
+      { name: 'Conti', type: 'ransomware', platform: 'windows' },
+      { name: 'BazarLoader', type: 'loader', platform: 'windows' },
+      { name: 'Anchor', type: 'implant', platform: 'windows' },
     ],
     cves: [
       { id: 'CVE-2020-1472', cvss: 10.0, product: 'Netlogon', year: 2020 },
@@ -1509,26 +1555,33 @@ export const ACTORS: Actor[] = [
         sectors: ['healthcare', 'government', 'technology'],
         targets: ['United States', 'United Kingdom', 'global'],
         source: 'FBI / CISA',
-        summary: 'One of the most prolific ransomware operations, targeting critical infrastructure and healthcare. The 2022 Conti leaks revealed extensive TTPs and infrastructure details.',
+        summary:
+          'One of the most prolific ransomware operations, targeting critical infrastructure and healthcare. The 2022 Conti leaks revealed extensive TTPs and infrastructure details.',
       },
     ],
     hunt_queries: [
-      { platform: 'Sigma', title: 'TrickBot module detection', url: 'https://github.com/SigmaHQ/sigma', description: 'Detection of TrickBot module loading patterns.' },
+      {
+        platform: 'Sigma',
+        title: 'TrickBot module detection',
+        url: 'https://github.com/SigmaHQ/sigma',
+        description: 'Detection of TrickBot module loading patterns.',
+      },
     ],
     detections: [
       { source: 'Elastic', title: 'Conti/TrickBot detection', url: 'https://github.com/elastic/detection-rules' },
     ],
-    members: [
-      { name: 'Vitaliy Polyakov', role: 'Operator', status: 'indicted' },
+    members: [{ name: 'Vitaliy Polyakov', role: 'Operator', status: 'indicted' }],
+    infra_patterns: [
+      'TrickBot as initial access for multiple ransomware brands',
+      'BazarLoader for phishing-based entry',
     ],
-    infra_patterns: ['TrickBot as initial access for multiple ransomware brands', 'BazarLoader for phishing-based entry'],
     sector_scores: [
       { sector: 'healthcare', score: 90, evidence: ['Conti ransomware attacks'] },
       { sector: 'government', score: 82, evidence: [] },
     ],
     sources: [
       { label: 'CISA advisory AA21-013A', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-013a' },
-      { label: 'MITRE G0102',              url: 'https://attack.mitre.org/groups/G0102/' },
+      { label: 'MITRE G0102', url: 'https://attack.mitre.org/groups/G0102/' },
     ],
   },
 
@@ -1550,19 +1603,17 @@ export const ACTORS: Actor[] = [
     sectors: ['financial', 'cryptocurrency', 'banking'],
     targets: ['Bangladesh', 'Vietnam', 'Poland', 'South Korea', 'global crypto exchanges'],
     ttps: [
-      { id: 'T1566.002', name: 'Spearphishing Link',       tactic: 'initial-access' },
-      { id: 'T1195.002', name: 'Supply Chain Compromise',  tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1566.002', name: 'Spearphishing Link', tactic: 'initial-access' },
+      { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
     ],
     malware: [
-      { name: 'FASTCash 2.0',  type: 'banking',  platform: 'multi' },
-      { name: 'HERMES',        type: 'ransomware', platform: 'windows' },
-      { name: 'AppleJeus',     type: 'stealer',  platform: 'multi' },
+      { name: 'FASTCash 2.0', type: 'banking', platform: 'multi' },
+      { name: 'HERMES', type: 'ransomware', platform: 'windows' },
+      { name: 'AppleJeus', type: 'stealer', platform: 'multi' },
     ],
-    cves: [
-      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 }],
     campaigns: [
       {
         name: 'Bangladesh Bank heist (2016)',
@@ -1571,24 +1622,26 @@ export const ACTORS: Actor[] = [
         sectors: ['banking', 'financial'],
         targets: ['Bangladesh', 'global SWIFT network'],
         source: 'FBI / SWIFT',
-        summary: 'Compromised SWIFT messaging system at Bangladesh Bank and attempted to steal $1B. Stole $81M before a typo in a SWIFT message triggered investigation.',
+        summary:
+          'Compromised SWIFT messaging system at Bangladesh Bank and attempted to steal $1B. Stole $81M before a typo in a SWIFT message triggered investigation.',
       },
     ],
     hunt_queries: [],
     detections: [
       { source: 'Elastic', title: 'APT38 SWIFT targeting', url: 'https://github.com/elastic/detection-rules' },
     ],
-    members: [
-      { name: 'Park Jin-hyok', role: 'Developer/operator', status: 'indicted' },
-    ],
+    members: [{ name: 'Park Jin-hyok', role: 'Developer/operator', status: 'indicted' }],
     infra_patterns: ['SWIFT banking system targeting', 'Cryptocurrency exchange theft'],
     sector_scores: [
       { sector: 'banking', score: 95, evidence: ['Bangladesh Bank heist'] },
       { sector: 'cryptocurrency', score: 90, evidence: ['Multiple exchange heists'] },
     ],
     sources: [
-      { label: 'FBI SWIFT advisory', url: 'https://www.fbi.gov/news/press-releases/fbi-statement-on-bangladesh-bank-heist' },
-      { label: 'MITRE G0082',          url: 'https://attack.mitre.org/groups/G0082/' },
+      {
+        label: 'FBI SWIFT advisory',
+        url: 'https://www.fbi.gov/news/press-releases/fbi-statement-on-bangladesh-bank-heist',
+      },
+      { label: 'MITRE G0082', url: 'https://attack.mitre.org/groups/G0082/' },
     ],
   },
 
@@ -1613,16 +1666,14 @@ export const ACTORS: Actor[] = [
     targets: ['Japan', 'China', 'South Korea', 'Taiwan', 'India'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'Darkhotel',   type: 'backdoor',   platform: 'windows' },
-      { name: 'Inexsmar',    type: 'backdoor',   platform: 'windows' },
+      { name: 'Darkhotel', type: 'backdoor', platform: 'windows' },
+      { name: 'Inexsmar', type: 'backdoor', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2014-0497', cvss: 8.8, product: 'Adobe Flash', year: 2014 },
-    ],
+    cves: [{ id: 'CVE-2014-0497', cvss: 8.8, product: 'Adobe Flash', year: 2014 }],
     campaigns: [
       {
         name: 'Hotel WiFi MITM attacks (2014)',
@@ -1638,12 +1689,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Hotel WiFi MITM', 'Zero-day Flash exploits'],
-    sector_scores: [
-      { sector: 'defence', score: 75, evidence: [] },
-    ],
-    sources: [
-      { label: 'MITRE G0014', url: 'https://attack.mitre.org/groups/G0014/' },
-    ],
+    sector_scores: [{ sector: 'defence', score: 75, evidence: [] }],
+    sources: [{ label: 'MITRE G0014', url: 'https://attack.mitre.org/groups/G0014/' }],
   },
 
   {
@@ -1664,18 +1711,16 @@ export const ACTORS: Actor[] = [
     sectors: ['defence', 'government', 'technology', 'telecommunications', 'energy'],
     targets: ['Iran', 'Russia', 'China', 'Middle East', 'global'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'EQUATIONDRUG',  type: 'rootkit',    platform: 'windows' },
-      { name: 'DoubleFantasy', type: 'backdoor',   platform: 'multi' },
-      { name: 'FANNY',         type: 'worm',       platform: 'windows' },
+      { name: 'EQUATIONDRUG', type: 'rootkit', platform: 'windows' },
+      { name: 'DoubleFantasy', type: 'backdoor', platform: 'multi' },
+      { name: 'FANNY', type: 'worm', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-0005', cvss: 7.8, product: 'Windows Kernel', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0005', cvss: 7.8, product: 'Windows Kernel', year: 2017 }],
     campaigns: [
       {
         name: 'Stuxnet / Olympic Games (2010)',
@@ -1684,19 +1729,16 @@ export const ACTORS: Actor[] = [
         sectors: ['energy', 'defence'],
         targets: ['Iran'],
         source: 'Kaspersky GReAT / Snowden leaks',
-        summary: 'Destruction of Iranian nuclear centrifuges via the Stuxnet worm, widely attributed to US-Israel joint operation.',
+        summary:
+          'Destruction of Iranian nuclear centrifuges via the Stuxnet worm, widely attributed to US-Israel joint operation.',
       },
     ],
     hunt_queries: [],
     detections: [],
     members: [],
     infra_patterns: ['Firmware-level persistence', 'Quantum insert attacks'],
-    sector_scores: [
-      { sector: 'energy', score: 90, evidence: ['Stuxnet'] },
-    ],
-    sources: [
-      { label: 'MITRE G0020', url: 'https://attack.mitre.org/groups/G0020/' },
-    ],
+    sector_scores: [{ sector: 'energy', score: 90, evidence: ['Stuxnet'] }],
+    sources: [{ label: 'MITRE G0020', url: 'https://attack.mitre.org/groups/G0020/' }],
   },
 
   {
@@ -1717,14 +1759,14 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'healthcare', 'defence', 'government'],
     targets: ['United States', 'United Kingdom', 'global'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1505.003', name: 'Web Shell',                 tactic: 'persistence' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1505.003', name: 'Web Shell', tactic: 'persistence' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'China Chopper', type: 'webshell',   platform: 'windows' },
-      { name: 'Cobalt Strike', type: 'beacon',     platform: 'multi' },
+      { name: 'China Chopper', type: 'webshell', platform: 'windows' },
+      { name: 'Cobalt Strike', type: 'beacon', platform: 'multi' },
     ],
     cves: [
       { id: 'CVE-2021-26855', cvss: 9.8, product: 'Microsoft Exchange (ProxyLogon)', year: 2021 },
@@ -1740,7 +1782,8 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'healthcare', 'defence'],
         targets: ['United States', 'United Kingdom', 'global'],
         source: 'Microsoft MSTIC / CISA',
-        summary: 'Mass exploitation of Microsoft Exchange Server vulnerabilities (ProxyLogon) affecting 250,000+ servers globally.',
+        summary:
+          'Mass exploitation of Microsoft Exchange Server vulnerabilities (ProxyLogon) affecting 250,000+ servers globally.',
       },
     ],
     hunt_queries: [],
@@ -1749,12 +1792,8 @@ export const ACTORS: Actor[] = [
     ],
     members: [],
     infra_patterns: ['Web shell deployment', 'Exchange server exploitation'],
-    sector_scores: [
-      { sector: 'technology', score: 90, evidence: ['ProxyLogon Exchange exploitation'] },
-    ],
-    sources: [
-      { label: 'MITRE G0019', url: 'https://attack.mitre.org/groups/G0019/' },
-    ],
+    sector_scores: [{ sector: 'technology', score: 90, evidence: ['ProxyLogon Exchange exploitation'] }],
+    sources: [{ label: 'MITRE G0019', url: 'https://attack.mitre.org/groups/G0019/' }],
   },
 
   {
@@ -1776,12 +1815,12 @@ export const ACTORS: Actor[] = [
     targets: ['Vietnam', 'Myanmar', 'Philippines', 'Germany', 'France'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',         tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
-      { name: 'Poison Ivy',    type: 'backdoor',   platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
+      { name: 'Poison Ivy', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -1799,12 +1838,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['PlugX deployment via spearphishing'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['Southeast Asian government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['Southeast Asian government targeting'] }],
+    sources: [{ label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' }],
   },
 
   {
@@ -1826,12 +1861,12 @@ export const ACTORS: Actor[] = [
     targets: ['Saudi Arabia', 'UAE', 'Qatar', 'Israel', 'Kuwait'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1078',     name: 'Valid Accounts',           tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'POWGOOP',     type: 'backdoor',   platform: 'windows' },
-      { name: 'TUNNELLIB',   type: 'tunnel',     platform: 'windows' },
+      { name: 'POWGOOP', type: 'backdoor', platform: 'windows' },
+      { name: 'TUNNELLIB', type: 'tunnel', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -1849,12 +1884,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential theft via spearphishing'],
-    sector_scores: [
-      { sector: 'government', score: 80, evidence: ['Middle Eastern government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0060', url: 'https://attack.mitre.org/groups/G0060/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 80, evidence: ['Middle Eastern government targeting'] }],
+    sources: [{ label: 'MITRE G0060', url: 'https://attack.mitre.org/groups/G0060/' }],
   },
 
   {
@@ -1876,12 +1907,12 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'United Kingdom', 'Israel', 'Saudi Arabia'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1078',     name: 'Valid Accounts',           tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'POWGOOP',     type: 'backdoor',   platform: 'windows' },
-      { name: 'Chafer',      type: 'backdoor',   platform: 'windows' },
+      { name: 'POWGOOP', type: 'backdoor', platform: 'windows' },
+      { name: 'Chafer', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -1899,12 +1930,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'defence', score: 80, evidence: ['Middle Eastern defence targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0059', url: 'https://attack.mitre.org/groups/G0059/' },
-    ],
+    sector_scores: [{ sector: 'defence', score: 80, evidence: ['Middle Eastern defence targeting'] }],
+    sources: [{ label: 'MITRE G0059', url: 'https://attack.mitre.org/groups/G0059/' }],
   },
 
   {
@@ -1921,22 +1948,20 @@ export const ACTORS: Actor[] = [
     last_seen: 2025,
     confidence: 'high',
     description:
-      'Russian FSB-attributed APT known for ultra-stealthy operations and repurposing other APTs\' tools. Notable for the Snake/Turla rootkit and satellite-based C2 hijacking.',
+      "Russian FSB-attributed APT known for ultra-stealthy operations and repurposing other APTs' tools. Notable for the Snake/Turla rootkit and satellite-based C2 hijacking.",
     sectors: ['government', 'defence', 'diplomatic', 'academic', 'technology'],
     targets: ['United States', 'United Kingdom', 'Germany', 'Ukraine', 'Iran'],
     ttps: [
-      { id: 'T1027',     name: 'Obfuscated Files',          tactic: 'defense-evasion' },
-      { id: 'T1071.001', name: 'Web Protocols',             tactic: 'command-and-control' },
-      { id: 'T1090',     name: 'Proxy',                     tactic: 'command-and-control' },
-      { id: 'T1556',     name: 'Modify Authentication',    tactic: 'credential-access' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
+      { id: 'T1071.001', name: 'Web Protocols', tactic: 'command-and-control' },
+      { id: 'T1090', name: 'Proxy', tactic: 'command-and-control' },
+      { id: 'T1556', name: 'Modify Authentication', tactic: 'credential-access' },
     ],
     malware: [
-      { name: 'Snake',         type: 'rootkit',    platform: 'windows' },
-      { name: 'Carbon',        type: 'backdoor',   platform: 'windows' },
+      { name: 'Snake', type: 'rootkit', platform: 'windows' },
+      { name: 'Carbon', type: 'backdoor', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-0199', cvss: 8.8, product: 'Microsoft Office', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0199', cvss: 8.8, product: 'Microsoft Office', year: 2017 }],
     campaigns: [
       {
         name: 'Satellite C2 hijacking',
@@ -1952,12 +1977,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Satellite C2 hijacking', 'Compromised WordPress sites'],
-    sector_scores: [
-      { sector: 'government', score: 88, evidence: ['Satellite C2 hijacking'] },
-    ],
-    sources: [
-      { label: 'MITRE G0010', url: 'https://attack.mitre.org/groups/G0010/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 88, evidence: ['Satellite C2 hijacking'] }],
+    sources: [{ label: 'MITRE G0010', url: 'https://attack.mitre.org/groups/G0010/' }],
   },
 
   {
@@ -1979,12 +2000,10 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'United Kingdom', 'Russia', 'India', 'global'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.005', name: 'Visual Basic',             tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',         tactic: 'defense-evasion' },
+      { id: 'T1059.005', name: 'Visual Basic', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
     ],
-    malware: [
-      { name: 'Silence Trojan', type: 'backdoor',   platform: 'windows' },
-    ],
+    malware: [{ name: 'Silence Trojan', type: 'backdoor', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -2001,12 +2020,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['ATM jackpotting via Silence Trojan'],
-    sector_scores: [
-      { sector: 'finance', score: 90, evidence: ['Banking trojan campaign'] },
-    ],
-    sources: [
-      { label: 'MITRE G0089', url: 'https://attack.mitre.org/groups/G0089/' },
-    ],
+    sector_scores: [{ sector: 'finance', score: 90, evidence: ['Banking trojan campaign'] }],
+    sources: [{ label: 'MITRE G0089', url: 'https://attack.mitre.org/groups/G0089/' }],
   },
 
   {
@@ -2028,12 +2043,12 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'United Kingdom', 'Japan', 'France', 'Vietnam'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1027',     name: 'Obfuscated Files',         tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1027', name: 'Obfuscated Files', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'ZXShell',      type: 'backdoor',   platform: 'windows' },
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
+      { name: 'ZXShell', type: 'backdoor', platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2051,12 +2066,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Supply-chain compromise', 'ZXShell deployment'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['European government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0128', url: 'https://attack.mitre.org/groups/G0128/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['European government targeting'] }],
+    sources: [{ label: 'MITRE G0128', url: 'https://attack.mitre.org/groups/G0128/' }],
   },
 
   {
@@ -2078,11 +2089,11 @@ export const ACTORS: Actor[] = [
     targets: ['Vietnam', 'Thailand', 'Myanmar', 'Philippines', 'Singapore'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'Lecna',        type: 'backdoor',   platform: 'windows' },
-      { name: 'NetTraveller', type: 'backdoor',   platform: 'windows' },
+      { name: 'Lecna', type: 'backdoor', platform: 'windows' },
+      { name: 'NetTraveller', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2100,12 +2111,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Spearphishing with malicious documents'],
-    sector_scores: [
-      { sector: 'government', score: 80, evidence: ['Southeast Asian government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0013', url: 'https://attack.mitre.org/groups/G0013/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 80, evidence: ['Southeast Asian government targeting'] }],
+    sources: [{ label: 'MITRE G0013', url: 'https://attack.mitre.org/groups/G0013/' }],
   },
 
   {
@@ -2127,11 +2134,9 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'Japan', 'South Korea', 'Taiwan'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
-    malware: [
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
-    ],
+    malware: [{ name: 'PlugX', type: 'backdoor', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -2148,12 +2153,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['PlugX deployment via spearphishing'],
-    sector_scores: [
-      { sector: 'technology', score: 80, evidence: ['Technology sector targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0129', url: 'https://attack.mitre.org/groups/G0129/' },
-    ],
+    sector_scores: [{ sector: 'technology', score: 80, evidence: ['Technology sector targeting'] }],
+    sources: [{ label: 'MITRE G0129', url: 'https://attack.mitre.org/groups/G0129/' }],
   },
 
   {
@@ -2175,11 +2176,11 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'Japan', 'South Korea', 'India'],
     ttps: [
       { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',              tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'Shadow Pad',    type: 'backdoor',   platform: 'windows' },
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
+      { name: 'Shadow Pad', type: 'backdoor', platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2197,12 +2198,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Supply-chain compromise via legitimate software updates'],
-    sector_scores: [
-      { sector: 'technology', score: 90, evidence: ['CCleaner supply-chain attack'] },
-    ],
-    sources: [
-      { label: 'MITRE G0044', url: 'https://attack.mitre.org/groups/G0044/' },
-    ],
+    sector_scores: [{ sector: 'technology', score: 90, evidence: ['CCleaner supply-chain attack'] }],
+    sources: [{ label: 'MITRE G0044', url: 'https://attack.mitre.org/groups/G0044/' }],
   },
 
   // ── Round 4: 20 additional APT groups ──────────────────────────
@@ -2225,19 +2222,17 @@ export const ACTORS: Actor[] = [
     sectors: ['defence', 'government', 'technology', 'telecommunications'],
     targets: ['United States', 'Vietnam', 'Thailand', 'Philippines', 'United Kingdom'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1505.003', name: 'Web Shell',                 tactic: 'persistence' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1505.003', name: 'Web Shell', tactic: 'persistence' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'CHOPSTICK',    type: 'backdoor',   platform: 'windows' },
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
-      { name: 'China Chopper', type: 'webshell',   platform: 'windows' },
+      { name: 'CHOPSTICK', type: 'backdoor', platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
+      { name: 'China Chopper', type: 'webshell', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2021-44228', cvss: 10.0, product: 'Apache Log4j (Log4Shell)', year: 2021 },
-    ],
+    cves: [{ id: 'CVE-2021-44228', cvss: 10.0, product: 'Apache Log4j (Log4Shell)', year: 2021 }],
     campaigns: [
       {
         name: 'Log4Shell exploitation campaign (2021)',
@@ -2253,12 +2248,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Web shell deployment', 'Exploitation of public-facing applications'],
-    sector_scores: [
-      { sector: 'defence', score: 85, evidence: ['Log4Shell exploitation campaign'] },
-    ],
-    sources: [
-      { label: 'MITRE G0091', url: 'https://attack.mitre.org/groups/G0091/' },
-    ],
+    sector_scores: [{ sector: 'defence', score: 85, evidence: ['Log4Shell exploitation campaign'] }],
+    sources: [{ label: 'MITRE G0091', url: 'https://attack.mitre.org/groups/G0091/' }],
   },
 
   {
@@ -2280,11 +2271,11 @@ export const ACTORS: Actor[] = [
     targets: ['Vietnam', 'Taiwan', 'Philippines', 'France'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'Gelsevirine',  type: 'backdoor',   platform: 'windows' },
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
+      { name: 'Gelsevirine', type: 'backdoor', platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2302,12 +2293,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Spearphishing with malicious documents'],
-    sector_scores: [
-      { sector: 'government', score: 80, evidence: ['Southeast Asian government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G1146', url: 'https://attack.mitre.org/groups/G1146/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 80, evidence: ['Southeast Asian government targeting'] }],
+    sources: [{ label: 'MITRE G1146', url: 'https://attack.mitre.org/groups/G1146/' }],
   },
 
   {
@@ -2329,11 +2316,11 @@ export const ACTORS: Actor[] = [
     targets: ['Japan', 'South Korea', 'China'],
     ttps: [
       { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',              tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'Besiege',       type: 'backdoor',   platform: 'windows' },
-      { name: 'DesertExpress', type: 'backdoor',   platform: 'windows' },
+      { name: 'Besiege', type: 'backdoor', platform: 'windows' },
+      { name: 'DesertExpress', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2344,19 +2331,16 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'manufacturing'],
         targets: ['Japan'],
         source: 'Trend Micro',
-        summary: 'Compromised Japanese software update mechanisms to distribute malware to defence and manufacturing companies.',
+        summary:
+          'Compromised Japanese software update mechanisms to distribute malware to defence and manufacturing companies.',
       },
     ],
     hunt_queries: [],
     detections: [],
     members: [],
     infra_patterns: ['Supply-chain compromise via legitimate software updates'],
-    sector_scores: [
-      { sector: 'defence', score: 82, evidence: ['Japanese software supply-chain'] },
-    ],
-    sources: [
-      { label: 'MITRE G1135', url: 'https://attack.mitre.org/groups/G1135/' },
-    ],
+    sector_scores: [{ sector: 'defence', score: 82, evidence: ['Japanese software supply-chain'] }],
+    sources: [{ label: 'MITRE G1135', url: 'https://attack.mitre.org/groups/G1135/' }],
   },
 
   {
@@ -2378,11 +2362,11 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'United Kingdom', 'Germany'],
     ttps: [
       { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',              tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'SUNBURST',     type: 'supply-chain', platform: 'multi' },
-      { name: 'TEARDROP',     type: 'dropper',      platform: 'windows' },
+      { name: 'SUNBURST', type: 'supply-chain', platform: 'multi' },
+      { name: 'TEARDROP', type: 'dropper', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2400,12 +2384,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Supply-chain compromise via legitimate software updates'],
-    sector_scores: [
-      { sector: 'technology', score: 95, evidence: ['SolarWinds supply-chain attack'] },
-    ],
-    sources: [
-      { label: 'MITRE G1139', url: 'https://attack.mitre.org/groups/G1139/' },
-    ],
+    sector_scores: [{ sector: 'technology', score: 95, evidence: ['SolarWinds supply-chain attack'] }],
+    sources: [{ label: 'MITRE G1139', url: 'https://attack.mitre.org/groups/G1139/' }],
   },
 
   {
@@ -2426,13 +2406,13 @@ export const ACTORS: Actor[] = [
     sectors: ['defence', 'government', 'critical-infrastructure'],
     targets: ['United States', 'United Kingdom', 'Israel', 'Saudi Arabia'],
     ttps: [
-      { id: 'T1566.002', name: 'Spearphishing Link',        tactic: 'initial-access' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
+      { id: 'T1566.002', name: 'Spearphishing Link', tactic: 'initial-access' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'POWGOOP',     type: 'backdoor',   platform: 'windows' },
-      { name: 'Chafer',      type: 'backdoor',   platform: 'windows' },
+      { name: 'POWGOOP', type: 'backdoor', platform: 'windows' },
+      { name: 'Chafer', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2450,12 +2430,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'defence', score: 85, evidence: ['Credential harvesting campaign'] },
-    ],
-    sources: [
-      { label: 'MITRE G0117', url: 'https://attack.mitre.org/groups/G0117/' },
-    ],
+    sector_scores: [{ sector: 'defence', score: 85, evidence: ['Credential harvesting campaign'] }],
+    sources: [{ label: 'MITRE G0117', url: 'https://attack.mitre.org/groups/G0117/' }],
   },
 
   {
@@ -2476,13 +2452,13 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'government', 'finance', 'telecommunications'],
     targets: ['Saudi Arabia', 'UAE', 'Israel', 'Qatar', 'Kuwait'],
     ttps: [
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1071.004', name: 'DNS',                       tactic: 'command-and-control' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1071.004', name: 'DNS', tactic: 'command-and-control' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'Helix Kitten',  type: 'backdoor',   platform: 'windows' },
-      { name: 'TwoFace',       type: 'webshell',   platform: 'windows' },
+      { name: 'Helix Kitten', type: 'backdoor', platform: 'windows' },
+      { name: 'TwoFace', type: 'webshell', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2493,19 +2469,16 @@ export const ACTORS: Actor[] = [
         sectors: ['energy', 'government'],
         targets: ['Saudi Arabia', 'UAE'],
         source: 'FireEye',
-        summary: 'Targeting of Middle Eastern energy and government sectors with sophisticated spearphishing campaigns.',
+        summary:
+          'Targeting of Middle Eastern energy and government sectors with sophisticated spearphishing campaigns.',
       },
     ],
     hunt_queries: [],
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'energy', score: 85, evidence: ['Middle Eastern energy targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0049', url: 'https://attack.mitre.org/groups/G0049/' },
-    ],
+    sector_scores: [{ sector: 'energy', score: 85, evidence: ['Middle Eastern energy targeting'] }],
+    sources: [{ label: 'MITRE G0049', url: 'https://attack.mitre.org/groups/G0049/' }],
   },
 
   {
@@ -2527,11 +2500,11 @@ export const ACTORS: Actor[] = [
     targets: ['Saudi Arabia', 'UAE', 'Israel', 'Qatar'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'POWERSTATS',  type: 'backdoor',   platform: 'windows' },
-      { name: 'Mori',        type: 'backdoor',   platform: 'windows' },
+      { name: 'POWERSTATS', type: 'backdoor', platform: 'windows' },
+      { name: 'Mori', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2549,12 +2522,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['Middle Eastern government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['Middle Eastern government targeting'] }],
+    sources: [{ label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' }],
   },
 
   {
@@ -2575,18 +2544,16 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'government', 'defence', 'transport'],
     targets: ['Ukraine', 'Georgia', 'Estonia', 'United States'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'NotPetya',      type: 'wiper',      platform: 'windows' },
-      { name: 'Industroyer2',  type: 'ics-attack', platform: 'windows' },
-      { name: 'Olympic Destroyer', type: 'wiper',  platform: 'windows' },
+      { name: 'NotPetya', type: 'wiper', platform: 'windows' },
+      { name: 'Industroyer2', type: 'ics-attack', platform: 'windows' },
+      { name: 'Olympic Destroyer', type: 'wiper', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB (EternalBlue)', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB (EternalBlue)', year: 2017 }],
     campaigns: [
       {
         name: 'NotPetya wiper attack (2017)',
@@ -2595,19 +2562,16 @@ export const ACTORS: Actor[] = [
         sectors: ['shipping', 'pharmaceutical', 'energy'],
         targets: ['Ukraine', 'global'],
         source: 'US/CERT',
-        summary: 'Supply-chain attack via M.E.Doc tax software update; deployed NotPetya wiper causing $10B+ in damages.',
+        summary:
+          'Supply-chain attack via M.E.Doc tax software update; deployed NotPetya wiper causing $10B+ in damages.',
       },
     ],
     hunt_queries: [],
     detections: [],
     members: [],
     infra_patterns: ['Supply-chain compromise via legitimate software updates'],
-    sector_scores: [
-      { sector: 'energy', score: 90, evidence: ['NotPetya wiper attack'] },
-    ],
-    sources: [
-      { label: 'MITRE G0041', url: 'https://attack.mitre.org/groups/G0041/' },
-    ],
+    sector_scores: [{ sector: 'energy', score: 90, evidence: ['NotPetya wiper attack'] }],
+    sources: [{ label: 'MITRE G0041', url: 'https://attack.mitre.org/groups/G0041/' }],
   },
 
   {
@@ -2628,18 +2592,16 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'defence', 'media', 'political'],
     targets: ['United States', 'United Kingdom', 'Germany', 'France', 'Ukraine'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1078',     name: 'Valid Accounts',           tactic: 'defense-evasion' },
-      { id: 'T1110',     name: 'Brute Force',              tactic: 'credential-access' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1110', name: 'Brute Force', tactic: 'credential-access' },
     ],
     malware: [
-      { name: 'X-Agent',     type: 'implant',     platform: 'windows' },
-      { name: 'Sofacy',      type: 'backdoor',    platform: 'windows' },
-      { name: 'Zebrocy',     type: 'loader',      platform: 'multi' },
+      { name: 'X-Agent', type: 'implant', platform: 'windows' },
+      { name: 'Sofacy', type: 'backdoor', platform: 'windows' },
+      { name: 'Zebrocy', type: 'loader', platform: 'multi' },
     ],
-    cves: [
-      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 }],
     campaigns: [
       {
         name: 'DNC intrusion (2016)',
@@ -2655,12 +2617,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'government', score: 90, evidence: ['DNC intrusion'] },
-    ],
-    sources: [
-      { label: 'MITRE G0007', url: 'https://attack.mitre.org/groups/G0007/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 90, evidence: ['DNC intrusion'] }],
+    sources: [{ label: 'MITRE G0007', url: 'https://attack.mitre.org/groups/G0007/' }],
   },
 
   {
@@ -2681,18 +2639,16 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'diplomatic', 'healthcare', 'technology'],
     targets: ['United States', 'United Kingdom', 'EU institutions', 'NATO'],
     ttps: [
-      { id: 'T1199',     name: 'Trusted Relationship',     tactic: 'initial-access' },
-      { id: 'T1078.004', name: 'Cloud Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
+      { id: 'T1199', name: 'Trusted Relationship', tactic: 'initial-access' },
+      { id: 'T1078.004', name: 'Cloud Accounts', tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'SUNBURST',     type: 'supply-chain', platform: 'multi' },
-      { name: 'TEARDROP',     type: 'dropper',      platform: 'windows' },
-      { name: 'Cobalt Strike',type: 'beacon',       platform: 'multi' },
+      { name: 'SUNBURST', type: 'supply-chain', platform: 'multi' },
+      { name: 'TEARDROP', type: 'dropper', platform: 'windows' },
+      { name: 'Cobalt Strike', type: 'beacon', platform: 'multi' },
     ],
-    cves: [
-      { id: 'CVE-2020-1472', cvss: 10.0, product: 'Netlogon', year: 2020 },
-    ],
+    cves: [{ id: 'CVE-2020-1472', cvss: 10.0, product: 'Netlogon', year: 2020 }],
     campaigns: [
       {
         name: 'SolarWinds SUNBURST (2020)',
@@ -2701,19 +2657,16 @@ export const ACTORS: Actor[] = [
         sectors: ['government', 'technology'],
         targets: ['United States'],
         source: 'CISA / FireEye',
-        summary: 'Compromise of the SolarWinds Orion build pipeline; trojanised updates delivered SUNBURST to 18,000+ customers.',
+        summary:
+          'Compromise of the SolarWinds Orion build pipeline; trojanised updates delivered SUNBURST to 18,000+ customers.',
       },
     ],
     hunt_queries: [],
     detections: [],
     members: [],
     infra_patterns: ['Supply-chain compromise via legitimate software updates'],
-    sector_scores: [
-      { sector: 'government', score: 95, evidence: ['SolarWinds SUNBURST'] },
-    ],
-    sources: [
-      { label: 'MITRE G0016', url: 'https://attack.mitre.org/groups/G0016/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 95, evidence: ['SolarWinds SUNBURST'] }],
+    sources: [{ label: 'MITRE G0016', url: 'https://attack.mitre.org/groups/G0016/' }],
   },
 
   {
@@ -2734,19 +2687,17 @@ export const ACTORS: Actor[] = [
     sectors: ['financial', 'cryptocurrency', 'technology'],
     targets: ['South Korea', 'United States', 'Japan', 'global crypto exchanges'],
     ttps: [
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1204.002', name: 'Malicious File',           tactic: 'execution' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1204.002', name: 'Malicious File', tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
     ],
     malware: [
-      { name: 'AppleJeus',     type: 'stealer',  platform: 'multi' },
-      { name: 'FASTCash 2.0',  type: 'banking',  platform: 'multi' },
-      { name: 'HOPLIGHT',      type: 'backdoor', platform: 'windows' },
+      { name: 'AppleJeus', type: 'stealer', platform: 'multi' },
+      { name: 'FASTCash 2.0', type: 'banking', platform: 'multi' },
+      { name: 'HOPLIGHT', type: 'backdoor', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 },
-    ],
+    cves: [{ id: 'CVE-2017-0144', cvss: 8.1, product: 'Windows SMB', year: 2017 }],
     campaigns: [
       {
         name: 'WannaCry (2017)',
@@ -2755,19 +2706,16 @@ export const ACTORS: Actor[] = [
         sectors: ['healthcare', 'telecommunications'],
         targets: ['United Kingdom (NHS)', 'global'],
         source: 'NSA / NCSC-UK',
-        summary: 'Ransomware worm that leveraged the EternalBlue exploit; impacted 200,000+ systems across 150 countries.',
+        summary:
+          'Ransomware worm that leveraged the EternalBlue exploit; impacted 200,000+ systems across 150 countries.',
       },
     ],
     hunt_queries: [],
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'cryptocurrency', score: 95, evidence: ['Multiple exchange heists'] },
-    ],
-    sources: [
-      { label: 'MITRE G0032', url: 'https://attack.mitre.org/groups/G0032/' },
-    ],
+    sector_scores: [{ sector: 'cryptocurrency', score: 95, evidence: ['Multiple exchange heists'] }],
+    sources: [{ label: 'MITRE G0032', url: 'https://attack.mitre.org/groups/G0032/' }],
   },
 
   {
@@ -2789,12 +2737,12 @@ export const ACTORS: Actor[] = [
     targets: ['South Korea', 'United States', 'Japan'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1078',     name: 'Valid Accounts',           tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
-      { name: 'AppleSeed',  type: 'backdoor',   platform: 'multi' },
-      { name: 'BabyShark',  type: 'implant',    platform: 'multi' },
+      { name: 'AppleSeed', type: 'backdoor', platform: 'multi' },
+      { name: 'BabyShark', type: 'implant', platform: 'multi' },
     ],
     cves: [],
     campaigns: [
@@ -2812,12 +2760,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['South Korean government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0070', url: 'https://attack.mitre.org/groups/G0070/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['South Korean government targeting'] }],
+    sources: [{ label: 'MITRE G0070', url: 'https://attack.mitre.org/groups/G0070/' }],
   },
 
   {
@@ -2838,17 +2782,15 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'healthcare', 'defence', 'government'],
     targets: ['United States', 'United Kingdom', 'global'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1505.003', name: 'Web Shell',                 tactic: 'persistence' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1505.003', name: 'Web Shell', tactic: 'persistence' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'China Chopper', type: 'webshell',   platform: 'windows' },
-      { name: 'Cobalt Strike', type: 'beacon',     platform: 'multi' },
+      { name: 'China Chopper', type: 'webshell', platform: 'windows' },
+      { name: 'Cobalt Strike', type: 'beacon', platform: 'multi' },
     ],
-    cves: [
-      { id: 'CVE-2021-26855', cvss: 9.8, product: 'Microsoft Exchange (ProxyLogon)', year: 2021 },
-    ],
+    cves: [{ id: 'CVE-2021-26855', cvss: 9.8, product: 'Microsoft Exchange (ProxyLogon)', year: 2021 }],
     campaigns: [
       {
         name: 'ProxyLogon Exchange exploitation (2021)',
@@ -2864,12 +2806,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Web shell deployment via ProxyLogon exploitation'],
-    sector_scores: [
-      { sector: 'technology', score: 90, evidence: ['ProxyLogon Exchange exploitation'] },
-    ],
-    sources: [
-      { label: 'MITRE G0019', url: 'https://attack.mitre.org/groups/G0019/' },
-    ],
+    sector_scores: [{ sector: 'technology', score: 90, evidence: ['ProxyLogon Exchange exploitation'] }],
+    sources: [{ label: 'MITRE G0019', url: 'https://attack.mitre.org/groups/G0019/' }],
   },
 
   {
@@ -2891,11 +2829,11 @@ export const ACTORS: Actor[] = [
     targets: ['Vietnam', 'Myanmar', 'Philippines', 'Germany', 'France'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'PlugX',         type: 'backdoor',   platform: 'windows' },
-      { name: 'Poison Ivy',    type: 'backdoor',   platform: 'windows' },
+      { name: 'PlugX', type: 'backdoor', platform: 'windows' },
+      { name: 'Poison Ivy', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -2913,12 +2851,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['Southeast Asian government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['Southeast Asian government targeting'] }],
+    sources: [{ label: 'MITRE G0069', url: 'https://attack.mitre.org/groups/G0069/' }],
   },
 
   {
@@ -2939,13 +2873,11 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'manufacturing', 'healthcare', 'technology'],
     targets: ['United States', 'Germany', 'France'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1566.002', name: 'Spearphishing Link',        tactic: 'initial-access' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1566.002', name: 'Spearphishing Link', tactic: 'initial-access' },
     ],
-    malware: [
-      { name: 'DarkSide Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'DarkSide Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -2962,12 +2894,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Double extortion'],
-    sector_scores: [
-      { sector: 'energy', score: 95, evidence: ['Colonial Pipeline attack'] },
-    ],
-    sources: [
-      { label: 'MITRE G0118', url: 'https://attack.mitre.org/groups/G0118/' },
-    ],
+    sector_scores: [{ sector: 'energy', score: 95, evidence: ['Colonial Pipeline attack'] }],
+    sources: [{ label: 'MITRE G0118', url: 'https://attack.mitre.org/groups/G0118/' }],
   },
 
   {
@@ -2988,12 +2916,10 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'agriculture', 'legal', 'manufacturing'],
     targets: ['United States', 'Germany', 'France', 'Australia'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1195.002', name: 'Supply Chain Compromise',   tactic: 'initial-access' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
     ],
-    malware: [
-      { name: 'REvil Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'REvil Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -3010,12 +2936,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Supply-chain initial access'],
-    sector_scores: [
-      { sector: 'technology', score: 92, evidence: ['Kaseya supply-chain attack'] },
-    ],
-    sources: [
-      { label: 'MITRE G0115', url: 'https://attack.mitre.org/groups/G0115/' },
-    ],
+    sector_scores: [{ sector: 'technology', score: 92, evidence: ['Kaseya supply-chain attack'] }],
+    sources: [{ label: 'MITRE G0115', url: 'https://attack.mitre.org/groups/G0115/' }],
   },
 
   {
@@ -3037,12 +2959,12 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'Germany', 'France', 'UK'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.005', name: 'Visual Basic',             tactic: 'execution' },
+      { id: 'T1059.005', name: 'Visual Basic', tactic: 'execution' },
     ],
     malware: [
-      { name: 'Carbanak',     type: 'backdoor',   platform: 'windows' },
-      { name: 'Dridex',       type: 'banking',    platform: 'windows' },
-      { name: 'Cobalt Strike', type: 'beacon',    platform: 'multi' },
+      { name: 'Carbanak', type: 'backdoor', platform: 'windows' },
+      { name: 'Dridex', type: 'banking', platform: 'windows' },
+      { name: 'Cobalt Strike', type: 'beacon', platform: 'multi' },
     ],
     cves: [],
     campaigns: [
@@ -3060,12 +2982,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential harvesting via phishing'],
-    sector_scores: [
-      { sector: 'finance', score: 90, evidence: ['Carbanak banking trojan'] },
-    ],
-    sources: [
-      { label: 'MITRE G0046', url: 'https://attack.mitre.org/groups/G0046/' },
-    ],
+    sector_scores: [{ sector: 'finance', score: 90, evidence: ['Carbanak banking trojan'] }],
+    sources: [{ label: 'MITRE G0046', url: 'https://attack.mitre.org/groups/G0046/' }],
   },
 
   {
@@ -3086,17 +3004,15 @@ export const ACTORS: Actor[] = [
     sectors: ['healthcare', 'government', 'finance', 'technology'],
     targets: ['United States', 'United Kingdom', 'Germany'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'TrickBot',       type: 'banking',    platform: 'windows' },
-      { name: 'Conti',          type: 'ransomware', platform: 'windows' },
-      { name: 'BazarLoader',    type: 'loader',     platform: 'windows' },
+      { name: 'TrickBot', type: 'banking', platform: 'windows' },
+      { name: 'Conti', type: 'ransomware', platform: 'windows' },
+      { name: 'BazarLoader', type: 'loader', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2020-1472', cvss: 10.0, product: 'Netlogon', year: 2020 },
-    ],
+    cves: [{ id: 'CVE-2020-1472', cvss: 10.0, product: 'Netlogon', year: 2020 }],
     campaigns: [
       {
         name: 'Conti ransomware attacks (2020–2022)',
@@ -3112,12 +3028,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Double extortion'],
-    sector_scores: [
-      { sector: 'healthcare', score: 90, evidence: ['Conti ransomware attacks'] },
-    ],
-    sources: [
-      { label: 'MITRE G0102', url: 'https://attack.mitre.org/groups/G0102/' },
-    ],
+    sector_scores: [{ sector: 'healthcare', score: 90, evidence: ['Conti ransomware attacks'] }],
+    sources: [{ label: 'MITRE G0102', url: 'https://attack.mitre.org/groups/G0102/' }],
   },
 
   // ── Round 5: Additional actors from reference ──────────────────
@@ -3141,13 +3053,13 @@ export const ACTORS: Actor[] = [
     targets: ['Ukraine'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1547.001', name: 'Registry Run Keys',        tactic: 'persistence' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1547.001', name: 'Registry Run Keys', tactic: 'persistence' },
     ],
     malware: [
-      { name: 'Pteranodon',    type: 'backdoor',   platform: 'windows' },
-      { name: 'GammaLoad',     type: 'implant',    platform: 'windows' },
-      { name: 'GammaSteel',    type: 'implant',    platform: 'windows' },
+      { name: 'Pteranodon', type: 'backdoor', platform: 'windows' },
+      { name: 'GammaLoad', type: 'implant', platform: 'windows' },
+      { name: 'GammaSteel', type: 'implant', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3165,12 +3077,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['High-volume spearphishing', 'Custom backdoor deployment'],
-    sector_scores: [
-      { sector: 'government', score: 95, evidence: ['Ukrainian government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0047', url: 'https://attack.mitre.org/groups/G0047/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 95, evidence: ['Ukrainian government targeting'] }],
+    sources: [{ label: 'MITRE G0047', url: 'https://attack.mitre.org/groups/G0047/' }],
   },
 
   {
@@ -3187,17 +3095,17 @@ export const ACTORS: Actor[] = [
     last_seen: 2024,
     confidence: 'high',
     description:
-      'Russian GRU unit responsible for the WhisperGate wiper deployed against Ukrainian government networks in January 2022, before Russia\'s invasion.',
+      "Russian GRU unit responsible for the WhisperGate wiper deployed against Ukrainian government networks in January 2022, before Russia's invasion.",
     sectors: ['government', 'critical-infrastructure'],
     targets: ['Ukraine'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
-      { id: 'T1485',     name: 'Data Destruction',         tactic: 'impact' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
+      { id: 'T1485', name: 'Data Destruction', tactic: 'impact' },
     ],
     malware: [
-      { name: 'WhisperGate',   type: 'wiper',      platform: 'windows' },
-      { name: 'CaddyWiper',    type: 'wiper',      platform: 'windows' },
+      { name: 'WhisperGate', type: 'wiper', platform: 'windows' },
+      { name: 'CaddyWiper', type: 'wiper', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3208,19 +3116,15 @@ export const ACTORS: Actor[] = [
         sectors: ['government'],
         targets: ['Ukraine'],
         source: 'Microsoft',
-        summary: 'Destructive wiper malware deployed against Ukrainian government networks before Russia\'s invasion.',
+        summary: "Destructive wiper malware deployed against Ukrainian government networks before Russia's invasion.",
       },
     ],
     hunt_queries: [],
     detections: [],
     members: [],
     infra_patterns: ['Destructive wiper deployment'],
-    sector_scores: [
-      { sector: 'government', score: 90, evidence: ['WhisperGate wiper'] },
-    ],
-    sources: [
-      { label: 'MITRE G0143', url: 'https://attack.mitre.org/groups/G0143/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 90, evidence: ['WhisperGate wiper'] }],
+    sources: [{ label: 'MITRE G0143', url: 'https://attack.mitre.org/groups/G0143/' }],
   },
 
   {
@@ -3241,12 +3145,12 @@ export const ACTORS: Actor[] = [
     sectors: ['think-tank', 'academic', 'government'],
     targets: ['United States', 'United Kingdom', 'Ukraine'],
     ttps: [
-      { id: 'T1566.002', name: 'Spearphishing Link',       tactic: 'initial-access' },
+      { id: 'T1566.002', name: 'Spearphishing Link', tactic: 'initial-access' },
       { id: 'T1598.003', name: 'Spearphishing for Credentials', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'SPICA',        type: 'backdoor',   platform: 'windows' },
-      { name: 'LOSTKEYS',     type: 'implant',    platform: 'windows' },
+      { name: 'SPICA', type: 'backdoor', platform: 'windows' },
+      { name: 'LOSTKEYS', type: 'implant', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3264,12 +3168,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Credential phishing via social engineering'],
-    sector_scores: [
-      { sector: 'think-tank', score: 85, evidence: ['Western think tank targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G1043', url: 'https://attack.mitre.org/groups/G1043/' },
-    ],
+    sector_scores: [{ sector: 'think-tank', score: 85, evidence: ['Western think tank targeting'] }],
+    sources: [{ label: 'MITRE G1043', url: 'https://attack.mitre.org/groups/G1043/' }],
   },
 
   {
@@ -3291,8 +3191,8 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'United Kingdom', 'global'],
     ttps: [
       { id: 'T1598.003', name: 'Spearphishing for Credentials', tactic: 'initial-access' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1621',     name: 'Multi-Factor Auth Request Generation', tactic: 'credential-access' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1621', name: 'Multi-Factor Auth Request Generation', tactic: 'credential-access' },
     ],
     malware: [],
     cves: [],
@@ -3311,12 +3211,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Social engineering', 'MFA fatigue attacks'],
-    sector_scores: [
-      { sector: 'technology', score: 85, evidence: ['MFA fatigue attacks'] },
-    ],
-    sources: [
-      { label: 'MITRE G1042', url: 'https://attack.mitre.org/groups/G1042/' },
-    ],
+    sector_scores: [{ sector: 'technology', score: 85, evidence: ['MFA fatigue attacks'] }],
+    sources: [{ label: 'MITRE G1042', url: 'https://attack.mitre.org/groups/G1042/' }],
   },
 
   {
@@ -3333,17 +3229,17 @@ export const ACTORS: Actor[] = [
     last_seen: 2025,
     confidence: 'high',
     description:
-      'Israel\'s elite signals intelligence and cyber warfare unit, responsible for SIGINT collection, code decryption, and offensive cyber operations.',
+      "Israel's elite signals intelligence and cyber warfare unit, responsible for SIGINT collection, code decryption, and offensive cyber operations.",
     sectors: ['government', 'military', 'intelligence'],
     targets: ['Iran', 'Lebanon', 'Syria', 'global'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1195.002', name: 'Supply Chain Compromise',   tactic: 'initial-access' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1195.002', name: 'Supply Chain Compromise', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'Stuxnet',      type: 'worm',       platform: 'windows' },
-      { name: 'Duqu',         type: 'backdoor',   platform: 'windows' },
-      { name: 'Flame',        type: 'malware',    platform: 'windows' },
+      { name: 'Stuxnet', type: 'worm', platform: 'windows' },
+      { name: 'Duqu', type: 'backdoor', platform: 'windows' },
+      { name: 'Flame', type: 'malware', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3361,12 +3257,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Supply-chain compromise', 'Zero-day development'],
-    sector_scores: [
-      { sector: 'energy', score: 90, evidence: ['Stuxnet'] },
-    ],
-    sources: [
-      { label: 'MITRE G1031', url: 'https://attack.mitre.org/groups/G1031/' },
-    ],
+    sector_scores: [{ sector: 'energy', score: 90, evidence: ['Stuxnet'] }],
+    sources: [{ label: 'MITRE G1031', url: 'https://attack.mitre.org/groups/G1031/' }],
   },
 
   {
@@ -3391,8 +3283,8 @@ export const ACTORS: Actor[] = [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'SnappyTCP',    type: 'backdoor',   platform: 'windows' },
-      { name: 'Marlin',       type: 'backdoor',   platform: 'windows' },
+      { name: 'SnappyTCP', type: 'backdoor', platform: 'windows' },
+      { name: 'Marlin', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3410,12 +3302,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['DNS hijacking', 'Certificate theft'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['DNS hijacking campaign'] },
-    ],
-    sources: [
-      { label: 'MITRE G1041', url: 'https://attack.mitre.org/groups/G1041/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['DNS hijacking campaign'] }],
+    sources: [{ label: 'MITRE G1041', url: 'https://attack.mitre.org/groups/G1041/' }],
   },
 
   {
@@ -3436,12 +3324,12 @@ export const ACTORS: Actor[] = [
     sectors: ['defence', 'energy', 'technology'],
     targets: ['United States', 'Israel', 'Saudi Arabia'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1133',     name: 'External Remote Services',  tactic: 'persistence' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1133', name: 'External Remote Services', tactic: 'persistence' },
     ],
     malware: [
-      { name: 'SHAMOON',      type: 'wiper',      platform: 'windows' },
-      { name: 'TURNEDUP',     type: 'backdoor',   platform: 'windows' },
+      { name: 'SHAMOON', type: 'wiper', platform: 'windows' },
+      { name: 'TURNEDUP', type: 'backdoor', platform: 'windows' },
     ],
     cves: [
       { id: 'CVE-2019-11510', cvss: 10.0, product: 'Pulse Secure VPN', year: 2019 },
@@ -3462,12 +3350,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['VPN vulnerability exploitation'],
-    sector_scores: [
-      { sector: 'defence', score: 85, evidence: ['VPN exploitation campaign'] },
-    ],
-    sources: [
-      { label: 'MITRE G1002', url: 'https://attack.mitre.org/groups/G1002/' },
-    ],
+    sector_scores: [{ sector: 'defence', score: 85, evidence: ['VPN exploitation campaign'] }],
+    sources: [{ label: 'MITRE G1002', url: 'https://attack.mitre.org/groups/G1002/' }],
   },
 
   {
@@ -3489,11 +3373,11 @@ export const ACTORS: Actor[] = [
     targets: ['United States', 'Saudi Arabia', 'South Korea'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1110.003', name: 'Password Spraying',        tactic: 'credential-access' },
+      { id: 'T1110.003', name: 'Password Spraying', tactic: 'credential-access' },
     ],
     malware: [
-      { name: 'SHAMOON',      type: 'wiper',      platform: 'windows' },
-      { name: 'TURNEDUP',     type: 'backdoor',   platform: 'windows' },
+      { name: 'SHAMOON', type: 'wiper', platform: 'windows' },
+      { name: 'TURNEDUP', type: 'backdoor', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3511,12 +3395,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Destructive wiper deployment'],
-    sector_scores: [
-      { sector: 'energy', score: 90, evidence: ['Shamoon wiper attacks'] },
-    ],
-    sources: [
-      { label: 'MITRE G0064', url: 'https://attack.mitre.org/groups/G0064/' },
-    ],
+    sector_scores: [{ sector: 'energy', score: 90, evidence: ['Shamoon wiper attacks'] }],
+    sources: [{ label: 'MITRE G0064', url: 'https://attack.mitre.org/groups/G0064/' }],
   },
 
   {
@@ -3538,12 +3418,12 @@ export const ACTORS: Actor[] = [
     targets: ['South Korea', 'Japan', 'Vietnam'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'SHARPCHEST',   type: 'backdoor',   platform: 'windows' },
-      { name: 'DOSLEEP',      type: 'backdoor',   platform: 'windows' },
-      { name: 'DORADOPLOADER', type: 'loader',    platform: 'windows' },
+      { name: 'SHARPCHEST', type: 'backdoor', platform: 'windows' },
+      { name: 'DOSLEEP', type: 'backdoor', platform: 'windows' },
+      { name: 'DORADOPLOADER', type: 'loader', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3561,12 +3441,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Spearphishing with malicious documents'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['South Korean government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0067', url: 'https://attack.mitre.org/groups/G0067/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['South Korean government targeting'] }],
+    sources: [{ label: 'MITRE G0067', url: 'https://attack.mitre.org/groups/G0067/' }],
   },
 
   {
@@ -3587,12 +3463,12 @@ export const ACTORS: Actor[] = [
     sectors: ['defence', 'aerospace', 'technology'],
     targets: ['United States', 'South Korea', 'Japan'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
     ],
     malware: [
-      { name: 'Andariel',      type: 'backdoor',   platform: 'windows' },
-      { name: 'SHARK',         type: 'implant',    platform: 'windows' },
+      { name: 'Andariel', type: 'backdoor', platform: 'windows' },
+      { name: 'SHARK', type: 'implant', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3610,12 +3486,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Spearphishing with malicious documents'],
-    sector_scores: [
-      { sector: 'defence', score: 85, evidence: ['Defence sector targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0138', url: 'https://attack.mitre.org/groups/G0138/' },
-    ],
+    sector_scores: [{ sector: 'defence', score: 85, evidence: ['Defence sector targeting'] }],
+    sources: [{ label: 'MITRE G0138', url: 'https://attack.mitre.org/groups/G0138/' }],
   },
 
   {
@@ -3637,11 +3509,11 @@ export const ACTORS: Actor[] = [
     targets: ['India'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'CrimsonRAT',   type: 'rat',        platform: 'windows' },
-      { name: 'AllaKore RAT',  type: 'rat',        platform: 'windows' },
+      { name: 'CrimsonRAT', type: 'rat', platform: 'windows' },
+      { name: 'AllaKore RAT', type: 'rat', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3659,12 +3531,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Spearphishing with malicious documents'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['Indian government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0135', url: 'https://attack.mitre.org/groups/G0135/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['Indian government targeting'] }],
+    sources: [{ label: 'MITRE G0135', url: 'https://attack.mitre.org/groups/G0135/' }],
   },
 
   {
@@ -3686,11 +3554,11 @@ export const ACTORS: Actor[] = [
     targets: ['Pakistan', 'China', 'Bangladesh'],
     ttps: [
       { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
-      { id: 'T1059.001', name: 'PowerShell',               tactic: 'execution' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'SharpSands',    type: 'backdoor',   platform: 'windows' },
-      { name: 'Custom Tools',  type: 'implant',    platform: 'windows' },
+      { name: 'SharpSands', type: 'backdoor', platform: 'windows' },
+      { name: 'Custom Tools', type: 'implant', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3708,12 +3576,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Spearphishing with malicious documents'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['Pakistani government targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0121', url: 'https://attack.mitre.org/groups/G0121/' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['Pakistani government targeting'] }],
+    sources: [{ label: 'MITRE G0121', url: 'https://attack.mitre.org/groups/G0121/' }],
   },
 
   {
@@ -3734,12 +3598,10 @@ export const ACTORS: Actor[] = [
     sectors: ['telecommunications', 'government', 'media'],
     targets: ['Israel', 'Saudi Arabia', 'United Arab Emirates'],
     ttps: [
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1059.003', name: 'Windows Command Shell',     tactic: 'execution' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1059.003', name: 'Windows Command Shell', tactic: 'execution' },
     ],
-    malware: [
-      { name: 'Lebanese Cedar RAT', type: 'rat',        platform: 'windows' },
-    ],
+    malware: [{ name: 'Lebanese Cedar RAT', type: 'rat', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -3756,12 +3618,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Web shell deployment'],
-    sector_scores: [
-      { sector: 'telecommunications', score: 85, evidence: ['Telecom targeting'] },
-    ],
-    sources: [
-      { label: 'MITRE G0072', url: 'https://attack.mitre.org/groups/G0072/' },
-    ],
+    sector_scores: [{ sector: 'telecommunications', score: 85, evidence: ['Telecom targeting'] }],
+    sources: [{ label: 'MITRE G0072', url: 'https://attack.mitre.org/groups/G0072/' }],
   },
 
   // ── Round 6: Ransomware groups ──────────────────────────────────
@@ -3784,19 +3642,17 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'manufacturing', 'healthcare', 'government', 'education'],
     targets: ['United States', 'United Kingdom', 'France', 'Germany', 'Italy', 'global'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
-      { name: 'LockBit 3.0',   type: 'ransomware', platform: 'windows' },
-      { name: 'StealBit',      type: 'stealer',    platform: 'windows' },
+      { name: 'LockBit 3.0', type: 'ransomware', platform: 'windows' },
+      { name: 'StealBit', type: 'stealer', platform: 'windows' },
       { name: 'LockBit Black', type: 'ransomware', platform: 'windows' },
     ],
-    cves: [
-      { id: 'CVE-2021-34473', cvss: 9.8, product: 'Microsoft Exchange (ProxyShell)', year: 2021 },
-    ],
+    cves: [{ id: 'CVE-2021-34473', cvss: 9.8, product: 'Microsoft Exchange (ProxyShell)', year: 2021 }],
     campaigns: [
       {
         name: 'LockBit 3.0 global campaign (2022–2024)',
@@ -3805,25 +3661,22 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'manufacturing', 'healthcare'],
         targets: ['United States', 'United Kingdom', 'global'],
         source: 'CISA / FBI',
-        summary: 'RaaS operation with 1,700+ US organisations attacked. $120M+ ransom demands. FBI disrupted infrastructure in Feb 2024.',
+        summary:
+          'RaaS operation with 1,700+ US organisations attacked. $120M+ ransom demands. FBI disrupted infrastructure in Feb 2024.',
       },
     ],
     hunt_queries: [],
     detections: [
       { source: 'Elastic', title: 'LockBit ransomware detection', url: 'https://github.com/elastic/detection-rules' },
     ],
-    members: [
-      { name: 'LockBitSupp (admin)', role: 'RaaS operator', status: 'identified' },
-    ],
+    members: [{ name: 'LockBitSupp (admin)', role: 'RaaS operator', status: 'identified' }],
     infra_patterns: ['RaaS affiliate model', 'Double/triple extortion', 'Data leak site'],
     sector_scores: [
       { sector: 'manufacturing', score: 95, evidence: ['LockBit 3.0 global campaign'] },
       { sector: 'technology', score: 90, evidence: [] },
       { sector: 'healthcare', score: 80, evidence: [] },
     ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-075a' },
-    ],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-075a' }],
   },
 
   {
@@ -3844,14 +3697,14 @@ export const ACTORS: Actor[] = [
     sectors: ['healthcare', 'technology', 'manufacturing', 'government'],
     targets: ['United States', 'Germany', 'France', 'India', 'global'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1059.001', name: 'PowerShell',                tactic: 'execution' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1059.001', name: 'PowerShell', tactic: 'execution' },
     ],
     malware: [
       { name: 'BlackCat Ransomware', type: 'ransomware', platform: 'windows' },
-      { name: 'ExMatter',            type: 'exfil',      platform: 'windows' },
+      { name: 'ExMatter', type: 'exfil', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3862,7 +3715,8 @@ export const ACTORS: Actor[] = [
         sectors: ['healthcare'],
         targets: ['United States'],
         source: 'HHS / CISA',
-        summary: 'Ransomware attack on Change Healthcare disrupted US healthcare payment processing for weeks. $22M ransom paid.',
+        summary:
+          'Ransomware attack on Change Healthcare disrupted US healthcare payment processing for weeks. $22M ransom paid.',
       },
     ],
     hunt_queries: [],
@@ -3875,9 +3729,7 @@ export const ACTORS: Actor[] = [
       { sector: 'healthcare', score: 95, evidence: ['Change Healthcare attack'] },
       { sector: 'technology', score: 85, evidence: [] },
     ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-031a' },
-    ],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-031a' }],
   },
 
   {
@@ -3898,16 +3750,14 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'government', 'healthcare', 'finance'],
     targets: ['United States', 'United Kingdom', 'Germany', 'Italy', 'global'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
     ],
-    malware: [
-      { name: 'Cl0p Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'Cl0p Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [
       { id: 'CVE-2023-34362', cvss: 9.8, product: 'MOVEit Transfer', year: 2023 },
-      { id: 'CVE-2023-0669',  cvss: 7.2, product: 'GoAnywhere MFT', year: 2023 },
+      { id: 'CVE-2023-0669', cvss: 7.2, product: 'GoAnywhere MFT', year: 2023 },
       { id: 'CVE-2021-27101', cvss: 9.8, product: 'Accellion FTA', year: 2021 },
     ],
     campaigns: [
@@ -3918,7 +3768,8 @@ export const ACTORS: Actor[] = [
         sectors: ['technology', 'government', 'finance'],
         targets: ['United States', 'global'],
         source: 'CISA / FBI',
-        summary: 'Exploitation of MOVEit Transfer zero-day affecting 2,500+ organisations globally. 60M+ records stolen.',
+        summary:
+          'Exploitation of MOVEit Transfer zero-day affecting 2,500+ organisations globally. 60M+ records stolen.',
       },
     ],
     hunt_queries: [],
@@ -3931,9 +3782,7 @@ export const ACTORS: Actor[] = [
       { sector: 'technology', score: 90, evidence: ['MOVEit mass exploitation'] },
       { sector: 'government', score: 85, evidence: [] },
     ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a' },
-    ],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a' }],
   },
 
   {
@@ -3950,18 +3799,18 @@ export const ACTORS: Actor[] = [
     last_seen: 2025,
     confidence: 'high',
     description:
-      'Ransomware group that emerged after Conti\'s shutdown. Known for rapid encryption, double extortion, and targeting critical infrastructure including Ascension healthcare.',
+      "Ransomware group that emerged after Conti's shutdown. Known for rapid encryption, double extortion, and targeting critical infrastructure including Ascension healthcare.",
     sectors: ['healthcare', 'manufacturing', 'technology', 'government'],
     targets: ['United States', 'Germany', 'France', 'Italy', 'Japan'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
-      { id: 'T1569.002', name: 'Service Execution',         tactic: 'execution' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
+      { id: 'T1569.002', name: 'Service Execution', tactic: 'execution' },
     ],
     malware: [
       { name: 'Black Basta Ransomware', type: 'ransomware', platform: 'windows' },
-      { name: 'Dagon Locker',           type: 'ransomware', platform: 'windows' },
+      { name: 'Dagon Locker', type: 'ransomware', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -3985,9 +3834,7 @@ export const ACTORS: Actor[] = [
       { sector: 'healthcare', score: 90, evidence: ['Ascension healthcare attack'] },
       { sector: 'manufacturing', score: 80, evidence: [] },
     ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-131a' },
-    ],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-131a' }],
   },
 
   {
@@ -4008,13 +3855,13 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'manufacturing', 'healthcare', 'government'],
     targets: ['United States', 'Germany', 'France'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
     malware: [
       { name: 'Royal Ransomware', type: 'ransomware', platform: 'windows' },
-      { name: 'BlackSuit',        type: 'ransomware', platform: 'windows' },
+      { name: 'BlackSuit', type: 'ransomware', platform: 'windows' },
     ],
     cves: [],
     campaigns: [
@@ -4032,12 +3879,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Double extortion'],
-    sector_scores: [
-      { sector: 'healthcare', score: 85, evidence: ['Healthcare targeting'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-061a' },
-    ],
+    sector_scores: [{ sector: 'healthcare', score: 85, evidence: ['Healthcare targeting'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-061a' }],
   },
 
   {
@@ -4058,16 +3901,12 @@ export const ACTORS: Actor[] = [
     sectors: ['manufacturing', 'technology', 'healthcare', 'education'],
     targets: ['United States', 'Canada', 'Germany', 'Italy', 'Japan'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
     ],
-    malware: [
-      { name: 'Akira Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
-    cves: [
-      { id: 'CVE-2023-20269', cvss: 8.1, product: 'Cisco ASA VPN', year: 2023 },
-    ],
+    malware: [{ name: 'Akira Ransomware', type: 'ransomware', platform: 'windows' }],
+    cves: [{ id: 'CVE-2023-20269', cvss: 8.1, product: 'Cisco ASA VPN', year: 2023 }],
     campaigns: [
       {
         name: 'SMB targeting campaign (2023–)',
@@ -4085,12 +3924,8 @@ export const ACTORS: Actor[] = [
     ],
     members: [],
     infra_patterns: ['VPN vulnerability exploitation', 'Double extortion'],
-    sector_scores: [
-      { sector: 'manufacturing', score: 85, evidence: ['SMB targeting campaign'] },
-    ],
-    sources: [
-      { label: 'Cisco Talos', url: 'https://blog.talosintelligence.com/akira-ransomware/' },
-    ],
+    sector_scores: [{ sector: 'manufacturing', score: 85, evidence: ['SMB targeting campaign'] }],
+    sources: [{ label: 'Cisco Talos', url: 'https://blog.talosintelligence.com/akira-ransomware/' }],
   },
 
   {
@@ -4111,13 +3946,11 @@ export const ACTORS: Actor[] = [
     sectors: ['government', 'manufacturing', 'technology', 'healthcare'],
     targets: ['United States', 'Argentina', 'Brazil', 'France', 'UK'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
     ],
-    malware: [
-      { name: 'Play Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'Play Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [
       { id: 'CVE-2023-27997', cvss: 9.8, product: 'FortiOS SSL-VPN', year: 2023 },
       { id: 'CVE-2023-23397', cvss: 9.8, product: 'Microsoft Outlook', year: 2023 },
@@ -4139,12 +3972,8 @@ export const ACTORS: Actor[] = [
     ],
     members: [],
     infra_patterns: ['VPN vulnerability exploitation', 'Double extortion'],
-    sector_scores: [
-      { sector: 'government', score: 85, evidence: ['FortiOS exploitation campaign'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-352a' },
-    ],
+    sector_scores: [{ sector: 'government', score: 85, evidence: ['FortiOS exploitation campaign'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-352a' }],
   },
 
   {
@@ -4165,13 +3994,11 @@ export const ACTORS: Actor[] = [
     sectors: ['healthcare', 'manufacturing', 'technology', 'government'],
     targets: ['United States', 'Canada', 'France', 'Italy', 'Spain'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
-    malware: [
-      { name: 'MedusaLocker', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'MedusaLocker', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -4188,12 +4015,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Triple extortion'],
-    sector_scores: [
-      { sector: 'healthcare', score: 85, evidence: ['Healthcare targeting'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-319a' },
-    ],
+    sector_scores: [{ sector: 'healthcare', score: 85, evidence: ['Healthcare targeting'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-319a' }],
   },
 
   {
@@ -4214,13 +4037,11 @@ export const ACTORS: Actor[] = [
     sectors: ['healthcare', 'technology', 'manufacturing'],
     targets: ['United States', 'United Kingdom', 'France', 'Italy'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
-    malware: [
-      { name: 'Rhysida Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'Rhysida Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -4237,12 +4058,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Double extortion'],
-    sector_scores: [
-      { sector: 'healthcare', score: 85, evidence: ['Prospect Medical Holdings attack'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-319a' },
-    ],
+    sector_scores: [{ sector: 'healthcare', score: 85, evidence: ['Prospect Medical Holdings attack'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-319a' }],
   },
 
   {
@@ -4263,13 +4080,11 @@ export const ACTORS: Actor[] = [
     sectors: ['manufacturing', 'technology', 'healthcare', 'education'],
     targets: ['United States', 'Germany', 'France', 'Italy'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
     ],
-    malware: [
-      { name: 'Phobos Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'Phobos Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -4286,12 +4101,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Phishing-based initial access', 'Double extortion'],
-    sector_scores: [
-      { sector: 'manufacturing', score: 85, evidence: ['SMB phishing campaign'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060a' },
-    ],
+    sector_scores: [{ sector: 'manufacturing', score: 85, evidence: ['SMB phishing campaign'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060a' }],
   },
 
   {
@@ -4312,13 +4123,11 @@ export const ACTORS: Actor[] = [
     sectors: ['manufacturing', 'technology', 'healthcare', 'professional-services'],
     targets: ['United States', 'Germany', 'France', 'Italy', 'Japan'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1566.001', name: 'Spearphishing Attachment',  tactic: 'initial-access' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1566.001', name: 'Spearphishing Attachment', tactic: 'initial-access' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
     ],
-    malware: [
-      { name: '8Base Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: '8Base Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -4335,12 +4144,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Phishing-based initial access', 'Double extortion'],
-    sector_scores: [
-      { sector: 'manufacturing', score: 80, evidence: ['SMB targeting campaign'] },
-    ],
-    sources: [
-      { label: 'Group-IB', url: 'https://www.group-ib.com/blog/8base-ransomware/' },
-    ],
+    sector_scores: [{ sector: 'manufacturing', score: 80, evidence: ['SMB targeting campaign'] }],
+    sources: [{ label: 'Group-IB', url: 'https://www.group-ib.com/blog/8base-ransomware/' }],
   },
 
   {
@@ -4361,13 +4166,11 @@ export const ACTORS: Actor[] = [
     sectors: ['healthcare', 'government', 'technology', 'manufacturing'],
     targets: ['United States', 'Germany', 'France', 'Italy'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
-    malware: [
-      { name: 'RansomHub Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'RansomHub Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -4384,12 +4187,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Double extortion'],
-    sector_scores: [
-      { sector: 'healthcare', score: 85, evidence: ['Healthcare targeting'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-131a' },
-    ],
+    sector_scores: [{ sector: 'healthcare', score: 85, evidence: ['Healthcare targeting'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-131a' }],
   },
 
   {
@@ -4410,16 +4209,12 @@ export const ACTORS: Actor[] = [
     sectors: ['finance', 'government', 'technology', 'healthcare'],
     targets: ['United States', 'United Kingdom', 'Germany'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
     ],
-    malware: [
-      { name: 'Cuba Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
-    cves: [
-      { id: 'CVE-2021-34473', cvss: 9.8, product: 'Microsoft Exchange (ProxyShell)', year: 2021 },
-    ],
+    malware: [{ name: 'Cuba Ransomware', type: 'ransomware', platform: 'windows' }],
+    cves: [{ id: 'CVE-2021-34473', cvss: 9.8, product: 'Microsoft Exchange (ProxyShell)', year: 2021 }],
     campaigns: [
       {
         name: 'Financial sector targeting (2023)',
@@ -4435,12 +4230,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['VPN vulnerability exploitation', 'Double extortion'],
-    sector_scores: [
-      { sector: 'finance', score: 85, evidence: ['Financial sector targeting'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-353a' },
-    ],
+    sector_scores: [{ sector: 'finance', score: 85, evidence: ['Financial sector targeting'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-353a' }],
   },
 
   {
@@ -4461,16 +4252,12 @@ export const ACTORS: Actor[] = [
     sectors: ['critical-infrastructure', 'manufacturing', 'technology', 'healthcare'],
     targets: ['United States', 'United Kingdom', 'Canada', 'Australia'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1190',     name: 'Exploit Public-Facing App', tactic: 'initial-access' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1190', name: 'Exploit Public-Facing App', tactic: 'initial-access' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
     ],
-    malware: [
-      { name: 'BianLian Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
-    cves: [
-      { id: 'CVE-2023-47246', cvss: 9.8, product: 'SysAid Server', year: 2023 },
-    ],
+    malware: [{ name: 'BianLian Ransomware', type: 'ransomware', platform: 'windows' }],
+    cves: [{ id: 'CVE-2023-47246', cvss: 9.8, product: 'SysAid Server', year: 2023 }],
     campaigns: [
       {
         name: 'Critical infrastructure targeting (2023)',
@@ -4486,12 +4273,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['VPN vulnerability exploitation', 'Double extortion'],
-    sector_scores: [
-      { sector: 'critical-infrastructure', score: 85, evidence: ['Critical infrastructure targeting'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060a' },
-    ],
+    sector_scores: [{ sector: 'critical-infrastructure', score: 85, evidence: ['Critical infrastructure targeting'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060a' }],
   },
 
   {
@@ -4512,13 +4295,11 @@ export const ACTORS: Actor[] = [
     sectors: ['technology', 'hospitality', 'manufacturing', 'government'],
     targets: ['United States', 'United Kingdom', 'Germany', 'France'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
-    malware: [
-      { name: 'DragonForce Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'DragonForce Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -4535,12 +4316,8 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['Social engineering', 'Double extortion'],
-    sector_scores: [
-      { sector: 'hospitality', score: 85, evidence: ['MGM Resorts attack'] },
-    ],
-    sources: [
-      { label: 'MGM Resorts disclosure', url: 'https://newsroom.mgmresorts.com/' },
-    ],
+    sector_scores: [{ sector: 'hospitality', score: 85, evidence: ['MGM Resorts attack'] }],
+    sources: [{ label: 'MGM Resorts disclosure', url: 'https://newsroom.mgmresorts.com/' }],
   },
 
   {
@@ -4561,13 +4338,11 @@ export const ACTORS: Actor[] = [
     sectors: ['energy', 'manufacturing', 'technology', 'healthcare'],
     targets: ['United States', 'France', 'Germany', 'Japan'],
     ttps: [
-      { id: 'T1486',     name: 'Data Encrypted for Impact', tactic: 'impact' },
-      { id: 'T1490',     name: 'Inhibit System Recovery',   tactic: 'impact' },
-      { id: 'T1078',     name: 'Valid Accounts',            tactic: 'defense-evasion' },
+      { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+      { id: 'T1490', name: 'Inhibit System Recovery', tactic: 'impact' },
+      { id: 'T1078', name: 'Valid Accounts', tactic: 'defense-evasion' },
     ],
-    malware: [
-      { name: 'BlackMatter Ransomware', type: 'ransomware', platform: 'windows' },
-    ],
+    malware: [{ name: 'BlackMatter Ransomware', type: 'ransomware', platform: 'windows' }],
     cves: [],
     campaigns: [
       {
@@ -4584,30 +4359,31 @@ export const ACTORS: Actor[] = [
     detections: [],
     members: [],
     infra_patterns: ['RaaS affiliate model', 'Double extortion'],
-    sector_scores: [
-      { sector: 'energy', score: 85, evidence: ['Critical infrastructure targeting'] },
-    ],
-    sources: [
-      { label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-311a' },
-    ],
+    sector_scores: [{ sector: 'energy', score: 85, evidence: ['Critical infrastructure targeting'] }],
+    sources: [{ label: 'CISA advisory', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-311a' }],
   },
 ];
 
 // Build the edge graph at module load: connect actors that share
 // malware, CVEs, or ≥3 TTPs. Edges are weighted 1..N.
 export function buildEdges(actors: Actor[]) {
-  const edges: { source: string; target: string; weight: number; shared: { malware?: string[]; cves?: string[]; ttps?: string[] } }[] = [];
+  const edges: {
+    source: string;
+    target: string;
+    weight: number;
+    shared: { malware?: string[]; cves?: string[]; ttps?: string[] };
+  }[] = [];
 
   for (let i = 0; i < actors.length; i++) {
     for (let j = i + 1; j < actors.length; j++) {
       const a = actors[i]!;
       const b = actors[j]!;
 
-      const sharedMalware = a.malware.filter(m => b.malware.some(x => x.name === m.name)).map(m => m.name);
-      const sharedCves    = a.cves.filter(c => b.cves.some(x => x.id === c.id)).map(c => c.id);
-      const aTtpIds = new Set(a.ttps.map(t => t.id));
-      const bTtpIds = new Set(b.ttps.map(t => t.id));
-      const sharedTtpIds = [...aTtpIds].filter(id => bTtpIds.has(id));
+      const sharedMalware = a.malware.filter((m) => b.malware.some((x) => x.name === m.name)).map((m) => m.name);
+      const sharedCves = a.cves.filter((c) => b.cves.some((x) => x.id === c.id)).map((c) => c.id);
+      const aTtpIds = new Set(a.ttps.map((t) => t.id));
+      const bTtpIds = new Set(b.ttps.map((t) => t.id));
+      const sharedTtpIds = [...aTtpIds].filter((id) => bTtpIds.has(id));
 
       const weight = sharedMalware.length * 3 + sharedCves.length * 2 + sharedTtpIds.length;
       if (weight > 0) {
@@ -4617,8 +4393,8 @@ export function buildEdges(actors: Actor[]) {
           weight,
           shared: {
             malware: sharedMalware.length ? sharedMalware : undefined,
-            cves:    sharedCves.length    ? sharedCves    : undefined,
-            ttps:    sharedTtpIds.length  ? sharedTtpIds  : undefined,
+            cves: sharedCves.length ? sharedCves : undefined,
+            ttps: sharedTtpIds.length ? sharedTtpIds : undefined,
           },
         });
       }

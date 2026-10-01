@@ -54,7 +54,7 @@ export default function AdminLogin({ onLogin }: Props) {
             autoComplete="off"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-full px-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-heading font-mono text-sm focus:outline-none focus:border-brand-500 transition-colors"
+            className="w-full px-3 py-2.5 bg-surface-100 border border-line-2 rounded text-heading font-mono text-sm focus:outline-none focus:border-brand-500 transition-colors"
             placeholder="Paste token..."
           />
         </div>

@@ -176,7 +176,7 @@ export function AiSummaryCard({
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-surface-200 dark:hover:bg-wash transition-colors"
       >
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">

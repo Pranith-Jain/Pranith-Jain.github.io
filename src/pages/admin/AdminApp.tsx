@@ -120,16 +120,16 @@ function PipelineBar() {
   }
 
   return (
-    <div className="mb-6 rounded-xl border border-slate-300 bg-slate-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.5)] p-4">
+    <div className="mb-6 rounded-xl border border-line-2 bg-surface-200/50 p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 mr-2">Pipeline</span>
+        <span className="text-xs font-mono uppercase tracking-wider text-muted mr-2">Pipeline</span>
         {STAGES.map((s) => (
           <button
             key={s.stage}
             onClick={() => run(s.stage)}
             disabled={busy !== null}
             title={s.hint}
-            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
+            className="px-3 py-1.5 border border-line-2 rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy === s.stage ? `${s.label}…` : s.label}
           </button>
@@ -225,7 +225,7 @@ export default function AdminApp() {
               className={`px-2 py-1 rounded text-micro font-mono border ${
                 inferenceStats.overCap
                   ? 'bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 border-rose-200 dark:border-rose-700/50'
-                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]'
+                  : 'bg-slate-50 dark:bg-surface-200 text-muted border-slate-200 dark:border-line-1'
               }`}
               title={`${inferenceStats.calls ?? 0} calls · ${(inferenceStats.totalTokens ?? 0).toLocaleString()} tokens`}
             >
@@ -234,13 +234,13 @@ export default function AdminApp() {
           )}
           <a
             href="/admin/analytics"
-            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-line-2 rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             Analytics
           </a>
           <button
             onClick={logout}
-            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-line-2 rounded text-sm text-muted hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             Logout
           </button>
@@ -250,7 +250,7 @@ export default function AdminApp() {
       <PipelineBar />
 
       {/* Tabs */}
-      <nav className="flex flex-wrap gap-1 border-b border-slate-300 dark:border-[rgb(var(--border-400))] mb-6">
+      <nav className="flex flex-wrap gap-1 border-b border-line-2 mb-6">
         {TABS.map((t) => (
           <button
             key={t.key}
@@ -267,7 +267,7 @@ export default function AdminApp() {
       </nav>
 
       {/* Content */}
-      <section className="bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-4">
+      <section className="bg-surface-100 border border-line-2 rounded-xl p-4">
         {active === 'pending' && <PendingTab />}
         {active === 'approved' && <ApprovedTab />}
         {active === 'schedule' && <ScheduleTab />}

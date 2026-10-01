@@ -226,7 +226,7 @@ export default function BriefingsTab() {
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Build now */}
-      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="rounded border border-line-1 p-4">
         <h2 className="text-lg font-semibold text-heading mb-1">Build now</h2>
         <p className="text-sm text-muted mb-4">
           Rebuilds the latest closed window for the chosen type and writes it (overwriting an empty row; a richer
@@ -240,7 +240,7 @@ export default function BriefingsTab() {
               key={t}
               onClick={() => build(t)}
               disabled={building !== null}
-              className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50 capitalize"
+              className="px-4 py-1.5 border border-line-1 rounded text-sm text-heading hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50 capitalize"
             >
               {building === t ? `Building ${t}…` : `Build ${t}`}
             </button>
@@ -260,7 +260,7 @@ export default function BriefingsTab() {
           </div>
         )}
         {buildResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm">
+          <div className="px-3 py-2 border border-line-1 bg-surface-100 rounded text-sm">
             <span
               className={
                 buildResult.ok
@@ -286,7 +286,7 @@ export default function BriefingsTab() {
       </div>
 
       {/* Backfill */}
-      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="rounded border border-line-1 p-4">
         <h2 className="text-lg font-semibold text-heading mb-1">Backfill</h2>
         <p className="text-sm text-muted mb-4">
           Rebuilds the past N daily + M weekly windows. With <strong>force</strong> on, existing rows are overwritten
@@ -303,7 +303,7 @@ export default function BriefingsTab() {
               value={days}
               onChange={(e) => setDays(Math.max(0, Math.min(21, Number(e.target.value) || 0)))}
               disabled={backfilling}
-              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+              className="w-24 px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <label className="block">
@@ -315,7 +315,7 @@ export default function BriefingsTab() {
               value={weeks}
               onChange={(e) => setWeeks(Math.max(0, Math.min(4, Number(e.target.value) || 0)))}
               disabled={backfilling}
-              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+              className="w-24 px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <label className="flex items-center gap-2 pb-1.5 text-sm text-body">
@@ -334,7 +334,7 @@ export default function BriefingsTab() {
             className={`px-4 py-1.5 rounded text-sm disabled:opacity-50 ${
               force
                 ? 'border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 hover:bg-rose-50 dark:hover:bg-rose-900/30'
-                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                : 'border border-slate-200 dark:border-line-1 text-heading hover:bg-slate-100 dark:hover:bg-surface-300'
             } transition-colors`}
           >
             {backfilling ? 'Backfilling…' : 'Run backfill'}
@@ -346,7 +346,7 @@ export default function BriefingsTab() {
           </div>
         )}
         {backfillResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-body space-y-1">
+          <div className="px-3 py-2 border border-line-1 bg-surface-100 rounded text-sm text-body space-y-1">
             <div>
               <span className="text-emerald-700 dark:text-emerald-300">written:</span> daily{' '}
               {backfillResult.daily.length}, weekly {backfillResult.weekly.length} ·{' '}
@@ -364,7 +364,7 @@ export default function BriefingsTab() {
       </div>
 
       {/* Sweep */}
-      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="rounded border border-line-1 p-4">
         <h2 className="text-lg font-semibold text-heading mb-1">Sweep old briefings</h2>
         <p className="text-sm text-muted mb-4">
           Deletes briefings older than the retention window (clamped to the policy ceiling). Also runs on the hourly
@@ -380,7 +380,7 @@ export default function BriefingsTab() {
               value={maxAge}
               onChange={(e) => setMaxAge(Math.max(1, Math.min(3650, Number(e.target.value) || 30)))}
               disabled={sweeping}
-              className="w-28 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+              className="w-28 px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <button
@@ -397,7 +397,7 @@ export default function BriefingsTab() {
           </div>
         )}
         {sweepResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-body">
+          <div className="px-3 py-2 border border-line-1 bg-surface-100 rounded text-sm text-body">
             <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Swept</span> -{' '}
             {sweepResult.deleted.length} deleted, {sweepResult.kept} kept (max age {sweepResult.max_age_days}d).
           </div>
@@ -405,7 +405,7 @@ export default function BriefingsTab() {
       </div>
 
       {/* Recent briefings */}
-      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="rounded border border-line-1 p-4">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-heading">Recent briefings</h2>
           <div className="flex items-center gap-2">
@@ -420,7 +420,7 @@ export default function BriefingsTab() {
             <button
               onClick={() => void loadList()}
               disabled={listLoading}
-              className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+              className="px-3 py-1 border border-line-1 rounded text-sm text-body hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
             >
               {listLoading ? 'Refreshing…' : 'Refresh'}
             </button>
@@ -431,7 +431,7 @@ export default function BriefingsTab() {
           lag - the build/backfill result above shows fresh stats.
         </p>
         {deleteMsg && (
-          <div className="mb-3 px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-body">
+          <div className="mb-3 px-3 py-2 border border-line-1 bg-surface-100 rounded text-sm text-body">
             {deleteMsg}
           </div>
         )}
@@ -440,7 +440,7 @@ export default function BriefingsTab() {
             {listError}
           </div>
         )}
-        <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded overflow-hidden">
+        <div className="border border-line-1 rounded overflow-hidden">
           <DataTable
             columns={
               [

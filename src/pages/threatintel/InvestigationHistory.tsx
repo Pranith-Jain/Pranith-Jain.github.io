@@ -75,7 +75,7 @@ export default function InvestigationHistory(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search queries or findings…"
-              className="w-full pl-8 pr-3 py-2 text-xs font-mono bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded focus:outline-none focus:border-rose-500"
+              className="w-full pl-8 pr-3 py-2 text-xs font-mono bg-surface-200 border border-line-1 rounded focus:outline-none focus:border-rose-500"
             />
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function InvestigationHistory(): JSX.Element {
                     className="text-muted opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                   />
                 </div>
-                <div className="flex items-center gap-3 text-xs text-slate-500">
+                <div className="flex items-center gap-3 text-xs text-muted">
                   <span>{timeAgo(entry.completedAt)}</span>
                   <span className="font-mono">{entry.queryType}</span>
                   {entry.iocCount > 0 && <span>{entry.iocCount} IOCs</span>}
@@ -109,7 +109,7 @@ export default function InvestigationHistory(): JSX.Element {
                     {entry.keyFindings.slice(0, 3).map((f, i) => (
                       <span
                         key={i}
-                        className="text-mini font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-body truncate max-w-[200px]"
+                        className="text-mini font-mono px-2 py-0.5 rounded bg-surface-300 text-body truncate max-w-[200px]"
                       >
                         {f}
                       </span>

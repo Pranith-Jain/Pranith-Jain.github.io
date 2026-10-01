@@ -76,13 +76,13 @@ export default function Truecaller() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="flex gap-3">
               <div className="relative flex-1">
-                <Phone size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                <Phone size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   type="text"
                   placeholder="e.g. +1 202 555 0147, 0800 123 4567, (555) 123-4567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                  className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   autoComplete="off"
                   spellCheck={false}
                 />
@@ -105,7 +105,7 @@ export default function Truecaller() {
         </section>
 
         {loading && (
-          <div className="flex items-center justify-center py-12 text-slate-500">
+          <div className="flex items-center justify-center py-12 text-muted">
             <Spinner size="md" className="mr-3" />
             Looking up phone number...
           </div>
@@ -234,7 +234,7 @@ export default function Truecaller() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Powered by{' '}
           <a
             href="https://www.truecaller.com"

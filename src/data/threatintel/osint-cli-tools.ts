@@ -1,14 +1,5 @@
 export type ToolCategory =
-  | 'username'
-  | 'email'
-  | 'domain'
-  | 'social'
-  | 'dorking'
-  | 'recon'
-  | 'framework'
-  | 'breach'
-  | 'telegram'
-  | 'malware';
+  'username' | 'email' | 'domain' | 'social' | 'dorking' | 'recon' | 'framework' | 'breach' | 'telegram' | 'malware';
 
 export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   username: 'Username Search',

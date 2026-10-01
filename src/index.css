@@ -57,6 +57,15 @@
      Separate from the line-1/2/3 ladder because those are decorative
      hairlines; this one is load-bearing for identifying a control. */
   --color-line-input: rgb(var(--border-input));
+  /* Translucent interaction wash (row hover / quiet tint). Not a surface: it
+     is an alpha over whatever is beneath it, so it layers predictably. */
+  --color-wash: rgb(var(--hover-100));
+  /* Brand step that must stay legible AS TEXT (links, focus ring). No single
+     brand step clears both modes: brand-500 is 5.11:1 on white but 3.41:1 on
+     the dark surfaces, and brand-400 falls to 2.88:1 on --surface-300. So the
+     channel flips the step per mode. */
+  --color-accent-text: rgb(var(--accent-text));
+  --color-focus-ring: rgb(var(--focus-ring));
 
   --shadow-e1: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
   --shadow-e2: 0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08);
@@ -74,7 +83,32 @@
   html {
     font-family: var(--font-sans);
     font-size: 16px;
+    /* NOTE: deliberately global, NOT gated behind the portfolio surface.
+       `scroll-behavior` is a UA-level scrolling behaviour with no per-element
+       cost, and the tools surface already relies on it. Gating it would have
+       meant changing behaviour on 400+ routes for no gain. What IS
+       surface-scoped is `--scroll-anchor-offset` below. */
     scroll-behavior: smooth;
+    /* Clears the sticky header when jumping to a fragment. Without this, an
+       anchor target lands underneath the header and the section's heading is
+       hidden. Value matches the portfolio header height (a 36px logo inside
+       `py-2.5 sm:py-3` = 56px tall, 60px from `sm` up) plus breathing room.
+       Set on `html` rather than per-section so every existing `scroll-mt-*`
+       usage and every bare `#anchor` keeps working unchanged. */
+    scroll-padding-top: var(--scroll-anchor-offset, 0px);
+  }
+
+  /* Portfolio surface only. `main.tsx` sets `data-surface` on <html>; the
+     tools surface renders a taller fixed TopBar and manages its own offsets,
+     so it opts out by simply never matching this selector. */
+  html[data-surface='portfolio'] {
+    --scroll-anchor-offset: 4.5rem;
+  }
+
+  @media (min-width: 640px) {
+    html[data-surface='portfolio'] {
+      --scroll-anchor-offset: 5rem;
+    }
   }
 
   h1,
@@ -145,6 +179,12 @@
        (3.43:1) and surface-200 (3.28:1), so an input stays compliant on
        either background. */
     --border-input: 125 140 160;
+    /* Accent-as-text + focus ring. brand-500 chosen over brand-400 because the
+       focus ring is drawn with a 3px offset, so it can land on --surface-300
+       where brand-400 only reaches 2.88:1 (SC 1.4.11 needs 3:1). brand-500
+       holds 4.69:1 on that surface and 5.11:1 on white. */
+    --accent-text: 67 94 241;
+    --focus-ring: 67 94 241;
   }
 
   html.dark {
@@ -168,10 +208,14 @@
        than another alpha step: 3.66:1 on surface-200, 3.94:1 on surface-100,
        4.11:1 on the canvas - clears 3:1 on every surface an input sits on. */
     --border-input: 100 116 139;
+    /* Dark counterpart: brand-400. 5.55:1 on --surface-200, 6.23:1 on the
+       canvas, so it clears 4.5:1 as link text and 3:1 as a focus ring. */
+    --accent-text: 109 139 247;
+    --focus-ring: 109 139 247;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-400);
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 3px;
   }
 
@@ -404,9 +448,9 @@
        surface-card card-hover) must show a visible focus ring so keyboard users
        can track their position. Matches the global :focus-visible outline. */
     &:focus-visible {
-      outline: 2px solid var(--color-brand-400);
+      outline: 2px solid var(--color-focus-ring);
       outline-offset: 2px;
-      border-color: var(--color-brand-400);
+      border-color: var(--color-focus-ring);
     }
   }
 
@@ -540,7 +584,10 @@
   }
 
   .prose-hunt a {
-    color: var(--color-brand-500);
+    /* --color-accent-text, not a fixed brand step: brand-500 is only 3.41:1
+       on the dark surfaces, so a hardcoded brand-500 fails AA for link text
+       in dark mode. */
+    color: var(--color-accent-text);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
@@ -692,6 +739,17 @@
     animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* The block above neutralised animations and transitions but left
+     `scroll-behavior: smooth` active, so a visitor who asks for reduced
+     motion still got animated scroll jumps on every in-page anchor. Smooth
+     scrolling is precisely the vestibular trigger this preference exists to
+     suppress, so it has to be reverted here too. `html` needs the explicit
+     `!important` because the smooth declaration lives in `@layer base`, and
+     un-layered declarations outrank layered ones on specificity ties. */
+  html {
+    scroll-behavior: auto !important;
   }
 }
 

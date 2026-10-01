@@ -107,7 +107,7 @@ export default function Campaigns(): JSX.Element {
             type="button"
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
           </button>
@@ -147,7 +147,7 @@ export default function Campaigns(): JSX.Element {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-mini font-mono text-slate-500">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-mini font-mono text-muted">
                 {it.actor && (
                   <span>
                     actor: <span className="text-body">{it.actor}</span>

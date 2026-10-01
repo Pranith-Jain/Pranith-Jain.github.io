@@ -373,19 +373,19 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             placeholder="Search attacks…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={countryFilter}
           onChange={(e) => setCountryFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+          className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="">All countries</option>
           {ALL_COUNTRIES.map((c) => (
@@ -397,7 +397,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <select
           value={outcomeFilter}
           onChange={(e) => setOutcomeFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+          className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="">All outcomes</option>
           <option value="unsolved">Unsolved</option>
@@ -408,7 +408,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <select
           value={victimFilter}
           onChange={(e) => setVictimFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+          className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="">All victims</option>
           <option value="individual">Individual</option>
@@ -434,16 +434,16 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
                       {a.city ? `, ${a.city}` : ''}
                     </span>
                     <span
-                      className={`px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] ${outcome.cls}`}
+                      className={`px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 dark:border-line-1 ${outcome.cls}`}
                     >
                       {outcome.label}
                     </span>
-                    <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted flex items-center gap-0.5">
+                    <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted flex items-center gap-0.5">
                       <VictimIcon className="w-2.5 h-2.5" /> {a.victim_type}
                     </span>
                   </div>
                   <p className="text-xs text-body leading-relaxed mb-1.5">{a.description}</p>
-                  <div className="flex items-center gap-2 flex-wrap text-mini text-slate-500">
+                  <div className="flex items-center gap-2 flex-wrap text-mini text-muted">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-2.5 h-2.5" /> {a.date}
                     </span>
@@ -464,10 +464,10 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-slate-500 font-mono text-sm">No attacks match your filters</div>
+        <div className="text-center py-12 text-muted font-mono text-sm">No attacks match your filters</div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+      <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
         Sources: Public reporting, law enforcement press releases, security research · {ATTACKS.length} incidents
         tracked
       </div>

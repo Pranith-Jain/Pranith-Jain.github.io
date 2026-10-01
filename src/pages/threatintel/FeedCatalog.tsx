@@ -104,13 +104,13 @@ export default function FeedCatalog() {
               placeholder="Search vendors, descriptions, categories..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
+              className="w-full pl-10 pr-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
             />
           </div>
           <select
             value={vendorFilter}
             onChange={(e) => setVendorFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+            className="px-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
           >
             <option value="all">All Vendors</option>
             {data?.vendors.map((v) => (
@@ -122,7 +122,7 @@ export default function FeedCatalog() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+            className="px-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
           >
             <option value="all">All Types</option>
             {data?.categories.map((c) => (
@@ -134,7 +134,7 @@ export default function FeedCatalog() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+            className="px-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
           >
             <option value="all">All Status</option>
             <option value="Active">Active</option>
@@ -143,7 +143,7 @@ export default function FeedCatalog() {
         </div>
       }
     >
-      <div className="flex items-center gap-2 mb-4 text-sm text-slate-500">
+      <div className="flex items-center gap-2 mb-4 text-sm text-muted">
         <Filter className="w-4 h-4" />
         <span>
           {filtered?.length ?? 0} feed{filtered?.length !== 1 ? 's' : ''} shown
@@ -158,7 +158,7 @@ export default function FeedCatalog() {
           return (
             <div
               key={`${entry.vendor}-${entry.category}-${i}`}
-              className="bg-white dark:bg-[rgb(var(--surface-200))]/60 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors"
+              className="bg-surface-100/60 border border-line-1 rounded-xl p-4 hover:border-line-2 dark:hover:border-line-1 transition-colors"
             >
               <div className="flex items-start gap-4">
                 <div className={`p-2.5 rounded-xl ${color}`}>
@@ -178,7 +178,7 @@ export default function FeedCatalog() {
                         >
                           {entry.status}
                         </span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] uppercase">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-surface-300 text-muted border border-line-1 uppercase">
                           {entry.category}
                         </span>
                       </div>
@@ -195,7 +195,7 @@ export default function FeedCatalog() {
                     </a>
                   </div>
                   <div className="mt-2">
-                    <code className="text-xs text-slate-400 font-mono break-all">{entry.url}</code>
+                    <code className="text-xs text-muted font-mono break-all">{entry.url}</code>
                   </div>
                 </div>
               </div>

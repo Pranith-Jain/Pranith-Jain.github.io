@@ -199,7 +199,7 @@ export default function OnionWatch(): JSX.Element {
       </div>
 
       {/* Headline stats */}
-      <section className="rounded-xl border border-line-1 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-line-1 bg-surface-100 shadow-e1 p-4 mb-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           <Stat label="reachable groups" value={data?.reachable_count} loading={loading} />
           <Stat label="tracked groups" value={data?.groups.length} loading={loading} />
@@ -240,7 +240,7 @@ export default function OnionWatch(): JSX.Element {
       )}
 
       {/* Filters */}
-      <section className="rounded-xl border border-line-1 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
+      <section className="rounded-xl border border-line-1 bg-surface-100 shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
@@ -248,7 +248,7 @@ export default function OnionWatch(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search group name, .onion fqdn, or page title…"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-input-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search onion mirrors"
           />
         </div>
@@ -261,7 +261,7 @@ export default function OnionWatch(): JSX.Element {
 
           <span className="text-slate-300 dark:text-slate-700">|</span>
 
-          <span className="text-slate-500">sort:</span>
+          <span className="text-muted">sort:</span>
           {(['last-active', 'name', 'mirror-count'] as SortMode[]).map((m) => (
             <button
               key={m}
@@ -270,7 +270,7 @@ export default function OnionWatch(): JSX.Element {
               className={`px-2 py-1 rounded border ${
                 sortMode === m
                   ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500'
               }`}
             >
               {m}
@@ -282,7 +282,7 @@ export default function OnionWatch(): JSX.Element {
               type="button"
               onClick={copyAllReachable}
               disabled={visibleGroups.length === 0}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-line-2 hover:border-brand-500/60 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               title="Copy every visible mirror URL, one per line"
             >
               {copiedKey === '__all__' ? <Check size={11} /> : <Copy size={11} />}
@@ -292,7 +292,7 @@ export default function OnionWatch(): JSX.Element {
               type="button"
               onClick={() => void load(true)}
               disabled={refreshing}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60 disabled:opacity-40"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-line-2 hover:border-brand-500/60 disabled:opacity-40"
               title="Force-refresh from origin (skips edge cache)"
             >
               <RefreshCw size={11} className={refreshing ? 'animate-spin' : ''} /> refresh
@@ -351,7 +351,7 @@ export default function OnionWatch(): JSX.Element {
                         className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
                           g.any_reachable
                             ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                            : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                            : 'border-slate-300 dark:border-line-1 text-slate-500'
                         }`}
                       >
                         {g.any_reachable ? 'reachable' : 'all offline'}
@@ -363,11 +363,11 @@ export default function OnionWatch(): JSX.Element {
                     {g.mirrors.map((m) => (
                       <li
                         key={m.slug}
-                        className="flex flex-wrap items-baseline gap-2 text-mini font-mono px-2 py-1 rounded bg-white/60 dark:bg-[rgb(var(--surface-100))]/60"
+                        className="flex flex-wrap items-baseline gap-2 text-mini font-mono px-2 py-1 rounded bg-surface-100/60"
                       >
                         <span
                           className={`shrink-0 inline-block w-1.5 h-1.5 rounded-full ${
-                            m.available ? 'bg-emerald-500' : 'bg-slate-400 dark:bg-[rgb(var(--surface-300))]'
+                            m.available ? 'bg-emerald-500' : 'bg-slate-400 dark:bg-surface-300'
                           }`}
                           aria-label={m.available ? 'reachable' : 'offline'}
                         />
@@ -399,7 +399,7 @@ export default function OnionWatch(): JSX.Element {
                         )}
                         {typeof m.version === 'number' && (
                           <span
-                            className="text-micro uppercase tracking-wider px-1 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500"
+                            className="text-micro uppercase tracking-wider px-1 py-0.5 rounded border border-line-2 text-muted"
                             title="Tor onion-service address version"
                           >
                             v{m.version}
@@ -472,7 +472,7 @@ function Stat({
   loading: boolean;
 }): JSX.Element {
   return (
-    <div className="rounded border border-line-1 bg-slate-50 dark:bg-input-200 px-2 py-2">
+    <div className="rounded border border-line-1 bg-surface-200 px-2 py-2">
       <div className="text-2xl font-display font-bold text-heading tabular-nums">
         {loading ? '…' : (valueText ?? value ?? 0)}
       </div>

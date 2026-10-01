@@ -153,7 +153,7 @@ function StatusBadge({ status }: { status: number }) {
         ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
         : status >= 400
           ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400'
-          : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-muted';
+          : 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-muted';
   return (
     <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${color}`}>
       {status}
@@ -166,7 +166,7 @@ function SecurityScore({ score }: { score: number }) {
   const bg = score >= 80 ? 'bg-emerald-500' : score >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
     <div className="flex items-center gap-3">
-      <div className="relative h-3 w-32 overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+      <div className="relative h-3 w-32 overflow-hidden rounded-full bg-slate-200 dark:bg-surface-300">
         <div className={`absolute inset-y-0 left-0 ${bg} rounded-full transition-all`} style={{ width: `${score}%` }} />
       </div>
       <span className={`text-sm font-bold ${color}`}>{score}/100</span>
@@ -185,7 +185,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
+    <div className="rounded-xl border border-line-1 bg-surface-200/50 p-3">
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-1 truncate text-sm font-semibold text-slate-900 dark:text-white">{value}</p>
     </div>
@@ -202,9 +202,9 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 function StringList({ items, empty }: { items: string[]; empty?: string }) {
-  if (items.length === 0) return <p className="text-sm text-slate-500">{empty || 'None found'}</p>;
+  if (items.length === 0) return <p className="text-sm text-muted">{empty || 'None found'}</p>;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-line-1">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {items.map((item, i) => (
           <div key={i} className="flex items-center gap-2 px-4 py-2 text-sm">
@@ -288,8 +288,8 @@ function ScannedUrlsPanel({ data }: { data: ScanData }) {
 
 function HttpHeadersPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-      <div className="border-b border-slate-200 bg-slate-50 px-4 py-2 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
+    <div className="rounded-xl border border-line-1">
+      <div className="border-b border-line-1 bg-surface-200/50 px-4 py-2">
         <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Response Headers</h3>
       </div>
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -361,25 +361,22 @@ function TechPanel({ data }: { data: ScanData }) {
         <Section key={cat} title={cat}>
           <div className="space-y-2">
             {techs.map((t) => (
-              <div
-                key={t.name}
-                className="flex items-center justify-between rounded bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300)/0.5)]"
-              >
+              <div key={t.name} className="flex items-center justify-between rounded bg-surface-200/50 px-3 py-2">
                 <span className="text-sm font-medium text-slate-900 dark:text-white">{t.name}</span>
-                <span className="text-xs text-slate-500">{t.confidence}% confidence</span>
+                <span className="text-xs text-muted">{t.confidence}% confidence</span>
               </div>
             ))}
           </div>
         </Section>
       ))}
-      {data.technologies.length === 0 && <p className="text-sm text-slate-500">No technologies detected</p>}
+      {data.technologies.length === 0 && <p className="text-sm text-muted">No technologies detected</p>}
     </div>
   );
 }
 
 function JsPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-line-1">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.js_files.map((f) => (
           <div key={f.url} className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -388,7 +385,7 @@ function JsPanel({ data }: { data: ScanData }) {
             <ExternalLink className="ml-auto h-3.5 w-3.5 shrink-0 text-muted" />
           </div>
         ))}
-        {data.js_files.length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No JS files found</div>}
+        {data.js_files.length === 0 && <div className="px-4 py-3 text-sm text-muted">No JS files found</div>}
       </div>
     </div>
   );
@@ -400,7 +397,7 @@ function ApiPathsPanel({ data }: { data: ScanData }) {
 
 function EndpointsPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-line-1">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.endpoints.map((ep, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -410,7 +407,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
                   ? 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-400'
                   : ep.method === 'POST'
                     ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-                    : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-muted'
+                    : 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-muted'
               }`}
             >
               {ep.method}
@@ -419,7 +416,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
             <span className="ml-auto shrink-0 text-xs text-muted">{ep.type}</span>
           </div>
         ))}
-        {data.endpoints.length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No endpoints found</div>}
+        {data.endpoints.length === 0 && <div className="px-4 py-3 text-sm text-muted">No endpoints found</div>}
       </div>
     </div>
   );
@@ -441,7 +438,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
   const sec = data.security;
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
+      <div className="rounded-xl border border-line-1 bg-surface-200/50 p-4">
         <h3 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">Security Score</h3>
         <SecurityScore score={sec.score} />
       </div>
@@ -467,7 +464,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
                 <X className="h-4 w-4 shrink-0 text-rose-500" />
               )}
               <span className="font-mono text-body">{key}</span>
-              {value && <span className="ml-auto truncate text-xs text-slate-500">{value}</span>}
+              {value && <span className="ml-auto truncate text-xs text-muted">{value}</span>}
             </div>
           ))}
         </div>
@@ -478,7 +475,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
 
 function VulnerabilitiesPanel({ data }: { data: ScanData }) {
   const vulns = data.vulnerabilities ?? [];
-  if (vulns.length === 0) return <p className="text-sm text-slate-500">No vulnerabilities detected</p>;
+  if (vulns.length === 0) return <p className="text-sm text-muted">No vulnerabilities detected</p>;
   const sevColor = (s: string) =>
     s === 'critical'
       ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400'
@@ -490,7 +487,7 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
   return (
     <div className="space-y-2">
       {vulns.map((v, i) => (
-        <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-[rgb(var(--border-400))]">
+        <div key={i} className="rounded-xl border border-line-1 p-3">
           <div className="flex items-center gap-2">
             <span
               className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-bold ${sevColor(v.severity)}`}
@@ -528,17 +525,17 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
     { label: 'Sitemap URLs', items: data.sitemap_urls },
   ];
   const hasAny = sections.some((s) => (s.items?.length ?? 0) > 0);
-  if (!hasAny) return <p className="text-sm text-slate-500">No attack surface findings from deep crawl</p>;
+  if (!hasAny) return <p className="text-sm text-muted">No attack surface findings from deep crawl</p>;
   return (
     <div className="space-y-4">
       {sections.map((section) => {
         const items = section.items ?? [];
         if (items.length === 0) return null;
         return (
-          <div key={section.label} className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2 dark:border-line-1">
+          <div key={section.label} className="rounded-xl border border-line-1">
+            <div className="flex items-center gap-2 border-b border-line-1 px-4 py-2">
               <span className="text-sm font-semibold text-slate-900 dark:text-white">{section.label}</span>
-              <span className="ml-auto rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted">
+              <span className="ml-auto rounded bg-surface-300 px-1.5 py-0.5 text-xs font-mono text-muted">
                 {items.length}
               </span>
             </div>
@@ -548,7 +545,7 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
                   {item}
                 </div>
               ))}
-              {items.length > 20 && <div className="px-4 py-2 text-xs text-slate-500">+{items.length - 20} more</div>}
+              {items.length > 20 && <div className="px-4 py-2 text-xs text-muted">+{items.length - 20} more</div>}
             </div>
           </div>
         );
@@ -559,7 +556,7 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
 
 function MetaPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-line-1">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {Object.entries(data.meta).map(([key, value]) => (
           <div key={key} className="flex gap-4 px-4 py-2 text-sm">
@@ -567,7 +564,7 @@ function MetaPanel({ data }: { data: ScanData }) {
             <span className="break-all text-slate-900 dark:text-slate-200">{value}</span>
           </div>
         ))}
-        {Object.keys(data.meta).length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No meta tags</div>}
+        {Object.keys(data.meta).length === 0 && <div className="px-4 py-3 text-sm text-muted">No meta tags</div>}
       </div>
     </div>
   );
@@ -578,13 +575,11 @@ function FormsPanel({ data }: { data: ScanData }) {
     <div className="space-y-4">
       {data.forms.length > 0 ? (
         data.forms.map((form, i) => (
-          <div key={i} className="rounded-xl border border-slate-200 p-4 dark:border-[rgb(var(--border-400))]">
+          <div key={i} className="rounded-xl border border-line-1 p-4">
             <div className="mb-2 flex items-center gap-2 text-sm">
               <span className="font-semibold text-slate-900 dark:text-white">Form {i + 1}</span>
-              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted">
-                {form.method}
-              </span>
-              {form.action && <span className="text-xs text-slate-500">→ {form.action}</span>}
+              <span className="rounded bg-surface-300 px-1.5 py-0.5 text-xs font-mono text-muted">{form.method}</span>
+              {form.action && <span className="text-xs text-muted">→ {form.action}</span>}
             </div>
             {form.inputs.length > 0 && (
               <div className="mt-2 space-y-1">
@@ -599,7 +594,7 @@ function FormsPanel({ data }: { data: ScanData }) {
           </div>
         ))
       ) : (
-        <p className="text-sm text-slate-500">No forms found</p>
+        <p className="text-sm text-muted">No forms found</p>
       )}
     </div>
   );
@@ -609,42 +604,39 @@ function ImagesPanel({ data }: { data: ScanData }) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
       {data.images.map((img, i) => (
-        <div
-          key={i}
-          className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]"
-        >
-          <div className="flex h-24 items-center justify-center bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+        <div key={i} className="overflow-hidden rounded-xl border border-line-1">
+          <div className="flex h-24 items-center justify-center bg-surface-300">
             <Image className="h-8 w-8 text-slate-300 dark:text-muted" />
           </div>
           <div className="p-2">
             <p className="truncate text-xs text-muted" title={img.src}>
               {img.src}
             </p>
-            {img.alt && <p className="truncate text-xs text-slate-500">{img.alt}</p>}
+            {img.alt && <p className="truncate text-xs text-muted">{img.alt}</p>}
           </div>
         </div>
       ))}
-      {data.images.length === 0 && <p className="col-span-full text-sm text-slate-500">No images found</p>}
+      {data.images.length === 0 && <p className="col-span-full text-sm text-muted">No images found</p>}
     </div>
   );
 }
 
 function LinksPanel({ data }: { data: ScanData }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-line-1">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.links.slice(0, 200).map((link, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2 text-sm">
             <Link2 className="h-4 w-4 shrink-0 text-muted" />
             <span className="truncate text-body">{link.text || link.href}</span>
             {link.rel && (
-              <span className="ml-auto shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
+              <span className="ml-auto shrink-0 rounded bg-surface-300 px-1.5 py-0.5 text-micro text-muted">
                 {link.rel}
               </span>
             )}
           </div>
         ))}
-        {data.links.length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No links</div>}
+        {data.links.length === 0 && <div className="px-4 py-3 text-sm text-muted">No links</div>}
       </div>
     </div>
   );
@@ -652,9 +644,9 @@ function LinksPanel({ data }: { data: ScanData }) {
 
 function AwsAssetsPanel({ data }: { data: ScanData }) {
   const assets = data.aws_assets ?? [];
-  if (assets.length === 0) return <p className="text-sm text-slate-500">No AWS assets found</p>;
+  if (assets.length === 0) return <p className="text-sm text-muted">No AWS assets found</p>;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="rounded-xl border border-line-1">
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {assets.map((a, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2.5 text-sm">
@@ -881,10 +873,10 @@ export default function ScanResults() {
 
   return (
     <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-6 px-4 py-6">
-      <nav className="flex items-center gap-2 text-sm text-slate-500">
+      <nav className="flex items-center gap-2 text-sm text-muted">
         <Link
           to="/radar"
-          className="flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-muted dark:hover:bg-[rgb(var(--surface-300))]"
+          className="flex h-7 w-7 items-center justify-center rounded border border-line-1 bg-surface-100 text-muted transition-colors hover:bg-surface-200 dark:hover:bg-surface-300"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
         </Link>
@@ -895,7 +887,7 @@ export default function ScanResults() {
         <span className="truncate text-slate-900 dark:text-white">{data.target}</span>
       </nav>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+      <div className="rounded-xl border border-line-1 bg-surface-100 p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-2">
@@ -925,8 +917,8 @@ export default function ScanResults() {
 
       <div className="flex flex-col gap-4 lg:flex-row">
         <aside className="w-full shrink-0 lg:w-[260px]">
-          <div className="sticky top-20 max-h-[calc(100vh-120px)] overflow-y-auto rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-            <div className="flex border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="sticky top-20 max-h-[calc(100vh-120px)] overflow-y-auto rounded-xl border border-line-1 bg-surface-100">
+            <div className="flex border-b border-line-1">
               <button
                 onClick={() => {
                   setActiveTab('recon');
@@ -964,14 +956,14 @@ export default function ScanResults() {
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategory(cat.id)}
-                      className={`flex items-center justify-between rounded px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-muted dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}`}
+                      className={`flex items-center justify-between rounded px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-muted dark:hover:bg-surface-300/50'}`}
                     >
                       <span className="flex items-center gap-2">
                         <Icon className="h-4 w-4" />
                         {cat.label}
                       </span>
                       {count > 0 && (
-                        <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-micro font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted">
+                        <span className="rounded-full bg-surface-300 px-1.5 py-0.5 text-micro font-semibold text-muted">
                           {count}
                         </span>
                       )}
@@ -983,9 +975,7 @@ export default function ScanResults() {
           </div>
         </aside>
         <main className="min-w-0 flex-1">
-          <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-            {renderPanel()}
-          </div>
+          <div className="rounded-xl border border-line-1 bg-surface-100 p-5">{renderPanel()}</div>
         </main>
       </div>
     </div>

@@ -674,7 +674,7 @@ export default function Tracepulse(): JSX.Element {
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
           CVE and campaign-tied detection query packs - deploy as soon as a new CVE drops or campaign goes active.
-          <span className="text-slate-500">
+          <span className="text-muted">
             {' '}
             {QUERY_PACKS.length} query packs · {QUERY_PACKS.reduce((s, p) => s + p.queries.length, 0)} queries across
             KQL · Sigma · XQL · SPL
@@ -683,7 +683,7 @@ export default function Tracepulse(): JSX.Element {
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-1 mb-5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-0">
+      <div className="flex flex-wrap gap-1 mb-5 border-b border-line-1 pb-0">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -706,7 +706,7 @@ export default function Tracepulse(): JSX.Element {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by CVE, campaign, actor, technique…"
-          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 h-10 bg-surface-200 border border-line-1 rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -719,14 +719,14 @@ export default function Tracepulse(): JSX.Element {
       {filteredPacks.length === 0 ? (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
           <AlertTriangle size={24} className="mx-auto mb-2 text-muted" />
-          <p className="text-sm text-slate-500">No query packs match your filter.</p>
+          <p className="text-sm text-muted">No query packs match your filter.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {filteredPacks.map((pack) => (
             <div key={pack.id} className="surface-card/40 shadow-e1 overflow-hidden">
               {/* Header */}
-              <div className="p-5 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+              <div className="p-5 border-b border-line-1">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -762,7 +762,7 @@ export default function Tracepulse(): JSX.Element {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => setExpandedPack(expandedPack === pack.id ? null : pack.id)}
-                      className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30 transition-colors"
+                      className="text-xs font-mono px-2 py-1 rounded border border-line-1 text-muted hover:border-brand-500/30 transition-colors"
                     >
                       {expandedPack === pack.id ? 'Collapse' : 'Expand'}
                     </button>
@@ -775,10 +775,7 @@ export default function Tracepulse(): JSX.Element {
                 {/* Products + Techniques */}
                 <div className="flex flex-wrap gap-1.5 mt-2">
                   {pack.affectedProducts.map((p) => (
-                    <span
-                      key={p}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                    >
+                    <span key={p} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                       {p}
                     </span>
                   ))}
@@ -803,7 +800,7 @@ export default function Tracepulse(): JSX.Element {
                     <div key={i}>
                       <button
                         onClick={() => setExpandedQuery(expandedQuery === `${pack.id}-${i}` ? null : `${pack.id}-${i}`)}
-                        className="w-full flex items-center justify-between px-5 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
+                        className="w-full flex items-center justify-between px-5 py-2.5 text-left hover:bg-surface-200 dark:hover:bg-surface-200/20 transition-colors"
                       >
                         <div className="flex items-center gap-2">
                           <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${LANG_COLORS[q.lang]}`}>
@@ -814,7 +811,7 @@ export default function Tracepulse(): JSX.Element {
                         <CopyButton value={q.code} />
                       </button>
                       {expandedQuery === `${pack.id}-${i}` && (
-                        <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] px-5 py-4 overflow-x-auto text-xs text-body font-mono border-t border-slate-100 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+                        <pre className="bg-surface-200 px-5 py-4 overflow-x-auto text-xs text-body font-mono border-t border-line-1 whitespace-pre-wrap">
                           {q.code}
                         </pre>
                       )}

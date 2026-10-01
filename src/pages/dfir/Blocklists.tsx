@@ -170,12 +170,12 @@ export default function BlocklistsPage(): JSX.Element {
         <div className="flex items-center gap-3 text-sm font-mono">
           <Clock size={16} className="text-muted" />
           {loading ? (
-            <span className="text-slate-500">Loading…</span>
+            <span className="text-muted">Loading…</span>
           ) : error ? (
             <span className="text-rose-600 dark:text-rose-400">{error}</span>
           ) : meta ? (
             <span>
-              <span className="text-slate-500">Last updated: </span>
+              <span className="text-muted">Last updated: </span>
               <span className="text-heading">
                 {new Date(meta.generated_at).toLocaleDateString('en-US', {
                   weekday: 'short',
@@ -186,7 +186,7 @@ export default function BlocklistsPage(): JSX.Element {
                   minute: '2-digit',
                 })}
               </span>
-              <span className="ml-3 text-slate-500">·</span>
+              <span className="ml-3 text-muted">·</span>
               <span className="ml-3 text-heading font-semibold">{meta.ip_count.toLocaleString()} IPs</span>
               {meta.source === 'kv' && (
                 <span className="ml-2 text-micro uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
@@ -200,7 +200,7 @@ export default function BlocklistsPage(): JSX.Element {
           type="button"
           onClick={() => void handleRefresh()}
           disabled={refreshing}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-1 hover:bg-surface-300 dark:hover:bg-surface-300 font-mono text-xs disabled:opacity-50"
         >
           <RefreshCw size={12} className={refreshing ? 'animate-spin' : ''} />
           {refreshing ? 'Refreshing…' : 'Refresh now'}
@@ -215,7 +215,7 @@ export default function BlocklistsPage(): JSX.Element {
               <fmt.icon size={18} className="text-brand-600 dark:text-brand-400" />
               <h3 className="font-display font-semibold text-heading">{fmt.label}</h3>
             </div>
-            <p className="text-xs text-slate-500 mb-4 flex-1">{fmt.desc}</p>
+            <p className="text-xs text-muted mb-4 flex-1">{fmt.desc}</p>
             <div className="flex gap-2">
               <button
                 type="button"
@@ -227,7 +227,7 @@ export default function BlocklistsPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyFormat(fmt.key)}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-line-1 hover:bg-surface-300 dark:hover:bg-surface-300 font-mono text-xs"
               >
                 {copiedKey === fmt.key ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
               </button>
@@ -260,30 +260,19 @@ export default function BlocklistsPage(): JSX.Element {
           </p>
           <p>
             <span className="text-brand-600 dark:text-brand-400">iptables:</span> Run{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+            <code className="px-1 py-0.5 rounded bg-surface-300">
               chmod +x blocklist-iptables.sh &amp;&amp; sudo ./blocklist-iptables.sh
             </code>
           </p>
           <p>
             <span className="text-brand-600 dark:text-brand-400">Suricata:</span> Place the rules file in{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
-              /etc/suricata/rules/
-            </code>{' '}
-            and add it to your suricata.yaml.
+            <code className="px-1 py-0.5 rounded bg-surface-300">/etc/suricata/rules/</code> and add it to your
+            suricata.yaml.
           </p>
           <p className="text-micro text-muted mt-2">
-            API endpoints:{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
-              /api/v1/blocklists/pfsense
-            </code>
-            ,{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
-              /api/v1/blocklists/iptables
-            </code>
-            ,{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
-              /api/v1/blocklists/suricata
-            </code>
+            API endpoints: <code className="px-1 py-0.5 rounded bg-surface-300">/api/v1/blocklists/pfsense</code>,{' '}
+            <code className="px-1 py-0.5 rounded bg-surface-300">/api/v1/blocklists/iptables</code>,{' '}
+            <code className="px-1 py-0.5 rounded bg-surface-300">/api/v1/blocklists/suricata</code>
           </p>
         </div>
       </div>
@@ -323,7 +312,7 @@ function FormatPreview({ label, url, maxLines }: { label: string; url: string; m
         {show ? '▼' : '▶'} {label}
       </button>
       {show && preview && (
-        <pre className="text-micro font-mono text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <pre className="text-micro font-mono text-body bg-surface-200 rounded p-2 overflow-x-auto border border-line-1">
           {preview}
         </pre>
       )}

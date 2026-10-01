@@ -179,7 +179,7 @@ export default function AiSecurityHub(): JSX.Element {
               <Link
                 key={key}
                 to={to}
-                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 hover:border-rose-500/50 transition-colors group"
+                className="rounded-xl border border-line-1 bg-surface-100/50 p-4 hover:border-rose-500/50 transition-colors group"
               >
                 <div className="flex items-center justify-between gap-2">
                   <h3 className="flex items-center gap-2 text-sm font-bold text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400">

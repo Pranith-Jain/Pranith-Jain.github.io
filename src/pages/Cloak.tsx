@@ -69,7 +69,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
     <Modal open onClose={onClose} title={body.name} size="lg">
       <div className="space-y-4 max-h-[70vh] overflow-y-auto">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
+          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-line-2 text-body">
             T{body.id}
           </span>
           <span className="font-mono text-micro px-2 py-0.5 rounded border border-indigo-300 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40">
@@ -90,12 +90,9 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
             </div>
             <div className="space-y-3">
               {body.subtechniques.map((sub) => (
-                <div
-                  key={sub.id}
-                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3"
-                >
+                <div key={sub.id} className="border border-line-1 rounded-lg p-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-mono text-micro font-bold text-slate-500">ST{sub.id}</span>
+                    <span className="font-mono text-micro font-bold text-muted">ST{sub.id}</span>
                     <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{sub.name}</span>
                     {sub.type && (
                       <span
@@ -110,7 +107,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
                     <div className="space-y-1">
                       {sub.procedures.map((p) => (
                         <div key={p.id} className="flex items-start gap-2 text-micro">
-                          <span className="font-mono text-slate-400 shrink-0">{p.id}</span>
+                          <span className="font-mono text-muted shrink-0">{p.id}</span>
                           <span className="text-body">{p.name}</span>
                         </div>
                       ))}
@@ -130,7 +127,7 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
             <div className="space-y-1">
               {body.procedures.map((p) => (
                 <div key={p.id} className="flex items-start gap-2 text-micro">
-                  <span className="font-mono text-slate-400 shrink-0">{p.id}</span>
+                  <span className="font-mono text-muted shrink-0">{p.id}</span>
                   <span className="text-body">{p.name}</span>
                 </div>
               ))}
@@ -227,19 +224,19 @@ export default function Cloak() {
     >
       <div className="mb-6 flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search tactics or techniques..."
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-line-1 bg-surface-100 text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-heading"
+          className="px-3 py-2 text-sm rounded-lg border border-line-1 bg-surface-100 text-heading"
         >
           <option value="">All types</option>
           <option value="Technical">Technical</option>
@@ -253,16 +250,16 @@ export default function Cloak() {
           <div key={tactic.id} className={`${CARD} overflow-hidden`}>
             <button
               onClick={() => loadTactic(tactic.id)}
-              className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-surface-200 dark:hover:bg-wash transition-colors"
             >
               {expandedTactic === tactic.id ? (
-                <ChevronDown size={16} className="text-slate-400 shrink-0" />
+                <ChevronDown size={16} className="text-muted shrink-0" />
               ) : (
-                <ChevronRight size={16} className="text-slate-400 shrink-0" />
+                <ChevronRight size={16} className="text-muted shrink-0" />
               )}
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">{tactic.name}</div>
-                <div className="text-micro text-slate-500">
+                <div className="text-micro text-muted">
                   {tactic.techniqueCount} techniques · {tactic.subtechniqueCount} sub-techniques ·{' '}
                   {tactic.procedureCount} procedures
                 </div>
@@ -270,16 +267,16 @@ export default function Cloak() {
             </button>
 
             {expandedTactic === tactic.id && tacticData && (
-              <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3">
+              <div className="border-t border-line-1 px-4 py-3">
                 <p className="text-xs text-muted mb-3">{tacticData.description}</p>
                 <div className="space-y-1.5">
                   {filteredTechniques.map((tech) => (
                     <button
                       key={tech.id}
                       onClick={() => loadTechnique(tech.id)}
-                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors text-left"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-200 hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors text-left"
                     >
-                      <span className="font-mono text-micro text-slate-400 shrink-0">T{tech.id}</span>
+                      <span className="font-mono text-micro text-muted shrink-0">T{tech.id}</span>
                       <span className="text-sm text-body flex-1">{tech.name}</span>
                       {tech.type && (
                         <span
@@ -288,7 +285,7 @@ export default function Cloak() {
                           {tech.type}
                         </span>
                       )}
-                      <span className="text-micro text-slate-400 shrink-0">
+                      <span className="text-micro text-muted shrink-0">
                         {tech.subCount} sub · {tech.procCount} proc
                       </span>
                     </button>

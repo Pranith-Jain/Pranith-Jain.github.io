@@ -129,14 +129,12 @@ export default function OsintDirectory(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {data && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
-              {data.count} portals
-            </span>
+            <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">{data.count} portals</span>
           )}
         </div>
       }
@@ -157,7 +155,7 @@ export default function OsintDirectory(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} portals\u2026`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex gap-2">
@@ -169,7 +167,7 @@ export default function OsintDirectory(): JSX.Element {
                     className={`text-mini font-mono rounded border px-2.5 py-1 transition-colors ${
                       freeFilter === v
                         ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                     }`}
                   >
                     {v === 'all' ? 'all' : v}
@@ -184,7 +182,7 @@ export default function OsintDirectory(): JSX.Element {
                 className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                   categoryFilter === null
                     ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                 }`}
               >
                 all
@@ -197,7 +195,7 @@ export default function OsintDirectory(): JSX.Element {
                   className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                     categoryFilter === cat
                       ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   {CATEGORY_LABELS[cat] ?? cat}
@@ -213,8 +211,8 @@ export default function OsintDirectory(): JSX.Element {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400" />
+            <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
+              <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No portals match{query ? ` "${query}"` : ''}
               {categoryFilter ? ` in ${CATEGORY_LABELS[categoryFilter] ?? categoryFilter}` : ''}
               {freeFilter !== 'all' ? ` (${freeFilter})` : ''}.
@@ -247,7 +245,7 @@ function PortalCard({ portal }: { portal: OsintPortalEntry }) {
     'bg-slate-100 dark:bg-slate-500/10 text-slate-700 dark:text-muted border-line-1';
 
   return (
-    <div className="surface-card p-4 flex flex-col hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors">
+    <div className="surface-card p-4 flex flex-col hover:border-line-2 dark:hover:border-line-1 transition-colors">
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
@@ -279,7 +277,7 @@ function PortalCard({ portal }: { portal: OsintPortalEntry }) {
           {portal.isFree ? 'free' : 'paid'}
         </span>
         {portal.requiresRegistration && (
-          <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 text-muted">
+          <span className="text-micro font-mono rounded-full border border-line-2 bg-surface-200 px-2 py-0.5 text-muted">
             register
           </span>
         )}
@@ -294,7 +292,7 @@ function PortalCard({ portal }: { portal: OsintPortalEntry }) {
           {portal.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="text-micro font-mono rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-1.5 py-0.5 text-muted"
+              className="text-micro font-mono rounded-full border border-line-1 bg-surface-200 px-1.5 py-0.5 text-muted"
             >
               {tag}
             </span>

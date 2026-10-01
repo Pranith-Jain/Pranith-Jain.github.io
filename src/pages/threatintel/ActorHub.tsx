@@ -44,10 +44,7 @@ export default function ActorHub(): JSX.Element {
       title="Actor Hub"
       description="Threat actor intelligence - directory, timelines, DNA, usernames, profiles, and relationship graphs."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="Actor Hub"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="Actor Hub">
         {TABS.map((t) => (
           <button
             key={t.id}

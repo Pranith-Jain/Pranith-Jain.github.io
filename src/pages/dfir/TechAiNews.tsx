@@ -245,13 +245,13 @@ export default function TechAiNews(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title or description - e.g. wiz, snyk, gpt-5, $100m, anthropic"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Tech & AI News"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -264,7 +264,7 @@ export default function TechAiNews(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               activeSection === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All <span className="opacity-60">· {sectionCounts.all ?? 0}</span>
@@ -276,7 +276,7 @@ export default function TechAiNews(): JSX.Element {
               className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                 activeSection === sec.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
               }`}
             >
               {sec.label} <span className="opacity-60">· {sectionCounts[sec.id] ?? 0}</span>
@@ -287,7 +287,7 @@ export default function TechAiNews(): JSX.Element {
             className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
               showSourcePanel
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
             aria-pressed={showSourcePanel}
           >
@@ -299,7 +299,7 @@ export default function TechAiNews(): JSX.Element {
           <button
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'fetching' : 'refresh'}
@@ -307,7 +307,7 @@ export default function TechAiNews(): JSX.Element {
         </div>
 
         {activeSection !== 'all' && (
-          <p className="text-mini font-mono text-slate-400">
+          <p className="text-mini font-mono text-muted">
             <span className="text-body">{SECTIONS.find((s) => s.id === activeSection)?.label}:</span>{' '}
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
@@ -339,7 +339,7 @@ export default function TechAiNews(): JSX.Element {
         </p>
       )}
 
-      <p className="text-mini font-mono text-slate-400 mb-3">
+      <p className="text-mini font-mono text-muted mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
         data
         {feedStatuses.filter((s) => !s.ok).length > 0 && (
@@ -360,7 +360,7 @@ export default function TechAiNews(): JSX.Element {
         {annotated.slice(0, 200).map(({ item, section }) => (
           <li
             key={item.link ?? `${item.title}-${item.pubDate}`}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
+            className="rounded border border-line-1 bg-surface-100 p-3"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
               <a
@@ -372,12 +372,12 @@ export default function TechAiNews(): JSX.Element {
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>
               <span
-                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-line-1 text-slate-500'}`}
               >
                 {section}
               </span>
             </div>
-            <div className="text-mini font-mono text-slate-400 mb-1">
+            <div className="text-mini font-mono text-muted mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>

@@ -193,7 +193,7 @@ export default function Orkl(): JSX.Element {
 
       <button
         onClick={loadInfo}
-        className="mb-6 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+        className="mb-6 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
       >
         {showInfo && info ? 'hide' : 'show'} library stats
       </button>
@@ -209,7 +209,7 @@ export default function Orkl(): JSX.Element {
           ].map((s) => (
             <div key={s.label}>
               <div className="text-2xl font-bold text-heading">{s.value}</div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mt-0.5">{s.label}</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-muted mt-0.5">{s.label}</div>
             </div>
           ))}
         </div>
@@ -227,7 +227,7 @@ export default function Orkl(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search threat reports, actors, CVEs…"
-          className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           aria-label="Search ORKL library"
         />
         <button
@@ -241,7 +241,7 @@ export default function Orkl(): JSX.Element {
 
       <DataState loading={loading} error={error} empty={false} rows={4}>
         {results !== null && results.length === 0 && !loading && (
-          <p className="font-mono text-sm text-slate-500 py-8 text-center">No results for &ldquo;{query}&rdquo;</p>
+          <p className="font-mono text-sm text-muted py-8 text-center">No results for &ldquo;{query}&rdquo;</p>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -269,13 +269,13 @@ export default function Orkl(): JSX.Element {
                   className={`w-full text-left rounded-xl border p-3 transition-colors ${
                     selected?.id === entry.id
                       ? 'border-brand-500/50 bg-brand-500/10'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-slate-300 dark:hover:border-slate-600'
+                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-slate-300 dark:hover:border-slate-600'
                   }`}
                 >
                   <div className="text-sm font-semibold text-heading leading-snug line-clamp-2">
                     {entry.llm_title || entry.title || 'Untitled'}
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5 text-mini font-mono text-slate-500">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5 text-mini font-mono text-muted">
                     {entry.authors && (
                       <span className="inline-flex items-center gap-1">
                         <User size={10} /> {entry.authors}
@@ -312,37 +312,37 @@ export default function Orkl(): JSX.Element {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4 text-mini font-mono">
                   {selected.authors && (
                     <div>
-                      <span className="text-slate-500">Authors</span>
+                      <span className="text-muted">Authors</span>
                       <div className="text-body">{selected.authors}</div>
                     </div>
                   )}
                   {selected.file_creation_date && (
                     <div>
-                      <span className="text-slate-500">Published</span>
+                      <span className="text-muted">Published</span>
                       <div className="text-body">{formatDate(selected.file_creation_date)}</div>
                     </div>
                   )}
                   {selected.language && (
                     <div>
-                      <span className="text-slate-500">Language</span>
+                      <span className="text-muted">Language</span>
                       <div className="text-body uppercase">{selected.language}</div>
                     </div>
                   )}
                   {selected.file_size != null && (
                     <div>
-                      <span className="text-slate-500">File Size</span>
+                      <span className="text-muted">File Size</span>
                       <div className="text-body">{formatBytes(selected.file_size)}</div>
                     </div>
                   )}
                   {selected.extraction_quality != null && (
                     <div>
-                      <span className="text-slate-500">Extraction</span>
+                      <span className="text-muted">Extraction</span>
                       <div className="text-body">{Math.round(selected.extraction_quality * 100)}%</div>
                     </div>
                   )}
                   {selected.sources && selected.sources.length > 0 && (
                     <div>
-                      <span className="text-slate-500">Sources</span>
+                      <span className="text-muted">Sources</span>
                       <div className="text-body truncate" title={selected.sources.join(', ')}>
                         {selected.sources.join(', ')}
                       </div>
@@ -371,7 +371,7 @@ export default function Orkl(): JSX.Element {
                       href={selected.files.pdf}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-line-1 text-muted hover:border-brand-500/40 transition-colors"
                     >
                       <FileText size={11} /> PDF
                     </a>
@@ -381,7 +381,7 @@ export default function Orkl(): JSX.Element {
                       href={selected.references[0]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-line-1 text-muted hover:border-brand-500/40 transition-colors"
                     >
                       <Globe size={11} /> Source
                     </a>
@@ -395,7 +395,7 @@ export default function Orkl(): JSX.Element {
                   Full Text
                 </h3>
                 {detailLoading ? (
-                  <div className="flex items-center gap-2 text-sm text-slate-500">
+                  <div className="flex items-center gap-2 text-sm text-muted">
                     <Loader2 size={14} className="animate-spin" /> Loading…
                   </div>
                 ) : selected.plain_text ? (
@@ -403,7 +403,7 @@ export default function Orkl(): JSX.Element {
                     {selected.plain_text}
                   </div>
                 ) : (
-                  <p className="text-sm text-slate-500">No plain-text content available.</p>
+                  <p className="text-sm text-muted">No plain-text content available.</p>
                 )}
               </div>
             </div>

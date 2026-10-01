@@ -154,7 +154,7 @@ export function ThreatAnalysisPanel({
   return (
     <div className="relative surface-card animate-fade-in overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-line-1 hover:bg-surface-200 dark:hover:bg-wash transition-colors">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
             <Brain size={16} className="text-brand-600 dark:text-brand-400" />
@@ -168,7 +168,7 @@ export function ThreatAnalysisPanel({
                 </span>
               )}
             </div>
-            <p className="text-micro text-slate-500 mt-0.5">{title}</p>
+            <p className="text-micro text-muted mt-0.5">{title}</p>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
@@ -176,7 +176,7 @@ export function ThreatAnalysisPanel({
             type="button"
             onClick={() => fetchAnalysis()}
             disabled={loading}
-            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
             title="Re-analyze"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -184,7 +184,7 @@ export function ThreatAnalysisPanel({
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
           >
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
@@ -192,7 +192,7 @@ export function ThreatAnalysisPanel({
             aria-label="Close"
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-300 transition-colors"
           >
             <X size={14} />
           </button>
@@ -263,28 +263,28 @@ function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
           <Shield size={12} />
           {analysis.threat_level?.toUpperCase()}
         </span>
-        <span className="text-micro font-mono text-slate-500">confidence: {analysis.confidence}</span>
+        <span className="text-micro font-mono text-muted">confidence: {analysis.confidence}</span>
       </div>
 
       <p className="text-sm text-body leading-relaxed">{analysis.summary}</p>
 
       {analysis.impact && (
-        <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
-          <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Impact</span>
+        <div className="rounded-xl bg-surface-300/50 p-3">
+          <span className="text-micro font-mono uppercase text-muted block mb-1">Impact</span>
           <p className="text-xs text-muted">{analysis.impact}</p>
         </div>
       )}
 
       {analysis.context && (
-        <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
-          <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Context</span>
+        <div className="rounded-xl bg-surface-300/50 p-3">
+          <span className="text-micro font-mono uppercase text-muted block mb-1">Context</span>
           <p className="text-xs text-muted">{analysis.context}</p>
         </div>
       )}
 
       {analysis.recommended_actions?.length > 0 && (
         <div>
-          <span className="text-micro font-mono uppercase text-slate-500 block mb-1.5">Recommended Actions</span>
+          <span className="text-micro font-mono uppercase text-muted block mb-1.5">Recommended Actions</span>
           <ul className="space-y-1">
             {analysis.recommended_actions.map((action, i) => (
               <li key={i} className="flex items-start gap-2 text-xs text-muted">
@@ -298,7 +298,7 @@ function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
 
       {analysis.related_ttps?.filter(Boolean).length > 0 && (
         <div>
-          <span className="text-micro font-mono uppercase text-slate-500 block mb-1.5">MITRE ATT&CK</span>
+          <span className="text-micro font-mono uppercase text-muted block mb-1.5">MITRE ATT&CK</span>
           <div className="flex flex-wrap gap-1.5">
             {analysis.related_ttps.filter(Boolean).map((ttp, i) => (
               <span
@@ -325,7 +325,7 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
           <AlertTriangle size={12} />
           {analysis.overall_threat_level?.toUpperCase()}
         </span>
-        <span className="text-micro font-mono text-slate-500">
+        <span className="text-micro font-mono text-muted">
           trend: {TREND_ICONS[analysis.trend] || '→'} {analysis.trend}
         </span>
       </div>
@@ -348,7 +348,7 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
 
       {analysis.active_conflicts?.length > 0 && (
         <div>
-          <span className="text-micro font-mono uppercase text-slate-500 block mb-1.5">Active Conflicts</span>
+          <span className="text-micro font-mono uppercase text-muted block mb-1.5">Active Conflicts</span>
           <div className="flex flex-wrap gap-1.5">
             {analysis.active_conflicts.map((c, i) => (
               <span
@@ -364,7 +364,7 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
 
       {analysis.key_actors?.length > 0 && (
         <div>
-          <span className="text-micro font-mono uppercase text-slate-500 block mb-1.5">Key Actors</span>
+          <span className="text-micro font-mono uppercase text-muted block mb-1.5">Key Actors</span>
           <div className="flex flex-wrap gap-1.5">
             {analysis.key_actors.map((a, i) => (
               <span
@@ -399,10 +399,10 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
           {analysis.risk_level?.toUpperCase()}
         </span>
         <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-500/10 text-muted">{analysis.type}</span>
-        <span className="text-micro font-mono text-slate-500">confidence: {analysis.confidence}</span>
+        <span className="text-micro font-mono text-muted">confidence: {analysis.confidence}</span>
       </div>
 
-      <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 font-mono text-xs text-slate-300 break-all">
+      <div className="rounded-xl bg-surface-300/50 p-3 font-mono text-xs text-slate-300 break-all">
         {analysis.indicator}
       </div>
 
@@ -417,7 +417,7 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
 
       {analysis.recommendedActions?.length > 0 && (
         <div>
-          <span className="text-micro font-mono uppercase text-slate-500 block mb-1.5">Recommended Actions</span>
+          <span className="text-micro font-mono uppercase text-muted block mb-1.5">Recommended Actions</span>
           <ul className="space-y-1">
             {analysis.recommendedActions.map((action, i) => (
               <li key={i} className="flex items-start gap-2 text-xs text-muted">

@@ -24,7 +24,7 @@ import type { InputHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes,
  * definition in src/index.css for the measured values in both themes.
  */
 const BASE_INPUT =
-  'w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-line-input rounded-xl text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 transition-colors';
+  'w-full px-4 py-3 bg-white dark:bg-surface-200 border border-line-input rounded-xl text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 transition-colors';
 
 const MONO = 'font-mono';
 

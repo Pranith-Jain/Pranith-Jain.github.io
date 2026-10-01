@@ -54,7 +54,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
     <div id={id} className="scroll-mt-28">
       <div className="flex items-baseline justify-between mb-4">
         <h3 className="text-xs font-bold uppercase tracking-wider text-muted">{title}</h3>
-        <span className="text-mini font-mono text-slate-500">{certs.length}</span>
+        <span className="text-mini font-mono text-muted">{certs.length}</span>
       </div>
       <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((cert) => (
@@ -74,7 +74,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-brand-600 dark:text-muted dark:hover:text-brand-400 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted hover:text-brand-600 dark:hover:text-brand-400 transition"
             aria-expanded={showAll}
           >
             {showAll ? (

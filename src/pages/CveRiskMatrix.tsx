@@ -109,7 +109,7 @@ export default function CveRiskMatrix() {
                 onClick={() => setDays(d)}
                 className={`font-mono text-micro font-bold px-2 py-0.5 rounded border transition-colors ${
                   days === d ? 'ring-1 ring-brand-500' : ''
-                } border-slate-300 dark:border-[rgb(var(--border-400))] text-muted`}
+                } border-line-2 dark:border-line-1 text-muted`}
               >
                 {d}d
               </button>
@@ -122,7 +122,7 @@ export default function CveRiskMatrix() {
                 onClick={() => setSort(s)}
                 className={`font-mono text-micro font-bold px-2 py-0.5 rounded border transition-colors ${
                   sort === s ? 'ring-1 ring-brand-500' : ''
-                } border-slate-300 dark:border-[rgb(var(--border-400))] text-muted`}
+                } border-line-2 dark:border-line-1 text-muted`}
               >
                 sort: {s}
               </button>
@@ -130,7 +130,7 @@ export default function CveRiskMatrix() {
           </div>
           <button
             onClick={refetch}
-            className="inline-flex items-center gap-1 font-mono text-micro px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 font-mono text-micro px-2 py-0.5 rounded border border-line-2 text-muted hover:border-brand-500/40"
           >
             <RefreshCw size={11} /> refresh
           </button>
@@ -151,7 +151,7 @@ export default function CveRiskMatrix() {
                 className={`text-left rounded-xl border p-3 transition-colors ${
                   quadrant === q
                     ? 'border-brand-500/60 bg-brand-500/5'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
@@ -160,13 +160,13 @@ export default function CveRiskMatrix() {
                   </span>
                   <span className="text-xs font-mono font-bold text-heading">{count}</span>
                 </div>
-                <div className="h-1 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1.5">
+                <div className="h-1 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-1.5">
                   <div
                     className={`h-full ${meta.bar}`}
                     style={{ width: `${Math.max(2, (count / Math.max(1, data?.count ?? 1)) * 100)}%` }}
                   />
                 </div>
-                <p className="text-micro font-mono text-slate-400 leading-relaxed">{meta.explainer}</p>
+                <p className="text-micro font-mono text-muted leading-relaxed">{meta.explainer}</p>
               </button>
             );
           })}
@@ -185,11 +185,11 @@ export default function CveRiskMatrix() {
               <span className="text-xs font-semibold text-muted uppercase tracking-wider">
                 Exploitation likelihood scatter — EPSS (x) vs CVSS (y)
               </span>
-              <span className="text-micro font-mono text-slate-400 ml-auto">
+              <span className="text-micro font-mono text-muted ml-auto">
                 {rows.filter((r) => r.epss != null || r.cvss != null).length} plotted
               </span>
             </div>
-            <div className="relative w-full h-64 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden">
+            <div className="relative w-full h-64 rounded-lg border border-line-1 bg-surface-200 overflow-hidden">
               {rows
                 .filter((r) => r.epss != null || r.cvss != null)
                 .map((r) => {
@@ -213,10 +213,10 @@ export default function CveRiskMatrix() {
                     />
                   );
                 })}
-              <div className="absolute inset-x-0 bottom-0.5 text-center text-micro font-mono text-slate-400">
+              <div className="absolute inset-x-0 bottom-0.5 text-center text-micro font-mono text-muted">
                 EPSS score → 100%
               </div>
-              <div className="absolute left-1 top-1/2 -translate-y-1/2 -rotate-90 text-micro font-mono text-slate-400">
+              <div className="absolute left-1 top-1/2 -translate-y-1/2 -rotate-90 text-micro font-mono text-muted">
                 CVSS → 10.0
               </div>
             </div>
@@ -227,7 +227,7 @@ export default function CveRiskMatrix() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-sm border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <tr className="border-b border-line-1">
                 <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">CVE</th>
                 <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">CTI Score</th>
                 <th className="py-2 pr-3 text-micro font-mono uppercase tracking-wider text-muted">Quadrant</th>
@@ -245,11 +245,11 @@ export default function CveRiskMatrix() {
                   <tr
                     key={r.id}
                     onClick={() => setDetailId(r.id)}
-                    className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] align-top cursor-pointer hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                    className="border-b border-line-1 align-top cursor-pointer hover:bg-surface-200 dark:hover:bg-surface-200 transition-colors"
                   >
                     <td className="py-2 pr-3">
                       <div className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">{r.id}</div>
-                      <div className="text-micro font-mono text-slate-400 max-w-[220px] truncate">{r.description}</div>
+                      <div className="text-micro font-mono text-muted max-w-[220px] truncate">{r.description}</div>
                     </td>
                     <td className="py-2 pr-3">
                       <span className="font-mono text-sm font-bold text-heading">{r.ctiScore}</span>
@@ -271,7 +271,7 @@ export default function CveRiskMatrix() {
                           {r.kevRansomware ? 'ransomware' : 'listed'}
                         </span>
                       ) : (
-                        <span className="text-micro font-mono text-slate-400">—</span>
+                        <span className="text-micro font-mono text-muted">—</span>
                       )}
                     </td>
                     <td className="py-2 pr-3 font-mono text-micro uppercase text-muted">{r.ssvc.decision}</td>
@@ -283,7 +283,7 @@ export default function CveRiskMatrix() {
           </table>
         </div>
 
-        <div className="text-center pt-4 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-4 pb-2 text-xs text-muted border-t border-line-1">
           Score = CVSS 30% + EPSS 35% + KEV/ransomware 25% + recency 10%. Weights mirror ThreadHub's prioritization
           approach; adjust to your environment's reality.
         </div>
@@ -298,7 +298,7 @@ export default function CveRiskMatrix() {
               >
                 {detail.quadrant} · CTI {detail.ctiScore}/100
               </span>
-              <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
+              <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-line-2 text-body">
                 SSVC: {detail.ssvc.decision}
               </span>
               {detail.reference && (
@@ -320,11 +320,8 @@ export default function CveRiskMatrix() {
                 ['EPSS pctile', detail.epssPercentile != null ? `${(detail.epssPercentile * 100).toFixed(1)}%` : '—'],
                 ['Recency', `${Math.round(detail.recencyScore * 100)}%`],
               ].map(([label, value]) => (
-                <div
-                  key={label}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                >
-                  <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">{label}</div>
+                <div key={label} className="rounded border border-line-1 bg-surface-200 p-3">
+                  <div className="text-micro font-mono uppercase tracking-wider text-muted mb-0.5">{label}</div>
                   <div className="font-mono text-sm font-bold text-heading">{value}</div>
                 </div>
               ))}

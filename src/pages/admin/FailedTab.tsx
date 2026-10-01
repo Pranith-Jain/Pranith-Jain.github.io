@@ -73,10 +73,7 @@ export default function FailedTab() {
     return (
       <div>
         <p className="text-rose-400 mb-2">Failed to load: {error}</p>
-        <button
-          onClick={() => void load()}
-          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
-        >
+        <button onClick={() => void load()} className="px-3 py-1 border border-line-1 rounded text-sm">
           Retry
         </button>
       </div>
@@ -106,7 +103,7 @@ export default function FailedTab() {
                 type="button"
                 onClick={() => void clearAll()}
                 disabled={busy !== null}
-                className="px-2.5 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                className="px-2.5 py-1 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
               >
                 {busy === '__all' ? 'Clearing…' : 'Clear all'}
               </button>
@@ -159,7 +156,7 @@ export default function FailedTab() {
                         <button
                           onClick={() => clearOne(f.slotId)}
                           disabled={busy === f.slotId}
-                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                          className="px-2 py-1 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
                         >
                           {busy === f.slotId ? '…' : 'Clear'}
                         </button>

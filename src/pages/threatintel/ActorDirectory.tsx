@@ -25,10 +25,7 @@ export default function ActorDirectory(): JSX.Element {
       title="Threat Actor Directory"
       description="Unified threat actor browser - platform database, MITRE ATT&CK intrusion sets, and MISP Galaxy clusters. Search across all sources."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="Actor sources"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="Actor sources">
         {TABS.map((t) => (
           <button
             key={t.id}

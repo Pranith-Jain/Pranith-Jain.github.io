@@ -39,15 +39,14 @@ const VERDICT_COLORS: Record<string, string> = {
   malicious: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/40',
   suspicious: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/40',
   clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40',
-  unknown:
-    'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
+  unknown: 'bg-slate-200 dark:bg-surface-300 text-muted border-slate-300 dark:border-line-1',
 };
 
 const PROVIDER_VERDICT_CHIP: Record<string, string> = {
   malicious: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
   suspicious: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
   clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
-  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted',
+  unknown: 'bg-slate-100 dark:bg-surface-300 text-muted',
 };
 
 const CONFIDENCE_COLORS: Record<string, string> = {
@@ -113,7 +112,7 @@ export default function ThreatHunt(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void doHunt()}
             placeholder="IP, domain, email, or hash..."
-            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-line-2 bg-surface-100 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             onClick={() => void doHunt()}
@@ -142,7 +141,7 @@ export default function ThreatHunt(): JSX.Element {
           {/* Verdict banner */}
           <div className={`rounded-xl border p-5 ${VERDICT_COLORS[comp.verdict]}`}>
             <div className="flex items-center gap-4 mb-3">
-              <span className="text-xs font-mono px-2 py-1 rounded bg-white/20 text-inherit uppercase">
+              <span className="text-xs font-mono px-2 py-1 rounded bg-surface-100/20 text-inherit uppercase">
                 {result.type}
               </span>
               <code className="text-sm font-mono font-semibold">{result.q}</code>
@@ -194,7 +193,7 @@ export default function ThreatHunt(): JSX.Element {
             }
           >
             {result.ioc_providers.hits.length === 0 ? (
-              <p className="text-xs font-mono text-slate-500 py-2">
+              <p className="text-xs font-mono text-muted py-2">
                 {result.ioc_providers.total_checked > 0
                   ? `Checked ${result.ioc_providers.total_checked} providers - no threat signals found`
                   : 'No IOC provider hits'}
@@ -202,10 +201,7 @@ export default function ThreatHunt(): JSX.Element {
             ) : (
               <div className="space-y-1">
                 {result.ioc_providers.hits.map((h) => (
-                  <div
-                    key={h.source}
-                    className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
-                  >
+                  <div key={h.source} className="px-3 py-2 rounded-xl bg-surface-200/50">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span
@@ -215,7 +211,7 @@ export default function ThreatHunt(): JSX.Element {
                         </span>
                         <span className="text-xs font-mono font-medium">{h.source}</span>
                       </div>
-                      <span className="text-xs font-mono text-slate-500">{h.score}/100</span>
+                      <span className="text-xs font-mono text-muted">{h.score}/100</span>
                     </div>
                     {h.description && (
                       <p className="text-mini font-mono text-muted mt-1 line-clamp-2">{h.description}</p>
@@ -223,10 +219,7 @@ export default function ThreatHunt(): JSX.Element {
                     {h.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-1.5">
                         {h.tags.slice(0, 6).map((t) => (
-                          <span
-                            key={t}
-                            className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
-                          >
+                          <span key={t} className="text-micro font-mono px-1 py-0.5 rounded bg-surface-300 text-muted">
                             {t}
                           </span>
                         ))}
@@ -241,14 +234,11 @@ export default function ThreatHunt(): JSX.Element {
           {/* Telegram Leaks */}
           <Section icon={<AlertTriangle size={14} />} title="Telegram Leaks" count={result.telegram_leaks.count}>
             {result.telegram_leaks.hits.length === 0 ? (
-              <p className="text-xs font-mono text-slate-500 py-2">No Telegram leak mentions</p>
+              <p className="text-xs font-mono text-muted py-2">No Telegram leak mentions</p>
             ) : (
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {result.telegram_leaks.hits.map((h) => (
-                  <div
-                    key={`${h.channel}-${h.date}`}
-                    className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
-                  >
+                  <div key={`${h.channel}-${h.date}`} className="px-3 py-2 rounded-xl bg-surface-200/50">
                     <p className="text-mini font-mono text-brand-600 dark:text-brand-400">{h.channel}</p>
                     <p className="text-xs font-mono text-muted mt-0.5 line-clamp-2">{h.message}</p>
                   </div>
@@ -260,11 +250,11 @@ export default function ThreatHunt(): JSX.Element {
           {/* Breach Data */}
           <Section icon={<FileText size={14} />} title="Breach Databases" count={result.breach_data.count}>
             {result.breach_data.hits.length === 0 ? (
-              <p className="text-xs font-mono text-slate-500 py-2">No breach records found</p>
+              <p className="text-xs font-mono text-muted py-2">No breach records found</p>
             ) : (
               <div className="space-y-1">
                 {result.breach_data.hits.map((b) => (
-                  <div key={b.name} className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]">
+                  <div key={b.name} className="px-3 py-2 rounded-xl bg-surface-200/50">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
                     {b.description && <p className="text-mini font-mono text-muted mt-0.5">{b.description}</p>}
                   </div>
@@ -279,7 +269,7 @@ export default function ThreatHunt(): JSX.Element {
               <div className="grid grid-cols-2 gap-2">
                 {Object.entries(result.whois).map(([k, v]) => (
                   <div key={k} className="text-xs font-mono">
-                    <span className="text-slate-500">{k.replace(/_/g, ' ')}: </span>
+                    <span className="text-muted">{k.replace(/_/g, ' ')}: </span>
                     <span className="text-heading">{String(v).slice(0, 60)}</span>
                   </div>
                 ))}
@@ -295,10 +285,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.cert_logs.recent.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
                     {result.cert_logs.recent.map((s) => (
-                      <span
-                        key={s}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]"
-                      >
+                      <span key={s} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300">
                         {s}
                       </span>
                     ))}
@@ -312,13 +299,13 @@ export default function ThreatHunt(): JSX.Element {
           <div className="flex flex-wrap gap-3 pt-2">
             <a
               href={`/dfir/ioc-investigate?indicator=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-line-1 text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Full IOC Check (streaming)
             </a>
             <a
               href={`/dfir/breach?q=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-line-1 text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Breach Deep Dive
             </a>
@@ -352,7 +339,7 @@ function Section({
   return (
     <div className="surface-card p-4">
       <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-1">
-        {icon} {title} {count > 0 && <span className="text-xs font-mono text-slate-500">({count})</span>}
+        {icon} {title} {count > 0 && <span className="text-xs font-mono text-muted">({count})</span>}
       </h2>
       {subtitle && <p className="text-mini font-mono text-muted mb-3">{subtitle}</p>}
       <div className={subtitle ? '' : 'mt-3'}>{children}</div>

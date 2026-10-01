@@ -156,7 +156,7 @@ export default function GithubAdvisories(): JSX.Element {
 
       {/* Severity filter pills */}
       <div className="flex flex-wrap items-center gap-1.5 mb-4">
-        <span className="text-xs text-slate-500 mr-1 font-mono">severity:</span>
+        <span className="text-xs text-muted mr-1 font-mono">severity:</span>
         {(['critical', 'high', 'medium', 'low'] as const).map((s) => {
           const active = sevFilter.has(s);
           const colors = SEVERITY_COLORS[s]!;
@@ -168,18 +168,18 @@ export default function GithubAdvisories(): JSX.Element {
               className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
                 active
                   ? `${colors.bg} ${colors.text} ${colors.border}`
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
               }`}
             >
               {s}
             </button>
           );
         })}
-        <span className="text-xs text-slate-500 ml-3 mr-1 font-mono">ecosystem:</span>
+        <span className="text-xs text-muted ml-3 mr-1 font-mono">ecosystem:</span>
         <select
           value={ecoFilter}
           onChange={(e) => setEcoFilter(e.target.value)}
-          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body focus:outline-none focus:border-rose-500"
+          className="px-2 py-1 rounded text-xs font-mono border border-line-2 bg-surface-100 text-body focus:outline-none focus:border-rose-500"
         >
           <option value="">All</option>
           {ECOSYSTEMS.map((e) => (
@@ -205,13 +205,13 @@ export default function GithubAdvisories(): JSX.Element {
       {/* Search + refresh */}
       <div className="flex gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             placeholder="Search package name…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
           />
         </div>
         <button
@@ -220,7 +220,7 @@ export default function GithubAdvisories(): JSX.Element {
             setRefreshKey((k) => k + 1);
             refetch();
           }}
-          className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
         </button>
@@ -266,7 +266,7 @@ export default function GithubAdvisories(): JSX.Element {
             return (
               <div
                 key={a.ghsa_id}
-                className={`rounded-xl border border-l-4 ${colors.border} border-l-current bg-white dark:bg-[rgb(var(--surface-200))]/50 p-3 hover:shadow-e1 transition`}
+                className={`rounded-xl border border-l-4 ${colors.border} border-l-current bg-surface-100 dark:bg-surface-200/50 p-3 hover:shadow-e1 transition`}
               >
                 <div className="flex items-start gap-3">
                   <div className="flex-1 min-w-0">
@@ -289,18 +289,18 @@ export default function GithubAdvisories(): JSX.Element {
                           href={`https://nvd.nist.gov/vuln/detail/${cveId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                         >
                           {cveId}
                         </a>
                       )}
                     </div>
                     <p className="text-xs text-body leading-relaxed mb-1.5">{a.summary}</p>
-                    <div className="flex items-center gap-2 flex-wrap text-mini text-slate-500">
+                    <div className="flex items-center gap-2 flex-wrap text-mini text-muted">
                       {a.vulnerabilities.map((v, i) => (
                         <span
                           key={i}
-                          className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] font-mono"
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-line-1 bg-surface-200/50 font-mono"
                         >
                           <Package className="w-2.5 h-2.5" /> {v.package.ecosystem}/{v.package.name}
                           {v.vulnerable_version_range && (
@@ -336,20 +336,20 @@ export default function GithubAdvisories(): JSX.Element {
             {ecoBreakdown.map(([eco, count]) => (
               <div key={eco} className="flex items-center gap-2 text-xs">
                 <span className="font-mono text-body w-24">{eco}</span>
-                <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+                <div className="flex-1 h-2 bg-surface-300 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-rose-500 rounded-full"
                     style={{ width: `${Math.min(100, (count / Math.max(...ecoBreakdown.map(([, c]) => c))) * 100)}%` }}
                   />
                 </div>
-                <span className="font-mono text-slate-500 w-8 text-right">{count}</span>
+                <span className="font-mono text-muted w-8 text-right">{count}</span>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+      <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
         Source: GitHub Advisory Database via Worker API
       </div>
     </DataPageLayout>

@@ -90,10 +90,10 @@ export default function IosBackupExplorer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('iosbackup-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a Manifest.db file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">
           {busy ? 'Loading...' : 'Drop Manifest.db here, or click to choose'}
         </p>
@@ -113,7 +113,7 @@ export default function IosBackupExplorer(): JSX.Element {
       {files && (
         <div className="mt-6 space-y-4">
           <div className="surface-card p-3">
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
+            <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
               Top domains · {files.length.toLocaleString()} files total
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -122,7 +122,7 @@ export default function IosBackupExplorer(): JSX.Element {
                   key={dn}
                   type="button"
                   onClick={() => setQ(dn)}
-                  className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-500/40"
+                  className="font-mono text-mini px-1.5 py-0.5 rounded border border-line-1 text-body hover:border-brand-500/40"
                 >
                   {dn || '(none)'} · {c}
                 </button>
@@ -135,7 +135,7 @@ export default function IosBackupExplorer(): JSX.Element {
             placeholder="filter by domain / path - e.g. CameraRollDomain, sms.db, WhatsApp…"
             className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
+          <div className="rounded-xl border border-line-1 overflow-auto max-h-[60vh]">
             <DataTable
               columns={
                 [
@@ -155,18 +155,16 @@ export default function IosBackupExplorer(): JSX.Element {
                     key: 'fileID',
                     header: 'fileID',
                     sortValue: (f: (typeof shown)[number]) => f.fileID,
-                    render: (f) => <span className="text-slate-500">{f.fileID.slice(0, 12)}…</span>,
+                    render: (f) => <span className="text-muted">{f.fileID.slice(0, 12)}…</span>,
                   },
                 ] as DataTableColumn<(typeof shown)[number]>[]
               }
               rows={shown}
               rowKey={(f, i) => `${f.fileID}-${i}`}
-              rowClassName={() =>
-                '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--surface-200)/0.5)]'
-              }
+              rowClassName={() => '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-surface-200/50'}
             />
           </div>
-          <p className="font-mono text-mini text-slate-500">showing {shown.length} (filtered, capped 1000)</p>
+          <p className="font-mono text-mini text-muted">showing {shown.length} (filtered, capped 1000)</p>
         </div>
       )}
     </div>

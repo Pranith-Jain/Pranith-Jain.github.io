@@ -274,7 +274,7 @@ export default function LiveIocs(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by indicator, reporter, or context…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter IOC stream"
             />
           </div>
@@ -295,13 +295,13 @@ export default function LiveIocs(): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">kinds:</span>
+          <span className="text-mini font-mono text-muted mr-1">kinds:</span>
           {(['ip', 'url', 'domain', 'hash'] as const).map((k) => {
             const active = kindFilter.has(k);
             return (
@@ -310,7 +310,7 @@ export default function LiveIocs(): JSX.Element {
                 type="button"
                 onClick={() => toggleKind(k)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? KIND_PILL[k] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                  active ? KIND_PILL[k] : 'border-slate-300 dark:border-line-1 text-slate-500'
                 }`}
               >
                 {k} <span className="opacity-70">· {kindCounts[k]}</span>
@@ -320,7 +320,7 @@ export default function LiveIocs(): JSX.Element {
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="text-mini font-mono text-slate-500 mr-1">sources:</span>
+            <span className="text-mini font-mono text-muted mr-1">sources:</span>
             {(data.registered_sources ?? data.sources).map((s) => {
               const active = sourceFilter.has(s.id);
               const pillCls = sourceColor(s.id);
@@ -352,8 +352,8 @@ export default function LiveIocs(): JSX.Element {
                       : s.ok === false
                         ? 'border-rose-300/70 dark:border-rose-700/40 text-rose-700/80 dark:text-rose-400/80'
                         : isEmpty
-                          ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-muted opacity-60'
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                          ? 'border-slate-300/60 dark:border-line-1/60 text-muted opacity-60'
+                          : 'border-slate-300 dark:border-line-1 text-slate-500'
                   }`}
                   title={tooltip}
                 >
@@ -362,7 +362,7 @@ export default function LiveIocs(): JSX.Element {
                   )}
                   {isEmpty && s.ok && (
                     <span
-                      className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-[rgb(var(--surface-300))]"
+                      className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-surface-300"
                       aria-label="empty this snapshot"
                     />
                   )}
@@ -373,7 +373,10 @@ export default function LiveIocs(): JSX.Element {
                     />
                   )}
                   {s.id}{' '}
-                  <span className="opacity-70" title={s.capped ? 'At or above the per-feed cap (300) — the real feed is larger' : undefined}>
+                  <span
+                    className="opacity-70"
+                    title={s.capped ? 'At or above the per-feed cap (300) — the real feed is larger' : undefined}
+                  >
                     · {s.count}
                     {s.capped ? '+' : ''}
                   </span>
@@ -396,7 +399,7 @@ export default function LiveIocs(): JSX.Element {
         )}
         {data && (
           <>
-            <div className="flex flex-wrap items-center gap-3 mt-2 text-micro font-mono text-slate-500">
+            <div className="flex flex-wrap items-center gap-3 mt-2 text-micro font-mono text-muted">
               <span>freshness:</span>
               {(['fresh', 'recent', 'stale', 'no-timestamp'] as const).map((f) => (
                 <span key={f} className="inline-flex items-center gap-1">
@@ -405,7 +408,7 @@ export default function LiveIocs(): JSX.Element {
                 </span>
               ))}
             </div>
-            <p className="text-mini font-mono text-slate-500 mt-3">
+            <p className="text-mini font-mono text-muted mt-3">
               Showing page{' '}
               <span className="text-body">
                 {page}/{totalPages}
@@ -487,7 +490,7 @@ export default function LiveIocs(): JSX.Element {
                       </a>
                     )}
                   </div>
-                  <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
+                  <div className="text-mini font-mono text-muted flex items-center gap-2 flex-wrap mt-0.5">
                     <span className={`px-1.5 py-0.5 rounded border ${sourcePill}`}>{it.source}</span>
                     <AdmiraltyBadge admiralty={gradeForLiveIoc(it.source, it.kind)} compact />
                     {it.reporter && <span className="text-muted">{it.reporter}</span>}
@@ -500,7 +503,7 @@ export default function LiveIocs(): JSX.Element {
                   <PostSummary text={postSummaries.get(String(`${it.source}:${it.value}`))} />
                 </div>
                 <div
-                  className="shrink-0 text-right text-mini font-mono text-slate-500"
+                  className="shrink-0 text-right text-mini font-mono text-muted"
                   title={it.observed_at ?? 'no timestamp'}
                 >
                   {shortRel(it.observed_at)}
@@ -517,18 +520,18 @@ export default function LiveIocs(): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-line-2 disabled:opacity-30 hover:border-rose-500/40"
           >
             ← prev
           </button>
-          <span className="text-xs font-mono text-slate-500 px-2">
+          <span className="text-xs font-mono text-muted px-2">
             {page} / {totalPages}
           </span>
           <button
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-line-2 disabled:opacity-30 hover:border-rose-500/40"
           >
             next →
           </button>

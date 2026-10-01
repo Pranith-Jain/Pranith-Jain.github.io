@@ -117,7 +117,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
               return (
                 <span
                   key={s}
-                  className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-xs font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted border border-line-1"
                 >
                   {statusUrl ? (
                     <a

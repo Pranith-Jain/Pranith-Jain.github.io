@@ -51,14 +51,20 @@ export interface ReportDoc {
 }
 
 export const TLP_OPTIONS: Array<{ value: Tlp; label: string; color: string; description: string }> = [
-  { value: 'CLEAR', label: 'TLP:CLEAR', color: 'slate',
-    description: 'Public - may be distributed without restriction.' },
-  { value: 'GREEN', label: 'TLP:GREEN', color: 'emerald',
-    description: 'Community-wide - limited disclosure to the community.' },
-  { value: 'AMBER', label: 'TLP:AMBER', color: 'amber',
-    description: 'Limited disclosure - participants only.' },
-  { value: 'RED', label: 'TLP:RED', color: 'rose',
-    description: 'Restricted - named recipients only.' },
+  {
+    value: 'CLEAR',
+    label: 'TLP:CLEAR',
+    color: 'slate',
+    description: 'Public - may be distributed without restriction.',
+  },
+  {
+    value: 'GREEN',
+    label: 'TLP:GREEN',
+    color: 'emerald',
+    description: 'Community-wide - limited disclosure to the community.',
+  },
+  { value: 'AMBER', label: 'TLP:AMBER', color: 'amber', description: 'Limited disclosure - participants only.' },
+  { value: 'RED', label: 'TLP:RED', color: 'rose', description: 'Restricted - named recipients only.' },
 ];
 
 export const IOC_TYPES: Array<{ value: IocEntry['type']; label: string }> = [

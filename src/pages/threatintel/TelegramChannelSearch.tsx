@@ -140,7 +140,7 @@ export default function TelegramChannelSearch(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="keyword (e.g. ransomware, stealer, APT)"
-          className="flex-1 min-w-[220px] px-3 py-2 surface-card text-sm font-mono text-heading placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+          className="flex-1 min-w-[220px] px-3 py-2 surface-card text-sm font-mono text-heading placeholder:text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
           aria-label="Search keyword"
         />
         <button
@@ -183,7 +183,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       )}
 
       {data && data.results.length === 0 && !loading && (
-        <div className="surface-card p-8 text-center font-mono text-sm text-slate-500">
+        <div className="surface-card p-8 text-center font-mono text-sm text-muted">
           No channels matched <strong>{data.query}</strong>. Try a broader keyword.
         </div>
       )}
@@ -200,9 +200,9 @@ export default function TelegramChannelSearch(): JSX.Element {
               <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
                 <div className="min-w-0">
                   <h3 className="font-display font-semibold text-base text-heading truncate">{r.name}</h3>
-                  <code className="text-xs font-mono text-slate-500">@{r.handle}</code>
+                  <code className="text-xs font-mono text-muted">@{r.handle}</code>
                   {r.category && (
-                    <span className="ml-2 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+                    <span className="ml-2 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-2 text-muted">
                       {r.category}
                     </span>
                   )}
@@ -228,16 +228,14 @@ export default function TelegramChannelSearch(): JSX.Element {
                     {r.linked_actors.map((a) => (
                       <li key={`${r.handle}:${a.actor_id}`} className="text-xs font-mono">
                         <span className="font-semibold text-heading">{a.name}</span>
-                        {a.country && <span className="ml-1 text-slate-500">· {a.country}</span>}
+                        {a.country && <span className="ml-1 text-muted">· {a.country}</span>}
                         <span
                           className={`ml-2 text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${confidenceTone(a.confidence)}`}
                           title={`Confidence ${(a.confidence * 100).toFixed(0)}%`}
                         >
                           {(a.confidence * 100).toFixed(0)}%
                         </span>
-                        <span className="ml-2 text-slate-500">
-                          via {a.sources.map((s) => SOURCE_LABEL[s]).join(', ')}
-                        </span>
+                        <span className="ml-2 text-muted">via {a.sources.map((s) => SOURCE_LABEL[s]).join(', ')}</span>
                         {a.citations[0] && (
                           <span className="ml-1 text-muted" title={a.citations.join(' · ')}>
                             - {a.citations[0]}
@@ -254,7 +252,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                   href={sanitizeUrl(`https://telegram.me/s/${r.handle}`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
+                  className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
                 >
                   <ExternalLink size={11} /> telegram.me/s/{r.handle}
                 </a>
@@ -262,7 +260,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                   href={sanitizeUrl(r.tgstat_url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
+                  className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
                 >
                   tgstat
                 </a>

@@ -99,10 +99,10 @@ export default function SqliteExplorer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('sqlite-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a SQLite file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">
           {busy ? 'Loading...' : 'Drop a SQLite file here, or click to choose'}
         </p>
@@ -124,7 +124,7 @@ export default function SqliteExplorer(): JSX.Element {
       {db && (
         <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
           <div className="surface-card p-3 max-h-[60vh] overflow-auto">
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
+            <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
               Tables ({db.tables.length})
             </div>
             <ul className="space-y-0.5">
@@ -133,9 +133,9 @@ export default function SqliteExplorer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => showTable(t.name)}
-                    className={`w-full text-left font-mono text-meta px-1.5 py-1 rounded ${active === t.name ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'}`}
+                    className={`w-full text-left font-mono text-meta px-1.5 py-1 rounded ${active === t.name ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-body hover:bg-slate-100 dark:hover:bg-surface-300'}`}
                   >
-                    {t.name} <span className="text-slate-500">· {t.count}</span>
+                    {t.name} <span className="text-muted">· {t.count}</span>
                   </button>
                 </li>
               ))}
@@ -152,13 +152,13 @@ export default function SqliteExplorer(): JSX.Element {
               <button
                 type="button"
                 onClick={runSql}
-                className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-meta transition-colors"
+                className="px-3 py-2 rounded border border-line-1 hover:border-brand-500/40 font-mono text-meta transition-colors"
               >
                 Run
               </button>
             </div>
             {result && (
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
+              <div className="rounded-xl border border-line-1 overflow-auto max-h-[60vh]">
                 <DataTable
                   columns={
                     result.cols.map((col, j) => ({
@@ -166,7 +166,7 @@ export default function SqliteExplorer(): JSX.Element {
                       header: col,
                       render: (r: unknown[]) => (
                         <span className="break-all">
-                          {r[j] === null ? <span className="text-slate-500">NULL</span> : String(r[j]).slice(0, 300)}
+                          {r[j] === null ? <span className="text-muted">NULL</span> : String(r[j]).slice(0, 300)}
                         </span>
                       ),
                     })) as DataTableColumn<unknown[]>[]
@@ -174,12 +174,10 @@ export default function SqliteExplorer(): JSX.Element {
                   rows={result.rows}
                   rowKey={(_, i) => `row-${i}`}
                   rowClassName={(row: unknown[]) =>
-                    result.rows.indexOf(row) % 2 === 1
-                      ? 'even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]'
-                      : ''
+                    result.rows.indexOf(row) % 2 === 1 ? 'even:bg-slate-50/50 dark:even:bg-surface-200/50' : ''
                   }
                 />
-                {result.rows.length === 0 && <p className="p-3 font-mono text-meta text-slate-500">0 rows.</p>}
+                {result.rows.length === 0 && <p className="p-3 font-mono text-meta text-muted">0 rows.</p>}
               </div>
             )}
           </div>

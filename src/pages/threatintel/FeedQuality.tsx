@@ -250,13 +250,13 @@ export default function FeedQuality(): JSX.Element {
               />
             ))}
             {filtered.length === 0 && (
-              <div className="surface-card p-6 text-center text-sm text-slate-500 font-mono">
+              <div className="surface-card p-6 text-center text-sm text-muted font-mono">
                 No feeds match the current filter.
               </div>
             )}
           </section>
 
-          <footer className="mt-6 text-mini font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2 flex-wrap">
+          <footer className="mt-6 text-mini font-mono text-muted flex items-center gap-2 flex-wrap">
             <span>
               {Object.keys(RETIRED_FEEDS).length} feeds retired from the catalog (dead, 403/402, or duplicates) —
             </span>
@@ -295,9 +295,9 @@ function SummaryStrip({ data }: { data: TifceResponse }): JSX.Element {
 function Stat({ label, value, sub }: { label: string; value: number | string; sub?: string }): JSX.Element {
   return (
     <div>
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
       <div className="font-display font-bold text-xl tabular-nums">{value}</div>
-      {sub && <div className="text-micro font-mono text-slate-500 mt-0.5">{sub}</div>}
+      {sub && <div className="text-micro font-mono text-muted mt-0.5">{sub}</div>}
     </div>
   );
 }
@@ -333,7 +333,7 @@ function FilterBar({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by feed id…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Filter feeds"
           />
         </div>
@@ -348,20 +348,20 @@ function FilterBar({
         <button
           type="button"
           onClick={() => setShowMeta(!showMeta)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
         >
           <Info size={12} /> build details
         </button>
         <button
           type="button"
           onClick={onRefresh}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40 transition-colors"
         >
           <RefreshCw size={12} /> refresh
         </button>
       </div>
       <div className="flex flex-wrap items-center gap-1.5 mt-3">
-        <span className="text-mini font-mono text-slate-500 mr-1">grade:</span>
+        <span className="text-mini font-mono text-muted mr-1">grade:</span>
         {(['A', 'B', 'C', 'D', 'F'] as const).map((g) => {
           const active = gradeFilter.has(g);
           return (
@@ -369,7 +369,7 @@ function FilterBar({
               key={g}
               type="button"
               onClick={() => toggleGrade(g)}
-              className={`text-mini font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-slate-200 dark:border-line-1 text-slate-500'}`}
               title={`${active ? 'remove' : 'add'} grade ${g}`}
             >
               {g}
@@ -378,7 +378,7 @@ function FilterBar({
         })}
       </div>
       {showMeta && (
-        <dl className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] grid grid-cols-2 sm:grid-cols-4 gap-2 text-mini font-mono">
+        <dl className="mt-3 pt-3 border-t border-line-1 grid grid-cols-2 sm:grid-cols-4 gap-2 text-mini font-mono">
           <Meta label="TP indicator set" value={meta.tp_indicators_loaded.toLocaleString()} />
           <Meta label="Platform-reported set" value={meta.platform_indicators_loaded.toLocaleString()} />
           <Meta label="Detection firings (24h)" value={meta.detection_indicators_loaded.toLocaleString()} />
@@ -396,7 +396,7 @@ function FilterBar({
 function Meta({ label, value }: { label: string; value: string }): JSX.Element {
   return (
     <div>
-      <dt className="text-slate-500 uppercase tracking-wider text-micro">{label}</dt>
+      <dt className="text-muted uppercase tracking-wider text-micro">{label}</dt>
       <dd className="text-heading">{value}</dd>
     </div>
   );
@@ -416,7 +416,7 @@ function FeedRow({
       <button
         type="button"
         onClick={onToggle}
-        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left transition-colors"
+        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-surface-200/60 dark:hover:bg-input-200/40 text-left transition-colors"
         aria-expanded={expanded}
       >
         <span
@@ -428,7 +428,7 @@ function FeedRow({
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2 flex-wrap">
             <span className="font-mono font-bold text-sm truncate">{feed.feedId}</span>
-            <span className="text-micro font-mono text-slate-500 tabular-nums">
+            <span className="text-micro font-mono text-muted tabular-nums">
               {feed.contributions.toLocaleString()} IOC{feed.contributions === 1 ? '' : 's'}
             </span>
           </div>
@@ -436,7 +436,7 @@ function FeedRow({
         </div>
         <div className="shrink-0 text-right hidden sm:block">
           <div className="font-display font-bold text-lg tabular-nums">{feed.composite.toFixed(1)}</div>
-          <div className="text-micro font-mono text-slate-500 uppercase tracking-wider">composite</div>
+          <div className="text-micro font-mono text-muted uppercase tracking-wider">composite</div>
         </div>
         {expanded ? (
           <ChevronDown size={16} className="shrink-0 text-muted" />
@@ -445,7 +445,7 @@ function FeedRow({
         )}
       </button>
       {expanded && (
-        <div className="px-4 pb-4 pt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
+        <div className="px-4 pb-4 pt-1 border-t border-line-1 space-y-3 bg-surface-200/40">
           {PILLAR_KEYS.map((k) => {
             const p = feed[k];
             const meta = PILLAR_LABELS[k];
@@ -453,7 +453,7 @@ function FeedRow({
               <div key={k}>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-mini font-mono uppercase tracking-wider font-bold text-body">{meta.label}</span>
-                  <span className="text-micro font-mono text-slate-500" title={meta.tip}>
+                  <span className="text-micro font-mono text-muted" title={meta.tip}>
                     <Info size={10} className="inline" /> {p.label}
                   </span>
                   <span className="ml-auto text-mini font-mono tabular-nums font-bold">{p.score.toFixed(1)}</span>
@@ -476,13 +476,13 @@ function PillarBars({ feed }: { feed: FeedTifceScore }): JSX.Element {
         const s = feed[k].score;
         return (
           <div key={k} className="flex items-center gap-1.5" title={`${PILLAR_LABELS[k].label}: ${s.toFixed(1)}`}>
-            <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+            <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
               <div
                 className={`h-full ${pillarBarColor(s)} transition-[width] duration-200`}
                 style={{ width: `${s}%` }}
               />
             </div>
-            <span className="text-micro font-mono tabular-nums text-slate-500 w-7 text-right">{s.toFixed(0)}</span>
+            <span className="text-micro font-mono tabular-nums text-muted w-7 text-right">{s.toFixed(0)}</span>
           </div>
         );
       })}
@@ -497,7 +497,7 @@ function PillarDetails({ details }: { details: Record<string, number | string> }
     <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-1 text-micro font-mono">
       {entries.map(([k, v]) => (
         <div key={k} className="flex items-baseline gap-1.5">
-          <dt className="text-slate-500 uppercase tracking-wider text-micro">{k}</dt>
+          <dt className="text-muted uppercase tracking-wider text-micro">{k}</dt>
           <dd className="text-body tabular-nums">{typeof v === 'number' ? v.toLocaleString() : v}</dd>
         </div>
       ))}

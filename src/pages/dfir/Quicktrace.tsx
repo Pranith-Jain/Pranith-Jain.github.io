@@ -622,12 +622,12 @@ export default function Quicktrace(): JSX.Element {
         <p className="text-muted max-w-2xl leading-relaxed">
           Daily triage queries across authentication, network, endpoint, and cloud - ready to paste into Sentinel, XQL,
           or Splunk.
-          <span className="text-slate-500"> {totalQueries} queries across 4 domains</span>
+          <span className="text-muted"> {totalQueries} queries across 4 domains</span>
         </p>
       </div>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap gap-1 mb-5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-0">
+      <div className="flex flex-wrap gap-1 mb-5 border-b border-line-1 pb-0">
         {CATEGORY_ORDER.map((cat) => {
           const Icon = CATEGORY_META[cat].icon;
           const counts: Record<CategoryId, number> = {
@@ -662,7 +662,7 @@ export default function Quicktrace(): JSX.Element {
             className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
               platform === pid
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
             }`}
           >
             {label}
@@ -677,7 +677,7 @@ export default function Quicktrace(): JSX.Element {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={`Search ${CATEGORY_META[category].label.toLowerCase()} queries…`}
-          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 h-10 bg-surface-200 border border-line-1 rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -690,7 +690,7 @@ export default function Quicktrace(): JSX.Element {
       {categoryQueries.length === 0 ? (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
           <AlertTriangle size={24} className="mx-auto mb-2 text-muted" />
-          <p className="text-sm text-slate-500">No queries match your filter.</p>
+          <p className="text-sm text-muted">No queries match your filter.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -711,16 +711,13 @@ export default function Quicktrace(): JSX.Element {
               {/* Data source tags */}
               <div className="flex flex-wrap gap-1 mb-3">
                 {query.dataSources.map((ds) => (
-                  <span
-                    key={ds}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                  >
+                  <span key={ds} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                     {ds}
                   </span>
                 ))}
               </div>
               {/* Query code */}
-              <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-body font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+              <pre className="bg-surface-200 rounded-xl p-4 overflow-x-auto text-xs text-body font-mono border border-line-1 whitespace-pre-wrap">
                 {query.platforms[platform] ?? (
                   <span className="text-muted italic">Not available for {platform.toUpperCase()}</span>
                 )}

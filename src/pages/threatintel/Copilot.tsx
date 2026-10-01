@@ -117,7 +117,7 @@ const TYPE_BADGES: Record<string, { label: string; color: string }> = {
   },
   generic: {
     label: 'General',
-    color: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
+    color: 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300',
   },
 };
 
@@ -785,11 +785,11 @@ export default function Copilot(): JSX.Element {
       {/* Main content area */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Top bar */}
-        <div className="flex items-center gap-3 border-b border-slate-200 bg-white/80 px-4 py-2.5 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
+        <div className="flex items-center gap-3 border-b border-line-1 bg-surface-100/80 px-4 py-2.5 backdrop-blur-lg">
           <button
             type="button"
             onClick={() => setSidebarOpen((p) => !p)}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-muted hover:bg-slate-100 hover:text-rose-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
+            className="flex h-7 w-7 items-center justify-center rounded-md text-muted hover:bg-surface-300 hover:text-rose-600 lg:hidden dark:hover:bg-surface-300"
             aria-label="Toggle sidebar"
           >
             <PanelLeftOpen size={15} />
@@ -809,7 +809,7 @@ export default function Copilot(): JSX.Element {
                 <span className="truncate text-sm font-medium text-body">
                   {currentTitle ?? 'Investigation Copilot'}
                 </span>
-                <span className="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
+                <span className="shrink-0 rounded bg-surface-300 px-1.5 py-0.5 font-mono text-micro text-muted">
                   {chatMessages.length} msgs
                 </span>
               </>
@@ -823,7 +823,7 @@ export default function Copilot(): JSX.Element {
                 <button
                   type="button"
                   onClick={exportConversation}
-                  className="flex h-7 w-7 items-center justify-center rounded-md text-muted hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="flex h-7 w-7 items-center justify-center rounded-md text-muted hover:bg-surface-300 hover:text-rose-600 dark:hover:bg-surface-300 transition-colors"
                   aria-label="Export conversation"
                 >
                   <Download size={13} />
@@ -862,7 +862,7 @@ export default function Copilot(): JSX.Element {
                           setQuery(ex.query);
                           void submitChat(ex.query);
                         }}
-                        className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
+                        className="rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-200"
                       >
                         <span className="text-muted">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
@@ -877,7 +877,7 @@ export default function Copilot(): JSX.Element {
                           setQuery(starter);
                           void submitChat(starter);
                         }}
-                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted"
+                        className="rounded-full border border-line-1 bg-surface-100 px-3 py-1 text-mini font-mono text-muted transition-colors hover:border-rose-400 hover:text-rose-600"
                       >
                         {starter}
                       </button>
@@ -887,7 +887,7 @@ export default function Copilot(): JSX.Element {
                     {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
                       <div
                         key={label}
-                        className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-100 bg-slate-50/50 p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
+                        className="flex flex-col items-center gap-1.5 rounded-xl border border-line-1 bg-surface-200/50 p-3 text-center"
                       >
                         <Icon className="h-4 w-4 text-rose-500" />
                         <span className="text-xs font-medium">{label}</span>
@@ -920,7 +920,7 @@ export default function Copilot(): JSX.Element {
                       </div>
                     ) : (
                       <div key={i} className="flex justify-start">
-                        <div className="w-full max-w-[95%] sm:max-w-[85%] rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+                        <div className="w-full max-w-[95%] sm:max-w-[85%] rounded-2xl border border-line-1 bg-surface-100 p-4 shadow-sm">
                           {i === chatMessages.length - 1 && streaming && currentSteps.length > 0 && (
                             <StepIndicator steps={currentSteps} currentStep={currentStepNum} />
                           )}
@@ -973,7 +973,7 @@ export default function Copilot(): JSX.Element {
                               {msg.sources.map((s) => (
                                 <span
                                   key={s.name}
-                                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted"
+                                  className="inline-flex items-center gap-1 rounded-full border border-line-1 bg-surface-200 px-2.5 py-0.5 font-mono text-mini text-muted"
                                 >
                                   {s.name}
                                   <span className="text-muted">({s.items})</span>
@@ -981,13 +981,13 @@ export default function Copilot(): JSX.Element {
                               ))}
                             </div>
                           )}
-                          <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
+                          <div className="mt-2 flex items-center justify-between border-t border-line-1 pt-2">
                             <div className="flex items-center gap-2">
                               {msg.model_used && (
                                 <span className="font-mono text-mini text-muted">via {msg.model_used}</span>
                               )}
                               {cost && i === chatMessages.length - 1 && (
-                                <span className="font-mono text-mini text-slate-400 dark:text-slate-500">
+                                <span className="font-mono text-mini text-muted">
                                   ${cost.usd.toFixed(4)} · {(cost.tokens / 1000).toFixed(1)}K tok · {cost.llmCalls} LLM
                                 </span>
                               )}
@@ -1101,7 +1101,7 @@ export default function Copilot(): JSX.Element {
                       value={template}
                       onChange={(e) => setTemplate(e.target.value)}
                       aria-label="Report template"
-                      className="rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
+                      className="rounded-xl border border-line-1 bg-surface-100 px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-slate-300"
                     >
                       <option value="auto">Auto template</option>
                       <option value="ransomware-group">Ransomware Group</option>
@@ -1113,7 +1113,7 @@ export default function Copilot(): JSX.Element {
                       value={tlp}
                       onChange={(e) => setTlp(e.target.value)}
                       aria-label="TLP classification"
-                      className="rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
+                      className="rounded-xl border border-line-1 bg-surface-100 px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-slate-300"
                     >
                       <option value="CLEAR">TLP:CLEAR</option>
                       <option value="GREEN">TLP:GREEN</option>
@@ -1136,7 +1136,7 @@ export default function Copilot(): JSX.Element {
                         ? 'Subject for a full report (group, actor, CVE, or IOC)…'
                         : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
                     }
-                    className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
+                    className="h-14 w-full rounded-xl border border-line-1 bg-surface-100 pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-white dark:placeholder:text-slate-500"
                     disabled={loading || !!progress}
                   />
                   <button
@@ -1182,7 +1182,7 @@ export default function Copilot(): JSX.Element {
                           setQuery(ex.query);
                           void investigate(ex.query);
                         }}
-                        className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
+                        className="rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-200"
                       >
                         <span className="text-muted">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
@@ -1197,7 +1197,7 @@ export default function Copilot(): JSX.Element {
                   <section
                     role="status"
                     aria-live="polite"
-                    className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+                    className="rounded-xl border border-line-1 bg-surface-100 p-5 shadow-sm"
                   >
                     <div className="mb-2 flex items-center justify-between font-mono text-xs text-muted">
                       <span className="inline-flex items-center gap-2">
@@ -1205,7 +1205,7 @@ export default function Copilot(): JSX.Element {
                       </span>
                       <span>{progress.pct}%</span>
                     </div>
-                    <div className="h-1.5 overflow-hidden rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+                    <div className="h-1.5 overflow-hidden rounded bg-slate-200 dark:bg-surface-300">
                       <div className="h-full bg-rose-500 transition-all" style={{ width: `${progress.pct}%` }} />
                     </div>
                     <p className="mt-2 font-mono text-xs text-muted">{progress.detail}</p>
@@ -1223,7 +1223,7 @@ export default function Copilot(): JSX.Element {
 
                 {result && !loading && !report && (
                   <div className="space-y-6">
-                    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+                    <div className="rounded-xl border border-line-1 bg-surface-100 p-5 shadow-sm">
                       <div className="mb-3 flex items-start justify-between gap-4">
                         <div className="flex flex-wrap items-center gap-3">
                           <h2 className="text-lg font-bold">{result.query}</h2>
@@ -1252,12 +1252,12 @@ export default function Copilot(): JSX.Element {
                         <span>{new Date(result.processed_at).toLocaleString()}</span>
                       </div>
                       {result.sources.length > 0 ? (
-                        <div className="mt-3 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+                        <div className="mt-3 border-t border-line-1 pt-3">
                           <div className="flex flex-wrap gap-1.5">
                             {result.sources.map((s, i) => (
                               <span
                                 key={s.name}
-                                className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted"
+                                className="inline-flex items-center gap-1 rounded border border-line-1 bg-surface-200 px-2 py-0.5 font-mono text-mini text-muted"
                               >
                                 <span className="font-bold text-muted">{i + 1}.</span>
                                 {s.name}
@@ -1267,14 +1267,14 @@ export default function Copilot(): JSX.Element {
                           </div>
                         </div>
                       ) : (
-                        <div className="mt-3 border-t border-slate-100 pt-3 text-xs text-amber-600 dark:border-[rgb(var(--border-400))] dark:text-amber-400">
+                        <div className="mt-3 border-t border-line-1 pt-3 text-xs text-amber-600 dark:text-amber-400">
                           No structured sources - report based on general knowledge.
                         </div>
                       )}
                     </div>
 
-                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-                      <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
+                    <div className="overflow-hidden rounded-xl border border-line-1 bg-surface-100">
+                      <div className="flex items-center gap-2 border-b border-line-1 bg-surface-200/80 px-6 py-3 dark:bg-surface-200/40">
                         <FileText size={15} className="text-rose-600 dark:text-rose-400" />
                         <span className="text-sm font-semibold text-body">Investigation Report</span>
                         {result._meta && (
@@ -1284,29 +1284,26 @@ export default function Copilot(): JSX.Element {
                         )}
                       </div>
                       <div
-                        className="px-6 py-5 text-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
+                        className="px-6 py-5 text-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-line-1 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-surface-200 [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
                         dangerouslySetInnerHTML={{ __html: narrativeHtml }}
                       />
-                      <div className="border-t border-slate-100 px-6 pb-4 pt-2 dark:border-[rgb(var(--border-400))]">
+                      <div className="border-t border-line-1 px-6 pb-4 pt-2">
                         <FeedbackWidget targetType="copilot" targetId={query} compact />
                       </div>
                     </div>
 
                     <details className="group">
-                      <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-muted dark:hover:text-slate-300">
+                      <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-muted hover:text-slate-700 dark:hover:text-slate-300">
                         <ExternalLink size={14} />
                         Raw source data ({result.sources.length} sources)
                       </summary>
                       <div className="mt-3 space-y-3">
                         {result.sources.map((s) => (
-                          <details
-                            key={s.name}
-                            className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
-                          >
+                          <details key={s.name} className="rounded-xl border border-line-1 bg-surface-200/30 p-3">
                             <summary className="cursor-pointer text-xs font-medium">
                               {s.name} ({s.items} items)
                             </summary>
-                            <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-mini dark:bg-[rgb(var(--surface-200))]">
+                            <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-surface-300 p-2 font-mono text-mini">
                               {JSON.stringify(s.data, null, 2)}
                             </pre>
                           </details>
@@ -1349,7 +1346,7 @@ export default function Copilot(): JSX.Element {
                           }
                         }}
                         disabled={saving || saved}
-                        className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40 disabled:opacity-50 dark:border-[rgb(var(--border-400))]"
+                        className="inline-flex items-center gap-1.5 rounded border border-line-1 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40 disabled:opacity-50"
                       >
                         <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
                       </button>
@@ -1364,14 +1361,14 @@ export default function Copilot(): JSX.Element {
                           a.click();
                           URL.revokeObjectURL(url);
                         }}
-                        className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40 dark:border-[rgb(var(--border-400))]"
+                        className="inline-flex items-center gap-1.5 rounded border border-line-1 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40"
                       >
                         <FileText size={12} /> download .md
                       </button>
                       <button
                         type="button"
                         onClick={() => void investigate(query)}
-                        className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40 dark:border-[rgb(var(--border-400))]"
+                        className="inline-flex items-center gap-1.5 rounded border border-line-1 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40"
                       >
                         <RefreshCw size={12} /> re-investigate
                       </button>
@@ -1385,7 +1382,7 @@ export default function Copilot(): JSX.Element {
 
         {/* Chat input bar - fixed bottom */}
         {mode === 'chat' && (
-          <div className="shrink-0 border-t border-slate-200 bg-white/80 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
+          <div className="shrink-0 border-t border-line-1 bg-surface-100/80 backdrop-blur-lg">
             <div className="mx-auto flex max-w-4xl items-center gap-2 px-4 py-3">
               <div className="relative flex-1">
                 <input
@@ -1411,7 +1408,7 @@ export default function Copilot(): JSX.Element {
                         ? 'Ask a follow-up question…'
                         : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
                   }
-                  className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
+                  className="h-12 w-full rounded-xl border border-line-1 bg-surface-100 pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:text-white dark:placeholder:text-slate-500"
                   disabled={streaming}
                 />
                 <button
@@ -1480,7 +1477,7 @@ function FollowUpSuggestions({
 
   if (loadingFU) {
     return (
-      <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+      <div className="mt-3 flex items-center gap-2 border-t border-line-1 pt-3">
         <Loader2 size={11} className="animate-spin text-muted" />
         <span className="font-mono text-mini text-muted">Suggesting follow-ups…</span>
       </div>
@@ -1490,13 +1487,13 @@ function FollowUpSuggestions({
   if (!suggestions || suggestions.length === 0) return null;
 
   return (
-    <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+    <div className="mt-3 flex flex-wrap gap-1.5 border-t border-line-1 pt-3">
       {suggestions.map((s) => (
         <button
           type="button"
           key={s}
           onClick={() => onSubmit(s)}
-          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted dark:hover:border-rose-400 dark:hover:text-rose-400"
+          className="rounded-full border border-line-1 bg-surface-200 px-2.5 py-1 text-mini font-mono text-muted transition-colors hover:border-rose-400 hover:text-rose-600 dark:hover:border-rose-400 dark:hover:text-rose-400"
         >
           {s}
         </button>
@@ -1546,19 +1543,19 @@ function SessionSidebar({
     <>
       {open && <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden" onClick={onClose} />}
       <div
-        className={`w-80 shrink-0 flex-col border-r border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] lg:sticky lg:top-0 lg:h-full lg:translate-x-0 lg:z-10 ${
+        className={`w-80 shrink-0 flex-col border-r border-line-1 bg-surface-100 dark:border-line-1 dark:bg-surface-200 lg:sticky lg:top-0 lg:h-full lg:translate-x-0 lg:z-10 ${
           open
             ? 'fixed inset-y-0 left-0 z-50 translate-x-0 shadow-xl transition-transform duration-200 lg:relative lg:shadow-none'
             : 'fixed -translate-x-full lg:relative lg:translate-x-0'
         }`}
       >
-        <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-[rgb(var(--border-400))]">
+        <div className="flex items-center justify-between border-b border-line-1 px-4 py-3">
           <h2 className="text-sm font-semibold text-body">Conversations</h2>
           <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={onNew}
-              className="flex items-center gap-1 rounded-xl px-2 py-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
+              className="flex items-center gap-1 rounded-xl px-2 py-1 text-xs font-mono text-muted hover:text-rose-600 transition-colors"
             >
               <Plus size={13} />
               New
@@ -1566,7 +1563,7 @@ function SessionSidebar({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl p-1 text-muted hover:text-slate-600 transition-colors"
+              className="rounded-xl p-1 text-muted hover:text-muted transition-colors"
               aria-label="Close sidebar"
             >
               <PanelLeftClose size={16} />
@@ -1586,7 +1583,7 @@ function SessionSidebar({
             sessions.map((s) => (
               <div
                 key={s.id}
-                className={`group flex items-center gap-2 border-b border-slate-50 px-4 py-2.5 cursor-pointer transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))/0.3] dark:hover:bg-[rgb(var(--surface-300))] ${
+                className={`group flex items-center gap-2 border-b border-slate-50 px-4 py-2.5 cursor-pointer transition-colors hover:bg-slate-50 dark:border-line-1 dark:hover:bg-surface-300 ${
                   s.id === activeId ? 'bg-rose-50 dark:bg-rose-900/20' : ''
                 }`}
                 onClick={() => onSelect(s.id)}
@@ -1618,7 +1615,7 @@ function SessionSidebar({
         </div>
 
         {/* Settings footer */}
-        <div className="border-t border-slate-100 p-3 dark:border-[rgb(var(--border-400))]">
+        <div className="border-t border-line-1 p-3">
           {onModeChange && mode && (
             <div className="mb-2">
               <label className="mb-1 block text-mini font-mono font-medium text-muted">Mode</label>
@@ -1631,7 +1628,7 @@ function SessionSidebar({
                     className={`flex-1 rounded px-2 py-1 text-xs font-mono transition-colors ${
                       mode === m
                         ? 'bg-rose-500 text-white'
-                        : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))]'
+                        : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-surface-300'
                     }`}
                   >
                     {m}
@@ -1646,7 +1643,7 @@ function SessionSidebar({
               <select
                 value={role}
                 onChange={(e) => onRoleChange(e.target.value as AnalystRole)}
-                className="w-full rounded border border-slate-200 px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-300))] dark:border-[rgb(var(--border-400))]"
+                className="w-full rounded border border-line-1 px-2 py-1 text-xs font-mono bg-surface-100"
               >
                 {roles.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -1663,7 +1660,7 @@ function SessionSidebar({
                 <select
                   value={template}
                   onChange={(e) => onTemplateChange(e.target.value)}
-                  className="w-full rounded border border-slate-200 px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-300))] dark:border-[rgb(var(--border-400))]"
+                  className="w-full rounded border border-line-1 px-2 py-1 text-xs font-mono bg-surface-100"
                 >
                   <option value="auto">Auto</option>
                   <option value="standard">Standard</option>
@@ -1677,7 +1674,7 @@ function SessionSidebar({
                 <select
                   value={tlp}
                   onChange={(e) => onTlpChange(e.target.value)}
-                  className="w-full rounded border border-slate-200 px-2 py-1 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-300))] dark:border-[rgb(var(--border-400))]"
+                  className="w-full rounded border border-line-1 px-2 py-1 text-xs font-mono bg-surface-100"
                 >
                   <option value="WHITE">WHITE</option>
                   <option value="GREEN">GREEN</option>

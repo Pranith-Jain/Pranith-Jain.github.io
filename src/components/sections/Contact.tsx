@@ -16,7 +16,7 @@ export function Contact({ personalInfo }: ContactProps) {
           "hero island" - so we use the same `bg-white` + gray-alpha
           border as the cards above, then highlight the eyebrow with
           the brand text accent to give it presence. */}
-      <div className="relative overflow-hidden rounded-hero border border-black/10 bg-white px-5 py-10 dark:border-white/10 dark:bg-[rgb(var(--surface-200))] sm:px-10 sm:py-14 lg:py-16">
+      <div className="relative overflow-hidden rounded-hero border border-black/10 bg-surface-100 px-5 py-10 dark:border-white/10 sm:px-10 sm:py-14 lg:py-16">
         {/* Single faint radial wash at the top gives the panel a touch of
             presence without crossing into the AI-pillow look. */}
         <div
@@ -81,7 +81,7 @@ export function Contact({ personalInfo }: ContactProps) {
               per-link bg chips. Panel is now light, so the row uses
               slate-500 default and slate-900 hover. */}
           <ul
-            className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-black/10 pt-6 font-mono text-mini uppercase tracking-[0.1em] text-slate-500 dark:border-white/10 dark:text-muted"
+            className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-black/10 pt-6 font-mono text-mini uppercase tracking-[0.1em] text-muted dark:border-white/10"
             aria-label="Social media and professional links"
           >
             <li>

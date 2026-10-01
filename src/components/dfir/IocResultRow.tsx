@@ -72,7 +72,7 @@ function IocResultRowInner({ r }: { r: ProviderResultWire }): JSX.Element {
         {r.status === 'error' && !r.error_code && r.error && (
           <span className="text-rose-600 dark:text-rose-400">err: {r.error}</span>
         )}
-        {r.status === 'unsupported' && <span className="text-slate-500">n/a for this type</span>}
+        {r.status === 'unsupported' && <span className="text-muted">n/a for this type</span>}
       </div>
       {isSecretsProvider && findingCount > 0 && (
         <ul className="mt-2 space-y-1">
@@ -97,7 +97,7 @@ function IocResultRowInner({ r }: { r: ProviderResultWire }): JSX.Element {
           {r.tags.slice(0, 6).map((t) => (
             <span
               key={t}
-              className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+              className="text-xs font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted border border-line-1"
             >
               {t}
             </span>

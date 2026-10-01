@@ -101,7 +101,7 @@ export default function Encoder(): JSX.Element {
                 key={s.label}
                 type="button"
                 onClick={() => setInput(s.value)}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -110,7 +110,7 @@ export default function Encoder(): JSX.Element {
               <button
                 type="button"
                 onClick={reset}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 <RotateCw size={11} /> reset
               </button>
@@ -122,7 +122,7 @@ export default function Encoder(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Plain text, JSON, command-line, URL. Anything you want to encode."
           rows={6}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-xs text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
       </section>
@@ -136,7 +136,7 @@ export default function Encoder(): JSX.Element {
           <button
             type="button"
             onClick={addStep}
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
+            className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
           >
             <Plus size={11} /> add pass
           </button>
@@ -147,7 +147,7 @@ export default function Encoder(): JSX.Element {
               <select
                 value={enc}
                 onChange={(e) => setStep(idx, e.target.value as Encoding)}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] focus:border-brand-500/60 focus:outline-none"
+                className="text-xs font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 focus:border-brand-500/60 focus:outline-none"
                 title={ENCODINGS.find((e) => e.id === enc)?.blurb}
               >
                 {ENCODINGS.map((opt) => (
@@ -189,7 +189,7 @@ export default function Encoder(): JSX.Element {
               <CopyButton value={finalOutput} />
             </div>
           </div>
-          <pre className="text-xs font-mono text-heading whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-80 overflow-auto">
+          <pre className="text-xs font-mono text-heading whitespace-pre-wrap break-all bg-surface-200 rounded p-3 border border-line-1 max-h-80 overflow-auto">
             {finalOutput}
           </pre>
         </section>
@@ -203,12 +203,9 @@ export default function Encoder(): JSX.Element {
           </h2>
           <ol className="space-y-3">
             {steps.map((step, i) => (
-              <li
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-              >
+              <li key={i} className="rounded border border-line-1 bg-surface-200 p-3">
                 <div className="flex items-baseline justify-between gap-2 mb-2">
-                  <span className="text-mini font-mono text-slate-400">
+                  <span className="text-mini font-mono text-muted">
                     pass {i + 1} ·{' '}
                     <span className="text-body">{ENCODINGS.find((e) => e.id === step.encoding)?.label}</span>
                   </span>

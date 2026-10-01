@@ -125,14 +125,12 @@ export default function CampaignsReference(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {data && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
-              {data.count} campaigns
-            </span>
+            <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">{data.count} campaigns</span>
           )}
         </div>
       }
@@ -153,11 +151,11 @@ export default function CampaignsReference(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by name, actor, description, tag, sector…"
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
               />
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-mini font-mono text-slate-500 mr-1">status:</span>
+              <span className="text-mini font-mono text-muted mr-1">status:</span>
               {(['active', 'dormant', 'concluded'] as const).map((s) => {
                 const active = statusFilter === s;
                 return (
@@ -166,14 +164,14 @@ export default function CampaignsReference(): JSX.Element {
                     type="button"
                     onClick={() => setStatusFilter(active ? null : s)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${
-                      active ? STATUS_COLOR[s] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                      active ? STATUS_COLOR[s] : 'border-slate-300 dark:border-line-1 text-slate-500'
                     }`}
                   >
                     {s}
                   </button>
                 );
               })}
-              <span className="text-mini font-mono text-slate-500 ml-2 mr-1">category:</span>
+              <span className="text-mini font-mono text-muted ml-2 mr-1">category:</span>
               {categories.map((cat) => {
                 const active = categoryFilter === cat;
                 return (
@@ -184,7 +182,7 @@ export default function CampaignsReference(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? (CATEGORY_COLOR[cat] ?? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300')
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                        : 'border-slate-300 dark:border-line-1 text-slate-500'
                     }`}
                   >
                     {cat}
@@ -216,8 +214,8 @@ export default function CampaignsReference(): JSX.Element {
 
           {/* Campaign grid */}
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400" />
+            <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
+              <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No campaigns match the current filter.
             </div>
           ) : (
@@ -265,7 +263,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
           </span>
           <span
             className={`text-micro font-mono px-1.5 py-0.5 rounded border ${
-              CATEGORY_COLOR[c.category] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+              CATEGORY_COLOR[c.category] ?? 'border-slate-300 dark:border-line-1 text-slate-500'
             }`}
           >
             {c.category}
@@ -293,10 +291,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
       {c.targets && c.targets.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
           {c.targets.map((t) => (
-            <span
-              key={t}
-              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted text-mini font-mono"
-            >
+            <span key={t} className="px-1 py-0.5 rounded bg-surface-300 text-muted text-mini font-mono">
               {t}
             </span>
           ))}
@@ -319,16 +314,13 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
         </div>
       )}
       {expanded && (
-        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-2">
+        <div className="mt-3 pt-3 border-t border-line-1 space-y-2">
           {c.ttps && c.ttps.length > 0 && (
             <div>
               <span className="text-micro font-mono uppercase tracking-wider text-muted mr-2">TTPs:</span>
               <div className="flex flex-wrap gap-1 mt-1">
                 {c.ttps.map((ttp) => (
-                  <span
-                    key={ttp}
-                    className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted text-mini font-mono"
-                  >
+                  <span key={ttp} className="px-1 py-0.5 rounded bg-surface-300 text-muted text-mini font-mono">
                     {ttp}
                   </span>
                 ))}
@@ -343,10 +335,7 @@ function CampaignCard({ campaign: c }: { campaign: CampaignEntry }) {
           {c.tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {c.tags.map((t) => (
-                <span
-                  key={t}
-                  className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted text-mini font-mono"
-                >
+                <span key={t} className="px-1 py-0.5 rounded bg-surface-300 text-muted text-mini font-mono">
                   {t}
                 </span>
               ))}

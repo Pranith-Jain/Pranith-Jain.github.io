@@ -184,21 +184,21 @@ export default function SocAutomation(): JSX.Element {
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Playbooks</div>
+            <div className="text-micro font-mono text-muted">Playbooks</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_playbooks}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Enabled</div>
+            <div className="text-micro font-mono text-muted">Enabled</div>
             <div className="text-xl font-bold font-mono mt-1 text-emerald-600 dark:text-emerald-400">
               {stats.enabled_playbooks}
             </div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Total Runs</div>
+            <div className="text-micro font-mono text-muted">Total Runs</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_runs}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Success Rate</div>
+            <div className="text-micro font-mono text-muted">Success Rate</div>
             <div
               className={`text-xl font-bold font-mono mt-1 ${stats.success_rate >= 80 ? 'text-emerald-600 dark:text-emerald-400' : stats.success_rate >= 50 ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400'}`}
             >
@@ -209,7 +209,7 @@ export default function SocAutomation(): JSX.Element {
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <div className="flex gap-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-0.5">
+        <div className="flex gap-1 rounded-xl border border-line-1 p-0.5">
           <button
             type="button"
             onClick={() => setTab('playbooks')}
@@ -249,20 +249,17 @@ export default function SocAutomation(): JSX.Element {
       {tab === 'playbooks' && (
         <>
           {showCreate && (
-            <form
-              onSubmit={handleCreate}
-              className="mb-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4 space-y-3"
-            >
+            <form onSubmit={handleCreate} className="mb-5 rounded-xl border border-line-1 bg-surface-200 p-4 space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 <input
                   name="name"
                   placeholder="Playbook name *"
                   required
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] col-span-2"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 col-span-2"
                 />
                 <select
                   name="trigger"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
                 >
                   <option value="manual">Manual</option>
                   <option value="incident_created">Incident Created</option>
@@ -274,20 +271,20 @@ export default function SocAutomation(): JSX.Element {
                 <input
                   name="tags"
                   placeholder="Tags (comma-separated)"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
                 />
               </div>
               <textarea
                 name="description"
                 placeholder="Description"
                 rows={2}
-                className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] w-full"
+                className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 w-full"
               />
               <div className="flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowCreate(false)}
-                  className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-xs font-mono px-3 py-1.5 rounded border border-line-1"
                 >
                   Cancel
                 </button>
@@ -322,7 +319,7 @@ export default function SocAutomation(): JSX.Element {
                           >
                             {pb.enabled ? 'Enabled' : 'Disabled'}
                           </span>
-                          <span className="text-micro font-mono text-slate-500">
+                          <span className="text-micro font-mono text-muted">
                             {TRIGGER_LABELS[pb.trigger] ?? pb.trigger}
                           </span>
                           {pb.last_run_status && (
@@ -368,14 +365,14 @@ export default function SocAutomation(): JSX.Element {
                     </div>
 
                     {isExpanded && (
-                      <div className="mt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
-                        <p className="text-mini text-slate-500 font-mono">{pb.description}</p>
+                      <div className="mt-3 border-t border-line-1 pt-3 space-y-3 bg-surface-200/50">
+                        <p className="text-mini text-muted font-mono">{pb.description}</p>
                         {pb.tags.length > 0 && (
                           <div className="flex gap-1 flex-wrap">
                             {pb.tags.map((t) => (
                               <span
                                 key={t}
-                                className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500"
+                                className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted"
                               >
                                 {t}
                               </span>
@@ -383,7 +380,7 @@ export default function SocAutomation(): JSX.Element {
                           </div>
                         )}
                         <div className="space-y-1">
-                          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                          <span className="text-micro font-mono uppercase tracking-wider text-muted flex items-center gap-1.5">
                             Actions
                           </span>
                           {pb.actions.length === 0 && (
@@ -392,8 +389,8 @@ export default function SocAutomation(): JSX.Element {
                             </p>
                           )}
                           {pb.actions.map((a, i) => (
-                            <div key={a.id} className="flex items-center gap-2 text-micro font-mono text-slate-500">
-                              <span className="w-4 h-4 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-micro font-bold">
+                            <div key={a.id} className="flex items-center gap-2 text-micro font-mono text-muted">
+                              <span className="w-4 h-4 rounded-full bg-slate-200 dark:bg-surface-300 flex items-center justify-center text-micro font-bold">
                                 {i + 1}
                               </span>
                               <span className="text-brand-600">{a.type}</span>
@@ -424,7 +421,7 @@ export default function SocAutomation(): JSX.Element {
                     >
                       {r.status}
                     </span>
-                    <span className="text-micro font-mono text-slate-500">{r.playbook_name}</span>
+                    <span className="text-micro font-mono text-muted">{r.playbook_name}</span>
                     <span className="text-micro font-mono text-muted">{TRIGGER_LABELS[r.trigger] ?? r.trigger}</span>
                   </div>
                   <div className="flex items-center gap-3 text-micro text-muted font-mono mt-0.5">
@@ -435,7 +432,7 @@ export default function SocAutomation(): JSX.Element {
                 </div>
               </div>
               {r.action_results.length > 0 && (
-                <div className="mt-2 space-y-1 border-t border-slate-100 dark:border-[rgb(var(--border-300))] pt-2">
+                <div className="mt-2 space-y-1 border-t border-line-1 pt-2">
                   {r.action_results.map((ar, i) => (
                     <div key={i} className="flex items-center gap-2 text-micro font-mono">
                       {ar.status === 'success' ? (
@@ -443,7 +440,7 @@ export default function SocAutomation(): JSX.Element {
                       ) : (
                         <XCircle size={10} className="text-rose-500" />
                       )}
-                      <span className="text-slate-500">{ar.action_label}</span>
+                      <span className="text-muted">{ar.action_label}</span>
                       <span className="text-muted">({ar.duration_ms}ms)</span>
                     </div>
                   ))}

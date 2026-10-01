@@ -23,7 +23,7 @@ export function Companies({ companies }: CompaniesProps) {
         {companies.map((company) => (
           <div
             key={company}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] px-4 py-2 text-sm font-medium text-body transition hover:border-brand-500/40"
+            className="rounded-xl border border-line-1 bg-surface-100/40 px-4 py-2 text-sm font-medium text-body transition hover:border-brand-500/40"
           >
             {company}
           </div>

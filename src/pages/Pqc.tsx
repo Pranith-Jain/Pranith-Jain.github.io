@@ -51,9 +51,7 @@ function AlgorithmDetail({ body, onClose }: { body: PqcAlgorithmBody; onClose: (
           <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-brand-500/40 text-brand-700 dark:text-brand-300 bg-brand-500/10">
             {body.fips}
           </span>
-          <span className="font-mono text-micro px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
-            {body.type}
-          </span>
+          <span className="font-mono text-micro px-2 py-0.5 rounded border border-line-2 text-body">{body.type}</span>
         </div>
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Purpose</div>
@@ -117,19 +115,19 @@ export default function Pqc() {
             </div>
             <p className="text-sm text-body leading-relaxed mb-3">{index.hndl.summary}</p>
             <div className="grid gap-3 md:grid-cols-3">
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
+              <div className="rounded border border-line-1 bg-surface-200 p-3">
+                <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
                   <CalendarClock size={11} className="inline mr-1" />
                   Timeline
                 </div>
                 <p className="text-mini font-mono text-body leading-relaxed">{index.hndl.timeline}</p>
               </div>
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">Act first</div>
+              <div className="rounded border border-line-1 bg-surface-200 p-3">
+                <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Act first</div>
                 <p className="text-mini font-mono text-body leading-relaxed">{index.hndl.whoShouldActFirst}</p>
               </div>
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">Mitigations</div>
+              <div className="rounded border border-line-1 bg-surface-200 p-3">
+                <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Mitigations</div>
                 <p className="text-mini font-mono text-body leading-relaxed">{index.hndl.mitigations}</p>
               </div>
             </div>
@@ -193,13 +191,10 @@ export default function Pqc() {
             </div>
             <div className="grid gap-2 md:grid-cols-2">
               {index?.readiness.map((r) => (
-                <div
-                  key={r.id}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                >
+                <div key={r.id} className="rounded border border-line-1 bg-surface-200 p-3">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-mono text-micro font-bold text-brand-600 dark:text-brand-400">{r.id}</span>
-                    <span className="text-micro font-mono text-slate-400">weight {r.weight}</span>
+                    <span className="text-micro font-mono text-muted">weight {r.weight}</span>
                   </div>
                   <p className="text-mini font-mono text-body leading-relaxed">{r.question}</p>
                 </div>
@@ -208,7 +203,7 @@ export default function Pqc() {
           </div>
         </div>
 
-        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-line-1">
           Summarized from NIST FIPS 203/204/205/206 + NSA CNSSP-15. Track IETF TLS hybrid drafts before production
           migration.
         </div>

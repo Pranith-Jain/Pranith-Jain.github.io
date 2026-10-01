@@ -95,12 +95,12 @@ export default function Engage(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {stats && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
+            <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">
               {stats.total} approaches
             </span>
           )}
@@ -122,7 +122,7 @@ export default function Engage(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Search ${stats.total} approaches (try “lures”)…`}
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
               />
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
@@ -137,7 +137,7 @@ export default function Engage(): JSX.Element {
                   className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                     phaseFilter === p
                       ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   {p}
@@ -154,7 +154,7 @@ export default function Engage(): JSX.Element {
                     className={`text-micro font-mono rounded border px-2 py-0.5 transition-colors ${
                       goalFilter === g
                         ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-950/30 text-brand-600 dark:text-brand-400'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/50'
                     }`}
                   >
                     {g}
@@ -179,9 +179,7 @@ export default function Engage(): JSX.Element {
                   <span className="shrink-0 text-micro font-mono text-muted">{a.phase}</span>
                 </div>
                 <div className="mt-2 flex flex-wrap items-center gap-1.5 text-micro font-mono text-muted">
-                  <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5">
-                    {a.goal}
-                  </span>
+                  <span className="rounded border border-line-2 px-1.5 py-0.5">{a.goal}</span>
                   {a.topGoal && a.topGoal !== a.goal && <span className="px-1">← {a.topGoal}</span>}
                 </div>
               </article>

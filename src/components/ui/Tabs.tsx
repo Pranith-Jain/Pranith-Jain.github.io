@@ -69,7 +69,7 @@ export function Tabs({
         aria-orientation="horizontal"
         className={
           variant === 'underline'
-            ? `flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${tabListClassName}`
+            ? `flex flex-wrap gap-1 border-b border-line-1 ${tabListClassName}`
             : `flex flex-wrap gap-1.5 ${tabListClassName}`
         }
       >
@@ -100,8 +100,8 @@ export function Tabs({
                       isActive
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                         : tab.disabled
-                          ? 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-300 dark:text-muted cursor-not-allowed'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
+                          ? 'border-slate-200 dark:border-line-1 text-slate-300 dark:text-muted cursor-not-allowed'
+                          : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
                     }`
               }
             >

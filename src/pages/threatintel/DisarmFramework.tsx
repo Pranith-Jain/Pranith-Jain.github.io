@@ -73,7 +73,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -157,7 +157,7 @@ export default function DisarmFramework(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search techniques / tactics (name, description, T-id)…"
-          className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-1.5 text-sm font-mono text-body placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+          className="w-full max-w-md rounded border border-line-2 bg-surface-100 px-3 py-1.5 text-sm font-mono text-body placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
         />
         <div className="flex flex-wrap gap-1.5">
           <button type="button" onClick={() => setType('all')} className={chip(type === 'all')}>
@@ -194,10 +194,7 @@ export default function DisarmFramework(): JSX.Element {
           const primaryRef = entry.refs.map((r) => safeHref(r.url)).find((h): h is string => Boolean(h));
           const tone = TYPE_TONE[entry.type] ?? 'border-slate-400/50 text-slate-500 bg-slate-400/10';
           return (
-            <div
-              key={entry.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-            >
+            <div key={entry.id} className="rounded-xl border border-line-1 bg-surface-200 p-3">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-heading leading-snug">
                   {primaryRef ? (
@@ -229,7 +226,7 @@ export default function DisarmFramework(): JSX.Element {
               </div>
 
               {entry.phases.length > 0 && (
-                <p className="text-micro font-mono text-slate-500 mt-1.5 flex items-start gap-1">
+                <p className="text-micro font-mono text-muted mt-1.5 flex items-start gap-1">
                   <Target size={12} className="shrink-0 mt-0.5" />
                   <span className="flex flex-wrap gap-1">
                     {entry.phases.map((p) => (
@@ -249,7 +246,7 @@ export default function DisarmFramework(): JSX.Element {
               )}
 
               {entry.refs.length > 0 && (
-                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-line-1">
                   {entry.refs.map((ref, i) => {
                     const href = safeHref(ref.url);
                     const label = ref.external_id

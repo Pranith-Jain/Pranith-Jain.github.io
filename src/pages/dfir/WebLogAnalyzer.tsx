@@ -32,13 +32,12 @@ const RULES: Array<[string, RegExp]> = [
   ['Sensitive path', /(\/\.git|\/\.env|\/wp-admin|\/phpmyadmin|\/\.aws|\/actuator|\/server-status|\/\.ssh)/i],
 ];
 
-const ROW_CLASSNAME_STRIPED =
-  '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--surface-200)/0.5)]';
+const ROW_CLASSNAME_STRIPED = '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-surface-200/50';
 
 /** Hoisted to module scope: a new array identity here would defeat
  *  DataTable's internal useMemo and re-sort every render. */
 const COLUMNS: DataTableColumn<Row>[] = [
-  { key: 'n', header: '#', sortValue: (r) => r.n, render: (r) => <span className="text-slate-500">{r.n}</span> },
+  { key: 'n', header: '#', sortValue: (r) => r.n, render: (r) => <span className="text-muted">{r.n}</span> },
   { key: 'ip', header: 'IP', sortValue: (r) => r.ip, render: (r) => r.ip },
   { key: 'method', header: 'Method', sortValue: (r) => r.method, render: (r) => r.method },
   { key: 'path', header: 'Path', sortValue: (r) => r.path, render: (r) => <span className="break-all">{r.path}</span> },
@@ -204,10 +203,10 @@ export default function WebLogAnalyzer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('weblog-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a log file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">Drop a log file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">Apache/Nginx access logs. 100% client-side.</p>
       </button>
@@ -236,7 +235,7 @@ export default function WebLogAnalyzer(): JSX.Element {
 
       {res && (
         <div className="mt-6 space-y-3">
-          <div className="flex flex-wrap items-center gap-4 font-mono text-meta text-slate-500">
+          <div className="flex flex-wrap items-center gap-4 font-mono text-meta text-muted">
             <span>
               {res.total.toLocaleString()} lines · {res.parsed.toLocaleString()} parsed ·{' '}
               <span className="text-rose-600 dark:text-rose-400">{res.rows.length} suspicious</span>
@@ -246,21 +245,21 @@ export default function WebLogAnalyzer(): JSX.Element {
                 <button
                   type="button"
                   onClick={pipeToExtractor}
-                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
+                  className="px-2 py-1 rounded border border-line-1 hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
                 >
                   <FileSearch size={11} /> Extract IOCs →
                 </button>
                 <button
                   type="button"
                   onClick={download}
-                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
+                  className="px-2 py-1 rounded border border-line-1 hover:border-brand-500/40 transition-colors"
                 >
                   export CSV
                 </button>
               </>
             )}
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
+          <div className="rounded-xl border border-line-1 overflow-auto max-h-[60vh]">
             <DataTable
               columns={COLUMNS}
               rows={visibleRows}
@@ -268,7 +267,7 @@ export default function WebLogAnalyzer(): JSX.Element {
               rowClassName={() => ROW_CLASSNAME_STRIPED}
             />
             {res.rows.length === 0 && (
-              <p className="p-3 font-mono text-meta text-slate-500">No suspicious requests matched the heuristics.</p>
+              <p className="p-3 font-mono text-meta text-muted">No suspicious requests matched the heuristics.</p>
             )}
           </div>
         </div>

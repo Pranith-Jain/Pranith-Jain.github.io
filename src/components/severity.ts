@@ -14,8 +14,13 @@ export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
 export const SEVERITY_TONE: Record<Severity, string> = {
   critical: 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/15 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300',
+  // Light-mode text steps are -800, not -700: chips render at text-xs bold
+  // (12px), so SC 1.4.3 needs the full 4.5:1 and the large-text 3:1
+  // allowance does not apply. Measured on the composited 15% tint over white,
+  // -700 gave 4.44 (high) / 4.47 (medium) — just under. -800 gives 6.27 /
+  // 6.31 while staying inside the same hue family.
+  high: 'border-orange-500/50 bg-orange-500/15 text-orange-800 dark:text-orange-300',
+  medium: 'border-amber-500/50 bg-amber-500/15 text-amber-800 dark:text-amber-300',
   low: 'border-slate-400/50 bg-slate-400/10 text-body',
   info: 'border-sky-500/50 bg-sky-500/15 text-sky-700 dark:text-sky-300',
 };

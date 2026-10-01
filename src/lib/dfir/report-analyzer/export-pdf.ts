@@ -170,7 +170,11 @@ export async function exportAnalyzerPdf(data: AnalyzerOutput): Promise<Blob> {
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(148, 163, 184);
-  doc.text(`Generated ${fmtDate(data.generatedAt)}  |  ${data.textLength.toLocaleString()} chars  |  ${data.elapsed_ms} ms`, margin, 30);
+  doc.text(
+    `Generated ${fmtDate(data.generatedAt)}  |  ${data.textLength.toLocaleString()} chars  |  ${data.elapsed_ms} ms`,
+    margin,
+    30
+  );
 
   // Thin accent line
   doc.setFillColor(59, 130, 246);

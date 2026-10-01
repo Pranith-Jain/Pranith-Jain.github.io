@@ -98,7 +98,7 @@ export function ShareBar({
   const btnBase =
     size === 'sm'
       ? 'inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-600/50 hover:border-brand-500/50 text-muted transition-colors'
-      : 'inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors';
+      : 'inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-line-1 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors';
   const postBtn =
     size === 'sm'
       ? 'inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 transition-colors'

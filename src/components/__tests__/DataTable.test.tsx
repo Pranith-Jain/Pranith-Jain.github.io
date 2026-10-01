@@ -103,12 +103,7 @@ describe('DataTable — sorting', () => {
 
   it('respects initialSort prop', () => {
     render(
-      <DataTable
-        columns={COLUMNS}
-        rows={ROWS}
-        rowKey={(r) => r.name}
-        initialSort={{ key: 'score', dir: 'desc' }}
-      />
+      <DataTable columns={COLUMNS} rows={ROWS} rowKey={(r) => r.name} initialSort={{ key: 'score', dir: 'desc' }} />
     );
     const cells = screen.getAllByText(/\d+/).filter((el) => el.tagName === 'TD');
     expect(cells[0]).toHaveTextContent('90'); // desc

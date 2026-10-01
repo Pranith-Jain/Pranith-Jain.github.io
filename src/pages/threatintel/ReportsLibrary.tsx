@@ -125,7 +125,7 @@ export default function ReportsLibrary(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
@@ -148,7 +148,7 @@ export default function ReportsLibrary(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} reports\u2026`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap items-center gap-3">
@@ -159,7 +159,7 @@ export default function ReportsLibrary(): JSX.Element {
                     className={`text-xs font-mono px-2.5 py-1 rounded-xl border transition-colors ${
                       !activeCategory
                         ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-[rgb(var(--border-400))]'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400 dark:hover:border-line-1'
                     }`}
                   >
                     All ({data.count})
@@ -172,7 +172,7 @@ export default function ReportsLibrary(): JSX.Element {
                       className={`text-xs font-mono px-2.5 py-1 rounded-xl border transition-colors ${
                         activeCategory === cat
                           ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-[rgb(var(--border-400))]'
+                          : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400 dark:hover:border-line-1'
                       }`}
                     >
                       {CATEGORY_LABELS[cat] ?? cat} ({categoryCounts[cat] || 0})
@@ -184,12 +184,12 @@ export default function ReportsLibrary(): JSX.Element {
                     value={yearFilter}
                     onChange={(e) => setYearFilter(e.target.value)}
                     placeholder="Year"
-                    className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                    className="w-20 rounded border border-line-2 bg-surface-100 px-2 py-1 text-xs font-mono text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                   />
                   <select
                     value={publisherFilter}
                     onChange={(e) => setPublisherFilter(e.target.value)}
-                    className="w-36 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-heading focus:border-rose-500/60 focus:outline-none"
+                    className="w-36 rounded border border-line-2 bg-surface-100 px-2 py-1 text-xs font-mono text-heading focus:border-rose-500/60 focus:outline-none"
                   >
                     <option value="">All publishers</option>
                     {publishers.map((p) => (
@@ -211,8 +211,8 @@ export default function ReportsLibrary(): JSX.Element {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400" />
+            <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
+              <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               {query || activeCategory || yearFilter || publisherFilter
                 ? 'No reports match your filters.'
                 : 'No reports available.'}
@@ -248,12 +248,10 @@ function ReportCard({ report }: { report: ReportEntry }) {
       className="group block surface-card p-4 hover:border-rose-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex flex-wrap items-center gap-2 mb-2">
-        <span className="text-micro font-mono font-semibold px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted uppercase tracking-wider">
+        <span className="text-micro font-mono font-semibold px-1.5 py-0.5 rounded border border-line-2 text-muted uppercase tracking-wider">
           {CATEGORY_LABELS[report.category] ?? report.category}
         </span>
-        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--input-200))] text-muted">
-          {report.year}
-        </span>
+        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">{report.year}</span>
       </div>
 
       <h3 className="font-display font-semibold text-sm text-heading leading-snug mb-1 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
@@ -270,12 +268,9 @@ function ReportCard({ report }: { report: ReportEntry }) {
       </div>
 
       {report.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/60">
+        <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-line-1/60">
           {report.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
-            >
+            <span key={tag} className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted">
               {tag}
             </span>
           ))}

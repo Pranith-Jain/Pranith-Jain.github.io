@@ -171,13 +171,13 @@ function SearchBox({
 }) {
   return (
     <div className="relative flex-1">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+        className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
       />
     </div>
   );
@@ -189,7 +189,7 @@ function SearchBox({
 
 function ClusterCard({ item }: { item: TcCluster }) {
   return (
-    <details className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]">
+    <details className="group rounded-xl border border-line-1 bg-surface-100/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]">
       <summary className="cursor-pointer list-none">
         <div className="flex items-start justify-between gap-2 mb-1.5">
           <h3 className="text-sm font-bold text-heading leading-snug">{item.title}</h3>
@@ -200,7 +200,7 @@ function ClusterCard({ item }: { item: TcCluster }) {
             </Badge>
           )}
         </div>
-        <p className="text-mini text-slate-500 mt-1 font-mono">
+        <p className="text-mini text-muted mt-1 font-mono">
           <FmtDate iso={item.pubDate} />
         </p>
       </summary>
@@ -214,11 +214,7 @@ function ExploitBadges({ severity, inKev }: { severity: string | null; inKev: bo
     <>
       {inKev && <Badge cls="border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">KEV</Badge>}
       {severity && (
-        <Badge
-          cls={
-            SEVERITY_STYLES[severity] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 shrink-0'
-          }
-        >
+        <Badge cls={SEVERITY_STYLES[severity] ?? 'border-slate-300 dark:border-line-1 text-slate-500 shrink-0'}>
           {severity}
         </Badge>
       )}
@@ -233,9 +229,9 @@ const IOC_TYPE_STYLES: Record<string, string> = {
 };
 
 function IocCard({ ioc, copied, onCopy }: { ioc: TcIoc; copied: boolean; onCopy: () => void }) {
-  const typeMeta = IOC_TYPE_STYLES[ioc.type] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+  const typeMeta = IOC_TYPE_STYLES[ioc.type] ?? 'border-slate-300 dark:border-line-1 text-slate-500';
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
       <div className="flex items-center justify-between gap-2 mb-1.5">
         <div className="flex items-center gap-2 min-w-0">
           <Badge cls={typeMeta}>{ioc.type}</Badge>
@@ -243,14 +239,14 @@ function IocCard({ ioc, copied, onCopy }: { ioc: TcIoc; copied: boolean; onCopy:
         </div>
         <button
           onClick={onCopy}
-          className="inline-flex items-center gap-1 px-2 py-1 rounded text-micro font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors shrink-0"
+          className="inline-flex items-center gap-1 px-2 py-1 rounded text-micro font-mono border border-line-1 text-muted hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors shrink-0"
           title="Copy value"
         >
           {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
         </button>
       </div>
       {ioc.reason && <p className="text-xs text-body mt-0.5 leading-relaxed">{ioc.reason}</p>}
-      <div className="mt-2 flex flex-wrap items-center gap-2 text-mini text-slate-500 font-mono">
+      <div className="mt-2 flex flex-wrap items-center gap-2 text-mini text-muted font-mono">
         <span>{ioc.source_count} sources</span>
         {ioc.first_seen && <FmtDate iso={ioc.first_seen} />}
         {ioc.sources.slice(0, 3).map((s) => (
@@ -499,14 +495,14 @@ export default function ThreatCluster(): JSX.Element {
               { label: 'MISP events', value: idx.counts.mispEvents, cls: 'text-slate-500' },
             ].map(({ label, value, cls }) => (
               <div key={label} className="surface-card/50 shadow-e1 p-2.5">
-                <div className="text-mini uppercase tracking-wider mb-0.5 text-slate-500">{label}</div>
+                <div className="text-mini uppercase tracking-wider mb-0.5 text-muted">{label}</div>
                 <div className={`text-lg font-bold ${cls}`}>{value}</div>
               </div>
             ))}
           </div>
 
           {/* Tab nav */}
-          <div className="flex flex-wrap gap-1.5 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-3">
+          <div className="flex flex-wrap gap-1.5 mb-4 border-b border-line-1 pb-3">
             {TABS.map((t) => {
               const Icon = t.icon;
               const active = tab === t.id;
@@ -518,7 +514,7 @@ export default function ThreatCluster(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition ${
                     active
                       ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -535,7 +531,7 @@ export default function ThreatCluster(): JSX.Element {
               <div className="flex flex-col sm:flex-row gap-3 mb-4">
                 <SearchBox query={query} setQuery={setQuerySafe} placeholder="Search trending clusters…" />
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredClusters.length} of {clusters.length} clusters · top 50 trending from the last 7 days
               </div>
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -551,7 +547,7 @@ export default function ThreatCluster(): JSX.Element {
               <div className="flex flex-col sm:flex-row gap-3 mb-4">
                 <SearchBox query={query} setQuery={setQuerySafe} placeholder="Search CVEs (id, product, vendor)…" />
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredVulns.length} of {vulns.length} CVEs · last 7 days, enriched by ThreatCluster
               </div>
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -559,17 +555,17 @@ export default function ThreatCluster(): JSX.Element {
                   return (
                     <details
                       key={v.cveId}
-                      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]"
+                      className="group rounded-xl border border-line-1 bg-surface-100/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]"
                     >
                       <summary className="cursor-pointer list-none">
                         <div className="flex items-start justify-between gap-2 mb-1.5">
                           <div>
                             <h3 className="font-mono text-sm font-bold text-heading">{v.cveId}</h3>
-                            <p className="text-mini text-slate-500 mt-0.5 font-mono">
+                            <p className="text-mini text-muted mt-0.5 font-mono">
                               <FmtDate iso={v.pubDate} />
                             </p>
                           </div>
-                          <span className="font-mono text-micro text-slate-400 group-open:text-rose-500">expand</span>
+                          <span className="font-mono text-micro text-muted group-open:text-rose-500">expand</span>
                         </div>
                       </summary>
                       <VulnDetailBody cveId={v.cveId} />
@@ -587,7 +583,7 @@ export default function ThreatCluster(): JSX.Element {
                 <select
                   value={sevFilter}
                   onChange={(e) => setSevFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All severities</option>
                   <option value="CRITICAL">Critical</option>
@@ -600,13 +596,13 @@ export default function ThreatCluster(): JSX.Element {
                   className={`px-3 py-2 rounded-xl text-sm font-mono border transition ${
                     kevOnly
                       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   KEV only
                 </button>
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredExploits.length} of {exploits.length} exploits · public PoCs from the last 30 days,
                 sorted by exploit availability then CVSS
               </div>
@@ -614,7 +610,7 @@ export default function ThreatCluster(): JSX.Element {
                 {filteredExploits.map((e) => (
                   <details
                     key={e.cveId}
-                    className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]"
+                    className="group rounded-xl border border-line-1 bg-surface-100/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]"
                   >
                     <summary className="cursor-pointer list-none">
                       <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -622,12 +618,12 @@ export default function ThreatCluster(): JSX.Element {
                           <h3 className="font-mono text-sm font-bold text-heading truncate">{e.cveId}</h3>
                           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                             <ExploitBadges severity={e.severity} inKev={e.inKev} />
-                            <span className="text-mini text-slate-500 font-mono">
+                            <span className="text-mini text-muted font-mono">
                               <FmtDate iso={e.pubDate} />
                             </span>
                           </div>
                         </div>
-                        <span className="font-mono text-micro text-slate-400 group-open:text-rose-500 shrink-0">
+                        <span className="font-mono text-micro text-muted group-open:text-rose-500 shrink-0">
                           expand
                         </span>
                       </div>
@@ -646,7 +642,7 @@ export default function ThreatCluster(): JSX.Element {
               </div>
               {/* Group pills */}
               <div className="flex flex-wrap items-center gap-1.5 mb-3">
-                <span className="text-xs text-slate-500 mr-1 font-mono">groups:</span>
+                <span className="text-xs text-muted mr-1 font-mono">groups:</span>
                 {victimsGroups.map(([g, n]) => (
                   <button
                     key={g}
@@ -654,14 +650,14 @@ export default function ThreatCluster(): JSX.Element {
                     className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                       query === g
                         ? 'border-violet-500/60 bg-violet-500/10 text-violet-700 dark:text-violet-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-violet-500/30'
+                        : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-violet-500/30'
                     }`}
                   >
                     {g} <span className="opacity-60">{n}</span>
                   </button>
                 ))}
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredVictims.length} of {victims.length} victims · newly observed on ransomware leak sites,
                 last 14 days
               </div>
@@ -669,7 +665,7 @@ export default function ThreatCluster(): JSX.Element {
                 {filteredVictims.map((v) => (
                   <details
                     key={v.id}
-                    className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30"
+                    className="group rounded-xl border border-line-1 bg-surface-100/50 p-4 open:border-rose-500/30"
                   >
                     <summary className="cursor-pointer list-none">
                       <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -680,16 +676,16 @@ export default function ThreatCluster(): JSX.Element {
                               {v.group ?? 'unknown group'}
                             </Badge>
                             {v.sector && v.sector !== 'Not Found' && (
-                              <span className="text-mini text-slate-500 font-mono">{v.sector}</span>
+                              <span className="text-mini text-muted font-mono">{v.sector}</span>
                             )}
-                            {v.country && <span className="text-mini text-slate-500 font-mono">{v.country}</span>}
+                            {v.country && <span className="text-mini text-muted font-mono">{v.country}</span>}
                           </div>
                         </div>
-                        <span className="font-mono text-micro text-slate-400 group-open:text-rose-500 shrink-0">
+                        <span className="font-mono text-micro text-muted group-open:text-rose-500 shrink-0">
                           expand
                         </span>
                       </div>
-                      <p className="text-mini text-slate-500 mt-1 font-mono">
+                      <p className="text-mini text-muted mt-1 font-mono">
                         <FmtDate iso={v.pubDate} />
                       </p>
                     </summary>
@@ -707,7 +703,7 @@ export default function ThreatCluster(): JSX.Element {
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+                  className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
                 >
                   <option value="all">All types</option>
                   {iocTypes.map(([t, n]) => (
@@ -718,7 +714,7 @@ export default function ThreatCluster(): JSX.Element {
                 </select>
                 <button
                   onClick={copyAllIocs}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono border border-line-1 text-muted hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   {copiedValue === '__all__' ? (
                     <Check className="w-3.5 h-3.5 text-emerald-500" />
@@ -728,7 +724,7 @@ export default function ThreatCluster(): JSX.Element {
                   {copiedValue === '__all__' ? 'Copied!' : 'Copy all'}
                 </button>
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredIocs.length} of {iocs.length} high-confidence IOCs · last 30 days · paste into pfSense
                 / Pi-hole / firewall blocklists
               </div>
@@ -758,27 +754,24 @@ export default function ThreatCluster(): JSX.Element {
               <div className="flex flex-col sm:flex-row gap-3 mb-4">
                 <SearchBox query={query} setQuery={setQuerySafe} placeholder="Search MISP events by title or tag…" />
               </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
+              <div className="text-xs text-muted font-mono mb-3">
                 Showing {filteredMisp.length} of {misp.length} MISP events · slim manifest pass-through
               </div>
               <div className="grid gap-2 sm:grid-cols-2">
                 {filteredMisp.map((e) => (
-                  <div
-                    key={e.uuid}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
-                  >
+                  <div key={e.uuid} className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h3 className="text-sm font-bold text-heading leading-snug">{e.info ?? e.uuid}</h3>
-                      <Badge cls="border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 shrink-0">
+                      <Badge cls="border-slate-300 dark:border-line-1 text-slate-500 shrink-0">
                         L{e.threat_level_id ?? '?'}
                       </Badge>
                     </div>
                     <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                      {e.date && <span className="text-mini text-slate-500 font-mono">{e.date}</span>}
+                      {e.date && <span className="text-mini text-muted font-mono">{e.date}</span>}
                       {e.tags.slice(0, 5).map((t) => (
                         <span
                           key={t}
-                          className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body"
                         >
                           {t}
                         </span>
@@ -790,7 +783,7 @@ export default function ThreatCluster(): JSX.Element {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+          <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
             Source: threatcluster.io · feeds refresh hourly upstream, replicated here on the threat-intel sync cadence
             {idx.syncedAt && <> · synced {fmtDate(idx.syncedAt)}</>}
           </div>
@@ -842,7 +835,7 @@ function DetailLink({ href }: { href: string | null | undefined }) {
 
 function ClusterDetailBody({ slug }: { slug: string }) {
   const { body, loading } = useDetail<TcClusterDetail>(`/api/v1/threat-intel/threatcluster/clusters/${slug}`);
-  if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
+  if (loading || !body) return <p className="mt-2 text-mini text-muted font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
       <p className="mt-2 text-xs text-body leading-relaxed whitespace-pre-line">{body.description}</p>
@@ -854,7 +847,7 @@ function ClusterDetailBody({ slug }: { slug: string }) {
 
 function VulnDetailBody({ cveId }: { cveId: string }) {
   const { body, loading } = useDetail<TcVulnDetail>(`/api/v1/threat-intel/threatcluster/vulnerabilities/${cveId}`);
-  if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
+  if (loading || !body) return <p className="mt-2 text-mini text-muted font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
       <p className="mt-2 text-xs text-body leading-relaxed">{body.description}</p>
@@ -871,7 +864,7 @@ function VulnDetailBody({ cveId }: { cveId: string }) {
 
 function ExploitDetailBody({ cveId }: { cveId: string }) {
   const { body, loading } = useDetail<TcExploitDetail>(`/api/v1/threat-intel/threatcluster/exploits/${cveId}`);
-  if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
+  if (loading || !body) return <p className="mt-2 text-mini text-muted font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
       <p className="mt-2 text-xs text-body leading-relaxed">{body.description}</p>
@@ -888,7 +881,7 @@ function ExploitDetailBody({ cveId }: { cveId: string }) {
 
 function VictimDetailBody({ id }: { id: string }) {
   const { body, loading } = useDetail<TcVictimDetail>(`/api/v1/threat-intel/threatcluster/victims/${id}`);
-  if (loading || !body) return <p className="mt-2 text-mini text-slate-400 font-mono">{loading ? 'loading…' : '—'}</p>;
+  if (loading || !body) return <p className="mt-2 text-mini text-muted font-mono">{loading ? 'loading…' : '—'}</p>;
   return (
     <>
       <p className="mt-2 text-xs text-body leading-relaxed">{body.description}</p>

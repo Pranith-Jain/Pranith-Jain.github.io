@@ -155,7 +155,7 @@ export default function CtMonitor(): JSX.Element {
             onChange={(e) => setNewDomain(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void addDomain()}
             placeholder="example.com"
-            className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 bg-surface-200 border border-line-1 rounded-xl px-4 py-2.5 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             onClick={addDomain}
@@ -199,7 +199,7 @@ export default function CtMonitor(): JSX.Element {
                       setSelectedDomain(w.domain);
                     }
                   }}
-                  className={`w-full text-left p-3 rounded-xl border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
+                  className={`w-full text-left p-3 rounded-xl border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-line-1 hover:border-brand-500/30'}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-mono">{w.domain}</span>
@@ -231,7 +231,7 @@ export default function CtMonitor(): JSX.Element {
             {selectedDomain && (
               <button
                 onClick={() => fetchCerts(selectedDomain)}
-                className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted"
+                className="p-1.5 rounded-xl hover:bg-surface-300 dark:hover:bg-surface-300 text-muted"
               >
                 <RefreshCw size={14} />
               </button>
@@ -276,7 +276,7 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      className={`rounded-xl p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
+      className={`rounded-xl p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-line-1 hover:border-brand-500/30'}`}
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -288,7 +288,7 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <div className="font-mono text-sm truncate">{cert.common_name}</div>
-          <div className="text-micro text-slate-500 mt-0.5 truncate">Issuer: {cert.issuer?.slice(0, 50)}…</div>
+          <div className="text-micro text-muted mt-0.5 truncate">Issuer: {cert.issuer?.slice(0, 50)}…</div>
         </div>
         {cert.alert && (
           <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${ALERT_BADGE[cert.alert.type] ?? ''}`}>
@@ -298,15 +298,12 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       </div>
       {cert.alert && <div className="text-xs text-rose-600 dark:text-rose-400 mt-1.5">{cert.alert.message}</div>}
       {expanded && (
-        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs space-y-2">
+        <div className="mt-3 pt-3 border-t border-line-1 text-xs space-y-2">
           <div>
             <span className="text-micro font-mono uppercase tracking-wider text-muted">Names</span>
             <div className="mt-1 flex flex-wrap gap-1">
               {cert.names.map((n, i) => (
-                <span
-                  key={i}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-                >
+                <span key={i} className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted">
                   {n}
                 </span>
               ))}

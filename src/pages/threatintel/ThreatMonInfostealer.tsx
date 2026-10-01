@@ -95,7 +95,7 @@ export default function ThreatMonInfostealer() {
             {STATS.map((s) => (
               <div
                 key={s.label}
-                className="text-center p-3 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] hover:bg-[rgb(var(--surface-300))]/50 transition-colors"
+                className="text-center p-3 rounded-xl border border-line-1 bg-surface-200 hover:bg-surface-300/50 transition-colors"
               >
                 <div className={`text-sm font-bold font-mono ${s.color}`}>{s.value}</div>
                 <div className="text-micro text-muted uppercase tracking-wider mt-0.5">{s.label}</div>
@@ -118,7 +118,7 @@ export default function ThreatMonInfostealer() {
                   }
                 }}
                 placeholder="Enter a domain to search"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-sm font-mono placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/40 transition-shadow"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-line-1 bg-surface-200 text-sm font-mono placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/40 transition-shadow"
                 minLength={2}
               />
             </div>
@@ -136,7 +136,7 @@ export default function ThreatMonInfostealer() {
             {HASHTAGS.map((t) => (
               <span
                 key={t}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-micro font-mono text-muted"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-line-1 bg-surface-200 text-micro font-mono text-muted"
               >
                 <Hash className="h-2.5 w-2.5" />
                 {t}
@@ -146,7 +146,7 @@ export default function ThreatMonInfostealer() {
 
           {/* CF blocked */}
           {cfBlocked && (
-            <div className="text-center py-12 px-6 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))]">
+            <div className="text-center py-12 px-6 rounded-xl border border-line-1 bg-surface-200">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
                 <AlertTriangle className="h-6 w-6 text-amber-500 dark:text-amber-400" />
               </div>
@@ -196,7 +196,7 @@ export default function ThreatMonInfostealer() {
 
               {/* Empty */}
               {data.records.length === 0 && (
-                <div className="text-center py-14 text-muted text-sm border border-dashed border-[rgb(var(--border-400))] rounded-xl bg-[rgb(var(--surface-200))]">
+                <div className="text-center py-14 text-muted text-sm border border-dashed border-line-1 rounded-xl bg-surface-200">
                   <Shield className="h-8 w-8 mx-auto mb-3 opacity-30" />
                   {data.totalCount === 0 ? (
                     <>
@@ -214,7 +214,7 @@ export default function ThreatMonInfostealer() {
                   {data.records.map((r, i) => (
                     <div
                       key={`${r.id}-${i}`}
-                      className="flex items-center gap-4 px-4 py-3 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] hover:bg-[rgb(var(--surface-300))]/40 hover:border-[rgb(var(--border-500))] transition-all group"
+                      className="flex items-center gap-4 px-4 py-3 rounded-xl border border-line-1 bg-surface-200 hover:bg-surface-300/40 hover:border-line-2 transition-all group"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="font-mono text-xs text-rose-600 dark:text-rose-400 truncate group-hover:underline">
@@ -248,7 +248,7 @@ export default function ThreatMonInfostealer() {
           )}
 
           {/* About */}
-          <div className="mt-6 p-5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-xs text-muted space-y-3">
+          <div className="mt-6 p-5 rounded-xl border border-line-1 bg-surface-200 text-xs text-muted space-y-3">
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4 text-rose-600 dark:text-rose-400" />
               <p className="font-semibold text-foreground text-sm">About ThreatMon Infostealer Intelligence</p>

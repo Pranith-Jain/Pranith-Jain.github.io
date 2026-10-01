@@ -75,7 +75,7 @@ function Diff({ before, after }: { before: string; after: string }): JSX.Element
   }
 
   return (
-    <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-surface-200 rounded p-2 border border-line-1">
       {head}
       <span className="bg-rose-500/15 text-rose-700 dark:text-rose-300 line-through px-0.5 rounded">{beforeMid}</span>
       <span className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-0.5 rounded">{afterMid}</span>
@@ -153,7 +153,7 @@ export default function PowershellDeobf(): JSX.Element {
               <button
                 key={s.label}
                 onClick={() => setInput(s.value)}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -161,7 +161,7 @@ export default function PowershellDeobf(): JSX.Element {
             {input && (
               <button
                 onClick={() => setInput('')}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 Clear
               </button>
@@ -174,7 +174,7 @@ export default function PowershellDeobf(): JSX.Element {
           rows={8}
           spellCheck={false}
           placeholder="Paste an obfuscated PowerShell command, EncodedCommand blob, or stager fragment…"
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
         />
       </section>
 
@@ -184,7 +184,7 @@ export default function PowershellDeobf(): JSX.Element {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Decoded output</h2>
               <div className="flex items-center gap-2">
-                <span className="text-mini font-mono text-slate-400">
+                <span className="text-mini font-mono text-muted">
                   {result.steps.length} transform{result.steps.length === 1 ? '' : 's'} · {result.iterations} iter ·{' '}
                   {result.fixedPoint ? 'fixed point' : 'max iter reached'}
                 </span>
@@ -201,7 +201,7 @@ export default function PowershellDeobf(): JSX.Element {
                 <CopyChip value={result.output} />
               </div>
             </div>
-            <pre className="text-xs font-mono text-heading whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <pre className="text-xs font-mono text-heading whitespace-pre-wrap break-all bg-surface-200 rounded p-3 border border-line-1">
               {result.output}
             </pre>
           </section>
@@ -213,10 +213,7 @@ export default function PowershellDeobf(): JSX.Element {
               </h2>
               <ul className="space-y-2">
                 {risks.map((r) => (
-                  <li
-                    key={r.id}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5"
-                  >
+                  <li key={r.id} className="rounded border border-line-1 bg-surface-100 p-2.5">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-heading">{r.label}</span>
                       <span
@@ -254,7 +251,7 @@ export default function PowershellDeobf(): JSX.Element {
               {showSteps && (
                 <ol className="mt-3 space-y-3">
                   {collapsedSteps(result.steps).map((s, i) => (
-                    <li key={i} className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+                    <li key={i} className="rounded border border-line-1 p-3">
                       <div className="text-micro font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-1.5">
                         Pass {i + 1}: {s.passName}
                       </div>

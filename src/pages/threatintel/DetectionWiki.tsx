@@ -414,7 +414,7 @@ export default function DetectionWiki(): JSX.Element {
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono whitespace-nowrap border transition-colors ${
               tab === t.id
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             <t.icon size={12} /> {t.label}
@@ -426,7 +426,7 @@ export default function DetectionWiki(): JSX.Element {
       <div className="surface-card p-3 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               type="text"
               value={search}
@@ -440,7 +440,7 @@ export default function DetectionWiki(): JSX.Element {
                       ? 'Search platforms…'
                       : 'Search techniques, tactics…'
               }
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:border-brand-500/50 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-line-1 bg-surface-100 font-mono text-sm focus:border-brand-500/50 focus:outline-none"
             />
           </div>
           {(tab === 'auditing' || tab === 'windows') && (
@@ -449,7 +449,7 @@ export default function DetectionWiki(): JSX.Element {
                 type="checkbox"
                 checked={onlyWithRules}
                 onChange={(e) => setOnlyWithRules(e.target.checked)}
-                className="w-3 h-3 rounded border-slate-300"
+                className="w-3 h-3 rounded border-line-2"
               />
               only with rules
             </label>
@@ -474,7 +474,7 @@ export default function DetectionWiki(): JSX.Element {
                 className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                   active
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                    : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
                 }`}
               >
                 {TACTIC_SHORT[t] ?? t}
@@ -483,7 +483,7 @@ export default function DetectionWiki(): JSX.Element {
           })}
         </div>
         {tab !== 'matrix' && tab !== 'top' && (
-          <p className="text-micro font-mono text-slate-400 mt-2">
+          <p className="text-micro font-mono text-muted mt-2">
             {tab === 'windows' &&
               `${filteredWindowsProviders.length} of ${windowsCatalog?.providers.length ?? 0} sampled providers (of ${windowsCatalog?.totalProviders.toLocaleString() ?? '1,518'} total) · ${windowsCatalog?.totalEvents.toLocaleString() ?? '103,315'} events`}
             {tab === 'auditing' &&
@@ -506,10 +506,10 @@ export default function DetectionWiki(): JSX.Element {
               <div key={col.tactic} className="surface-card overflow-hidden">
                 <button
                   onClick={() => setSelectedTactic(selectedTactic === col.tactic ? null : col.tactic)}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                 >
                   <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{col.tactic}</span>
-                  <span className="text-xs font-mono text-slate-500">
+                  <span className="text-xs font-mono text-muted">
                     {col.totalRules.toLocaleString()} rules · {col.techniques.length} techniques
                   </span>
                 </button>
@@ -551,7 +551,7 @@ export default function DetectionWiki(): JSX.Element {
                 href={`https://attack.mitre.org/techniques/${t.id}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="surface-card p-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors group"
+                className="surface-card p-3 flex items-center gap-3 hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors group"
               >
                 <div
                   className="w-16 h-8 rounded flex items-center justify-center font-mono text-xs font-bold border"
@@ -565,7 +565,7 @@ export default function DetectionWiki(): JSX.Element {
                   </div>
                   <div className="text-micro text-muted">{t.tactic}</div>
                 </div>
-                <ExternalLink size={12} className="text-slate-400 group-hover:text-brand-500 shrink-0" />
+                <ExternalLink size={12} className="text-muted group-hover:text-brand-500 shrink-0" />
               </a>
             ))}
         </div>
@@ -586,9 +586,9 @@ export default function DetectionWiki(): JSX.Element {
             </a>{' '}
             · 103,315 events across 1,518 providers (top 74 sampled here). Channel = where the event is logged.
           </p>
-          <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="overflow-x-auto rounded border border-line-1">
             <table className="w-full text-xs font-mono">
-              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500">
+              <thead className="bg-surface-200 text-muted">
                 <tr>
                   <th className="text-left px-3 py-2">Provider</th>
                   <th className="text-right px-3 py-2">Events</th>
@@ -597,12 +597,9 @@ export default function DetectionWiki(): JSX.Element {
                   <th className="text-left px-3 py-2">Channel</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+              <tbody className="divide-y divide-line-1">
                 {filteredWindowsProviders.slice(0, 100).map((p) => (
-                  <tr
-                    key={p.slug}
-                    className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
-                  >
+                  <tr key={p.slug} className="hover:bg-surface-200 dark:hover:bg-surface-200 transition-colors">
                     <td className="px-3 py-2">
                       <a
                         href={`https://detection.wiki/${p.slug}/`}
@@ -622,13 +619,13 @@ export default function DetectionWiki(): JSX.Element {
                         {p.rules}
                       </span>
                     </td>
-                    <td className="px-3 py-2 text-slate-500 truncate max-w-[180px]">{p.channel}</td>
+                    <td className="px-3 py-2 text-muted truncate max-w-[180px]">{p.channel}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-micro font-mono text-slate-400">
+          <p className="text-micro font-mono text-muted">
             Data from{' '}
             <a
               href="https://detection.wiki/windows/"
@@ -658,9 +655,9 @@ export default function DetectionWiki(): JSX.Element {
             · 426 events in the Security channel · 222 with sample data · 133 mapped to detection rules. Subset of 87
             high-value events shown here (full catalog via API).
           </p>
-          <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="overflow-x-auto rounded border border-line-1">
             <table className="w-full text-xs font-mono">
-              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500">
+              <thead className="bg-surface-200 text-muted">
                 <tr>
                   <th className="text-left px-3 py-2">ID</th>
                   <th className="text-left px-3 py-2">Title</th>
@@ -669,12 +666,9 @@ export default function DetectionWiki(): JSX.Element {
                   <th className="text-left px-3 py-2">Tactic</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+              <tbody className="divide-y divide-line-1">
                 {filteredAuditingEvents.slice(0, 100).map((e) => (
-                  <tr
-                    key={e.id}
-                    className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
-                  >
+                  <tr key={e.id} className="hover:bg-surface-200 dark:hover:bg-surface-200 transition-colors">
                     <td className="px-3 py-2 font-bold">
                       <a
                         href={`https://detection.wiki/microsoft-windows-security-auditing/#${e.id}`}
@@ -708,7 +702,7 @@ export default function DetectionWiki(): JSX.Element {
                           {e.tactic}
                         </span>
                       ) : (
-                        <span className="text-slate-400">—</span>
+                        <span className="text-muted">—</span>
                       )}
                     </td>
                   </tr>
@@ -725,12 +719,12 @@ export default function DetectionWiki(): JSX.Element {
             >
               Full Security-Auditing catalog <ExternalLink size={10} />
             </a>
-            <span className="text-xs font-mono text-slate-400">·</span>
+            <span className="text-xs font-mono text-muted">·</span>
             <a
               href="/api/v1/detection-wiki/security-auditing"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono text-slate-500 hover:underline inline-flex items-center gap-1"
+              className="text-xs font-mono text-muted hover:underline inline-flex items-center gap-1"
             >
               API <ExternalLink size={10} />
             </a>
@@ -774,54 +768,50 @@ export default function DetectionWiki(): JSX.Element {
                         {platformDetail.source.replace('https://', '')} <ExternalLink size={10} />
                       </a>
                     </div>
-                    <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))]">
-                      {platformDetail.slug}
-                    </span>
+                    <span className="text-xs font-mono px-2 py-1 rounded bg-surface-300">{platformDetail.slug}</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs font-mono">
                     <div className="surface-card p-2 text-center">
-                      <div className="text-slate-500">Events</div>
+                      <div className="text-muted">Events</div>
                       <div className="font-bold text-slate-900 dark:text-white">
                         {platformDetail.events.toLocaleString()}
                       </div>
                     </div>
                     <div className="surface-card p-2 text-center">
-                      <div className="text-slate-500">Rules w/ samples</div>
+                      <div className="text-muted">Rules w/ samples</div>
                       <div className="font-bold text-emerald-600">{platformDetail.rulesWithSamples}</div>
                     </div>
                     <div className="surface-card p-2 text-center">
-                      <div className="text-slate-500">Total rules</div>
+                      <div className="text-muted">Total rules</div>
                       <div className="font-bold">{platformDetail.totalRules ?? '—'}</div>
                     </div>
                   </div>
                   {platformDetail.note && (
-                    <p className="text-xs text-muted font-mono bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-2 rounded">
-                      {platformDetail.note}
-                    </p>
+                    <p className="text-xs text-muted font-mono bg-surface-200 p-2 rounded">{platformDetail.note}</p>
                   )}
-                  <div className="text-xs font-mono text-slate-500">
+                  <div className="text-xs font-mono text-muted">
                     {platformDetail.sampleCount} sample events{' '}
                     {platformDetail.sampleEvents.length > 0
                       ? `· showing ${Math.min(platformDetail.sampleEvents.length, 5)}`
                       : ''}
                   </div>
                   {platformDetail.sampleEvents.length > 0 && (
-                    <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-96 overflow-y-auto">
+                    <div className="overflow-x-auto rounded border border-line-1 max-h-96 overflow-y-auto">
                       <table className="w-full text-xs font-mono">
-                        <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
+                        <thead className="bg-surface-200 sticky top-0">
                           <tr>
                             {Object.keys(platformDetail.sampleEvents[0] as Record<string, unknown>)
                               .slice(0, 5)
                               .map((k) => (
-                                <th key={k} className="text-left px-2 py-1 text-slate-500">
+                                <th key={k} className="text-left px-2 py-1 text-muted">
                                   {k}
                                 </th>
                               ))}
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+                        <tbody className="divide-y divide-line-1">
                           {platformDetail.sampleEvents.slice(0, 5).map((ev, i) => (
-                            <tr key={i} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]">
+                            <tr key={i} className="hover:bg-surface-200 dark:hover:bg-surface-200">
                               {Object.values(ev)
                                 .slice(0, 5)
                                 .map((v, j) => (
@@ -852,16 +842,16 @@ export default function DetectionWiki(): JSX.Element {
                 <button
                   key={p.slug}
                   onClick={() => setSelectedPlatform(p.slug)}
-                  className="surface-card p-4 text-left hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors group"
+                  className="surface-card p-4 text-left hover:border-brand-500/40 hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors group"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       {p.name}
                     </h3>
-                    <span className="text-micro font-mono text-slate-500">{p.events.toLocaleString()} events</span>
+                    <span className="text-micro font-mono text-muted">{p.events.toLocaleString()} events</span>
                   </div>
                   <p className="text-xs text-muted leading-relaxed mb-2">{p.description}</p>
-                  <div className="flex gap-3 text-micro font-mono text-slate-500">
+                  <div className="flex gap-3 text-micro font-mono text-muted">
                     <span>{p.rulesWithSamples} rules w/ samples</span>
                     {p.totalRules && <span>· {p.totalRules} total rules</span>}
                   </div>
@@ -894,11 +884,7 @@ export default function DetectionWiki(): JSX.Element {
             >
               /api/v1/detection-wiki/labs <ExternalLink size={10} />
             </a>{' '}
-            and MCP{' '}
-            <span className="font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1 py-0.5 rounded">
-              dw_list_labs
-            </span>
-            .
+            and MCP <span className="font-mono bg-surface-300 px-1 py-0.5 rounded">dw_list_labs</span>.
           </p>
           {filteredLabs.map((lab) => (
             <a
@@ -906,7 +892,7 @@ export default function DetectionWiki(): JSX.Element {
               href={`https://detection.wiki/labs/${lab.slug}/`}
               target="_blank"
               rel="noopener noreferrer"
-              className="surface-card p-4 block hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors group"
+              className="surface-card p-4 block hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors group"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
@@ -918,10 +904,10 @@ export default function DetectionWiki(): JSX.Element {
                   </div>
                   <p className="text-xs text-muted leading-relaxed">{lab.description}</p>
                 </div>
-                <ExternalLink size={12} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-1" />
+                <ExternalLink size={12} className="text-muted group-hover:text-brand-500 shrink-0 mt-1" />
               </div>
               <div className="flex flex-wrap gap-1.5 mt-2">
-                <span className="text-micro font-mono text-slate-500">
+                <span className="text-micro font-mono text-muted">
                   {lab.author} · {lab.date}
                 </span>
                 {lab.techniques.map((tech) => (

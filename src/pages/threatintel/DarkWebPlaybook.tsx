@@ -221,7 +221,7 @@ export default function DarkWebPlaybook(): JSX.Element {
                 <span className="grid place-items-center h-8 w-8 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-sm font-bold">
                   {s.n}
                 </span>
-                <s.icon size={17} className="text-slate-400 dark:text-slate-500" aria-hidden="true" />
+                <s.icon size={17} className="text-muted" aria-hidden="true" />
               </div>
               <h3 className="font-display font-semibold text-heading mb-1">{s.title}</h3>
               <p className="text-sm text-body mb-2">{s.desc}</p>
@@ -307,7 +307,7 @@ export default function DarkWebPlaybook(): JSX.Element {
           </Link>
           <Link
             to="/threatintel/darkweb/recon"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-line-2 text-body hover:border-brand-500/40 transition-colors"
           >
             Dark Web Recon <ArrowRight size={13} aria-hidden="true" />
           </Link>
@@ -315,7 +315,7 @@ export default function DarkWebPlaybook(): JSX.Element {
             href={VIDEO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-line-2 text-body hover:border-rose-500/40 transition-colors"
           >
             <Youtube size={13} aria-hidden="true" /> NetworkChuck Ep. 480 <ExternalLink size={11} aria-hidden="true" />
           </a>
@@ -323,12 +323,12 @@ export default function DarkWebPlaybook(): JSX.Element {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-slate-500/50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-line-2 text-body hover:border-slate-500/50 transition-colors"
           >
             <Github size={13} aria-hidden="true" /> Source guide <ExternalLink size={11} aria-hidden="true" />
           </a>
         </div>
-        <p className="mt-4 flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-500">
+        <p className="mt-4 flex items-center gap-1.5 text-mini font-mono text-muted">
           <Timer size={11} aria-hidden="true" />
           Real investigations take days to months · verify every finding against multiple sources
         </p>

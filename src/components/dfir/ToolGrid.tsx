@@ -127,7 +127,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools (dmarc, kill chain, mcp, owasp, jwt…)"
-            className="w-full pl-9 pr-9 py-3 sm:py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-base sm:text-sm focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="w-full pl-9 pr-9 py-3 sm:py-2 min-h-[44px] sm:min-h-0 rounded border border-line-1 bg-surface-200 font-mono text-base sm:text-sm focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
             aria-label="Search DFIR tools"
           />
           {query && (
@@ -158,7 +158,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
       </p>
 
       {filteredSections.length === 0 && filteredExternal.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
+        <div className="rounded-xl border border-dashed border-line-2 p-8 text-center text-sm text-muted">
           No tools match "{q}". Try a different keyword or{' '}
           <button onClick={() => setQuery('')} className="text-brand-600 dark:text-brand-400 hover:underline">
             clear the search

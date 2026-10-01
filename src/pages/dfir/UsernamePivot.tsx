@@ -19,7 +19,7 @@ const RESULT_STYLES: Record<CheckResult | 'pending' | 'manual', { label: string;
   },
   'not-found': {
     label: 'not found',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+    cls: 'border-slate-300 dark:border-line-1 text-slate-500',
     icon: <span className="opacity-50">×</span>,
   },
   'rate-limited': {
@@ -34,7 +34,7 @@ const RESULT_STYLES: Record<CheckResult | 'pending' | 'manual', { label: string;
   },
   pending: {
     label: 'checking…',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+    cls: 'border-slate-300 dark:border-line-1 text-slate-500',
     icon: <Loader2 size={11} className="animate-spin" />,
   },
   manual: {
@@ -158,7 +158,7 @@ export default function UsernamePivot(): JSX.Element {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="username (letters / digits / . _ -)"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-line-2 bg-surface-200 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               aria-label="Username"
               autoComplete="off"
               spellCheck={false}
@@ -189,7 +189,7 @@ export default function UsernamePivot(): JSX.Element {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">
                 Results for <span className="text-heading">{submitted}</span>
               </h2>
-              <span className="text-mini font-mono text-slate-400">
+              <span className="text-mini font-mono text-muted">
                 {stats.exists} exists · {stats['not-found']} not found · {stats['rate-limited']} rate-limited ·{' '}
                 {stats.error} error · {stats.manual} manual
               </span>
@@ -200,7 +200,7 @@ export default function UsernamePivot(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                 }`}
               >
                 All
@@ -215,7 +215,7 @@ export default function UsernamePivot(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                       categoryFilter === c
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                     }`}
                   >
                     {CATEGORY_LABELS[c]} <span className="opacity-60">· {count}</span>
@@ -232,15 +232,10 @@ export default function UsernamePivot(): JSX.Element {
                 const url = buildProfileUrl(row.service, submitted);
                 const style = RESULT_STYLES[row.state];
                 return (
-                  <li
-                    key={row.service.id}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                  >
+                  <li key={row.service.id} className="rounded border border-line-1 bg-surface-200 p-2.5">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-sm text-heading">{row.service.name}</span>
-                      <span className="text-micro font-mono text-slate-400">
-                        {CATEGORY_LABELS[row.service.category]}
-                      </span>
+                      <span className="text-micro font-mono text-muted">{CATEGORY_LABELS[row.service.category]}</span>
                       <span
                         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${style.cls}`}
                       >

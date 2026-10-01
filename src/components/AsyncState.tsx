@@ -27,9 +27,9 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
         {Array.from({ length: rows }).map((_, i) => (
           <div key={i} className="surface-card p-4 animate-pulse" style={{ animationDelay: `${i * 70}ms` }}>
-            <div className="h-4 w-1/3 rounded bg-slate-200/70 dark:bg-[rgb(var(--surface-300)/0.7)]" />
-            <div className="mt-3 h-3 w-full rounded bg-slate-200/50 dark:bg-[rgb(var(--surface-300)/0.5)]" />
-            <div className="mt-2 h-3 w-2/3 rounded bg-slate-200/50 dark:bg-[rgb(var(--surface-300)/0.5)]" />
+            <div className="h-4 w-1/3 rounded bg-slate-200/70 dark:bg-surface-300/70" />
+            <div className="mt-3 h-3 w-full rounded bg-slate-200/50 dark:bg-surface-300/50" />
+            <div className="mt-2 h-3 w-2/3 rounded bg-slate-200/50 dark:bg-surface-300/50" />
           </div>
         ))}
       </div>
@@ -40,12 +40,9 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
     return (
       <div className="space-y-1" aria-hidden="true">
         {/* header row */}
-        <div className="flex gap-4 pb-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="flex gap-4 pb-2 border-b border-line-1">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-3 flex-1 rounded bg-slate-200/70 dark:bg-[rgb(var(--surface-300)/0.7)] animate-pulse"
-            />
+            <div key={i} className="h-3 flex-1 rounded bg-slate-200/70 dark:bg-surface-300/70 animate-pulse" />
           ))}
         </div>
         {Array.from({ length: rows }).map((_, i) => (
@@ -53,7 +50,7 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
             {Array.from({ length: 4 }).map((_, j) => (
               <div
                 key={j}
-                className="h-3 flex-1 rounded bg-slate-200/50 dark:bg-[rgb(var(--surface-300)/0.5)] animate-pulse"
+                className="h-3 flex-1 rounded bg-slate-200/50 dark:bg-surface-300/50 animate-pulse"
                 style={{ width: `${88 - (j % 3) * 12}%`, animationDelay: `${i * 70}ms` }}
               />
             ))}
@@ -69,7 +66,7 @@ function Skeleton({ rows, variant = 'list' }: { rows: number; variant?: 'list' |
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
-          className="h-4 rounded bg-slate-200/70 dark:bg-[rgb(var(--surface-300)/0.7)] animate-pulse"
+          className="h-4 rounded bg-slate-200/70 dark:bg-surface-300/70 animate-pulse"
           style={{ width: `${92 - (i % 4) * 11}%`, animationDelay: `${i * 70}ms` }}
         />
       ))}
@@ -136,9 +133,9 @@ export function AsyncState({
       <div
         role="status"
         aria-live="polite"
-        className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 px-4 py-12 text-center text-tool text-slate-500 dark:border-[rgb(var(--border-400))] dark:text-muted"
+        className="flex flex-col items-center justify-center rounded-xl border border-dashed border-line-2 px-4 py-12 text-center text-tool text-muted"
       >
-        <div className="mb-3 text-slate-400 dark:text-slate-500" aria-hidden="true">
+        <div className="mb-3 text-muted" aria-hidden="true">
           {emptyIcon ?? <Inbox size={28} strokeWidth={1.5} />}
         </div>
         <p>{emptyLabel}</p>

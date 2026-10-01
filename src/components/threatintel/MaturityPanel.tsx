@@ -69,7 +69,7 @@ const RELIABILITY_LABEL: Record<string, string> = {
 function MaturityBar({ score, max }: { score: number; max: number }): JSX.Element {
   const pct = max > 0 ? (score / max) * 100 : 0;
   return (
-    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
       <div
         className="h-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 transition-all"
         style={{ width: `${pct}%` }}
@@ -86,7 +86,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
           <h3 className="text-sm font-bold font-display flex items-center gap-2">
             <Gauge size={14} className="text-brand-600 dark:text-brand-400" /> CTI Maturity
           </h3>
-          <p className="text-mini font-mono text-slate-500 mt-0.5">
+          <p className="text-mini font-mono text-muted mt-0.5">
             {report.framework} · {report.domains.length} domains
           </p>
         </div>
@@ -118,7 +118,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
                   className={`text-micro font-mono px-1.5 py-0.5 rounded border ${
                     s.present
                       ? 'border-emerald-300 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.4)] line-through'
+                      : 'border-slate-200 dark:border-line-1 text-muted bg-slate-50 dark:bg-surface-300/40 line-through'
                   }`}
                   title={s.detail}
                 >
@@ -155,7 +155,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
         <h3 className="text-sm font-bold font-display flex items-center gap-2">
           <BarChart3 size={14} className="text-brand-600 dark:text-brand-400" /> Source Reliability
         </h3>
-        <span className="text-micro font-mono text-slate-500">{total} sources graded</span>
+        <span className="text-micro font-mono text-muted">{total} sources graded</span>
       </div>
       <div className="surface-card p-3 space-y-2">
         {RELIABILITY_GRADES.map((g) => {
@@ -165,21 +165,21 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
           return (
             <div key={g} className="flex items-center gap-2">
               <span className="w-4 text-xs font-mono font-bold text-body shrink-0">{g}</span>
-              <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+              <div className="flex-1 h-3 rounded bg-surface-300 overflow-hidden">
                 <div
                   className={`h-full ${RELIABILITY_TONE[g] ?? 'bg-slate-400'} transition-all`}
                   style={{ width: `${barPct}%` }}
                   title={`${RELIABILITY_LABEL[g] ?? g}: ${n}`}
                 />
               </div>
-              <span className="w-10 text-right text-mini font-mono text-slate-500 shrink-0">
+              <span className="w-10 text-right text-mini font-mono text-muted shrink-0">
                 {n} <span className="text-muted">({pct.toFixed(0)}%)</span>
               </span>
             </div>
           );
         })}
       </div>
-      <p className="text-micro font-mono text-slate-500 mt-2 leading-relaxed">
+      <p className="text-micro font-mono text-muted mt-2 leading-relaxed">
         Admiralty source-reliability distribution. Lower grade = lower confidence in source.
       </p>
     </div>
@@ -221,7 +221,7 @@ export function MaturityPanel(): JSX.Element {
   }
   if (!maturity || !feed) {
     return (
-      <div className="text-xs font-mono text-slate-500 flex items-center gap-1.5">
+      <div className="text-xs font-mono text-muted flex items-center gap-1.5">
         <Loader2 size={12} className="animate-spin" /> loading program health…
       </div>
     );

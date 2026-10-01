@@ -111,15 +111,12 @@ export function LandscapeView({ actors, feed }: Props) {
         <div className="surface-card p-4">
           <div className="flex items-center gap-3 flex-wrap">
             <div className="relative flex-1 min-w-[200px]">
-              <Search
-                size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
-              />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search actors, sectors, malware, CVEs…"
-                className="w-full h-9 pl-9 pr-3 rounded-lg text-tool text-muted placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/30 transition-all"
+                className="w-full h-9 pl-9 pr-3 rounded-lg text-tool text-muted placeholder:text-muted dark:placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/30 transition-all"
                 style={{ background: 'var(--ink-700)', border: '1px solid var(--edge)' }}
               />
               {search && (
@@ -155,7 +152,7 @@ export function LandscapeView({ actors, feed }: Props) {
                 <select
                   value={sectorFilter ?? ''}
                   onChange={(e) => setSectorFilter(e.target.value || null)}
-                  className="h-6 px-2 rounded text-mini text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
+                  className="h-6 px-2 rounded text-mini text-muted border border-line-1 bg-surface-100 outline-none"
                 >
                   <option value="">All sectors</option>
                   {allSectors.map((s) => (
@@ -170,7 +167,7 @@ export function LandscapeView({ actors, feed }: Props) {
                 <select
                   value={motivationFilter ?? ''}
                   onChange={(e) => setMotivationFilter(e.target.value || null)}
-                  className="h-6 px-2 rounded text-mini text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none capitalize"
+                  className="h-6 px-2 rounded text-mini text-muted border border-line-1 bg-surface-100 outline-none capitalize"
                 >
                   <option value="">All motivations</option>
                   {allMotivations.map((m) => (
@@ -244,7 +241,7 @@ export function LandscapeView({ actors, feed }: Props) {
                     <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'var(--ink-600)' }}>
                       <div
                         className="h-full rounded-full transition-all duration-500"
-                        style={{ width: `${pct}%`, background: 'rgb(var(--brand-500))' }}
+                        style={{ width: `${pct}%`, background: 'var(--accent-blue)' }}
                       />
                     </div>
                   </div>
@@ -309,7 +306,7 @@ export function LandscapeView({ actors, feed }: Props) {
                   return (
                     <div
                       key={code}
-                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                     >
                       <span
                         className="h-7 w-9 rounded flex items-center justify-center text-micro font-mono font-bold shrink-0"
@@ -341,7 +338,7 @@ export function LandscapeView({ actors, feed }: Props) {
                   href={f.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors group"
+                  className="block p-2.5 rounded-lg hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors group"
                 >
                   <div className="text-[12.5px] text-muted leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                     {f.title}
@@ -364,7 +361,7 @@ export function LandscapeView({ actors, feed }: Props) {
 function KPI({ label, value, icon: Icon }: { label: string; value: number; icon: typeof ShieldAlert }) {
   return (
     <div className="surface-card p-4 flex items-center gap-3">
-      <span className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300">
+      <span className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 bg-surface-300 text-slate-600 dark:text-slate-300">
         <Icon size={18} />
       </span>
       <div>

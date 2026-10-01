@@ -84,7 +84,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
                 </span>
               )}
             </div>
-            <p className="text-micro text-slate-500">Country threat profile</p>
+            <p className="text-micro text-muted">Country threat profile</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -155,7 +155,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
 
             {intel.key_actors?.length > 0 && (
               <div>
-                <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Key Actors</span>
+                <span className="text-micro font-mono uppercase text-muted block mb-1">Key Actors</span>
                 <div className="flex flex-wrap gap-1">
                   {intel.key_actors.map((a, i) => (
                     <span
@@ -171,7 +171,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
 
             {intel.active_conflicts?.length > 0 && (
               <div>
-                <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Active Conflicts</span>
+                <span className="text-micro font-mono uppercase text-muted block mb-1">Active Conflicts</span>
                 <div className="flex flex-wrap gap-1">
                   {intel.active_conflicts.map((c, i) => (
                     <span

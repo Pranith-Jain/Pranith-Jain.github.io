@@ -23,7 +23,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
     return (
       <section className="surface-card p-6">
         <h2 className="font-display font-bold text-xl mb-2">URLs Extracted</h2>
-        <p className="text-sm font-mono text-slate-500">No URLs found in email body.</p>
+        <p className="text-sm font-mono text-muted">No URLs found in email body.</p>
       </section>
     );
   }
@@ -40,10 +40,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
         {urls.map((url) => {
           const host = hostOf(url);
           return (
-            <li
-              key={url}
-              className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-2 last:border-0 last:pb-0"
-            >
+            <li key={url} className="border-b border-line-1 pb-2 last:border-0 last:pb-0">
               <div className="flex items-baseline gap-2 mb-1">
                 <ExternalLink size={12} className="text-muted flex-shrink-0" />
                 <span className="font-mono text-xs text-body break-all flex-1">{url}</span>

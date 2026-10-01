@@ -368,7 +368,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 liveMode
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40'
+                  : 'border-slate-300 dark:border-line-1 hover:border-rose-500/40'
               }`}
               aria-pressed={liveMode}
               title={liveMode ? 'Pause auto-refresh' : `Auto-refresh the map every ${REFRESH_INTERVAL_MS / 1000}s`}
@@ -389,7 +389,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 globeView
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40'
+                  : 'border-slate-300 dark:border-line-1 hover:border-rose-500/40'
               }`}
               aria-pressed={globeView}
             >
@@ -409,12 +409,12 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
 
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             <div
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
+              className="rounded-xl border border-line-1 bg-surface-200 overflow-hidden relative"
               style={{ aspectRatio: '900 / 460', minHeight: 280 }}
             >
               <Suspense
                 fallback={
-                  <div className="flex items-center justify-center w-full h-full text-slate-500 font-mono text-xs gap-2">
+                  <div className="flex items-center justify-center w-full h-full text-muted font-mono text-xs gap-2">
                     <Loader2 size={14} className="animate-spin" /> loading world map…
                   </div>
                 }
@@ -432,7 +432,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                 />
               </Suspense>
               {hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/90 dark:bg-[rgb(var(--input-200)/0.9)] backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
+                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/90 dark:bg-input-200/90 backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
                   <div className="font-bold text-rose-300">{hoveredAgg.country}</div>
                   <div>{hoveredAgg.victim_count} victims</div>
                   <div className="text-muted">
@@ -463,12 +463,12 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                         className={`w-full flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 rounded border transition-colors ${
                           isSelected
                             ? 'border-rose-400/60 bg-rose-400/10 text-heading'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-500/40'
+                            : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
                         }`}
                         aria-pressed={isSelected}
                       >
                         <span className="truncate">
-                          <span className="text-slate-500 mr-2">{c.countryCode}</span>
+                          <span className="text-muted mr-2">{c.countryCode}</span>
                           <span className="text-heading">{c.country}</span>
                         </span>
                         <span className="flex items-center gap-2 shrink-0">
@@ -506,7 +506,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-line-2 text-body hover:bg-surface-300 dark:hover:bg-surface-300"
                   aria-label="Clear country selection"
                 >
                   <X size={12} /> clear
@@ -538,7 +538,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                       <li key={victim}>
                         <Link
                           to={`/threatintel/ransomware-hub?q=${encodeURIComponent(victim)}`}
-                          className="block rounded border border-rose-400/30 hover:border-rose-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1.5 transition-colors font-mono text-sm text-heading"
+                          className="block rounded border border-rose-400/30 hover:border-rose-500/40 bg-surface-100 px-3 py-1.5 transition-colors font-mono text-sm text-heading"
                         >
                           {victim}
                         </Link>

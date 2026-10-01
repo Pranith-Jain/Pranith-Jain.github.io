@@ -178,7 +178,7 @@ export default function DarkWebRecon(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             placeholder={activeTab.placeholder}
-            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-transparent text-sm"
+            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-line-2 rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-transparent text-sm"
           />
           <button
             type="button"
@@ -192,10 +192,7 @@ export default function DarkWebRecon(): JSX.Element {
         </div>
 
         {data === null && !loading && !error ? (
-          <div
-            className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center"
-            role="status"
-          >
+          <div className="rounded-xl border border-dashed border-line-2 p-10 text-center" role="status">
             <p className="text-sm text-muted">Enter a query above to search dark web intelligence sources.</p>
           </div>
         ) : (
@@ -218,7 +215,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
         data.results.map((r, i) => (
           <div
             key={i}
-            className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-3 hover:border-[rgb(var(--border-500))] transition-colors"
+            className="[background:rgb(var(--surface-200)/0.4)] border border-line-1 rounded-xl p-3 hover:border-line-2 transition-colors"
           >
             <a
               href={r.url}
@@ -240,7 +237,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
 
 function OnionLookupResults({ data }: { data: OnionLookupResult }) {
   return (
-    <div className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-4 space-y-3">
+    <div className="[background:rgb(var(--surface-200)/0.4)] border border-line-1 rounded-xl p-4 space-y-3">
       <div className="flex items-center gap-2">
         <span
           className={`px-2 py-0.5 rounded text-xs font-medium ${
@@ -354,10 +351,7 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
       {data.reports.length > 0 && (
         <div className="space-y-2 mt-2">
           {data.reports.map((r) => (
-            <div
-              key={r.id}
-              className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-3"
-            >
+            <div key={r.id} className="[background:rgb(var(--surface-200)/0.4)] border border-line-1 rounded-xl p-3">
               <div className="flex items-center gap-2 mb-1">
                 <span className="px-1.5 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">
                   {r.category}
@@ -376,7 +370,7 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
 
 function TorExitResults({ data }: { data: TorExitCheckResult }) {
   return (
-    <div className="[background:rgb(var(--surface-200)/0.4)] border border-[rgb(var(--border-400))] rounded-xl p-4">
+    <div className="[background:rgb(var(--surface-200)/0.4)] border border-line-1 rounded-xl p-4">
       <div className="flex items-center gap-3">
         <span
           className={`px-3 py-1 rounded-xl text-sm font-medium ${

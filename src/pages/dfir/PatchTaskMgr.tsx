@@ -185,30 +185,30 @@ export default function PatchTaskMgr(): JSX.Element {
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Patches</div>
+            <div className="text-micro font-mono text-muted">Patches</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_patches}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Open</div>
+            <div className="text-micro font-mono text-muted">Open</div>
             <div className="text-xl font-bold font-mono mt-1 text-amber-600 dark:text-amber-400">
               {stats.open_patches}
             </div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Critical</div>
+            <div className="text-micro font-mono text-muted">Critical</div>
             <div className="text-xl font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">
               {stats.critical_patches}
             </div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Upcoming Windows</div>
+            <div className="text-micro font-mono text-muted">Upcoming Windows</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.upcoming_windows}</div>
           </div>
         </div>
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <div className="flex gap-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-0.5">
+        <div className="flex gap-1 rounded-xl border border-line-1 p-0.5">
           <button
             type="button"
             onClick={() => setTab('patches')}
@@ -238,18 +238,18 @@ export default function PatchTaskMgr(): JSX.Element {
           {showCreate && (
             <form
               onSubmit={handleCreatePatch}
-              className="mb-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4 space-y-3"
+              className="mb-5 rounded-xl border border-line-1 bg-surface-200 p-4 space-y-3"
             >
               <div className="grid grid-cols-2 gap-3">
                 <input
                   name="title"
                   placeholder="Patch title *"
                   required
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] col-span-2"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 col-span-2"
                 />
                 <select
                   name="vendor"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
                 >
                   <option value="microsoft">Microsoft</option>
                   <option value="oracle">Oracle</option>
@@ -264,7 +264,7 @@ export default function PatchTaskMgr(): JSX.Element {
                 </select>
                 <select
                   name="severity"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
                 >
                   <option value="critical">Critical</option>
                   <option value="important">Important</option>
@@ -276,30 +276,30 @@ export default function PatchTaskMgr(): JSX.Element {
                   type="number"
                   step="0.1"
                   placeholder="CVSS"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
                 />
                 <input
                   name="cve_ids"
                   placeholder="CVE IDs (comma-separated)"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] col-span-2"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 col-span-2"
                 />
                 <input
                   name="products"
                   placeholder="Affected products (comma-separated)"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] col-span-2"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 col-span-2"
                 />
               </div>
               <textarea
                 name="description"
                 placeholder="Description"
                 rows={2}
-                className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] w-full"
+                className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 w-full"
               />
               <div className="flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowCreate(false)}
-                  className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-xs font-mono px-3 py-1.5 rounded border border-line-1"
                 >
                   Cancel
                 </button>
@@ -324,12 +324,12 @@ export default function PatchTaskMgr(): JSX.Element {
                       >
                         {p.severity.toUpperCase()}
                       </span>
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                         {p.vendor}
                       </span>
-                      <span className="text-micro font-mono text-slate-500">{p.status.replace(/_/g, ' ')}</span>
+                      <span className="text-micro font-mono text-muted">{p.status.replace(/_/g, ' ')}</span>
                       {p.cvss_score !== undefined && (
-                        <span className="text-micro font-mono text-slate-500">CVSS {p.cvss_score}</span>
+                        <span className="text-micro font-mono text-muted">CVSS {p.cvss_score}</span>
                       )}
                     </div>
                     <div className="font-mono text-xs font-semibold truncate">{p.title}</div>
@@ -342,7 +342,7 @@ export default function PatchTaskMgr(): JSX.Element {
                   <select
                     value={p.status}
                     onChange={(e) => handlePatchStatus(p.id, e.target.value as PatchStatus)}
-                    className="text-micro font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-line-2 bg-surface-200"
                   >
                     <option value="pending_review">Review</option>
                     <option value="scheduled">Scheduled</option>
@@ -365,44 +365,44 @@ export default function PatchTaskMgr(): JSX.Element {
           {showCreate && (
             <form
               onSubmit={handleCreateWindow}
-              className="mb-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4 space-y-3"
+              className="mb-5 rounded-xl border border-line-1 bg-surface-200 p-4 space-y-3"
             >
               <div className="grid grid-cols-2 gap-3">
                 <input
                   name="title"
                   placeholder="Window title *"
                   required
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] col-span-2"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 col-span-2"
                 />
                 <input
                   name="start_time"
                   type="datetime-local"
                   required
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
                 />
                 <input
                   name="end_time"
                   type="datetime-local"
                   required
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
                 />
                 <input
                   name="systems"
                   placeholder="Affected systems (comma-sep)"
-                  className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] col-span-2"
+                  className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 col-span-2"
                 />
               </div>
               <textarea
                 name="description"
                 placeholder="Description"
                 rows={2}
-                className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] w-full"
+                className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 w-full"
               />
               <div className="flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowCreate(false)}
-                  className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-xs font-mono px-3 py-1.5 rounded border border-line-1"
                 >
                   Cancel
                 </button>
@@ -427,7 +427,7 @@ export default function PatchTaskMgr(): JSX.Element {
                       >
                         {w.status}
                       </span>
-                      <span className="text-micro font-mono text-slate-500">
+                      <span className="text-micro font-mono text-muted">
                         <Calendar size={10} className="inline mr-1" />
                         {new Date(w.start_time).toLocaleString()} – {new Date(w.end_time).toLocaleString()}
                       </span>
@@ -442,7 +442,7 @@ export default function PatchTaskMgr(): JSX.Element {
                   <select
                     value={w.status}
                     onChange={(e) => handleWindowStatus(w.id, e.target.value as MwStatus)}
-                    className="text-micro font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-line-2 bg-surface-200"
                   >
                     <option value="proposed">Proposed</option>
                     <option value="approved">Approved</option>

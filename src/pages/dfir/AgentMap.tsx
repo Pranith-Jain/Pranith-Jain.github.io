@@ -185,20 +185,20 @@ export default function AgentMap(): JSX.Element {
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setInput(SAMPLE_BASIC)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+              className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40"
             >
               Sample · basic
             </button>
             <button
               onClick={() => setInput(SAMPLE_RISKY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               Sample · risky
             </button>
             {input && (
               <button
                 onClick={() => setInput('')}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+                className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40"
               >
                 Clear
               </button>
@@ -211,7 +211,7 @@ export default function AgentMap(): JSX.Element {
           rows={10}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
         />
         {parseError && (
           <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">JSON parse error: {parseError}</p>
@@ -283,7 +283,7 @@ export default function AgentMap(): JSX.Element {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-mini font-mono text-slate-400 leading-relaxed">
+              <p className="mt-3 text-mini font-mono text-muted leading-relaxed">
                 Classification is heuristic - based on tool name, description, and Claude Code permission shape. Hover a
                 node to see the source detail.
               </p>
@@ -298,10 +298,7 @@ export default function AgentMap(): JSX.Element {
               </h2>
               <ul className="space-y-3">
                 {graph.risks.map((r) => (
-                  <li
-                    key={r.id}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                  >
+                  <li key={r.id} className="rounded border border-line-1 bg-surface-200 p-3">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-heading">{r.title}</span>
                       <span
@@ -309,7 +306,7 @@ export default function AgentMap(): JSX.Element {
                       >
                         {r.severity}
                       </span>
-                      <span className="text-micro font-mono text-slate-400">{r.kind}</span>
+                      <span className="text-micro font-mono text-muted">{r.kind}</span>
                     </div>
                     <p className="text-sm font-mono text-body mb-2">{r.detail}</p>
                     <div className="flex flex-wrap items-center gap-1.5 mb-2">
@@ -347,7 +344,7 @@ export default function AgentMap(): JSX.Element {
                       <span className="font-semibold text-heading">{t.label}</span>
                       <span className="text-muted">[{t.origin}]</span>
                       {t.capabilities.length === 0 ? (
-                        <span className="text-micro text-slate-400">no capability classified</span>
+                        <span className="text-micro text-muted">no capability classified</span>
                       ) : (
                         t.capabilities.map((c) => (
                           <span

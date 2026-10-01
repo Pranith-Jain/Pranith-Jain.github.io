@@ -137,7 +137,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
           setOpen(!open);
           if (!open) setEnrichResults(null);
         }}
-        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-muted dark:hover:border-brand-400 dark:hover:text-brand-400"
+        className="inline-flex items-center gap-1.5 rounded-full border border-line-1 px-3 py-1.5 font-mono text-xs text-muted transition-colors hover:border-brand-400 hover:text-brand-600 dark:hover:border-brand-400 dark:hover:text-brand-400"
       >
         <Upload size={12} />
         Bulk IOC
@@ -145,10 +145,10 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
       {open && (
         <>
           <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-5 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+          <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-line-1 bg-surface-100 p-5 shadow-xl">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-body">Bulk IOC Investigation</h3>
-              <button onClick={() => setOpen(false)} className="text-muted hover:text-slate-600">
+              <button onClick={() => setOpen(false)} className="text-muted hover:text-muted">
                 <X size={16} />
               </button>
             </div>
@@ -174,15 +174,14 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                     cve: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
                     url: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
                     email: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
-                    unknown: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
+                    unknown: 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300',
                   };
                   for (const ioc of parsed) {
                     if (!counts[ioc.type])
                       counts[ioc.type] = {
                         count: 0,
                         color:
-                          typeColors[ioc.type] ||
-                          'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
+                          typeColors[ioc.type] || 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300',
                       };
                     const entry = counts[ioc.type]!;
                     entry.count++;
@@ -199,9 +198,9 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
               </div>
             )}
             {enriching && (
-              <div className="mt-2 flex items-center gap-2 rounded-xl bg-slate-50 p-2 dark:bg-[rgb(var(--surface-300))]">
+              <div className="mt-2 flex items-center gap-2 rounded-xl bg-surface-200 p-2">
                 <Loader2 size={12} className="animate-spin text-brand-500" />
-                <span className="font-mono text-xs text-slate-500">Enriching across providers…</span>
+                <span className="font-mono text-xs text-muted">Enriching across providers…</span>
               </div>
             )}
             {enrichResults && enrichResults.length > 0 && (
@@ -215,7 +214,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                   enrichResults.slice(0, 20).map((r, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 rounded border border-slate-100 bg-slate-50/50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]"
+                      className="flex items-center gap-2 rounded border border-line-1 bg-surface-200/50 px-2 py-1 text-xs dark:bg-surface-200/30"
                     >
                       <span
                         className={`inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-micro font-bold text-white ${
@@ -248,14 +247,14 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                   setParsed([]);
                   setEnrichResults(null);
                 }}
-                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-muted"
+                className="rounded-xl border border-line-1 px-3 py-1.5 font-mono text-xs text-muted hover:bg-surface-200"
               >
                 Cancel
               </button>
               <button
                 onClick={handleEnrich}
                 disabled={parsed.length === 0 || enriching}
-                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-600 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 dark:border-[rgb(var(--border-400))] dark:text-muted transition-colors"
+                className="rounded-xl border border-line-1 px-3 py-1.5 font-mono text-xs text-muted hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 transition-colors"
               >
                 {enriching ? <Loader2 size={11} className="animate-spin" /> : 'Enrich'}
               </button>

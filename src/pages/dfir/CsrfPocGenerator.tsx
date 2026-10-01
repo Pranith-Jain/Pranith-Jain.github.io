@@ -245,27 +245,27 @@ export default function CsrfPocGenerator(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         {/* Config Panel */}
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] p-4">
+          <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
             <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
               <Zap size={14} className="text-amber-500" /> Target Configuration
             </h3>
 
-            <label className="block text-xs font-mono text-slate-500 mb-1">Target URL</label>
+            <label className="block text-xs font-mono text-muted mb-1">Target URL</label>
             <input
               type="url"
               value={config.targetUrl}
               onChange={(e) => setConfig((c) => ({ ...c, targetUrl: e.target.value }))}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
+              className="w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-200 font-mono text-sm"
               placeholder="https://example.com/api/action"
             />
 
             <div className="grid grid-cols-2 gap-3 mt-3">
               <div>
-                <label className="block text-xs font-mono text-slate-500 mb-1">Method</label>
+                <label className="block text-xs font-mono text-muted mb-1">Method</label>
                 <select
                   value={config.method}
                   onChange={(e) => setConfig((c) => ({ ...c, method: e.target.value as Method }))}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
+                  className="w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-200 font-mono text-sm"
                 >
                   <option value="GET">GET</option>
                   <option value="POST">POST</option>
@@ -275,7 +275,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-mono text-slate-500 mb-1">PoC Type</label>
+                <label className="block text-xs font-mono text-muted mb-1">PoC Type</label>
                 <select
                   value={config.includeXhr ? 'xhr' : config.encoding}
                   onChange={(e) => {
@@ -283,7 +283,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                     if (v === 'xhr') setConfig((c) => ({ ...c, includeXhr: true }));
                     else setConfig((c) => ({ ...c, includeXhr: false, encoding: v as Encoding }));
                   }}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
+                  className="w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-200 font-mono text-sm"
                 >
                   <option value="html">HTML Form</option>
                   <option value="xhr">XMLHttpRequest</option>
@@ -315,7 +315,7 @@ export default function CsrfPocGenerator(): JSX.Element {
           </div>
 
           {/* Fields */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] p-4">
+          <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold flex items-center gap-2">
                 <FileCode size={14} className="text-brand-500" /> Form Fields
@@ -335,7 +335,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                   <select
                     value={f.type}
                     onChange={(e) => updateField(i, { type: e.target.value as CsrfField['type'] })}
-                    className="w-24 px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-xs font-mono"
+                    className="w-24 px-2 py-1.5 rounded border border-line-1 bg-surface-200 text-xs font-mono"
                   >
                     <option value="hidden">hidden</option>
                     <option value="text">text</option>
@@ -348,14 +348,14 @@ export default function CsrfPocGenerator(): JSX.Element {
                     value={f.name}
                     onChange={(e) => updateField(i, { name: e.target.value })}
                     placeholder="name"
-                    className="flex-1 px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-xs font-mono"
+                    className="flex-1 px-2 py-1.5 rounded border border-line-1 bg-surface-200 text-xs font-mono"
                   />
                   <input
                     type="text"
                     value={f.value}
                     onChange={(e) => updateField(i, { value: e.target.value })}
                     placeholder="value"
-                    className="flex-1 px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-xs font-mono"
+                    className="flex-1 px-2 py-1.5 rounded border border-line-1 bg-surface-200 text-xs font-mono"
                   />
                   <button
                     type="button"
@@ -371,7 +371,7 @@ export default function CsrfPocGenerator(): JSX.Element {
 
           {/* Custom Headers (XHR/Fetch only) */}
           {(config.includeXhr || config.encoding === 'json') && (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] p-4">
+            <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
               <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                 <Info size={14} className="text-cyan-500" /> Custom Headers
               </h3>
@@ -380,7 +380,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 onChange={(e) => setConfig((c) => ({ ...c, customHeaders: e.target.value }))}
                 placeholder="X-Custom-Header: value&#10;Authorization: Bearer token"
                 rows={3}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-xs"
+                className="w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-200 font-mono text-xs"
               />
             </div>
           )}
@@ -388,7 +388,7 @@ export default function CsrfPocGenerator(): JSX.Element {
 
         {/* Output Panel */}
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] p-4">
+          <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold flex items-center gap-2">
                 <FileCode size={14} className="text-emerald-500" /> Generated PoC
@@ -400,7 +400,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-surface-300 hover:bg-slate-200 dark:hover:bg-surface-300 transition-colors"
                 >
                   <Copy size={12} /> {copied ? 'Copied!' : 'Copy'}
                 </button>
@@ -413,7 +413,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 </button>
               </div>
             </div>
-            <pre className="bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-heading rounded-xl p-4 text-xs font-mono overflow-x-auto max-h-[500px] overflow-y-auto">
+            <pre className="bg-surface-300 text-heading rounded-xl p-4 text-xs font-mono overflow-x-auto max-h-[500px] overflow-y-auto">
               {poc}
             </pre>
           </div>
@@ -430,7 +430,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                   <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 mb-2">
                     For GET requests, an invisible img tag can trigger the request without user interaction:
                   </p>
-                  <pre className="bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-heading rounded-xl p-3 text-xs font-mono overflow-x-auto">
+                  <pre className="bg-surface-300 text-heading rounded-xl p-3 text-xs font-mono overflow-x-auto">
                     {imgPoc}
                   </pre>
                 </div>
@@ -439,19 +439,17 @@ export default function CsrfPocGenerator(): JSX.Element {
           )}
 
           {/* Info */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-4">
+          <div className="rounded-xl border border-line-1 bg-surface-200 p-4">
             <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-              <Info size={14} className="text-slate-500" /> Usage Notes
+              <Info size={14} className="text-muted" /> Usage Notes
             </h4>
             <ul className="text-xs text-muted space-y-1 list-disc list-inside">
               <li>HTML Form - classic auto-submitting form, works in all browsers</li>
               <li>XMLHttpRequest - sends request via XHR, useful for same-origin testing</li>
               <li>Fetch API - modern async request with Promise-based handling</li>
               <li>
-                <code className="px-1 py-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded">
-                  withCredentials
-                </code>{' '}
-                - include cookies/auth headers (same-origin or CORS-enabled targets)
+                <code className="px-1 py-0.5 bg-slate-200 dark:bg-surface-300 rounded">withCredentials</code> - include
+                cookies/auth headers (same-origin or CORS-enabled targets)
               </li>
               <li>Always obtain proper authorization before testing CSRF on live applications</li>
             </ul>

@@ -205,7 +205,7 @@ export default function SecretScanner(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput(SAMPLE)}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load example
           </button>
@@ -213,7 +213,7 @@ export default function SecretScanner(): JSX.Element {
             <button
               type="button"
               onClick={() => setInput('')}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -238,7 +238,7 @@ export default function SecretScanner(): JSX.Element {
           <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
-                <span className="text-slate-500">Findings:</span>{' '}
+                <span className="text-muted">Findings:</span>{' '}
                 <span className="font-mono">{result.hits.length}</span>
               </span>
               <span className="flex flex-wrap gap-1.5">
@@ -289,7 +289,7 @@ export default function SecretScanner(): JSX.Element {
                   </div>
                 );
               })}
-              <p className="text-meta text-slate-500 mt-3">
+              <p className="text-meta text-muted mt-3">
                 Treat every match as live: <strong>rotate/revoke</strong> the credential, then purge it from git history
                 (git-filter-repo / BFG) - deleting the line is not enough.
               </p>

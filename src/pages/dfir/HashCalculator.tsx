@@ -144,11 +144,11 @@ export default function HashCalculator(): JSX.Element {
         <button
           type="button"
           onClick={() => void run(new TextEncoder().encode(text), 'text')}
-          className="px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="px-3 py-1.5 rounded border border-line-1 hover:border-brand-500/40"
         >
           Hash text
         </button>
-        <label className="px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 cursor-pointer">
+        <label className="px-3 py-1.5 rounded border border-line-1 hover:border-brand-500/40 cursor-pointer">
           Hash a file…
           <input
             type="file"
@@ -166,10 +166,10 @@ export default function HashCalculator(): JSX.Element {
             }}
           />
         </label>
-        {src && <span className="self-center text-slate-500">source: {src}</span>}
+        {src && <span className="self-center text-muted">source: {src}</span>}
       </div>
       {busy && (
-        <p className="mt-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <p className="mt-3 inline-flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> hashing…
         </p>
       )}
@@ -179,7 +179,7 @@ export default function HashCalculator(): JSX.Element {
         {Object.entries(out).map(([k, v]) => (
           <li key={k} className="surface-card p-3">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-muted">{k}</span>
               <CopyButton text={v} variant="ghost" size="sm" label={`Copy ${k}`} />
             </div>
             <code className="font-mono text-meta break-all text-heading">{v}</code>

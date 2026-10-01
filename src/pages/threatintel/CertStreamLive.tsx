@@ -170,7 +170,7 @@ export default function CertStreamLive(): JSX.Element {
           live
         </span>
       </div>
-      <label htmlFor="cs-keyword" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+      <label htmlFor="cs-keyword" className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5">
         Watch keyword
       </label>
       <div className="flex flex-col sm:flex-row gap-2">
@@ -181,7 +181,7 @@ export default function CertStreamLive(): JSX.Element {
           onChange={(e) => setKeyword(e.target.value)}
           disabled={streaming}
           placeholder="e.g. %anthrop%   (use % as wildcard)"
-          className="flex-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 rounded border border-line-2 bg-surface-200 px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !streaming) start();
           }}
@@ -207,13 +207,13 @@ export default function CertStreamLive(): JSX.Element {
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-500">samples:</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-muted">samples:</span>
         {SAMPLES.map((s) => (
           <button
             key={s.label}
             type="button"
             onClick={() => setKeyword(s.keyword)}
-            className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
+            className="text-mini font-mono rounded border border-line-2 px-2 py-0.5 text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
           >
             {s.label}
           </button>
@@ -275,19 +275,19 @@ export default function CertStreamLive(): JSX.Element {
                 </>
               )}
             </div>
-            <label className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 select-none cursor-pointer">
+            <label className="inline-flex items-center gap-1.5 text-mini font-mono text-muted select-none cursor-pointer">
               <input
                 type="checkbox"
                 checked={showOnlySuspicious}
                 onChange={(e) => setShowOnlySuspicious(e.target.checked)}
-                className="rounded border-slate-400"
+                className="rounded border-line-3"
               />
               Only suspicious (≥2 signal)
             </label>
           </div>
 
           {displayItems.length === 0 ? (
-            <p className="text-center text-xs font-mono text-slate-500 py-6">
+            <p className="text-center text-xs font-mono text-muted py-6">
               {items.length === 0
                 ? 'Waiting for first batch… crt.sh re-indexes every 30-60s.'
                 : 'No items match the current filter.'}
@@ -303,7 +303,7 @@ export default function CertStreamLive(): JSX.Element {
                     className={`rounded-xl border p-3 transition-colors ${
                       sus
                         ? 'border-rose-300 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/40'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
+                        : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
@@ -322,7 +322,7 @@ export default function CertStreamLive(): JSX.Element {
                           </code>
                         </div>
                         {it.dns_names.length > 1 && (
-                          <div className="text-micro font-mono text-slate-500 truncate">
+                          <div className="text-micro font-mono text-muted truncate">
                             + {it.dns_names.length - 1} SAN{it.dns_names.length - 1 !== 1 ? 's' : ''}:{' '}
                             {it.dns_names.slice(1, 4).join(', ')}
                             {it.dns_names.length > 4 ? '…' : ''}
@@ -339,7 +339,7 @@ export default function CertStreamLive(): JSX.Element {
                         <ExternalLink size={12} />
                       </a>
                     </div>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-micro font-mono text-slate-500 mt-1">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-micro font-mono text-muted mt-1">
                       <span>issuer: {it.issuer}</span>
                       {it.entry_timestamp && <span>logged {formatTimeAgo(it.entry_timestamp)}</span>}
                       <Link
@@ -360,9 +360,9 @@ export default function CertStreamLive(): JSX.Element {
       )}
 
       {!streaming && (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--input-200)/0.4)] p-8 text-center">
+        <div className="rounded-xl border border-dashed border-line-2 bg-surface-200/60 dark:bg-input-200/40 p-8 text-center">
           <Radio size={28} className="mx-auto text-muted mb-2" />
-          <p className="text-sm font-mono text-slate-500">
+          <p className="text-sm font-mono text-muted">
             Enter a keyword and press <span className="text-rose-600 dark:text-rose-400">Start stream</span> to begin
             polling.
           </p>

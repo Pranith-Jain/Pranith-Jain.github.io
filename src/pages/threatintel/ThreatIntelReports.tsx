@@ -67,7 +67,7 @@ export default function ThreatIntelReports(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search reports, tags, IOCs…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
         <span className="text-xs font-mono text-muted">{filtered.length} reports</span>
@@ -80,7 +80,7 @@ export default function ThreatIntelReports(): JSX.Element {
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
               ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+              : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
           }`}
         >
           All ({REPORTS.length})
@@ -93,7 +93,7 @@ export default function ThreatIntelReports(): JSX.Element {
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeSev === sev
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+                : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
             }`}
           >
             {sev.toUpperCase()} ({sevCounts[sev] || 0})
@@ -113,7 +113,7 @@ export default function ThreatIntelReports(): JSX.Element {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-sm font-mono text-slate-500">No reports match your search.</div>
+        <div className="text-center py-12 text-sm font-mono text-muted">No reports match your search.</div>
       )}
     </DataPageLayout>
   );
@@ -129,7 +129,7 @@ function ReportCard({
   onToggle: () => void;
 }): JSX.Element {
   return (
-    <div className="surface-card overflow-hidden transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]">
+    <div className="surface-card overflow-hidden transition-all hover:border-line-2 dark:hover:border-line-1">
       <button type="button" onClick={onToggle} className="w-full text-left p-4 flex items-start gap-4">
         <span
           className={`inline-flex items-center gap-1 text-micro font-mono font-semibold px-2 py-1 rounded border uppercase tracking-wider ${SEVERITY_COLORS[report.severity]}`}
@@ -140,7 +140,7 @@ function ReportCard({
         </span>
         <div className="flex-1 min-w-0">
           <h3 className="font-mono font-semibold text-sm text-heading leading-snug mb-1">{report.title}</h3>
-          <div className="flex items-center gap-3 text-mini font-mono text-slate-500">
+          <div className="flex items-center gap-3 text-mini font-mono text-muted">
             <span>{report.date}</span>
             <span>·</span>
             <span>{report.source}</span>
@@ -166,15 +166,12 @@ function ReportCard({
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+        <div className="px-4 pb-4 border-t border-line-1">
           <p className="text-sm text-muted leading-relaxed mt-3 mb-4">{report.summary}</p>
 
           <div className="flex flex-wrap gap-1.5 mb-4">
             {report.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-              >
+              <span key={tag} className="text-micro font-mono px-2 py-0.5 rounded border border-line-1 text-muted">
                 {tag}
               </span>
             ))}
@@ -185,7 +182,7 @@ function ReportCard({
               <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-muted mb-2">
                 Indicators
               </h4>
-              <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-3 font-mono text-xs space-y-1">
+              <div className="bg-surface-200 rounded-xl p-3 font-mono text-xs space-y-1">
                 {report.iocs.map((ioc, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="text-muted w-16 shrink-0">{ioc.type}</span>

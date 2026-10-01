@@ -31,10 +31,7 @@ export default function BreachHub(): JSX.Element {
       title="Breach Hub"
       description="Breach disclosures, forum tracking, and breach-watch monitoring."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="Breach Hub"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="Breach Hub">
         {TABS.map((t) => (
           <button
             key={t.id}

@@ -201,7 +201,7 @@ function KillChainBar({ stages }: { stages: string[] }) {
       {KILL_CHAIN_STAGES.map((s) => (
         <div
           key={s}
-          className={`flex-1 ${stages.includes(s) ? KC_COLORS[s] : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))]'}`}
+          className={`flex-1 ${stages.includes(s) ? KC_COLORS[s] : 'bg-slate-200 dark:bg-surface-300'}`}
           title={s}
         />
       ))}
@@ -232,13 +232,13 @@ function TimelineChart({ detections }: { detections: Detection[] }) {
       <div className="flex items-end gap-1 h-24">
         {days.map(([day, count]) => (
           <div key={day} className="flex-1 flex flex-col items-center gap-1">
-            <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500">{count}</span>
+            <span className="text-[9px] font-mono text-muted">{count}</span>
             <div
               className="w-full rounded-t bg-brand-400 dark:bg-brand-500 transition-all min-h-[2px]"
               style={{ height: `${(count / maxVal) * 80}%` }}
               title={`${day}: ${count} detections`}
             />
-            <span className="text-[8px] font-mono text-slate-400 dark:text-slate-500 -rotate-45 origin-top-left whitespace-nowrap">
+            <span className="text-[8px] font-mono text-muted -rotate-45 origin-top-left whitespace-nowrap">
               {day.slice(5)}
             </span>
           </div>
@@ -323,13 +323,13 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
       </p>
       {/* Coverage bar */}
       <div className="flex items-center gap-2 mb-3">
-        <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+        <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-surface-300 overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-brand-500 to-emerald-500 transition-all"
             style={{ width: `${Math.min((coverage.coveredCount / Math.max(coverage.totalTechIds, 1)) * 100, 100)}%` }}
           />
         </div>
-        <span className="text-[10px] font-mono text-slate-500">
+        <span className="text-[10px] font-mono text-muted">
           {coverage.coveredCount}/{coverage.totalTechIds} techniques
         </span>
       </div>
@@ -372,12 +372,12 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
             <span className="text-[10px] text-muted truncate flex-1">{t.name}</span>
             <ExternalLink
               size={8}
-              className="text-slate-400 group-hover:text-brand-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="text-muted group-hover:text-brand-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
             />
           </a>
         ))}
         {coverage.matched.length > 12 && (
-          <p className="text-[10px] font-mono text-slate-500">
+          <p className="text-[10px] font-mono text-muted">
             +{coverage.matched.length - 12} more techniques with detection rules
           </p>
         )}
@@ -454,7 +454,7 @@ function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element
             href={`https://detection.wiki/labs/${lab.slug}/`}
             target="_blank"
             rel="noopener noreferrer"
-            className="block p-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors group"
+            className="block p-2 rounded border border-line-1 hover:border-brand-500/40 transition-colors group"
           >
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1 min-w-0">
@@ -462,11 +462,11 @@ function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element
                   <span className="text-[10px] font-mono font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                     {lab.title}
                   </span>
-                  <span className="text-[9px] font-mono text-slate-400">{lab.overlap} overlap</span>
+                  <span className="text-[9px] font-mono text-muted">{lab.overlap} overlap</span>
                 </div>
                 <p className="text-[10px] text-muted mt-0.5 line-clamp-2">{lab.description}</p>
               </div>
-              <ExternalLink size={9} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-0.5" />
+              <ExternalLink size={9} className="text-muted group-hover:text-brand-500 shrink-0 mt-0.5" />
             </div>
             <div className="flex flex-wrap gap-1 mt-1">
               {lab.techniques.slice(0, 3).map((t) => (
@@ -677,18 +677,14 @@ export default function ThreatActorMonitor() {
             hero-itsme/Global-Threat-Actor-Monitor <ExternalLink size={10} />
           </a>{' '}
           · Upstream 40 groups → {Object.keys(APT_GROUPS).length} locally · Polling via{' '}
-          <span className="font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1 py-0.5 rounded">
-            /api/v1/threat-monitor/proxy
-          </span>
+          <span className="font-mono bg-surface-300 px-1 py-0.5 rounded">/api/v1/threat-monitor/proxy</span>
         </span>
       }
       maxWidthClass="max-w-7xl"
     >
       {/* Upstream replication provenance */}
       <div className="surface-card p-3 mb-4 flex flex-wrap items-center gap-2 text-xs font-mono">
-        <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted border">
-          Replication
-        </span>
+        <span className="px-2 py-0.5 rounded bg-surface-300 text-muted border">Replication</span>
         <a
           href="https://github.com/hero-itsme/Global-Threat-Actor-Monitor"
           target="_blank"
@@ -697,12 +693,12 @@ export default function ThreatActorMonitor() {
         >
           hero-itsme/Global-Threat-Actor-Monitor <ExternalLink size={10} />
         </a>
-        <span className="text-slate-400">·</span>
+        <span className="text-muted">·</span>
         <span className="text-muted">
           Upstream: <strong>40</strong> groups · <strong>148</strong> aliases · <strong>29</strong> techniques ·{' '}
           <strong>30</strong> feeds · 7 Kill Chain stages
         </span>
-        <span className="text-slate-400">·</span>
+        <span className="text-muted">·</span>
         <span className="text-emerald-600 dark:text-emerald-400">
           Expanded: <strong>{Object.keys(APT_GROUPS).length}</strong> groups ·{' '}
           <strong>{Object.keys(TECHNIQUES).length}</strong> techniques · <strong>{OSINT_SOURCES.length}</strong> feeds
@@ -711,12 +707,12 @@ export default function ThreatActorMonitor() {
           href="/api/v1/threat-monitor/"
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-auto text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+          className="ml-auto text-muted hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
         >
           API <ExternalLink size={10} />
         </a>
-        <span className="text-slate-400">·</span>
-        <span className="text-slate-500">
+        <span className="text-muted">·</span>
+        <span className="text-muted">
           MCP: tam_list_groups · tam_get_group · tam_list_techniques · tam_list_sources
         </span>
       </div>
@@ -758,8 +754,8 @@ export default function ThreatActorMonitor() {
           <div className="text-xs font-mono uppercase text-muted">APT Groups</div>
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
             {totalAptGroupsDetected}
-            <span className="text-sm text-slate-400">/{Object.keys(APT_GROUPS).length}</span>
-            <span className="block text-[10px] font-mono text-slate-400">
+            <span className="text-sm text-muted">/{Object.keys(APT_GROUPS).length}</span>
+            <span className="block text-[10px] font-mono text-muted">
               upstream 40 → {Object.keys(APT_GROUPS).length} expanded
             </span>
           </div>
@@ -769,14 +765,14 @@ export default function ThreatActorMonitor() {
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
             {Object.keys(TECHNIQUES).length}
           </div>
-          <div className="text-xs text-slate-500">ATT&CK mapped</div>
+          <div className="text-xs text-muted">ATT&CK mapped</div>
         </Card>
         <Card padding="md">
           <div className="text-xs font-mono uppercase text-muted">Alerts</div>
           <div className="text-2xl font-bold font-mono text-red-600 dark:text-red-400">
             {detections.filter((d) => d.confidence >= 0.5).length}
           </div>
-          <div className="text-xs text-slate-500">high confidence</div>
+          <div className="text-xs text-muted">high confidence</div>
         </Card>
       </div>
 
@@ -842,7 +838,7 @@ export default function ThreatActorMonitor() {
       {/* Source Selector */}
       <Card padding="md" className="mb-6">
         <div className="flex items-center gap-2 mb-3">
-          <Settings size={14} className="text-slate-500" />
+          <Settings size={14} className="text-muted" />
           <h3 className="text-xs font-bold uppercase text-muted">
             OSINT Sources ({enabledSources.length}/{OSINT_SOURCES.length})
           </h3>
@@ -873,22 +869,22 @@ export default function ThreatActorMonitor() {
           {alertSettings.enabled ? (
             <Bell size={14} className="text-emerald-500" />
           ) : (
-            <BellOff size={14} className="text-slate-400" />
+            <BellOff size={14} className="text-muted" />
           )}
           <h3 className="text-xs font-bold uppercase text-muted">
             Email Alerts {alertSettings.enabled ? '(ON)' : '(OFF)'}
           </h3>
-          <span className="ml-auto text-xs text-slate-400">{showAlertSettings ? '▾' : '▸'}</span>
+          <span className="ml-auto text-xs text-muted">{showAlertSettings ? '▾' : '▸'}</span>
         </button>
         {showAlertSettings && (
-          <div className="mt-4 space-y-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-4">
+          <div className="mt-4 space-y-4 border-t border-line-1 pt-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <label className="flex items-center gap-3">
                 <input
                   type="checkbox"
                   checked={alertSettings.enabled}
                   onChange={(e) => setAlertSettings((s) => ({ ...s, enabled: e.target.checked }))}
-                  className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                  className="w-4 h-4 rounded border-line-2 text-brand-600 focus:ring-brand-500"
                 />
                 <span className="text-sm text-body">Enable Alerts</span>
               </label>
@@ -900,7 +896,7 @@ export default function ThreatActorMonitor() {
                     if (e.target.checked) requestNotificationPermission();
                     setAlertSettings((s) => ({ ...s, browserNotifications: e.target.checked }));
                   }}
-                  className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                  className="w-4 h-4 rounded border-line-2 text-brand-600 focus:ring-brand-500"
                 />
                 <span className="text-sm text-body">Desktop Notifications</span>
               </label>
@@ -960,7 +956,7 @@ export default function ThreatActorMonitor() {
                 <option value="360">Every 6 hours</option>
               </Select>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-muted">
               Alerts fire when new detections exceed the confidence threshold. Email opens a mailto: draft. Webhook
               posts to Slack/Discord/generic.
             </p>
@@ -970,7 +966,7 @@ export default function ThreatActorMonitor() {
 
       {/* Detections Feed */}
       <Card padding="none">
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-line-1">
           <div className="flex-1 min-w-[200px]">
             <Input
               value={filter}
@@ -1010,7 +1006,7 @@ export default function ThreatActorMonitor() {
         {scanning ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 size={28} className="animate-spin text-brand-500" />
-            <span className="ml-3 text-slate-400">Scanning feeds...</span>
+            <span className="ml-3 text-muted">Scanning feeds...</span>
           </div>
         ) : filtered.length === 0 ? (
           <EmptyState
@@ -1019,12 +1015,9 @@ export default function ThreatActorMonitor() {
             description={`Click "Scan" to poll ${enabledSources.length} OSINT feeds and detect APT activity using MITRE ATT&CK matching`}
           />
         ) : (
-          <div className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+          <div className="divide-y divide-line-1">
             {filtered.map((d) => (
-              <div
-                key={d.id}
-                className="p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
-              >
+              <div key={d.id} className="p-4 hover:bg-surface-200 dark:hover:bg-surface-200 transition-colors">
                 <div className="flex items-start gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
@@ -1036,12 +1029,12 @@ export default function ThreatActorMonitor() {
                       >
                         {d.title}
                       </a>
-                      <ExternalLink size={12} className="text-slate-400 shrink-0" />
+                      <ExternalLink size={12} className="text-muted shrink-0" />
                     </div>
                     <div className="flex flex-wrap items-center gap-1.5 mb-2">
                       <span className="text-xs font-mono text-muted">{d.source}</span>
                       {d.published && (
-                        <span className="text-xs text-slate-400">· {new Date(d.published).toLocaleDateString()}</span>
+                        <span className="text-xs text-muted">· {new Date(d.published).toLocaleDateString()}</span>
                       )}
                       <ConfidenceBadge c={d.confidence} />
                     </div>
@@ -1067,7 +1060,7 @@ export default function ThreatActorMonitor() {
                         </span>
                       ))}
                       {d.techniques.length > 5 && (
-                        <span className="text-[10px] text-slate-400">+{d.techniques.length - 5}</span>
+                        <span className="text-[10px] text-muted">+{d.techniques.length - 5}</span>
                       )}
                     </div>
                     <KillChainBar stages={d.kill_chain_stages} />

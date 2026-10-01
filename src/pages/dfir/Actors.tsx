@@ -64,11 +64,11 @@ export default function Actors(): JSX.Element {
         <p className="font-mono text-sm text-muted mt-8">No actors match the current filters.</p>
       )}
 
-      <p className="mt-12 text-xs font-mono text-slate-500">
+      <p className="mt-12 text-xs font-mono text-muted">
         Showing {filtered.length} of {threatActors.length} actors.
       </p>
 
-      <section className="mt-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-5">
+      <section className="mt-6 rounded-xl border border-line-1 bg-surface-200/50 p-5">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted mb-2">Have a STIX 2.1 bundle?</h2>
         <p className="text-sm text-body leading-relaxed">
           Open the{' '}

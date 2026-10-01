@@ -65,7 +65,7 @@ export const StatCell = memo(function StatCell({
     <Link
       to={to}
       aria-label={ariaLabel}
-      className="group flex min-h-[7rem] flex-col gap-2.5 bg-white px-4 py-4 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500/50 dark:bg-[rgb(var(--surface-200))] dark:hover:bg-[rgb(var(--surface-300))] sm:px-5"
+      className="group flex min-h-[7rem] flex-col gap-2.5 bg-surface-100 px-4 py-4 transition-colors hover:bg-surface-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500/50 dark:hover:bg-surface-300 sm:px-5"
     >
       <div className="flex items-center gap-2">
         <span className={`inline-flex h-6 w-6 items-center justify-center rounded ${iconClass}`}>{icon}</span>
@@ -95,14 +95,14 @@ export function StatBand({ ariaLabel, indicator, note, children, gridCols = 4 }:
   return (
     <section
       aria-label={ariaLabel}
-      className="overflow-hidden rounded-2xl border border-slate-200/70 shadow-[0_1px_0_rgba(15,23,42,0.03)] dark:border-[rgb(var(--border-400))]"
+      className="overflow-hidden rounded-2xl border border-line-1/70 shadow-[0_1px_0_rgba(15,23,42,0.03)]"
     >
-      <div className="flex items-center justify-between border-b border-slate-200/70 bg-slate-50/70 px-4 py-2 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] sm:px-5">
+      <div className="flex items-center justify-between border-b border-line-1/70 bg-surface-200/70 px-4 py-2 sm:px-5">
         <div className="flex items-center gap-2">{indicator}</div>
         {note}
       </div>
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200/70 ${GRID_COLS_CLASS[gridCols]} dark:bg-[rgb(var(--border-400))]`}
+        className={`grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200/70 ${GRID_COLS_CLASS[gridCols]} dark:bg-line-1`}
       >
         {children}
       </div>

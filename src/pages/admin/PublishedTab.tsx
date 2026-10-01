@@ -281,10 +281,7 @@ export default function PublishedTab() {
     return (
       <div>
         <p className="text-rose-600 dark:text-rose-400 mb-2">Failed to load: {error}</p>
-        <button
-          onClick={() => void load()}
-          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
-        >
+        <button onClick={() => void load()} className="px-3 py-1 border border-line-1 rounded text-sm">
           Retry
         </button>
       </div>
@@ -358,14 +355,14 @@ export default function PublishedTab() {
                           <button
                             onClick={() => generateTwitter(p.slug)}
                             disabled={s?.loadingTwitter}
-                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
                           >
                             {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
                           </button>
                           <button
                             onClick={() => generateLinkedin(p.slug)}
                             disabled={s?.loadingLinkedin}
-                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
                           >
                             {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
                           </button>
@@ -380,7 +377,7 @@ export default function PublishedTab() {
                       <div className="flex gap-1.5">
                         <button
                           onClick={() => viewSocial(p.slug)}
-                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                          className="px-2 py-1 border border-line-1 rounded text-xs text-body hover:bg-surface-300 dark:hover:bg-surface-300"
                         >
                           View
                         </button>
@@ -448,17 +445,14 @@ function SocialQueueAgenda() {
   const { autopostEnabled, queue } = data;
 
   return (
-    <section
-      aria-label="Content calendar queue"
-      className="mb-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
-    >
+    <section aria-label="Content calendar queue" className="mb-6 rounded border border-line-1 bg-surface-200/40 p-3">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-mini font-semibold uppercase tracking-wider text-muted">Upcoming queue</h3>
         <span
           className={`px-2 py-0.5 rounded text-micro font-semibold border ${
             autopostEnabled
               ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700/50'
-              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]'
+              : 'bg-slate-100 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1'
           }`}
           aria-label={autopostEnabled ? 'Auto-post is ON' : 'Auto-post is OFF - review only'}
         >
@@ -475,15 +469,15 @@ function SocialQueueAgenda() {
               <span className="font-mono text-muted whitespace-nowrap">
                 {item.scheduledAt ? new Date(item.scheduledAt).toLocaleString() : '-'}
               </span>
-              <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
+              <span className="text-muted" aria-hidden="true">
                 ·
               </span>
               <span className="font-mono text-body">{item.slug}</span>
-              <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
+              <span className="text-muted" aria-hidden="true">
                 ·
               </span>
               <span className="uppercase text-muted">{item.platform}</span>
-              <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
+              <span className="text-muted" aria-hidden="true">
                 ·
               </span>
               <QueueStatusBadge item={item} />
@@ -574,7 +568,7 @@ function ReadinessBadge({ verdict }: { verdict: ReadinessVerdict }) {
           {warnings.slice(0, 4).map((w, i) => (
             <li key={i}>⚠ {w}</li>
           ))}
-          {warnings.length > 4 && <li className="text-slate-400">+{warnings.length - 4} more</li>}
+          {warnings.length > 4 && <li className="text-muted">+{warnings.length - 4} more</li>}
         </ul>
       )}
     </div>
@@ -649,7 +643,7 @@ function SocialContentPanel({
   }
 
   return (
-    <div className="mt-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+    <div className="mt-6 rounded border border-line-1 p-4">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-body">Social Content</h3>
         <button
@@ -816,7 +810,7 @@ function InstagramSection({
           <span className="text-micro uppercase tracking-wider text-muted">Caption</span>
           <button
             onClick={copyCaption}
-            className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="px-2 py-0.5 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
           >
             {copied ? 'Copied!' : 'Copy caption'}
           </button>
@@ -825,7 +819,7 @@ function InstagramSection({
           readOnly
           value={caption}
           rows={5}
-          className="w-full bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-body font-mono leading-relaxed border border-slate-200 dark:border-[rgb(var(--border-400))] resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1"
+          className="w-full bg-surface-100 rounded p-3 text-xs text-body font-mono leading-relaxed border border-line-1 resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1"
           aria-label="Instagram caption"
         />
       </div>
@@ -839,7 +833,7 @@ function InstagramSection({
               onClick={downloadAll}
               disabled={downloading || objectUrls.every((u) => !u)}
               aria-label={downloading ? 'Downloading slides…' : 'Download all slides'}
-              className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+              className="px-2 py-0.5 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
             >
               {downloading ? '…' : 'Download all'}
             </button>
@@ -870,13 +864,13 @@ function InstagramSection({
                         loading="lazy"
                         src={url}
                         alt={`Carousel slide ${i + 1} of ${total}: ${slide.headline}`}
-                        className="w-40 h-40 object-cover rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                        className="w-40 h-40 object-cover rounded border border-line-1"
                       />
                     ) : (
                       // Fix 4: distinct aria-label for errored vs loading slides;
                       // inner visual span is aria-hidden since the div announces it.
                       <div
-                        className="w-40 h-40 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-200))] flex items-center justify-center"
+                        className="w-40 h-40 rounded border border-line-1 bg-surface-300 flex items-center justify-center"
                         aria-label={
                           isError ? `Slide ${i + 1} of ${total} failed to load` : `Loading slide ${i + 1} of ${total}`
                         }
@@ -961,14 +955,14 @@ function SocialSection({
           </button>
           <button
             onClick={() => copy('body', parts.body)}
-            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="px-2 py-1 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300"
           >
             {copied === 'body' ? 'Copied!' : 'Copy post'}
           </button>
         </div>
       </div>
       <pre
-        className={`bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-body whitespace-pre-wrap font-mono ${
+        className={`bg-surface-100 dark:bg-surface-200 rounded p-3 text-xs text-body whitespace-pre-wrap font-mono ${
           tight ? 'leading-normal' : 'leading-relaxed'
         } max-h-80 overflow-y-auto`}
       >
@@ -992,12 +986,12 @@ function SocialSection({
             <span className="text-micro uppercase tracking-wider text-muted">Carousel outline</span>
             <button
               onClick={() => copy('carousel', parts.carousel!)}
-              className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+              className="px-2 py-0.5 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300"
             >
               {copied === 'carousel' ? 'Copied!' : 'Copy'}
             </button>
           </div>
-          <pre className="bg-white dark:bg-[rgb(var(--surface-200))] rounded p-2 text-xs text-muted whitespace-pre-wrap font-mono max-h-40 overflow-y-auto">
+          <pre className="bg-surface-100 rounded p-2 text-xs text-muted whitespace-pre-wrap font-mono max-h-40 overflow-y-auto">
             {parts.carousel}
           </pre>
         </div>
@@ -1083,13 +1077,13 @@ function HookSelector({
             className={`flex items-start gap-2 p-2 rounded text-xs border cursor-pointer transition-colors ${
               selected === i
                 ? 'bg-amber-100 dark:bg-amber-900/30 border-amber-400 dark:border-amber-600'
-                : 'bg-white dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-amber-300 dark:hover:border-amber-700'
+                : 'bg-white dark:bg-surface-100 border-slate-200 dark:border-line-1 hover:border-amber-300 dark:hover:border-amber-700'
             }`}
             onClick={() => void applyHook(i)}
           >
             <span
               className={`inline-flex items-center justify-center w-4 h-4 mt-0.5 rounded-full text-micro font-bold ${
-                selected === i ? 'bg-amber-500 text-white' : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted'
+                selected === i ? 'bg-amber-500 text-white' : 'bg-slate-200 dark:bg-surface-300 text-muted'
               }`}
             >
               {i + 1}
@@ -1104,7 +1098,7 @@ function HookSelector({
               className={`px-2 py-0.5 rounded text-micro border whitespace-nowrap ${
                 selected === i
                   ? 'bg-amber-500 text-white border-amber-500'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                  : 'border-slate-200 dark:border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300'
               } disabled:opacity-50`}
             >
               {regenerating === i ? '…' : selected === i ? 'Active' : 'Use'}
@@ -1227,7 +1221,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
   const rows: SocialPlatform[] = ['twitter', 'linkedin', 'instagram'];
 
   return (
-    <div className="mb-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] p-3">
+    <div className="mb-6 rounded border border-line-1 bg-surface-200/40 p-3">
       <div className="flex items-center justify-between mb-2">
         <h4 className="text-mini font-semibold uppercase tracking-wider text-muted">Posting queue</h4>
         {msg && <span className="text-micro text-muted">{msg}</span>}
@@ -1307,7 +1301,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 onBlur={(e) => void saveTime(platform, e.target.value)}
                 disabled={busy === platform}
                 aria-label={`${platform} planned post time (saved on blur)`}
-                className="bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5 text-body disabled:opacity-50"
+                className="bg-surface-100 border border-line-1 rounded px-1.5 py-0.5 text-body disabled:opacity-50"
                 title="Planned post time (saved on blur)"
               />
 
@@ -1327,7 +1321,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                   onClick={() => void handleUnapprove(platform)}
                   disabled={busy === platform}
                   aria-label={`Unapprove ${platform} - return to pending`}
-                  className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                  className="px-2 py-0.5 border border-line-1 rounded hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
                 >
                   Unapprove
                 </button>
@@ -1338,7 +1332,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 onClick={() => void togglePosted(platform, status)}
                 disabled={busy === platform}
                 aria-label={status === 'posted' ? `Mark ${platform} as pending` : `Mark ${platform} as posted`}
-                className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                className="px-2 py-0.5 border border-line-1 rounded hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
               >
                 {status === 'posted' ? 'Mark pending' : 'Mark posted'}
               </button>

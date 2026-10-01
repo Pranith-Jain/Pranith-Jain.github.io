@@ -30,8 +30,8 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={onClose} />
-      <div className="relative w-full max-w-[700px] max-h-[90vh] bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-        <div className="h-16 px-6 flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] shrink-0">
+      <div className="relative w-full max-w-[700px] max-h-[90vh] bg-surface-100 border border-line-1 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+        <div className="h-16 px-6 flex items-center justify-between border-b border-line-1 bg-surface-200 shrink-0">
           <div className="flex items-center gap-3 min-w-0">
             <div className="h-10 w-10 rounded-xl bg-rose-500/10 border border-rose-500/20 grid place-items-center shrink-0">
               <span className="text-rose-600 font-bold text-sm">⚔</span>
@@ -39,7 +39,7 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="font-mono font-bold text-heading">{technique.id}</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted font-mono">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-slate-200 dark:bg-surface-300 border border-line-2 text-muted font-mono">
                   {technique.tactic || 'Unknown'}
                 </span>
                 {technique.count && (
@@ -56,31 +56,31 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
             onClick={onClose}
             type="button"
             aria-label="Close dialog"
-            className="h-8 w-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] grid place-items-center hover:bg-white dark:hover:bg-[rgb(var(--surface-300))] shrink-0"
+            className="h-8 w-8 rounded-lg border border-line-1 grid place-items-center hover:bg-surface-100 dark:hover:bg-surface-300 shrink-0"
           >
             ✕
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
-          <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+          <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
             <div className="font-mono text-xs tracking-widest text-muted mb-2">DESCRIPTION</div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               {technique.description ||
                 `Adversaries may use ${technique.id} — ${technique.name} to achieve ${technique.tactic || 'objective'}. Observed ${technique.count || 12} times in recent intelligence.`}
             </p>
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <div className="rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+              <div className="rounded-lg bg-surface-100 border border-line-1 p-2.5">
                 <div className="text-[10px] font-mono text-muted mb-1">PLATFORMS</div>
                 <div className="text-xs text-muted">{technique.platforms?.join(', ') || 'Windows, Linux, Network'}</div>
               </div>
-              <div className="rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+              <div className="rounded-lg bg-surface-100 border border-line-1 p-2.5">
                 <div className="text-[10px] font-mono text-muted mb-1">DATA SOURCES</div>
                 <div className="text-xs text-muted">
                   {technique.dataSources?.slice(0, 2).join(', ') || 'Process, Network Traffic'}
                 </div>
               </div>
-              <div className="rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+              <div className="rounded-lg bg-surface-100 border border-line-1 p-2.5">
                 <div className="text-[10px] font-mono text-muted mb-1">KILL CHAIN</div>
                 <div className="text-xs font-medium text-heading">
                   {technique.killChain || technique.tactic || 'Unknown'}
@@ -90,7 +90,7 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-xs tracking-widest text-rose-600 mb-3">PROCEDURE EXAMPLES</div>
               <div className="space-y-2.5">
                 {(
@@ -102,10 +102,7 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
                 )
                   .slice(0, 3)
                   .map((ex) => (
-                    <div
-                      key={ex.actor}
-                      className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5"
-                    >
+                    <div key={ex.actor} className="rounded-lg bg-surface-200 border border-line-1 p-2.5">
                       <div className="text-xs font-bold text-heading flex items-center gap-2">
                         <span className="h-1.5 w-1.5 rounded-full bg-rose-500" /> {ex.actor}
                       </div>
@@ -114,7 +111,7 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
                   ))}
               </div>
             </div>
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-xs tracking-widest text-emerald-600 mb-3">MITIGATIONS & DETECTIONS</div>
               <div className="space-y-2">
                 {(
@@ -125,10 +122,7 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
                 )
                   .slice(0, 2)
                   .map((m) => (
-                    <div
-                      key={m.id}
-                      className="p-2.5 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                    >
+                    <div key={m.id} className="p-2.5 rounded-lg bg-surface-200 border border-line-1">
                       <div className="text-xs font-mono font-bold text-emerald-600">{m.id}</div>
                       <div className="text-xs text-heading">{m.name}</div>
                       {m.desc && <div className="text-[11px] text-muted mt-1 line-clamp-2">{m.desc}</div>}
@@ -144,10 +138,10 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+          <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
             <div className="font-mono text-xs tracking-widest text-muted mb-3">RELATED INTELLIGENCE</div>
             <div className="space-y-2">
-              <div className="p-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-center">
+              <div className="p-3 rounded-lg bg-surface-200 border border-dashed border-line-2 text-center">
                 <div className="text-xs text-muted">Showing tactic-related intel for {technique.tactic}</div>
                 <div className="mt-2 text-xs font-mono text-sky-600">View in Threat Landscape →</div>
               </div>
@@ -166,13 +160,13 @@ export function MitreModal({ technique, onClose, onHunt }: Props): JSX.Element {
             </button>
             <button
               onClick={copy}
-              className="h-11 px-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono text-muted hover:text-heading inline-flex items-center gap-2"
+              className="h-11 px-4 rounded-xl border border-line-1 text-sm font-mono text-muted hover:text-heading inline-flex items-center gap-2"
             >
               {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />} Copy
             </button>
             <button
               onClick={onClose}
-              className="h-11 px-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono text-muted"
+              className="h-11 px-5 rounded-xl border border-line-1 text-sm font-mono text-muted"
             >
               Close
             </button>

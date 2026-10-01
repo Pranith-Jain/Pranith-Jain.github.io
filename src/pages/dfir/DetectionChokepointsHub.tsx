@@ -736,7 +736,7 @@ export default function DetectionChokepointsHub() {
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono whitespace-nowrap border transition-colors ${tab === t.id ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono whitespace-nowrap border transition-colors ${tab === t.id ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'}`}
           >
             <t.icon size={12} /> {t.label}
           </button>
@@ -753,7 +753,7 @@ export default function DetectionChokepointsHub() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search chokepoint, technique, or tag…"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-line-2 bg-surface-100 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               aria-label="Filter chokepoints"
             />
           </div>
@@ -763,7 +763,7 @@ export default function DetectionChokepointsHub() {
             </span>
             <button
               onClick={() => setPriority('all')}
-              className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${priority === 'all' ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
+              className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${priority === 'all' ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'}`}
             >
               All
             </button>
@@ -771,7 +771,7 @@ export default function DetectionChokepointsHub() {
               <button
                 key={p}
                 onClick={() => setPriority(p)}
-                className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${priority === p ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
+                className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${priority === p ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'}`}
               >
                 {p} <span className="opacity-60">· {CHOKEPOINTS.filter((c) => c.priority === p).length}</span>
               </button>
@@ -785,7 +785,7 @@ export default function DetectionChokepointsHub() {
               <button
                 key={f}
                 onClick={() => setFpFilter(fpFilter === f ? 'all' : f)}
-                className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${fpFilter === f ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
+                className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${fpFilter === f ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'}`}
               >
                 {f}
               </button>
@@ -815,10 +815,7 @@ export default function DetectionChokepointsHub() {
                 <p className="text-sm text-muted mb-2">{c.description}</p>
                 <div className="flex flex-wrap gap-1">
                   {c.techniques.map((t) => (
-                    <span
-                      key={t}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                    >
+                    <span key={t} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                       {t}
                     </span>
                   ))}
@@ -844,7 +841,7 @@ export default function DetectionChokepointsHub() {
                 <div key={s.n} className={`${CARD} p-4 ${s.highlight ? 'ring-2 ring-brand-500/40' : ''}`}>
                   <div className="flex items-start gap-3">
                     <span
-                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${s.highlight ? 'bg-brand-500 text-white' : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted'}`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${s.highlight ? 'bg-brand-500 text-white' : 'bg-slate-200 dark:bg-surface-300 text-muted'}`}
                     >
                       {s.n}
                     </span>
@@ -913,7 +910,7 @@ export default function DetectionChokepointsHub() {
             <div key={ch.id} className={`${CARD} overflow-hidden`}>
               <button
                 onClick={() => setExpandedChain(expandedChain === ch.id ? null : ch.id)}
-                className="w-full text-left p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
+                className="w-full text-left p-4 flex items-center justify-between hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <span className={`text-xs font-mono px-2 py-0.5 rounded border ${ch.badge}`}>
@@ -929,14 +926,14 @@ export default function DetectionChokepointsHub() {
                 </span>
               </button>
               {expandedChain === ch.id && (
-                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-4 space-y-4">
+                <div className="border-t border-line-1 p-4 space-y-4">
                   <p className="text-sm text-muted">{ch.description}</p>
                   <div>
                     <h4 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Kill Chain Stages</h4>
                     <div className="flex flex-wrap gap-1.5">
                       {ch.stages.map((s, i) => (
                         <span key={i} className="flex items-center gap-1">
-                          <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body">
+                          <span className="text-xs font-mono px-2 py-1 rounded bg-surface-300 text-body">
                             {s.label}
                           </span>
                           {i < ch.stages.length - 1 && <ArrowRight size={10} className="text-muted" />}
@@ -1022,7 +1019,7 @@ export default function DetectionChokepointsHub() {
             <div key={tr.id} className={`${CARD} overflow-hidden`}>
               <button
                 onClick={() => setExpandedTrend(expandedTrend === tr.id ? null : tr.id)}
-                className="w-full text-left p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
+                className="w-full text-left p-4 hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors"
               >
                 <div className="flex items-center justify-between">
                   <div>
@@ -1040,10 +1037,10 @@ export default function DetectionChokepointsHub() {
                 </p>
               </button>
               {expandedTrend === tr.id && (
-                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-4 space-y-4">
+                <div className="border-t border-line-1 p-4 space-y-4">
                   <div className="grid sm:grid-cols-2 gap-3">
                     {tr.findings.map((f) => (
-                      <div key={f.title} className="p-3 rounded bg-slate-50 dark:bg-[rgb(var(--surface-100))]">
+                      <div key={f.title} className="p-3 rounded bg-surface-200">
                         <h4 className="font-mono text-xs font-semibold text-slate-900 dark:text-white mb-1">
                           {f.title}
                         </h4>
@@ -1058,12 +1055,12 @@ export default function DetectionChokepointsHub() {
                       </h4>
                       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {tr.variants.map((v) => (
-                          <div key={v.name} className="p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-100))]">
+                          <div key={v.name} className="p-2 rounded bg-surface-200">
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-mono text-xs font-semibold text-slate-900 dark:text-white">
                                 {v.name}
                               </span>
-                              <span className="text-micro font-mono px-1 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
+                              <span className="text-micro font-mono px-1 py-0.5 rounded bg-slate-200 dark:bg-surface-300 text-muted">
                                 {v.mitre}
                               </span>
                             </div>

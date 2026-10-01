@@ -124,7 +124,7 @@ export default function DomainWebcheck(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             autoComplete="off"
             spellCheck={false}
           />
@@ -184,7 +184,7 @@ export default function DomainWebcheck(): JSX.Element {
                     {ch.secure ? 'secure' : ch.present ? 'partial' : 'missing'}
                   </span>
                   <span className="w-48 truncate text-body">{ch.header}</span>
-                  <span className="text-slate-500 text-xs flex-1 truncate">
+                  <span className="text-muted text-xs flex-1 truncate">
                     {ch.present ? (ch.value?.slice(0, 60) ?? 'present') : 'MISSING'}
                   </span>
                   {!ch.secure && ch.recommendation && (
@@ -205,7 +205,7 @@ export default function DomainWebcheck(): JSX.Element {
                 {result.technology.map((t, i) => (
                   <span
                     key={i}
-                    className="px-2.5 py-1 rounded-xl text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                    className="px-2.5 py-1 rounded-xl text-xs font-mono bg-surface-300 border border-line-1"
                   >
                     <span className="text-muted">{t.category}:</span> {t.name}
                   </span>
@@ -268,7 +268,7 @@ export default function DomainWebcheck(): JSX.Element {
               </h2>
               <div className="text-xs font-mono space-y-0.5">
                 {result.http.redirect_chain.map((url, i) => (
-                  <div key={i} className="text-slate-500">
+                  <div key={i} className="text-muted">
                     {url}
                   </div>
                 ))}
@@ -297,7 +297,7 @@ function StatCard({
     <div className="p-3 surface-card">
       <div className="text-xs font-mono text-muted">{label}</div>
       <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-heading'}`}>{value}</div>
-      {sub && <div className="text-xs font-mono text-slate-500 mt-0.5">{sub}</div>}
+      {sub && <div className="text-xs font-mono text-muted mt-0.5">{sub}</div>}
     </div>
   );
 }

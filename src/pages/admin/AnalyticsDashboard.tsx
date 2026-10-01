@@ -70,7 +70,7 @@ export default function AnalyticsDashboard(): JSX.Element {
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))] animate-pulse" />
+            <div key={i} className="h-20 rounded-xl bg-surface-300 animate-pulse" />
           ))}
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function AnalyticsDashboard(): JSX.Element {
     <div className="max-w-6xl mx-auto px-6 py-8">
       <Link
         to="/admin"
-        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
+        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6"
       >
         <ArrowLeft size={12} /> back to admin
       </Link>
@@ -89,12 +89,12 @@ export default function AnalyticsDashboard(): JSX.Element {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-display font-bold text-slate-900 dark:text-white">Analytics Dashboard</h1>
-          <p className="text-xs font-mono text-slate-500 mt-1">Page views, tool usage, and geographic data</p>
+          <p className="text-xs font-mono text-muted mt-1">Page views, tool usage, and geographic data</p>
         </div>
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-line-2 rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           <RefreshCw size={14} />
           Refresh
@@ -132,9 +132,9 @@ export default function AnalyticsDashboard(): JSX.Element {
       {/* Top events */}
       <section className="mb-8">
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Top Events</h2>
-        <div className="surface-card divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+        <div className="surface-card divide-y divide-line-1">
           {(data?.topEvents ?? []).length === 0 ? (
-            <p className="p-4 text-sm text-slate-500">No event data available yet.</p>
+            <p className="p-4 text-sm text-muted">No event data available yet.</p>
           ) : (
             (data?.topEvents ?? []).map((e) => (
               <div key={e.type} className="flex items-center justify-between p-4">
@@ -154,9 +154,9 @@ export default function AnalyticsDashboard(): JSX.Element {
       {/* Top countries */}
       <section className="mb-8">
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Top Countries</h2>
-        <div className="surface-card divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+        <div className="surface-card divide-y divide-line-1">
           {(data?.topCountries ?? []).length === 0 ? (
-            <p className="p-4 text-sm text-slate-500">No country data available yet.</p>
+            <p className="p-4 text-sm text-muted">No country data available yet.</p>
           ) : (
             (data?.topCountries ?? []).map((c) => (
               <div key={c.country} className="flex items-center justify-between p-4">
@@ -176,9 +176,9 @@ export default function AnalyticsDashboard(): JSX.Element {
       {/* Recent events */}
       <section>
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">Recent Events</h2>
-        <div className="surface-card divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+        <div className="surface-card divide-y divide-line-1">
           {(data?.recentEvents ?? []).length === 0 ? (
-            <p className="p-4 text-sm text-slate-500">No recent events.</p>
+            <p className="p-4 text-sm text-muted">No recent events.</p>
           ) : (
             (data?.recentEvents ?? []).slice(0, 20).map((e, idx) => (
               <div key={idx} className="flex items-center justify-between p-4">
@@ -186,11 +186,11 @@ export default function AnalyticsDashboard(): JSX.Element {
                   <Activity size={14} className="text-muted" />
                   <div>
                     <span className="font-mono text-sm text-body">{e.blobs[0] ?? 'unknown'}</span>
-                    {e.blobs[1] && <span className="text-xs text-slate-500 ml-2">{e.blobs[1]}</span>}
+                    {e.blobs[1] && <span className="text-xs text-muted ml-2">{e.blobs[1]}</span>}
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  {e.indexes[0] && <span className="text-xs font-mono text-slate-500">{e.indexes[0]}</span>}
+                  {e.indexes[0] && <span className="text-xs font-mono text-muted">{e.indexes[0]}</span>}
                   <span className="text-xs text-muted">{new Date(e.timestamp).toLocaleTimeString()}</span>
                 </div>
               </div>
@@ -217,7 +217,7 @@ function SummaryCard({
     <div className="surface-card p-4">
       <div className="flex items-center gap-2 mb-2">
         <Icon size={14} className={color} />
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-500">{label}</span>
+        <span className="text-xs font-mono uppercase tracking-wider text-muted">{label}</span>
       </div>
       <div className="text-2xl font-mono font-bold text-slate-900 dark:text-white">{value}</div>
     </div>

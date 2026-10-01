@@ -34,7 +34,7 @@ const GROUP_TYPES: { value: GroupType; label: string }[] = [
 ];
 
 const selectCls =
-  'h-9 px-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-mini font-mono uppercase tracking-wider text-muted outline-none hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] focus:border-brand-500 dark:focus:border-brand-400 cursor-pointer transition-colors';
+  'h-9 px-2.5 rounded-lg border border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 text-mini font-mono uppercase tracking-wider text-muted outline-none hover:border-slate-300 dark:hover:border-line-2 focus:border-brand-500 dark:focus:border-brand-400 cursor-pointer transition-colors';
 
 export default function ArgusPage() {
   const [view, setView] = useState<ViewKey>('globe');
@@ -127,14 +127,14 @@ export default function ArgusPage() {
           {totalTtps} mapped MITRE TTPs, relationship graphs, diamond-model analysis, and a live intel feed.
         </p>
 
-        <dl className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-px overflow-hidden rounded-panel border border-[rgb(var(--border-400))] bg-[rgb(var(--border-400))]">
+        <dl className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-px overflow-hidden rounded-panel border border-line-1 bg-line-1">
           {[
             { label: 'APT groups', value: ACTORS.length },
             { label: 'Nations', value: nationCount },
             { label: 'MITRE TTPs', value: totalTtps },
             { label: 'Intel items', value: FEED_ITEMS.length },
           ].map((s) => (
-            <div key={s.label} className="bg-white dark:bg-[rgb(var(--surface-200))] px-4 py-3.5">
+            <div key={s.label} className="bg-surface-100 px-4 py-3.5">
               <dd className="font-display text-2xl sm:text-3xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
                 {s.value.toLocaleString()}
               </dd>
@@ -150,13 +150,13 @@ export default function ArgusPage() {
       {/* ── Filter toolbar ───────────────────────────────────────── */}
       <div className="surface-card p-3.5 flex items-center gap-2.5 flex-wrap">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search actors, CVEs, TTPs, malware…"
-            className="w-full h-9 pl-9 pr-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-tool text-heading placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-rose-500/50 dark:focus:border-rose-400/50 transition-colors"
+            className="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-200 border border-line-1 text-tool text-heading placeholder:text-muted dark:placeholder:text-muted outline-none focus:border-rose-500/50 dark:focus:border-rose-400/50 transition-colors"
           />
         </div>
 
@@ -218,13 +218,13 @@ export default function ArgusPage() {
       </div>
 
       {/* ── Active view ──────────────────────────────────────────── */}
-      <div className="relative overflow-hidden rounded-panel border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] min-h-[560px]">
+      <div className="relative overflow-hidden rounded-panel border border-line-1 bg-surface-100 min-h-[560px]">
         <div className="relative h-[62vh] min-h-[520px] max-h-[760px]">
           <Suspense
             fallback={
               <div className="absolute inset-0 grid place-items-center">
-                <div className="flex flex-col items-center gap-3 text-slate-400 dark:text-slate-500">
-                  <span className="h-6 w-6 rounded-full border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-rose-500 animate-spin" />
+                <div className="flex flex-col items-center gap-3 text-muted">
+                  <span className="h-6 w-6 rounded-full border-2 border-line-2 border-t-rose-500 animate-spin" />
                   <span className="font-mono text-micro uppercase tracking-[0.16em]">Loading view</span>
                 </div>
               </div>

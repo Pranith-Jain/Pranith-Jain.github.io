@@ -119,7 +119,7 @@ export default function PgpTool() {
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
         <h1 className="font-display font-bold text-2xl text-heading">PGP Tool</h1>
-        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
+        <span className="text-mini font-mono uppercase tracking-[0.18em] text-muted">
           Encrypt · Decrypt · Sign · Verify
         </span>
       </div>
@@ -137,7 +137,7 @@ export default function PgpTool() {
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               mode === m.key
                 ? 'bg-brand-600 text-white border-brand-600'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-500'
+                : 'border-slate-300 dark:border-line-1 text-body hover:border-brand-500'
             }`}
           >
             {m.label}
@@ -149,13 +149,13 @@ export default function PgpTool() {
         <div className="grid gap-4 sm:grid-cols-2">
           {mode !== 'verify' && mode !== 'encrypt' ? null : (
             <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">
+              <label className="text-xs font-mono text-muted mb-1 block">
                 Public Key (armored)
                 <textarea
                   value={publicKey}
                   onChange={(e) => setPublicKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading mt-1"
                   placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
                 />
               </label>
@@ -163,13 +163,13 @@ export default function PgpTool() {
           )}
           {mode !== 'decrypt' && mode !== 'sign' ? null : (
             <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">
+              <label className="text-xs font-mono text-muted mb-1 block">
                 Private Key (armored)
                 <textarea
                   value={privateKey}
                   onChange={(e) => setPrivateKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading mt-1"
                   placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"
                 />
               </label>
@@ -177,13 +177,13 @@ export default function PgpTool() {
           )}
           {mode !== 'decrypt' && mode !== 'sign' ? null : (
             <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">
+              <label className="text-xs font-mono text-muted mb-1 block">
                 Passphrase
                 <input
                   type="password"
                   value={passphrase}
                   onChange={(e) => setPassphrase(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading mt-1"
                   placeholder="Private key passphrase"
                 />
               </label>
@@ -195,13 +195,13 @@ export default function PgpTool() {
       {mode === 'generate' && (
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-mono text-slate-500 mb-1 block">
+            <label className="text-xs font-mono text-muted mb-1 block">
               Passphrase (optional)
               <input
                 type="password"
                 value={passphrase}
                 onChange={(e) => setPassphrase(e.target.value)}
-                className="w-full max-w-md rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
+                className="w-full max-w-md rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading mt-1"
                 placeholder="Protect private key with passphrase"
               />
             </label>
@@ -219,7 +219,7 @@ export default function PgpTool() {
       {mode !== 'generate' && (
         <>
           <div>
-            <label className="text-xs font-mono text-slate-500 mb-1 block">
+            <label className="text-xs font-mono text-muted mb-1 block">
               {mode === 'encrypt'
                 ? 'Plaintext'
                 : mode === 'decrypt'
@@ -232,13 +232,13 @@ export default function PgpTool() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={6}
-              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading"
+              className="w-full rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading"
               placeholder="Paste input here..."
             />
           </div>
 
           {mode === 'sign' && (
-            <label className="flex items-center gap-2 text-xs font-mono text-slate-500">
+            <label className="flex items-center gap-2 text-xs font-mono text-muted">
               <input type="checkbox" checked={!armor} onChange={() => setArmor(!armor)} />
               Detached signature (binary)
             </label>
@@ -270,13 +270,13 @@ export default function PgpTool() {
 
       {output && (
         <div>
-          <label className="text-xs font-mono text-slate-500 mb-1 block">
+          <label className="text-xs font-mono text-muted mb-1 block">
             Output
             <textarea
               readOnly
               value={output}
               rows={8}
-              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
+              className="w-full rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading mt-1"
             />
           </label>
           <button

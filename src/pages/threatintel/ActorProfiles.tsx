@@ -47,8 +47,8 @@ const STATUS_PILL: Record<string, string> = {
   active:
     'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
   dormant: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
-  defunct: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-slate-700',
-  unknown: 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] text-muted border-slate-200 dark:border-slate-700',
+  defunct: 'bg-slate-100 dark:bg-surface-200 text-muted border-slate-200 dark:border-slate-700',
+  unknown: 'bg-slate-50 dark:bg-surface-100 text-muted border-slate-200 dark:border-slate-700',
 };
 
 const COUNTRY_FLAGS: Record<string, string> = {
@@ -67,7 +67,7 @@ const COUNTRY_FLAGS: Record<string, string> = {
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
+  'w-full rounded-xl border border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-input-200 px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
 
 function getCountryCode(country: string): string {
   const match = country.match(/^([A-Z]{2})/);
@@ -97,7 +97,7 @@ function ActorCard({
       <button
         type="button"
         onClick={onToggle}
-        className="w-full text-left p-4 flex items-start gap-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
+        className="w-full text-left p-4 flex items-start gap-3 hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors"
       >
         <div className={`rounded-xl p-2 shrink-0 ${TYPE_COLORS[actor.type]}`}>{TYPE_ICONS[actor.type]}</div>
         <div className="flex-1 min-w-0">
@@ -119,10 +119,7 @@ function ActorCard({
           {actor.aliases.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-2">
               {actor.aliases.slice(0, isExpanded ? undefined : 3).map((alias) => (
-                <span
-                  key={alias}
-                  className="text-micro font-mono text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5"
-                >
+                <span key={alias} className="text-micro font-mono text-muted bg-surface-300 rounded px-1.5 py-0.5">
                   {alias}
                 </span>
               ))}
@@ -143,7 +140,7 @@ function ActorCard({
 
       {/* Expanded details */}
       {isExpanded && (
-        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-4 space-y-4">
+        <div className="border-t border-line-1 p-4 space-y-4">
           <p className="text-sm text-body leading-relaxed">{actor.description}</p>
 
           {/* Motivation */}
@@ -374,15 +371,11 @@ export default function ActorProfiles() {
       maxWidthClass="max-w-5xl"
       headerExtra={
         <div className="flex items-center gap-3 text-xs text-muted">
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
-            {stats.total} actors
-          </span>
+          <span className="rounded border border-line-2 px-2 py-1 font-mono">{stats.total} actors</span>
           <span className="rounded border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 px-2 py-1 font-mono">
             {stats.active} active
           </span>
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono">
-            {stats.countries} countries
-          </span>
+          <span className="rounded border border-line-2 px-2 py-1 font-mono">{stats.countries} countries</span>
         </div>
       }
     >
@@ -405,7 +398,7 @@ export default function ActorProfiles() {
           className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
             activeType === null
               ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+              : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
           }`}
         >
           All ({stats.total})
@@ -418,7 +411,7 @@ export default function ActorProfiles() {
             className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
               activeType === t
                 ? `${TYPE_COLORS[t]} border-current`
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             {TYPE_ICONS[t]} {TYPE_LABELS[t]} ({typeCounts[t]})
@@ -440,14 +433,14 @@ export default function ActorProfiles() {
               className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${
                 activeStatus === s
                   ? `${STATUS_PILL[s]} border-current`
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
               }`}
             >
               {s} ({count})
             </button>
           );
         })}
-        <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+        <div className="w-px h-5 bg-slate-200 dark:bg-line-1" />
         <span className="text-mini font-mono uppercase tracking-wider text-muted">Country:</span>
         {Object.entries(countryCounts)
           .sort((a, b) => b[1] - a[1])
@@ -463,7 +456,7 @@ export default function ActorProfiles() {
                 className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${
                   activeCountry === cc
                     ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
                 }`}
               >
                 {flag} {name} ({count})

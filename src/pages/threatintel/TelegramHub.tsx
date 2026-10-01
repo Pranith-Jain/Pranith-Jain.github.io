@@ -294,12 +294,12 @@ export default function TelegramHub(): JSX.Element {
       description="Unified Telegram CTI workspace - channel discovery, leak monitoring, IOC pipeline, and a free cross-source search across monitored channels and tgstat.com."
     >
       {/* Tab bar */}
-      <div className="mb-6 flex flex-wrap gap-1.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-3">
+      <div className="mb-6 flex flex-wrap gap-1.5 border-b border-line-1 pb-3">
         <button
           type="button"
           onClick={() => setSearchParams({}, { replace: true })}
           className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-medium transition-colors ${
-            !tabDef ? 'bg-rose-600 text-white' : 'text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+            !tabDef ? 'bg-rose-600 text-white' : 'text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
           }`}
         >
           <MessageSquare size={13} />
@@ -314,9 +314,7 @@ export default function TelegramHub(): JSX.Element {
               type="button"
               onClick={() => setSearchParams({ tab: t.id }, { replace: true })}
               className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-medium transition-colors ${
-                isActive
-                  ? 'bg-rose-600 text-white'
-                  : 'text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                isActive ? 'bg-rose-600 text-white' : 'text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
               }`}
             >
               <TIcon size={13} />
@@ -340,7 +338,7 @@ export default function TelegramHub(): JSX.Element {
       ) : (
         <>
           {/* Hero search */}
-          <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-slate-50 to-white dark:from-slate-900/50 dark:to-slate-900/20 p-5">
+          <section className="mb-6 rounded-xl border border-line-1 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900/50 dark:to-slate-900/20 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Zap size={16} className="text-amber-500" />
               <h2 className="font-mono text-sm uppercase tracking-wider text-body">Cross-source Telegram search</h2>
@@ -353,7 +351,7 @@ export default function TelegramHub(): JSX.Element {
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   placeholder="Search channels (e.g. conti leaks) or leak text (e.g. cve-2026-10520)"
-                  className="w-full pl-9 pr-3 py-2.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  className="w-full pl-9 pr-3 py-2.5 rounded border border-line-2 bg-surface-100 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
                   aria-label="Search Telegram channels and leak text"
                   maxLength={120}
                 />
@@ -398,10 +396,7 @@ export default function TelegramHub(): JSX.Element {
                     ) : (
                       <ul className="space-y-2">
                         {channels.slice(0, 10).map((c) => (
-                          <li
-                            key={c.handle}
-                            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
-                          >
+                          <li key={c.handle} className="rounded border border-line-1 bg-surface-100/40 p-3">
                             <div className="flex items-center justify-between gap-2 mb-1">
                               <a
                                 href={sanitizeUrl(c.tgstat_url) ?? '#'}
@@ -418,7 +413,7 @@ export default function TelegramHub(): JSX.Element {
                             </div>
                             <p className="text-xs text-muted line-clamp-2">{c.description || c.name}</p>
                             {c.category && (
-                              <span className="inline-block mt-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
+                              <span className="inline-block mt-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-2 text-muted">
                                 {c.category}
                               </span>
                             )}
@@ -438,10 +433,7 @@ export default function TelegramHub(): JSX.Element {
                     ) : (
                       <ul className="space-y-2">
                         {leaks.slice(0, 10).map((l) => (
-                          <li
-                            key={l.id}
-                            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
-                          >
+                          <li key={l.id} className="rounded border border-line-1 bg-surface-100/40 p-3">
                             <div className="flex items-center justify-between gap-2 mb-1">
                               <Link
                                 to={`/threatintel/telegram?tab=leaks&channel=${encodeURIComponent(l.channel_handle)}`}
@@ -502,7 +494,7 @@ export default function TelegramHub(): JSX.Element {
                   {kpis.topDomains.map((d) => (
                     <span
                       key={d}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 text-muted"
                     >
                       {d}
                     </span>
@@ -520,7 +512,7 @@ export default function TelegramHub(): JSX.Element {
                 <Link
                   key={card.path}
                   to={card.path}
-                  className={`group block rounded-xl border bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-4 transition-colors ${card.accent}`}
+                  className={`group block rounded-xl border bg-surface-100 dark:bg-surface-200/40 p-4 transition-colors ${card.accent}`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <span className="inline-flex items-center gap-2 font-mono text-sm font-semibold">
@@ -540,7 +532,7 @@ export default function TelegramHub(): JSX.Element {
           </section>
 
           {/* Source provenance footer */}
-          <footer className="mt-8 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <footer className="mt-8 pt-4 border-t border-line-1">
             <p className="text-mini font-mono text-muted">
               Sources: tgstat.com (HTML scrape, 12h cache) · telegram.me/s/ previews (hourly poll) · D1 leak store ·
               cross-source IOC consensus. All free-tier, no API keys.
@@ -570,7 +562,7 @@ function KpiTile({
   const accent =
     tone === 'rose'
       ? 'border-rose-500/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
-      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-body';
+      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/40 text-body';
   return (
     <div className={`rounded border p-3 ${accent}`}>
       <div className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider opacity-80">

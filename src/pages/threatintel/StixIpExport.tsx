@@ -175,7 +175,7 @@ export default function StixIpExport() {
                 onChange={(e) => setIpInput(e.target.value)}
                 placeholder={isBatch ? '203.0.113.42&#10;198.51.100.7' : '203.0.113.42'}
                 rows={isBatch ? 4 : 1}
-                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-heading placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50 font-mono"
+                className="w-full px-3 py-2 text-sm rounded-xl border border-line-1 bg-surface-100 text-heading placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/50 font-mono"
               />
             </div>
             <div>
@@ -303,7 +303,7 @@ export default function StixIpExport() {
                     <button
                       type="button"
                       onClick={copyJson}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-line-2 text-body hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                     >
                       {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                       {copied ? 'Copied' : 'Copy JSON'}
@@ -328,10 +328,7 @@ export default function StixIpExport() {
                       return acc;
                     }, {})
                   ).map(([type, count]) => (
-                    <span
-                      key={type}
-                      className="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body"
-                    >
+                    <span key={type} className="text-xs font-mono px-2 py-0.5 rounded-full bg-surface-300 text-body">
                       {type}: {String(count)}
                     </span>
                   ))}

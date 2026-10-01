@@ -118,8 +118,8 @@ export default function CveDetail(): JSX.Element {
         maxWidthClass="max-w-7xl"
       >
         <div className="animate-pulse space-y-4">
-          <div className="h-24 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]" />
-          <div className="h-64 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]" />
+          <div className="h-24 rounded-xl bg-surface-300" />
+          <div className="h-64 rounded-xl bg-surface-300" />
         </div>
       </DataPageLayout>
     );
@@ -151,10 +151,10 @@ export default function CveDetail(): JSX.Element {
       title={`${data.cve_id} — ${data.description.slice(0, 80)}...`}
       description={
         <span className="inline-flex flex-wrap items-center gap-2">
-          <span className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-sky-700 dark:text-sky-300">
+          <span className="px-2 py-1 rounded bg-surface-300 border border-line-1 text-xs font-mono text-sky-700 dark:text-sky-300">
             Severity: {data.severity}
           </span>
-          <span className="px-2 py-1 rounded bg-slate-900 dark:bg-[rgb(var(--surface-200))] border border-slate-700 text-xs font-mono text-muted">
+          <span className="px-2 py-1 rounded bg-slate-900 dark:bg-surface-200 border border-slate-700 text-xs font-mono text-muted">
             {data.hits ?? 1} hits
           </span>
           {data.kev?.in_kev && (
@@ -167,7 +167,7 @@ export default function CveDetail(): JSX.Element {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => copy(data.cve_id)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono hover:bg-slate-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line-1 bg-surface-100 text-xs font-mono hover:bg-surface-200"
           >
             {copied === data.cve_id ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />} Copy ID
           </button>
@@ -179,7 +179,7 @@ export default function CveDetail(): JSX.Element {
           </Link>
           <button
             onClick={() => window.open(`/api/v1/live-feed/export?id=${data.cve_id}&format=stix`, '_blank')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line-1 bg-surface-100 text-xs font-mono"
           >
             <Download size={12} /> STIX 2.1
           </button>
@@ -188,17 +188,17 @@ export default function CveDetail(): JSX.Element {
     >
       <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-6">
         <div className="space-y-4">
-          <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+          <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
             <div className="font-mono text-[11px] tracking-widest text-sky-600 dark:text-sky-400 mb-2">DESCRIPTION</div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{data.description}</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-[11px] tracking-widest text-orange-600 mb-2">RISK ASSESSMENT</div>
               <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">{data.risk}</p>
               {data.cvss && (
-                <div className="mt-3 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-xs">
+                <div className="mt-3 p-2 rounded bg-surface-200 border border-line-1 font-mono text-xs">
                   CVSS {data.cvss.base_score} ({data.cvss.severity}) {data.cvss.vector && `· ${data.cvss.vector}`}
                 </div>
               )}
@@ -208,9 +208,9 @@ export default function CveDetail(): JSX.Element {
                 </div>
               )}
             </div>
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-[11px] tracking-widest text-sky-600 mb-2">EXPLOITABILITY</div>
-              <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">{data.exploitability}</p>
+              <p className="text-xs leading-relaxed text-muted">{data.exploitability}</p>
               {data.kev?.in_kev && (
                 <div className="mt-2 text-xs font-bold text-rose-600">
                   Known exploited — CISA KEV {data.kev.date_added || ''}
@@ -219,7 +219,7 @@ export default function CveDetail(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+          <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
             <div className="font-mono text-[11px] tracking-widest text-muted mb-2">AFFECTED PRODUCTS</div>
             <div className="flex flex-wrap gap-1.5">
               {(data.affected_products && data.affected_products.length ? data.affected_products : ['Unknown'])
@@ -227,7 +227,7 @@ export default function CveDetail(): JSX.Element {
                 .map((p) => (
                   <span
                     key={p}
-                    className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted"
+                    className="px-2 py-1 rounded bg-surface-300 border border-line-1 text-xs font-mono text-muted"
                   >
                     {p}
                   </span>
@@ -236,7 +236,7 @@ export default function CveDetail(): JSX.Element {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-[11px] tracking-widest text-emerald-600 mb-2">REMEDIATION</div>
               <ul className="space-y-1.5">
                 {(data.remediation || []).map((a, i) => (
@@ -246,7 +246,7 @@ export default function CveDetail(): JSX.Element {
                 ))}
               </ul>
             </div>
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-[11px] tracking-widest text-amber-600 mb-2">DETECTION</div>
               <div className="space-y-1.5">
                 {(data.detection || []).map((d, i) => (
@@ -264,14 +264,14 @@ export default function CveDetail(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+          <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
             <div className="font-mono text-[11px] tracking-widest text-muted mb-3">ATTACK TIMELINE</div>
-            <div className="relative pl-6 border-l border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3">
+            <div className="relative pl-6 border-l border-line-1 space-y-3">
               {(data.timeline || []).map((s, i) => (
                 <div key={i} className="relative">
-                  <div className="absolute -left-[29px] top-1 h-3 w-3 rounded-full bg-white dark:bg-[rgb(var(--surface-100))] border-2 border-sky-500" />
+                  <div className="absolute -left-[29px] top-1 h-3 w-3 rounded-full bg-surface-100 border-2 border-sky-500" />
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-300 border border-line-1 text-muted">
                       {s.phase}
                     </span>
                     <span className="text-xs font-mono text-muted">{s.time}</span>
@@ -284,7 +284,7 @@ export default function CveDetail(): JSX.Element {
           </div>
 
           {data.cwe && data.cwe.length > 0 && (
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-[11px] tracking-widest text-muted mb-2">CWE</div>
               <div className="flex flex-wrap gap-1.5">
                 {data.cwe.map((c) => (
@@ -303,7 +303,7 @@ export default function CveDetail(): JSX.Element {
           )}
 
           {data.references && data.references.length > 0 && (
-            <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+            <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
               <div className="font-mono text-[11px] tracking-widest text-muted mb-2">REFERENCES</div>
               <ul className="space-y-1">
                 {data.references.slice(0, 8).map((r) => (
@@ -323,28 +323,25 @@ export default function CveDetail(): JSX.Element {
           )}
         </div>
 
-        <div className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-4 sm:p-5 space-y-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] h-fit">
+        <div className="bg-surface-200/50 p-4 sm:p-5 space-y-4 rounded-xl border border-line-1 h-fit">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono tracking-widest font-bold text-heading flex items-center gap-2">
               <Shield size={14} className="text-sky-500" /> IOCs
             </span>
-            <span className="text-xs font-mono px-2 py-1 rounded bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+            <span className="text-xs font-mono px-2 py-1 rounded bg-surface-100 border border-line-1 text-muted">
               {data.iocs?.length || 1} indicators
             </span>
           </div>
           <div className="space-y-2">
             {(data.iocs || []).map((ioc) => (
-              <div
-                key={ioc.value}
-                className="rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-3"
-              >
+              <div key={ioc.value} className="rounded-lg bg-surface-100 border border-line-1 p-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                  <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-surface-300 border border-line-1 text-muted">
                     {ioc.type}
                   </span>
                   <button
                     onClick={() => copy(ioc.value)}
-                    className="ml-auto p-1 rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))]"
+                    className="ml-auto p-1 rounded hover:bg-surface-300 dark:hover:bg-surface-200"
                   >
                     {copied === ioc.value ? (
                       <Check size={12} className="text-emerald-500" />
@@ -358,7 +355,7 @@ export default function CveDetail(): JSX.Element {
             ))}
           </div>
 
-          <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+          <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
             <div className="font-mono text-[11px] tracking-widest text-muted mb-2">MITRE ATT&CK</div>
             <div className="flex flex-wrap gap-1.5">
               {(data.mitre || []).map((m) => (
@@ -385,25 +382,25 @@ export default function CveDetail(): JSX.Element {
                 const all = (data.iocs || []).map((i) => i.value).join('\n');
                 copy(all);
               }}
-              className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading"
+              className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading"
             >
               Copy IOCs
             </button>
             <button
               onClick={() => window.open(`/api/v1/live-feed/export?id=${data.cve_id}&format=stix`, '_blank')}
-              className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading inline-flex items-center justify-center gap-1"
+              className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading inline-flex items-center justify-center gap-1"
             >
               <Download size={12} /> STIX 2.1
             </button>
             <button
               onClick={() => window.open(`/api/v1/live-feed/export?id=${data.cve_id}&format=json`, '_blank')}
-              className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading"
+              className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading"
             >
               JSON
             </button>
           </div>
 
-          <div className="pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="pt-3 border-t border-line-1">
             <div className="font-mono text-xs tracking-widest text-muted mb-2">QUICK ACTIONS</div>
             <div className="grid grid-cols-2 gap-2">
               <Link
@@ -416,7 +413,7 @@ export default function CveDetail(): JSX.Element {
                 href={`https://nvd.nist.gov/vuln/detail/${data.cve_id}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-9 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-xs font-mono text-muted grid place-items-center"
+                className="h-9 rounded-lg border border-line-1 bg-surface-100 text-xs font-mono text-muted grid place-items-center"
               >
                 NVD <ExternalLink size={12} className="ml-1" />
               </a>

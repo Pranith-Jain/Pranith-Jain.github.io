@@ -44,7 +44,7 @@ interface SearchResult {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 
 function fmt(n: number | null | undefined): string {
   return typeof n === 'number' ? n.toLocaleString() : '—';
@@ -202,7 +202,7 @@ export default function Destroylist(): JSX.Element {
           <button
             onClick={() => void runSearch()}
             disabled={searching || searchQ.trim().length < 3}
-            className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50 whitespace-nowrap"
+            className="px-4 py-2 border border-line-1 rounded-xl text-sm font-medium hover:bg-surface-200 dark:hover:bg-surface-300 disabled:opacity-50 whitespace-nowrap"
           >
             Search
           </button>
@@ -228,7 +228,7 @@ export default function Destroylist(): JSX.Element {
       </section>
 
       {/* Feed info footer */}
-      <footer className="pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-muted">
+      <footer className="pt-6 border-t border-line-1 text-sm text-muted">
         <p>
           Primary feed synced <strong>{data ? relativeAgo(data.syncedAt) : '—'}</strong> · MIT license ·{' '}
           <a

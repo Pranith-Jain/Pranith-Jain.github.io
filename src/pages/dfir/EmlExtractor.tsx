@@ -134,7 +134,7 @@ export default function EmlExtractor(): JSX.Element {
                 setInput(SAMPLE_EML);
                 void run(SAMPLE_EML);
               }}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               load sample
             </button>
@@ -146,7 +146,7 @@ export default function EmlExtractor(): JSX.Element {
                   setParsed(null);
                   setError(null);
                 }}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 clear
               </button>
@@ -158,7 +158,7 @@ export default function EmlExtractor(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste the raw .eml content here, or use the upload button. Headers + multipart body are parsed; attachments are decoded + hashed locally."
           rows={12}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-mini text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
         <div className="flex items-center justify-end gap-2 mt-3">
@@ -166,7 +166,7 @@ export default function EmlExtractor(): JSX.Element {
             type="button"
             onClick={pipeToExtractor}
             disabled={!input.trim()}
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-body transition-colors"
+            className="px-3 py-2 rounded border border-line-1 hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-body transition-colors"
           >
             <FileSearch size={14} />
             Extract IOCs →
@@ -254,9 +254,7 @@ export default function EmlExtractor(): JSX.Element {
                 {parsed.headers.map((h, i) => (
                   <div key={`${h.name}-${i}`} className="contents">
                     <dt className="text-muted break-words">{h.name}</dt>
-                    <dd className="text-heading break-all border-b border-slate-100 dark:border-[rgb(var(--border-400))] pb-1">
-                      {h.value}
-                    </dd>
+                    <dd className="text-heading break-all border-b border-line-1 pb-1">{h.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -276,10 +274,10 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
       : att.disposition === 'inline'
         ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+        : 'border-slate-300 dark:border-line-1 text-slate-500';
 
   return (
-    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+    <li className="rounded border border-line-1 bg-surface-200 p-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
         <span className="font-display font-semibold text-sm text-heading break-all">{att.filename}</span>
         <div className="flex flex-wrap items-center gap-1.5">
@@ -289,7 +287,7 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
           <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300">
             {att.contentType}
           </span>
-          <span className="text-micro font-mono text-slate-400">{fmtBytes(att.size)}</span>
+          <span className="text-micro font-mono text-muted">{fmtBytes(att.size)}</span>
           {att.truncated && (
             <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
               truncated @ 5MB

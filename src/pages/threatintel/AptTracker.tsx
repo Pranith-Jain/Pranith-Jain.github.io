@@ -29,10 +29,7 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
       {group.aliases.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
           {group.aliases.slice(0, 3).map((a) => (
-            <span
-              key={a}
-              className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
-            >
+            <span key={a} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
               {a}
             </span>
           ))}
@@ -58,8 +55,8 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
         }}
         aria-label="Close"
       />
-      <div className="relative bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] shadow-e2 max-w-2xl w-full max-h-[80vh] overflow-y-auto z-50">
-        <div className="p-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="relative bg-surface-100 rounded-xl border border-line-1 shadow-e2 max-w-2xl w-full max-h-[80vh] overflow-y-auto z-50">
+        <div className="p-6 border-b border-line-1">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h2 className="font-display font-bold text-xl text-heading">{group.name}</h2>
@@ -77,13 +74,10 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
         <div className="p-6 space-y-4">
           {group.aliases.length > 0 && (
             <div>
-              <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">Aliases</h4>
+              <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-2">Aliases</h4>
               <div className="flex flex-wrap gap-1.5">
                 {group.aliases.map((a) => (
-                  <span
-                    key={a}
-                    className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                  >
+                  <span key={a} className="text-xs font-mono px-2 py-1 rounded bg-surface-300 text-muted">
                     {a}
                   </span>
                 ))}
@@ -92,7 +86,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
           )}
           {group.operations.length > 0 && (
             <div>
-              <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">Operations</h4>
+              <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-2">Operations</h4>
               <div className="flex flex-wrap gap-1.5">
                 {group.operations.map((o) => (
                   <span
@@ -106,18 +100,18 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
             </div>
           )}
           <div>
-            <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">Malware & Tools</h4>
+            <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-2">Malware & Tools</h4>
             <p className="text-sm font-mono text-muted leading-relaxed">{group.malware}</p>
           </div>
           {group.targets && (
             <div>
-              <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">Targets</h4>
+              <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-2">Targets</h4>
               <p className="text-sm font-mono text-muted">{group.targets}</p>
             </div>
           )}
           {group.links.length > 0 && (
             <div>
-              <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">References</h4>
+              <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-2">References</h4>
               <div className="space-y-1">
                 {group.links.map((l) => (
                   <a
@@ -169,15 +163,15 @@ export default function AptTracker(): JSX.Element {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         <div className="surface-card p-4 text-center">
           <div className="text-2xl font-display font-bold text-rose-600 dark:text-rose-400">{totalGroups}</div>
-          <div className="text-micro font-mono text-slate-500 uppercase">APT Groups</div>
+          <div className="text-micro font-mono text-muted uppercase">APT Groups</div>
         </div>
         <div className="surface-card p-4 text-center">
           <div className="text-2xl font-display font-bold text-rose-600 dark:text-rose-400">{APT_REGIONS.length}</div>
-          <div className="text-micro font-mono text-slate-500 uppercase">Regions</div>
+          <div className="text-micro font-mono text-muted uppercase">Regions</div>
         </div>
         <div className="surface-card p-4 text-center">
           <div className="text-2xl font-display font-bold text-rose-600 dark:text-rose-400">{totalOps}</div>
-          <div className="text-micro font-mono text-slate-500 uppercase">Operations</div>
+          <div className="text-micro font-mono text-muted uppercase">Operations</div>
         </div>
       </div>
 
@@ -189,14 +183,14 @@ export default function AptTracker(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search APT groups, aliases, malware, operations..."
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
       </div>
 
       {query.trim() && (
         <div className="mb-6">
-          <p className="text-mini font-mono text-slate-500 mb-3">
+          <p className="text-mini font-mono text-muted mb-3">
             {filtered.length} result{filtered.length !== 1 ? 's' : ''} for "{query}"
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -205,7 +199,7 @@ export default function AptTracker(): JSX.Element {
             ))}
           </div>
           {filtered.length === 0 && (
-            <p className="text-sm font-mono text-slate-500 text-center py-8">No groups match your search.</p>
+            <p className="text-sm font-mono text-muted text-center py-8">No groups match your search.</p>
           )}
         </div>
       )}
@@ -217,7 +211,7 @@ export default function AptTracker(): JSX.Element {
               key={r.name}
               type="button"
               onClick={() => setSelectedRegion(r.name)}
-              className={`text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 hover:shadow-e2 transition-all ${SEVERITY_COLORS[r.name] ?? 'border-slate-200 dark:border-[rgb(var(--border-400))]'}`}
+              className={`text-left rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-6 hover:shadow-e2 transition-all ${SEVERITY_COLORS[r.name] ?? 'border-slate-200 dark:border-line-1'}`}
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-xl leading-none" aria-hidden>
@@ -225,10 +219,10 @@ export default function AptTracker(): JSX.Element {
                 </span>
                 <div>
                   <h3 className="font-display font-bold text-lg text-heading">{r.name}</h3>
-                  <p className="text-micro font-mono text-slate-500">{r.groups.length} groups</p>
+                  <p className="text-micro font-mono text-muted">{r.groups.length} groups</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-meta font-mono text-slate-500">
+              <div className="flex items-center gap-4 text-meta font-mono text-muted">
                 <span>{r.totalOperations} operations</span>
               </div>
             </button>
@@ -258,7 +252,7 @@ export default function AptTracker(): JSX.Element {
 
       {selectedGroup && <AptGroupDetail group={selectedGroup} onClose={() => setSelectedGroup(null)} />}
 
-      <div className="mt-8 text-center text-micro font-mono text-slate-500">
+      <div className="mt-8 text-center text-micro font-mono text-muted">
         Data from{' '}
         <a
           href="https://onuroktay14.github.io/APTTracker/"

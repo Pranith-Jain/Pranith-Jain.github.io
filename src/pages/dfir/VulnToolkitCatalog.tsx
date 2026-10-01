@@ -1066,9 +1066,7 @@ const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
     header: 'Type',
     sortValue: (e) => e.type,
     render: (e) => (
-      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
-        {e.type}
-      </span>
+      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">{e.type}</span>
     ),
   },
   {
@@ -1230,7 +1228,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, vendor, type (e.g. 'cisco rce', 'router command-injection')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search vulnerability catalog"
           />
         </div>
@@ -1249,9 +1247,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 type="button"
                 onClick={() => toggleSev(s)}
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
-                  active
-                    ? cfg.cls
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                  active ? cfg.cls : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
                 }`}
                 aria-pressed={active}
               >
@@ -1272,7 +1268,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   active
                     ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
                 }`}
                 aria-pressed={active}
               >
@@ -1293,7 +1289,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   active
                     ? 'border-violet-500/50 bg-violet-500/10 text-violet-700 dark:text-violet-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-violet-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-violet-500/40'
                 }`}
                 aria-pressed={active}
               >
@@ -1309,7 +1305,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
             className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               showExploitsOnly
                 ? 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/40'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/40'
             }`}
             aria-pressed={showExploitsOnly}
           >
@@ -1318,7 +1314,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
           <button
             type="button"
             onClick={clearAll}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40 transition-colors"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-line-2 text-muted hover:border-brand-500/40 transition-colors"
           >
             clear all
           </button>
@@ -1326,7 +1322,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       </section>
 
       {/* Stats */}
-      <p className="text-mini font-mono text-slate-400 mb-4">
+      <p className="text-mini font-mono text-muted mb-4">
         Showing {filtered.length} of {ENTRIES.length} entries
         {showExploitsOnly && ' (exploit available)'}
       </p>

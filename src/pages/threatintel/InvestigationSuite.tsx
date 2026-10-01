@@ -25,10 +25,7 @@ export default function InvestigationSuite(): JSX.Element {
       title="Investigation Suite"
       description="Investigations, watch lists, and collaborative workspaces for threat intelligence."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="Investigation suite tools"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="Investigation suite tools">
         {TABS.map((t) => (
           <button
             key={t.id}

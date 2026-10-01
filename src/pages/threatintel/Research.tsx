@@ -29,7 +29,7 @@ export default function Research(): JSX.Element {
             own aggregated feed (verifiable at the linked detail pages) or to named third-party reporting. No anonymous
             claims.
           </span>
-          <span className="mt-3 block text-meta font-mono text-slate-500">
+          <span className="mt-3 block text-meta font-mono text-muted">
             For aggregated third-party research, see{' '}
             <Link to="/threatintel/detections/signal" className="text-rose-600 dark:text-rose-400 hover:underline">
               /threatintel/signal
@@ -70,7 +70,7 @@ export default function Research(): JSX.Element {
                 <ExternalLink size={14} className="inline-block ml-2 opacity-50" aria-hidden="true" />
               </h2>
               <p className="text-sm text-muted leading-relaxed mt-2">{p.excerpt}</p>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-mini font-mono text-slate-500">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-mini font-mono text-muted">
                 <time dateTime={p.publishedAt}>
                   {new Date(p.publishedAt).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -88,7 +88,7 @@ export default function Research(): JSX.Element {
                   {p.tags.slice(0, 6).map((t) => (
                     <span
                       key={t}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted"
                     >
                       {t}
                     </span>

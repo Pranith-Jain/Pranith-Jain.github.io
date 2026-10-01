@@ -68,7 +68,7 @@ export function Experience({ experiences }: ExperienceProps) {
                 <div className="flex items-center gap-3 shrink-0">
                   {exp.badge && <Badge tone="success">{exp.badge}</Badge>}
                   <ChevronDown
-                    className={`h-4 w-4 text-slate-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                    className={`h-4 w-4 text-muted transition-transform ${isOpen ? 'rotate-180' : ''}`}
                     aria-hidden="true"
                   />
                 </div>
@@ -79,7 +79,7 @@ export function Experience({ experiences }: ExperienceProps) {
                   id={bodyId}
                   role="region"
                   aria-labelledby={headerId}
-                  className="border-t border-slate-200/70 dark:border-[rgb(var(--border-400))] px-5 pb-5 pt-4"
+                  className="border-t border-line-1/70 px-5 pb-5 pt-4"
                 >
                   {/* Sections (for main experience) */}
                   {exp.sections &&

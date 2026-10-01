@@ -154,8 +154,8 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
       <header
         className={`sticky top-0 z-50 transition-all duration-200 ${
           isScrolled
-            ? 'border-b border-[rgb(var(--border-400))] bg-[rgb(var(--surface-100))] dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]'
-            : 'border-b border-transparent bg-[rgb(var(--surface-100))] dark:bg-[rgb(var(--surface-100))]'
+            ? 'border-b border-line-1 bg-surface-100 dark:border-line-1 dark:bg-surface-100'
+            : 'border-b border-transparent bg-surface-100'
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:py-3 sm:px-6">
@@ -217,7 +217,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                       id={`dropdown-${link.href.replace('/', '')}`}
                       role="menu"
                       tabIndex={-1}
-                      className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-[rgb(var(--border-400))] bg-white py-2 shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] transition-all duration-200 ${
+                      className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-line-1 bg-surface-100 py-2 shadow-e3 dark:border-line-1 dark:bg-surface-200 transition-all duration-200 ${
                         openDropdown === link.href
                           ? 'visible opacity-100 translate-y-0'
                           : 'invisible opacity-0 -translate-y-2'
@@ -289,12 +289,12 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                   });
                   window.dispatchEvent(ev);
                 }}
-                className="hidden md:inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]"
+                className="hidden md:inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border border-line-1 text-body hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-surface-200"
                 aria-label="Search across tools, wiki, actors, CVEs, and Telegram channels"
                 title="Command palette"
               >
                 <Command size={11} />
-                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro font-mono text-body border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <kbd className="px-1 py-0.5 rounded bg-surface-300 text-micro font-mono text-body border border-line-1">
                   {isMac ? '⌘' : 'Ctrl'}K
                 </kbd>
               </button>
@@ -307,7 +307,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               ref={mobileMenuButtonRef}
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-e1 transition hover:shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-line-1/60 bg-white/70 text-slate-700 shadow-e1 transition hover:shadow-e1 dark:bg-surface-200/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -346,7 +346,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className={`absolute top-[env(safe-area-inset-top,0px)] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100dvh-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain transition-all duration-200 ${
+          className={`absolute top-[env(safe-area-inset-top,0px)] left-0 right-0 border-t border-line-1 bg-surface-100 dark:border-line-1 dark:bg-surface-100 max-h-[calc(100dvh-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain transition-all duration-200 ${
             isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
           }`}
           style={{ WebkitOverflowScrolling: 'touch' }}
@@ -358,7 +358,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
             <button
               type="button"
               onClick={closeMobileMenu}
-              className="mb-1 inline-flex items-center justify-end gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-muted hover:bg-slate-100 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 transition-colors"
+              className="mb-1 inline-flex items-center justify-end gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-muted hover:bg-surface-300 dark:hover:bg-surface-100/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 transition-colors"
               aria-label="Close navigation menu"
             >
               Close
@@ -368,7 +368,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               if ('children' in link && link.children) {
                 return (
                   <div key={link.label} className="pt-2 first:pt-0">
-                    <div className="px-4 pb-1 text-eyebrow font-mono uppercase text-slate-400">{link.label}</div>
+                    <div className="px-4 pb-1 text-eyebrow font-mono uppercase text-muted">{link.label}</div>
                     {link.children.map((child) => (
                       <Link
                         key={child.href}

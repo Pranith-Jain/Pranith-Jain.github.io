@@ -162,7 +162,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                           className={`group flex items-center gap-2 px-2 py-1.5 text-tool transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                             active
                               ? `${activeBg} font-medium`
-                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-muted dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
+                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-muted dark:hover:bg-wash dark:hover:text-slate-200'
                           }`}
                         >
                           <Icon
@@ -205,7 +205,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
         })}
       </nav>
 
-      <div className="border-t border-[rgb(var(--border-400))] px-3 py-2">
+      <div className="border-t border-line-1 px-3 py-2">
         <span className="text-micro font-mono text-muted">{totalItems} tools</span>
       </div>
     </>
@@ -237,9 +237,9 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
       className={`hidden md:flex flex-col ${width} flex-shrink-0 transition-[width] duration-200 ease-out`}
       aria-label={`${config.sectionLabel} navigation`}
     >
-      <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] flex flex-col border-r border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))]">
+      <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] flex flex-col border-r border-line-1 bg-surface-100">
         {collapsed ? <SidebarContentCollapsed config={config} /> : <SidebarContent config={config} />}
-        <div className="flex items-center justify-end border-t border-[rgb(var(--border-400))] px-2 py-1.5">
+        <div className="flex items-center justify-end border-t border-line-1 px-2 py-1.5">
           <button
             type="button"
             onClick={() => setCollapsed((c) => !c)}
@@ -274,7 +274,7 @@ function SidebarContentCollapsed({ config }: { config: SidebarConfig }): JSX.Ele
                 className={`grid h-8 w-8 mx-auto place-items-center transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                   active
                     ? `${activeBg} border-l-2 ${activeBorder}`
-                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-muted dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-muted dark:hover:bg-wash dark:hover:text-slate-200'
                 }`}
               >
                 <Icon size={14} className={active ? activeIcon : ''} aria-hidden="true" />

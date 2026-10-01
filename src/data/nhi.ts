@@ -22,16 +22,7 @@ export interface NhiTopItem {
 }
 
 export type NhiTopId =
-  | 'NHI01'
-  | 'NHI02'
-  | 'NHI03'
-  | 'NHI04'
-  | 'NHI05'
-  | 'NHI06'
-  | 'NHI07'
-  | 'NHI08'
-  | 'NHI09'
-  | 'NHI10';
+  'NHI01' | 'NHI02' | 'NHI03' | 'NHI04' | 'NHI05' | 'NHI06' | 'NHI07' | 'NHI08' | 'NHI09' | 'NHI10';
 
 export const NHI_TOP_10: NhiTopItem[] = [
   {

@@ -260,7 +260,7 @@ export default function WhoisHistory(): JSX.Element {
               <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-2 mb-1">
                   <Icon size={14} className="text-muted" />
-                  <span className="text-mini font-mono uppercase text-slate-500">{label}</span>
+                  <span className="text-mini font-mono uppercase text-muted">{label}</span>
                 </div>
                 <span className="text-2xl font-mono font-bold">{value}</span>
               </div>
@@ -274,30 +274,30 @@ export default function WhoisHistory(): JSX.Element {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                 <div>
-                  <span className="text-slate-500">Registrar:</span>{' '}
+                  <span className="text-muted">Registrar:</span>{' '}
                   <span className="font-mono">{history.current.registrar ?? '-'}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500">Created:</span>{' '}
+                  <span className="text-muted">Created:</span>{' '}
                   <span className="font-mono">{formatDate(history.current.created_date)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500">Expires:</span>{' '}
+                  <span className="text-muted">Expires:</span>{' '}
                   <span className="font-mono">{formatDate(history.current.expires_date)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500">Updated:</span>{' '}
+                  <span className="text-muted">Updated:</span>{' '}
                   <span className="font-mono">{formatDate(history.current.updated_date)}</span>
                 </div>
                 {history.current.registrant_email && (
                   <div className="sm:col-span-2">
-                    <span className="text-slate-500">Registrant:</span>{' '}
+                    <span className="text-muted">Registrant:</span>{' '}
                     <span className="font-mono">{history.current.registrant_email}</span>
                   </div>
                 )}
                 {history.current.nameservers.length > 0 && (
                   <div className="sm:col-span-2">
-                    <span className="text-slate-500">Nameservers:</span>{' '}
+                    <span className="text-muted">Nameservers:</span>{' '}
                     <span className="font-mono text-xs">{history.current.nameservers.join(', ')}</span>
                   </div>
                 )}
@@ -305,7 +305,7 @@ export default function WhoisHistory(): JSX.Element {
             </div>
           )}
 
-          <div className="flex gap-1 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="flex gap-1 mb-4 border-b border-line-1">
             {(['timeline', 'changes', 'pivots'] as const).map((tab) => (
               <button
                 key={tab}
@@ -332,59 +332,54 @@ export default function WhoisHistory(): JSX.Element {
           {activeTab === 'timeline' && (
             <div className="space-y-3">
               {history.snapshots.length === 0 ? (
-                <p className="text-sm text-slate-500 text-center py-8">
+                <p className="text-sm text-muted text-center py-8">
                   No WHOIS history recorded yet. The first snapshot was just taken.
                 </p>
               ) : (
                 history.snapshots.map((snap, i) => (
-                  <div
-                    key={snap.id}
-                    className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
-                  >
+                  <div key={snap.id} className="border border-line-1 rounded-xl bg-surface-100 overflow-hidden">
                     <button
                       onClick={() => setExpandedSnapshot(expandedSnapshot === snap.id ? null : snap.id)}
-                      className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                      className="w-full flex items-center justify-between p-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300/50"
                     >
                       <div className="flex items-center gap-3">
                         <div
-                          className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
+                          className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-surface-300'}`}
                         />
                         <span className="text-sm font-mono">{formatDateTime(snap.snapshot_at)}</span>
-                        <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
-                          {snap.source}
-                        </span>
+                        <span className="text-xs px-2 py-0.5 rounded bg-surface-300 text-muted">{snap.source}</span>
                       </div>
                       {expandedSnapshot === snap.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                     {expandedSnapshot === snap.id && (
-                      <div className="px-3 pb-3 pt-1 border-t border-slate-100 dark:border-[rgb(var(--border-400))] text-sm space-y-1">
+                      <div className="px-3 pb-3 pt-1 border-t border-line-1 text-sm space-y-1">
                         <div>
-                          <span className="text-slate-500">Registrar:</span>{' '}
+                          <span className="text-muted">Registrar:</span>{' '}
                           <span className="font-mono">{snap.registrar ?? '-'}</span>
                         </div>
                         <div>
-                          <span className="text-slate-500">Created:</span>{' '}
+                          <span className="text-muted">Created:</span>{' '}
                           <span className="font-mono">{formatDate(snap.created_date)}</span>
                         </div>
                         <div>
-                          <span className="text-slate-500">Expires:</span>{' '}
+                          <span className="text-muted">Expires:</span>{' '}
                           <span className="font-mono">{formatDate(snap.expires_date)}</span>
                         </div>
                         {snap.registrant_email && (
                           <div>
-                            <span className="text-slate-500">Registrant Email:</span>{' '}
+                            <span className="text-muted">Registrant Email:</span>{' '}
                             <span className="font-mono">{snap.registrant_email}</span>
                           </div>
                         )}
                         {snap.registrant_org && (
                           <div>
-                            <span className="text-slate-500">Registrant Org:</span>{' '}
+                            <span className="text-muted">Registrant Org:</span>{' '}
                             <span className="font-mono">{snap.registrant_org}</span>
                           </div>
                         )}
                         {snap.nameservers.length > 0 && (
                           <div>
-                            <span className="text-slate-500">Nameservers:</span>{' '}
+                            <span className="text-muted">Nameservers:</span>{' '}
                             <span className="font-mono text-xs">{snap.nameservers.join(', ')}</span>
                           </div>
                         )}
@@ -399,15 +394,13 @@ export default function WhoisHistory(): JSX.Element {
           {activeTab === 'changes' && (
             <div className="space-y-3">
               {history.changes.length === 0 ? (
-                <p className="text-sm text-slate-500 text-center py-8">
-                  No ownership or infrastructure changes detected.
-                </p>
+                <p className="text-sm text-muted text-center py-8">No ownership or infrastructure changes detected.</p>
               ) : (
                 history.changes.map((change) => {
                   const Icon = CHANGE_ICONS[change.change_type] ?? AlertTriangle;
                   const colorClass =
                     CHANGE_COLORS[change.change_type] ??
-                    'text-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))]';
+                    'text-slate-600 bg-slate-50 dark:bg-surface-300 border-slate-200 dark:border-line-1';
                   return (
                     <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                       <div className="flex items-center gap-2 mb-2">
@@ -433,7 +426,7 @@ export default function WhoisHistory(): JSX.Element {
               {pivotLoading ? (
                 <div className="text-center py-8">
                   <RefreshCw size={20} className="animate-spin mx-auto text-brand-600" />
-                  <p className="text-sm text-slate-500 mt-2">Searching for related domains…</p>
+                  <p className="text-sm text-muted mt-2">Searching for related domains…</p>
                 </div>
               ) : pivots && pivots.related_domains.length > 0 ? (
                 <>
@@ -476,11 +469,11 @@ export default function WhoisHistory(): JSX.Element {
                   </div>
                 </>
               ) : pivots ? (
-                <p className="text-sm text-slate-500 text-center py-8">
+                <p className="text-sm text-muted text-center py-8">
                   No related domains found sharing registrant attributes.
                 </p>
               ) : (
-                <p className="text-sm text-slate-500 text-center py-8">Click "Pivot" to find related domains.</p>
+                <p className="text-sm text-muted text-center py-8">Click "Pivot" to find related domains.</p>
               )}
             </div>
           )}
@@ -490,7 +483,7 @@ export default function WhoisHistory(): JSX.Element {
       {!history && !loading && !error && (
         <div className="text-center py-16">
           <Globe size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
-          <p className="text-slate-500">Enter a domain to explore its WHOIS registration history</p>
+          <p className="text-muted">Enter a domain to explore its WHOIS registration history</p>
           <p className="text-xs text-muted mt-1">
             Track ownership changes, registrar transfers, and pivot across related domains
           </p>

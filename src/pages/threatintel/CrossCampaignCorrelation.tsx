@@ -19,7 +19,7 @@ interface CorrelationResponse {
 const CONFIDENCE_BADGE: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
+  low: 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted',
 };
 
 export default function CrossCampaignCorrelation(): JSX.Element {
@@ -90,7 +90,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
                   {c.shared_indicators.slice(0, 5).map((ind, j) => (
                     <span
                       key={j}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted"
                     >
                       {ind}
                     </span>

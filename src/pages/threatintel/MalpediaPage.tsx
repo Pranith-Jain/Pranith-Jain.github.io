@@ -77,7 +77,7 @@ export default function MalpediaPage(): JSX.Element {
               className={`px-3 py-1.5 rounded text-xs font-mono font-semibold transition-colors ${
                 mode === m
                   ? 'bg-rose-600 text-white'
-                  : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
+                  : 'bg-slate-100 dark:bg-surface-300 text-muted hover:bg-slate-200 dark:hover:bg-surface-300'
               }`}
             >
               {m === 'search' ? 'Search all' : m === 'actor' ? 'Actor lookup' : 'Family lookup'}
@@ -98,7 +98,7 @@ export default function MalpediaPage(): JSX.Element {
                   ? 'Family name (e.g. cobalt strike, redline)'
                   : 'Search actors and families…'
             }
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 px-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
           <button
             type="button"
@@ -138,9 +138,7 @@ export default function MalpediaPage(): JSX.Element {
                   return (
                     <div key={String(a.actor_name ?? a.name ?? '')} className="surface-card p-3">
                       <div className="font-display font-semibold text-sm">{String(a.actor_name ?? a.name ?? '?')}</div>
-                      {desc && (
-                        <p className="text-mini font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
-                      )}
+                      {desc && <p className="text-mini font-mono text-muted mt-1 line-clamp-2">{desc.slice(0, 200)}</p>}
                     </div>
                   );
                 })}
@@ -163,9 +161,7 @@ export default function MalpediaPage(): JSX.Element {
                       {String(f.common_name) && String(f.common_name) !== String(f.family_name) && (
                         <p className="text-mini font-mono text-muted">aka {String(f.common_name)}</p>
                       )}
-                      {desc && (
-                        <p className="text-mini font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
-                      )}
+                      {desc && <p className="text-mini font-mono text-muted mt-1 line-clamp-2">{desc.slice(0, 200)}</p>}
                     </div>
                   );
                 })}
@@ -173,7 +169,7 @@ export default function MalpediaPage(): JSX.Element {
             </section>
           )}
           {(!result.actors || result.actors.length === 0) && (!result.families || result.families.length === 0) && (
-            <p className="font-mono text-sm text-slate-500">No results found.</p>
+            <p className="font-mono text-sm text-muted">No results found.</p>
           )}
         </div>
       )}
@@ -206,7 +202,7 @@ export default function MalpediaPage(): JSX.Element {
 
           {Array.isArray(result.data.associated_actors) && result.data.associated_actors.length > 0 && (
             <div className="mb-3">
-              <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1.5">Associated actors</h3>
+              <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-1.5">Associated actors</h3>
               <div className="flex flex-wrap gap-1.5">
                 {(result.data.associated_actors as string[]).map((a: string) => (
                   <span
@@ -222,7 +218,7 @@ export default function MalpediaPage(): JSX.Element {
 
           {Array.isArray(result.data.references) && result.data.references.length > 0 && (
             <div className="mt-4">
-              <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1.5">References</h3>
+              <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-1.5">References</h3>
               <ul className="space-y-1">
                 {(result.data.references as string[]).slice(0, 20).map((ref: string) => (
                   <li key={ref}>

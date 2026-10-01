@@ -51,7 +51,7 @@ export default function OsintCliTools(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
         <span className="text-xs font-mono text-muted">{filtered.length} tools</span>
@@ -67,7 +67,7 @@ export default function OsintCliTools(): JSX.Element {
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeCat
               ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+              : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
           }`}
         >
           All ({CLI_TOOLS.length})
@@ -83,7 +83,7 @@ export default function OsintCliTools(): JSX.Element {
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeCat === cat
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+                : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
             }`}
           >
             {CATEGORY_LABELS[cat]} ({counts[cat] || 0})
@@ -98,7 +98,7 @@ export default function OsintCliTools(): JSX.Element {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-sm font-mono text-slate-500">No tools match your search.</div>
+        <div className="text-center py-12 text-sm font-mono text-muted">No tools match your search.</div>
       )}
     </DataPageLayout>
   );
@@ -118,7 +118,7 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
       </div>
       <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 uppercase tracking-wider">
+        <span className="text-micro font-mono px-2 py-0.5 rounded border border-line-1 text-muted uppercase tracking-wider">
           {CATEGORY_LABELS[tool.category]}
         </span>
         {tool.lang && (

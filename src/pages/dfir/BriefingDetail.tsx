@@ -180,7 +180,7 @@ function StatPill({ label, value, accent }: { label: string; value: number | str
   return (
     <div className="flex flex-col items-center gap-0.5">
       <span className={`text-2xl font-display font-bold ${accent ?? 'text-slate-900 dark:text-white'}`}>{value}</span>
-      <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</span>
+      <span className="text-micro font-mono uppercase tracking-wider text-muted">{label}</span>
     </div>
   );
 }
@@ -192,7 +192,7 @@ function MitreChip({ technique }: { technique: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
+      className="text-xs font-mono px-2 py-0.5 rounded bg-surface-300 text-brand-600 dark:text-brand-400 border border-line-1 hover:border-brand-500/40 transition-colors"
     >
       {technique}
     </a>
@@ -254,7 +254,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
           </div>
         )}
       <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-muted">
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-300 border border-line-1">
           {finding.source}
         </span>
         {finding.added && <span>added {finding.added}</span>}
@@ -374,16 +374,16 @@ function IocDumpPanel({
         <button
           type="button"
           onClick={copy}
-          className="inline-flex items-center gap-1.5 rounded border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200 dark:hover:border-brand-500 dark:hover:text-brand-300"
+          className="inline-flex items-center gap-1.5 rounded border border-line-2 bg-surface-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:text-slate-200 dark:hover:border-brand-500 dark:hover:text-brand-300"
         >
           {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? 'Copied' : 'Copy'}
         </button>
-        <span className="ml-auto text-mini uppercase tracking-wider text-slate-500">
+        <span className="ml-auto text-mini uppercase tracking-wider text-muted">
           blocklist seed · one indicator per line
         </span>
       </div>
-      <pre className="max-h-96 overflow-auto rounded-xl bg-slate-50 p-3 font-mono text-xs leading-5 text-slate-800 dark:bg-[rgb(var(--input-200))] dark:text-slate-200">
+      <pre className="max-h-96 overflow-auto rounded-xl bg-surface-200 p-3 font-mono text-xs leading-5 text-slate-800 dark:text-slate-200">
         {dump.content}
       </pre>
     </section>
@@ -418,17 +418,17 @@ function JumpNav({
   return (
     <nav
       aria-label="Jump to section"
-      className="mb-8 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/60 px-3 py-2 text-xs"
+      className="mb-8 flex flex-wrap items-center gap-2 rounded-xl border border-line-1 bg-surface-100/60 px-3 py-2 text-xs"
     >
       <span className="font-display font-semibold uppercase tracking-wider text-muted mr-1">Jump to</span>
       {cveCount > 0 && (
         <a
           href="#briefing-cves"
-          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1 font-semibold text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full border border-line-1 bg-surface-100 px-3 py-1 font-semibold text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
         >
           <ShieldAlert className="h-3.5 w-3.5" />
           CVEs
-          <span className="rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1.5 text-mini font-mono text-body">
+          <span className="rounded-full bg-surface-300 px-1.5 text-mini font-mono text-body">
             {cveCount.toLocaleString()}
           </span>
         </a>
@@ -460,11 +460,11 @@ function JumpNav({
       {mitreCount > 0 && (
         <a
           href="#briefing-mitre"
-          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1 font-semibold text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full border border-line-1 bg-surface-100 px-3 py-1 font-semibold text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
         >
           <Compass className="h-3.5 w-3.5" />
           MITRE
-          <span className="rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1.5 text-mini font-mono text-body">
+          <span className="rounded-full bg-surface-300 px-1.5 text-mini font-mono text-body">
             {mitreCount.toLocaleString()}
           </span>
         </a>
@@ -549,7 +549,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                 <Icon size={18} className={accent} />
                 {section.title}
               </h2>
-              <span className="text-xs font-mono text-slate-500">{section.count} items</span>
+              <span className="text-xs font-mono text-muted">{section.count} items</span>
             </div>
             <p className="text-sm text-muted mb-4">{section.blurb}</p>
             <div className="space-y-3">
@@ -560,7 +560,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                       {f.title}
                     </h4>
                     {f.count !== undefined && (
-                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-[rgb(var(--border-400))] text-body shrink-0">
+                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-surface-300 border-line-1 text-body shrink-0">
                         ×{f.count}
                       </span>
                     )}
@@ -569,7 +569,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                     <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-4">{f.description}</p>
                   )}
                   <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-muted">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-300 border border-line-1">
                       {f.source}
                     </span>
                     {f.source_url && (
@@ -714,7 +714,7 @@ export default function BriefingDetail(): JSX.Element {
 
   if (loading) {
     return (
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 font-mono text-sm text-slate-500">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 font-mono text-sm text-muted">
         Loading briefing…
       </div>
     );
@@ -724,14 +724,14 @@ export default function BriefingDetail(): JSX.Element {
       <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <BackLink to="/threatintel">back</BackLink>
         <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Briefing not found</h1>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-muted">
           {error ??
             'This briefing has not been generated yet. Daily briefings publish at 00:05 UTC; weekly at 00:15 UTC Monday.'}
         </p>
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="mt-4 inline-flex items-center gap-1 text-meta font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="mt-4 inline-flex items-center gap-1 text-meta font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-brand-500/40"
         >
           retry
         </button>
@@ -748,7 +748,7 @@ export default function BriefingDetail(): JSX.Element {
           Intel Briefing · {briefing.type}
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2">{briefing.title}</h1>
-        <p className="text-sm font-mono text-slate-500 mb-3">
+        <p className="text-sm font-mono text-muted mb-3">
           {briefing.date_range} · generated {briefing.generated_at.slice(0, 16).replace('T', ' ')} UTC
         </p>
         <AutoGeneratedBadge kind="briefing" generatedAt={briefing.generated_at} variant="banner" />
@@ -788,7 +788,7 @@ export default function BriefingDetail(): JSX.Element {
           href={`/api/v1/briefings/${briefing.slug}/print`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
+          className="mt-3 inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-line-2 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
         >
           <svg
             width="14"
@@ -840,7 +840,7 @@ export default function BriefingDetail(): JSX.Element {
           <div className="flex items-center gap-2 mb-3">
             <Compass size={15} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
             <h2 className="text-sm font-semibold text-heading">Related briefings</h2>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-muted">
               shared IOCs · tactic keywords
             </span>
           </div>
@@ -849,7 +849,7 @@ export default function BriefingDetail(): JSX.Element {
               <li key={rel.slug}>
                 <a
                   href={`/threatintel/briefings/${encodeURIComponent(rel.slug)}`}
-                  className="flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-100))] px-3 py-2.5 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors group"
+                  className="flex items-start gap-3 rounded-xl border border-line-1 bg-surface-200 px-3 py-2.5 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors group"
                 >
                   <span
                     className={`mt-0.5 shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono uppercase tracking-wide ${
@@ -862,7 +862,7 @@ export default function BriefingDetail(): JSX.Element {
                     <span className="block text-xs font-medium text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 truncate">
                       {rel.title}
                     </span>
-                    <span className="block text-[10px] font-mono text-slate-400 mt-0.5">
+                    <span className="block text-[10px] font-mono text-muted mt-0.5">
                       {rel.type} · {rel.date_range}
                       <span className="ml-2 inline-flex items-center gap-1">
                         <Sparkles size={9} aria-hidden="true" />
@@ -931,7 +931,7 @@ export default function BriefingDetail(): JSX.Element {
                   <AlertTriangle size={18} className="text-brand-600 dark:text-brand-400" />
                   {s.title}
                 </h2>
-                <span className="text-xs font-mono text-slate-500">
+                <span className="text-xs font-mono text-muted">
                   {s.count} {s.count === 1 ? 'finding' : 'findings'}
                 </span>
               </div>
@@ -989,7 +989,7 @@ export default function BriefingDetail(): JSX.Element {
         <section id="briefing-iocs" className="mb-10 scroll-mt-20">
           <div className="mb-4 flex items-baseline justify-between gap-4">
             <h2 className="font-display font-bold text-lg">Active Threat Indicators</h2>
-            <span className="text-xs font-mono text-slate-500">
+            <span className="text-xs font-mono text-muted">
               {briefing.ioc_dump.count.toLocaleString()} unique indicators
             </span>
           </div>
@@ -998,7 +998,7 @@ export default function BriefingDetail(): JSX.Element {
       )}
 
       {/* Footer */}
-      <footer className="mt-12 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-slate-500">
+      <footer className="mt-12 pt-6 border-t border-line-1 text-xs font-mono text-muted">
         <p>
           Sources: {briefing.sources.join(', ') || 'none'}. Reference only. Verify all indicators in your own
           environment. Generated {briefing.generated_at.slice(0, 16).replace('T', ' ')} UTC.

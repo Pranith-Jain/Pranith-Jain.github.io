@@ -101,11 +101,11 @@ function WatchPill({ count, terms }: { count: number; terms?: string[] }): JSX.E
 function Skeleton(): JSX.Element {
   return (
     <div className="mt-1 space-y-2 animate-pulse" aria-hidden="true" role="presentation">
-      <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-3/4" />
-      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-full mt-3" />
-      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-5/6" />
-      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-11/12" />
-      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-4/5" />
+      <div className="h-3 bg-slate-200 dark:bg-surface-300 rounded w-3/4" />
+      <div className="h-2.5 bg-slate-200 dark:bg-surface-300 rounded w-full mt-3" />
+      <div className="h-2.5 bg-slate-200 dark:bg-surface-300 rounded w-5/6" />
+      <div className="h-2.5 bg-slate-200 dark:bg-surface-300 rounded w-11/12" />
+      <div className="h-2.5 bg-slate-200 dark:bg-surface-300 rounded w-4/5" />
     </div>
   );
 }
@@ -139,7 +139,7 @@ export const SnapshotCard = memo(function SnapshotCard({
   const padding = compact ? 'p-3' : 'p-4';
   return (
     <div
-      className={`rounded-xl border ${ACCENT_BORDER[accent]} bg-white dark:bg-[rgb(var(--surface-200))] ${padding} flex flex-col min-h-[200px]`}
+      className={`rounded-xl border ${ACCENT_BORDER[accent]} bg-surface-100 dark:bg-surface-200 ${padding} flex flex-col min-h-[200px]`}
     >
       <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">

@@ -491,7 +491,7 @@ export default function XWatch(): JSX.Element {
           if (visible.length === 0 && inactive.length === 0) return null;
           return (
             <div key={sec.id}>
-              <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+              <h3 className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">
                 {sec.label}
                 <span className="opacity-60 ml-1.5">
                   · {sec.handles.length - inactive.length}/{sec.handles.length} active
@@ -511,8 +511,8 @@ export default function XWatch(): JSX.Element {
                         active === h
                           ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                           : dim
-                            ? 'border-slate-300/40 dark:border-[rgb(var(--border-400))]/40 text-slate-500 opacity-50'
-                            : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                            ? 'border-slate-300/40 dark:border-line-1/40 text-slate-500 opacity-50'
+                            : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
                       }`}
                       title={
                         count !== undefined
@@ -531,7 +531,7 @@ export default function XWatch(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setShowInactive(true)}
-                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-line-2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
                     title={`Hidden - no posts in last ${sinceDays}d: ${inactive.map((h) => '@' + h).join(', ')}`}
                   >
                     +{inactive.length} inactive
@@ -545,14 +545,14 @@ export default function XWatch(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowInactive(false)}
-            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-slate-600 dark:hover:text-slate-300"
+            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-line-2 text-muted hover:text-slate-600 dark:hover:text-slate-300"
           >
             hide inactive again
           </button>
         )}
         {customHandles.length > 0 && (
           <div>
-            <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">Your watchlist</h3>
+            <h3 className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">Your watchlist</h3>
             <div className="flex flex-wrap gap-1.5">
               {customHandles.map((h) => (
                 <span
@@ -560,7 +560,7 @@ export default function XWatch(): JSX.Element {
                   className={`inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border transition-colors ${
                     active === h
                       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
                   }`}
                 >
                   <button type="button" onClick={() => setActive(h)}>
@@ -589,14 +589,14 @@ export default function XWatch(): JSX.Element {
               onChange={(e) => setAddInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && addHandle()}
               placeholder="add custom handle…"
-              className="flex-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-rose-500"
+              className="flex-1 px-2 py-1 rounded border border-line-2 bg-surface-100 text-sm font-mono focus:outline-none focus:border-rose-500"
             />
           </div>
           <button
             type="button"
             onClick={addHandle}
             disabled={!addInput.trim()}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40 transition-colors"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40 transition-colors"
           >
             <Plus size={11} /> add
           </button>
@@ -605,7 +605,7 @@ export default function XWatch(): JSX.Element {
             <select
               value={sinceDays}
               onChange={(e) => setSinceDays(Number(e.target.value))}
-              className="border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-rose-500"
+              className="border border-line-2 bg-surface-100 px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-rose-500"
             >
               {[1, 3, 7, 14, 30].map((d) => (
                 <option key={d} value={d}>
@@ -619,7 +619,7 @@ export default function XWatch(): JSX.Element {
               type="checkbox"
               checked={includeReplies}
               onChange={(e) => setIncludeReplies(e.target.checked)}
-              className="rounded border-slate-400"
+              className="rounded border-line-3"
             />
             replies
           </label>
@@ -628,7 +628,7 @@ export default function XWatch(): JSX.Element {
               type="checkbox"
               checked={includePinned}
               onChange={(e) => setIncludePinned(e.target.checked)}
-              className="rounded border-slate-400"
+              className="rounded border-line-3"
             />
             pinned
           </label>
@@ -636,7 +636,7 @@ export default function XWatch(): JSX.Element {
             type="button"
             onClick={() => load(active)}
             disabled={loading || (authStatus && !authStatus.configured) === true}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
           </button>
@@ -649,13 +649,13 @@ export default function XWatch(): JSX.Element {
             <h2 className="text-xl font-display font-bold inline-flex items-center gap-2">
               @{active}
               {data?.display_name && data.display_name !== active && (
-                <span className="text-sm font-mono text-slate-500">· {data.display_name}</span>
+                <span className="text-sm font-mono text-muted">· {data.display_name}</span>
               )}
             </h2>
-            {data?.bio && <p className="text-meta font-mono text-slate-500 mt-0.5 max-w-2xl">{data.bio}</p>}
+            {data?.bio && <p className="text-meta font-mono text-muted mt-0.5 max-w-2xl">{data.bio}</p>}
             <div className="flex items-center gap-2 text-micro font-mono mt-1 flex-wrap">
               {data?.followers_count !== undefined && (
-                <span className="text-slate-500">{compactNumber(data.followers_count)} followers</span>
+                <span className="text-muted">{compactNumber(data.followers_count)} followers</span>
               )}
               {data?.cached && (
                 <span className="text-amber-600 dark:text-amber-400">
@@ -693,7 +693,7 @@ export default function XWatch(): JSX.Element {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="filter tweets…"
-                className="pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono focus:outline-none focus:border-rose-500"
+                className="pl-7 pr-2 py-1 rounded border border-line-2 bg-surface-200 text-xs font-mono focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -706,13 +706,13 @@ export default function XWatch(): JSX.Element {
         )}
 
         {loading && !data && (
-          <p className="text-xs font-mono text-slate-500 inline-flex items-center gap-1">
+          <p className="text-xs font-mono text-muted inline-flex items-center gap-1">
             <Loader2 size={11} className="animate-spin" /> fetching authenticated timeline for @{active}…
           </p>
         )}
 
         {!loading && data && filteredTweets.length === 0 && (
-          <div className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-4 text-center">
+          <div className="text-xs font-mono text-muted rounded border border-dashed border-line-2 p-4 text-center">
             {data.items.length === 0 ? (
               <>
                 No tweets within the last <span className="text-body">{sinceDays}d</span> for{' '}
@@ -763,10 +763,7 @@ export default function XWatch(): JSX.Element {
             />
             <ul className="space-y-2">
               {filteredTweets.map((t) => (
-                <li
-                  key={t.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                >
+                <li key={t.id} className="rounded-xl border border-line-1 bg-surface-200 p-3">
                   <div className="flex items-start gap-3">
                     {t.author.avatar_url && (
                       <img
@@ -796,7 +793,7 @@ export default function XWatch(): JSX.Element {
                           </span>
                         )}
                         {t.is_reply && (
-                          <span className="text-micro font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+                          <span className="text-micro font-mono px-1 py-0.5 rounded border border-line-2 text-muted">
                             reply
                           </span>
                         )}
@@ -804,7 +801,7 @@ export default function XWatch(): JSX.Element {
                           href={sanitizeUrl(t.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5 transition-colors"
+                          className="ml-auto text-micro font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5 transition-colors"
                           title={t.created_at}
                         >
                           {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
@@ -820,7 +817,7 @@ export default function XWatch(): JSX.Element {
                               href={sanitizeUrl(t.url) || undefined}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                              className="block rounded overflow-hidden border border-line-1"
                             >
                               <img
                                 src={m.url}
@@ -834,7 +831,7 @@ export default function XWatch(): JSX.Element {
                           ))}
                         </div>
                       )}
-                      <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
+                      <div className="mt-2 flex items-center gap-3 text-micro font-mono text-muted">
                         {t.reply_count !== undefined && (
                           <span className="inline-flex items-center gap-0.5">
                             <MessageSquare size={10} /> {compactNumber(t.reply_count) || '0'}

@@ -212,11 +212,11 @@ export default function CuratedToolbox(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
+          <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">
             synced <span className="text-body">{relativeTime(meta?.fetchedAt ?? data?.fetchedAt)}</span>
           </span>
           {meta?.ok === false && (
@@ -252,21 +252,21 @@ export default function CuratedToolbox(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.totalTools} tools across ${data.totalSections} sections…`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={expandAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="text-mini font-mono rounded border border-line-2 px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   expand all
                 </button>
                 <button
                   type="button"
                   onClick={collapseAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="text-mini font-mono rounded border border-line-2 px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   collapse all
                 </button>
@@ -303,8 +303,8 @@ export default function CuratedToolbox(): JSX.Element {
 
           {/* Section list */}
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400" />
+            <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
+              <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No tools match &quot;{query}&quot;.
             </div>
           ) : (
@@ -339,26 +339,26 @@ function SectionCard({
   onToggle: () => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
+    <div className="overflow-hidden rounded-xl border border-line-1 bg-surface-100">
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] transition-colors"
+        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left hover:bg-surface-200 dark:hover:bg-surface-200/50 transition-colors"
       >
         <div className="flex items-center gap-2">
           <ChevronRight className={`h-4 w-4 text-muted transition-transform ${open ? 'rotate-90' : ''}`} />
           <span className="font-medium text-heading">{section.name}</span>
         </div>
-        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted">
+        <span className="text-micro font-mono rounded-full border border-line-2 px-2 py-0.5 text-muted">
           {section.tools.length} tools
         </span>
       </button>
       {open && (
-        <ul className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <ul className="border-t border-line-1">
           {section.tools.map((t, i) => (
             <li
               key={`${t.url}-${i}`}
-              className="flex items-start gap-3 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 px-4 py-2.5 last:border-b-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)] transition-colors"
+              className="flex items-start gap-3 border-b border-line-1/60 px-4 py-2.5 last:border-b-0 hover:bg-surface-200 dark:hover:bg-surface-200/30 transition-colors"
             >
               <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500 dark:bg-rose-400" />
               <div className="min-w-0 flex-1">

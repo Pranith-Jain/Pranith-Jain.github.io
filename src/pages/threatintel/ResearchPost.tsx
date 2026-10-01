@@ -118,7 +118,7 @@ export default function ResearchPost(): JSX.Element {
       className="px-4 sm:px-6 py-10"
       headerExtra={
         <>
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500 mt-4">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted mt-4">
             <span className="text-body font-medium">Pranith Jain</span>
             <span aria-hidden="true">·</span>
             <time dateTime={post.publishedAt}>
@@ -134,10 +134,7 @@ export default function ResearchPost(): JSX.Element {
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mt-4">
               {post.tags.map((t) => (
-                <span
-                  key={t}
-                  className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-                >
+                <span key={t} className="text-mini font-mono px-2 py-0.5 rounded border border-line-1 text-muted">
                   {t}
                 </span>
               ))}
@@ -146,7 +143,7 @@ export default function ResearchPost(): JSX.Element {
         </>
       }
     >
-      <header className="mb-10 pb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"></header>
+      <header className="mb-10 pb-6 border-b border-line-1"></header>
 
       {/* Structured STIX 2.1 view of this research piece. Heuristic extractor
           pulls every actor, malware family, CVE, and IoC the piece mentions
@@ -168,9 +165,9 @@ export default function ResearchPost(): JSX.Element {
 
       {html === null ? (
         <div className="space-y-3 text-muted" aria-busy="true" aria-label="Loading research post">
-          <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
-          <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
-          <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
+          <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
+          <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
+          <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-surface-300 animate-pulse" />
         </div>
       ) : (
         <div className="lg:grid lg:grid-cols-[1fr_200px] lg:gap-8">
@@ -186,10 +183,10 @@ export default function ResearchPost(): JSX.Element {
               '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-1.5 ' +
               '[&_li]:leading-relaxed ' +
               '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
-              '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-300))] [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-              '[&_pre]:bg-slate-900 [&_pre]:dark:bg-[rgb(var(--input-200))] [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-meta [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
+              '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-surface-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
+              '[&_pre]:bg-slate-900 [&_pre]:dark:bg-input-200 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-meta [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
               '[&_blockquote]:border-l-2 [&_blockquote]:border-rose-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-muted ' +
-              '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-[rgb(var(--border-400))] ' +
+              '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-line-1 ' +
               '[&_em]:italic'
             }
             dangerouslySetInnerHTML={{ __html: html }}
@@ -199,7 +196,7 @@ export default function ResearchPost(): JSX.Element {
           {tocItems.length > 0 && (
             <aside className="hidden lg:block">
               <div className="sticky top-24">
-                <h4 className="text-xs font-mono uppercase tracking-[0.16em] text-slate-500 mb-3">Contents</h4>
+                <h4 className="text-xs font-mono uppercase tracking-[0.16em] text-muted mb-3">Contents</h4>
                 <nav className="space-y-1">
                   {tocItems.map((item) => (
                     <button
@@ -228,11 +225,8 @@ export default function ResearchPost(): JSX.Element {
           left at the bottom of the page with no obvious next action;
           this gives them an index link plus pointers to other research
           pieces so they don't have to scroll back to the top to navigate. */}
-      <nav
-        aria-labelledby="post-end-nav"
-        className="mt-16 pt-8 border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
-      >
-        <h2 id="post-end-nav" className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-4">
+      <nav aria-labelledby="post-end-nav" className="mt-16 pt-8 border-t border-line-1">
+        <h2 id="post-end-nav" className="text-mini font-mono uppercase tracking-[0.18em] text-muted mb-4">
           Continue
         </h2>
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -252,7 +246,7 @@ export default function ResearchPost(): JSX.Element {
 
         {others.length > 0 && (
           <div>
-            <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-3">Other research</div>
+            <div className="text-mini font-mono uppercase tracking-[0.18em] text-muted mb-3">Other research</div>
             <ul className="grid gap-2 sm:grid-cols-2">
               {others.slice(0, 4).map((r) => (
                 <li key={r.slug}>
@@ -266,7 +260,7 @@ export default function ResearchPost(): JSX.Element {
                       aria-hidden="true"
                     />
                     <div className="min-w-0 flex-1">
-                      <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500 mb-0.5">
+                      <div className="text-micro font-mono uppercase tracking-[0.18em] text-muted mb-0.5">
                         {r.kicker}
                       </div>
                       <div className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">

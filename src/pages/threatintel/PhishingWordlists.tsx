@@ -106,7 +106,7 @@ export default function PhishingWordlists(): JSX.Element {
               className={`text-xs font-mono px-3 py-1.5 rounded border ${
                 activeId === l.id
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500'
               } ${!l.ok ? 'opacity-50' : ''}`}
               title={l.ok ? `${l.line_count.toLocaleString()} entries` : 'unreachable'}
             >
@@ -129,7 +129,7 @@ export default function PhishingWordlists(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Filter ${active.label}…`}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+                  className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                   aria-label="Filter wordlist entries"
                 />
               </div>
@@ -137,14 +137,14 @@ export default function PhishingWordlists(): JSX.Element {
                 type="button"
                 onClick={copyList}
                 disabled={filtered.length === 0}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40 disabled:opacity-50 transition-colors"
               >
                 {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'copied' : 'copy'}
               </button>
             </div>
           </section>
 
-          <p className="text-mini font-mono text-slate-500 mb-3">
+          <p className="text-mini font-mono text-muted mb-3">
             Showing {Math.min(visible, filtered.length).toLocaleString()} of {filtered.length.toLocaleString()} entries
             {active.truncated && <span className="text-amber-600 dark:text-amber-400"> · list capped server-side</span>}
           </p>
@@ -169,7 +169,7 @@ export default function PhishingWordlists(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 200)}
-            className="mt-3 w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="mt-3 w-full rounded-xl border border-line-1 py-2 font-mono text-meta text-muted hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
           >
             Show more ({(filtered.length - visible).toLocaleString()} remaining)
           </button>

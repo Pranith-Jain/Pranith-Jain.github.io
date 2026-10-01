@@ -397,7 +397,7 @@ export default function CloudTrailTriage(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput(SAMPLE)}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load example
           </button>
@@ -405,7 +405,7 @@ export default function CloudTrailTriage(): JSX.Element {
             <button
               type="button"
               onClick={() => setInput('')}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -433,11 +433,10 @@ export default function CloudTrailTriage(): JSX.Element {
           <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
-                <span className="text-slate-500">Events:</span> <span className="font-mono">{analysis.events}</span>
+                <span className="text-muted">Events:</span> <span className="font-mono">{analysis.events}</span>
               </span>
               <span>
-                <span className="text-slate-500">Principals:</span>{' '}
-                <span className="font-mono">{analysis.principals}</span>
+                <span className="text-muted">Principals:</span> <span className="font-mono">{analysis.principals}</span>
               </span>
               <span className="flex flex-wrap gap-1.5">
                 {(['critical', 'high', 'medium', 'low', 'info'] as Sev[])
@@ -481,10 +480,9 @@ export default function CloudTrailTriage(): JSX.Element {
                         </div>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>
-                        <p className="text-meta font-mono text-slate-500 mt-2 break-all">{f.where}</p>
+                        <p className="text-meta font-mono text-muted mt-2 break-all">{f.where}</p>
                         <p className="text-tool text-body mt-2">
-                          <span className="text-slate-500 font-mono text-mini uppercase tracking-wider">fix</span>{' '}
-                          {f.fix}
+                          <span className="text-muted font-mono text-mini uppercase tracking-wider">fix</span> {f.fix}
                         </p>
                       </div>
                     </div>

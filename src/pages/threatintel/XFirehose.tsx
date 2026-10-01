@@ -157,7 +157,7 @@ export default function XFirehose(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by post text or handle…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter X posts"
             />
           </div>
@@ -178,14 +178,14 @@ export default function XFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-3">
-            <span className="text-mini font-mono text-slate-500 mr-1">handles:</span>
+            <span className="text-mini font-mono text-muted mr-1">handles:</span>
             {data.handles.map((h) => {
               const active = handleFilter.has(h.handle);
               const platformGlyph = h.platform === 'bluesky' ? 'BS' : 'M';
@@ -203,8 +203,8 @@ export default function XFirehose(): JSX.Element {
                     active
                       ? TOPIC_PILL[h.topic]
                       : h.ok
-                        ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted opacity-50'
+                        ? 'border-slate-300 dark:border-line-1 text-slate-500'
+                        : 'border-slate-300 dark:border-line-1 text-muted opacity-50'
                   }`}
                 >
                   {platformGlyph} {h.name.length > 18 ? h.name.slice(0, 18) + '…' : h.name}{' '}
@@ -226,7 +226,7 @@ export default function XFirehose(): JSX.Element {
       </section>
 
       {data && (
-        <p className="text-mini font-mono text-slate-500 mt-3">
+        <p className="text-mini font-mono text-muted mt-3">
           Showing {filtered.length} of {data.items.length} posts · snapshot{' '}
           <span className="text-body">{shortRel(data.generated_at)}</span>
           {data.warnings.length > 0 && (
@@ -304,7 +304,7 @@ export default function XFirehose(): JSX.Element {
                 {it.text}
               </p>
               <PostSummary text={postSummaries.get(String(it.link))} />
-              <div className="text-micro font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+              <div className="text-micro font-mono text-muted flex items-center gap-2 flex-wrap">
                 <AtSign size={9} className="text-muted" />
                 <span>{it.handle}</span>
                 <span className="ml-auto text-muted" title={it.pub_date}>
@@ -320,14 +320,14 @@ export default function XFirehose(): JSX.Element {
         <button
           type="button"
           onClick={() => setVisible((v) => v + 60)}
-          className="mt-3 w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+          className="mt-3 w-full rounded-xl border border-line-1 py-2 font-mono text-meta text-muted hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
         >
           Show more ({filtered.length - visible} remaining)
         </button>
       )}
 
       {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-6 text-sm font-mono text-slate-500">
+        <div className="rounded-xl border border-dashed border-line-2 p-6 text-sm font-mono text-muted">
           {query || handleFilter.size > 0 ? (
             <p className="text-center">No posts match the current filter.</p>
           ) : (

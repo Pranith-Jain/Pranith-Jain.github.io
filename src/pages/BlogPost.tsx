@@ -335,7 +335,7 @@ export default function BlogPost() {
       </div>
       <Link
         to="/blog"
-        className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
+        className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.16em] text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6"
       >
         ← Back to Blog
       </Link>
@@ -430,7 +430,7 @@ export default function BlogPost() {
                   <Link
                     key={t}
                     to={`/blog/t/${t}`}
-                    className="rounded border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-mini font-mono text-slate-600 hover:text-brand-600 hover:border-brand-300 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted dark:hover:text-brand-400 dark:hover:border-brand-500/40 transition-colors"
+                    className="rounded border border-line-1 bg-surface-200 px-2.5 py-0.5 text-mini font-mono text-muted hover:text-brand-600 hover:border-brand-300 dark:hover:text-brand-400 dark:hover:border-brand-500/40 transition-colors"
                   >
                     {t}
                   </Link>
@@ -441,7 +441,7 @@ export default function BlogPost() {
             <img
               loading="eager"
               fetchPriority="high"
-              className="mb-6 w-full h-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]"
+              className="mb-6 w-full h-auto rounded-xl border border-line-1"
               alt={`Hero visual for ${post.title}`}
               width={1200}
               height={630}
@@ -456,7 +456,7 @@ export default function BlogPost() {
                 {post.type}
               </Link>
               <h1 className="font-display text-3xl font-bold tracking-tight mt-1">{post.title}</h1>
-              <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-slate-500 mt-3">
+              <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-muted mt-3">
                 <span>Pranith Jain</span>
                 <span aria-hidden="true">·</span>
                 <time>{formatDate(post.publishedAt)}</time>
@@ -493,7 +493,7 @@ export default function BlogPost() {
                 <button
                   type="button"
                   onClick={() => setTocOpen((v) => !v)}
-                  className="flex w-full items-center justify-between px-4 py-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-500"
+                  className="flex w-full items-center justify-between px-4 py-3 text-xs font-mono uppercase tracking-[0.16em] text-muted"
                   aria-expanded={tocOpen}
                 >
                   Table of Contents
@@ -509,7 +509,7 @@ export default function BlogPost() {
                   </svg>
                 </button>
                 {tocOpen && (
-                  <nav className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-1">
+                  <nav className="border-t border-line-1 px-4 py-3 space-y-1">
                     {tocItems.map((item) => (
                       <button
                         key={item.id}
@@ -540,9 +540,7 @@ export default function BlogPost() {
               {tocItems.length > 0 && (
                 <aside className="hidden lg:block">
                   <div className="sticky top-24">
-                    <h4 className="text-xs font-mono uppercase tracking-[0.16em] text-slate-500 mb-3">
-                      Table of Contents
-                    </h4>
+                    <h4 className="text-xs font-mono uppercase tracking-[0.16em] text-muted mb-3">Table of Contents</h4>
                     <nav className="space-y-1">
                       {tocItems.map((item) => (
                         <button
@@ -566,13 +564,13 @@ export default function BlogPost() {
               )}
             </div>
 
-            <div className="mt-8 flex items-center gap-3 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <span className="text-xs font-mono uppercase tracking-[0.16em] text-slate-500">Share</span>
+            <div className="mt-8 flex items-center gap-3 pt-6 border-t border-line-1">
+              <span className="text-xs font-mono uppercase tracking-[0.16em] text-muted">Share</span>
               <a
                 href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-xs font-semibold text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] hover:border-brand-300 dark:hover:border-brand-500/40 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded border border-line-1 px-3 py-1.5 text-xs font-semibold text-muted hover:bg-surface-200 dark:hover:bg-surface-300 hover:border-brand-300 dark:hover:border-brand-500/40 transition-colors"
               >
                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -583,7 +581,7 @@ export default function BlogPost() {
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-xs font-semibold text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] hover:border-brand-300 dark:hover:border-brand-500/40 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded border border-line-1 px-3 py-1.5 text-xs font-semibold text-muted hover:bg-surface-200 dark:hover:bg-surface-300 hover:border-brand-300 dark:hover:border-brand-500/40 transition-colors"
               >
                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -596,8 +594,8 @@ export default function BlogPost() {
             </div>
 
             {post.iocs.length > 0 && (
-              <aside className="mt-8 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-6">
-                <h2 className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 mb-2">IOCs</h2>
+              <aside className="mt-8 border-t border-line-1 pt-6">
+                <h2 className="text-mini font-mono uppercase tracking-[0.16em] text-muted mb-2">IOCs</h2>
                 <ul className="text-sm font-mono space-y-1">
                   {post.iocs.map((i, k) => (
                     <li key={`${i.type}-${i.value}-${k}`}>
@@ -654,7 +652,7 @@ export default function BlogPost() {
 
             {post.sources && post.sources.length > 0 && (
               <section className="mt-6 surface-card p-6 sm:p-8">
-                <h2 className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 mb-3">Sources</h2>
+                <h2 className="text-mini font-mono uppercase tracking-[0.16em] text-muted mb-3">Sources</h2>
                 <ul className="space-y-2">
                   {post.sources.map((s, i) => (
                     <li key={i} className="text-sm">
@@ -697,7 +695,7 @@ export default function BlogPost() {
                   </Link>
                   <Link
                     to="/threatintel"
-                    className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-4 py-2 text-sm font-semibold text-body transition hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                    className="inline-flex items-center gap-1.5 rounded border border-line-2 px-4 py-2 text-sm font-semibold text-body transition hover:bg-surface-200 dark:hover:bg-surface-300"
                   >
                     Threat Intel
                   </Link>
@@ -725,7 +723,7 @@ export default function BlogPost() {
 
             {relatedPosts.length > 0 && (
               <section className="mt-10">
-                <h2 className="text-xs font-mono uppercase tracking-[0.16em] text-slate-500 mb-4">Related Research</h2>
+                <h2 className="text-xs font-mono uppercase tracking-[0.16em] text-muted mb-4">Related Research</h2>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {relatedPosts.map((p) => {
                     const relatedReadTime = Math.max(1, Math.ceil((p.excerpt?.split(/\s+/).length ?? 0) / 50));
@@ -739,7 +737,7 @@ export default function BlogPost() {
                           {p.tags.slice(0, 2).map((t) => (
                             <span
                               key={t}
-                              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.6)] px-2 py-0.5 text-micro font-mono text-muted"
+                              className="rounded border border-line-1 bg-surface-200/60 px-2 py-0.5 text-micro font-mono text-muted"
                             >
                               {t}
                             </span>

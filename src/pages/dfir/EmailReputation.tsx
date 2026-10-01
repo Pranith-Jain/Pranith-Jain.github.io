@@ -294,7 +294,7 @@ export default function EmailReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="example.com or user@example.com"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Domain or email to check"
             />
           </div>
@@ -309,7 +309,7 @@ export default function EmailReputation(): JSX.Element {
         </div>
       </form>
 
-      {loading && <p className="text-xs font-mono text-slate-500 animate-pulse mb-4">{progress}</p>}
+      {loading && <p className="text-xs font-mono text-muted animate-pulse mb-4">{progress}</p>}
       {error && (
         <p role="alert" className="text-xs font-mono text-rose-600 dark:text-rose-400 mb-4">
           {error}
@@ -327,7 +327,7 @@ export default function EmailReputation(): JSX.Element {
                 {result.verdict} · {result.score}/100
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-4">
+            <div className="h-2 rounded bg-slate-200 dark:bg-surface-300 overflow-hidden mb-4">
               <div
                 className={`h-full transition-all ${result.verdict === 'safe' ? 'bg-emerald-500' : result.verdict === 'suspicious' ? 'bg-amber-500' : 'bg-rose-500'}`}
                 style={{ width: `${Math.max(2, result.score)}%` }}
@@ -356,7 +356,7 @@ export default function EmailReputation(): JSX.Element {
             <section className="surface-card p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Mail size={12} aria-hidden="true" /> Address reputation (emailrep.io){' '}
-                <span className="font-normal text-slate-500 normal-case">· {result.emailRep.email}</span>
+                <span className="font-normal text-muted normal-case">· {result.emailRep.email}</span>
               </h3>
               {result.emailRep.ok ? (
                 <>
@@ -378,7 +378,7 @@ export default function EmailReputation(): JSX.Element {
                       </span>
                     )}
                     {result.emailRep.reputation && (
-                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))]">
+                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border border-line-2">
                         rep: {result.emailRep.reputation}
                       </span>
                     )}
@@ -391,14 +391,14 @@ export default function EmailReputation(): JSX.Element {
                       {result.emailRep.tags.map((t) => (
                         <span
                           key={t}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-body"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 bg-surface-200 text-body"
                         >
                           {t}
                         </span>
                       ))}
                     </div>
                   )}
-                  <p className="text-mini font-mono text-slate-400">
+                  <p className="text-mini font-mono text-muted">
                     {result.emailRep.details?.first_seen && `first seen ${result.emailRep.details.first_seen} · `}
                     {result.emailRep.details?.last_seen && `last seen ${result.emailRep.details.last_seen} · `}
                     {result.emailRep.details?.deliverable !== undefined &&
@@ -419,7 +419,7 @@ export default function EmailReputation(): JSX.Element {
             <section className="surface-card p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-3 inline-flex items-center gap-2">
                 <Mail size={12} aria-hidden="true" /> Sender-domain reputation (Heatwave){' '}
-                <span className="font-normal text-slate-500 normal-case">· {result.heatwave.domain}</span>
+                <span className="font-normal text-muted normal-case">· {result.heatwave.domain}</span>
               </h3>
               {result.heatwave.ok ? (
                 <>
@@ -446,7 +446,7 @@ export default function EmailReputation(): JSX.Element {
                     )}
                   </div>
                   {result.heatwave.dns_answer && (
-                    <p className="text-mini font-mono text-slate-500 mb-2">{result.heatwave.dns_answer}</p>
+                    <p className="text-mini font-mono text-muted mb-2">{result.heatwave.dns_answer}</p>
                   )}
                   {result.heatwave.related && result.heatwave.related.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-2">
@@ -454,7 +454,7 @@ export default function EmailReputation(): JSX.Element {
                       {result.heatwave.related.slice(0, 8).map((rel) => (
                         <span
                           key={rel.domain}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-body"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 bg-surface-200 text-body"
                           title={`${rel.classification} · score ${rel.score}`}
                         >
                           {rel.domain}
@@ -462,7 +462,7 @@ export default function EmailReputation(): JSX.Element {
                       ))}
                     </div>
                   )}
-                  <p className="text-mini font-mono text-slate-400">
+                  <p className="text-mini font-mono text-muted">
                     Sending-domain reputation only — a hit means cold-email infrastructure, not phishing. Not listed is
                     not a clean verdict, and the score is a relative band, not a threshold.
                   </p>
@@ -499,7 +499,7 @@ export default function EmailReputation(): JSX.Element {
                 <div className="flex items-baseline justify-between gap-2 mb-3">
                   <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2">
                     <Mail size={12} aria-hidden="true" /> {exchange}{' '}
-                    <span className="text-slate-500 normal-case text-micro">({ip})</span>
+                    <span className="text-muted normal-case text-micro">({ip})</span>
                   </h3>
                   <span
                     className={`text-micro font-mono px-2 py-0.5 rounded border ${blScore === 0 ? 'bg-emerald-500/15 text-emerald-700 border-emerald-500/30' : blScore < 2 ? 'bg-amber-500/15 text-amber-700 border-amber-500/30' : 'bg-rose-500/15 text-rose-700 border-rose-500/30'}`}
@@ -517,7 +517,7 @@ export default function EmailReputation(): JSX.Element {
           })}
 
           {result.truncated && (
-            <p className="text-xs font-mono text-slate-500">
+            <p className="text-xs font-mono text-muted">
               First 5 of {result.mx.length} MX servers shown. Check the full list on Domain Lookup.
             </p>
           )}
@@ -525,25 +525,25 @@ export default function EmailReputation(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/email-defense?domain=${encodeURIComponent(result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> BEC Score
             </Link>
             <Link
               to={`/dfir/domain?domain=${encodeURIComponent(result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Domain Lookup
             </Link>
             <Link
               to={`/dfir/url-risk?url=${encodeURIComponent('https://' + result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> URL Reputation
             </Link>
             <Link
               to={`/dfir/domain-rep?domain=${encodeURIComponent(result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Full Blacklist
             </Link>
@@ -557,7 +557,7 @@ export default function EmailReputation(): JSX.Element {
 function Fact({ label, value, good }: { label: string; value: string; good: boolean }): JSX.Element {
   return (
     <div
-      className={`rounded-xl border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'}`}
+      className={`rounded-xl border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'}`}
     >
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>
       <div className={`text-sm font-mono ${good ? 'text-emerald-700 dark:text-emerald-300' : 'text-heading'}`}>

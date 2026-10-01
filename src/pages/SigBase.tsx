@@ -90,7 +90,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
             </span>
           )}
           {body.score != null && (
-            <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border text-muted bg-surface-300 border-line-1">
               score {body.score}
             </span>
           )}
@@ -103,7 +103,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
         )}
         <div className="space-y-2">
           {(body.rules ?? []).map((r) => (
-            <div key={r.name} className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3">
+            <div key={r.name} className="border border-line-1 rounded-lg p-3">
               <div className="font-mono text-xs font-semibold text-brand-600 dark:text-brand-400 mb-1">{r.name}</div>
               {r.meta.description && <p className="text-sm text-body leading-relaxed">{r.meta.description}</p>}
               {r.meta.reference && (
@@ -128,11 +128,11 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
         </button>
         <div>
           <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">YARA Source</div>
-          <pre className="font-mono text-xs text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-all max-h-80 overflow-y-auto">
+          <pre className="font-mono text-xs text-body bg-surface-200 border border-line-1 rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-all max-h-80 overflow-y-auto">
             {body.body}
           </pre>
         </div>
-        <div className="text-micro text-muted pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-micro text-muted pt-2 border-t border-line-1">
           Data from{' '}
           <a
             href="https://github.com/Neo23x0/signature-base"
@@ -225,7 +225,7 @@ export default function SigBase() {
               placeholder="Search rules by filename, family, author..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-surface-200 border border-line-1 text-heading placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -240,7 +240,7 @@ export default function SigBase() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedTag
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             All Tags
@@ -279,8 +279,8 @@ export default function SigBase() {
 
         {/* Rule grid */}
         {rulesLoading ? (
-          <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
+          <div className="flex items-center justify-center py-16 text-muted">
+            <div className="w-6 h-6 border-2 border-line-2 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading rules...
           </div>
         ) : filtered.length === 0 ? (
@@ -326,7 +326,7 @@ export default function SigBase() {
         )}
 
         {/* Source footer */}
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Data sourced from{' '}
           <a
             href="https://github.com/Neo23x0/signature-base"

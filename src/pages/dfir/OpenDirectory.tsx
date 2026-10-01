@@ -140,7 +140,7 @@ export default function OpenDirectory(): JSX.Element {
               <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-muted" />
-                  <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
+                  <span className="text-micro font-mono uppercase text-muted">{label}</span>
                 </div>
                 <span className="text-lg font-mono font-bold">{value}</span>
               </div>
@@ -154,7 +154,7 @@ export default function OpenDirectory(): JSX.Element {
                 ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300'
                 : result.isOpen
                   ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50 text-amber-700 dark:text-amber-300'
-                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
+                  : 'bg-slate-50 dark:bg-surface-300 border-slate-200 dark:border-line-1 text-muted'
             }`}
           >
             {result.isOpen && result.isDirectoryListing ? (
@@ -201,7 +201,7 @@ export default function OpenDirectory(): JSX.Element {
                 className={`px-2.5 py-1 rounded text-xs font-mono capitalize transition-colors ${
                   filterRisk === r
                     ? 'bg-brand-600 text-white'
-                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
+                    : 'bg-slate-100 dark:bg-surface-300 text-muted hover:bg-slate-200 dark:hover:bg-surface-300'
                 }`}
               >
                 {r} {r !== 'all' && `(${riskCounts[r]})`}
@@ -240,7 +240,7 @@ export default function OpenDirectory(): JSX.Element {
                       header: 'Type',
                       sortValue: (e: (typeof filteredEntries)[number]) => e.extension ?? '',
                       render: (e) => (
-                        <span className="font-mono text-slate-500">
+                        <span className="font-mono text-muted">
                           {e.extension ?? (e.type === 'directory' ? 'dir' : '-')}
                         </span>
                       ),
@@ -250,7 +250,7 @@ export default function OpenDirectory(): JSX.Element {
                       header: 'Size',
                       align: 'right',
                       sortValue: (e: (typeof filteredEntries)[number]) => e.size,
-                      render: (e) => <span className="font-mono text-slate-500">{formatSize(e.size)}</span>,
+                      render: (e) => <span className="font-mono text-muted">{formatSize(e.size)}</span>,
                     },
                     {
                       key: 'risk',
@@ -268,7 +268,7 @@ export default function OpenDirectory(): JSX.Element {
                     {
                       key: 'reason',
                       header: 'Reason',
-                      render: (e) => <span className="text-slate-500">{e.riskReason ?? '-'}</span>,
+                      render: (e) => <span className="text-muted">{e.riskReason ?? '-'}</span>,
                     },
                   ] as DataTableColumn<(typeof filteredEntries)[number]>[]
                 }
@@ -281,7 +281,7 @@ export default function OpenDirectory(): JSX.Element {
               />
             </div>
             {filteredEntries.length === 0 && (
-              <div className="p-8 text-center text-sm text-slate-500">
+              <div className="p-8 text-center text-sm text-muted">
                 {result.entries.length === 0
                   ? 'No files found in this directory.'
                   : `No ${filterRisk}-risk files found.`}
@@ -294,7 +294,7 @@ export default function OpenDirectory(): JSX.Element {
       {!result && !loading && !error && (
         <div className="text-center py-16">
           <FolderOpen size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
-          <p className="text-slate-500">Enter a URL to scan for exposed open directories</p>
+          <p className="text-muted">Enter a URL to scan for exposed open directories</p>
           <p className="text-xs text-muted mt-1">
             Identifies malware staging, credential dumps, config files, and other sensitive artifacts
           </p>

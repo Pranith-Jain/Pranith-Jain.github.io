@@ -165,38 +165,38 @@ export default function OneTimeSecret() {
 
       <div className="flex items-baseline gap-2 mb-2">
         <h1 className="font-display font-bold text-2xl text-heading">One-Time Secret</h1>
-        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
+        <span className="text-mini font-mono uppercase tracking-[0.18em] text-muted">
           Encrypted &middot; Burn after reading
         </span>
       </div>
 
       {mode === 'create' && (
         <>
-          <p className="text-xs font-mono text-slate-500 max-w-xl">
+          <p className="text-xs font-mono text-muted max-w-xl">
             Secrets are encrypted in your browser before being sent to the server. The decryption key is embedded in the
             share URL - the server never sees it. Once viewed, the secret is permanently deleted.
           </p>
 
           <div>
-            <label className="text-xs font-mono text-slate-500 mb-1 block">
+            <label className="text-xs font-mono text-muted mb-1 block">
               Secret
               <textarea
                 value={secret}
                 onChange={(e) => setSecret(e.target.value)}
                 rows={6}
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
+                className="w-full rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading mt-1"
                 placeholder="Paste your secret here..."
               />
             </label>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <label className="text-xs font-mono text-slate-500 flex items-center gap-2">
+            <label className="text-xs font-mono text-muted flex items-center gap-2">
               Expires after:
               <select
                 value={expiry}
                 onChange={(e) => setExpiry(e.target.value)}
-                className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-heading"
+                className="rounded-xl border border-line-2 bg-surface-100 px-2 py-1 text-xs font-mono text-heading"
               >
                 {EXPIRY_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -222,7 +222,7 @@ export default function OneTimeSecret() {
                 setMessage('');
                 setStatus('idle');
               }}
-              className="px-3 py-2 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-400"
+              className="px-3 py-2 text-xs font-mono rounded-xl border border-line-2 text-muted hover:border-rose-400"
             >
               Clear
             </button>
@@ -244,13 +244,13 @@ export default function OneTimeSecret() {
 
           {shareUrl && (
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 mb-1 block">
+              <label className="text-xs font-mono text-muted mb-1 block">
                 Share this URL (one-time use):
                 <div className="flex items-center gap-2 mt-1">
                   <input
                     readOnly
                     value={shareUrl}
-                    className="flex-1 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading"
+                    className="flex-1 rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading"
                   />
                   <button
                     type="button"
@@ -275,7 +275,7 @@ export default function OneTimeSecret() {
       {mode === 'view' && (
         <div className="space-y-4">
           {view.mode === 'loading' && (
-            <div className="text-xs font-mono text-slate-500 animate-pulse">Loading secret...</div>
+            <div className="text-xs font-mono text-muted animate-pulse">Loading secret...</div>
           )}
 
           {view.mode === 'revealed' && (
@@ -285,13 +285,13 @@ export default function OneTimeSecret() {
                 This secret has been revealed and is now permanently deleted from the server.
               </div>
               <div>
-                <label className="text-xs font-mono text-slate-500 mb-1 block">
+                <label className="text-xs font-mono text-muted mb-1 block">
                   Secret content:
                   <textarea
                     readOnly
                     value={view.content}
                     rows={8}
-                    className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs font-mono text-heading mt-1"
+                    className="w-full rounded-xl border border-line-2 bg-surface-100 p-2 text-xs font-mono text-heading mt-1"
                   />
                 </label>
                 <button

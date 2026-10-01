@@ -271,7 +271,7 @@ export default function DFIRPage(): JSX.Element {
           <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
 
           {/* Status ribbon - product-accurate kicker (not blanket "local only"). */}
-          <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
+          <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-muted">
             <span className="inline-flex items-center gap-1.5">
               <span className="relative inline-flex h-1.5 w-1.5">
                 <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden="true" />
@@ -312,7 +312,7 @@ export default function DFIRPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${MAIN_TOOL_COUNT}+ tools - IOC check, phishing, CVEs, decoders...`}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="w-full rounded-xl border border-line-1 bg-surface-200 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:text-slate-100 dark:placeholder:text-slate-500"
               aria-label="Search DFIR tools"
             />
             {query ? (
@@ -322,20 +322,16 @@ export default function DFIRPage(): JSX.Element {
                   setQuery('');
                   inputRef.current?.focus();
                 }}
-                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-100"
+                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-surface-300 dark:hover:text-slate-100"
                 aria-label="Clear search"
               >
                 <X size={12} /> clear
               </button>
             ) : (
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-muted sm:inline-flex">
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
-                  /
-                </kbd>
+                <kbd className="rounded border border-line-1 bg-surface-100 px-1.5 py-0.5 text-xs">/</kbd>
                 <span>or</span>
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
-                  ⌘K
-                </kbd>
+                <kbd className="rounded border border-line-1 bg-surface-100 px-1.5 py-0.5 text-xs">⌘K</kbd>
               </span>
             )}
           </div>
@@ -343,7 +339,7 @@ export default function DFIRPage(): JSX.Element {
           {/* Stat band - Hunt.io "data table inside a card" pattern.
               Three rows, hairline divider, big mono numerals. Reads as
               capability, not as bullet list. */}
-          <dl className="stagger mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
+          <dl className="stagger mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-line-1 border-y border-line-1">
             {[
               { to: MAIN_TOOL_COUNT, suffix: '+', label: 'Tools', sub: 'in-browser, client-side' },
               { to: 60, suffix: '+', label: 'IOC sources', sub: 'checked in parallel' },
@@ -353,11 +349,11 @@ export default function DFIRPage(): JSX.Element {
                 key={stat.label}
                 className={`flex flex-col gap-1.5 py-3 sm:py-4 ${i === 0 ? 'sm:pr-6' : i === 1 ? 'sm:px-6' : 'sm:pl-6'}`}
               >
-                <dt className="font-mono text-micro uppercase tracking-[0.16em] text-slate-500">{stat.label}</dt>
+                <dt className="font-mono text-micro uppercase tracking-[0.16em] text-muted">{stat.label}</dt>
                 <dd className="font-display text-3xl sm:text-4xl font-bold leading-none text-slate-900 dark:text-white">
                   <CountUp to={stat.to} duration={900} formatter={(v) => `${v.toLocaleString()}${stat.suffix}`} />
                 </dd>
-                <dd className="font-mono text-mini text-slate-500">{stat.sub}</dd>
+                <dd className="font-mono text-mini text-muted">{stat.sub}</dd>
               </div>
             ))}
           </dl>
@@ -381,12 +377,9 @@ export default function DFIRPage(): JSX.Element {
                   <Link
                     key={entry.path}
                     to={entry.path}
-                    className="group inline-flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 hover:border-brand-500/40 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
+                    className="group inline-flex items-center gap-2 rounded border border-line-1 bg-surface-200 px-3 py-2 text-xs font-medium text-slate-700 hover:border-brand-500/40 hover:bg-brand-50/50 dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
                   >
-                    <Icon
-                      size={12}
-                      className="text-slate-500 group-hover:text-brand-500 dark:text-muted dark:group-hover:text-brand-400"
-                    />
+                    <Icon size={12} className="text-muted group-hover:text-brand-500 dark:group-hover:text-brand-400" />
                     <span>{meta?.label ?? entry.label}</span>
                     <ArrowRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
@@ -416,7 +409,7 @@ export default function DFIRPage(): JSX.Element {
                 }
               }}
               placeholder="e.g. 8.8.8.8, evil.com, hash..."
-              className="flex-1 rounded border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="flex-1 rounded border border-line-1 bg-surface-200 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:text-slate-100 dark:placeholder:text-slate-500"
               aria-label="Enter IOC to check"
             />
             <button
@@ -438,7 +431,7 @@ export default function DFIRPage(): JSX.Element {
         {/* ── Search results (when typing) ─────────────────────── */}
         {isSearching && (
           <section className="animate-fade-in-up">
-            <div className="font-mono text-xs text-slate-500 mb-4">
+            <div className="font-mono text-xs text-muted mb-4">
               {searchResults?.length ?? 0} {searchResults?.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}
               &rdquo;
               {(searchResults?.length ?? 0) === 0 && ' - try fewer or different keywords'}
@@ -467,7 +460,7 @@ export default function DFIRPage(): JSX.Element {
               </ul>
             )}
             {searchResults && searchResults.length === 0 && (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
+              <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
                 <p className="text-sm text-muted">No matches. Try different keywords.</p>
               </div>
             )}
@@ -503,7 +496,7 @@ export default function DFIRPage(): JSX.Element {
                       to={item.href}
                       className="group flex items-center gap-3 surface-card card-hover p-4"
                     >
-                      <div className="grid h-10 w-10 place-items-center rounded bg-slate-50 dark:bg-white/5 text-brand-600 dark:text-brand-400 shrink-0">
+                      <div className="grid h-10 w-10 place-items-center rounded bg-surface-200 dark:bg-surface-100/5 text-brand-600 dark:text-brand-400 shrink-0">
                         <Icon size={18} />
                       </div>
                       <div className="min-w-0">
@@ -548,8 +541,8 @@ export default function DFIRPage(): JSX.Element {
                         <p className="mt-2 text-xs leading-relaxed text-muted line-clamp-2 min-h-[2.5rem]">
                           {cat.description}
                         </p>
-                        <dl className="mt-auto pt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] font-mono text-micro">
-                          <div className="flex items-center gap-1.5 text-slate-500">
+                        <dl className="mt-auto pt-3 flex items-center justify-between border-t border-line-1 font-mono text-micro">
+                          <div className="flex items-center gap-1.5 text-muted">
                             <dt className="uppercase tracking-wider opacity-70">tools</dt>
                             <dd className="font-semibold tabular-nums text-body">{hubPageCount(cat.id)}</dd>
                           </div>
@@ -591,7 +584,7 @@ export default function DFIRPage(): JSX.Element {
                     },
                   ].map((s) => (
                     <div key={s.step} className="flex gap-3">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 font-mono text-sm font-bold text-brand-600 dark:text-brand-400">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-200 dark:bg-surface-100/5 font-mono text-sm font-bold text-brand-600 dark:text-brand-400">
                         {s.step}
                       </span>
                       <div>

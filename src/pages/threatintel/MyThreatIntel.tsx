@@ -142,20 +142,20 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
 
   return (
     <section className="surface-card p-4 mb-6">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3">distribution by {distKey}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mb-3">distribution by {distKey}</div>
       <div className="space-y-2">
         {buckets.map(([label, n]) => (
           <div key={label} className="flex items-center gap-3">
             <div className="w-32 sm:w-44 truncate font-mono text-xs text-muted" title={label}>
               {label}
             </div>
-            <div className="flex-1 h-2.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+            <div className="flex-1 h-2.5 rounded bg-surface-300 overflow-hidden">
               <div
                 className="h-full rounded bg-rose-500/70 dark:bg-rose-400/70"
                 style={{ width: `${Math.max(3, Math.round((n / max) * 100))}%` }}
               />
             </div>
-            <div className="w-12 text-right font-mono text-xs tabular-nums text-slate-500">{n}</div>
+            <div className="w-12 text-right font-mono text-xs tabular-nums text-muted">{n}</div>
           </div>
         ))}
       </div>
@@ -273,7 +273,7 @@ function DnsScanPanel(): JSX.Element {
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             placeholder="apex domain - e.g. company.com"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Target apex domain"
           />
           <button
@@ -291,7 +291,7 @@ function DnsScanPanel(): JSX.Element {
             value={tlds}
             onChange={(e) => setTlds(e.target.value)}
             placeholder="extra TLDs (optional) - ru,cn,xyz,top"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-xs focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Extra TLDs"
           />
           <input
@@ -299,7 +299,7 @@ function DnsScanPanel(): JSX.Element {
             value={words}
             onChange={(e) => setWords(e.target.value)}
             placeholder="keywords (optional) - login,secure,vpn"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-xs focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Keyword variants"
           />
         </div>
@@ -331,13 +331,13 @@ function DnsScanPanel(): JSX.Element {
                   className={`text-mini font-mono px-2 py-1 rounded border ${
                     onlyRegistered
                       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                      : 'border-slate-300 dark:border-line-1 text-slate-500'
                   }`}
                 >
                   registered only
                 </button>
               </div>
-              <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="overflow-x-auto rounded-xl border border-line-1">
                 <DataTable
                   columns={
                     [
@@ -346,9 +346,7 @@ function DnsScanPanel(): JSX.Element {
                         header: 'Permutation',
                         sortValue: (r: (typeof rows)[number]) => r.fuzzer ?? '',
                         render: (r) => (
-                          <span className="font-mono text-mini text-slate-500 whitespace-nowrap">
-                            {r.fuzzer || '-'}
-                          </span>
+                          <span className="font-mono text-mini text-muted whitespace-nowrap">{r.fuzzer || '-'}</span>
                         ),
                       },
                       {
@@ -399,7 +397,7 @@ function DnsScanPanel(): JSX.Element {
                   }
                   rows={rows}
                   rowKey={(r, i) => `${r.domain}-${i}`}
-                  rowClassName={() => 'hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+                  rowClassName={() => 'hover:bg-slate-50/60 dark:hover:bg-surface-200/40'}
                 />
               </div>
             </>
@@ -504,7 +502,7 @@ export default function MyThreatIntel(): JSX.Element {
               className={`text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
                 view === 'records' && source === s
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                  : 'border-slate-200 dark:border-line-1 text-muted hover:border-rose-500/40'
               }`}
             >
               {SOURCE_LABEL[s]}
@@ -516,7 +514,7 @@ export default function MyThreatIntel(): JSX.Element {
             className={`inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
               view === 'dns'
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+                : 'border-slate-200 dark:border-line-1 text-muted hover:border-rose-500/40'
             }`}
           >
             <Globe size={12} /> DNS typosquat
@@ -531,14 +529,14 @@ export default function MyThreatIntel(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Filter ${SOURCE_LABEL[source].toLowerCase()}…`}
-                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+                className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                 aria-label="Filter records"
               />
             </div>
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
             >
               <RefreshCw size={12} /> refresh
             </button>
@@ -579,15 +577,15 @@ export default function MyThreatIntel(): JSX.Element {
             onRetry={() => setRefreshKey((k) => k + 1)}
             rows={10}
           >
-            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="overflow-x-auto rounded-xl border border-line-1">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
+                  <tr className="bg-surface-200 text-left">
                     {cols.map((col) => (
                       <th
                         key={col.key}
                         scope="col"
-                        className="px-3 py-2 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                        className="px-3 py-2 font-mono text-mini uppercase tracking-wider text-muted whitespace-nowrap"
                       >
                         {col.label}
                       </th>
@@ -598,7 +596,7 @@ export default function MyThreatIntel(): JSX.Element {
                   {filtered.map((row, i) => (
                     <tr
                       key={i}
-                      className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70 align-top hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
+                      className="border-t border-line-1/70 align-top hover:bg-surface-200/60 dark:hover:bg-surface-200/40"
                     >
                       {cols.map((col) => {
                         const text = cellText(row[col.key]);

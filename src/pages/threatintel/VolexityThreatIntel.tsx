@@ -85,7 +85,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -173,7 +173,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
   const visibleIocs = useMemo(() => data?.iocs.slice(0, MAX_IOC_ROWS) ?? EMPTY_IOCS, [data]);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
+    <div className="rounded-xl border border-line-1 bg-surface-200">
       <button
         type="button"
         onClick={toggle}
@@ -215,7 +215,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
       </button>
 
       {open && (
-        <div className="px-3 pb-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
+        <div className="px-3 pb-3 border-t border-line-1 pt-3">
           {/* rule-file download links (sourced from the cached tree, safeHref'd) */}
           {folder.rule_files.length > 0 && (
             <div className="flex flex-wrap gap-x-3 gap-y-1 mb-3">
@@ -383,7 +383,7 @@ export default function VolexityThreatIntel(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="filter by actor / campaign…"
-          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body focus:outline-none focus:border-rose-500/60"
+          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-line-2 bg-surface-100 text-body focus:outline-none focus:border-rose-500/60"
         />
       </div>
     ) : undefined;

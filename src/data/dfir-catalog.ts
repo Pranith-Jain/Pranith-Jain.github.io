@@ -7,15 +7,7 @@
  * search helpers built on top of it.
  */
 
-import {
-  HUB_META,
-  flattenPages,
-  getAllPages,
-  getHub,
-  getPageByPath,
-  type HubMeta,
-  type HubPage,
-} from './dfir-hubs';
+import { HUB_META, flattenPages, getAllPages, getHub, getPageByPath, type HubMeta, type HubPage } from './dfir-hubs';
 
 export type { HubMeta, HubPage };
 

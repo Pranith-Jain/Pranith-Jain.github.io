@@ -176,7 +176,7 @@ export function HubTabs(): JSX.Element {
                 className={`inline-flex shrink-0 snap-start items-center gap-1.5 rounded px-3 py-1.5 font-mono text-xs whitespace-nowrap border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
                   isActive
                     ? 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-400'
-                    : 'border-transparent text-muted hover:bg-[rgb(var(--hover-100))] hover:text-heading'
+                    : 'border-transparent text-muted hover:bg-wash hover:text-heading'
                 }`}
               >
                 <Icon size={13} aria-hidden="true" className={isActive ? '' : 'opacity-70'} />
@@ -206,7 +206,7 @@ export function HubTabs(): JSX.Element {
               const Icon = activeHub.icon;
               return (
                 <span
-                  className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-rose-600 dark:text-rose-400"
+                  className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded border border-line-1 bg-surface-200 text-rose-600 dark:text-rose-400"
                   aria-hidden="true"
                 >
                   <Icon size={17} />
@@ -230,7 +230,7 @@ export function HubTabs(): JSX.Element {
         {/* Tile grid. The hub icon is the default for pages that don't
             declare their own, which keeps the grid visually even. */}
         {activeHub.pages.length === 0 ? (
-          <p className="rounded-card border border-dashed border-[rgb(var(--border-500))] p-8 text-center text-sm text-muted">
+          <p className="rounded-card border border-dashed border-line-2 p-8 text-center text-sm text-muted">
             Nothing in this category yet.
           </p>
         ) : (
@@ -241,7 +241,7 @@ export function HubTabs(): JSX.Element {
                 <li key={page.path} className="h-full">
                   <Link
                     to={page.path}
-                    className="group flex h-full flex-col rounded-card border border-[rgb(var(--border-400))] bg-white p-4 transition-all hover:border-rose-500/30 hover:shadow-e2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 dark:bg-[rgb(var(--surface-200))] dark:hover:border-[rgb(var(--border-500))]"
+                    className="group flex h-full flex-col rounded-card border border-line-1 bg-surface-100 p-4 transition-all hover:border-rose-500/30 hover:shadow-e2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 dark:hover:border-line-2"
                   >
                     <div className="mb-2 flex items-start justify-between gap-2">
                       <span className="mt-0.5 shrink-0 text-rose-600 dark:text-rose-400" aria-hidden="true">

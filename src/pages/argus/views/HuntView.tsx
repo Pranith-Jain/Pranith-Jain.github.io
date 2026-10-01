@@ -122,7 +122,7 @@ export function HuntView({ actors }: Props) {
   return (
     <div className="absolute inset-0 flex flex-col">
       {/* Header */}
-      <div className="shrink-0 border-b border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="shrink-0 border-b border-line-1 p-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-xl font-semibold tracking-tight flex items-center gap-2">
@@ -146,7 +146,7 @@ export function HuntView({ actors }: Props) {
                   onClick={() => setTab(key)}
                   data-active={tab === key}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-meta font-medium transition-colors
-                    border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+                    border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300
                     data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
                 >
                   <Icon size={12} aria-hidden="true" />
@@ -162,7 +162,7 @@ export function HuntView({ actors }: Props) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search titles, platforms…"
-                className="w-52 h-7 pl-7 pr-2.5 rounded-md bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-meta text-muted placeholder:text-muted focus:outline-none focus:border-accent/50"
+                className="w-52 h-7 pl-7 pr-2.5 rounded-md bg-surface-100 border border-line-1 text-meta text-muted placeholder:text-muted focus:outline-none focus:border-accent/50"
               />
             </div>
           </div>
@@ -241,7 +241,7 @@ function DetectionsTab({
         <button
           onClick={() => setSourceFilter(null)}
           data-active={sourceFilter === null}
-          className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+          className="px-2 py-0.5 rounded-full text-mini border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300
             data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
         >
           All ({allDetections.length})
@@ -253,7 +253,7 @@ function DetectionsTab({
               key={s}
               onClick={() => setSourceFilter(s)}
               data-active={sourceFilter === s}
-              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+              className="px-2 py-0.5 rounded-full text-mini border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
             >
               {s} ({count})
@@ -277,7 +277,7 @@ function DetectionsTab({
           <div key={key} className="surface-card overflow-hidden">
             <button
               onClick={() => toggleExpand(key)}
-              className="w-full flex items-center gap-3 p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200 hover:-translate-y-px"
+              className="w-full flex items-center gap-3 p-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-all duration-200 hover:-translate-y-px"
             >
               {isOpen ? (
                 <ChevronDown size={12} className="text-muted shrink-0" />
@@ -291,13 +291,13 @@ function DetectionsTab({
                 {d.nation}
               </span>
               <span className="text-tool text-muted flex-1 truncate">{d.title}</span>
-              <span className="text-micro px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] shrink-0">
+              <span className="text-micro px-1.5 py-0.5 rounded bg-surface-300 text-muted border border-line-1 shrink-0">
                 {d.source}
               </span>
               <span className="text-mini font-mono text-muted shrink-0">{d.actorName}</span>
             </button>
             {isOpen && (
-              <div className="px-3 pb-3 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="px-3 pb-3 pt-0 border-t border-line-1">
                 <div className="mt-2 flex items-center gap-2">
                   <a
                     href={d.url}
@@ -393,7 +393,7 @@ function TTPMatrixTab({
         <button
           onClick={() => setTacticFilter(null)}
           data-active={tacticFilter === null}
-          className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+          className="px-2 py-0.5 rounded-full text-mini border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300
             data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
         >
           All Tactics
@@ -405,7 +405,7 @@ function TTPMatrixTab({
               key={t}
               onClick={() => setTacticFilter(t)}
               data-active={tacticFilter === t}
-              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+              className="px-2 py-0.5 rounded-full text-mini border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
             >
               {t.replace(/-/g, ' ')} ({techniqueCount})
@@ -418,10 +418,8 @@ function TTPMatrixTab({
       <div className="surface-card overflow-x-auto">
         <table className="w-full text-mini">
           <thead>
-            <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <th className="text-left p-2 text-muted font-medium sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))]">
-                Technique
-              </th>
+            <tr className="border-b border-line-1">
+              <th className="text-left p-2 text-muted font-medium sticky left-0 bg-surface-100">Technique</th>
               {actors.map((actor) => (
                 <th key={actor.id} className="p-2 text-center min-w-[40px]">
                   <div className="flex flex-col items-center gap-0.5">
@@ -442,8 +440,8 @@ function TTPMatrixTab({
               const techniques = matrix.get(tactic);
               if (!techniques) return null;
               return (
-                <tr key={tactic} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/30">
-                  <td className="p-2 font-mono text-micro text-muted sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))] capitalize">
+                <tr key={tactic} className="border-b border-line-1/30">
+                  <td className="p-2 font-mono text-micro text-muted sticky left-0 bg-surface-100 capitalize">
                     {tactic.replace(/-/g, ' ')}
                   </td>
                   {actors.map((actor) => {
@@ -469,7 +467,7 @@ function TTPMatrixTab({
                             )}
                           </div>
                         ) : (
-                          <span className="text-slate-200 dark:text-[rgb(var(--border-400))]/30">—</span>
+                          <span className="text-slate-200 dark:text-line-1/30">—</span>
                         )}
                       </td>
                     );
@@ -491,7 +489,7 @@ function TTPMatrixTab({
             <div key={tactic} className="surface-card overflow-hidden">
               <button
                 onClick={() => toggleExpand(`tactic-${tactic}`)}
-                className="w-full flex items-center gap-3 p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200"
+                className="w-full flex items-center gap-3 p-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-all duration-200"
               >
                 {expanded[`tactic-${tactic}`] ? (
                   <ChevronDown size={12} className="text-muted" />
@@ -502,12 +500,9 @@ function TTPMatrixTab({
                 <span className="text-micro text-muted">({techniques.size} techniques)</span>
               </button>
               {expanded[`tactic-${tactic}`] && (
-                <div className="px-3 pb-3 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="px-3 pb-3 pt-0 border-t border-line-1">
                   {[...techniques.entries()].map(([tid, actorIds]) => (
-                    <div
-                      key={tid}
-                      className="py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/30 last:border-0"
-                    >
+                    <div key={tid} className="py-2 border-b border-line-1/30 last:border-0">
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-micro text-rose-600 dark:text-rose-400">{tid}</span>
                         <span className="text-mini text-muted">
@@ -570,7 +565,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
           <button
             onClick={() => setSectorFilter(null)}
             data-active={sectorFilter === null}
-            className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+            className="px-2 py-0.5 rounded-full text-mini border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300
               data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
           >
             All sectors
@@ -580,7 +575,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
               key={s}
               onClick={() => setSectorFilter(s)}
               data-active={sectorFilter === s}
-              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] capitalize
+              className="px-2 py-0.5 rounded-full text-mini border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300 capitalize
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
             >
               {s}
@@ -594,7 +589,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
               key={type}
               onClick={() => setTypeFilter(type)}
               data-active={typeFilter === type}
-              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+              className="px-2 py-0.5 rounded-full text-mini border border-line-1 text-muted hover:bg-surface-300 dark:hover:bg-surface-300
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40 capitalize"
             >
               {type}
@@ -607,7 +602,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
       <div className="surface-card overflow-hidden">
         <table className="w-full text-meta">
           <thead>
-            <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <tr className="border-b border-line-1">
               <th className="text-left p-2.5 text-muted font-medium">Actor</th>
               {(typeFilter === 'all' || typeFilter === 'malware') && (
                 <th className="text-left p-2.5 text-muted font-medium">Malware</th>
@@ -627,7 +622,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
               return (
                 <tr
                   key={a.id}
-                  className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="border-b border-line-1/50 hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                 >
                   <td className="p-2.5">
                     <div className="flex items-center gap-2">
@@ -685,7 +680,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                       {a.sectors.slice(0, 3).map((s) => (
                         <span
                           key={s}
-                          className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted text-micro border border-slate-200 dark:border-[rgb(var(--border-400))] capitalize"
+                          className="px-1.5 py-0.5 rounded bg-surface-300 text-muted text-micro border border-line-1 capitalize"
                         >
                           {s}
                         </span>
@@ -782,7 +777,7 @@ function SectorPivotTab({
         <div key={sector} className="surface-card overflow-hidden">
           <button
             onClick={() => toggleExpand(`sector-${sector}`)}
-            className="w-full flex items-center gap-3 p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200"
+            className="w-full flex items-center gap-3 p-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-all duration-200"
           >
             {expanded[`sector-${sector}`] ? (
               <ChevronDown size={12} className="text-muted" />
@@ -791,7 +786,7 @@ function SectorPivotTab({
             )}
             <Target size={14} className="text-rose-600 dark:text-rose-400" />
             <span className="text-tool font-semibold text-body capitalize flex-1">{sector.replace(/-/g, ' ')}</span>
-            <span className="text-micro px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <span className="text-micro px-2 py-0.5 rounded-full bg-surface-300 text-muted border border-line-1">
               {sectorActors.length} actor{sectorActors.length !== 1 ? 's' : ''}
             </span>
             <div className="flex items-center gap-3 text-micro text-muted">
@@ -802,15 +797,12 @@ function SectorPivotTab({
           </button>
 
           {expanded[`sector-${sector}`] && (
-            <div className="px-3 pb-3 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="px-3 pb-3 pt-0 border-t border-line-1">
               <div className="mt-2 space-y-2">
                 {sectorActors.map((actor) => {
                   const n = NATION_PALETTE[actor.country];
                   return (
-                    <div
-                      key={actor.id}
-                      className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300))]/50"
-                    >
+                    <div key={actor.id} className="flex items-center gap-2 p-2 rounded bg-surface-200/50">
                       <span
                         className="h-4 w-6 rounded flex items-center justify-center text-micro font-mono font-semibold shrink-0"
                         style={{ background: `${n?.color ?? '#555'}22`, color: n?.color ?? '#888' }}
@@ -867,7 +859,7 @@ function ReposTab({ search }: { search: string }) {
             href={repo.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="surface-card p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200 hover:-translate-y-px group block"
+            className="surface-card p-4 hover:bg-surface-200 dark:hover:bg-surface-300 transition-all duration-200 hover:-translate-y-px group block"
           >
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1 min-w-0">
@@ -881,7 +873,7 @@ function ReposTab({ search }: { search: string }) {
               </div>
               <ExternalLink
                 size={12}
-                className="text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 shrink-0 mt-1 transition-colors"
+                className="text-muted group-hover:text-rose-600 dark:group-hover:text-rose-400 shrink-0 mt-1 transition-colors"
               />
             </div>
             <div className="flex items-center gap-3 mt-3">

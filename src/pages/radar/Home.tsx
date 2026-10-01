@@ -115,10 +115,7 @@ export default function RadarHome() {
               { Icon: Code, label: 'JavaScript Files', desc: 'Enumerate scripts and endpoints' },
               { Icon: Lock, label: 'TLS & Certificate', desc: 'Issuer, expiry, and cipher suite' },
             ].map(({ Icon, label, desc }) => (
-              <div
-                key={label}
-                className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-              >
+              <div key={label} className="flex items-start gap-3 rounded-xl border border-line-1 bg-surface-100 p-4">
                 <Icon className="h-5 w-5 text-brand-500" />
                 <span className="text-sm font-medium text-slate-900 dark:text-white">{label}</span>
                 <span className="text-xs text-muted">{desc}</span>

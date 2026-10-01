@@ -161,7 +161,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
     <div className="mt-4 mb-4 surface-card p-4">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         <span className="text-xs font-mono font-bold text-body">STIX 2.1 Objects</span>
-        <span className="text-micro font-mono text-slate-500">{bundle.objects.length} total</span>
+        <span className="text-micro font-mono text-muted">{bundle.objects.length} total</span>
         <div className="flex gap-1.5 flex-wrap">
           {stats.map(({ type, count }) => (
             <span
@@ -175,7 +175,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
         <button
           type="button"
           onClick={copyBundle}
-          className="ml-auto text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-500 transition-colors"
+          className="ml-auto text-micro font-mono px-2 py-0.5 rounded border border-line-1 hover:border-brand-500/40 text-muted transition-colors"
         >
           {copied ? <Check size={10} className="inline" /> : <Copy size={10} className="inline" />} Copy JSON
         </button>
@@ -185,19 +185,16 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
         .filter(([t]) => t !== 'relationship')
         .map(([type, objects]) => (
           <div key={type} className="mb-3">
-            <div className="text-micro font-mono font-bold uppercase tracking-wider text-slate-500 mb-1">
+            <div className="text-micro font-mono font-bold uppercase tracking-wider text-muted mb-1">
               {type.replace(/-/g, ' ')} ({objects.length})
             </div>
             <div className="space-y-1">
               {objects.map((obj) => (
-                <div
-                  key={obj.id}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden"
-                >
+                <div key={obj.id} className="rounded border border-line-1 overflow-hidden">
                   <button
                     type="button"
                     onClick={() => toggle(obj.id)}
-                    className="w-full px-3 py-2 flex items-center gap-2 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
+                    className="w-full px-3 py-2 flex items-center gap-2 hover:bg-surface-200/60 dark:hover:bg-input-200/40 text-left"
                   >
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${TYPE_COLORS[type]?.badge ?? 'border-slate-400 text-slate-500'}`}
@@ -208,8 +205,8 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
                     {expanded.has(obj.id) ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                   </button>
                   {expanded.has(obj.id) && (
-                    <div className="px-3 pb-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-1.5 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
-                      <div className="text-micro font-mono text-slate-500 break-all">ID: {obj.id}</div>
+                    <div className="px-3 pb-3 border-t border-line-1 space-y-1.5 bg-surface-200/40">
+                      <div className="text-micro font-mono text-muted break-all">ID: {obj.id}</div>
                       {obj.description && <div className="text-micro font-mono text-body">{obj.description}</div>}
                       {obj.pattern && (
                         <div className="text-micro font-mono text-amber-700 dark:text-amber-300 bg-amber-500/5 p-1.5 rounded break-all">

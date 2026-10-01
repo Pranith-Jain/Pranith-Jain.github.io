@@ -207,7 +207,7 @@ export default function Socmint(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="email / domain / @handle / username / name"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               autoComplete="off"
               spellCheck={false}
             />
@@ -220,13 +220,13 @@ export default function Socmint(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-muted self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
               type="button"
               onClick={() => setInput(s.value)}
-              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -258,7 +258,7 @@ export default function Socmint(): JSX.Element {
                 type="button"
                 onClick={() => toggleCategory(c)}
                 className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1 ${
-                  active ? meta.pillCls : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
+                  active ? meta.pillCls : 'border-slate-200 dark:border-line-1 text-slate-500'
                 }`}
                 title={meta.blurb}
               >
@@ -267,7 +267,7 @@ export default function Socmint(): JSX.Element {
               </button>
             );
           })}
-          <label className="text-mini font-mono text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
+          <label className="text-mini font-mono text-muted cursor-pointer inline-flex items-center gap-1.5 ml-auto">
             <input type="checkbox" checked={includePaid} onChange={(e) => setIncludePaid(e.target.checked)} />
             include paid services
           </label>
@@ -275,7 +275,7 @@ export default function Socmint(): JSX.Element {
             <button
               type="button"
               onClick={() => void copyAll()}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-line-2 text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
             >
               {copied === 'all' ? <Check size={11} /> : <Clipboard size={11} />}
               {copied === 'all' ? 'copied URLs' : 'copy all URLs'}
@@ -301,7 +301,7 @@ export default function Socmint(): JSX.Element {
                 >
                   <Icon size={10} /> {meta.label}
                 </span>
-                <span className="text-mini font-mono text-slate-400">{meta.blurb}</span>
+                <span className="text-mini font-mono text-muted">{meta.blurb}</span>
               </div>
               <ul className="grid sm:grid-cols-2 gap-2">
                 {list.map((p) => {
@@ -312,7 +312,7 @@ export default function Socmint(): JSX.Element {
                       {internal ? (
                         <Link
                           to={url}
-                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 hover:border-brand-500/40"
+                          className="block rounded border border-line-1 bg-surface-200 px-3 py-2 hover:border-brand-500/40"
                         >
                           <PivotInner pivot={p} url={url} internal />
                         </Link>
@@ -321,7 +321,7 @@ export default function Socmint(): JSX.Element {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 hover:border-brand-500/40 transition-colors"
+                          className="block rounded border border-line-1 bg-surface-200 px-3 py-2 hover:border-brand-500/40 transition-colors"
                         >
                           <PivotInner pivot={p} url={url} internal={false} />
                         </a>
@@ -336,7 +336,7 @@ export default function Socmint(): JSX.Element {
       </div>
 
       {value && (
-        <p className="text-micro font-mono text-slate-400 mt-8">
+        <p className="text-micro font-mono text-muted mt-8">
           {matchingPivots.length} pivot{matchingPivots.length === 1 ? '' : 's'} for {KIND_LABEL[kind!]}. Input shape
           detected as <code>{kind}</code>. Pivots are URL templates; nothing about your input is sent anywhere except
           the destination service when you click a link.
@@ -358,15 +358,13 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
             </span>
           )}
           {pivot.signupRequired && !pivot.paid && (
-            <span className="px-1 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
-              signup
-            </span>
+            <span className="px-1 py-0.5 rounded border border-line-2 text-muted">signup</span>
           )}
           {internal ? <Globe2 size={10} /> : <ExternalLink size={10} />}
         </span>
       </div>
-      <span className="block text-mini font-mono text-slate-400">{pivot.blurb}</span>
-      <span className="block text-micro font-mono text-slate-400 truncate mt-1">{url}</span>
+      <span className="block text-mini font-mono text-muted">{pivot.blurb}</span>
+      <span className="block text-micro font-mono text-muted truncate mt-1">{url}</span>
     </>
   );
 }

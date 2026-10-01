@@ -16,7 +16,7 @@ function PhaseHeader({
   return (
     <button
       onClick={onToggle}
-      className="w-full flex items-center gap-3 text-left surface-card hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
+      className="w-full flex items-center gap-3 text-left surface-card hover:border-brand-500/40 hover:bg-surface-200 dark:hover:bg-surface-300/60 px-4 py-3 transition-colors"
       aria-expanded={expanded}
     >
       <span className="flex-none w-9 h-9 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 font-display font-bold flex items-center justify-center">
@@ -41,17 +41,17 @@ function PhaseHeader({
 function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
   return (
     <div className="animate-fade-in-up overflow-hidden">
-      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
+      <div className="rounded-xl border border-line-1 bg-surface-200/50 mt-2 p-4 space-y-4">
         <p className="text-sm font-mono text-body leading-relaxed">{phase.description}</p>
 
         <div className="grid gap-3 md:grid-cols-2">
-          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="rounded border border-line-1 bg-surface-100 p-3">
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
               Attacker goal
             </h4>
             <p className="text-xs font-mono text-body leading-relaxed">{phase.attackerGoal}</p>
           </div>
-          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="rounded border border-line-1 bg-surface-100 p-3">
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
               Defender goal
             </h4>
@@ -65,10 +65,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
           </h4>
           <div className="grid gap-2 sm:grid-cols-2">
             {phase.techniques.map((t) => (
-              <div
-                key={t.label}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5"
-              >
+              <div key={t.label} className="rounded border border-line-1 bg-surface-100 p-2.5">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-xs font-display font-semibold text-heading">{t.label}</span>
                   {t.attack && (
@@ -88,7 +85,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
         </div>
 
         <div className="grid gap-3 md:grid-cols-2">
-          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="rounded border border-line-1 bg-surface-100 p-3">
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-sky-600 dark:text-sky-400 mb-2">
               Detection
             </h4>
@@ -98,7 +95,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
               ))}
             </ul>
           </div>
-          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+          <div className="rounded border border-line-1 bg-surface-100 p-3">
             <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-2">
               Controls
             </h4>
@@ -160,7 +157,7 @@ export default function KillChain(): JSX.Element {
       <div className="flex justify-end gap-2 mb-3">
         <button
           onClick={allOpen ? collapseAll : expandAll}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="text-xs font-mono px-2 py-1 rounded border border-line-2 bg-surface-100 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           {allOpen ? 'Collapse all' : 'Expand all'}
         </button>
