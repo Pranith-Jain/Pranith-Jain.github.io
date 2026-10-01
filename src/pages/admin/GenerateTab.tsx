@@ -35,7 +35,7 @@ interface GenerateResponse {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 const labelCls = 'block text-xs uppercase tracking-wider text-muted mb-1';
 
 export default function GenerateTab() {
@@ -119,7 +119,7 @@ export default function GenerateTab() {
   return (
     <div>
       {/* Mode switch */}
-      <div className="flex gap-1 mb-5 p-1 rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-200))] w-fit">
+      <div className="flex gap-1 mb-5 p-1 rounded-lg bg-surface-300 w-fit">
         {(
           [
             ['ai', 'AI generate'],
@@ -132,7 +132,7 @@ export default function GenerateTab() {
             onClick={() => setMode(m)}
             className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
               mode === m
-                ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-white shadow-sm'
+                ? 'bg-white dark:bg-surface-300 text-slate-900 dark:text-white shadow-sm'
                 : 'text-slate-500 hover:text-slate-700 dark:text-muted'
             }`}
           >
@@ -245,13 +245,13 @@ export default function GenerateTab() {
               onChange={() => setDryRun((p) => !p)}
               className="accent-brand-600"
             />
-            Dry run <span className="text-xs text-slate-500">(compose only — don't create a draft)</span>
+            Dry run <span className="text-xs text-muted">(compose only — don't create a draft)</span>
           </label>
 
           <button
             onClick={() => void handleGenerate()}
             disabled={generating || !topic.trim() || Object.values(formats).every((v) => !v)}
-            className="px-4 py-2 bg-brand-600 text-white rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
+            className="px-4 py-2 bg-brand-600 text-on-fill rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
           >
             {generating ? 'Generating…' : 'Generate'}
           </button>
@@ -276,7 +276,7 @@ export default function GenerateTab() {
                 className={`p-4 rounded-xl border ${
                   r.rejected
                     ? 'border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-900/20'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
+                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
@@ -288,7 +288,7 @@ export default function GenerateTab() {
                     <button
                       type="button"
                       onClick={() => void navigator.clipboard.writeText(r.final_post ?? '')}
-                      className="text-xs px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                      className="text-xs px-2 py-1 rounded border border-line-1 text-body hover:bg-surface-200 dark:hover:bg-surface-300"
                     >
                       Copy
                     </button>
@@ -374,7 +374,7 @@ export default function GenerateTab() {
           <button
             onClick={() => void handlePublishManual()}
             disabled={sending || !title.trim() || !body.trim()}
-            className="px-4 py-2 bg-brand-600 text-white rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
+            className="px-4 py-2 bg-brand-600 text-on-fill rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
           >
             {sending ? 'Publishing…' : 'Publish'}
           </button>

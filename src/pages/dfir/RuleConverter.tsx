@@ -178,7 +178,7 @@ export default function RuleConverter(): JSX.Element {
           second row picks the field-mapping preset (only meaningful when
           source = Sigma; pass-through for everything else). */}
       <div className="flex flex-wrap items-center gap-3 mb-3">
-        <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500">convert</span>
+        <span className="text-mini font-mono uppercase tracking-[0.2em] text-muted">convert</span>
         <label htmlFor="rc-from" className="sr-only">
           Source format
         </label>
@@ -218,14 +218,14 @@ export default function RuleConverter(): JSX.Element {
           }}
           aria-label="swap source and target formats"
           title="swap source and target"
-          className="inline-flex items-center gap-1 text-mini font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="inline-flex items-center gap-1 text-mini font-mono px-2 py-1.5 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
         >
           <Shuffle size={11} /> swap
         </button>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 mb-4">
-        <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500">field-map</span>
+        <span className="text-mini font-mono uppercase tracking-[0.2em] text-muted">field-map</span>
         <label htmlFor="rc-fmap" className="sr-only">
           Field-mapping preset
         </label>
@@ -233,7 +233,7 @@ export default function RuleConverter(): JSX.Element {
           id="rc-fmap"
           value={fieldMapId}
           onChange={(e) => setFieldMapId(e.target.value)}
-          className="text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] focus:outline-none focus:border-brand-500"
+          className="text-xs font-mono px-2.5 py-1.5 rounded border border-line-2 bg-surface-100 focus:outline-none focus:border-brand-500"
         >
           {FIELD_MAPS.map((m) => (
             <option key={m.id} value={m.id}>
@@ -264,7 +264,7 @@ export default function RuleConverter(): JSX.Element {
         <button
           type="button"
           onClick={loadSample}
-          className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           load {FORMAT_LABELS[from]} example
         </button>
@@ -276,7 +276,7 @@ export default function RuleConverter(): JSX.Element {
             className={
               batchMode
                 ? 'text-meta font-mono px-2.5 py-1 rounded border border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1'
-                : 'text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-emerald-500/40 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-1'
+                : 'text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-line-1 hover:border-emerald-500/40 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-1'
             }
           >
             <Layers size={11} /> Batch {batchMode ? 'on' : 'off'}
@@ -286,7 +286,7 @@ export default function RuleConverter(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput('')}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
           >
             clear
           </button>
@@ -304,7 +304,7 @@ export default function RuleConverter(): JSX.Element {
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from(starterGroups.entries()).map(([group, items]) => (
               <div key={group}>
-                <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">{group}</div>
+                <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-2">{group}</div>
                 <ul className="space-y-1">
                   {items.map((s) => (
                     <li key={s.id}>
@@ -316,7 +316,7 @@ export default function RuleConverter(): JSX.Element {
                           setShowStarters(false);
                         }}
                         title={s.description}
-                        className="w-full text-left px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50 bg-white dark:bg-[rgb(var(--surface-200))]/40"
+                        className="w-full text-left px-2 py-1.5 rounded border border-line-1 hover:border-brand-500/50 bg-surface-100/40"
                       >
                         <div className="text-meta font-medium text-heading leading-tight">{s.label}</div>
                         <div className="text-micro font-mono text-muted mt-0.5 truncate">{s.description}</div>
@@ -371,17 +371,14 @@ export default function RuleConverter(): JSX.Element {
             )}
           </div>
           {!input.trim() ? (
-            <p className="text-meta font-mono text-slate-500">Paste a rule to convert.</p>
+            <p className="text-meta font-mono text-muted">Paste a rule to convert.</p>
           ) : batchMode ? (
             !batchResult || batchResult.length === 0 ? (
-              <p className="text-meta font-mono text-slate-500">No documents detected.</p>
+              <p className="text-meta font-mono text-muted">No documents detected.</p>
             ) : (
               <ul className="space-y-2 max-h-[28rem] overflow-y-auto">
                 {batchResult.map((b) => (
-                  <li
-                    key={b.title ? `doc-${b.title}` : `doc-${b.index}`}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2"
-                  >
+                  <li key={b.title ? `doc-${b.title}` : `doc-${b.index}`} className="rounded border border-line-1 p-2">
                     <div className="flex items-center justify-between gap-2 mb-1">
                       <span
                         className={
@@ -402,7 +399,7 @@ export default function RuleConverter(): JSX.Element {
               </ul>
             )
           ) : !result ? (
-            <p className="text-meta font-mono text-slate-500">Paste a rule to convert.</p>
+            <p className="text-meta font-mono text-muted">Paste a rule to convert.</p>
           ) : !result.ok ? (
             <p className="text-sm font-mono text-rose-600 dark:text-rose-400">parse error: {result.error}</p>
           ) : (
@@ -442,13 +439,13 @@ export default function RuleConverter(): JSX.Element {
             type="button"
             onClick={() => setShowIr((v) => !v)}
             aria-expanded={showIr}
-            className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5"
+            className="text-mini font-mono uppercase tracking-[0.2em] text-muted hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5"
           >
             {showIr ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
             Parsed IR (what the parser extracted)
           </button>
           {showIr && (
-            <div className="mt-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+            <div className="mt-2 rounded-xl border border-line-1 bg-surface-200 p-3">
               {!ir ? null : 'error' in ir ? (
                 <p className="text-meta font-mono text-rose-600 dark:text-rose-400">{ir.error}</p>
               ) : (

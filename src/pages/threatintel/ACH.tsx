@@ -55,7 +55,7 @@ function confidenceBg(score: number): string {
 const RELEVANCE_COLORS: Record<string, string> = {
   high: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-900',
   medium: 'text-amber-600 bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-900',
-  low: 'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
+  low: 'text-slate-500 bg-slate-50 dark:bg-surface-200 border-slate-300 dark:border-line-1',
 };
 
 export default function ACH(): JSX.Element {
@@ -115,14 +115,14 @@ export default function ACH(): JSX.Element {
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void analyze()}
             placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
-            className="flex-1 text-sm px-4 py-2.5 surface-card-faint shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 placeholder:text-slate-400"
+            className="flex-1 text-sm px-4 py-2.5 surface-card-faint shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 placeholder:text-muted"
             disabled={loading}
           />
           <button
             type="button"
             onClick={() => void analyze()}
             disabled={loading || !topic.trim()}
-            className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 transition-colors"
           >
             {loading ? (
               <svg
@@ -172,7 +172,7 @@ export default function ACH(): JSX.Element {
                         return n;
                       })
                     }
-                    className="w-full flex items-center gap-4 p-4 text-left hover:bg-white/50 dark:hover:bg-white/5 transition-colors"
+                    className="w-full flex items-center gap-4 p-4 text-left hover:bg-surface-100/50 dark:hover:bg-surface-100/5 transition-colors"
                   >
                     {/* Confidence bar */}
                     <div
@@ -185,7 +185,7 @@ export default function ACH(): JSX.Element {
                       <div className="font-semibold text-sm flex items-center gap-2">
                         H{i + 1}: {h.label}
                         <span
-                          className={`text-micro font-mono px-1.5 py-0.5 rounded-full border text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]`}
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded-full border text-muted border-line-2 dark:border-line-1`}
                         >
                           diagnostic: {h.diagnostic_value}
                         </span>
@@ -208,7 +208,7 @@ export default function ACH(): JSX.Element {
                   </button>
 
                   {isOpen && (
-                    <div className="px-4 pb-5 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <div className="px-4 pb-5 pt-0 border-t border-line-1">
                       <p className="text-xs text-muted mt-3 leading-relaxed">{h.description}</p>
 
                       {/* Evidence matrix */}
@@ -233,7 +233,7 @@ export default function ACH(): JSX.Element {
                             h.evidence_for.map((ev) => (
                               <div
                                 key={`${ev.claim}-${ev.source}`}
-                                className="mb-2 p-2 rounded bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                                className="mb-2 p-2 rounded bg-surface-100/50 dark:bg-surface-200/30 border border-line-1"
                               >
                                 <p className="text-mini text-body">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
@@ -276,7 +276,7 @@ export default function ACH(): JSX.Element {
                             h.evidence_against.map((ev) => (
                               <div
                                 key={`${ev.claim}-${ev.source}`}
-                                className="mb-2 p-2 rounded bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                                className="mb-2 p-2 rounded bg-surface-100/50 dark:bg-surface-200/30 border border-line-1"
                               >
                                 <p className="text-mini text-body">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
@@ -301,7 +301,7 @@ export default function ACH(): JSX.Element {
                       </div>
 
                       {/* What would change */}
-                      <div className="mt-4 p-3 rounded-xl bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="mt-4 p-3 rounded-xl bg-surface-100/50 dark:bg-surface-200/30 border border-line-1">
                         <div className="flex items-center gap-1.5 text-mini font-semibold text-amber-600 dark:text-amber-400 mb-1">
                           <Lightbulb size={12} /> What would change this assessment
                         </div>
@@ -317,13 +317,13 @@ export default function ACH(): JSX.Element {
           {/* Key Assumptions */}
           {result.key_assumptions.length > 0 && (
             <div className="surface-card p-5">
-              <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
+              <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-muted font-mono mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Key Assumptions
               </h3>
               <ul className="space-y-2">
                 {result.key_assumptions.map((a, i) => (
                   <li key={a} className="flex items-start gap-2 text-xs text-muted">
-                    <span className="text-slate-300 mt-0.5">{i + 1}.</span>
+                    <span className="text-inverted mt-0.5">{i + 1}.</span>
                     {a}
                   </li>
                 ))}
@@ -334,7 +334,7 @@ export default function ACH(): JSX.Element {
           {/* Recommended Collection */}
           {result.recommended_collection.length > 0 && (
             <div className="surface-card p-5">
-              <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
+              <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-muted font-mono mb-3 flex items-center gap-2">
                 <Search size={12} /> Recommended Collection
               </h3>
               <ul className="space-y-2">

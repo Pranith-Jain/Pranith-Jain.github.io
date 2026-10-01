@@ -403,7 +403,7 @@ export default function ThreatMap(): JSX.Element {
           (measured 2026-05-12). The min-height isn't a perfect match for
           every viewport but eliminates the catastrophic shift. */}
       {loading && !data && (
-        <div className="font-mono text-sm text-slate-500 flex items-center justify-center" style={{ minHeight: 700 }}>
+        <div className="font-mono text-sm text-muted flex items-center justify-center" style={{ minHeight: 700 }}>
           Aggregating IOCs and geolocating…
         </div>
       )}
@@ -443,7 +443,7 @@ export default function ThreatMap(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 liveMode
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-line-1 hover:border-brand-500/40'
               }`}
               aria-pressed={liveMode}
               title={liveMode ? 'Pause auto-refresh' : `Auto-refresh the map every ${REFRESH_INTERVAL_MS / 1000}s`}
@@ -464,7 +464,7 @@ export default function ThreatMap(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 globeView
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-line-1 hover:border-brand-500/40'
               }`}
               aria-pressed={globeView}
               title={globeView ? 'Switch to flat (mercator) projection' : 'Switch to globe (orthographic) projection'}
@@ -486,7 +486,7 @@ export default function ThreatMap(): JSX.Element {
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             {/* Map */}
             <div
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
+              className="rounded-xl border border-line-1 bg-surface-200 overflow-hidden relative"
               // Reserve the map's intrinsic aspect ratio (900×460 SVG) so the
               // Suspense fallback occupies the same space the loaded
               // ComposableMap will take. Without this the placeholder is
@@ -498,7 +498,7 @@ export default function ThreatMap(): JSX.Element {
             >
               <Suspense
                 fallback={
-                  <div className="flex items-center justify-center w-full h-full text-slate-500 font-mono text-xs gap-2">
+                  <div className="flex items-center justify-center w-full h-full text-muted font-mono text-xs gap-2">
                     <Loader2 size={14} className="animate-spin" /> loading world map…
                   </div>
                 }
@@ -516,7 +516,7 @@ export default function ThreatMap(): JSX.Element {
                 />
               </Suspense>
               {hovered && !hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-xl bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
+                <div className="absolute top-3 left-3 rounded-xl bg-surface-100/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-inverted">
                   {hovered.name}: no current IOCs
                 </div>
               )}
@@ -539,12 +539,12 @@ export default function ThreatMap(): JSX.Element {
                         className={`w-full flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 rounded border transition-colors ${
                           isSelected
                             ? 'border-amber-400/60 bg-amber-400/10 text-heading'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                            : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
                         }`}
                         aria-pressed={isSelected}
                       >
                         <span className="truncate">
-                          <span className="text-slate-500 mr-2">{c.countryCode}</span>
+                          <span className="text-muted mr-2">{c.countryCode}</span>
                           <span className="text-heading">{c.country}</span>
                         </span>
                         <span className="text-brand-600 dark:text-brand-400 font-bold shrink-0">{c.count}</span>
@@ -591,13 +591,13 @@ export default function ThreatMap(): JSX.Element {
                         .join(' · ')}
                     </p>
                   ) : (
-                    <p className="text-xs font-mono text-slate-500 mt-1">No current IOCs reported from this country.</p>
+                    <p className="text-xs font-mono text-muted mt-1">No current IOCs reported from this country.</p>
                   )}
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-line-2 text-body hover:bg-surface-300 dark:hover:bg-surface-300"
                   aria-label="Clear country selection"
                 >
                   <X size={12} /> clear
@@ -615,7 +615,7 @@ export default function ThreatMap(): JSX.Element {
                       <li key={ip}>
                         <Link
                           to={`/dfir/ioc-check?indicator=${encodeURIComponent(ip)}`}
-                          className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 transition-colors"
+                          className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-surface-100 px-3 py-2 transition-colors"
                         >
                           <div className="font-mono text-sm text-heading break-all">{ip}</div>
                           <div className="text-mini font-mono text-muted mt-0.5">sources: {sources.join(', ')}</div>
@@ -637,10 +637,10 @@ export default function ThreatMap(): JSX.Element {
                   <Link
                     key={`${s.ip}-${i}`}
                     to={`/dfir/ioc-check?indicator=${encodeURIComponent(s.ip)}`}
-                    className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 hover:border-brand-500/40 transition-colors"
+                    className="block rounded border border-line-1 bg-surface-100 px-3 py-2 hover:border-brand-500/40 transition-colors"
                   >
                     <div className="font-mono text-sm text-heading truncate">{s.ip}</div>
-                    <div className="text-xs font-mono text-slate-500 flex items-center gap-2">
+                    <div className="text-xs font-mono text-muted flex items-center gap-2">
                       <span>{s.countryCode}</span>
                       <span className="truncate">{s.country}</span>
                       <span className="text-brand-600 dark:text-brand-400 ml-auto">{s.sources.join(', ')}</span>
@@ -673,7 +673,7 @@ export default function ThreatMap(): JSX.Element {
             />
           </div>
 
-          <footer className="mt-8 text-xs font-mono text-slate-500">
+          <footer className="mt-8 text-xs font-mono text-muted">
             IPs refresh hourly. Geolocation via ip-api.com (free, no key). URLs / domains / hashes are surfaced on their
             own dedicated pages above (same upstream snapshot, no extra fetch). Click any IOC anywhere on the site to
             run it through the IOC Checker.
@@ -796,7 +796,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
   if (rows.length === 0) {
     return (
       <section className="mt-6 surface-card p-4">
-        <p className="text-xs font-mono text-slate-500">No source attribution available in this snapshot.</p>
+        <p className="text-xs font-mono text-muted">No source attribution available in this snapshot.</p>
       </section>
     );
   }
@@ -813,10 +813,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
       </div>
       <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {rows.map((r) => (
-          <li
-            key={`${r.name}-${r.kind}`}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200))] p-3"
-          >
+          <li key={`${r.name}-${r.kind}`} className="rounded border border-line-1 bg-surface-200/50 p-3">
             <div className="flex items-baseline justify-between gap-2 mb-1">
               {r.meta.href ? (
                 <a
@@ -884,7 +881,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
 
       {/* Stacked bar */}
       <div
-        className="flex w-full h-3 rounded overflow-hidden bg-slate-100 dark:bg-[rgb(var(--surface-300))] mb-3"
+        className="flex w-full h-3 rounded overflow-hidden bg-surface-300 mb-3"
         role="img"
         aria-label={`IOC type breakdown: ${rows.map((r) => `${KIND_LABEL[r.kind]} ${r.count}`).join(', ')}`}
       >
@@ -910,12 +907,12 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
             <Link
               key={r.kind}
               to={KIND_HREF[r.kind]}
-              className="flex items-center gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2.5 py-2 hover:border-brand-500/40 transition-colors"
+              className="flex items-center gap-2 rounded border border-line-1 px-2.5 py-2 hover:border-brand-500/40 transition-colors"
             >
               <span className={`inline-block w-2.5 h-2.5 rounded shrink-0 ${KIND_COLOUR[r.kind]}`} aria-hidden="true" />
               <span className="text-heading font-semibold">{KIND_LABEL[r.kind]}</span>
-              <span className="text-slate-500 ml-auto tabular-nums">{r.count.toLocaleString()}</span>
-              <span className="text-slate-400 text-micro tabular-nums">{pct.toFixed(0)}%</span>
+              <span className="text-muted ml-auto tabular-nums">{r.count.toLocaleString()}</span>
+              <span className="text-muted text-micro tabular-nums">{pct.toFixed(0)}%</span>
             </Link>
           );
         })}

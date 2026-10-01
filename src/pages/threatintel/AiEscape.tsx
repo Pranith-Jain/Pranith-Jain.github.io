@@ -130,11 +130,11 @@ function DocketView({ id }: { id: string }) {
     };
   }, [id]);
 
-  if (loading) return <p className="text-mini font-mono text-slate-500 mt-2">loading docket…</p>;
-  if (!body) return <p className="text-mini font-mono text-slate-500 mt-2">docket unavailable</p>;
+  if (loading) return <p className="text-mini font-mono text-muted mt-2">loading docket…</p>;
+  if (!body) return <p className="text-mini font-mono text-muted mt-2">docket unavailable</p>;
 
   return (
-    <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3">
+    <div className="mt-3 pt-3 border-t border-line-1 space-y-3">
       <p className="text-sm text-body leading-relaxed">{body.summary}</p>
       <div className="grid sm:grid-cols-2 gap-2 text-xs">
         <div>
@@ -366,7 +366,7 @@ export default function AiEscape(): JSX.Element {
                 {sinceDays ?? '—'}
                 <span className="text-sm font-normal text-muted"> days</span>
               </div>
-              <div className="text-mini font-mono text-slate-500">
+              <div className="text-mini font-mono text-muted">
                 {idx.stats.lastDisclosedId ?? ''} · {fmtDate(idx.stats.lastDisclosedAt)}
               </div>
             </div>
@@ -391,9 +391,7 @@ export default function AiEscape(): JSX.Element {
                 <div className="text-xl font-bold text-rose-600 dark:text-rose-400 font-mono">
                   {idx.stats.mostAbsentGuardrail.id}
                 </div>
-                <div className="text-mini font-mono text-slate-500">
-                  {idx.stats.mostAbsentGuardrail.entries} entries
-                </div>
+                <div className="text-mini font-mono text-muted">{idx.stats.mostAbsentGuardrail.entries} entries</div>
               </div>
             )}
           </div>
@@ -411,13 +409,13 @@ export default function AiEscape(): JSX.Element {
           {/* Registry */}
           <div className="flex flex-col sm:flex-row gap-3 my-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 type="text"
                 placeholder="Search incidents, developers, tasks…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -430,7 +428,7 @@ export default function AiEscape(): JSX.Element {
                   className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                     klass === k
                       ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                      : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   {k === 'all' ? 'All' : KLASS_LABEL[k]}
@@ -446,10 +444,7 @@ export default function AiEscape(): JSX.Element {
             {filtered.map((e) => {
               const open = openId === e.id;
               return (
-                <div
-                  key={e.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
-                >
+                <div key={e.id} className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
                   <button
                     type="button"
                     onClick={() => setOpenId(open ? null : e.id)}
@@ -459,14 +454,14 @@ export default function AiEscape(): JSX.Element {
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-micro font-mono text-slate-500">{e.id}</span>
+                          <span className="text-micro font-mono text-muted">{e.id}</span>
                           <span className={`px-1.5 py-0.5 text-micro font-mono rounded border ${SEV_PILL[e.sev]}`}>
                             {e.sev}
                           </span>
-                          <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+                          <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
                             tier {e.tier}
                           </span>
-                          <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+                          <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body">
                             {KLASS_LABEL[e.klass]}
                           </span>
                           {e.autonomous && (
@@ -494,7 +489,7 @@ export default function AiEscape(): JSX.Element {
                         )}
                       </div>
                     </div>
-                    <p className="text-mini font-mono text-slate-500 mt-1">
+                    <p className="text-mini font-mono text-muted mt-1">
                       {e.occurred} → disclosed {e.disclosed} · {e.developer}
                       {e.dwell != null && ` · dwell ${e.dwell}d`}
                     </p>
@@ -518,13 +513,13 @@ export default function AiEscape(): JSX.Element {
               return (
                 <div key={g.id} className="flex items-center gap-3">
                   <span className="font-mono text-xs text-heading w-28 shrink-0">{g.id}</span>
-                  <div className="flex-1 h-2.5 rounded-full bg-slate-100 dark:bg-white/5 overflow-hidden">
+                  <div className="flex-1 h-2.5 rounded-full bg-surface-300 dark:bg-surface-100/5 overflow-hidden">
                     <div
                       className="h-full rounded-full bg-rose-500"
                       style={{ width: `${Math.round((count / guardMax) * 100)}%` }}
                     />
                   </div>
-                  <span className="font-mono text-xs text-slate-500 w-8 text-right shrink-0">{count}</span>
+                  <span className="font-mono text-xs text-muted w-8 text-right shrink-0">{count}</span>
                   <span className="hidden md:block text-xs text-muted flex-[2] truncate" title={g.def}>
                     {g.title}
                   </span>
@@ -536,10 +531,10 @@ export default function AiEscape(): JSX.Element {
           {/* Provenance */}
           <h2 className="text-lg font-bold text-heading mb-1">Who holds the evidence</h2>
           <p className="text-xs text-muted mb-3">A registry is only as good as the record behind it.</p>
-          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] mb-8">
+          <div className="overflow-x-auto rounded-xl border border-line-1 mb-8">
             <table className="w-full text-xs">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left">
+                <tr className="border-b border-line-1 text-left">
                   <th className="px-3 py-2 font-semibold text-muted">Tracker</th>
                   <th className="px-3 py-2 font-semibold text-muted">Kind</th>
                   <th className="px-3 py-2 font-semibold text-muted">Holds</th>
@@ -548,10 +543,7 @@ export default function AiEscape(): JSX.Element {
               </thead>
               <tbody>
                 {trackers.map((t) => (
-                  <tr
-                    key={t.name}
-                    className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
-                  >
+                  <tr key={t.name} className="border-b border-line-1 last:border-0">
                     <td className="px-3 py-2">
                       <a
                         href={sanitizeUrl(t.url) ?? undefined}
@@ -562,9 +554,9 @@ export default function AiEscape(): JSX.Element {
                         {t.name}
                       </a>
                     </td>
-                    <td className="px-3 py-2 font-mono text-slate-500">{t.kind}</td>
+                    <td className="px-3 py-2 font-mono text-muted">{t.kind}</td>
                     <td className="px-3 py-2 text-body">{t.holds}</td>
-                    <td className="px-3 py-2 font-mono text-slate-500 whitespace-nowrap">{t.checked}</td>
+                    <td className="px-3 py-2 font-mono text-muted whitespace-nowrap">{t.checked}</td>
                   </tr>
                 ))}
               </tbody>
@@ -588,7 +580,7 @@ export default function AiEscape(): JSX.Element {
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
                   maxLength={140}
                   placeholder="Agent bypassed egress allowlist via internal package proxy"
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-rose-500"
                 />
               </label>
               <label className="block">
@@ -596,7 +588,7 @@ export default function AiEscape(): JSX.Element {
                 <select
                   value={form.klass}
                   onChange={(e) => setForm({ ...form, klass: e.target.value })}
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-rose-500"
                 >
                   <option value="containment-breach">Containment breach</option>
                   <option value="agent-hijack">Agent hijack</option>
@@ -611,7 +603,7 @@ export default function AiEscape(): JSX.Element {
                   type="date"
                   value={form.occurred}
                   onChange={(e) => setForm({ ...form, occurred: e.target.value })}
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-rose-500"
                 />
               </label>
               <label className="block sm:col-span-2">
@@ -621,7 +613,7 @@ export default function AiEscape(): JSX.Element {
                   onChange={(e) => setForm({ ...form, purpose: e.target.value })}
                   maxLength={140}
                   placeholder="Automated code review in CI · capability evaluation · customer support"
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-rose-500"
                 />
               </label>
               <label className="block">
@@ -631,7 +623,7 @@ export default function AiEscape(): JSX.Element {
                   onChange={(e) => setForm({ ...form, systems: e.target.value })}
                   maxLength={140}
                   placeholder="Model, framework, affected platform"
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-rose-500"
                 />
               </label>
               <label className="block">
@@ -641,13 +633,13 @@ export default function AiEscape(): JSX.Element {
                   onChange={(e) => setForm({ ...form, handle: e.target.value })}
                   maxLength={60}
                   placeholder="Name or handle"
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-rose-500"
                 />
               </label>
               <label className="block sm:col-span-2">
                 <span className="text-micro font-mono text-muted">
                   Account *{' '}
-                  <span className="text-slate-500">
+                  <span className="text-muted">
                     — mechanism over narrative: which control was supposed to catch this?
                   </span>
                 </span>
@@ -657,7 +649,7 @@ export default function AiEscape(): JSX.Element {
                   maxLength={1600}
                   rows={4}
                   placeholder="What the agent was doing, what boundary it crossed, how it was noticed, what stopped it."
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm focus:outline-none focus:border-rose-500"
                 />
               </label>
               <label className="block sm:col-span-2">
@@ -669,7 +661,7 @@ export default function AiEscape(): JSX.Element {
                   onChange={(e) => setForm({ ...form, sources: e.target.value })}
                   maxLength={600}
                   placeholder="https://…, https://…"
-                  className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-rose-500"
+                  className="mt-1 w-full px-3 py-2 rounded-xl border border-line-1 bg-surface-100 text-sm font-mono focus:outline-none focus:border-rose-500"
                 />
               </label>
             </div>
@@ -678,7 +670,7 @@ export default function AiEscape(): JSX.Element {
                 type="button"
                 onClick={() => void submitReport()}
                 disabled={submitting}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono bg-rose-600 dark:bg-rose-500 text-white hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors disabled:opacity-40"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-mono bg-rose-600 dark:bg-rose-500 text-on-fill hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors disabled:opacity-40"
               >
                 <GitPullRequest className="w-3.5 h-3.5" /> {submitting ? 'Submitting…' : 'Submit for review'}
               </button>
@@ -693,21 +685,18 @@ export default function AiEscape(): JSX.Element {
                 </span>
               </h3>
               {queue.length === 0 && !queueLoading ? (
-                <p className="text-xs font-mono text-slate-500">Queue empty — be the first to report.</p>
+                <p className="text-xs font-mono text-muted">Queue empty — be the first to report.</p>
               ) : (
                 <ul className="space-y-2">
                   {queue.map((rep) => (
-                    <li
-                      key={rep.id}
-                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3"
-                    >
+                    <li key={rep.id} className="rounded-xl border border-line-1 p-3">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-sm font-bold text-heading">{rep.title}</span>
-                        <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+                        <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 text-muted">
                           {rep.klass}
                         </span>
                       </div>
-                      <p className="text-micro font-mono text-slate-500 mt-1">
+                      <p className="text-micro font-mono text-muted mt-1">
                         {rep.occurred ?? 'date unknown'} · submitted {fmtDate(rep.created_at)}
                       </p>
                     </li>

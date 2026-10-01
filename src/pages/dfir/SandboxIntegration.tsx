@@ -25,7 +25,7 @@ const STATUS_BADGE: Record<string, string> = {
   malicious: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   suspicious: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   clean: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted',
 };
 
 const SOURCE_ICONS: Record<string, typeof Shield> = {
@@ -102,10 +102,7 @@ export default function SandboxIntegration(): JSX.Element {
       {/* Supported Platforms */}
       <div className="flex flex-wrap gap-1.5 mb-6">
         {['VirusTotal', 'MalwareBazaar', 'ANY.RUN', 'Triage', 'Hybrid Analysis', 'Joe Sandbox', 'OTX'].map((s) => (
-          <span
-            key={s}
-            className="px-2.5 py-1 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
-          >
+          <span key={s} className="px-2.5 py-1 rounded-xl text-xs font-mono border border-line-1 text-muted">
             {s}
           </span>
         ))}
@@ -120,12 +117,12 @@ export default function SandboxIntegration(): JSX.Element {
           onChange={(e) => setHash(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void handleLookup()}
           placeholder="MD5, SHA-1, or SHA-256…"
-          className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full bg-surface-200 border border-line-1 rounded-xl px-4 py-2.5 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={handleLookup}
           disabled={loading || !hash.trim()}
-          className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
           {loading ? 'Querying sandboxes…' : 'Lookup Hash'}
@@ -178,7 +175,7 @@ export default function SandboxIntegration(): JSX.Element {
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[r.status]}`}>
                       {r.status}
                     </span>
-                    {r.score !== undefined && <span className="text-xs font-mono text-slate-500">{r.score}%</span>}
+                    {r.score !== undefined && <span className="text-xs font-mono text-muted">{r.score}%</span>}
                     {r.link && (
                       <a
                         href={sanitizeUrl(r.link) || undefined}
@@ -209,7 +206,7 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.tags.map((t, j) => (
                       <span
                         key={j}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted"
                       >
                         {t}
                       </span>
@@ -221,11 +218,11 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.behaviors.map((b, j) => (
                       <div key={j} className="flex items-center gap-2 text-xs">
                         <span
-                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted'}`}
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted'}`}
                         >
                           {b.severity}
                         </span>
-                        <span className="text-slate-500">{b.category}:</span>
+                        <span className="text-muted">{b.category}:</span>
                         <span className="text-body">{b.description}</span>
                       </div>
                     ))}

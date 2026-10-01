@@ -70,12 +70,12 @@ const ENTITY_BG: Record<string, string> = {
   ransomware: 'bg-rose-100 dark:bg-rose-900/20',
   malware: 'bg-orange-100 dark:bg-orange-900/20',
   campaign: 'bg-pink-100 dark:bg-pink-900/20',
-  hash: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
+  hash: 'bg-slate-100 dark:bg-surface-200/20',
   technique: 'bg-sky-100 dark:bg-cyan-900/20',
-  victim: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
+  victim: 'bg-slate-100 dark:bg-surface-200/20',
   c2_framework: 'bg-fuchsia-100 dark:bg-fuchsia-900/20',
   product: 'bg-teal-100 dark:bg-teal-900/20',
-  reference: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
+  reference: 'bg-slate-100 dark:bg-surface-200/20',
 };
 
 const ENTITY_ICON_COLORS: Record<string, string> = {
@@ -259,7 +259,7 @@ export default function Pivex(): JSX.Element {
         <p className="text-muted max-w-2xl leading-relaxed">
           Infrastructure pivot graph - map relationships between IPs, domains, certificates, ASNs, and threat actors.
           {nodes.length > 0 && (
-            <span className="text-slate-500">
+            <span className="text-muted">
               {' '}
               {nodes.length} nodes · {edges.length} relationships
             </span>
@@ -277,13 +277,13 @@ export default function Pivex(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleBuildGraph()}
               placeholder="IP address, domain, CVE, actor name, or hash…"
-              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-9 pr-3 h-10 bg-surface-200 border border-line-1 rounded-xl text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
             onClick={handleBuildGraph}
             disabled={loading || !query.trim()}
-            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
             {loading ? 'Building…' : 'Build Graph'}
@@ -299,7 +299,7 @@ export default function Pivex(): JSX.Element {
 
       {!showGraph && !loading && (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
-          <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-muted" />
+          <Network size={48} className="mx-auto mb-3 text-inverted dark:text-muted" />
           <p className="text-sm text-muted">
             Enter an IP, domain, CVE, or actor name and click{' '}
             <span className="font-semibold text-body">Build Graph</span> to visualise the infrastructure pivot graph.
@@ -310,7 +310,7 @@ export default function Pivex(): JSX.Element {
       {showGraph && (
         <div className="space-y-6 animate-fade-in-up">
           {seedInfo && (
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
+            <div className="flex items-center gap-2 text-xs font-mono text-muted">
               <span>
                 Seed: <span className="text-body">{seedInfo.seed}</span>
               </span>
@@ -332,14 +332,14 @@ export default function Pivex(): JSX.Element {
                   setHighlightMode(!highlightMode);
                   if (!highlightMode) setHighlightNode(null);
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'}`}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'}`}
               >
                 {highlightMode ? <Eye size={12} /> : <EyeOff size={12} />}
                 {highlightMode ? 'Highlight On' : 'Highlight Mode'}
               </button>
               <button
                 onClick={handleExportJson}
-                className="px-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl text-xs font-mono border border-line-1 text-muted hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
               >
                 <Download size={12} /> Export JSON
               </button>
@@ -360,7 +360,7 @@ export default function Pivex(): JSX.Element {
               ))}
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200)/0.6)] shadow-e1 p-6 overflow-x-auto">
+          <div className="rounded-xl border border-line-1 bg-surface-100/60 shadow-e1 p-6 overflow-x-auto">
             <div className="flex flex-col gap-6 min-w-[700px]">
               <GraphCluster
                 nodes={nodes}
@@ -472,7 +472,7 @@ function GraphCluster({
                       key={`${e.source}-${e.target}`}
                       className={`flex items-center gap-2 text-mini font-mono transition-opacity ${getEdgeOpacity(e.source, e.target)}`}
                     >
-                      <span className="text-slate-500">{n.label}</span>
+                      <span className="text-muted">{n.label}</span>
                       <span className="text-muted">── {e.label} ──</span>
                       <span className="text-body">{target.label}</span>
                     </div>

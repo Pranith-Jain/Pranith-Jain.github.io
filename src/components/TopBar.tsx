@@ -92,16 +92,20 @@ export function TopBar({
     // Geist chrome: surface-100 fill (white/80) + gray-alpha-400 border.
     // Frosted via backdrop-blur; chrome-glass utility is reused from
     // the design system so the header matches the footer.
-    <header className="sticky top-0 z-40 chrome-glass border-b border-[rgb(var(--border-400))] pt-[env(safe-area-inset-top)]">
+    <header className="sticky top-0 z-40 chrome-glass border-b border-line-1 pt-[env(safe-area-inset-top)]">
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center gap-2 sm:gap-4">
         {onOpenMobileNav && (
           <button
             type="button"
             onClick={onOpenMobileNav}
-            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-line-1 bg-surface-100 text-body transition-colors hover:bg-wash hover:border-line-2 dark:bg-transparent dark:hover:bg-wash focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileNavOpen ?? false}
-            aria-controls="mobile-sidebar-drawer"
+            // Only while open: Drawer returns null when closed, so the target
+            // id is absent in the collapsed state and referencing it there
+            // would be a dangling aria-controls. aria-expanded alone already
+            // conveys the collapsed state correctly.
+            aria-controls={mobileNavOpen ? 'mobile-sidebar-drawer' : undefined}
           >
             {mobileNavOpen ? (
               <X className="h-4 w-4" aria-hidden="true" />
@@ -131,7 +135,7 @@ export function TopBar({
         <button
           type="button"
           onClick={openPalette}
-          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition-colors hover:border-[rgb(var(--border-500))] hover:bg-white dark:bg-[rgb(var(--surface-200))] dark:text-muted dark:hover:bg-[rgb(var(--surface-300))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded border border-line-1 bg-surface-200 px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-muted transition-colors hover:border-line-2 hover:bg-surface-100 dark:bg-surface-200 dark:hover:bg-surface-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search
@@ -142,7 +146,7 @@ export function TopBar({
             {SEARCH_PLACEHOLDERS[searchKey] ?? `Search ${sectionLabel}…`}
           </span>
           {isMac !== null && (
-            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-[rgb(var(--border-400))] bg-white px-1.5 py-0.5 text-mini font-mono text-slate-600 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300">
+            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-line-1 bg-surface-100 px-1.5 py-0.5 text-mini font-mono text-muted">
               {isMac ? '⌘' : 'Ctrl'} K
             </kbd>
           )}
@@ -152,7 +156,7 @@ export function TopBar({
         <button
           type="button"
           onClick={onToggleTheme}
-          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded border border-line-1 bg-surface-100 text-body transition-colors hover:bg-wash hover:border-line-2 dark:bg-transparent dark:hover:bg-wash focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         >

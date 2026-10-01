@@ -129,7 +129,14 @@ export default function ProcedureExtract(): JSX.Element {
     entities?: Array<{ kind: string; value: string }>;
     chunks?: Array<{ id: string; text: string; excerpt: string }>;
     techniques?: Array<{ chunkId: string; techniqueId: string; confidence: string; quote: string }>;
-    drafts?: Array<{ chunkId: string; name: string; description: string; techniqueIds: string[]; commandLines: string[]; confidence: number }>;
+    drafts?: Array<{
+      chunkId: string;
+      name: string;
+      description: string;
+      techniqueIds: string[];
+      commandLines: string[];
+      confidence: number;
+    }>;
     notes?: string[];
   } = {};
   try {
@@ -148,7 +155,9 @@ export default function ProcedureExtract(): JSX.Element {
       {error && (
         <p className="mb-2 flex items-center gap-2 rounded-lg border border-rose-500/40 bg-rose-500/5 px-3 py-2 text-sm text-rose-600">
           <AlertTriangle className="h-4 w-4" /> {error}
-          <button onClick={() => setError(null)} className="ml-auto"><X className="h-4 w-4" /></button>
+          <button onClick={() => setError(null)} className="ml-auto">
+            <X className="h-4 w-4" />
+          </button>
         </p>
       )}
       {note && <p className="mb-2 text-xs font-mono text-muted">{note}</p>}
@@ -173,7 +182,7 @@ export default function ProcedureExtract(): JSX.Element {
             <button
               onClick={submit}
               disabled={busy}
-              className="mt-2 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+              className="mt-2 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-on-fill disabled:opacity-50"
             >
               {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Extract procedures'}
             </button>
@@ -183,14 +192,28 @@ export default function ProcedureExtract(): JSX.Element {
             <div className="mt-4 rounded-xl border border-line p-3">
               <div className="flex items-center gap-2">
                 <strong className="text-sm">{active.title}</strong>
-                <span className="rounded border border-line px-2 py-0.5 font-mono text-xs text-muted">{active.status}</span>
+                <span className="rounded border border-line px-2 py-0.5 font-mono text-xs text-muted">
+                  {active.status}
+                </span>
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {GATES.map((g) => (
                   <span key={g} className="flex items-center gap-1 rounded-lg border border-line px-2 py-1 text-xs">
                     {g}
-                    <button onClick={() => void review(g, 'approve')} disabled={busy} className="text-emerald-600 underline">approve</button>
-                    <button onClick={() => void review(g, 'reject')} disabled={busy} className="text-rose-500 underline">reject</button>
+                    <button
+                      onClick={() => void review(g, 'approve')}
+                      disabled={busy}
+                      className="text-emerald-600 underline"
+                    >
+                      approve
+                    </button>
+                    <button
+                      onClick={() => void review(g, 'reject')}
+                      disabled={busy}
+                      className="text-rose-500 underline"
+                    >
+                      reject
+                    </button>
                   </span>
                 ))}
                 {active.bundle_json && (
@@ -206,24 +229,34 @@ export default function ProcedureExtract(): JSX.Element {
               </div>
               <div className="mt-3 grid gap-3 text-sm md:grid-cols-2">
                 <div>
-                  <p className="font-mono text-xs uppercase text-muted">Entities ({extraction.entities?.length ?? 0})</p>
+                  <p className="font-mono text-xs uppercase text-muted">
+                    Entities ({extraction.entities?.length ?? 0})
+                  </p>
                   <ul className="mt-1 max-h-48 overflow-auto text-xs">
                     {(extraction.entities ?? []).slice(0, 50).map((e, i) => (
-                      <li key={i} className="font-mono">{e.kind}: {e.value}</li>
+                      <li key={i} className="font-mono">
+                        {e.kind}: {e.value}
+                      </li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <p className="font-mono text-xs uppercase text-muted">Techniques ({extraction.techniques?.length ?? 0})</p>
+                  <p className="font-mono text-xs uppercase text-muted">
+                    Techniques ({extraction.techniques?.length ?? 0})
+                  </p>
                   <ul className="mt-1 max-h-48 overflow-auto text-xs">
                     {(extraction.techniques ?? []).slice(0, 50).map((t, i) => (
-                      <li key={i} className="font-mono">{t.techniqueId} [{t.confidence}] ← {t.chunkId}</li>
+                      <li key={i} className="font-mono">
+                        {t.techniqueId} [{t.confidence}] ← {t.chunkId}
+                      </li>
                     ))}
                   </ul>
                 </div>
               </div>
               <div className="mt-3">
-                <p className="font-mono text-xs uppercase text-muted">Procedure drafts ({extraction.drafts?.length ?? 0})</p>
+                <p className="font-mono text-xs uppercase text-muted">
+                  Procedure drafts ({extraction.drafts?.length ?? 0})
+                </p>
                 {(extraction.drafts ?? []).slice(0, 20).map((d, i) => (
                   <div key={i} className="mt-2 rounded-lg border border-line p-2">
                     <p className="text-sm font-semibold">{d.name}</p>
@@ -242,7 +275,11 @@ export default function ProcedureExtract(): JSX.Element {
         <div className="rounded-xl border border-line p-3">
           <p className="mb-2 text-xs font-mono uppercase text-muted">Queue ({jobs.length})</p>
           {jobs.map((j) => (
-            <button key={j.id} onClick={() => void open(j.id)} className="mb-1 block w-full rounded-lg border border-line px-2 py-1.5 text-left text-sm hover:bg-surface">
+            <button
+              key={j.id}
+              onClick={() => void open(j.id)}
+              className="mb-1 block w-full rounded-lg border border-line px-2 py-1.5 text-left text-sm hover:bg-surface"
+            >
               <span className="block truncate">{j.title}</span>
               <span className="font-mono text-xs text-muted">{j.status}</span>
             </button>
@@ -251,8 +288,12 @@ export default function ProcedureExtract(): JSX.Element {
         </div>
       </div>
       <p className="mt-4 text-xs text-muted">
-        Upstream: <a className="underline" href="https://github.com/netandneedle/procedure-extraction-pipeline">netandneedle/procedure-extraction-pipeline</a> (Apache-2.0) ·
-        Full Docling/Neo4j/SecureBERT pipeline stays self-hosted; this edge port covers extraction + gates + x-procedure bundles.
+        Upstream:{' '}
+        <a className="underline" href="https://github.com/netandneedle/procedure-extraction-pipeline">
+          netandneedle/procedure-extraction-pipeline
+        </a>{' '}
+        (Apache-2.0) · Full Docling/Neo4j/SecureBERT pipeline stays self-hosted; this edge port covers extraction +
+        gates + x-procedure bundles.
       </p>
     </DataPageLayout>
   );

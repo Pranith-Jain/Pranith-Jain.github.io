@@ -132,9 +132,9 @@ export function MtiLeaksPanel(): JSX.Element {
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-bold text-xl inline-flex items-center gap-2">
           <Database size={20} className="text-brand-600 dark:text-brand-400" /> Active leak listings
-          <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">via MyThreatIntel</span>
+          <span className="text-mini font-mono uppercase tracking-[0.18em] text-muted">via MyThreatIntel</span>
         </h2>
-        <span className="text-mini font-mono text-slate-500">
+        <span className="text-mini font-mono text-muted">
           {loading
             ? 'loading…'
             : data
@@ -157,14 +157,14 @@ export function MtiLeaksPanel(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by name, URL, or type…"
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Filter MTI leaks"
           />
         </div>
         <div
           role="group"
           aria-label="Sort mode"
-          className="inline-flex rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden text-mini font-mono"
+          className="inline-flex rounded border border-line-1 overflow-hidden text-mini font-mono"
         >
           {(['date', 'size'] as SortMode[]).map((m) => {
             const active = m === sortBy;
@@ -188,14 +188,14 @@ export function MtiLeaksPanel(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-brand-500/40"
         >
           <RefreshCw size={11} /> refresh
         </button>
       </div>
 
       {loading && (
-        <div className="surface-card p-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="surface-card p-3 inline-flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> loading MyThreatIntel leaks feed…
         </div>
       )}
@@ -207,7 +207,7 @@ export function MtiLeaksPanel(): JSX.Element {
       )}
 
       {!loading && !error && filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 italic">
+        <p className="text-sm font-mono text-muted italic">
           {query ? 'No leaks match the current filter.' : 'No leaks returned from upstream.'}
         </p>
       )}
@@ -223,10 +223,7 @@ export function MtiLeaksPanel(): JSX.Element {
               return u;
             })();
             return (
-              <li
-                key={`${it.name ?? 'unknown'}-${i}`}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)] p-3"
-              >
+              <li key={`${it.name ?? 'unknown'}-${i}`} className="rounded border border-line-1 bg-surface-200/40 p-3">
                 <div className="flex items-baseline justify-between gap-2 mb-1">
                   <span className="font-display font-semibold text-sm text-heading truncate flex-1">
                     {it.name ?? '(no name)'}
@@ -235,11 +232,9 @@ export function MtiLeaksPanel(): JSX.Element {
                     <span className="font-mono text-mini text-brand-600 dark:text-brand-400 shrink-0">{it.size}</span>
                   )}
                 </div>
-                <div className="text-mini font-mono text-slate-500 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                <div className="text-mini font-mono text-muted flex flex-wrap items-center gap-x-2 gap-y-0.5">
                   {it.type && it.type !== 'leak' && it.type !== 'N/D' && (
-                    <span className="px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                      {it.type}
-                    </span>
+                    <span className="px-1.5 py-0.5 rounded border border-line-1">{it.type}</span>
                   )}
                   {date && <span>first seen {shortRel(date)}</span>}
                   {safeUrl && (
@@ -260,7 +255,7 @@ export function MtiLeaksPanel(): JSX.Element {
         </ul>
       )}
       {!loading && !error && filtered.length > 60 && (
-        <p className="mt-3 text-mini font-mono text-slate-500">
+        <p className="mt-3 text-mini font-mono text-muted">
           Showing first 60 of {filtered.length} matches. Narrow the filter to see deeper.
         </p>
       )}

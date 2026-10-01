@@ -41,7 +41,7 @@ function JsonBlock({ label, data }: { label: string; data: unknown }) {
       <summary className="cursor-pointer text-sm font-medium text-cyan-700 dark:text-cyan-400 hover:text-cyan-600">
         {label} <span className="text-xs opacity-50">(click to expand)</span>
       </summary>
-      <pre className="mt-1 max-h-96 overflow-auto rounded border border-slate-200 bg-slate-50 p-3 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]">
+      <pre className="mt-1 max-h-96 overflow-auto rounded border border-line-1 bg-surface-200 p-3 text-xs">
         {JSON.stringify(data, null, 2)}
       </pre>
     </details>
@@ -211,7 +211,7 @@ export default function TieEnrich() {
           <select
             value={iocType}
             onChange={(e) => setIocType(e.target.value as IocType)}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+            className="rounded-xl border border-line-2 bg-surface-100 px-3 py-2 text-sm"
           >
             {(['ip', 'hash', 'domain', 'url'] as IocType[]).map((t) => (
               <option key={t} value={t}>
@@ -232,27 +232,27 @@ export default function TieEnrich() {
                     ? 'example.com'
                     : 'https://...'
             }
-            className="flex-1 min-w-[200px] rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+            className="flex-1 min-w-[200px] rounded-xl border border-line-2 bg-surface-100 px-3 py-2 text-sm"
           />
           <button
             type="submit"
             disabled={loading || !ioc.trim()}
-            className="flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 disabled:opacity-50 transition-colors"
+            className="flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-2 text-sm font-medium text-on-fill hover:bg-cyan-700 disabled:opacity-50 transition-colors"
           >
             <Search size={16} />
             {loading ? 'Enriching...' : deep ? 'Deep Enrich' : 'Enrich'}
           </button>
         </div>
-        <label className="flex items-center gap-2 text-xs text-slate-500">
+        <label className="flex items-center gap-2 text-xs text-muted">
           <input type="checkbox" checked={deep} onChange={(e) => setDeep(e.target.checked)} className="rounded" />
           Deep analysis (autonomous investigator - runs 3-5 steps, generates structured report with QA verification)
         </label>
       </form>
 
       {loading && !deep && (
-        <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+        <div className="flex items-center gap-3 rounded-xl border border-line-1 bg-surface-200 p-4">
           <Loader2 size={16} className="animate-spin text-cyan-600" />
-          <span className="text-sm text-slate-500">Running enrichment across providers...</span>
+          <span className="text-sm text-muted">Running enrichment across providers...</span>
         </div>
       )}
 
@@ -270,7 +270,7 @@ export default function TieEnrich() {
             <Shield size={16} className="text-emerald-600" />
             <h2 className="text-lg font-display font-bold">Investigation Report</h2>
             {result.modelUsed && (
-              <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
+              <span className="text-micro font-mono px-2 py-0.5 rounded border border-line-1 text-muted">
                 {result.modelUsed}
               </span>
             )}
@@ -290,7 +290,7 @@ export default function TieEnrich() {
             <div className="ml-auto flex gap-2">
               <button
                 onClick={() => handleDownload('md')}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-cyan-500/40 text-muted"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-line-1 hover:border-cyan-500/40 text-muted"
               >
                 <Download size={12} /> .md
               </button>
@@ -344,7 +344,7 @@ export default function TieEnrich() {
           {result.steps && result.steps.length > 0 && (
             <div className="mt-3 space-y-1">
               {result.steps.map((s) => (
-                <div key={s.stepNumber} className="flex items-center gap-2 text-xs font-mono text-slate-500">
+                <div key={s.stepNumber} className="flex items-center gap-2 text-xs font-mono text-muted">
                   <Terminal size={12} />
                   <span className={s.status === 'done' ? 'text-emerald-600' : 'text-cyan-600'}>
                     Step {s.stepNumber}
@@ -375,7 +375,7 @@ export default function TieEnrich() {
           )}
 
           {result.geo && (
-            <div className="grid grid-cols-2 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/50">
+            <div className="grid grid-cols-2 gap-2 rounded-xl border border-line-1 bg-surface-200/50 p-3 text-sm">
               {result.geo.country && (
                 <div>
                   <span className="font-medium">Country:</span> {result.geo.country}

@@ -8,16 +8,7 @@
  */
 
 export type RuleFormat =
-  | 'sigma'
-  | 'kql'
-  | 'splunk'
-  | 'lucene'
-  | 'eql'
-  | 'yara'
-  | 'dlp'
-  | 'supplychain'
-  | 'snort'
-  | 'powershell';
+  'sigma' | 'kql' | 'splunk' | 'lucene' | 'eql' | 'yara' | 'dlp' | 'supplychain' | 'snort' | 'powershell';
 
 export const TARGET_FORMATS: RuleFormat[] = [
   'sigma',

@@ -23,7 +23,7 @@ interface CampaignLifecycle {
 const PHASE_STATUS: Record<string, string> = {
   completed: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   active: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
-  upcoming: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
+  upcoming: 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted',
 };
 
 export default function CampaignLifecycle(): JSX.Element {
@@ -63,19 +63,19 @@ export default function CampaignLifecycle(): JSX.Element {
         value={campaignName}
         onChange={(e) => setCampaignName(e.target.value)}
         placeholder="Campaign name…"
-        className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 mb-3"
+        className="w-full bg-surface-200 border border-line-1 rounded-xl px-4 py-2.5 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 mb-3"
       />
       <textarea
         value={indicators}
         onChange={(e) => setIndicators(e.target.value)}
         placeholder="Related IOCs (optional, one per line)…"
-        className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
+        className="w-full h-20 bg-surface-200 border border-line-1 rounded-xl p-3 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
       />
       <button
         type="button"
         onClick={handleAnalyze}
         disabled={loading || !campaignName.trim()}
-        className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+        className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
       >
         {loading ? <Loader2 size={14} className="animate-spin" /> : <Target size={14} />}
         {loading ? 'Analyzing…' : 'Analyze Campaign'}
@@ -116,10 +116,10 @@ export default function CampaignLifecycle(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setExpandedPhase(isOpen ? null : phase.name)}
-                    className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
+                    className="w-full flex items-center gap-3 p-4 text-left hover:bg-surface-200 dark:hover:bg-surface-200/20 transition-colors"
                   >
                     <div
-                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${phase.status === 'completed' ? 'bg-emerald-500' : phase.status === 'active' ? 'bg-rose-600' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${phase.status === 'completed' ? 'bg-emerald-500' : phase.status === 'active' ? 'bg-rose-600' : 'bg-slate-300 dark:bg-surface-300'}`}
                     >
                       {phase.status === 'completed' ? 'done' : i + 1}
                     </div>
@@ -137,7 +137,7 @@ export default function CampaignLifecycle(): JSX.Element {
                     )}
                   </button>
                   {isOpen && (
-                    <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+                    <div className="px-4 pb-4 pt-0 border-t border-line-1">
                       {phase.indicators.length > 0 && (
                         <div className="mt-3 mb-2">
                           <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
@@ -147,7 +147,7 @@ export default function CampaignLifecycle(): JSX.Element {
                             {phase.indicators.map((ind, j) => (
                               <span
                                 key={j}
-                                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                                className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted"
                               >
                                 {ind}
                               </span>

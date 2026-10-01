@@ -102,23 +102,21 @@ export default function AiIncidents(): JSX.Element {
     >
       <AiSummaryCard
         surface="AI Incidents"
-        items={filtered
-          .slice(0, 15)
-          .map((r) => ({
-            title: r.title,
-            body: `${fmtDate(r.pubDate)} · cite ${r.citeId ?? '—'} · report ${r.reportNum ?? r.id}`,
-            source: r.link,
-          }))}
+        items={filtered.slice(0, 15).map((r) => ({
+          title: r.title,
+          body: `${fmtDate(r.pubDate)} · cite ${r.citeId ?? '—'} · report ${r.reportNum ?? r.id}`,
+          source: r.link,
+        }))}
         requireAdmin={false}
       />
       <div className="relative my-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
         <input
           type="text"
           placeholder="Search incident titles, cite ids…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+          className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
         />
       </div>
       <p className="mb-3 text-micro font-mono text-muted">
@@ -128,10 +126,7 @@ export default function AiIncidents(): JSX.Element {
         {filtered.map((r) => {
           const open = openId === r.id;
           return (
-            <div
-              key={r.guid}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
-            >
+            <div key={r.guid} className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
               <button
                 type="button"
                 onClick={() => void openBody(r.id)}
@@ -139,15 +134,15 @@ export default function AiIncidents(): JSX.Element {
                 aria-expanded={open}
               >
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-micro font-mono text-slate-500">
+                  <span className="text-micro font-mono text-muted">
                     cite {r.citeId ?? '—'} · #{r.reportNum ?? r.id}
                   </span>
-                  <span className="text-micro font-mono text-slate-500">{fmtDate(r.pubDate)}</span>
+                  <span className="text-micro font-mono text-muted">{fmtDate(r.pubDate)}</span>
                 </div>
                 <h3 className="text-sm font-bold text-heading mt-1 leading-snug">{r.title || '(untitled report)'}</h3>
               </button>
               {open && (
-                <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="mt-2 pt-2 border-t border-line-1">
                   {bodies[r.id] && <p className="text-xs text-body leading-relaxed">{bodies[r.id]}</p>}
                   <a
                     href={sanitizeUrl(r.link) ?? undefined}

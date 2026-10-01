@@ -297,7 +297,7 @@ export function McpSearchWorkbench(props: {
           <h3 className="text-sm font-semibold text-heading">
             {props.compact ? 'Quick MCP search' : 'TI-Mindmap-Hub Search'}
           </h3>
-          <span className="ml-auto text-micro font-mono uppercase text-slate-500">via MCP · 25 tools</span>
+          <span className="ml-auto text-micro font-mono uppercase text-muted">via MCP · 25 tools</span>
         </div>
 
         <form
@@ -307,13 +307,13 @@ export function McpSearchWorkbench(props: {
           }}
           className="flex flex-wrap items-center gap-2"
         >
-          <div className="flex rounded border border-slate-300 dark:border-[rgb(var(--border-400))] overflow-hidden text-xs font-mono">
+          <div className="flex rounded border border-line-2 overflow-hidden text-xs font-mono">
             {(['report', 'ioc', 'cve', 'briefing'] as Mode[]).map((m) => (
               <button
                 key={m}
                 type="button"
                 onClick={() => setMode(m)}
-                className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
+                className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-surface-200 text-body hover:bg-slate-50 dark:hover:bg-surface-300'}`}
               >
                 {m}
               </button>
@@ -325,14 +325,14 @@ export function McpSearchWorkbench(props: {
             onChange={(e) => setQ(e.target.value)}
             disabled={mode === 'briefing'}
             placeholder={placeholders[mode]}
-            className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 font-mono text-sm text-heading disabled:opacity-50"
+            className="flex-1 min-w-[12rem] rounded border border-line-2 bg-surface-100 px-2.5 py-1.5 font-mono text-sm text-heading disabled:opacity-50"
             autoComplete="off"
             spellCheck={false}
           />
           <button
             type="submit"
             disabled={disabled}
-            className="inline-flex items-center gap-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-600 dark:bg-brand-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-600 dark:bg-brand-500 px-3 py-1.5 text-sm font-medium text-on-fill hover:bg-brand-700 disabled:opacity-50 transition-colors"
           >
             {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
             search
@@ -348,7 +348,7 @@ export function McpSearchWorkbench(props: {
                 setReportDetail(null);
                 setReportSummary(null);
               }}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs text-body"
+              className="rounded border border-line-2 px-2 py-1.5 text-xs text-body"
               aria-label="Clear results"
             >
               <X className="h-3.5 w-3.5" />
@@ -358,12 +358,12 @@ export function McpSearchWorkbench(props: {
 
         {/* Filter bar - only visible in report mode with results */}
         {mode === 'report' && hit?.reports && (
-          <div className="mt-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--surface-200)/0.5)] p-3 space-y-2.5">
+          <div className="mt-3 rounded-xl border border-line-1 bg-surface-200/50 p-3 space-y-2.5">
             {/* Row 1: Date range */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
                 <Calendar className="h-3 w-3 text-muted" />
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500">date</span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">date</span>
               </div>
               <div className="flex flex-wrap gap-1">
                 {(['', '24h', '7d', '30d', '90d'] as TimeRange[]).map((tr) => (
@@ -383,7 +383,7 @@ export function McpSearchWorkbench(props: {
                     className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                       timeRange === tr
                         ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 font-medium'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-400/50 hover:text-brand-600 dark:hover:text-brand-400'
+                        : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-400/50 hover:text-brand-600 dark:hover:text-brand-400'
                     }`}
                   >
                     {TIME_RANGE_LABELS[tr]}
@@ -396,7 +396,7 @@ export function McpSearchWorkbench(props: {
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
                 <Shield className="h-3 w-3 text-muted" />
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500">severity</span>
+                <span className="text-micro font-mono uppercase tracking-wider text-muted">severity</span>
               </div>
               <div className="flex flex-wrap gap-1">
                 {SEVERITY_ORDER.map((sev) => {
@@ -416,7 +416,7 @@ export function McpSearchWorkbench(props: {
                       className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                         active
                           ? SEVERITY_PILL[sev] + ' font-medium'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-300'
+                          : 'border-slate-200 dark:border-line-1 text-muted hover:border-slate-300'
                       }`}
                     >
                       {sev}
@@ -425,14 +425,14 @@ export function McpSearchWorkbench(props: {
                 })}
               </div>
               {filterBusy && (
-                <span className="flex items-center gap-1 text-micro text-slate-500 ml-1">
+                <span className="flex items-center gap-1 text-micro text-muted ml-1">
                   <Loader2 className="h-3 w-3 animate-spin" /> loading…
                 </span>
               )}
             </div>
 
             {/* Row 3: Summary + clear */}
-            <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/60 dark:border-[rgb(var(--border-400))/0.6]">
+            <div className="flex items-center justify-between gap-2 pt-1 border-t border-line-1/60">
               <div className="flex items-center gap-1.5 text-micro font-mono text-muted">
                 <Filter className="h-3 w-3" />
                 <span>
@@ -501,7 +501,7 @@ export function McpSearchWorkbench(props: {
 
         {props.showHistory !== false && history.length > 0 && (
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            <span className="text-micro font-mono uppercase text-slate-500 mr-1">recent:</span>
+            <span className="text-micro font-mono uppercase text-muted mr-1">recent:</span>
             {history.map((h) => (
               <button
                 key={h}
@@ -513,7 +513,7 @@ export function McpSearchWorkbench(props: {
                   setQ(text);
                   void run(text);
                 }}
-                className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 text-micro font-mono text-body hover:border-brand-400"
+                className="rounded border border-line-2 bg-surface-200 px-2 py-0.5 text-micro font-mono text-body hover:border-brand-400"
                 title={h}
               >
                 {h}
@@ -556,7 +556,7 @@ export function McpSearchWorkbench(props: {
               <BriefingsHitCard briefings={hit.briefings} />
             )}
             {hit.briefing && hit.reports && (
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded border border-line-1 bg-surface-200 p-3">
                 <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Latest Briefing</p>
                 <BriefingInline hit={hit.briefing} />
               </div>
@@ -583,14 +583,14 @@ function IocHitCard({
   const total = hit.total_reports ?? reports.length;
   return (
     <div className="surface-card overflow-hidden">
-      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-surface-200/30 border-b border-line-1">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300">
+          <span className="text-micro font-mono uppercase tracking-wider text-muted px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300">
             IOC
           </span>
           <span className="text-sm font-mono font-semibold text-heading truncate">{hit.ioc_value}</span>
           {hit.ioc_type && (
-            <span className="shrink-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-micro font-mono text-slate-500">
+            <span className="shrink-0 rounded border border-line-2 px-1.5 py-0.5 text-micro font-mono text-muted">
               {hit.ioc_type}
             </span>
           )}
@@ -630,7 +630,7 @@ function IocHitCard({
 function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
   return (
     <div className="surface-card overflow-hidden">
-      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-surface-200/30 border-b border-line-1">
         <div className="flex items-center gap-2 min-w-0">
           <Shield className="h-4 w-4 text-orange-500 shrink-0" />
           <span className="text-sm font-mono font-semibold text-heading">{hit.cve_id}</span>
@@ -638,12 +638,12 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           {typeof hit.cvss_score === 'number' && (
-            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-body">
               CVSS {hit.cvss_score.toFixed(1)}
             </span>
           )}
           {typeof hit.epss_score === 'number' && (
-            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-body">
               EPSS {(hit.epss_score * 100).toFixed(1)}%
             </span>
           )}
@@ -658,7 +658,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
         {hit.description && <p className="text-xs text-body leading-relaxed">{hit.description}</p>}
         {(hit.affected_products?.length ?? 0) > 0 && (
           <div>
-            <p className="text-micro font-mono uppercase text-slate-500 mb-1">affected</p>
+            <p className="text-micro font-mono uppercase text-muted mb-1">affected</p>
             <div className="flex flex-wrap gap-1">
               {hit.affected_products!.slice(0, 6).map((p, i) => (
                 <span
@@ -669,14 +669,14 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
                 </span>
               ))}
               {hit.affected_products!.length > 6 && (
-                <span className="text-micro text-slate-500">+{hit.affected_products!.length - 6}</span>
+                <span className="text-micro text-muted">+{hit.affected_products!.length - 6}</span>
               )}
             </div>
           </div>
         )}
         {(hit.references?.length ?? 0) > 0 && (
           <div>
-            <p className="text-micro font-mono uppercase text-slate-500 mb-1">references</p>
+            <p className="text-micro font-mono uppercase text-muted mb-1">references</p>
             <div className="flex flex-wrap gap-1.5">
               {hit.references!.slice(0, 4).map((ref, i) => (
                 <a
@@ -718,7 +718,7 @@ function ReportsHitCard({
   const reports = hit.reports ?? [];
   return (
     <div className="surface-card overflow-hidden">
-      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-surface-200/30 border-b border-line-1">
         <div className="flex items-center gap-2">
           <FileText className="h-4 w-4 text-brand-500" />
           <span className="text-xs font-semibold text-heading">Reports</span>
@@ -727,7 +727,7 @@ function ReportsHitCard({
           </span>
         </div>
         {typeof hit.total === 'number' && hit.total !== reports.length && (
-          <span className="text-micro font-mono text-slate-500">of {hit.total} total</span>
+          <span className="text-micro font-mono text-muted">of {hit.total} total</span>
         )}
       </div>
       <div className="p-3">
@@ -772,7 +772,7 @@ function ReportDetailPanel({
   const sourceUrl = detail?.url || report.url || (rid ? `https://ti-mindmap-hub.com/report/${rid}` : null);
 
   return (
-    <div className="mt-2 rounded border border-brand-200 dark:border-brand-800 bg-white dark:bg-[rgb(var(--surface-200))] p-3 space-y-2">
+    <div className="mt-2 rounded border border-brand-200 dark:border-brand-800 bg-surface-100 p-3 space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold text-heading line-clamp-2">{report.title || rid}</p>
@@ -795,7 +795,7 @@ function ReportDetailPanel({
       </div>
 
       {busy && (
-        <div className="flex items-center gap-1.5 text-micro text-slate-500">
+        <div className="flex items-center gap-1.5 text-micro text-muted">
           <Loader2 className="h-3 w-3 animate-spin" /> Loading details…
         </div>
       )}
@@ -809,7 +809,7 @@ function ReportDetailPanel({
           <DetailSection label="CVEs" items={detail.cves} color="orange" />
           <DetailSection label="Malware" items={detail.malware} color="emerald" />
 
-          <div className="flex flex-wrap items-center gap-3 pt-1 text-micro font-mono text-slate-500">
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-micro font-mono text-muted">
             {detail.severity && <span>severity: {detail.severity}</span>}
             {typeof detail.cvss === 'number' && <span>CVSS {detail.cvss.toFixed(1)}</span>}
             {typeof detail.epss === 'number' && <span>EPSS {(detail.epss * 100).toFixed(1)}%</span>}
@@ -840,7 +840,7 @@ function DetailSection({
   };
   return (
     <div>
-      <p className="text-micro font-mono uppercase text-slate-500 mb-0.5">
+      <p className="text-micro font-mono uppercase text-muted mb-0.5">
         {label} · {items.length}
       </p>
       <div className="flex flex-wrap gap-1">
@@ -849,7 +849,7 @@ function DetailSection({
             {item}
           </span>
         ))}
-        {items.length > 12 && <span className="text-micro text-slate-500">+{items.length - 12}</span>}
+        {items.length > 12 && <span className="text-micro text-muted">+{items.length - 12}</span>}
       </div>
     </div>
   );
@@ -860,7 +860,7 @@ function DetailSection({
 function BriefingsHitCard({ briefings }: { briefings: BriefingSummary[] }): JSX.Element {
   return (
     <div className="surface-card overflow-hidden">
-      <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="flex items-center gap-2 px-4 py-2.5 bg-surface-200/30 border-b border-line-1">
         <span className="text-xs font-semibold text-heading">Briefings</span>
         <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300">
           {briefings.length}
@@ -893,7 +893,7 @@ function BriefingInline({ hit }: { hit: BriefingSummary }): JSX.Element {
 
 function BriefingRow({ hit }: { hit: BriefingSummary }): JSX.Element {
   return (
-    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
+    <li className="rounded border border-line-1 bg-surface-100 px-2.5 py-1.5">
       <p className="text-xs font-medium text-heading">{hit.title ?? hit.briefing_id}</p>
       <p className="text-micro font-mono uppercase text-muted">
         {hit.type ?? 'briefing'} · {hit.date ?? '-'}
@@ -923,7 +923,7 @@ function ReportRow({
       className={`rounded border cursor-pointer px-2.5 py-1.5 transition-colors ${
         selected
           ? 'border-brand-400 dark:border-brand-600 bg-brand-50/60 dark:bg-brand-950/20'
-          : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400/50 hover:bg-white dark:hover:bg-[rgb(var(--surface-200))]'
+          : 'border-slate-200 dark:border-line-1 hover:border-brand-400/50 hover:bg-white dark:hover:bg-surface-200'
       }`}
     >
       <div className="flex items-start justify-between gap-2">
@@ -962,10 +962,7 @@ function ReportRow({
       {r.tags && r.tags.length > 0 && !selected && (
         <div className="mt-1 flex flex-wrap gap-1">
           {r.tags.slice(0, 4).map((tag) => (
-            <span
-              key={tag}
-              className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-micro font-mono text-muted"
-            >
+            <span key={tag} className="rounded bg-surface-300 px-1 py-0.5 text-micro font-mono text-muted">
               {tag}
             </span>
           ))}

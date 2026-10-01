@@ -74,7 +74,7 @@ export function RelationshipGraph({ graph }: { graph: RelationshipGraphData }): 
   if (graph.nodes.length === 0) return null;
 
   return (
-    <div className="h-[460px] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <div className="h-[460px] rounded-xl border border-line-1">
       <ReactFlow nodes={nodes} edges={edges} fitView proOptions={{ hideAttribution: true }}>
         <Background />
         <Controls />

@@ -82,14 +82,12 @@ export default function Hijacklibs(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
           {data && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
-              {data.total} DLLs
-            </span>
+            <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">{data.total} DLLs</span>
           )}
         </div>
       }
@@ -110,7 +108,7 @@ export default function Hijacklibs(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.total} DLLs…`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <button
@@ -119,7 +117,7 @@ export default function Hijacklibs(): JSX.Element {
                 className={`text-mini font-mono rounded border px-2.5 py-1 transition-colors ${
                   cveOnly
                     ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                 }`}
               >
                 has CVE
@@ -134,7 +132,7 @@ export default function Hijacklibs(): JSX.Element {
                   className={`text-micro font-mono rounded-full border px-2.5 py-0.5 transition-colors ${
                     typeFilter === t
                       ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   {t}
@@ -160,10 +158,7 @@ export default function Hijacklibs(): JSX.Element {
                 {d.description && <p className="mt-1 text-xs text-muted">{d.description}</p>}
                 <div className="mt-2 flex flex-wrap items-center gap-1.5 text-micro font-mono text-muted">
                   {d.hijackTypes.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5"
-                    >
+                    <span key={t} className="rounded border border-line-2 px-1.5 py-0.5">
                       {t}
                     </span>
                   ))}

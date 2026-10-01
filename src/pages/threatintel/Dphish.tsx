@@ -94,7 +94,7 @@ const CATEGORY_META: Record<string, { label: string; pill: string }> = {
   },
   other: {
     label: 'Other',
-    pill: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+    pill: 'border-slate-300 dark:border-line-1 text-slate-500',
   },
 };
 
@@ -107,7 +107,7 @@ function ActiveBadge({ active }: { active: boolean }) {
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
       <span className="w-1.5 h-1.5 rounded-full bg-slate-400" /> REVOKED
     </span>
   );
@@ -126,7 +126,7 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
   const [loading, setLoading] = useState(false);
   const meta = CATEGORY_META[entry.category] ?? {
     label: entry.category,
-    pill: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+    pill: 'border-slate-300 dark:border-line-1 text-slate-500',
   };
   const metaPill = meta.pill;
 
@@ -147,10 +147,10 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 overflow-hidden">
       <button
         onClick={toggle}
-        className="w-full text-left p-3.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
+        className="w-full text-left p-3.5 hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors"
       >
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
@@ -158,13 +158,13 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
               <span className={`px-1.5 py-0.5 text-micro font-mono rounded border ${metaPill}`}>{meta.label}</span>
               <ActiveBadge active={entry.active} />
               {entry.confidence != null && (
-                <span className="text-micro font-mono text-slate-400">conf {entry.confidence}%</span>
+                <span className="text-micro font-mono text-muted">conf {entry.confidence}%</span>
               )}
-              {entry.score != null && <span className="text-micro font-mono text-slate-400">score {entry.score}</span>}
+              {entry.score != null && <span className="text-micro font-mono text-muted">score {entry.score}</span>}
             </div>
             <div className="mt-1.5 font-mono text-sm text-heading break-all">{entry.value ?? entry.slug}</div>
-            {entry.description && <div className="mt-1 text-mini text-slate-500 line-clamp-2">{entry.description}</div>}
-            <div className="mt-1.5 flex items-center gap-3 text-micro text-slate-400 font-mono">
+            {entry.description && <div className="mt-1 text-mini text-muted line-clamp-2">{entry.description}</div>}
+            <div className="mt-1.5 flex items-center gap-3 text-micro text-muted font-mono">
               <span className="flex items-center gap-1">
                 <Clock className="w-2.5 h-2.5" />
                 {fmtDate(entry.created)}
@@ -177,16 +177,16 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
               )}
             </div>
           </div>
-          <div className="shrink-0 text-slate-400 mt-0.5">
+          <div className="shrink-0 text-muted mt-0.5">
             {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </div>
         </div>
       </button>
 
       {expanded && (
-        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3.5 bg-slate-50/60 dark:bg-[rgb(var(--surface-100))]/40 space-y-2.5">
+        <div className="border-t border-line-1 p-3.5 bg-surface-200/60 dark:bg-surface-100/40 space-y-2.5">
           {loading ? (
-            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
+            <div className="flex items-center gap-2 text-xs text-muted font-mono">
               <Loader2 className="w-3.5 h-3.5 animate-spin" /> loading full STIX body…
             </div>
           ) : body ? (
@@ -201,11 +201,11 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
               </div>
               {body.observableValues.length > 0 && (
                 <div className="flex items-start gap-2 text-mini font-mono">
-                  <Fingerprint className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                  <Fingerprint className="w-3.5 h-3.5 text-muted mt-0.5 shrink-0" />
                   <div className="space-y-0.5">
                     {body.observableValues.map((ov, i) => (
                       <div key={i} className="text-body break-all">
-                        <span className="text-slate-400">{ov.type}: </span>
+                        <span className="text-muted">{ov.type}: </span>
                         {ov.value}
                       </div>
                     ))}
@@ -214,12 +214,9 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
               )}
               {body.labels.length > 0 && (
                 <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono">
-                  <Tag className="w-3 h-3 text-slate-400" />
+                  <Tag className="w-3 h-3 text-muted" />
                   {body.labels.map((l) => (
-                    <span
-                      key={l}
-                      className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500"
-                    >
+                    <span key={l} className="px-1.5 py-0.5 rounded border border-line-2 text-muted">
                       {l}
                     </span>
                   ))}
@@ -233,23 +230,23 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
               />
               {body.pattern && (
                 <div>
-                  <div className="flex items-center gap-1.5 text-micro text-slate-400 font-mono mb-1">
+                  <div className="flex items-center gap-1.5 text-micro text-muted font-mono mb-1">
                     <FileText className="w-3 h-3" /> STIX PATTERN
                   </div>
-                  <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-2.5 max-h-64 overflow-auto">
+                  <pre className="text-mini font-mono text-body whitespace-pre-wrap break-all bg-surface-100 border border-line-1 rounded-lg p-2.5 max-h-64 overflow-auto">
                     {body.pattern}
                   </pre>
                 </div>
               )}
               {body.indicatorTypes.length > 0 && (
-                <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono text-slate-500">
+                <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono text-muted">
                   <AlertTriangle className="w-3 h-3" />
                   {body.indicatorTypes.join(', ')}
                 </div>
               )}
             </>
           ) : (
-            <div className="text-xs text-slate-400 font-mono">body unavailable</div>
+            <div className="text-xs text-muted font-mono">body unavailable</div>
           )}
         </div>
       )}
@@ -260,7 +257,7 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
 function Detail({ label, value, mono = false }: { label: string; value: string; mono?: boolean }) {
   return (
     <div>
-      <div className="text-micro text-slate-400 uppercase tracking-wider">{label}</div>
+      <div className="text-micro text-muted uppercase tracking-wider">{label}</div>
       <div className={`text-mini text-body break-all ${mono ? 'font-mono' : ''}`}>{value}</div>
     </div>
   );
@@ -337,7 +334,7 @@ export default function Dphish(): JSX.Element {
         <button
           onClick={load}
           disabled={loading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-line-1 text-muted hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -357,7 +354,7 @@ export default function Dphish(): JSX.Element {
               { label: 'Categories', value: Object.keys(data.counts.byCategory).length, cls: 'text-slate-500' },
             ].map(({ label, value, cls }) => (
               <div key={label} className="surface-card/50 shadow-e1 p-2.5">
-                <div className="text-mini uppercase tracking-wider mb-0.5 text-slate-500">{label}</div>
+                <div className="text-mini uppercase tracking-wider mb-0.5 text-muted">{label}</div>
                 <div className={`text-lg font-bold ${cls}`}>{value}</div>
               </div>
             ))}
@@ -365,13 +362,13 @@ export default function Dphish(): JSX.Element {
 
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 type="text"
                 placeholder="Search value, observable type, or description…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
               />
             </div>
             <button
@@ -379,7 +376,7 @@ export default function Dphish(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border flex items-center gap-1.5 transition ${
                 activeOnly
                   ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-emerald-500/30'
+                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-emerald-500/30'
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
@@ -388,13 +385,13 @@ export default function Dphish(): JSX.Element {
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5 mb-4">
-            <span className="text-xs text-slate-500 mr-1 font-mono">category:</span>
+            <span className="text-xs text-muted mr-1 font-mono">category:</span>
             <button
               onClick={() => setCategory('all')}
               className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                 category === 'all'
                   ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
               }`}
             >
               All <span className="opacity-60">{data.indicators.length}</span>
@@ -408,9 +405,7 @@ export default function Dphish(): JSX.Element {
                     key={id}
                     onClick={() => setCategory(id)}
                     className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
-                      active
-                        ? meta.pill
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                      active ? meta.pill : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
                     }`}
                   >
                     {meta.label} <span className="opacity-60">{categoryCounts.get(id) ?? 0}</span>
@@ -443,7 +438,7 @@ export default function Dphish(): JSX.Element {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 font-mono text-sm">No indicators match your filters</div>
+            <div className="text-center py-12 text-muted font-mono text-sm">No indicators match your filters</div>
           ) : (
             <>
               {/* Top-level AI threat analysis for the filtered dPhish indicators */}
@@ -477,7 +472,7 @@ export default function Dphish(): JSX.Element {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+          <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
             Source: dphish.com · TAXII 2.1 collection {data.collectionId} · {data.counts.active} active of{' '}
             {data.counts.indicators} indicators
           </div>

@@ -77,14 +77,14 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{country} Intelligence</h3>
+              <h3 className="text-sm font-bold text-heading">{country} Intelligence</h3>
               {model && (
                 <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400">
                   {model}
                 </span>
               )}
             </div>
-            <p className="text-micro text-slate-500">Country threat profile</p>
+            <p className="text-micro text-muted">Country threat profile</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -92,14 +92,14 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             aria-label="Refresh"
             onClick={fetchIntel}
             disabled={loading}
-            className="p-1.5 rounded-xl text-muted hover:text-slate-200 transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-inverted transition-colors"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
           <button
             aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-muted hover:text-slate-200 transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-inverted transition-colors"
           >
             <X size={14} />
           </button>
@@ -137,7 +137,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
               </span>
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed">{intel.executive_summary}</p>
+            <p className="text-sm text-inverted leading-relaxed">{intel.executive_summary}</p>
 
             {intel.cyber_threats && (
               <div className="rounded-xl bg-rose-500/5 border border-rose-500/10 p-3">
@@ -155,7 +155,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
 
             {intel.key_actors?.length > 0 && (
               <div>
-                <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Key Actors</span>
+                <span className="text-micro font-mono uppercase text-muted block mb-1">Key Actors</span>
                 <div className="flex flex-wrap gap-1">
                   {intel.key_actors.map((a, i) => (
                     <span
@@ -171,7 +171,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
 
             {intel.active_conflicts?.length > 0 && (
               <div>
-                <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Active Conflicts</span>
+                <span className="text-micro font-mono uppercase text-muted block mb-1">Active Conflicts</span>
                 <div className="flex flex-wrap gap-1">
                   {intel.active_conflicts.map((c, i) => (
                     <span

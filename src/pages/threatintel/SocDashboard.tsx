@@ -43,10 +43,7 @@ export default function SocDashboard(): JSX.Element {
       title="SOC Dashboard"
       description="Unified tactical SOC view - ransomware activity, vulnerability intelligence, and IOC stream. All panels auto-refresh."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="SOC panels"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="SOC panels">
         {TABS.map((t) => (
           <button
             key={t.id}

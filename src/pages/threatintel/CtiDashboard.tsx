@@ -247,10 +247,7 @@ export default function CtiDashboard(): JSX.Element {
       )}
 
       {/* Tab navigation */}
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="CTI panels"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="CTI panels">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -292,7 +289,7 @@ export default function CtiDashboard(): JSX.Element {
                   fetchStats();
                   fetchNews();
                 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-muted text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-muted text-sm font-mono hover:bg-surface-200 dark:hover:bg-surface-200 transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>
@@ -337,10 +334,10 @@ export default function CtiDashboard(): JSX.Element {
                   .map(([type, count]) => (
                     <div
                       key={type}
-                      className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
+                      className="flex items-center justify-between py-1.5 border-b border-line-1 last:border-0"
                     >
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-mini font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-muted'}`}
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-mini font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-line-1 dark:bg-surface-300 dark:text-muted'}`}
                       >
                         {type}
                       </span>
@@ -362,10 +359,10 @@ export default function CtiDashboard(): JSX.Element {
                   stats.top_malware_families.map((f) => (
                     <div
                       key={f.family}
-                      className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
+                      className="flex items-center justify-between py-1.5 border-b border-line-1 last:border-0"
                     >
                       <span className="text-sm text-body">{f.family}</span>
-                      <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-line-1 text-muted">
                         {f.count}
                       </span>
                     </div>
@@ -446,7 +443,7 @@ export default function CtiDashboard(): JSX.Element {
             </div>
 
             {predictions.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
+              <div className="rounded-xl border border-dashed border-line-2 p-8 text-center">
                 <Brain size={32} className="mx-auto text-muted mb-3" />
                 <p className="text-sm font-mono text-muted">
                   No predictions yet. Click "Generate Predictions" to forecast attack patterns.
@@ -481,7 +478,7 @@ export default function CtiDashboard(): JSX.Element {
                           {p.attack_flow.map((phase, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] text-mini font-mono text-muted"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-line-1 bg-surface-200/50 text-mini font-mono text-muted"
                             >
                               <span className="text-rose-600 dark:text-rose-400">{phase.technique_id}</span>
                               <span className="text-muted">→</span>
@@ -519,7 +516,7 @@ export default function CtiDashboard(): JSX.Element {
                 value={mutationInput}
                 onChange={(e) => setMutationInput(e.target.value)}
                 placeholder="Describe an attack pattern, campaign, or malware (e.g. 'LockBit ransomware exploiting CVE-2024-21413 via phishing email to encrypt ESXi servers')"
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-heading placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 dark:focus:border-rose-400"
+                className="w-full rounded-xl border border-line-1 bg-surface-200/50 p-3 text-sm font-mono text-heading placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 dark:focus:border-rose-400"
               />
               <button
                 type="button"
@@ -573,7 +570,7 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                     </div>
                     <p className="text-xs text-muted mt-2 leading-relaxed">{v.summary}</p>
-                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono text-muted">
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-line-1 text-mini font-mono text-muted">
                       {v.mutation_type.replace(/_/g, ' ')}
                     </span>
                   </div>
@@ -590,14 +587,14 @@ export default function CtiDashboard(): JSX.Element {
               <button
                 type="button"
                 onClick={fetchNews}
-                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-muted text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-muted text-sm font-mono hover:bg-surface-200 dark:hover:bg-surface-200 transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>
             </div>
 
             {news.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
+              <div className="rounded-xl border border-dashed border-line-2 p-8 text-center">
                 <Newspaper size={32} className="mx-auto text-muted mb-3" />
                 <p className="text-sm font-mono text-muted">No news articles collected yet.</p>
               </div>

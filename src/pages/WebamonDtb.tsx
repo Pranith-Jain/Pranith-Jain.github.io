@@ -56,17 +56,15 @@ function CollapsibleCard({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <div className="rounded-xl border border-line-1 bg-surface-100">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-slate-900 dark:text-white"
+        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-heading"
       >
         {title}
         {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
-      {open && (
-        <div className="border-t border-slate-200 px-4 py-3 dark:border-[rgb(var(--border-400))]">{children}</div>
-      )}
+      {open && <div className="border-t border-line-1 px-4 py-3">{children}</div>}
     </div>
   );
 }
@@ -101,7 +99,7 @@ export default function WebamonDtb() {
     >
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Webamon Daily Threat Brief</h1>
+          <h1 className="text-2xl font-bold text-heading">Webamon Daily Threat Brief</h1>
           <p className="mt-1 text-sm text-muted">
             Source:{' '}
             <a
@@ -119,7 +117,7 @@ export default function WebamonDtb() {
           <select
             value={currentDate ?? ''}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white"
+            className="rounded-lg border border-line-2 bg-surface-100 px-3 py-2 text-sm text-heading"
           >
             {briefs.map((b) => (
               <option key={b.date} value={b.date}>
@@ -130,26 +128,22 @@ export default function WebamonDtb() {
         )}
       </div>
 
-      {isLoading && <div className="py-12 text-center text-sm text-slate-500">Loading...</div>}
+      {isLoading && <div className="py-12 text-center text-sm text-muted">Loading...</div>}
 
       {!isLoading && brief && (
         <div className="space-y-6">
           {brief.estate && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-                <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {brief.estate.campaignsTracked.toLocaleString()}
-                </div>
+              <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
+                <div className="text-2xl font-bold text-heading">{brief.estate.campaignsTracked.toLocaleString()}</div>
                 <div className="text-xs text-muted">Campaigns Tracked</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-                <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {brief.estate.uniqueDomains.toLocaleString()}
-                </div>
+              <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
+                <div className="text-2xl font-bold text-heading">{brief.estate.uniqueDomains.toLocaleString()}</div>
                 <div className="text-xs text-muted">Unique Domains</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
-                <div className="text-2xl font-bold text-slate-900 dark:text-white">{brief.estate.percentOnline}%</div>
+              <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
+                <div className="text-2xl font-bold text-heading">{brief.estate.percentOnline}%</div>
                 <div className="text-xs text-muted">Online</div>
               </div>
             </div>
@@ -163,11 +157,8 @@ export default function WebamonDtb() {
                 // literally as "NaN" in the card.
                 const n = Number(String(kpi.value).replace(/,/g, ''));
                 return (
-                  <div
-                    key={i}
-                    className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-                  >
-                    <div className="text-lg font-bold text-slate-900 dark:text-white">
+                  <div key={i} className="rounded-lg border border-line-1 bg-surface-100 p-3 text-center">
+                    <div className="text-lg font-bold text-heading">
                       {Number.isFinite(n) ? n.toLocaleString() : kpi.value}
                     </div>
                     <div className="text-mini leading-tight text-muted">{kpi.label}</div>
@@ -193,7 +184,7 @@ export default function WebamonDtb() {
                     <div key={i} className="flex gap-3">
                       <Icon size={16} className={`mt-0.5 shrink-0 ${cfg.color}`} />
                       <div>
-                        <div className="text-sm font-medium text-slate-900 dark:text-white">
+                        <div className="text-sm font-medium text-heading">
                           {m.url ? (
                             <a
                               href={m.url}
@@ -249,7 +240,7 @@ export default function WebamonDtb() {
                 {brief.clusters.entries.map((cl, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300))/0.5]"
+                    className="flex items-center justify-between gap-3 rounded-lg bg-surface-200/50 px-3 py-2"
                   >
                     <span className="text-xs font-medium text-body">{cl.type}</span>
                     <span className="flex shrink-0 items-center gap-2 text-xs text-muted">
@@ -274,7 +265,7 @@ export default function WebamonDtb() {
             </CollapsibleCard>
           )}
 
-          <div className="flex items-center gap-2 text-xs text-slate-400">
+          <div className="flex items-center gap-2 text-xs text-muted">
             <span>TLP:{brief.tlp}</span>
             <span>&middot;</span>
             <a
@@ -289,7 +280,7 @@ export default function WebamonDtb() {
         </div>
       )}
 
-      {!isLoading && !brief && <div className="py-12 text-center text-sm text-slate-500">No briefs available yet.</div>}
+      {!isLoading && !brief && <div className="py-12 text-center text-sm text-muted">No briefs available yet.</div>}
     </DataPageLayout>
   );
 }

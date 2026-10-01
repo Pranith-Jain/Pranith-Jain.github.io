@@ -300,7 +300,7 @@ export default function SocRansomware(): JSX.Element {
             right={
               <Link
                 to="/threatintel/catalog?cat=actors"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
               >
                 all <ExternalLink size={10} />
               </Link>
@@ -319,7 +319,7 @@ export default function SocRansomware(): JSX.Element {
               centerSub="by country"
             />
           ) : (
-            <p className="text-meta font-mono text-slate-500 italic">No country attribution in this window.</p>
+            <p className="text-meta font-mono text-muted italic">No country attribution in this window.</p>
           )}
         </SocPanel>
 
@@ -333,7 +333,7 @@ export default function SocRansomware(): JSX.Element {
               centerSub="by sector"
             />
           ) : (
-            <p className="text-meta font-mono text-slate-500 italic">No sector attribution in this window.</p>
+            <p className="text-meta font-mono text-muted italic">No sector attribution in this window.</p>
           )}
         </SocPanel>
       </div>
@@ -404,7 +404,7 @@ export default function SocRansomware(): JSX.Element {
             right={
               <Link
                 to="/threatintel/ransomware-hub"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
               >
                 feed <ExternalLink size={10} />
               </Link>
@@ -421,7 +421,7 @@ export default function SocRansomware(): JSX.Element {
 
 function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
   if (rows.length === 0) {
-    return <p className="text-meta font-mono text-slate-500 italic">No claims in window.</p>;
+    return <p className="text-meta font-mono text-muted italic">No claims in window.</p>;
   }
   return (
     <div className="space-y-3">
@@ -491,7 +491,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
           }
           rows={rows}
           rowKey={(v, i) => `${v.victim}-${i}`}
-          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/40'}
         />
       </div>
     </div>

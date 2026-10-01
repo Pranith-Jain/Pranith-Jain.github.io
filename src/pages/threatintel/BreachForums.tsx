@@ -259,7 +259,7 @@ export default function BreachForums(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -289,7 +289,7 @@ export default function BreachForums(): JSX.Element {
           {groups.map(([category, rows]) => (
             <div key={category}>
               <h2 className="font-display font-semibold text-sm mb-2">
-                {category} <span className="font-mono text-mini text-slate-500">· {rows.length}</span>
+                {category} <span className="font-mono text-mini text-muted">· {rows.length}</span>
               </h2>
               <ul className="grid gap-2 md:grid-cols-2">
                 {rows.map((r, i) => (
@@ -300,7 +300,7 @@ export default function BreachForums(): JSX.Element {
                       </span>
                       <span className="flex items-center gap-1 shrink-0">
                         {r.onion && (
-                          <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-slate-500">
+                          <span className="rounded border border-line-3/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-muted">
                             onion
                           </span>
                         )}
@@ -311,7 +311,7 @@ export default function BreachForums(): JSX.Element {
                         </span>
                       </span>
                     </div>
-                    {r.note && <p className="font-mono text-mini text-slate-500 mt-1 leading-relaxed">{r.note}</p>}
+                    {r.note && <p className="font-mono text-mini text-muted mt-1 leading-relaxed">{r.note}</p>}
                     <div className="flex items-center gap-2 mt-1.5">
                       {r.origin === 'curated' ? (
                         <a
@@ -328,7 +328,7 @@ export default function BreachForums(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => copy(r.url)}
-                        className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
+                        className="shrink-0 rounded border border-line-1 p-1 text-muted hover:text-rose-600"
                         aria-label="Copy URL"
                       >
                         <Copy size={11} />
@@ -369,7 +369,7 @@ export default function BreachForums(): JSX.Element {
                   <span className="font-display font-semibold text-sm truncate" title={d.name}>
                     {d.name}
                   </span>
-                  <span className="font-mono text-micro text-slate-500 shrink-0">{d.category}</span>
+                  <span className="font-mono text-micro text-muted shrink-0">{d.category}</span>
                   <span className="flex items-center gap-1.5 ml-auto">
                     <span
                       className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${statusClass(d.from_status)}`}
@@ -377,7 +377,7 @@ export default function BreachForums(): JSX.Element {
                     >
                       {d.from_status}
                     </span>
-                    <span className="font-mono text-micro text-slate-500">→</span>
+                    <span className="font-mono text-micro text-muted">→</span>
                     <span
                       className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${statusClass(d.to_status)}`}
                       title="new status"
@@ -398,7 +398,7 @@ export default function BreachForums(): JSX.Element {
                       {d.change}
                     </span>
                   </span>
-                  <span className="font-mono text-micro text-slate-500 w-full">{formatTimestamp(d.observed_at)}</span>
+                  <span className="font-mono text-micro text-muted w-full">{formatTimestamp(d.observed_at)}</span>
                 </li>
               ))}
             </ul>
@@ -417,7 +417,7 @@ export default function BreachForums(): JSX.Element {
           no leak dumps - just the press.
         </p>
         {coverageData && (
-          <p className="text-mini font-mono text-slate-500 mb-2">
+          <p className="text-mini font-mono text-muted mb-2">
             {coverageData.items.length} headlines · {coverageData.sources.filter((s) => s.ok).length}/
             {coverageData.sources.length} sources OK
           </p>
@@ -463,12 +463,12 @@ export default function BreachForums(): JSX.Element {
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>
-                    <span className="font-mono text-micro text-slate-500 ml-auto" title={it.source_id}>
+                    <span className="font-mono text-micro text-muted ml-auto" title={it.source_id}>
                       {it.source_name || shortSourceId(it.source_id)}
                     </span>
                   </div>
                   {it.snippet && <p className="text-meta text-muted mt-1 leading-relaxed">{it.snippet}</p>}
-                  <p className="font-mono text-micro text-slate-500 mt-1">{formatTimestamp(it.pubDate)}</p>
+                  <p className="font-mono text-micro text-muted mt-1">{formatTimestamp(it.pubDate)}</p>
                 </li>
               ))}
             </ul>
@@ -486,7 +486,7 @@ export default function BreachForums(): JSX.Element {
           Sinisterly, Exploit, etc.). Useful for spotting law-enforcement seizures and successor-site chatter.
         </p>
         {mentionsData && (
-          <p className="text-mini font-mono text-slate-500 mb-2">
+          <p className="text-mini font-mono text-muted mb-2">
             {mentionsData.items.length} mentions · {mentionsData.sources.filter((s) => s.ok).length}/
             {mentionsData.sources.length} sources OK
           </p>
@@ -512,7 +512,7 @@ export default function BreachForums(): JSX.Element {
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>
-                    <span className="font-mono text-micro text-slate-500 ml-auto">{it.source_name}</span>
+                    <span className="font-mono text-micro text-muted ml-auto">{it.source_name}</span>
                   </div>
                   {it.snippet && <p className="text-meta text-muted mt-1 leading-relaxed">{it.snippet}</p>}
                 </li>

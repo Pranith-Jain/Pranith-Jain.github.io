@@ -61,7 +61,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -173,10 +173,7 @@ export default function CloudThreatLandscape(): JSX.Element {
         {filtered.slice(0, 600).map((inc) => {
           const primaryRef = inc.external_refs.map((r) => safeHref(r.url)).find((h): h is string => Boolean(h));
           return (
-            <div
-              key={inc.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-            >
+            <div key={inc.id} className="rounded-xl border border-line-1 bg-surface-200 p-3">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-heading leading-snug">
                   {primaryRef ? (
@@ -221,7 +218,7 @@ export default function CloudThreatLandscape(): JSX.Element {
               </div>
 
               {inc.objective && (
-                <p className="text-micro font-mono text-slate-500 mt-2 flex items-start gap-1">
+                <p className="text-micro font-mono text-muted mt-2 flex items-start gap-1">
                   <Target size={12} className="shrink-0 mt-0.5" /> {inc.objective}
                 </p>
               )}
@@ -231,7 +228,7 @@ export default function CloudThreatLandscape(): JSX.Element {
               )}
 
               {inc.external_refs.length > 0 && (
-                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-line-1">
                   {inc.external_refs.map((ref, i) => {
                     const href = safeHref(ref.url);
                     return href ? (

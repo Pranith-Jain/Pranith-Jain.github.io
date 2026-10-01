@@ -41,7 +41,7 @@ const CREDENTIAL_COLUMNS: DataTableColumn<Credential>[] = [
   {
     key: 'password_length',
     header: 'Pass Len',
-    render: (c) => <span className="text-slate-500">{c.password_length}</span>,
+    render: (c) => <span className="text-muted">{c.password_length}</span>,
     sortValue: (c) => c.password_length,
     align: 'right',
     className: 'text-xs',
@@ -125,10 +125,7 @@ export default function StealerParser(): JSX.Element {
       {/* Supported stealers */}
       <div className="flex flex-wrap gap-1.5 mb-6">
         {SUPPORTED_STEALERS.map((s) => (
-          <span
-            key={s}
-            className="px-2.5 py-1 rounded-xl text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
-          >
+          <span key={s} className="px-2.5 py-1 rounded-xl text-xs font-mono border border-line-1 text-muted">
             {s}
           </span>
         ))}
@@ -141,7 +138,7 @@ export default function StealerParser(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste stealer log content here…"
           aria-label="Stealer log content to parse"
-          className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-48 bg-surface-200 border border-line-1 rounded-xl p-4 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="flex items-center justify-between mt-3">
           <span className="text-xs text-muted font-mono">
@@ -150,7 +147,7 @@ export default function StealerParser(): JSX.Element {
           <button
             onClick={handleParse}
             disabled={loading || !input.trim()}
-            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center gap-2"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             {loading ? 'Parsing…' : 'Parse Log'}
@@ -249,7 +246,7 @@ export default function StealerParser(): JSX.Element {
                 {result.crypto_wallets.map((w) => (
                   <div
                     key={w.address}
-                    className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
+                    className="flex items-center gap-2 rounded-xl border border-line-1 bg-surface-200 px-3 py-2"
                   >
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
                       {w.currency}
@@ -268,10 +265,7 @@ export default function StealerParser(): JSX.Element {
               <h2 className="font-display font-bold text-sm mb-3">Emails ({result.emails.length})</h2>
               <div className="max-h-32 overflow-y-auto flex flex-wrap gap-1">
                 {result.emails.map((e) => (
-                  <span
-                    key={e}
-                    className="px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted"
-                  >
+                  <span key={e} className="px-2 py-0.5 rounded border border-line-1 text-xs font-mono text-muted">
                     {e}
                   </span>
                 ))}
@@ -285,10 +279,7 @@ export default function StealerParser(): JSX.Element {
               <h2 className="font-display font-bold text-sm mb-3">Installed Software</h2>
               <div className="flex flex-wrap gap-1.5">
                 {result.installed_software.map((s) => (
-                  <span
-                    key={s}
-                    className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted"
-                  >
+                  <span key={s} className="px-2 py-1 rounded border border-line-1 text-xs text-muted">
                     {s}
                   </span>
                 ))}

@@ -50,10 +50,10 @@ export function PageToCheckOut(): JSX.Element | null {
   if (!page) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-e1 dark:hover:shadow-brand-500/5">
+    <section className="group relative overflow-hidden rounded-xl border border-line-1/70 p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-e1 dark:hover:shadow-brand-500/5">
       {/* Geist: tonal surface wash, no multi-stop decorative gradient
           (Geist hierarchy comes from borders + fills, not gradients). */}
-      <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))] dark:bg-[rgb(var(--hover-100))]" />
+      <div aria-hidden className="absolute inset-0 bg-wash" />
       <div className="relative">
         <div className="flex items-center gap-2 mb-3">
           <div className="grid h-6 w-6 place-items-center rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
@@ -72,15 +72,12 @@ export function PageToCheckOut(): JSX.Element | null {
               <Compass size={16} />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h4 className="text-sm font-semibold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {page.name}
               </h4>
               <p className="text-xs text-muted mt-0.5 leading-relaxed">{page.desc}</p>
             </div>
-            <ArrowRight
-              size={14}
-              className="text-slate-400 group-hover:text-brand-500 transition-colors shrink-0 mt-1"
-            />
+            <ArrowRight size={14} className="text-muted group-hover:text-brand-500 transition-colors shrink-0 mt-1" />
           </div>
         </Link>
       </div>

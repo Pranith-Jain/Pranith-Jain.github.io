@@ -433,7 +433,7 @@ export default function MedusaScanner(): JSX.Element {
               className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-xl border transition-colors ${
                 active
                   ? 'border-brand-500 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
               }`}
             >
               <m.Icon size={13} /> {m.label}
@@ -441,7 +441,7 @@ export default function MedusaScanner(): JSX.Element {
           );
         })}
 
-        <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))] mx-1" />
+        <div className="w-px h-5 bg-track dark:bg-line-1 mx-1" />
 
         {SAMPLES.map((s) => (
           <button
@@ -451,7 +451,7 @@ export default function MedusaScanner(): JSX.Element {
               setFilename(s.filename);
               setInput(s.code);
             }}
-            className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono text-xs px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             {s.label}
           </button>
@@ -463,7 +463,7 @@ export default function MedusaScanner(): JSX.Element {
               setInput('');
               setFilename('');
             }}
-            className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+            className="text-meta font-mono text-xs px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
           >
             clear
           </button>
@@ -476,7 +476,7 @@ export default function MedusaScanner(): JSX.Element {
           value={filename}
           onChange={(e) => setFilename(e.target.value)}
           placeholder="filename.ext (optional - enables language-aware rules)"
-          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-tool text-sm text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -519,14 +519,14 @@ export default function MedusaScanner(): JSX.Element {
                   <button
                     type="button"
                     onClick={handleExport}
-                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                   >
                     <Download size={12} /> JSON
                   </button>
                   <button
                     type="button"
                     onClick={handleCopyJson}
-                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                   >
                     {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'Copied' : 'Copy'}
                   </button>
@@ -553,26 +553,24 @@ export default function MedusaScanner(): JSX.Element {
                 const st = SEV_STYLE[sev];
                 return (
                   <section key={sev} className="surface-card overflow-hidden">
-                    <div
-                      className={`px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${st.bg} flex items-center gap-2`}
-                    >
+                    <div className={`px-4 py-2 border-b border-line-1 ${st.bg} flex items-center gap-2`}>
                       <st.Icon size={15} className={st.text} />
                       <span className={`font-mono font-semibold text-sm uppercase ${st.text}`}>{sev}</span>
                       <span className="font-mono text-xs text-muted">({grp.length})</span>
                     </div>
-                    <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-400))]">
+                    <div className="divide-y divide-line-1">
                       {grp.map((hit, idx) => {
                         const HitIcon = CATEGORY_ICONS[hit.kind] || Shield;
                         return (
                           <div
                             key={`${hit.ruleId}-${idx}`}
-                            className="px-4 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                            className="px-4 py-3 hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                           >
                             <div className="flex items-start gap-2.5">
                               <HitIcon size={14} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-2 flex-wrap">
-                                  <span className="text-micro font-mono px-1 py-0.5 rounded border bg-slate-100 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                                  <span className="text-micro font-mono px-1 py-0.5 rounded border bg-surface-300 border-line-1 text-muted">
                                     {hit.ruleId}
                                   </span>
                                   <span className={`font-display font-semibold text-sm ${st.text}`}>{hit.message}</span>
@@ -581,12 +579,12 @@ export default function MedusaScanner(): JSX.Element {
                                   <span>
                                     line {hit.line}:{hit.column}
                                   </span>
-                                  <span className="text-micro px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+                                  <span className="text-micro px-1 py-0.5 rounded bg-surface-300">
                                     {CATEGORY_LABELS[hit.kind] || hit.kind}
                                   </span>
                                 </div>
                                 {hit.snippet && (
-                                  <pre className="mt-1.5 text-xs font-mono bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded px-2.5 py-1.5 text-body overflow-x-auto whitespace-pre-wrap break-all border border-slate-100 dark:border-[rgb(var(--border-400))]">
+                                  <pre className="mt-1.5 text-xs font-mono bg-surface-200 rounded px-2.5 py-1.5 text-body overflow-x-auto whitespace-pre-wrap break-all border border-line-1">
                                     {hit.snippet.length > 120 ? hit.snippet.slice(0, 120) + '…' : hit.snippet}
                                   </pre>
                                 )}

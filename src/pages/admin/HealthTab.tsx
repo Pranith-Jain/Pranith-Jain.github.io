@@ -61,10 +61,7 @@ export default function HealthTab() {
     return (
       <div>
         <p className="text-rose-400 mb-2">Failed to load: {error}</p>
-        <button
-          onClick={() => void load()}
-          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
-        >
+        <button onClick={() => void load()} className="px-3 py-1 border border-line-1 rounded text-sm">
           Retry
         </button>
       </div>
@@ -114,17 +111,14 @@ export default function HealthTab() {
           type="button"
           onClick={() => void load()}
           disabled={loading}
-          className="px-2.5 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+          className="px-2.5 py-1 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
         >
           {loading ? 'Refreshing…' : 'Refresh'}
         </button>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {CARDS.map((card) => (
-          <div
-            key={card.key}
-            className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)]"
-          >
+          <div key={card.key} className="border border-line-1 rounded p-4 bg-surface-200/40">
             <div className="text-xs uppercase tracking-wider text-muted">{card.label}</div>
             <div className="text-2xl font-semibold text-heading mt-1 tabular-nums">{health[card.key]}</div>
           </div>

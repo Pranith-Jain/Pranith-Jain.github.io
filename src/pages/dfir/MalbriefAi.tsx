@@ -169,14 +169,14 @@ export default function MalbriefAi(): JSX.Element {
               onChange={(e) => setIndicators(e.target.value)}
               rows={10}
               placeholder="Paste behavioral indicators, sandbox output, or malware analysis notes…"
-              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-line-1 bg-surface-200 p-3 font-mono text-xs text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
           <button
             onClick={handleAnalyze}
             disabled={loading || !indicators.trim()}
-            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
@@ -259,7 +259,7 @@ export default function MalbriefAi(): JSX.Element {
                     {result.signatures.map((s, i) => (
                       <div key={i} className="flex items-start gap-2">
                         <span className="text-brand-500 dark:text-brand-400 mt-0.5 text-xs">→</span>
-                        <pre className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 text-xs font-mono text-body overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+                        <pre className="flex-1 bg-surface-200 rounded p-2 text-xs font-mono text-body overflow-x-auto border border-line-1 whitespace-pre-wrap">
                           {s}
                         </pre>
                       </div>
@@ -290,7 +290,7 @@ export default function MalbriefAi(): JSX.Element {
                     <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Analysis Summary
                   </h2>
                   <p className="text-sm text-body leading-relaxed whitespace-pre-wrap">{result.summary}</p>
-                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <div className="mt-3 pt-3 border-t border-line-1">
                     <ShareBar
                       shareText={
                         result.summary
@@ -312,14 +312,14 @@ export default function MalbriefAi(): JSX.Element {
               <div className="flex gap-2">
                 <button
                   onClick={copyResult}
-                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-xl border border-line-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors flex items-center justify-center gap-2"
                 >
                   {copied ? <Check size={13} /> : <Copy size={13} />}
                   {copied ? 'Copied' : 'Copy Report'}
                 </button>
                 <button
                   onClick={downloadReport}
-                  className="flex-1 px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-xl border border-line-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors flex items-center justify-center gap-2"
                 >
                   <Download size={13} /> Download .md
                 </button>
@@ -328,8 +328,8 @@ export default function MalbriefAi(): JSX.Element {
           )}
 
           {!result && !loading && !error && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Bug size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
+            <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
+              <Bug size={32} className="text-inverted dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Paste behavioral indicators and click <span className="font-semibold">Analyze</span>
               </p>

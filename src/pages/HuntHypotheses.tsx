@@ -41,11 +41,11 @@ function QueryBlock({ query }: { query: string }) {
     <div className="relative">
       <button
         onClick={copy}
-        className="absolute top-2 right-2 inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-brand-500"
+        className="absolute top-2 right-2 inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-brand-500"
       >
         {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
       </button>
-      <pre className="font-mono text-mini leading-relaxed text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-mini leading-relaxed text-body bg-surface-200 border border-line-1 rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
         {query}
       </pre>
     </div>
@@ -57,7 +57,7 @@ function HuntDetail({ body, onClose }: { body: HuntBody; onClose: () => void }) 
     <Modal open onClose={onClose} title={body.title} size="lg">
       <div className="space-y-4 max-h-[70vh] overflow-y-auto">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
+          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-line-2 text-body">
             {body.id}
           </span>
           <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-sky-300 dark:border-sky-800 text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40">
@@ -154,7 +154,7 @@ export default function HuntHypotheses() {
               aria-label="Search hunt hypotheses"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-surface-200 border border-line-1 text-heading placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -168,7 +168,7 @@ export default function HuntHypotheses() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedTactic
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             All Tactics
@@ -180,7 +180,7 @@ export default function HuntHypotheses() {
               className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                 selectedTactic === t.name
                   ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
               }`}
             >
               {t.name} <span className="opacity-60 ml-0.5">({t.count})</span>
@@ -189,13 +189,13 @@ export default function HuntHypotheses() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
+          <div className="flex items-center justify-center py-16 text-muted">
+            <div className="w-6 h-6 border-2 border-line-2 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading hypotheses...
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No hypotheses match your filters.</p>
           </div>
         ) : (
@@ -207,12 +207,12 @@ export default function HuntHypotheses() {
                 className={`${CARD} text-left p-4 transition-colors hover:border-brand-400 dark:hover:border-brand-600 group`}
               >
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">
-                  <span className="font-mono text-micro font-bold text-slate-400 dark:text-slate-500">{h.id}</span>
+                  <span className="font-mono text-micro font-bold text-muted">{h.id}</span>
                   <span className="font-mono text-micro font-bold px-1.5 py-0.5 rounded border border-sky-300 dark:border-sky-800 text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40">
                     {h.tactic}
                   </span>
                 </div>
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug">
                   {h.title}
                 </div>
                 <div className="font-mono text-micro text-orange-600 dark:text-orange-400/70">{h.technique}</div>
@@ -221,7 +221,7 @@ export default function HuntHypotheses() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Authored hypothesis library grounded in MITRE ATT&CK — adapt queries to your own telemetry before running.
         </div>
       </div>

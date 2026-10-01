@@ -69,7 +69,7 @@ function ListField({ label, items }: { label: string; items?: string[] }) {
         {items.map((it, i) => (
           <span
             key={i}
-            className="font-mono text-micro text-body bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
+            className="font-mono text-micro text-body bg-surface-300 border border-line-1 px-2 py-0.5 rounded"
           >
             {it}
           </span>
@@ -146,7 +146,7 @@ function DfirRefDetail({ body, onClose }: { body: DfirRefBody; onClose: () => vo
           </>
         )}
 
-        <div className="text-micro text-muted pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-micro text-muted pt-2 border-t border-line-1">
           Authored reference data — verify against vendor documentation before use in production IR.
         </div>
       </div>
@@ -215,7 +215,7 @@ export default function DfirRef() {
               aria-label="Search DFIR reference"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-surface-200 border border-line-1 text-heading placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -229,7 +229,7 @@ export default function DfirRef() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedCategory
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             All Sections
@@ -241,7 +241,7 @@ export default function DfirRef() {
               className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                 selectedCategory === cat.key
                   ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
               }`}
             >
               {cat.name} <span className="opacity-60 ml-0.5">({catCount(cat.key)})</span>
@@ -250,13 +250,13 @@ export default function DfirRef() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
+          <div className="flex items-center justify-center py-16 text-muted">
+            <div className="w-6 h-6 border-2 border-line-2 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading reference...
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No reference items match your filters.</p>
           </div>
         ) : (
@@ -274,7 +274,7 @@ export default function DfirRef() {
                     {CATEGORY_ICONS[item.category]} {item.categoryLabel}
                   </span>
                 </div>
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug">
                   {item.name}
                 </div>
                 {item.tags.length > 0 && (
@@ -282,7 +282,7 @@ export default function DfirRef() {
                     {item.tags.slice(0, 4).map((t, i) => (
                       <span
                         key={i}
-                        className="font-mono text-micro text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 rounded"
+                        className="font-mono text-micro text-muted bg-surface-300 border border-line-1 px-1.5 py-0.5 rounded"
                       >
                         {t}
                       </span>
@@ -302,7 +302,7 @@ export default function DfirRef() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Authored in-repo reference data — event IDs, Volatility plugins, browser artifact locations and evidence
           collection phases for day-to-day IR. Cross-check against vendor docs before triage decisions.
         </div>

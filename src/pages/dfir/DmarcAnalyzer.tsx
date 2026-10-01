@@ -349,7 +349,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         className={`relative rounded-xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors mb-8 ${
           dragOver
             ? 'border-brand-500 bg-brand-500/5'
-            : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 hover:border-brand-400 hover:bg-brand-500/5'
+            : 'border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-surface-200/50 hover:border-brand-400 hover:bg-brand-500/5'
         }`}
       >
         <input
@@ -360,7 +360,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           className="hidden"
           aria-label="Upload DMARC XML report"
         />
-        <Upload size={36} className="mx-auto mb-3 text-slate-400" />
+        <Upload size={36} className="mx-auto mb-3 text-muted" />
         <p className="text-sm font-mono text-muted mb-1">Drag &amp; drop your DMARC XML report here</p>
         <p className="text-xs text-muted font-mono">or click to browse - .xml, .gz, .zip up to 25 MB</p>
       </div>
@@ -388,26 +388,26 @@ export default function DmarcAnalyzer(): JSX.Element {
               <h2 className="text-lg font-display font-bold">{report.domain}</h2>
               <button
                 onClick={exportCsv}
-                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-mono border border-line-2 rounded-xl px-3 py-1.5 hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
               >
                 <Download size={14} /> Export CSV
               </button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-surface-200 p-3">
                 <p className="text-xs text-muted font-mono">Total Emails</p>
                 <p className="text-2xl font-bold">{totalEmails.toLocaleString()}</p>
               </div>
-              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-surface-200 p-3">
                 <p className="text-xs text-muted font-mono">DMARC Pass Rate</p>
                 <p className="text-2xl font-bold">{passRate}%</p>
               </div>
-              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-surface-200 p-3">
                 <p className="text-xs text-muted font-mono">Unique IPs</p>
                 <p className="text-2xl font-bold">{report.records.length}</p>
               </div>
-              <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+              <div className="rounded-xl bg-surface-200 p-3">
                 <p className="text-xs text-muted font-mono">Report Period</p>
                 <p className="text-sm font-bold">
                   {report.beginDate} - {report.endDate}
@@ -553,7 +553,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-4">
+          <div className="rounded-xl border border-line-1 bg-surface-200 p-4">
             <h3 className="text-sm font-display font-semibold mb-2">Privacy</h3>
             <p className="text-xs text-muted font-mono">
               DMARC XML is parsed entirely in your browser. IPs are enriched server-side via the same edge API used by

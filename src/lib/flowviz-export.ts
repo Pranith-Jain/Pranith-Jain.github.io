@@ -54,7 +54,7 @@ interface Nodedata {
 }
 
 function ndata(n: Node): Nodedata {
-  return ((n.data ?? {}) as Nodedata);
+  return (n.data ?? {}) as Nodedata;
 }
 
 function stixId(type: string): string {
@@ -71,7 +71,11 @@ function mitreRefs(d: Nodedata): Array<Record<string, string>> {
     });
   }
   if (d.tactic_id) {
-    refs.push({ source_name: 'mitre-attack', external_id: d.tactic_id, url: `https://attack.mitre.org/tactics/${d.tactic_id}/` });
+    refs.push({
+      source_name: 'mitre-attack',
+      external_id: d.tactic_id,
+      url: `https://attack.mitre.org/tactics/${d.tactic_id}/`,
+    });
   }
   return refs;
 }
@@ -97,64 +101,104 @@ function convertNode(node: Node, now: string): FlowvizStixObject | null {
   switch (t) {
     case 'action':
       return {
-        ...base, type: 'attack-pattern', id: stixId('attack-pattern'),
-        name: d.name || 'Unknown Technique', description: d.description,
-        external_references: mitreRefs(d), kill_chain_phases: killChain(d),
-        x_mitre_technique_id: d.technique_id, x_mitre_tactic: d.tactic_name,
-        x_source_excerpt: d.source_excerpt, x_confidence: d.confidence,
+        ...base,
+        type: 'attack-pattern',
+        id: stixId('attack-pattern'),
+        name: d.name || 'Unknown Technique',
+        description: d.description,
+        external_references: mitreRefs(d),
+        kill_chain_phases: killChain(d),
+        x_mitre_technique_id: d.technique_id,
+        x_mitre_tactic: d.tactic_name,
+        x_source_excerpt: d.source_excerpt,
+        x_confidence: d.confidence,
       };
     case 'tool':
       return {
-        ...base, type: 'tool', id: stixId('tool'),
-        name: d.name || 'Unknown Tool', description: d.description, tool_types: ['unknown'],
-        x_command_line: d.command_line, x_source_excerpt: d.source_excerpt, x_confidence: d.confidence,
+        ...base,
+        type: 'tool',
+        id: stixId('tool'),
+        name: d.name || 'Unknown Tool',
+        description: d.description,
+        tool_types: ['unknown'],
+        x_command_line: d.command_line,
+        x_source_excerpt: d.source_excerpt,
+        x_confidence: d.confidence,
       };
     case 'malware':
       return {
-        ...base, type: 'malware', id: stixId('malware'),
-        name: d.name || 'Unknown Malware', description: d.description, malware_types: ['unknown'],
-        is_family: true, x_command_line: d.command_line,
-        x_source_excerpt: d.source_excerpt, x_confidence: d.confidence,
+        ...base,
+        type: 'malware',
+        id: stixId('malware'),
+        name: d.name || 'Unknown Malware',
+        description: d.description,
+        malware_types: ['unknown'],
+        is_family: true,
+        x_command_line: d.command_line,
+        x_source_excerpt: d.source_excerpt,
+        x_confidence: d.confidence,
       };
     case 'infrastructure':
       return {
-        ...base, type: 'infrastructure', id: stixId('infrastructure'),
-        name: d.name || 'Unknown Infrastructure', description: d.description,
+        ...base,
+        type: 'infrastructure',
+        id: stixId('infrastructure'),
+        name: d.name || 'Unknown Infrastructure',
+        description: d.description,
         infrastructure_types: ['unknown'],
-        x_source_excerpt: d.source_excerpt, x_confidence: d.confidence,
+        x_source_excerpt: d.source_excerpt,
+        x_confidence: d.confidence,
       };
     case 'vulnerability': {
       const cve = d.cve_id || (/CVE-\d{4}-\d{4,7}/i.exec(d.name ?? '')?.[0] ?? '');
       return {
-        ...base, type: 'vulnerability', id: stixId('vulnerability'),
-        name: d.name || cve || 'Unknown Vulnerability', description: d.description,
+        ...base,
+        type: 'vulnerability',
+        id: stixId('vulnerability'),
+        name: d.name || cve || 'Unknown Vulnerability',
+        description: d.description,
         external_references: cve ? [{ source_name: 'cve', external_id: cve.toUpperCase() }] : [],
-        x_source_excerpt: d.source_excerpt, x_confidence: d.confidence,
+        x_source_excerpt: d.source_excerpt,
+        x_confidence: d.confidence,
       };
     }
     case 'asset':
       return {
-        ...base, type: 'identity', id: stixId('identity'),
-        name: d.name || 'Unknown Asset', description: d.description,
-        identity_class: 'system', x_asset_role: d.role,
-        x_source_excerpt: d.source_excerpt, x_confidence: d.confidence,
+        ...base,
+        type: 'identity',
+        id: stixId('identity'),
+        name: d.name || 'Unknown Asset',
+        description: d.description,
+        identity_class: 'system',
+        x_asset_role: d.role,
+        x_source_excerpt: d.source_excerpt,
+        x_confidence: d.confidence,
       };
     case 'url': {
       const value = d.value || d.name || '';
       return {
-        ...base, type: 'indicator', id: stixId('indicator'),
-        name: d.name || value || 'Unknown URL', description: d.description,
-        pattern: value ? `[url:value='${value}']` : '', pattern_type: 'stix',
-        valid_from: now, labels: ['malicious-activity'],
-        x_source_excerpt: d.source_excerpt, x_confidence: d.confidence,
+        ...base,
+        type: 'indicator',
+        id: stixId('indicator'),
+        name: d.name || value || 'Unknown URL',
+        description: d.description,
+        pattern: value ? `[url:value='${value}']` : '',
+        pattern_type: 'stix',
+        valid_from: now,
+        labels: ['malicious-activity'],
+        x_source_excerpt: d.source_excerpt,
+        x_confidence: d.confidence,
       };
     }
     case 'AND_operator':
     case 'OR_operator':
       return {
-        ...base, type: 'grouping', id: stixId('grouping'),
+        ...base,
+        type: 'grouping',
+        id: stixId('grouping'),
         name: d.name || (t === 'AND_operator' ? 'AND' : 'OR'),
-        description: d.description, context: t === 'AND_operator' ? 'AND' : 'OR',
+        description: d.description,
+        context: t === 'AND_operator' ? 'AND' : 'OR',
         object_refs: [], // filled in second pass
       };
     default:
@@ -175,9 +219,14 @@ export function exportFlowvizStix(nodes: Node[], edges: Edge[]): FlowvizStixBund
     if (o.type !== 'grouping') continue;
     const inputs = edges.filter((e) => e.target === nodeId).map((e) => e.source);
     const refs = inputs.map((id) => stixByNode.get(id)?.id).filter((x): x is string => !!x);
-    const fallback = refs.length === 0
-      ? edges.filter((e) => e.source === nodeId).map((e) => e.target).map((id) => stixByNode.get(id)?.id).filter((x): x is string => !!x)
-      : refs;
+    const fallback =
+      refs.length === 0
+        ? edges
+            .filter((e) => e.source === nodeId)
+            .map((e) => e.target)
+            .map((id) => stixByNode.get(id)?.id)
+            .filter((x): x is string => !!x)
+        : refs;
     if (fallback.length === 0) {
       stixByNode.delete(nodeId);
       continue;
@@ -190,10 +239,14 @@ export function exportFlowvizStix(nodes: Node[], edges: Edge[]): FlowvizStixBund
     const t = stixByNode.get(e.target)?.id;
     if (!s || !t) continue;
     rels.push({
-      type: 'relationship', spec_version: '2.1', id: stixId('relationship'),
-      created: now, modified: now,
+      type: 'relationship',
+      spec_version: '2.1',
+      id: stixId('relationship'),
+      created: now,
+      modified: now,
       relationship_type: EDGE_REL_MAP[e.label as string] ?? 'related-to',
-      source_ref: s, target_ref: t,
+      source_ref: s,
+      target_ref: t,
       description: typeof e.label === 'string' ? e.label : undefined,
     });
   }
@@ -241,7 +294,8 @@ export function exportFlowvizAfb(nodes: Node[], edges: Edge[], name = 'FlowViz e
     const anchors: Record<string, string> = {};
     for (let i = 0; i < 12; i++) anchors[`anchor_${i}`] = crypto.randomUUID();
     objects.push({
-      id: block, instance: inst,
+      id: block,
+      instance: inst,
       properties: [
         ['name', nd.name ?? n.id],
         ['description', nd.description ?? ''],
@@ -249,7 +303,9 @@ export function exportFlowvizAfb(nodes: Node[], edges: Edge[], name = 'FlowViz e
         ...(nd.tactic_id ? [['tactic_id', nd.tactic_id]] : []),
         ...(nd.tactic_name ? [['tactic_name', nd.tactic_name]] : []),
       ],
-      anchors, objects: [], latches: [],
+      anchors,
+      objects: [],
+      latches: [],
     });
     layout[inst] = [Math.round((n.position?.x ?? 0) / 5) * 5, Math.round((n.position?.y ?? 0) / 5) * 5];
   }
@@ -263,7 +319,13 @@ export function exportFlowvizAfb(nodes: Node[], edges: Edge[], name = 'FlowViz e
     children.push(line);
   }
   objects.unshift({ id: 'flow', instance: flowId, properties: [['name', name]], objects: children });
-  return { schema: 'attack_flow_v2', theme: 'dark_theme', objects, layout, camera: { x: Math.round(avgX), y: Math.round(avgY), k: 1 } };
+  return {
+    schema: 'attack_flow_v2',
+    theme: 'dark_theme',
+    objects,
+    layout,
+    camera: { x: Math.round(avgX), y: Math.round(avgY), k: 1 },
+  };
 }
 
 // ─── Saved flows (localStorage library — same contract as upstream) ─────

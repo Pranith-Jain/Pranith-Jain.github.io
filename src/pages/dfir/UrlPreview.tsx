@@ -185,7 +185,7 @@ export default function UrlPreview(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Eye size={16} className="inline mr-2" />
             Preview
@@ -212,9 +212,9 @@ export default function UrlPreview(): JSX.Element {
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <StatusBadge status={result.status} />
               {result.content_type && (
-                <span className="font-mono text-xs text-slate-500">{result.content_type.split(';')[0]}</span>
+                <span className="font-mono text-xs text-muted">{result.content_type.split(';')[0]}</span>
               )}
-              <span className="font-mono text-xs text-slate-500">{(result.bytes_read / 1024).toFixed(1)} KB read</span>
+              <span className="font-mono text-xs text-muted">{(result.bytes_read / 1024).toFixed(1)} KB read</span>
             </div>
             <a
               href={sanitizeUrl(result.final_url)}
@@ -285,7 +285,7 @@ export default function UrlPreview(): JSX.Element {
           {/* Page title */}
           {result.title && (
             <section className="surface-card p-6">
-              <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Page Title</div>
+              <div className="text-xs uppercase tracking-wider text-muted font-mono mb-1">Page Title</div>
               <p className="text-heading font-semibold">{result.title}</p>
             </section>
           )}
@@ -293,7 +293,7 @@ export default function UrlPreview(): JSX.Element {
           {/* Meta description */}
           {result.description && (
             <section className="surface-card p-6">
-              <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Meta Description</div>
+              <div className="text-xs uppercase tracking-wider text-muted font-mono mb-1">Meta Description</div>
               <p className="text-body text-sm">{result.description}</p>
             </section>
           )}
@@ -301,7 +301,7 @@ export default function UrlPreview(): JSX.Element {
           {/* Site basics: favicon, lang, charset, feeds */}
           {(result.favicon || result.lang || result.charset || (result.feeds && result.feeds.length > 0)) && (
             <section className="surface-card p-6">
-              <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Site</div>
+              <div className="text-xs uppercase tracking-wider text-muted font-mono mb-3">Site</div>
               <div className="flex flex-wrap items-center gap-3 text-sm font-mono">
                 {result.favicon && (
                   <span className="inline-flex items-center gap-2">
@@ -325,19 +325,15 @@ export default function UrlPreview(): JSX.Element {
                   </span>
                 )}
                 {result.lang && (
-                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
-                    lang: {result.lang}
-                  </span>
+                  <span className="px-2 py-0.5 rounded border border-line-2 text-body">lang: {result.lang}</span>
                 )}
                 {result.charset && (
-                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
-                    charset: {result.charset}
-                  </span>
+                  <span className="px-2 py-0.5 rounded border border-line-2 text-body">charset: {result.charset}</span>
                 )}
               </div>
               {result.feeds && result.feeds.length > 0 && (
                 <div className="mt-4">
-                  <div className="text-xs text-slate-500 mb-1 font-mono">Feeds</div>
+                  <div className="text-xs text-muted mb-1 font-mono">Feeds</div>
                   <ul className="space-y-1 text-sm font-mono">
                     {result.feeds.map((f) => (
                       <li key={f.url}>
@@ -377,7 +373,7 @@ export default function UrlPreview(): JSX.Element {
                     loading="lazy"
                     src={result.urlscan.screenshot}
                     alt="urlscan screenshot"
-                    className="max-w-full max-h-72 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
+                    className="max-w-full max-h-72 rounded-xl border border-line-1 object-contain"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}
@@ -387,25 +383,25 @@ export default function UrlPreview(): JSX.Element {
               <div className="mt-3 grid sm:grid-cols-2 gap-2 font-mono text-sm">
                 {result.urlscan.scanned_at && (
                   <div>
-                    <span className="text-xs text-slate-500">scanned</span>{' '}
+                    <span className="text-xs text-muted">scanned</span>{' '}
                     <span className="text-heading">{new Date(result.urlscan.scanned_at).toLocaleString()}</span>
                   </div>
                 )}
                 {result.urlscan.page?.ip && (
                   <div>
-                    <span className="text-xs text-slate-500">IP</span>{' '}
+                    <span className="text-xs text-muted">IP</span>{' '}
                     <span className="text-heading">{result.urlscan.page.ip}</span>
                   </div>
                 )}
                 {result.urlscan.page?.server && (
                   <div>
-                    <span className="text-xs text-slate-500">server</span>{' '}
+                    <span className="text-xs text-muted">server</span>{' '}
                     <span className="text-heading">{result.urlscan.page.server}</span>
                   </div>
                 )}
                 {result.urlscan.page?.country && (
                   <div>
-                    <span className="text-xs text-slate-500">country</span>{' '}
+                    <span className="text-xs text-muted">country</span>{' '}
                     <span className="text-heading">{result.urlscan.page.country}</span>
                   </div>
                 )}
@@ -416,7 +412,7 @@ export default function UrlPreview(): JSX.Element {
           {/* Other meta */}
           {result.meta && Object.values(result.meta).some(Boolean) && (
             <section className="surface-card p-6">
-              <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Other Meta</div>
+              <div className="text-xs uppercase tracking-wider text-muted font-mono mb-3">Other Meta</div>
               <div className="grid sm:grid-cols-2 gap-3 font-mono text-sm">
                 {(
                   [
@@ -431,7 +427,7 @@ export default function UrlPreview(): JSX.Element {
                   .filter(([, v]) => Boolean(v))
                   .map(([k, v]) => (
                     <div key={k}>
-                      <div className="text-xs text-slate-500 mb-1">{k}</div>
+                      <div className="text-xs text-muted mb-1">{k}</div>
                       <div className="text-heading break-words">{v}</div>
                     </div>
                   ))}
@@ -442,7 +438,7 @@ export default function UrlPreview(): JSX.Element {
           {/* Canonical */}
           {result.canonical && (
             <section className="surface-card p-6">
-              <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Canonical URL</div>
+              <div className="text-xs uppercase tracking-wider text-muted font-mono mb-1">Canonical URL</div>
               <a
                 href={sanitizeUrl(result.canonical)}
                 target="_blank"
@@ -460,12 +456,12 @@ export default function UrlPreview(): JSX.Element {
               <h3 className="font-display font-semibold text-lg mb-4">Open Graph</h3>
               {result.og?.image && (
                 <div className="mb-4">
-                  <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">Image</div>
+                  <div className="text-xs uppercase tracking-wider text-muted font-mono mb-2">Image</div>
                   <img
                     loading="lazy"
                     src={result.og.image}
                     alt="og:image"
-                    className="max-w-full max-h-48 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
+                    className="max-w-full max-h-48 rounded-xl border border-line-1 object-contain"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}
@@ -478,25 +474,25 @@ export default function UrlPreview(): JSX.Element {
               <div className="grid sm:grid-cols-2 gap-4 font-mono text-sm">
                 {result.og?.title && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">og:title</div>
+                    <div className="text-xs text-muted mb-1">og:title</div>
                     <div className="text-heading">{result.og.title}</div>
                   </div>
                 )}
                 {result.og?.description && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">og:description</div>
+                    <div className="text-xs text-muted mb-1">og:description</div>
                     <div className="text-heading">{result.og.description}</div>
                   </div>
                 )}
                 {result.og?.site_name && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">og:site_name</div>
+                    <div className="text-xs text-muted mb-1">og:site_name</div>
                     <div className="text-heading">{result.og.site_name}</div>
                   </div>
                 )}
                 {result.og?.type && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">og:type</div>
+                    <div className="text-xs text-muted mb-1">og:type</div>
                     <div className="text-heading">{result.og.type}</div>
                   </div>
                 )}
@@ -510,12 +506,12 @@ export default function UrlPreview(): JSX.Element {
               <h3 className="font-display font-semibold text-lg mb-4">Twitter Card</h3>
               {result.twitter?.image && (
                 <div className="mb-4">
-                  <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">Image</div>
+                  <div className="text-xs uppercase tracking-wider text-muted font-mono mb-2">Image</div>
                   <img
                     loading="lazy"
                     src={result.twitter.image}
                     alt="Twitter card preview"
-                    className="max-w-full max-h-48 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
+                    className="max-w-full max-h-48 rounded-xl border border-line-1 object-contain"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}
@@ -525,19 +521,19 @@ export default function UrlPreview(): JSX.Element {
               <div className="grid sm:grid-cols-2 gap-4 font-mono text-sm">
                 {result.twitter?.card && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">twitter:card</div>
+                    <div className="text-xs text-muted mb-1">twitter:card</div>
                     <div className="text-heading">{result.twitter.card}</div>
                   </div>
                 )}
                 {result.twitter?.title && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">twitter:title</div>
+                    <div className="text-xs text-muted mb-1">twitter:title</div>
                     <div className="text-heading">{result.twitter.title}</div>
                   </div>
                 )}
                 {result.twitter?.description && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">twitter:description</div>
+                    <div className="text-xs text-muted mb-1">twitter:description</div>
                     <div className="text-heading">{result.twitter.description}</div>
                   </div>
                 )}

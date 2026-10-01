@@ -300,7 +300,7 @@ export default function LinuxTriage(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput(SAMPLE)}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load example
           </button>
@@ -308,7 +308,7 @@ export default function LinuxTriage(): JSX.Element {
             <button
               type="button"
               onClick={pipeToExtractor}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
             >
               <FileSearch size={11} /> Extract IOCs →
             </button>
@@ -317,7 +317,7 @@ export default function LinuxTriage(): JSX.Element {
             <button
               type="button"
               onClick={() => setInput('')}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -343,7 +343,7 @@ export default function LinuxTriage(): JSX.Element {
           <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
-                <span className="text-slate-500">Lines:</span> <span className="font-mono">{analysis.lines}</span>
+                <span className="text-muted">Lines:</span> <span className="font-mono">{analysis.lines}</span>
               </span>
               <span className="flex flex-wrap gap-1.5">
                 {(['critical', 'high', 'medium', 'low', 'info'] as Sev[])
@@ -385,12 +385,11 @@ export default function LinuxTriage(): JSX.Element {
                         </span>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>
-                        <pre className="text-meta font-mono text-slate-500 mt-2 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                        <pre className="text-meta font-mono text-muted mt-2 whitespace-pre-wrap break-all bg-surface-200 rounded p-2 border border-line-1">
                           {f.evidence}
                         </pre>
                         <p className="text-tool text-body mt-2">
-                          <span className="text-slate-500 font-mono text-mini uppercase tracking-wider">fix</span>{' '}
-                          {f.fix}
+                          <span className="text-muted font-mono text-mini uppercase tracking-wider">fix</span> {f.fix}
                         </p>
                       </div>
                     </div>

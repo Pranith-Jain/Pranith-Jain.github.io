@@ -7,7 +7,7 @@ export function Companies({ companies }: CompaniesProps) {
     <section id="companies" className="scroll-mt-24">
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Worked with</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Brands I&rsquo;ve worked with
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">
@@ -23,7 +23,7 @@ export function Companies({ companies }: CompaniesProps) {
         {companies.map((company) => (
           <div
             key={company}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] px-4 py-2 text-sm font-medium text-body transition hover:border-brand-500/40"
+            className="rounded-xl border border-line-1 bg-surface-100/40 px-4 py-2 text-sm font-medium text-body transition hover:border-brand-500/40"
           >
             {company}
           </div>

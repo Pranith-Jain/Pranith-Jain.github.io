@@ -114,7 +114,7 @@ export default function MaltrailTrails(): JSX.Element {
                     className={`w-full text-left px-2.5 py-2 rounded text-xs font-mono transition-colors truncate ${
                       selected === f.name
                         ? 'bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300'
-                        : 'hover:bg-slate-100 dark:hover:bg-[rgb(var(--input-200))] border border-transparent text-muted'
+                        : 'hover:bg-slate-100 dark:hover:bg-input-200 border border-transparent text-muted'
                     }`}
                   >
                     <div className="font-semibold truncate">{f.name.replace(/\.txt$/i, '')}</div>
@@ -132,14 +132,14 @@ export default function MaltrailTrails(): JSX.Element {
         <div className="lg:col-span-2">
           {!selected && !contentLoading && (
             <div className="surface-card p-8 text-center">
-              <Search size={32} className="mx-auto text-slate-300 mb-3" />
-              <p className="text-sm font-mono text-slate-500">Select a trail file from the list to view its IOCs.</p>
+              <Search size={32} className="mx-auto text-inverted mb-3" />
+              <p className="text-sm font-mono text-muted">Select a trail file from the list to view its IOCs.</p>
             </div>
           )}
 
           {contentLoading && (
             <div className="surface-card p-8 text-center">
-              <p role="status" aria-live="polite" className="text-xs font-mono text-slate-500 animate-pulse">
+              <p role="status" aria-live="polite" className="text-xs font-mono text-muted animate-pulse">
                 fetching trail file…
               </p>
             </div>
@@ -147,10 +147,10 @@ export default function MaltrailTrails(): JSX.Element {
 
           {content && (
             <div className="surface-card">
-              <div className="p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="p-4 border-b border-line-1">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="font-display font-semibold text-base">{content.filename}</h2>
-                  <div className="flex items-center gap-3 text-mini font-mono text-slate-500">
+                  <div className="flex items-center gap-3 text-mini font-mono text-muted">
                     <span>{content.total_iocs} IOCs</span>
                     {Object.entries(content.by_type).map(([t, c]) => (
                       <span key={t} className="text-micro uppercase">
@@ -185,7 +185,7 @@ export default function MaltrailTrails(): JSX.Element {
                         header: 'Type',
                         sortValue: (ioc: (typeof content.iocs)[number]) => ioc.type,
                         render: (ioc) => (
-                          <span className="text-micro uppercase bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted rounded px-1 py-0.5">
+                          <span className="text-micro uppercase bg-surface-300 text-muted rounded px-1 py-0.5">
                             {ioc.type}
                           </span>
                         ),
@@ -194,7 +194,7 @@ export default function MaltrailTrails(): JSX.Element {
                   }
                   rows={content.iocs}
                   rowKey={(ioc, i) => `${ioc.value}-${i}`}
-                  rowClassName={() => 'font-mono text-meta hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))]'}
+                  rowClassName={() => 'font-mono text-meta hover:bg-slate-50 dark:hover:bg-input-200'}
                 />
               </div>
             </div>

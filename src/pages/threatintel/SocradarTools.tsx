@@ -119,11 +119,7 @@ export default function SocradarTools() {
       title="Tactical Radar Free Tools"
       description="DDoS intelligence, FortiGate breach check, healthcare breach tracking."
     >
-      <div
-        role="tablist"
-        aria-label="Tabs"
-        className="flex gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-      >
+      <div role="tablist" aria-label="Tabs" className="flex gap-1 mb-6 border-b border-line-1">
         {(
           [
             ['ddos', 'DDoS Intelligence', Activity],
@@ -231,7 +227,7 @@ function DDoSPanel() {
                 {data.stats.topMalware.map((m) => (
                   <div key={m.name} className="flex items-center gap-2">
                     <span className="text-mini font-mono truncate flex-1">{m.name}</span>
-                    <div className="w-32 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+                    <div className="w-32 h-2 bg-surface-300 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-rose-500 rounded-full"
                         style={{ width: `${(m.count / data.stats.topMalware[0]!.count) * 100}%` }}
@@ -253,23 +249,23 @@ function DDoSPanel() {
                 value={searchQ}
                 onChange={(e) => setSearchQ(e.target.value)}
                 placeholder="Search by IP or malware family..."
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
 
           {/* Botnet List */}
           <div className="surface-card overflow-hidden">
-            <div className="p-3 border-b border-slate-100 dark:border-[rgb(var(--border-300))]">
+            <div className="p-3 border-b border-line-1">
               <h3 className="font-display font-semibold text-sm">Botnet C2 Servers (Feodo Tracker)</h3>
             </div>
-            <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
+            <div className="divide-y divide-line-1">
               {searchResults.slice(0, 30).map((b, i) => (
                 <div
                   key={b.ip + i}
                   role="button"
                   tabIndex={0}
-                  className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"
+                  className="px-3 py-2 hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors cursor-pointer"
                   onClick={() => setExpanded(expanded === i ? null : i)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -287,7 +283,7 @@ function DDoSPanel() {
                         {b.malware}
                       </span>
                       <span
-                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.status === 'online' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500'}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.status === 'online' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'bg-slate-100 dark:bg-surface-300 text-slate-500'}`}
                       >
                         {b.status}
                       </span>
@@ -299,7 +295,7 @@ function DDoSPanel() {
                     )}
                   </div>
                   {expanded === i && (
-                    <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-300))] text-micro font-mono text-muted space-y-1">
+                    <div className="mt-2 pt-2 border-t border-line-1 text-micro font-mono text-muted space-y-1">
                       <p>
                         First seen: {b.firstSeen} | Last seen: {b.lastSeen}
                       </p>
@@ -357,7 +353,7 @@ function FortiBleedPanel() {
       return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
     if (s === 'INFO')
       return 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800';
-    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]';
+    return 'bg-slate-100 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1';
   };
 
   return (
@@ -376,12 +372,12 @@ function FortiBleedPanel() {
             value={target}
             onChange={(e) => setTarget(e.target.value)}
             placeholder="example.com or 203.0.113.10"
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
+            className="flex-1 px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-tool focus:outline-none focus:border-rose-500"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : 'Check'}
           </button>
@@ -448,7 +444,7 @@ function FortiBleedPanel() {
           )}
 
           {result.vulnerability && (
-            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mt-3 pt-3 border-t border-line-1">
               <a
                 href={`https://nvd.nist.gov/vuln/detail/${result.vulnerability}`}
                 target="_blank"
@@ -519,7 +515,7 @@ function HealthcarePanel() {
     if (s === 'critical') return 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300';
     if (s === 'high') return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
     if (s === 'medium') return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300';
-    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted';
+    return 'bg-slate-100 dark:bg-surface-300 text-muted';
   };
 
   return (
@@ -559,7 +555,7 @@ function HealthcarePanel() {
                 {data.stats.topStates.slice(0, 8).map((s) => (
                   <div key={s.state} className="flex items-center gap-2">
                     <span className="text-mini font-mono w-8">{s.state}</span>
-                    <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+                    <div className="flex-1 h-2 bg-surface-300 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-rose-500 rounded-full"
                         style={{ width: `${(s.individuals / data.stats.topStates[0]!.individuals) * 100}%` }}
@@ -580,19 +576,19 @@ function HealthcarePanel() {
                 value={searchQ}
                 onChange={(e) => setSearchQ(e.target.value)}
                 placeholder="Search by name or state..."
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
 
           <div className="surface-card overflow-hidden">
-            <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
+            <div className="divide-y divide-line-1">
               {filtered.slice(0, 30).map((b, i) => (
                 <div
                   key={b.id}
                   role="button"
                   tabIndex={0}
-                  className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"
+                  className="px-3 py-2 hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors cursor-pointer"
                   onClick={() => setExpanded(expanded === i ? null : i)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -624,7 +620,7 @@ function HealthcarePanel() {
                     )}
                   </div>
                   {expanded === i && b.description && (
-                    <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-300))]">
+                    <div className="mt-2 pt-2 border-t border-line-1">
                       <p className="text-meta font-mono text-body">{b.description}</p>
                       <p className="text-micro font-mono text-muted mt-1">Type: {b.breachType}</p>
                     </div>
@@ -705,7 +701,7 @@ function ThreatReportsPanel() {
               className={`px-3 py-1.5 rounded text-mini font-mono font-semibold border transition-colors ${
                 reportType === t
                   ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
-                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
+                  : 'bg-slate-50 dark:bg-surface-100 border-slate-200 dark:border-line-1 text-muted'
               }`}
             >
               {label}
@@ -715,14 +711,14 @@ function ThreatReportsPanel() {
         <div className="flex gap-2 items-end">
           {reportType === 'country' && (
             <div className="flex-1">
-              <label htmlFor="tr-country" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tr-country" className="block text-micro font-mono text-muted mb-1">
                 Country Code
               </label>
               <select
                 id="tr-country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] focus:outline-none"
+                className="text-meta font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 focus:outline-none"
               >
                 {['US', 'GB', 'DE', 'IN', 'BR', 'JP', 'FR', 'AU', 'CA', 'IT'].map((c) => (
                   <option key={c} value={c}>
@@ -734,14 +730,14 @@ function ThreatReportsPanel() {
           )}
           {reportType === 'industry' && (
             <div className="flex-1">
-              <label htmlFor="tr-industry" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tr-industry" className="block text-micro font-mono text-muted mb-1">
                 Industry
               </label>
               <select
                 id="tr-industry"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] focus:outline-none"
+                className="text-meta font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 focus:outline-none"
               >
                 {[
                   'healthcare',
@@ -764,7 +760,7 @@ function ThreatReportsPanel() {
           )}
           {reportType === 'external' && (
             <div className="flex-1">
-              <label htmlFor="tr-domain" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tr-domain" className="block text-micro font-mono text-muted mb-1">
                 Domain
               </label>
               <input
@@ -773,7 +769,7 @@ function ThreatReportsPanel() {
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
                 placeholder="example.com"
-                className="w-full px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-1.5 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
           )}
@@ -781,7 +777,7 @@ function ThreatReportsPanel() {
             type="button"
             onClick={handleGenerate}
             disabled={loading || (reportType === 'external' && !domain)}
-            className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
+            className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : 'Generate'}
           </button>
@@ -860,7 +856,7 @@ function ThreatReportsPanel() {
               </ul>
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex gap-4 text-micro font-mono text-muted">
+          <div className="mt-3 pt-3 border-t border-line-1 flex gap-4 text-micro font-mono text-muted">
             <span>
               Phishing: <span className="text-heading">{(data.country as ThreatReportCountry).phishingExposure}</span>
             </span>
@@ -922,7 +918,7 @@ function ThreatReportsPanel() {
               </ul>
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-muted">
+          <div className="mt-3 pt-3 border-t border-line-1 text-micro font-mono text-muted">
             <span>
               Exposure: <span className="text-heading">{(data.industry as ThreatReportIndustry).exposureLevel}</span>
             </span>

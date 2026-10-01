@@ -34,16 +34,16 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
   const totalTools = steps.reduce((n, s) => n + (s.toolCalls?.length ?? 0), 0);
 
   return (
-    <div className="mt-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/30">
+    <div className="mt-3 rounded-xl border border-line-1 bg-surface-200/50 dark:bg-surface-200/30">
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex w-full items-center justify-between px-3 py-2 text-left"
       >
         <div className="flex items-center gap-2">
           {expanded ? (
-            <ChevronDown size={14} className="text-slate-400" />
+            <ChevronDown size={14} className="text-muted" />
           ) : (
-            <ChevronRight size={14} className="text-slate-400" />
+            <ChevronRight size={14} className="text-muted" />
           )}
           <Brain size={14} className="text-rose-500" />
           <span className="text-xs font-mono font-semibold text-body">Investigation trace</span>
@@ -54,19 +54,16 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
       </button>
 
       {expanded && (
-        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-2 space-y-2">
+        <div className="border-t border-line-1 px-3 py-2 space-y-2">
           {steps.map((step) => {
             const isStepExpanded = expandedStep === step.stepNumber;
             const plan = step.plan ?? step.name ?? '';
             const toolCalls = step.toolCalls ?? [];
             return (
-              <div
-                key={step.stepNumber}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
-              >
+              <div key={step.stepNumber} className="rounded-lg border border-line-1 bg-surface-100 overflow-hidden">
                 <button
                   onClick={() => setExpandedStep(isStepExpanded ? null : step.stepNumber)}
-                  className="flex w-full items-center gap-2 px-2.5 py-1.5 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="flex w-full items-center gap-2 px-2.5 py-1.5 text-left hover:bg-surface-200 dark:hover:bg-surface-300"
                 >
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300 text-xs font-mono font-bold">
                     {step.stepNumber}
@@ -78,16 +75,16 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
                     {plan.slice(0, 80)}
                     {plan.length > 80 ? '…' : ''}
                   </span>
-                  <span className="ml-auto text-xs text-slate-400">
+                  <span className="ml-auto text-xs text-muted">
                     {toolCalls.length} {toolCalls.length === 1 ? 'call' : 'calls'}
                   </span>
                 </button>
 
                 {isStepExpanded && (
-                  <div className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] px-2.5 py-2 space-y-2">
+                  <div className="border-t border-line-1 px-2.5 py-2 space-y-2">
                     {plan && (
                       <div className="text-xs text-muted">
-                        <span className="font-mono text-slate-400">plan:</span> {plan}
+                        <span className="font-mono text-muted">plan:</span> {plan}
                       </div>
                     )}
 
@@ -112,7 +109,7 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
                             </div>
                             {tc.reasoning && <div className="mt-0.5 text-xs text-muted italic">{tc.reasoning}</div>}
                             {tc.args && Object.keys(tc.args).length > 0 && (
-                              <div className="mt-0.5 text-xs font-mono text-slate-400">
+                              <div className="mt-0.5 text-xs font-mono text-muted">
                                 {Object.entries(tc.args)
                                   .map(
                                     ([k, v]) =>
@@ -128,8 +125,8 @@ export function InvestigationTrace({ steps }: { steps: TraceStep[] }): JSX.Eleme
                     })}
 
                     {step.observation && (
-                      <div className="text-xs text-muted border-l-2 border-slate-300 dark:border-[rgb(var(--border-400))] pl-2">
-                        <span className="font-mono text-slate-400">observed:</span> {step.observation}
+                      <div className="text-xs text-muted border-l-2 border-line-2 pl-2">
+                        <span className="font-mono text-muted">observed:</span> {step.observation}
                       </div>
                     )}
                   </div>

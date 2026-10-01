@@ -139,7 +139,7 @@ export default function CoCGenerator() {
             </h2>
             <button
               onClick={addEvidence}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-line-2 text-muted hover:border-brand-500/40 transition-colors"
             >
               <Plus size={12} /> Add item
             </button>
@@ -148,36 +148,36 @@ export default function CoCGenerator() {
             {evidence.map((e) => (
               <div
                 key={e.id}
-                className="grid gap-2 sm:grid-cols-[110px_1fr_1fr_36px] items-center rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
+                className="grid gap-2 sm:grid-cols-[110px_1fr_1fr_36px] items-center rounded-lg border border-line-1 bg-surface-200 p-2.5"
               >
                 <input
                   value={e.id}
                   onChange={(ev) => patchEvidence(e.id, { id: ev.target.value })}
-                  className="px-2 py-1 rounded text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                  className="px-2 py-1 rounded text-xs font-mono bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                 />
                 <input
                   value={e.description}
                   onChange={(ev) => patchEvidence(e.id, { description: ev.target.value })}
                   placeholder="Description"
-                  className="px-2 py-1 rounded text-xs bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                  className="px-2 py-1 rounded text-xs bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                 />
                 <div className="flex gap-2">
                   <input
                     value={e.hash}
                     onChange={(ev) => patchEvidence(e.id, { hash: ev.target.value })}
                     placeholder="SHA-256"
-                    className="flex-1 px-2 py-1 rounded text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                    className="flex-1 px-2 py-1 rounded text-xs font-mono bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                   />
                   <input
                     value={e.location}
                     onChange={(ev) => patchEvidence(e.id, { location: ev.target.value })}
                     placeholder="Location"
-                    className="w-24 px-2 py-1 rounded text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                    className="w-24 px-2 py-1 rounded text-xs font-mono bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                   />
                 </div>
                 <button
                   onClick={() => removeEvidence(e.id)}
-                  className="text-slate-400 hover:text-rose-500 transition-colors"
+                  className="text-muted hover:text-rose-500 transition-colors"
                   aria-label="Remove evidence item"
                 >
                   <Trash2 size={14} />
@@ -193,7 +193,7 @@ export default function CoCGenerator() {
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Custody Timeline</h2>
             <button
               onClick={addRecord}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded border border-line-2 text-muted hover:border-brand-500/40 transition-colors"
             >
               <Plus size={12} /> Add transfer
             </button>
@@ -206,16 +206,13 @@ export default function CoCGenerator() {
           ) : (
             <div className="space-y-2">
               {records.map((r, i) => (
-                <div
-                  key={r.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                >
+                <div key={r.id} className="rounded-lg border border-line-1 bg-surface-200 p-2.5">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="font-mono text-micro font-bold text-brand-600 dark:text-brand-400">#{i + 1}</span>
-                    <span className="text-micro font-mono text-slate-400">{toLocalTime(r.date, r.time)}</span>
+                    <span className="text-micro font-mono text-muted">{toLocalTime(r.date, r.time)}</span>
                     <button
                       onClick={() => removeRecord(r.id)}
-                      className="ml-auto text-slate-400 hover:text-rose-500 transition-colors"
+                      className="ml-auto text-muted hover:text-rose-500 transition-colors"
                       aria-label="Remove record"
                     >
                       <Trash2 size={13} />
@@ -227,31 +224,31 @@ export default function CoCGenerator() {
                         type="date"
                         value={r.date}
                         onChange={(ev) => patchRecord(r.id, { date: ev.target.value })}
-                        className="flex-1 px-2 py-1 rounded text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                        className="flex-1 px-2 py-1 rounded text-xs font-mono bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                       />
                       <input
                         type="time"
                         value={r.time}
                         onChange={(ev) => patchRecord(r.id, { time: ev.target.value })}
-                        className="px-2 py-1 rounded text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                        className="px-2 py-1 rounded text-xs font-mono bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                       />
                     </div>
                     <input
                       value={r.handler}
                       onChange={(ev) => patchRecord(r.id, { handler: ev.target.value })}
                       placeholder="Handler name"
-                      className="px-2 py-1 rounded text-xs bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                      className="px-2 py-1 rounded text-xs bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                     />
                     <input
                       value={r.role}
                       onChange={(ev) => patchRecord(r.id, { role: ev.target.value })}
                       placeholder="Role (e.g. Lead Examiner)"
-                      className="px-2 py-1 rounded text-xs bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                      className="px-2 py-1 rounded text-xs bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                     />
                     <select
                       value={r.action}
                       onChange={(ev) => patchRecord(r.id, { action: ev.target.value })}
-                      className="px-2 py-1 rounded text-xs bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                      className="px-2 py-1 rounded text-xs bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                     >
                       {ACTIONS.map((a) => (
                         <option key={a}>{a}</option>
@@ -261,13 +258,13 @@ export default function CoCGenerator() {
                       value={r.evidenceId}
                       onChange={(ev) => patchRecord(r.id, { evidenceId: ev.target.value })}
                       placeholder="Evidence ID"
-                      className="px-2 py-1 rounded text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                      className="px-2 py-1 rounded text-xs font-mono bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                     />
                     <input
                       value={r.notes}
                       onChange={(ev) => patchRecord(r.id, { notes: ev.target.value })}
                       placeholder="Notes (seal #, transfer method...)"
-                      className="px-2 py-1 rounded text-xs bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] focus:outline-none focus:border-brand-500"
+                      className="px-2 py-1 rounded text-xs bg-surface-100 border border-line-1 focus:outline-none focus:border-brand-500"
                     />
                   </div>
                 </div>
@@ -303,14 +300,14 @@ export default function CoCGenerator() {
                   setEvidence([]);
                 }
               }}
-              className="inline-flex items-center gap-1.5 text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm font-mono px-3 py-1.5 rounded border border-line-2 text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             >
               <RefreshCw size={13} /> Reset
             </button>
           </div>
         </section>
 
-        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-line-1">
           Pairs with the{' '}
           <a href="/dfir/dfir-ref?section=evidence" className="text-brand-600 dark:text-brand-400 hover:underline">
             DFIR Reference

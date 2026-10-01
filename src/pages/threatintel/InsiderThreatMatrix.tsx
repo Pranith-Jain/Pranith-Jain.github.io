@@ -272,13 +272,13 @@ export default function InsiderThreatMatrix(): JSX.Element {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search techniques by name or ID..."
-                className="w-full pl-9 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-4 py-2 bg-surface-100 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500"
                 aria-label="Search insider threat techniques"
               />
             </div>
           </div>
           {search && (
-            <p className="text-mini font-mono text-slate-500 mt-4">
+            <p className="text-mini font-mono text-muted mt-4">
               {results} technique{results === 1 ? '' : 's'} match &quot;{search}&quot;
             </p>
           )}
@@ -293,7 +293,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
               <button
                 type="button"
                 onClick={() => toggle(cat.id)}
-                className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.6)] transition-colors"
+                className="w-full flex items-center justify-between p-4 hover:bg-surface-200 dark:hover:bg-surface-200/60 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <span className={`text-xs font-mono font-bold px-2 py-1 rounded ${cat.color}`}>{cat.id}</span>
@@ -308,7 +308,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
               </button>
               {open && (
                 <div className="px-4 pb-4">
-                  <p className="text-xs text-slate-500 mb-3 font-mono">{cat.description}</p>
+                  <p className="text-xs text-muted mb-3 font-mono">{cat.description}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {cat.techniques.map((t) => (
                       <a
@@ -316,7 +316,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
                         href={`https://insiderthreatmatrix.org${t.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-body hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-line-1 bg-surface-200 text-body hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                         title={`View on Insider Threat Matrix - ${t.name}`}
                       >
                         <span className="text-micro text-muted">{t.id}</span>
@@ -332,7 +332,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
         })}
       </div>
 
-      <p className="mt-8 text-mini font-mono text-slate-500 text-center">
+      <p className="mt-8 text-mini font-mono text-muted text-center">
         Data sourced from{' '}
         <a
           href="https://insiderthreatmatrix.org"

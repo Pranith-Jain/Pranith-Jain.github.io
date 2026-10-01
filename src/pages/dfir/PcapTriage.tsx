@@ -224,10 +224,10 @@ export default function PcapTriage(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('pcaptriage-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a capture file file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">Drop a capture file file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">100% client-side. No upload.</p>
       </button>
@@ -269,12 +269,12 @@ export default function PcapTriage(): JSX.Element {
               ['Link type', String(s.linkType)],
             ].map(([k, v]) => (
               <div key={k} className="surface-card p-3">
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted">{k}</div>
                 <div className="font-mono text-sm">{v}</div>
               </div>
             ))}
           </div>
-          <div className="font-mono text-mini text-slate-500">span: {s.span}</div>
+          <div className="font-mono text-mini text-muted">span: {s.span}</div>
 
           <Block title="Protocols" rows={Object.entries(s.proto).sort((a, b) => b[1] - a[1])} />
           <Block title="Top talkers (IP · packets)" rows={s.talkers} />
@@ -291,12 +291,12 @@ function Block({ title, rows }: { title: string; rows: Array<[string, number]> }
   if (rows.length === 0) return null;
   return (
     <div className="surface-card p-3">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">{title}</div>
       <ul className="font-mono text-meta space-y-0.5">
         {rows.map(([k, v]) => (
           <li key={k} className="flex justify-between gap-4">
             <span className="truncate text-body">{k}</span>
-            <span className="text-slate-500">{v}</span>
+            <span className="text-muted">{v}</span>
           </li>
         ))}
       </ul>
@@ -307,13 +307,10 @@ function Block({ title, rows }: { title: string; rows: Array<[string, number]> }
 function List({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="surface-card p-3">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">{title}</div>
       <div className="flex flex-wrap gap-1.5">
         {items.map((i) => (
-          <span
-            key={i}
-            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body break-all"
-          >
+          <span key={i} className="font-mono text-mini px-1.5 py-0.5 rounded border border-line-1 text-body break-all">
             {i}
           </span>
         ))}

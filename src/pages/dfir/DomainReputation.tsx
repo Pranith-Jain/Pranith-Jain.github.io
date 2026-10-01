@@ -148,14 +148,14 @@ export default function DomainReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="example.com or 1.2.3.4"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Domain or IP to check"
             />
           </div>
           <button
             type="submit"
             disabled={loading || !clean}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             {loading ? (
               <Loader2 size={16} className="animate-spin inline mr-1" />
@@ -168,7 +168,7 @@ export default function DomainReputation(): JSX.Element {
       </form>
 
       {loading && (
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 animate-pulse mb-4">
+        <div className="flex items-center gap-2 text-xs font-mono text-muted animate-pulse mb-4">
           <Loader2 size={12} className="animate-spin" />
           Checking reputation across 26+ sources...
         </div>
@@ -194,7 +194,7 @@ export default function DomainReputation(): JSX.Element {
                 );
               })()}
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-3">
+            <div className="h-2 rounded bg-track overflow-hidden mb-3">
               <div
                 className={`h-full transition-all ${getScoreColor(results.score)}`}
                 style={{ width: `${Math.max(2, results.score)}%` }}
@@ -263,26 +263,26 @@ export default function DomainReputation(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/email-rep?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Email Reputation
             </Link>
             <Link
               to={`/dfir/url-risk?url=${encodeURIComponent(isIp ? `http://${clean}` : `https://${clean}`)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> URL Reputation
             </Link>
             <Link
               to={`/dfir/ioc-check?indicator=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> IOC Checker
             </Link>
             {!isIp && (
               <Link
                 to={`/threatintel/domain-monitor?domain=${encodeURIComponent(clean)}`}
-                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40"
               >
                 <ExternalLink size={10} /> Domain Monitor
               </Link>
@@ -305,7 +305,7 @@ export default function DomainReputation(): JSX.Element {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${t.name} (opens in new tab)`}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 hover:border-brand-500/40 transition-colors block"
+                  className="rounded border border-line-1 bg-surface-200 p-2.5 hover:border-brand-500/40 transition-colors block"
                 >
                   <div className="font-display font-semibold text-xs text-heading inline-flex items-center gap-1">
                     {t.name} <ExternalLink size={10} aria-hidden="true" />

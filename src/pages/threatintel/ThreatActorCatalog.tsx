@@ -66,7 +66,7 @@ export default function ThreatActorCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actors, aliases, malware, targets…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
         <span className="text-xs font-mono text-muted">{filtered.length} actors</span>
@@ -79,7 +79,7 @@ export default function ThreatActorCatalog(): JSX.Element {
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeType
               ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+              : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
           }`}
         >
           All ({THREAT_ACTORS.length})
@@ -92,7 +92,7 @@ export default function ThreatActorCatalog(): JSX.Element {
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeType === t
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+                : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
             }`}
           >
             {TYPE_LABELS[t]} ({typeCounts[t] || 0})
@@ -107,7 +107,7 @@ export default function ThreatActorCatalog(): JSX.Element {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-sm font-mono text-slate-500">No actors match your search.</div>
+        <div className="text-center py-12 text-sm font-mono text-muted">No actors match your search.</div>
       )}
     </DataPageLayout>
   );
@@ -123,12 +123,12 @@ function ActorCard({
   onToggle: () => void;
 }): JSX.Element {
   return (
-    <div className="surface-card overflow-hidden transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]">
+    <div className="surface-card overflow-hidden transition-all hover:border-line-2 dark:hover:border-line-1">
       <button type="button" onClick={onToggle} className="w-full text-left p-4 flex items-start gap-4">
         <span className="text-lg mt-0.5">{actor.country.split(' ')[0]}</span>
         <div className="flex-1 min-w-0">
           <h3 className="font-mono font-semibold text-sm text-heading leading-snug mb-1">{actor.name}</h3>
-          <div className="flex items-center gap-3 text-mini font-mono text-slate-500 flex-wrap">
+          <div className="flex items-center gap-3 text-mini font-mono text-muted flex-wrap">
             <span className={`font-semibold ${STATUS_COLORS[actor.status]}`}>{actor.status}</span>
             <span>·</span>
             <span>{TYPE_LABELS[actor.type]}</span>
@@ -148,16 +148,13 @@ function ActorCard({
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+        <div className="px-4 pb-4 border-t border-line-1">
           <p className="text-sm text-muted leading-relaxed mt-3 mb-3">{actor.description}</p>
 
           {actor.aliases.length > 0 && (
             <Section title="Aliases">
               {actor.aliases.map((a) => (
-                <span
-                  key={a}
-                  className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-                >
+                <span key={a} className="text-micro font-mono px-2 py-0.5 rounded border border-line-1 text-muted">
                   {a}
                 </span>
               ))}
@@ -208,10 +205,7 @@ function ActorCard({
 
           <Section title="Campaigns">
             {actor.campaigns.map((c) => (
-              <span
-                key={c}
-                className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
-              >
+              <span key={c} className="text-micro font-mono px-2 py-0.5 rounded border border-line-1 text-muted">
                 {c}
               </span>
             ))}
@@ -228,7 +222,7 @@ function ActorCard({
             ))}
           </Section>
 
-          <div className="mt-3 text-mini font-mono text-slate-500">
+          <div className="mt-3 text-mini font-mono text-muted">
             <span className="text-muted">Motivation:</span> {actor.motivation}
           </div>
         </div>

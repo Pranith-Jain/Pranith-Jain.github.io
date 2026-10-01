@@ -142,7 +142,7 @@ export default function PhoneOsintNew() {
       maxWidthClass="max-w-5xl"
     >
       {/* Main Dashboard Card */}
-      <div className="relative rounded-xl p-6 md:p-8 overflow-hidden border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] shadow-e3">
+      <div className="relative rounded-xl p-6 md:p-8 overflow-hidden border border-line-1 bg-surface-200 shadow-e3">
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
           <Radar size={32} className="text-brand-600 dark:text-brand-400" />
@@ -150,10 +150,10 @@ export default function PhoneOsintNew() {
         </div>
 
         {/* Status bar */}
-        <div className="flex items-center justify-between text-tool pb-3.5 mb-5 border-b border-[rgb(var(--border-400))] gap-3 flex-wrap">
+        <div className="flex items-center justify-between text-tool pb-3.5 mb-5 border-b border-line-1 gap-3 flex-wrap">
           <span className="text-muted">AI-Powered OSINT</span>
           <div className="flex items-center gap-2">
-            <span className="text-mini font-semibold px-2.5 py-1 rounded-full bg-[rgb(var(--surface-100))] text-brand-600 dark:text-brand-400 border border-[rgb(var(--border-400))]">
+            <span className="text-mini font-semibold px-2.5 py-1 rounded-full bg-surface-100 text-brand-600 dark:text-brand-400 border border-line-1">
               Remaining: 100 of 100
             </span>
             <span className="text-micro font-bold tracking-wider px-3 py-1 rounded-full animate-pulse bg-emerald-500 text-slate-950">
@@ -169,7 +169,7 @@ export default function PhoneOsintNew() {
             className={`flex-1 px-4 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition border ${
               activeTab === 'phone'
                 ? 'bg-brand-600 text-white border-transparent'
-                : 'bg-[rgb(var(--surface-100))] text-muted border-[rgb(var(--border-400))]'
+                : 'bg-surface-100 text-muted border-line-1'
             }`}
           >
             <Phone size={16} /> Phone Intel
@@ -179,7 +179,7 @@ export default function PhoneOsintNew() {
             className={`flex-1 px-4 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition border ${
               activeTab === 'malware'
                 ? 'bg-brand-600 text-white border-transparent'
-                : 'bg-[rgb(var(--surface-100))] text-muted border-[rgb(var(--border-400))]'
+                : 'bg-surface-100 text-muted border-line-1'
             }`}
           >
             <Shield size={16} /> Malware Hash
@@ -197,12 +197,12 @@ export default function PhoneOsintNew() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handlePhoneScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium outline-none transition bg-[rgb(var(--surface-100))] text-heading border border-[rgb(var(--border-400))]"
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium outline-none transition bg-surface-100 text-heading border border-line-1"
               />
               <button
                 onClick={handlePhoneScan}
                 disabled={!input.trim() || scanning}
-                className="px-7 py-4 rounded-xl font-bold text-white flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed bg-brand-600 hover:bg-brand-700 shadow-e2"
+                className="px-7 py-4 rounded-xl font-bold text-on-fill flex items-center gap-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed bg-brand-600 hover:bg-brand-700 shadow-e2"
               >
                 {scanning ? <Loader2 size={16} className="animate-spin" /> : <Scan size={16} />}
                 {scanning ? 'Scanning...' : 'Deep Scan'}
@@ -219,7 +219,7 @@ export default function PhoneOsintNew() {
             {result && (
               <div className="space-y-4 relative">
                 {/* Phone Info Card */}
-                <div className="p-5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                <div className="p-5 rounded-xl bg-surface-100 border border-line-1">
                   <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-brand-600 dark:text-brand-400">
                     <Phone size={14} /> Phone Information
                   </h3>
@@ -244,7 +244,7 @@ export default function PhoneOsintNew() {
                     {result.numverify && <Field label="Valid" value="Verified" valueColor="text-emerald-500" />}
                   </div>
                   {result.numverify && (
-                    <div className="mt-4 pt-4 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 border-t border-[rgb(var(--border-400))]">
+                    <div className="mt-4 pt-4 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 border-t border-line-1">
                       <Field label="International" value={result.numverify.international_format} mono />
                       <Field label="Local Format" value={result.numverify.local_format} mono />
                       <Field label="Dial Prefix" value={result.numverify.country_prefix} mono />
@@ -266,9 +266,7 @@ export default function PhoneOsintNew() {
                     return (
                       <div
                         className={`p-4 rounded-xl border ${
-                          found
-                            ? 'bg-red-900/10 border-red-900/40'
-                            : 'bg-[rgb(var(--surface-100))] border-[rgb(var(--border-400))]'
+                          found ? 'bg-red-900/10 border-red-900/40' : 'bg-surface-100 border-line-1'
                         }`}
                       >
                         <div className="flex items-center gap-2 mb-1">
@@ -297,7 +295,7 @@ export default function PhoneOsintNew() {
 
                 {/* Lookup Links */}
                 {result.lookups.length > 0 && (
-                  <div className="p-5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                  <div className="p-5 rounded-xl bg-surface-100 border border-line-1">
                     <h3 className="text-sm font-bold mb-3 text-muted">Lookup Services</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {result.lookups.map((l, i) => (
@@ -306,7 +304,7 @@ export default function PhoneOsintNew() {
                           href={l.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2.5 p-2.5 rounded-xl transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
+                          className="flex items-center gap-2.5 p-2.5 rounded-xl transition hover:bg-wash bg-surface-100 border border-line-1"
                         >
                           <span className="text-sm shrink-0">{CATEGORY_ICONS[l.category] || 'Link'}</span>
                           <div className="flex-1 min-w-0">
@@ -329,7 +327,7 @@ export default function PhoneOsintNew() {
 
                 {/* Dorks */}
                 {result.dorks.length > 0 && (
-                  <div className="p-5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                  <div className="p-5 rounded-xl bg-surface-100 border border-line-1">
                     <h3 className="text-sm font-bold mb-3 text-muted">Search Engine Dorks</h3>
                     <div className="space-y-1.5">
                       {result.dorks.map((d, i) => (
@@ -338,9 +336,9 @@ export default function PhoneOsintNew() {
                           href={d.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-between gap-3 p-2.5 rounded-xl transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
+                          className="flex items-center justify-between gap-3 p-2.5 rounded-xl transition hover:bg-wash bg-surface-100 border border-line-1"
                         >
-                          <span className="text-micro font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400">
+                          <span className="text-micro font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-surface-300 text-brand-600 dark:text-brand-400">
                             {d.engine}
                           </span>
                           <span className="text-xs font-mono truncate flex-1 text-muted">{d.query}</span>
@@ -366,7 +364,7 @@ export default function PhoneOsintNew() {
                 value={hashInput}
                 onChange={(e) => setHashInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleMalwareScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium font-mono outline-none transition bg-[rgb(var(--surface-100))] text-heading border border-[rgb(var(--border-400))]"
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium font-mono outline-none transition bg-surface-100 text-heading border border-line-1"
               />
               <button
                 onClick={handleMalwareScan}
@@ -381,7 +379,7 @@ export default function PhoneOsintNew() {
             {malwareResult && !malwareResult.error && (
               <div className="space-y-4 relative">
                 {/* Family / Verdict */}
-                <div className="p-5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                <div className="p-5 rounded-xl bg-surface-100 border border-line-1">
                   <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-red-400">
                     <Shield size={14} /> Malware Intelligence
                   </h3>
@@ -412,7 +410,7 @@ export default function PhoneOsintNew() {
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">Tags</div>
                       <div className="text-xs flex flex-wrap gap-1">
                         {(malwareResult.tags || []).slice(0, 5).map((tag: string, i: number) => (
-                          <span key={i} className="px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-muted">
+                          <span key={i} className="px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                             {tag}
                           </span>
                         ))}
@@ -422,7 +420,7 @@ export default function PhoneOsintNew() {
                 </div>
 
                 {/* Quick Links */}
-                <div className="p-5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
+                <div className="p-5 rounded-xl bg-surface-100 border border-line-1">
                   <h3 className="text-sm font-bold mb-3 text-muted">Analysis Links</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {[
@@ -444,7 +442,7 @@ export default function PhoneOsintNew() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-2.5 rounded-xl transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
+                        className="flex items-center gap-2 p-2.5 rounded-xl transition hover:bg-wash bg-surface-100 border border-line-1"
                       >
                         <span className="text-xs font-medium flex-1 truncate text-heading">{link.name}</span>
                         <ExternalLink size={10} className="text-muted" />
@@ -466,7 +464,7 @@ export default function PhoneOsintNew() {
 
       {/* Scan History */}
       {history.length > 0 && (
-        <div className="mt-4 p-5 rounded-xl bg-[rgb(var(--surface-200))] border border-[rgb(var(--border-400))]">
+        <div className="mt-4 p-5 rounded-xl bg-surface-200 border border-line-1">
           <div className="text-tool font-semibold mb-3 flex items-center justify-between text-muted">
             <span>Scan History ({history.length})</span>
             <button onClick={() => setHistory([])} className="text-mini hover:text-white transition text-muted">
@@ -477,7 +475,7 @@ export default function PhoneOsintNew() {
             {history.slice(0, 5).map((scan) => (
               <div
                 key={scan.id}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-surface-100 border border-line-1"
               >
                 <div>
                   <div className="text-xs font-medium font-mono text-heading">{scan.number}</div>
@@ -493,7 +491,7 @@ export default function PhoneOsintNew() {
       )}
 
       {/* Footer */}
-      <div className="mt-6 pt-4 text-center text-meta text-slate-500">
+      <div className="mt-6 pt-4 text-center text-meta text-muted">
         <a href="/dfir/phone-hub" className="text-muted">
           Legal Policy · Privacy · Terms
         </a>

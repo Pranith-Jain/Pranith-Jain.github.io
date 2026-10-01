@@ -27,14 +27,14 @@ import {
 } from '../../data/grc';
 
 const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
-  unset: { label: '- unset', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500' },
+  unset: { label: '- unset', cls: 'border-slate-300 dark:border-line-1 text-slate-500' },
   covered: {
     label: 'covered',
     cls: 'border-emerald-400/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   },
   partial: { label: '~ partial', cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
   gap: { label: 'gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted' },
+  na: { label: 'n/a', cls: 'border-slate-300 dark:border-line-1 text-muted' },
 };
 
 function scoreColour(score: number): string {
@@ -159,7 +159,7 @@ export default function Grc(): JSX.Element {
               className={`text-left rounded-xl border p-3 transition-colors ${
                 tab === fid
                   ? 'border-brand-500/60 bg-brand-500/5'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                  : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
               }`}
             >
               <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -168,10 +168,10 @@ export default function Grc(): JSX.Element {
                 </span>
                 <span className="text-xs font-mono font-bold text-heading">{c.score}%</span>
               </div>
-              <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
+              <div className="h-1.5 rounded bg-track overflow-hidden mb-1">
                 <div className={`h-full ${scoreColour(c.score)}`} style={{ width: `${Math.max(2, c.score)}%` }} />
               </div>
-              <div className="text-micro font-mono text-slate-400">
+              <div className="text-micro font-mono text-muted">
                 {c.covered}/{c.total} controls
               </div>
             </button>
@@ -188,7 +188,7 @@ export default function Grc(): JSX.Element {
             className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
               tab === fid
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             {FRAMEWORK_META[fid].label}
@@ -200,13 +200,13 @@ export default function Grc(): JSX.Element {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={exportMd}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
         >
           <Download size={13} /> Export markdown
         </button>
         <button
           onClick={reset}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
         >
           <RotateCcw size={13} /> Reset all
         </button>
@@ -235,7 +235,7 @@ export default function Grc(): JSX.Element {
                 {expanded.has(fn.id) ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
               </button>
               {expanded.has(fn.id) && (
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
+                <div className="rounded-xl border border-line-1 bg-surface-200/50 mt-2 p-4 space-y-4">
                   {fn.categories.map((cat) => (
                     <div key={cat.id}>
                       <h4 className="font-display font-semibold text-sm text-heading mb-1">
@@ -246,10 +246,7 @@ export default function Grc(): JSX.Element {
                         {cat.controls.map((ctl) => {
                           const s: CoverageStatus = a.controls[ctl.id] ?? 'unset';
                           return (
-                            <div
-                              key={ctl.id}
-                              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5"
-                            >
+                            <div key={ctl.id} className="rounded border border-line-1 bg-surface-100 p-2.5">
                               <div className="flex flex-wrap items-center gap-2 mb-1">
                                 <button
                                   onClick={() => cycle(ctl.id)}
@@ -292,7 +289,7 @@ export default function Grc(): JSX.Element {
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">A.{theme.number}</span>
                 <h3 className="font-display font-semibold text-heading">{theme.title}</h3>
-                <span className="text-micro font-mono text-slate-400 ml-auto">
+                <span className="text-micro font-mono text-muted ml-auto">
                   {theme.controls.length}/{theme.controlCount} sampled
                 </span>
               </div>
@@ -301,10 +298,7 @@ export default function Grc(): JSX.Element {
                 {theme.controls.map((ctl) => {
                   const s: CoverageStatus = a.controls[ctl.id] ?? 'unset';
                   return (
-                    <div
-                      key={ctl.id}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                    >
+                    <div key={ctl.id} className="rounded border border-line-1 bg-surface-200 p-2.5">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <button
                           onClick={() => cycle(ctl.id)}
@@ -329,7 +323,7 @@ export default function Grc(): JSX.Element {
                   );
                 })}
                 {theme.controls.length === 0 && (
-                  <p className="text-mini font-mono text-slate-400">
+                  <p className="text-mini font-mono text-muted">
                     Detail-level controls not enumerated - use the official ISO 27001:2022 Annex A for the full set (
                     {theme.controlCount} controls in this theme).
                   </p>
@@ -360,7 +354,7 @@ export default function Grc(): JSX.Element {
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">{domain.shortId}</span>
                 <h3 className="font-display font-semibold text-heading">{domain.title}</h3>
-                <span className="text-micro font-mono text-slate-400 ml-auto">
+                <span className="text-micro font-mono text-muted ml-auto">
                   {domain.controls.length} control{domain.controls.length === 1 ? '' : 's'}
                 </span>
               </div>
@@ -369,10 +363,7 @@ export default function Grc(): JSX.Element {
                 {domain.controls.map((ctl) => {
                   const s: CoverageStatus = a.controls[ctl.id] ?? 'unset';
                   return (
-                    <div
-                      key={ctl.id}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                    >
+                    <div key={ctl.id} className="rounded border border-line-1 bg-surface-200 p-2.5">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <button
                           onClick={() => cycle(ctl.id)}
@@ -409,16 +400,13 @@ export default function Grc(): JSX.Element {
           {CIS_CONTROLS.map((c) => {
             const s: CoverageStatus = a.controls[c.id] ?? 'unset';
             return (
-              <div
-                key={c.id}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
-              >
+              <div key={c.id} className="rounded border border-line-1 bg-surface-100 p-3">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <span className="flex-none w-7 h-7 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 font-mono text-xs font-bold flex items-center justify-center">
                     {c.number}
                   </span>
                   <span className="font-display font-semibold text-sm text-heading flex-1">{c.title}</span>
-                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
+                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-2 text-muted">
                     IG{c.igLevel}
                   </span>
                   <button
@@ -451,10 +439,7 @@ export default function Grc(): JSX.Element {
                     {items.map((c) => {
                       const s: CoverageStatus = a.controls[c.id] ?? 'unset';
                       return (
-                        <div
-                          key={c.id}
-                          className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                        >
+                        <div key={c.id} className="rounded border border-line-1 bg-surface-200 p-2.5">
                           <div className="flex flex-wrap items-center gap-2 mb-1">
                             <button
                               onClick={() => cycle(c.id)}
@@ -490,7 +475,7 @@ export default function Grc(): JSX.Element {
               <div key={d.id} className="surface-card p-4">
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
                   <h3 className="font-display font-semibold text-heading">{d.title}</h3>
-                  <span className="text-micro font-mono text-slate-400">{d.description}</span>
+                  <span className="text-micro font-mono text-muted">{d.description}</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
                   {([0, 1, 2, 3, 4, 5] as MaturityLevel[]).map((n) => (
@@ -500,7 +485,7 @@ export default function Grc(): JSX.Element {
                       className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                         lvl === n
                           ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                          : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                       }`}
                     >
                       {n}

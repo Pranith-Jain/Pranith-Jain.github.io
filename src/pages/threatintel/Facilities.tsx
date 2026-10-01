@@ -696,7 +696,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="surface-card-faint p-3">
-          <div className="text-micro font-mono uppercase text-slate-500 mb-1">Total</div>
+          <div className="text-micro font-mono uppercase text-muted mb-1">Total</div>
           <div className="text-2xl font-bold text-heading">{stats.total}</div>
         </div>
         <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3">
@@ -722,7 +722,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search facilities..."
-            className="w-full pl-9 pr-3 py-2 text-sm font-mono surface-card-faint text-heading placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/40"
+            className="w-full pl-9 pr-3 py-2 text-sm font-mono surface-card-faint text-heading placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/40"
           />
         </div>
         <div className="flex items-center gap-1">
@@ -732,7 +732,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               view === 'table'
                 ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:text-slate-600'
+                : 'border-slate-200 dark:border-line-1 text-muted hover:text-slate-600'
             }`}
           >
             Table
@@ -743,7 +743,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               view === 'map'
                 ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:text-slate-600'
+                : 'border-slate-200 dark:border-line-1 text-muted hover:text-slate-600'
             }`}
           >
             Map
@@ -782,7 +782,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
                 active
                   ? `${config.bgColor} ${config.color} border-current`
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted opacity-50'
+                  : 'border-slate-200 dark:border-line-1 text-muted opacity-50'
               }`}
             >
               <config.icon size={12} />
@@ -795,10 +795,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
 
       {/* Map View */}
       {view === 'map' && (
-        <div
-          className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
-          style={{ minHeight: '500px' }}
-        >
+        <div className="rounded-xl overflow-hidden border border-line-1 bg-surface-200" style={{ minHeight: '500px' }}>
           <Suspense
             fallback={
               <div className="flex items-center justify-center h-[500px]">
@@ -828,12 +825,12 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Name</th>
-                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Type</th>
-                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Country</th>
-                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Severity</th>
-                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Coords</th>
+                <tr className="border-b border-line-1">
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-muted">Name</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-muted">Type</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-muted">Country</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-muted">Severity</th>
+                  <th className="px-4 py-3 text-left text-micro font-mono uppercase text-muted">Coords</th>
                 </tr>
               </thead>
               <tbody>
@@ -853,7 +850,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
                         role="button"
                         tabIndex={0}
                         aria-expanded={isExpanded}
-                        className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.3)] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-inset"
+                        className="border-b border-line-1/50 hover:bg-surface-200 dark:hover:bg-surface-300/30 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-inset"
                       >
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2">
@@ -881,13 +878,13 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
                             {f.severity}
                           </span>
                         </td>
-                        <td className="px-4 py-3 font-mono text-xs text-slate-500">
+                        <td className="px-4 py-3 font-mono text-xs text-muted">
                           {f.lat.toFixed(2)}, {f.lng.toFixed(2)}
                         </td>
                       </tr>
                       {isExpanded && (
                         <tr key={`${f.id}-detail`}>
-                          <td colSpan={5} className="px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.2)]">
+                          <td colSpan={5} className="px-4 py-3 bg-surface-200/20">
                             <p className="text-sm text-muted">{f.description}</p>
                             <a
                               href={`https://www.google.com/maps?q=${f.lat},${f.lng}`}

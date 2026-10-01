@@ -82,7 +82,7 @@ const ENTITY_TYPE_CONFIG: Record<string, { label: string; icon: typeof Shield; c
   unknown: {
     label: 'Unknown',
     icon: AlertTriangle,
-    color: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
+    color: 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300',
   },
 };
 
@@ -102,8 +102,8 @@ function ConfidenceBar({ score }: { score: number }) {
   const pct = Math.round(score * 100);
   const color = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
-    <div className="flex items-center gap-2 text-mini font-mono text-slate-500">
-      <div className="h-1.5 w-16 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+    <div className="flex items-center gap-2 text-mini font-mono text-muted">
+      <div className="h-1.5 w-16 rounded-full bg-track overflow-hidden">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
       <span>{pct}%</span>
@@ -245,13 +245,13 @@ export default function EntityResolution(): JSX.Element {
       maxWidthClass="max-w-4xl"
     >
       {/* Mode toggle */}
-      <div className="flex gap-1 mb-6 p-0.5 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300))] w-fit">
+      <div className="flex gap-1 mb-6 p-0.5 rounded-xl bg-surface-300 w-fit">
         <button
           type="button"
           onClick={() => setMode('resolve')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'resolve'
-              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-heading shadow-e1'
+              ? 'bg-white dark:bg-surface-300 text-heading shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -262,7 +262,7 @@ export default function EntityResolution(): JSX.Element {
           onClick={() => setMode('extract')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'extract'
-              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-heading shadow-e1'
+              ? 'bg-white dark:bg-surface-300 text-heading shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -281,12 +281,12 @@ export default function EntityResolution(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="e.g. LockBit, CVE-2024-1709, 8.8.8.8, Scattered Spider, 185.234.72.0"
-                className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+                className="w-full rounded-xl border border-line-1 bg-surface-100 py-2.5 pl-9 pr-20 font-mono text-tool text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:placeholder:text-muted"
               />
               <button
                 type="submit"
                 disabled={loading || !query.trim()}
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded px-3 py-1 text-mini font-mono font-medium bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded px-3 py-1 text-mini font-mono font-medium bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : 'Resolve'}
               </button>
@@ -319,14 +319,12 @@ export default function EntityResolution(): JSX.Element {
 
                 {entity.aliases.length > 0 && (
                   <div className="mt-3">
-                    <span className="text-mini font-mono font-medium text-slate-500 uppercase tracking-wider">
-                      Aliases
-                    </span>
+                    <span className="text-mini font-mono font-medium text-muted uppercase tracking-wider">Aliases</span>
                     <div className="flex flex-wrap gap-1.5 mt-1">
                       {entity.aliases.map((a) => (
                         <span
                           key={a}
-                          className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-mini font-mono text-muted"
+                          className="rounded border border-line-1 px-2 py-0.5 text-mini font-mono text-muted"
                         >
                           {a}
                         </span>
@@ -337,14 +335,12 @@ export default function EntityResolution(): JSX.Element {
 
                 {entity.context && Object.keys(entity.context).length > 0 && (
                   <div className="mt-3">
-                    <span className="text-mini font-mono font-medium text-slate-500 uppercase tracking-wider">
-                      Context
-                    </span>
+                    <span className="text-mini font-mono font-medium text-muted uppercase tracking-wider">Context</span>
                     <div className="flex flex-wrap gap-1.5 mt-1">
                       {Object.entries(entity.context).map(([k, v]) => (
                         <span
                           key={k}
-                          className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-mini font-mono text-muted"
+                          className="rounded border border-line-1 px-2 py-0.5 text-mini font-mono text-muted"
                         >
                           {k}={Array.isArray(v) ? v.join(', ') : String(v)}
                         </span>
@@ -366,8 +362,8 @@ export default function EntityResolution(): JSX.Element {
 
                 {/* PIR relevance */}
                 {relevantPirs.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-                    <p className="text-micro font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                  <div className="mt-3 pt-3 border-t border-line-1">
+                    <p className="text-micro font-mono font-semibold text-muted uppercase tracking-wider mb-2">
                       Relevant PIRs ({relevantPirs.length})
                     </p>
                     <div className="space-y-1.5">
@@ -383,7 +379,7 @@ export default function EntityResolution(): JSX.Element {
                                 ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
                                 : pir.priority === 'high'
                                   ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
-                                  : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted'
+                                  : 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted'
                             }`}
                           >
                             {pir.priority}
@@ -403,7 +399,7 @@ export default function EntityResolution(): JSX.Element {
                   {/* Cross-references */}
                   {profile.cross_references.length > 0 && (
                     <div className="surface-card p-5">
-                      <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
+                      <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3">
                         Cross-references
                       </h3>
                       <div className="grid gap-2">
@@ -421,7 +417,7 @@ export default function EntityResolution(): JSX.Element {
                   {/* CVEs */}
                   {profile.cves && profile.cves.length > 0 && (
                     <div className="surface-card p-5">
-                      <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
+                      <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3">
                         Linked CVEs ({profile.cves.length})
                       </h3>
                       <div className="flex flex-wrap gap-1.5">
@@ -440,14 +436,14 @@ export default function EntityResolution(): JSX.Element {
                   {/* Links */}
                   {profile.links.length > 0 && (
                     <div className="surface-card p-5">
-                      <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
+                      <h3 className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3">
                         Relationships ({profile.links.length})
                       </h3>
                       <div className="grid gap-2">
                         {profile.links.map((link, i) => (
                           <div key={i} className="flex items-center gap-2 text-meta font-mono">
                             <EntityBadge type={link.source_type} />
-                            <span className="text-slate-500 text-mini">{link.relationship.replace(/_/g, ' ')}</span>
+                            <span className="text-muted text-mini">{link.relationship.replace(/_/g, ' ')}</span>
                             <EntityBadge type={link.target_type} />
                             <span className="text-heading">{link.target_id}</span>
                             <ConfidenceBar score={link.confidence} />
@@ -466,7 +462,7 @@ export default function EntityResolution(): JSX.Element {
           <div className="mb-8">
             <label
               htmlFor="extract-text"
-              className="block mb-2 text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider"
+              className="block mb-2 text-xs font-mono font-semibold text-muted uppercase tracking-wider"
             >
               Paste text to extract entities
             </label>
@@ -484,7 +480,7 @@ export default function EntityResolution(): JSX.Element {
                 type="button"
                 onClick={() => void extract()}
                 disabled={loading || !text.trim()}
-                className="inline-flex items-center gap-1.5 rounded px-4 py-1.5 text-mini font-mono font-medium bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center gap-1.5 rounded px-4 py-1.5 text-mini font-mono font-medium bg-rose-600 text-on-fill hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : <FileText size={14} />}
                 {loading ? 'Extracting...' : 'Extract entities'}
@@ -500,7 +496,7 @@ export default function EntityResolution(): JSX.Element {
 
           {extracted.length > 0 && (
             <div className="animate-fade-in-up">
-              <p className="text-xs font-mono text-slate-500 mb-3">
+              <p className="text-xs font-mono text-muted mb-3">
                 Found {extracted.length} entit{extracted.length === 1 ? 'y' : 'ies'}
               </p>
               <div className="grid gap-2">
@@ -528,7 +524,7 @@ export default function EntityResolution(): JSX.Element {
           )}
 
           {!loading && text && extracted.length === 0 && !error && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-tool text-slate-500 font-mono">
+            <div className="rounded-xl border border-dashed border-line-2 p-8 text-center text-tool text-muted font-mono">
               No entities found in the provided text. Try pasting something with CVE IDs, actor names, IPs, domains, or
               hashes.
             </div>

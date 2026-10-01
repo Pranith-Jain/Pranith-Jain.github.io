@@ -32,13 +32,32 @@ export function Tabs({
 }: TabsProps) {
   const baseId = useId();
 
+  /**
+   * WAI-ARIA APG tablist keyboard behaviour.
+   *
+   * Previously this only handled ArrowLeft/Right and bailed at the ends, so
+   * the first and last tabs were keyboard dead stops. The APG specifies
+   * wrap-around plus optional Home/End; both are cheap here because panels
+   * are plain render output, so activation on focus is instant (automatic
+   * activation is the recommended mode when panels need no fetch).
+   */
   function handleKeyDown(e: React.KeyboardEvent, currentIdx: number) {
+    const last = tabs.length - 1;
     let nextIdx = -1;
-    if (e.key === 'ArrowRight') nextIdx = currentIdx + 1;
-    if (e.key === 'ArrowLeft') nextIdx = currentIdx - 1;
-    if (nextIdx < 0 || nextIdx >= tabs.length) return;
-    const next = tabs[nextIdx]!;
-    if (next.disabled) return;
+    if (e.key === 'ArrowRight') nextIdx = currentIdx === last ? 0 : currentIdx + 1;
+    else if (e.key === 'ArrowLeft') nextIdx = currentIdx === 0 ? last : currentIdx - 1;
+    else if (e.key === 'Home') nextIdx = 0;
+    else if (e.key === 'End') nextIdx = last;
+    else return;
+
+    e.preventDefault();
+    // Walk forward past disabled tabs instead of landing on a dead stop.
+    let probe = nextIdx;
+    for (let i = 0; i < tabs.length && tabs[probe]?.disabled; i += 1) {
+      probe = probe === last ? 0 : probe + 1;
+    }
+    const next = tabs[probe];
+    if (!next || next.disabled) return;
     onChange(next.id);
     document.getElementById(`${baseId}-tab-${next.id}`)?.focus();
   }
@@ -50,7 +69,7 @@ export function Tabs({
         aria-orientation="horizontal"
         className={
           variant === 'underline'
-            ? `flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${tabListClassName}`
+            ? `flex flex-wrap gap-1 border-b border-line-1 ${tabListClassName}`
             : `flex flex-wrap gap-1.5 ${tabListClassName}`
         }
       >
@@ -81,8 +100,8 @@ export function Tabs({
                       isActive
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                         : tab.disabled
-                          ? 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-300 dark:text-muted cursor-not-allowed'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
+                          ? 'border-slate-200 dark:border-line-1 text-slate-300 dark:text-muted cursor-not-allowed'
+                          : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
                     }`
               }
             >

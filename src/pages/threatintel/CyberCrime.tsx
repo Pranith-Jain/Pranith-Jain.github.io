@@ -49,7 +49,7 @@ interface CybercrimeResponse {
 const CATEGORY_PILL: Record<Category, string> = {
   'law-enforcement': 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   'crypto-crime': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  news: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+  news: 'border-slate-300 dark:border-line-1 text-muted',
   breaches: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   'fraud-research': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   'underground-forums': 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
@@ -206,10 +206,10 @@ export default function CyberCrime(): JSX.Element {
             className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
               activeCategory === 'all'
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                : 'border-slate-300 dark:border-line-1 text-slate-600 hover:bg-slate-100 dark:hover:bg-surface-300'
             }`}
           >
-            all <span className="text-slate-500">{data.total}</span>
+            all <span className="text-muted">{data.total}</span>
           </button>
           {(Object.keys(CATEGORY_LABEL) as Category[]).map((cat) => (
             <button
@@ -219,17 +219,17 @@ export default function CyberCrime(): JSX.Element {
               className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
                 activeCategory === cat
                   ? CATEGORY_PILL[cat]
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                  : 'border-slate-300 dark:border-line-1 text-slate-600 hover:bg-slate-100 dark:hover:bg-surface-300'
               }`}
             >
-              {CATEGORY_LABEL[cat]} <span className="text-slate-500">{categoryCounts[cat]}</span>
+              {CATEGORY_LABEL[cat]} <span className="text-muted">{categoryCounts[cat]}</span>
             </button>
           ))}
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
             disabled={loading}
-            className="ml-auto inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+            className="ml-auto inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-line-2 text-muted hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
             title="Re-fetch the feed"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -245,7 +245,7 @@ export default function CyberCrime(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search title, description, source…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+          className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -294,7 +294,7 @@ export default function CyberCrime(): JSX.Element {
                 >
                   {CATEGORY_LABEL[it.category]}
                 </span>
-                <span className="text-micro font-mono text-slate-500" title={formatDate(it.published)}>
+                <span className="text-micro font-mono text-muted" title={formatDate(it.published)}>
                   {shortRel(it.published) || formatDate(it.published)}
                 </span>
               </div>
@@ -311,8 +311,8 @@ export default function CyberCrime(): JSX.Element {
           (persisted in localStorage). Disabling hides items locally but
           still pulls from the server - the round-robin still fires. */}
       {data && (
-        <details className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
-          <summary className="text-xs font-mono text-slate-500 cursor-pointer flex items-center justify-between gap-2 flex-wrap">
+        <details className="mt-8 rounded-xl border border-line-1 bg-surface-200 p-3">
+          <summary className="text-xs font-mono text-muted cursor-pointer flex items-center justify-between gap-2 flex-wrap">
             <span>
               sources - {data.sources.length - disabledSources.size}/{data.sources.length} enabled ·{' '}
               {data.sources.filter((s) => s.ok).length}/{data.sources.length} ok
@@ -324,13 +324,13 @@ export default function CyberCrime(): JSX.Element {
                   e.preventDefault();
                   setDisabledSources(new Set());
                 }}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 hover:border-rose-500/40"
               >
                 enable all
               </button>
             )}
           </summary>
-          <p className="mt-2 text-micro font-mono text-slate-500">
+          <p className="mt-2 text-micro font-mono text-muted">
             Click any source row to toggle it. Preference persists per browser.
           </p>
           <div className="mt-2 grid sm:grid-cols-2 gap-1.5 text-mini font-mono">
@@ -343,14 +343,14 @@ export default function CyberCrime(): JSX.Element {
                   onClick={() => toggleSource(s.label)}
                   className={`flex items-baseline justify-between gap-2 rounded px-2 py-1 text-left transition-colors border ${
                     enabled
-                      ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-500/40'
-                      : 'border-slate-200/40 dark:border-[rgb(var(--border-400))]/40 bg-slate-100/40 dark:bg-[rgb(var(--input-200)/0.4)] opacity-60'
+                      ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
+                      : 'border-slate-200/40 dark:border-line-1/40 bg-slate-100/40 dark:bg-input-200/40 opacity-60'
                   }`}
                 >
                   <span className={s.ok ? 'text-body' : 'text-rose-600 dark:text-rose-400'}>
                     {enabled ? (s.ok ? 'on' : 'off') : '-'} {s.label}
                   </span>
-                  <span className="text-slate-500">
+                  <span className="text-muted">
                     {s.count}
                     {s.filtered_out ? ` (-${s.filtered_out})` : ''}
                     {s.error ? ` · ${s.error}` : ''}

@@ -190,21 +190,21 @@ export default function Signal(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, source, tag, or summary…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter research signal"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1"
           >
             <RefreshCw size={11} /> refresh
           </button>
         </div>
         {sourceCounts.size > 1 && (
           <div className="flex flex-wrap items-center gap-1.5 mt-3">
-            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mr-1">sources:</span>
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-muted mr-1">sources:</span>
             {Array.from(sourceCounts.entries())
               .sort((a, b) => b[1] - a[1])
               .map(([src, count]) => {
@@ -217,7 +217,7 @@ export default function Signal(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/40'
+                        : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/40'
                     }`}
                   >
                     {src} <span className="opacity-70">· {count}</span>
@@ -239,7 +239,7 @@ export default function Signal(): JSX.Element {
           </div>
         )}
         {data && (
-          <p className="text-mini font-mono text-slate-500 mt-3">
+          <p className="text-mini font-mono text-muted mt-3">
             Showing <span className="text-body">{filtered.length}</span> of{' '}
             <span className="text-body">{data.total}</span> · {data.sources.length} sources · snapshot{' '}
             {new Date(data.generated_at).toLocaleString()}
@@ -255,11 +255,11 @@ export default function Signal(): JSX.Element {
                 <span className="text-micro font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400">
                   {it.source}
                 </span>
-                <span className="text-micro font-mono text-slate-500 shrink-0" title={formatDate(it.published)}>
+                <span className="text-micro font-mono text-muted shrink-0" title={formatDate(it.published)}>
                   {shortRel(it.published)}
                 </span>
               </div>
-              <h2 className="font-display font-semibold text-base text-slate-900 dark:text-white leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+              <h2 className="font-display font-semibold text-base text-heading leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                 {it.title}
                 <ExternalLink size={12} className="inline-block ml-1 opacity-50" aria-hidden="true" />
               </h2>
@@ -270,10 +270,7 @@ export default function Signal(): JSX.Element {
             {(it.tags?.length ?? 0) > 0 && (
               <div className="flex flex-wrap gap-1 mt-2">
                 {it.tags!.slice(0, 6).map((t) => (
-                  <span
-                    key={t}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-                  >
+                  <span key={t} className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 text-muted">
                     {t}
                   </span>
                 ))}

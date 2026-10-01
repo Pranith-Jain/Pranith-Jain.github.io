@@ -222,7 +222,7 @@ export default function WifiInvestigation(): JSX.Element {
   const FLAG_STYLES: Record<string, string> = {
     danger: 'border-red-500/40 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300',
     warning: 'border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300',
-    info: 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body',
+    info: 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-surface-200 text-body',
   };
 
   return (
@@ -246,7 +246,7 @@ export default function WifiInvestigation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="AA:BB:CC:DD:EE:FF or MyWiFiNetwork"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="BSSID or SSID"
             />
           </div>
@@ -254,7 +254,7 @@ export default function WifiInvestigation(): JSX.Element {
             aria-label="Search"
             type="submit"
             disabled={!input.trim()}
-            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded font-mono text-sm font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40 transition-colors"
+            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill rounded font-mono text-sm font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40 transition-colors"
           >
             <Search size={16} />
           </button>
@@ -303,7 +303,7 @@ export default function WifiInvestigation(): JSX.Element {
             </div>
           </div>
           {!!apiResult?.mac && (
-            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mt-3 pt-3 border-t border-line-1">
               <p className="text-mini font-mono text-muted mb-2">Server Vendor Lookup:</p>
               <div className="grid gap-2 sm:grid-cols-2 font-mono text-sm">
                 <div>
@@ -320,7 +320,7 @@ export default function WifiInvestigation(): JSX.Element {
             </div>
           )}
           {Array.isArray(apiResult?.lookups) && (
-            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mt-3 pt-3 border-t border-line-1">
               <p className="text-mini font-mono text-muted mb-2">Server Lookups:</p>
               <div className="flex flex-wrap gap-2">
                 {(apiResult.lookups as Array<{ service: string; url: string }>).map((l) => (
@@ -329,7 +329,7 @@ export default function WifiInvestigation(): JSX.Element {
                     href={l.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
+                    className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
                   >
                     {l.service} <ExternalLink size={9} className="opacity-60" />
                   </a>
@@ -338,7 +338,7 @@ export default function WifiInvestigation(): JSX.Element {
             </div>
           )}
           {Array.isArray(apiResult?.flags) && apiResult.flags.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mt-3 pt-3 border-t border-line-1">
               <p className="text-mini font-mono text-muted mb-2">Server Flags:</p>
               <ul className="text-meta font-mono text-muted space-y-1">
                 {(apiResult.flags as string[]).map((f, i) => (
@@ -366,7 +366,7 @@ export default function WifiInvestigation(): JSX.Element {
             </div>
           </div>
           {Array.isArray(apiResult?.lookups) && (
-            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mt-3 pt-3 border-t border-line-1">
               <p className="text-mini font-mono text-muted mb-2">Server Lookups:</p>
               <div className="flex flex-wrap gap-2">
                 {(apiResult.lookups as Array<{ service: string; url: string }>).map((l) => (
@@ -375,7 +375,7 @@ export default function WifiInvestigation(): JSX.Element {
                     href={l.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
+                    className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
                   >
                     {l.service} <ExternalLink size={9} className="opacity-60" />
                   </a>
@@ -384,7 +384,7 @@ export default function WifiInvestigation(): JSX.Element {
             </div>
           )}
           {Array.isArray(apiResult?.flags) && apiResult.flags.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mt-3 pt-3 border-t border-line-1">
               <p className="text-mini font-mono text-muted mb-2">Server Flags:</p>
               <ul className="text-meta font-mono text-muted space-y-1">
                 {(apiResult.flags as string[]).map((f, i) => (
@@ -444,7 +444,7 @@ export default function WifiInvestigation(): JSX.Element {
                   {l.service} <ExternalLink size={12} className="opacity-60 shrink-0" />
                 </a>
                 <p className="text-meta font-mono text-muted leading-relaxed break-words mt-1">{l.description}</p>
-                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 mt-2 inline-flex items-center gap-1">
+                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-2 text-muted mt-2 inline-flex items-center gap-1">
                   <Globe size={9} /> {l.category}
                 </span>
               </li>

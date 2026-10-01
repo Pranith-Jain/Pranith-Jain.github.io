@@ -282,14 +282,14 @@ export default function Settings(): JSX.Element {
               role="switch"
               aria-checked={isDark}
               onClick={toggleTheme}
-              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[rgb(var(--surface-100))] ${
+              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-100 ${
                 isDark ? 'bg-rose-600' : 'bg-slate-300'
               }`}
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             >
               <span
                 aria-hidden="true"
-                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-surface-100 shadow-lg ring-0 transition duration-200 ease-in-out ${
                   isDark ? 'translate-x-5' : 'translate-x-0'
                 }`}
               />
@@ -303,14 +303,14 @@ export default function Settings(): JSX.Element {
           <section key={cat} className="animate-fade-in-up">
             <h2 className="font-display font-semibold text-base mb-3 text-heading">
               {CATEGORY_LABEL[cat]}
-              <span className="ml-2 text-mini font-mono text-slate-500">{items.length}</span>
+              <span className="ml-2 text-mini font-mono text-muted">{items.length}</span>
             </h2>
             <div className="grid sm:grid-cols-2 gap-2">
               {items.map((i) => {
                 const Icon = i.icon;
                 return (
                   <div key={i.name} className="surface-card p-3 flex items-start gap-3">
-                    <Icon size={16} className="text-slate-500 shrink-0 mt-0.5" />
+                    <Icon size={16} className="text-muted shrink-0 mt-0.5" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-medium text-sm">{i.name}</span>
@@ -318,7 +318,7 @@ export default function Settings(): JSX.Element {
                           className={
                             i.status === 'live'
                               ? 'inline-flex items-center text-micro font-mono rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5'
-                              : 'inline-flex items-center text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 px-1.5 py-0.5'
+                              : 'inline-flex items-center text-micro font-mono rounded border border-slate-300 dark:border-line-1 bg-slate-100 dark:bg-surface-300 text-slate-500 px-1.5 py-0.5'
                           }
                         >
                           {i.status === 'live' ? 'live' : 'optional'}

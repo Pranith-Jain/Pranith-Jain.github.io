@@ -110,7 +110,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search tools - e.g. 'crawler', 'ahmia', 'onion scan'"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                 aria-label="Search dark web OSINT tools"
               />
             </div>
@@ -118,13 +118,11 @@ export default function DarkWebOsintTools(): JSX.Element {
 
           <section className="surface-card p-4">
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-mini font-mono text-slate-500 mr-1">categories:</span>
+              <span className="text-mini font-mono text-muted mr-1">categories:</span>
               {ALL_CATS.map((c) => {
                 const count = catCounts.get(c) ?? 0;
                 const active = activeCats.has(c);
-                const cls = active
-                  ? CATEGORY_PILL[c]
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+                const cls = active ? CATEGORY_PILL[c] : 'border-slate-300 dark:border-line-1 text-slate-500';
                 return (
                   <button
                     key={c}
@@ -196,7 +194,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                   title="Source repository"
                 >
                   <Github size={10} /> source

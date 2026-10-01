@@ -69,7 +69,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -134,7 +134,7 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
             ! showing cached data (upstream temporarily unavailable)
           </p>
         )}
-        <p className="text-micro font-mono text-slate-500">
+        <p className="text-micro font-mono text-muted">
           {NUM.format(data.total)} wallets · {USD.format(data.total_balance_usd)} tracked across {blockchains.length}{' '}
           chains
         </p>
@@ -190,10 +190,7 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
       )}
       <div className="grid gap-3 lg:grid-cols-2">
         {filtered.slice(0, 600).map((w) => (
-          <div
-            key={`${w.address}-${w.blockchain}`}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-          >
+          <div key={`${w.address}-${w.blockchain}`} className="rounded-xl border border-line-1 bg-surface-200 p-3">
             <div className="flex items-start justify-between gap-2">
               <button
                 type="button"
@@ -218,14 +215,14 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
               {w.address}
             </p>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-micro font-mono text-slate-500">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-micro font-mono text-muted">
               <span className="text-emerald-600 dark:text-emerald-400">{USD.format(w.balance_usd)}</span>
               <span>{NUM.format(w.transactions)} tx</span>
               {w.first_seen && <span>first {fmtDate(w.first_seen)}</span>}
               {w.last_seen && <span>last {fmtDate(w.last_seen)}</span>}
             </div>
 
-            <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mt-2 pt-2 border-t border-line-1">
               <Link
                 to={`/dfir/tracer?address=${encodeURIComponent(w.address)}`}
                 className="inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"

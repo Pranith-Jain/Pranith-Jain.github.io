@@ -114,13 +114,13 @@ export default function AggregatedFeeds() {
           placeholder="Search feeds..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
+          className="w-full pl-10 pr-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-heading placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
         />
       </div>
       <select
         value={categoryFilter}
         onChange={(e) => setCategoryFilter(e.target.value)}
-        className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
+        className="px-4 py-2 bg-surface-100 border border-line-2 rounded-xl text-heading focus:outline-none focus:border-rose-500"
       >
         <option value="all">All Categories</option>
         {Object.entries(CATEGORY_META).map(([key, meta]) => (
@@ -175,8 +175,8 @@ export default function AggregatedFeeds() {
               key={feed.id}
               className={`rounded-xl border p-5 transition-colors ${
                 feed.fetch_ok
-                  ? 'bg-white dark:bg-[rgb(var(--surface-200))]/60 border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
-                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border-rose-200 dark:border-rose-900/30 opacity-60'
+                  ? 'bg-white dark:bg-surface-200/60 border-slate-200 dark:border-line-1 hover:border-slate-300 dark:hover:border-line-1'
+                  : 'bg-slate-50 dark:bg-surface-200/30 border-rose-200 dark:border-rose-900/30 opacity-60'
               }`}
             >
               <div className="flex items-start gap-4">
@@ -193,7 +193,7 @@ export default function AggregatedFeeds() {
                       href={sanitizeUrl(feed.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
+                      className="text-muted hover:text-muted dark:hover:text-inverted shrink-0 mt-1 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -207,7 +207,7 @@ export default function AggregatedFeeds() {
                     <span className="text-body">
                       <span className="text-muted">Size:</span> <strong>{formatBytes(feed.size_bytes)}</strong>
                     </span>
-                    <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-surface-300 border border-line-1">
                       {meta.label}
                     </span>
                   </div>
@@ -215,14 +215,14 @@ export default function AggregatedFeeds() {
                   {feed.fetch_ok && feed.sample_entries.length > 0 && (
                     <div className="mt-3">
                       <details className="text-sm">
-                        <summary className="text-muted cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">
+                        <summary className="text-muted cursor-pointer hover:text-muted dark:hover:text-inverted">
                           Sample entries ({feed.sample_entries.length})
                         </summary>
                         <div className="mt-2 space-y-1">
                           {feed.sample_entries.map((entry, i) => (
                             <code
                               key={i}
-                              className="block px-3 py-1 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded text-body text-xs font-mono"
+                              className="block px-3 py-1 bg-surface-300 rounded text-body text-xs font-mono"
                             >
                               {entry}
                             </code>

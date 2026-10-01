@@ -85,8 +85,8 @@ const SEVERITY_TONE: Record<Severity, string> = {
   critical: 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   high: 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
-  unknown: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  low: 'border-slate-300 dark:border-line-1 text-slate-500',
+  unknown: 'border-slate-300 dark:border-line-1 text-slate-500',
 };
 
 const SOURCE_TONE: Record<Source, string> = {
@@ -413,27 +413,21 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
             </h2>
             <p className="text-xs font-mono text-muted mt-1.5 max-w-2xl leading-relaxed">
               Unified cross-source stream merging{' '}
-              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-                t.me/s
-              </code>{' '}
-              firehose (curated public channels, 30d window), leak-monitor entries (critical/high credentials + domains)
-              and live-IOCs with{' '}
-              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-                telegram-leak
-              </code>{' '}
-              source. Newest first.
+              <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">t.me/s</code> firehose (curated public
+              channels, 30d window), leak-monitor entries (critical/high credentials + domains) and live-IOCs with{' '}
+              <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">telegram-leak</code> source. Newest first.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1"
             >
               <RefreshCw size={11} className={anyLoading ? 'animate-spin' : ''} /> refresh
             </button>
             {lastRefresh && (
-              <span className="text-micro font-mono text-slate-500">
+              <span className="text-micro font-mono text-muted">
                 updated {relativeAgo(lastRefresh.toISOString(), 'just now')}
               </span>
             )}
@@ -494,7 +488,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="filter by keyword, handle, or IOC value…"
-              className="w-full pl-7 pr-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+              className="w-full pl-7 pr-3 py-1.5 rounded border border-line-1 bg-surface-100/40 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
               aria-label="Filter firehose"
             />
           </div>
@@ -510,7 +504,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
             in memory. Nothing is persisted (no KV/D1 writes); results are
             session-local. Defaults to the CVE/breach batch server-side. */}
         <form
-          className="mt-3 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2"
+          className="mt-3 rounded border border-line-1 p-2"
           onSubmit={(e) => {
             e.preventDefault();
             void runLiveSearch();
@@ -523,19 +517,19 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
                 value={liveQ}
                 onChange={(e) => setLiveQ(e.target.value)}
                 placeholder="live channel search — e.g. CVE-2026-XXXX or LockBit…"
-                className="w-full pl-7 pr-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+                className="w-full pl-7 pr-3 py-1.5 rounded border border-line-1 bg-surface-100/40 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
                 aria-label="Live search Telegram channels"
               />
             </div>
             <button
               type="submit"
               disabled={liveSearching || !liveQ.trim()}
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-40"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 disabled:opacity-40"
             >
               {liveSearching ? 'searching…' : 'live search'}
             </button>
           </div>
-          <p className="mt-1.5 text-micro font-mono text-slate-500">
+          <p className="mt-1.5 text-micro font-mono text-muted">
             stateless — fetches public previews on demand, matches in memory, stores nothing
             {liveMeta && (
               <span className="ml-2 text-body">
@@ -594,7 +588,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
           ))}
         </ul>
         {filtered.length > visible.length && (
-          <p className="mt-3 text-mini font-mono text-slate-500 text-center">
+          <p className="mt-3 text-mini font-mono text-muted text-center">
             ... {filtered.length - visible.length} more -- refine filters to narrow ...
           </p>
         )}
@@ -628,10 +622,10 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
 function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: string }): JSX.Element {
   return (
     <li
-      className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 ${
+      className={`rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-3 ${
         item.severity === 'critical' || item.severity === 'high'
           ? 'border-rose-500/30'
-          : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
+          : 'border-slate-200 dark:border-line-1'
       }`}
     >
       <div className="flex flex-wrap items-center gap-2 mb-1.5">
@@ -656,7 +650,7 @@ function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: 
           {item.source !== 'liveioc' && <p className="font-mono text-sm font-semibold text-heading">{item.title}</p>}
           {item.body && <p className="text-xs text-muted mt-0.5 line-clamp-2">{item.body}</p>}
           <PostSummary text={postSummary} />
-          <div className="flex flex-wrap gap-2 mt-1.5 text-micro font-mono text-slate-500">
+          <div className="flex flex-wrap gap-2 mt-1.5 text-micro font-mono text-muted">
             {Object.entries(item.meta).map(([k, v]) => (
               <span key={k}>
                 {k}: <span className="text-body">{v}</span>
@@ -669,7 +663,7 @@ function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: 
             href={sanitizeUrl(item.link)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 shrink-0 transition-colors"
+            className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 shrink-0 transition-colors"
           >
             <ExternalLink size={11} /> open
           </a>

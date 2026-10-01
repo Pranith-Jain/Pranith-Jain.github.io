@@ -110,7 +110,7 @@ export function SocShell({
   }, [loading, autoRefreshMs]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-transparent text-heading">
+    <div className="min-h-screen bg-surface-200 dark:bg-transparent text-heading">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-heading">
         <div className="animate-fade-in-up mb-8">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
@@ -124,7 +124,7 @@ export function SocShell({
 
         {/* Controls */}
         <div className="mb-8 flex flex-wrap items-center gap-2">
-          <div className="inline-flex rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
+          <div className="inline-flex rounded-xl border border-line-1 overflow-hidden">
             {windows.map((w) => {
               const on = w.days === windowDays;
               return (
@@ -136,7 +136,7 @@ export function SocShell({
                   className={`text-meta font-mono px-3 py-1.5 transition-colors ${
                     on
                       ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                      : 'bg-white dark:bg-surface-200 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
                   }`}
                 >
                   {w.label}
@@ -184,7 +184,7 @@ export function SocShell({
 /* ─── Loading skeleton (shimmer placeholders for the full grid) ──── */
 
 function SocSkeleton(): JSX.Element {
-  const shimmer = 'animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]';
+  const shimmer = 'animate-pulse rounded bg-slate-200 dark:bg-surface-300';
   return (
     <div className="space-y-6" aria-label="Loading dashboard">
       {/* KPI skeleton row */}

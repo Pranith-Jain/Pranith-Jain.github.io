@@ -180,7 +180,7 @@ export default function IocEnrichment(): JSX.Element {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={source.hint}
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+                  className="w-full rounded-xl border border-line-1 bg-surface-100 py-2.5 pl-9 pr-4 font-mono text-tool text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:placeholder:text-muted"
                   aria-label="Search query"
                 />
               </div>
@@ -193,7 +193,7 @@ export default function IocEnrichment(): JSX.Element {
                 aria-haspopup="listbox"
                 aria-expanded={showDropdown}
                 aria-label={`Data source: ${source.label}`}
-                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-rose-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 min-w-[180px] justify-between"
+                className="flex items-center gap-2 rounded-xl border border-line-1 bg-surface-100 px-3 py-2.5 font-mono text-tool text-heading hover:border-rose-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 min-w-[180px] justify-between"
               >
                 <span>{source.label}</span>
                 <ChevronDown size={14} className="text-muted" />
@@ -202,7 +202,7 @@ export default function IocEnrichment(): JSX.Element {
                 <div
                   role="listbox"
                   aria-label="Data source"
-                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-xl border border-slate-200 bg-white shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-xl border border-line-1 bg-surface-100 shadow-e3"
                 >
                   {SOURCES.map((s) => (
                     <button
@@ -214,7 +214,7 @@ export default function IocEnrichment(): JSX.Element {
                         setSource(s);
                         setShowDropdown(false);
                       }}
-                      className={`w-full text-left px-3 py-2.5 text-tool font-mono transition-colors hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] ${
+                      className={`w-full text-left px-3 py-2.5 text-tool font-mono transition-colors hover:bg-surface-300 dark:hover:bg-surface-300 ${
                         source.id === s.id ? 'text-rose-700 dark:text-rose-300 bg-rose-500/5' : 'text-body'
                       }`}
                     >
@@ -229,7 +229,7 @@ export default function IocEnrichment(): JSX.Element {
               type="button"
               onClick={handleSearch}
               disabled={loading || !query.trim()}
-              className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 font-mono text-tool font-semibold text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+              className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 font-mono text-tool font-semibold text-on-fill hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'Searching…' : 'Search'}
@@ -241,7 +241,7 @@ export default function IocEnrichment(): JSX.Element {
               href={source.docsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 mt-3 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="inline-flex items-center gap-1 mt-3 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             >
               <ExternalLink size={11} /> {source.label} docs
             </a>
@@ -258,7 +258,7 @@ export default function IocEnrichment(): JSX.Element {
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
-            className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))] transition-colors"
+            className="w-full flex items-center justify-between p-4 text-left hover:bg-surface-200 dark:hover:bg-input-200 transition-colors"
           >
             <span className="font-display font-semibold text-sm flex items-center gap-2">
               {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
@@ -271,10 +271,10 @@ export default function IocEnrichment(): JSX.Element {
               <div className="flex justify-end">
                 <CopyButton value={JSON.stringify(data, null, 2)} label="Copy full JSON" />
               </div>
-              <dl className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-400))]">
+              <dl className="divide-y divide-line-1">
                 {Object.entries(data as Record<string, unknown>).map(([key, value]) => (
                   <div key={key} className="flex flex-col gap-0.5 py-2 sm:flex-row sm:gap-3">
-                    <dt className="font-mono text-mini uppercase tracking-wider text-slate-500 sm:w-44 shrink-0 break-all">
+                    <dt className="font-mono text-mini uppercase tracking-wider text-muted sm:w-44 shrink-0 break-all">
                       {key}
                     </dt>
                     <dd className="font-mono text-meta text-heading break-all min-w-0">{formatEnrichValue(value)}</dd>

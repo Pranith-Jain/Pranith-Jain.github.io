@@ -212,11 +212,11 @@ export default function Blog() {
         }
         canonicalPath={routeType ? `/blog/c/${routeType}` : inTagMode ? `/blog/t/${routeTag}` : '/blog'}
       />
-      <div className="max-w-3xl mx-auto text-slate-900 dark:text-white">
+      <div className="max-w-3xl mx-auto text-heading">
         {(inCategoryMode || inTagMode) && (
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-4"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-4"
           >
             <ArrowLeft size={12} /> all case studies
           </Link>
@@ -244,7 +244,7 @@ export default function Blog() {
               <Link
                 key={t}
                 to={`/blog/c/${t}`}
-                className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="text-meta font-mono px-2.5 py-1.5 rounded border border-line-1 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {metaFor(t)
                   .label.toLowerCase()
@@ -269,12 +269,12 @@ export default function Blog() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Filter by title, excerpt, or tag…"
                 aria-label="Filter case studies"
-                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
             {!inCategoryMode && presentTypes.length > 1 && (
               <div className="flex flex-wrap items-center gap-1.5 mt-3">
-                <span className="text-mini font-mono text-slate-500 mr-1">type:</span>
+                <span className="text-mini font-mono text-muted mr-1">type:</span>
                 {presentTypes.map((t) => {
                   const active = typeFilter === t;
                   return (
@@ -285,7 +285,7 @@ export default function Blog() {
                       className={`text-mini font-mono px-2 py-1 rounded border ${
                         active
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                          : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
                       }`}
                     >
                       {t} <span className="opacity-70">· {typeCounts.get(t) ?? 0}</span>
@@ -308,8 +308,8 @@ export default function Blog() {
               </div>
             )}
             {!inCategoryMode && !inTagMode && allTags.size > 0 && (
-              <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-                <span className="text-mini font-mono text-slate-500 mr-1">tags:</span>
+              <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-line-1">
+                <span className="text-mini font-mono text-muted mr-1">tags:</span>
                 {[
                   'all',
                   ...Array.from(allTags.entries())
@@ -326,7 +326,7 @@ export default function Blog() {
                       className={`text-mini font-mono px-2 py-1 rounded border ${
                         active
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                          : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
                       }`}
                     >
                       {isAll ? 'all' : t}
@@ -336,7 +336,7 @@ export default function Blog() {
                 })}
               </div>
             )}
-            <p className="text-mini font-mono text-slate-500 mt-3">
+            <p className="text-mini font-mono text-muted mt-3">
               Showing <span className="text-body">{filtered.length}</span> of{' '}
               <span className="text-body">{posts.length}</span> case studies.
             </p>
@@ -372,18 +372,18 @@ export default function Blog() {
                       </span>
                     )}
                   </div>
-                  <h2 className="font-display text-xl font-semibold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                  <h2 className="font-display text-xl font-semibold text-heading transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
                     {p.title}
                   </h2>
                   <p className="text-muted mt-2 leading-relaxed">{p.excerpt}</p>
                 </Link>
-                <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-500">
+                <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-muted">
                   <span className="font-medium text-body">Pranith Jain</span>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-muted">
+                  <span aria-hidden="true" className="text-inverted dark:text-muted">
                     ·
                   </span>
                   <time>{formatDate(p.publishedAt)}</time>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-muted">
+                  <span aria-hidden="true" className="text-inverted dark:text-muted">
                     ·
                   </span>
                   <span>{estimateReadingTime(p.excerpt)} min read</span>
@@ -397,7 +397,7 @@ export default function Blog() {
                         className={`rounded border px-2 py-0.5 text-mini font-mono transition-colors ${
                           tagFilter === t
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                            : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                            : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-line-1 dark:bg-surface-200 dark:text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
                         }`}
                         title={`Browse tag: ${t}`}
                       >
@@ -412,7 +412,7 @@ export default function Blog() {
         </DataState>
 
         <section className="mt-16 surface-card p-6">
-          <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Stay updated</h2>
+          <h2 className="font-display font-bold text-lg text-heading mb-1">Stay updated</h2>
           <p className="text-sm text-muted mb-4">
             New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
             <a
@@ -429,7 +429,7 @@ export default function Blog() {
             href="/blog/rss.xml"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-line-2 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
           >
             <svg
               width="14"

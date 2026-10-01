@@ -27,9 +27,7 @@ export function Skills({ skills }: SkillsProps) {
           plain display heading + a single-line lede. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Expertise</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Core competencies
-        </h2>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">Core competencies</h2>
         <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
           Focused on threat intelligence, cyber criminology, email security, and cloud-identity defense.
         </p>
@@ -44,7 +42,7 @@ export function Skills({ skills }: SkillsProps) {
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
                   {IconComponent && <IconComponent className="h-4 w-4" aria-hidden="true" />}
                 </span>
-                <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white">{skill.title}</h3>
+                <h3 className="font-display font-semibold text-lg text-heading">{skill.title}</h3>
               </div>
               <ul className="space-y-2 text-sm text-muted">
                 {skill.items.map((item) => (

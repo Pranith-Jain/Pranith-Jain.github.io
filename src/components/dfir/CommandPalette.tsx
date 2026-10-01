@@ -550,13 +550,13 @@ export function CommandPalette(): JSX.Element | null {
       <button
         type="button"
         onClick={() => setOpen(false)}
-        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-surface-100/60 backdrop-blur-sm"
         aria-label="Close command palette"
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl rounded border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3 overflow-hidden">
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-[rgb(var(--border-400))]">
+      <div className="relative w-full max-w-2xl rounded border border-line-1 bg-surface-100 shadow-e3 overflow-hidden">
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-line-1">
           <Search size={18} className="text-muted shrink-0" aria-hidden="true" />
           <input
             ref={inputRef}
@@ -569,7 +569,7 @@ export function CommandPalette(): JSX.Element | null {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={`Search ${fullIndex.length} items - tools, wiki, channels, actors…`}
-            className="flex-1 bg-transparent border-0 outline-none font-mono text-sm text-heading placeholder:text-slate-500"
+            className="flex-1 bg-transparent border-0 outline-none font-mono text-sm text-heading placeholder:text-muted"
             aria-label="Search"
           />
           {catalogLoading && (
@@ -578,7 +578,7 @@ export function CommandPalette(): JSX.Element | null {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="p-1 rounded text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="p-1 rounded text-muted hover:text-body dark:hover:text-inverted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label="Close"
           >
             <X size={16} />
@@ -586,14 +586,14 @@ export function CommandPalette(): JSX.Element | null {
         </div>
 
         {/* Kind filter chip row */}
-        <div className="flex flex-wrap items-center gap-1.5 px-4 py-2 border-b border-[rgb(var(--border-400))]">
+        <div className="flex flex-wrap items-center gap-1.5 px-4 py-2 border-b border-line-1">
           <button
             type="button"
             onClick={() => setKindFilter(null)}
             className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border focus-visible:ring-2 focus-visible:ring-brand-500 ${
               kindFilter === null
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
             }`}
           >
             all <span className="opacity-60">· {fullIndex.length}</span>
@@ -608,9 +608,7 @@ export function CommandPalette(): JSX.Element | null {
                 type="button"
                 onClick={() => setKindFilter(active ? null : k)}
                 className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border focus-visible:ring-2 focus-visible:ring-brand-500 ${
-                  active
-                    ? KIND_PILL[k]
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                  active ? KIND_PILL[k] : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
                 }`}
               >
                 {KIND_LABEL[k]} <span className="opacity-60">· {count}</span>
@@ -645,9 +643,7 @@ export function CommandPalette(): JSX.Element | null {
                   onClick={() => select(m.path)}
                   onMouseEnter={() => setActiveIdx(idx)}
                   className={`w-full flex items-center gap-3 px-4 py-2 text-left transition-colors ${
-                    active
-                      ? 'bg-brand-500/10 text-heading'
-                      : 'text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                    active ? 'bg-brand-500/10 text-heading' : 'text-body hover:bg-slate-100 dark:hover:bg-surface-300'
                   }`}
                 >
                   {Icon ? (
@@ -702,7 +698,7 @@ export function CommandPalette(): JSX.Element | null {
           })}
         </ul>
 
-        <div className="border-t border-[rgb(var(--border-400))] px-4 py-2 text-micro font-mono text-muted flex items-center gap-3">
+        <div className="border-t border-line-1 px-4 py-2 text-micro font-mono text-muted flex items-center gap-3">
           <Command size={10} aria-hidden="true" />
           <span>↑↓ navigate</span>
           <span>↵ open</span>

@@ -157,7 +157,7 @@ interface SfiResponse {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-body max-h-[55vh]">
+    <pre className="rounded-xl border border-line-1 bg-surface-200 p-3 overflow-auto font-mono text-mini text-body max-h-[55vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -379,11 +379,7 @@ export default function Infostealer(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
     >
-      <div
-        role="tablist"
-        aria-label="Tabs"
-        className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-      >
+      <div role="tablist" aria-label="Tabs" className="flex flex-wrap gap-2 mb-4 border-b border-line-1">
         {TABS.map((t) => {
           const Icon = t.icon;
           return (
@@ -405,10 +401,10 @@ export default function Infostealer(): JSX.Element {
         })}
       </div>
 
-      <p className="font-mono text-mini text-slate-500 mb-4">{TABS.find((t) => t.id === tab)?.blurb ?? ''}</p>
+      <p className="font-mono text-mini text-muted mb-4">{TABS.find((t) => t.id === tab)?.blurb ?? ''}</p>
 
       {loading && (
-        <p role="status" aria-live="polite" className="font-mono text-sm text-slate-500">
+        <p role="status" aria-live="polite" className="font-mono text-sm text-muted">
           loading…
         </p>
       )}
@@ -428,10 +424,7 @@ export default function Infostealer(): JSX.Element {
               {hrRows.slice(0, 100).map((row, i) => {
                 if (!isRecord(row))
                   return (
-                    <li
-                      key={`raw-${i}`}
-                      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 font-mono text-meta"
-                    >
+                    <li key={`raw-${i}`} className="rounded-xl border border-line-1 p-3 font-mono text-meta">
                       {String(row)}
                     </li>
                   );
@@ -468,18 +461,18 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(m.url)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
+                  className="shrink-0 rounded border border-line-1 p-1 text-muted hover:text-rose-600"
                   aria-label="Copy URL"
                 >
                   <Copy size={11} />
                 </button>
               </div>
-              {m.description && <p className="font-mono text-mini text-slate-500 mt-1 line-clamp-2">{m.description}</p>}
+              {m.description && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{m.description}</p>}
               {m.published && <p className="font-mono text-micro text-muted mt-1">{m.published}</p>}
             </li>
           ))}
           {markets && markets.length === 0 && (
-            <li className="font-mono text-meta text-slate-500">No log-market threads in the current feed window.</li>
+            <li className="font-mono text-meta text-muted">No log-market threads in the current feed window.</li>
           )}
         </ul>
       )}
@@ -505,19 +498,17 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(c.url)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
+                  className="shrink-0 rounded border border-line-1 p-1 text-muted hover:text-rose-600"
                   aria-label="Copy URL"
                 >
                   <Copy size={11} />
                 </button>
               </div>
-              {c.notes && <p className="font-mono text-mini text-slate-500 mt-1 line-clamp-2">{c.notes}</p>}
+              {c.notes && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{c.notes}</p>}
             </li>
           ))}
           {tg && tg.length === 0 && (
-            <li className="font-mono text-meta text-slate-500">
-              deepdarkCTI infostealer-Telegram category unavailable.
-            </li>
+            <li className="font-mono text-meta text-muted">deepdarkCTI infostealer-Telegram category unavailable.</li>
           )}
         </ul>
       )}
@@ -544,7 +535,7 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(s.sha256)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
+                  className="shrink-0 rounded border border-line-1 p-1 text-muted hover:text-rose-600"
                   aria-label="Copy SHA256"
                 >
                   <Copy size={11} />
@@ -556,7 +547,7 @@ export default function Infostealer(): JSX.Element {
             </li>
           ))}
           {samples && samples.length === 0 && (
-            <li className="font-mono text-meta text-slate-500">
+            <li className="font-mono text-meta text-muted">
               No known-family stealer samples in the current MalwareBazaar window.
             </li>
           )}
@@ -580,7 +571,7 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(x.value)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
+                  className="shrink-0 rounded border border-line-1 p-1 text-muted hover:text-rose-600"
                   aria-label="Copy indicator"
                 >
                   <Copy size={11} />
@@ -590,7 +581,7 @@ export default function Infostealer(): JSX.Element {
             </li>
           ))}
           {c2 && c2.length === 0 && (
-            <li className="font-mono text-meta text-slate-500">
+            <li className="font-mono text-meta text-muted">
               No infostealer-attributed indicators in the current live-IOC window.
             </li>
           )}
@@ -601,7 +592,7 @@ export default function Infostealer(): JSX.Element {
         <div className="space-y-4">
           {INFOSTEALER_FAMILIES.map((fam) => (
             <details key={fam.slug} className="surface-card group open:border-rose-500/40">
-              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))] rounded-xl list-none">
+              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-surface-200 dark:hover:bg-input-200 rounded-xl list-none">
                 <div className="min-w-0">
                   <Link
                     to={`/threatintel/infostealer/${fam.slug}`}
@@ -610,17 +601,17 @@ export default function Infostealer(): JSX.Element {
                     {fam.name}
                   </Link>
                   {fam.aliases.length > 0 && (
-                    <span className="ml-2 text-mini font-mono text-slate-500">aka {fam.aliases.join(', ')}</span>
+                    <span className="ml-2 text-mini font-mono text-muted">aka {fam.aliases.join(', ')}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-micro font-mono text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5">
+                  <span className="text-micro font-mono text-muted border border-line-1 rounded px-1.5 py-0.5">
                     {fam.firstSeen}
                   </span>
                   <span className="text-micro font-mono text-muted">{fam.platforms.join('/')}</span>
                 </div>
               </summary>
-              <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3">
+              <div className="px-4 pb-4 border-t border-line-1 pt-3 space-y-3">
                 <p className="text-sm text-body leading-relaxed">{fam.description}</p>
 
                 <div className="flex flex-wrap gap-1.5">
@@ -628,7 +619,7 @@ export default function Infostealer(): JSX.Element {
                     <span
                       key={c}
                       role="tab"
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 bg-surface-200 text-muted"
                     >
                       {c}
                     </span>
@@ -637,7 +628,7 @@ export default function Infostealer(): JSX.Element {
 
                 {fam.actors.length > 0 && (
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Actors:</span>
+                    <span className="text-micro font-mono uppercase tracking-wider text-muted">Actors:</span>
                     {fam.actors.map((a) => (
                       <Link
                         key={a}
@@ -663,7 +654,7 @@ export default function Infostealer(): JSX.Element {
                     </a>
                   )}
                   {fam.threatfoxTag && (
-                    <span className="text-slate-500">
+                    <span className="text-muted">
                       ThreatFox tag: <code className="text-body">{fam.threatfoxTag}</code>
                     </span>
                   )}
@@ -683,14 +674,14 @@ export default function Infostealer(): JSX.Element {
           </div>
 
           {!sfi && (
-            <p className="font-mono text-meta text-slate-500">
+            <p className="font-mono text-meta text-muted">
               Forum-intel cache is cold - visit again shortly once it warms.
             </p>
           )}
 
           {sfi && (
             <>
-              <p className="font-mono text-mini text-slate-500">
+              <p className="font-mono text-mini text-muted">
                 {sfi.totals.tracked_sources} tracked sources across {sfi.totals.categories} categories · telegram
                 chatter hits: {sfi.chatter.telegram.matches} · reddit: {sfi.chatter.reddit.matches}
               </p>
@@ -698,7 +689,7 @@ export default function Infostealer(): JSX.Element {
               {sfi.forums.map((g) => (
                 <div key={g.category}>
                   <h3 className="font-display font-semibold text-sm mb-2">
-                    {g.category} <span className="font-mono text-mini text-slate-500">· {g.count}</span>
+                    {g.category} <span className="font-mono text-mini text-muted">· {g.count}</span>
                   </h3>
                   <ul className="grid gap-2 md:grid-cols-2">
                     {g.entries.slice(0, 60).map((e, i) => (
@@ -709,7 +700,7 @@ export default function Infostealer(): JSX.Element {
                           </span>
                           <span className="flex items-center gap-1 shrink-0">
                             {e.onion && (
-                              <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-slate-500">
+                              <span className="rounded border border-line-3/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-muted">
                                 onion
                               </span>
                             )}
@@ -729,7 +720,7 @@ export default function Infostealer(): JSX.Element {
                           <button
                             type="button"
                             onClick={() => copy(e.url)}
-                            className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
+                            className="shrink-0 rounded border border-line-1 p-1 text-muted hover:text-rose-600"
                             aria-label="Copy URL"
                           >
                             <Copy size={11} />
@@ -748,7 +739,7 @@ export default function Infostealer(): JSX.Element {
                   <div key={src}>
                     <h3 className="font-display font-semibold text-sm mb-2 capitalize">
                       {src} combo/stealer chatter{' '}
-                      <span className="font-mono text-mini text-slate-500">· {block.matches} matches</span>
+                      <span className="font-mono text-mini text-muted">· {block.matches} matches</span>
                     </h3>
                     <ul className="space-y-1.5">
                       {block.samples.map((s, i) => (
@@ -804,7 +795,7 @@ export default function Infostealer(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       articleSource === src
                         ? 'bg-rose-500/15 border-rose-500/40 text-rose-700 dark:text-rose-300'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                        : 'border-slate-200 dark:border-line-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                     }`}
                   >
                     {src === 'all' ? 'All' : src === 'blog' ? 'Blog' : src === 'report' ? 'Reports' : 'Techniques'}
@@ -815,7 +806,7 @@ export default function Infostealer(): JSX.Element {
                 const filtered =
                   articleSource === 'all' ? articles : articles.filter((a) => a.source === articleSource);
                 if (filtered.length === 0) {
-                  return <p className="font-mono text-meta text-slate-500">No articles in this category.</p>;
+                  return <p className="font-mono text-meta text-muted">No articles in this category.</p>;
                 }
                 return (
                   <>

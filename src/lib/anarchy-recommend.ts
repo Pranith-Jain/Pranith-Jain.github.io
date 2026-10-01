@@ -206,11 +206,7 @@ export function recommendCourses<T extends RecommendCourse>(
  * Courses similar to one course: shared tags first, then same provider,
  * then same difficulty. Never returns the course itself.
  */
-export function similarCourses<T extends RecommendCourse>(
-  courses: T[],
-  id: string,
-  limit = 4
-): ScoredCourse<T>[] {
+export function similarCourses<T extends RecommendCourse>(courses: T[], id: string, limit = 4): ScoredCourse<T>[] {
   const targetId = normId(id);
   if (!targetId) return [];
   const target = courses.find((c) => normId(c.id) === targetId);

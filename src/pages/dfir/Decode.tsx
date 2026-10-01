@@ -10,7 +10,7 @@ import { Textarea } from '../../components/ui/Input';
 const FORMAT_BADGE: Record<string, string> = {
   base64: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
   url: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted',
 };
 
 export default function Decode(): JSX.Element {
@@ -141,7 +141,7 @@ export default function Decode(): JSX.Element {
             className={`px-4 py-2 rounded-xl font-mono text-sm font-semibold transition-colors border ${
               mode === m
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'bg-white dark:bg-[rgb(var(--surface-200))] text-body border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400'
+                : 'bg-white dark:bg-surface-200 text-body border-slate-200 dark:border-line-1 hover:border-brand-400'
             }`}
           >
             {m === 'auto' ? 'Auto-Detect' : m === 'base64' ? 'Base64 Decode' : 'URL Decode'}
@@ -154,7 +154,7 @@ export default function Decode(): JSX.Element {
         {/* Input */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label htmlFor="decode-input" className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+            <label htmlFor="decode-input" className="text-xs font-mono text-muted uppercase tracking-wider">
               Input
             </label>
             {input && mode === 'auto' && detectedOnLoad !== 'unknown' && (
@@ -176,7 +176,7 @@ export default function Decode(): JSX.Element {
         {/* Output */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label htmlFor="decode-output" className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+            <label htmlFor="decode-output" className="text-xs font-mono text-muted uppercase tracking-wider">
               Output
             </label>
             <div className="flex items-center gap-2">
@@ -206,7 +206,7 @@ export default function Decode(): JSX.Element {
               readOnly
               value={output}
               rows={12}
-              className="w-full px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading resize-none focus:outline-none"
+              className="w-full px-4 py-3 bg-surface-200/50 border border-line-1 rounded-xl font-mono text-sm text-heading resize-none focus:outline-none"
               placeholder="Decoded output will appear here..."
             />
           </div>
@@ -235,7 +235,7 @@ export default function Decode(): JSX.Element {
                   </span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-mono text-xs text-slate-500 truncate">
+                  <div className="font-mono text-xs text-muted truncate">
                     {step.input.slice(0, 80)}
                     {step.input.length > 80 ? '…' : ''}
                   </div>

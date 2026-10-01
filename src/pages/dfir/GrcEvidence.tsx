@@ -210,28 +210,28 @@ export default function GrcEvidence(): JSX.Element {
       {/* Stats */}
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl border p-3 border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
-            <div className="text-micro font-mono text-slate-500">Frameworks</div>
+          <div className="rounded-xl border p-3 border-line-1 bg-surface-100">
+            <div className="text-micro font-mono text-muted">Frameworks</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_frameworks}</div>
           </div>
-          <div className="rounded-xl border p-3 border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
-            <div className="text-micro font-mono text-slate-500">Controls</div>
+          <div className="rounded-xl border p-3 border-line-1 bg-surface-100">
+            <div className="text-micro font-mono text-muted">Controls</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_controls}</div>
           </div>
-          <div className="rounded-xl border p-3 border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
-            <div className="text-micro font-mono text-slate-500">Evidence</div>
+          <div className="rounded-xl border p-3 border-line-1 bg-surface-100">
+            <div className="text-micro font-mono text-muted">Evidence</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_evidence}</div>
           </div>
-          <div className="rounded-xl border p-3 border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
-            <div className="text-micro font-mono text-slate-500">Avg Compliance</div>
+          <div className="rounded-xl border p-3 border-line-1 bg-surface-100">
+            <div className="text-micro font-mono text-muted">Avg Compliance</div>
             <div
               className={`text-xl font-bold font-mono mt-1 ${stats.avg_compliance >= 70 ? 'text-emerald-600 dark:text-emerald-400' : stats.avg_compliance >= 40 ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400'}`}
             >
               {stats.avg_compliance}%
             </div>
           </div>
-          <div className="rounded-xl border p-3 border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
-            <div className="text-micro font-mono text-slate-500">Assessed</div>
+          <div className="rounded-xl border p-3 border-line-1 bg-surface-100">
+            <div className="text-micro font-mono text-muted">Assessed</div>
             <div className="text-xl font-bold font-mono mt-1">
               {stats.assessed_frameworks}/{stats.total_frameworks}
             </div>
@@ -249,7 +249,7 @@ export default function GrcEvidence(): JSX.Element {
                 key={fw.id}
                 type="button"
                 onClick={() => handleSelectFramework(fw.id)}
-                className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedFw === fw.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-300'}`}
+                className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedFw === fw.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300'}`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-semibold text-sm font-mono">{fw.name}</span>
@@ -259,14 +259,14 @@ export default function GrcEvidence(): JSX.Element {
                     {fw.version}
                   </span>
                 </div>
-                <div className="text-micro text-slate-500 mb-2">{fw.description.slice(0, 80)}...</div>
-                <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+                <div className="text-micro text-muted mb-2">{fw.description.slice(0, 80)}...</div>
+                <div className="w-full h-1.5 rounded-full bg-track overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-rose-500'}`}
                     style={{ width: `${Math.round(pct)}%` }}
                   />
                 </div>
-                <div className="flex justify-between text-micro font-mono text-slate-500 mt-1">
+                <div className="flex justify-between text-micro font-mono text-muted mt-1">
                   <span>{fw.control_count} controls</span>
                   <span>{Math.round(pct)}%</span>
                 </div>
@@ -289,7 +289,7 @@ export default function GrcEvidence(): JSX.Element {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-mono font-semibold text-sm">{selectedFramework.name} Controls</h3>
-                  <div className="flex gap-3 text-micro font-mono text-slate-500 mt-1">
+                  <div className="flex gap-3 text-micro font-mono text-muted mt-1">
                     <span className="text-emerald-600 dark:text-emerald-400">{passCount} pass</span>
                     <span className="text-rose-600 dark:text-rose-400">{failCount} fail</span>
                     <span className="text-muted">{notAssessedCount} not assessed</span>
@@ -299,7 +299,7 @@ export default function GrcEvidence(): JSX.Element {
                   type="button"
                   onClick={fetchAll}
                   disabled={loading}
-                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-300 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+                  className="text-xs font-mono px-2 py-1 rounded border border-line-1 hover:border-brand-300 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
                 >
                   <RefreshCw size={11} /> Refresh
                 </button>
@@ -322,7 +322,7 @@ export default function GrcEvidence(): JSX.Element {
                         toggleControl(ctrl.id);
                         if (!isExpanded) void handleFetchEvidence(ctrl.id);
                       }}
-                      className="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]/50 transition-colors"
+                      className="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-surface-200 dark:hover:bg-surface-200/50 transition-colors"
                     >
                       {isExpanded ? (
                         <ChevronDown size={14} className="shrink-0 text-muted" />
@@ -349,7 +349,7 @@ export default function GrcEvidence(): JSX.Element {
                           value={ctrl.status}
                           onClick={(e) => e.stopPropagation()}
                           onChange={(e) => handleUpdateStatus(ctrl.id, e.target.value)}
-                          className="text-micro font-mono px-1.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+                          className="text-micro font-mono px-1.5 py-1 rounded border border-line-2 bg-surface-200"
                         >
                           <option value="not_assessed">Not Assessed</option>
                           <option value="pass">Pass</option>
@@ -360,12 +360,12 @@ export default function GrcEvidence(): JSX.Element {
                     </button>
 
                     {isExpanded && (
-                      <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
-                        <p className="text-mini text-slate-500 font-mono">{ctrl.description}</p>
+                      <div className="border-t border-line-1 px-4 py-3 space-y-3 bg-surface-200/50">
+                        <p className="text-mini text-muted font-mono">{ctrl.description}</p>
                         {ctrl.notes && <p className="text-micro text-muted font-mono italic">Notes: {ctrl.notes}</p>}
 
                         <div className="flex items-center justify-between mt-2">
-                          <span className="text-micro font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                          <span className="text-micro font-mono uppercase tracking-wider text-muted flex items-center gap-1.5">
                             Evidence
                           </span>
                           <button
@@ -383,7 +383,7 @@ export default function GrcEvidence(): JSX.Element {
                         {ctrlEvidence.map((ev) => (
                           <div
                             key={ev.id}
-                            className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-[rgb(var(--border-300))] last:border-0"
+                            className="flex items-center justify-between py-1 border-b border-line-1 last:border-0"
                           >
                             <div className="min-w-0">
                               <div className="text-mini font-mono truncate">{ev.title}</div>

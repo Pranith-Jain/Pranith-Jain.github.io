@@ -87,7 +87,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
       hash_sha1: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
       hash_sha256: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
     };
-    return colors[type] ?? 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300';
+    return colors[type] ?? 'bg-slate-100 text-slate-700 dark:bg-surface-200 dark:text-slate-300';
   };
 
   return (
@@ -108,7 +108,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             <button
               type="button"
               onClick={fetchData}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-line-2 hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
             >
               <RefreshCw size={12} /> Refresh
             </button>
@@ -116,7 +116,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
               type="button"
               onClick={exportAsJson}
               disabled={!data?.length}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-40 transition-colors"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-line-2 hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-40 transition-colors"
             >
               <Download size={12} /> Export JSON
             </button>
@@ -124,7 +124,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         }
       >
         {/* Tab selector */}
-        <div className="mb-3 flex gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="mb-3 flex gap-1 border-b border-line-1">
           <button
             type="button"
             onClick={() => {
@@ -152,7 +152,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             <select
               value={iocType}
               onChange={(e) => setIocType(e.target.value)}
-              className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
+              className="text-xs px-2 py-1 rounded border border-line-2 bg-surface-100"
             >
               <option value="">Select type...</option>
               {IOC_TYPES.map((t) => (
@@ -166,7 +166,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
           <input
             value={order}
             onChange={(e) => setOrder(e.target.value)}
-            className="w-40 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
+            className="w-40 text-xs px-2 py-1 rounded border border-line-2 bg-surface-100"
             placeholder="seq_id.desc"
           />
           <label className="text-xs font-medium">Limit:</label>
@@ -174,12 +174,12 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             type="number"
             value={limit}
             onChange={(e) => setLimit(e.target.value)}
-            className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
+            className="w-20 text-xs px-2 py-1 rounded border border-line-2 bg-surface-100"
           />
           <button
             type="button"
             onClick={fetchData}
-            className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700 transition-colors"
+            className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-on-fill hover:bg-rose-700 transition-colors"
           >
             <Search size={12} /> Query
           </button>
@@ -211,7 +211,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
           emptyLabel="No IOCs match these filters."
         >
           {data && (
-            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="overflow-x-auto rounded-xl border border-line-1">
               <DataTable
                 columns={
                   [
@@ -267,14 +267,14 @@ export default function ThreatLandscapeIocs(): JSX.Element {
                       header: 'Seq ID',
                       align: 'right',
                       sortValue: (row: (typeof data)[number]) => row.seq_id,
-                      render: (row) => <span className="font-mono text-slate-500">{row.seq_id}</span>,
+                      render: (row) => <span className="font-mono text-muted">{row.seq_id}</span>,
                     },
                     {
                       key: 'created',
                       header: 'Created',
                       sortValue: (row: (typeof data)[number]) => row.created_at ?? '',
                       render: (row) => (
-                        <span className="text-slate-500">
+                        <span className="text-muted">
                           {row.created_at ? new Date(row.created_at).toLocaleDateString() : '-'}
                         </span>
                       ),

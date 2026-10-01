@@ -181,7 +181,7 @@ function TopDomainsCloud({ domains }: { domains: Record<string, number> }): JSX.
     arr.sort(([, a], [, b]) => b - a);
     return arr.slice(0, 25);
   }, [domains]);
-  if (entries.length === 0) return <div className="text-sm text-slate-500">no data</div>;
+  if (entries.length === 0) return <div className="text-sm text-muted">no data</div>;
   const max = Math.max(...entries.map(([, v]) => v), 1);
   const min = Math.min(...entries.map(([, v]) => v), max);
   return (
@@ -270,7 +270,7 @@ function SecretTypeRow({ name, count, max }: { name: string; count: number; max:
         </span>
         <span className="font-mono tabular-nums text-muted">{count.toLocaleString()}</span>
       </div>
-      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-track">
         <div className="h-full rounded-full bg-rose-500" style={{ width: `${pct}%` }} />
       </div>
     </li>
@@ -369,10 +369,7 @@ export default function RedHuntInsights(): JSX.Element {
           </a>{' '}
           - internet-wide exposure trends, code-platform secrets monitoring, subdomains enumeration, and Postman
           ecosystem exposure. Auto-refreshes every minute. The raw JSON is at{' '}
-          <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-xs">
-            research.redhuntlabs.com/api/latest.json
-          </code>
-          .
+          <code className="rounded bg-surface-300 px-1 py-0.5 text-xs">research.redhuntlabs.com/api/latest.json</code>.
         </span>
       }
       headerExtra={
@@ -380,14 +377,14 @@ export default function RedHuntInsights(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             aria-label="Refresh now"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
             refresh
           </button>
           {payload && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-muted">
+            <span className="rounded border border-line-2 px-2 py-1 font-mono text-muted">
               fetched <span className="text-body">{relTimeShort(payload.fetched_at)} ago</span>
             </span>
           )}
@@ -417,7 +414,7 @@ export default function RedHuntInsights(): JSX.Element {
       {data && (
         <>
           {/* ── Headline hero ────────────────────────────────────────── */}
-          <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-rose-50/60 via-white to-rose-50/20 dark:from-rose-950/20 dark:via-slate-900 dark:to-rose-950/10 p-5 shadow-e1">
+          <div className="mb-4 rounded-xl border border-line-1 bg-gradient-to-br from-rose-50/60 via-white to-rose-50/20 dark:from-rose-950/20 dark:via-slate-900 dark:to-rose-950/10 p-5 shadow-e1">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
                 <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
@@ -554,8 +551,8 @@ export default function RedHuntInsights(): JSX.Element {
             </div>
             <TopDomainsCloud domains={topDomains} />
             {topDomainsEntries.length > 0 && (
-              <details className="mt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 text-xs">
-                <summary className="cursor-pointer text-muted hover:text-slate-700 dark:hover:text-slate-300 font-mono">
+              <details className="mt-3 border-t border-line-1 pt-3 text-xs">
+                <summary className="cursor-pointer text-muted hover:text-body dark:hover:text-inverted font-mono">
                   show numeric table ({topDomainsEntries.length} domains)
                 </summary>
                 <div className="overflow-x-auto">
@@ -688,9 +685,9 @@ export default function RedHuntInsights(): JSX.Element {
                 20 most recent across all code platforms
               </p>
               {latestSecrets.length === 0 ? (
-                <p className="mt-4 text-sm text-slate-500">no recent secrets in the latest snapshot</p>
+                <p className="mt-4 text-sm text-muted">no recent secrets in the latest snapshot</p>
               ) : (
-                <ul className="mt-4 divide-y divide-slate-100 dark:divide-slate-800">
+                <ul className="mt-4 divide-y divide-line-1">
                   {latestSecrets.slice(0, 10).map((s) => (
                     <li key={s.id} className="flex items-start gap-3 py-2.5">
                       <Key className="mt-0.5 h-4 w-4 shrink-0 text-rose-500 dark:text-rose-400" />
@@ -768,7 +765,7 @@ export default function RedHuntInsights(): JSX.Element {
           </div>
 
           {/* ── Footer / discover attack repeat ─────────────────────── */}
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-5 text-center">
+          <div className="rounded-xl border border-line-1 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-5 text-center">
             <p className="text-micro font-mono uppercase tracking-wider text-muted">RedHunt Labs Research Loop</p>
             <p className="mt-2 font-display text-xl font-bold text-heading">
               <span className="text-rose-600 dark:text-rose-400">DISCOVER</span> ·{' '}

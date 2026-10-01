@@ -51,7 +51,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+      : 'border-slate-300 dark:border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -147,10 +147,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
           const recordHref = safeHref(cve.url);
           const issueHref = safeHref(cve.issue_url);
           return (
-            <div
-              key={cve.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-            >
+            <div key={cve.id} className="rounded-xl border border-line-1 bg-surface-200 p-3">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-heading leading-snug">
                   {recordHref ? (
@@ -198,7 +195,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
               )}
 
               {issueHref && (
-                <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="mt-2 pt-2 border-t border-line-1">
                   <a
                     href={issueHref}
                     target="_blank"

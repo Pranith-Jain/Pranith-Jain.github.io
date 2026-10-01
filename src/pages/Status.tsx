@@ -167,7 +167,7 @@ export default function StatusPage(): JSX.Element {
         {data && data.rows.length === 0 && (
           <div
             role="status"
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--surface-200))] p-8 text-center text-sm text-muted"
+            className="rounded-xl border border-line-1 bg-surface-200/60 p-8 text-center text-sm text-muted"
           >
             All feed probes are warming up — no rows yet. Retry in a few minutes.
           </div>
@@ -214,7 +214,7 @@ export default function StatusPage(): JSX.Element {
                       </div>
                     </div>
                     <p className="text-meta font-mono text-muted leading-relaxed mb-1.5">{r.reason}</p>
-                    <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
+                    <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-muted">
                       <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
                         {r.page_path}
                       </Link>
@@ -247,7 +247,7 @@ export default function StatusPage(): JSX.Element {
           </section>
         )}
 
-        <footer className="mt-12 pt-6 text-sm text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <footer className="mt-12 pt-6 text-sm text-muted border-t border-line-1">
           <p>
             Source: <code>/api/v1/feed-status</code> · cached 5 min · rebuilt on every Worker request.
           </p>
@@ -258,7 +258,7 @@ export default function StatusPage(): JSX.Element {
             >
               Full feed workbench →
             </Link>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <span className="text-inverted">|</span>
             {/* /api/docs is served by the Worker API, not an SPA route — a
                 <Link> would hit the React 404 catch-all. */}
             <a
@@ -269,7 +269,7 @@ export default function StatusPage(): JSX.Element {
             >
               API spec → <ExternalLink size={12} />
             </a>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <span className="text-inverted">|</span>
             <Link
               to="/mcp"
               className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"

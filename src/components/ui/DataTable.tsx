@@ -73,11 +73,9 @@ export function DataTable<T>({
   };
 
   return (
-    <div
-      className={`overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] ${className}`}
-    >
+    <div className={`overflow-x-auto rounded-xl border border-line-1 ${className}`}>
       <table className="w-full text-sm">
-        <thead className="sticky top-0 z-10 bg-slate-50/95 text-left text-micro font-mono uppercase tracking-wider text-slate-500 backdrop-blur-sm dark:bg-[rgb(var(--surface-200))]/95">
+        <thead className="sticky top-0 z-10 bg-surface-200/95 text-left text-micro font-mono uppercase tracking-wider text-muted backdrop-blur-sm">
           <tr>
             {columns.map((col) => {
               const active = sort?.key === col.key;
@@ -93,7 +91,7 @@ export function DataTable<T>({
                     <button
                       type="button"
                       onClick={() => toggleSort(col.key)}
-                      className={`inline-flex items-center gap-1 uppercase transition-colors hover:text-slate-800 dark:hover:text-slate-200 ${
+                      className={`inline-flex items-center gap-1 uppercase transition-colors hover:text-heading dark:hover:text-inverted ${
                         col.align === 'right' ? 'flex-row-reverse' : ''
                       }`}
                     >
@@ -116,7 +114,7 @@ export function DataTable<T>({
         <tbody>
           {sortedRows.length === 0 && empty ? (
             <tr>
-              <td colSpan={columns.length} className="px-3 py-8 text-center text-sm text-slate-500">
+              <td colSpan={columns.length} className="px-3 py-8 text-center text-sm text-muted">
                 {empty}
               </td>
             </tr>
@@ -124,7 +122,7 @@ export function DataTable<T>({
             sortedRows.map((row, i) => (
               <tr
                 key={rowKey(row, i)}
-                className={`border-t border-slate-200/70 align-top dark:border-[rgb(var(--border-400))]/70 [content-visibility:auto] [contain-intrinsic-size:auto_64px] ${rowClassName?.(row) ?? ''}`}
+                className={`border-t border-line-1/70 align-top dark:border-line-1/70 [content-visibility:auto] [contain-intrinsic-size:auto_64px] ${rowClassName?.(row) ?? ''}`}
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
                 role={onRowClick ? 'button' : undefined}
                 tabIndex={onRowClick ? 0 : undefined}

@@ -114,7 +114,7 @@ export default function AsnLookup(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Network size={16} className="inline mr-2" />
             Lookup
@@ -139,13 +139,13 @@ export default function AsnLookup(): JSX.Element {
                 </span>
               )}
               {result.type && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-300 dark:border-[rgb(var(--border-400))]">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-surface-300 text-muted border border-line-2">
                   {result.type}
                 </span>
               )}
             </div>
             {result.description && <p className="text-body mb-3">{result.description}</p>}
-            <div className="flex flex-wrap gap-4 font-mono text-xs text-slate-500">
+            <div className="flex flex-wrap gap-4 font-mono text-xs text-muted">
               {result.is_announced !== undefined && (
                 <span>
                   Announced:{' '}
@@ -182,13 +182,13 @@ export default function AsnLookup(): JSX.Element {
               <div className="grid sm:grid-cols-2 gap-4 font-mono text-sm">
                 {result.rir.name && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">Registry</div>
+                    <div className="text-xs text-muted mb-1">Registry</div>
                     <div className="text-heading font-semibold">{result.rir.name}</div>
                   </div>
                 )}
                 {result.rir.description && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">Description</div>
+                    <div className="text-xs text-muted mb-1">Description</div>
                     <div className="text-heading">{result.rir.description}</div>
                   </div>
                 )}
@@ -201,47 +201,41 @@ export default function AsnLookup(): JSX.Element {
             <h3 className="font-display font-semibold text-lg mb-4">Announced Prefixes</h3>
             <div className="grid sm:grid-cols-2 gap-6">
               <div>
-                <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">
+                <div className="text-xs uppercase tracking-wider text-muted font-mono mb-2">
                   IPv4 ({result.prefixes_v4} total)
                 </div>
                 {result.sample_prefixes_v4 && result.sample_prefixes_v4.length > 0 ? (
                   <ul className="space-y-1">
                     {result.sample_prefixes_v4.map((p) => (
-                      <li
-                        key={p}
-                        className="font-mono text-sm text-body bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded"
-                      >
+                      <li key={p} className="font-mono text-sm text-body bg-surface-200 px-2 py-1 rounded">
                         {p}
                       </li>
                     ))}
                     {result.prefixes_v4 > 5 && (
-                      <li className="font-mono text-xs text-slate-500">… and {result.prefixes_v4 - 5} more</li>
+                      <li className="font-mono text-xs text-muted">… and {result.prefixes_v4 - 5} more</li>
                     )}
                   </ul>
                 ) : (
-                  <p className="font-mono text-sm text-slate-500">None announced</p>
+                  <p className="font-mono text-sm text-muted">None announced</p>
                 )}
               </div>
               <div>
-                <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">
+                <div className="text-xs uppercase tracking-wider text-muted font-mono mb-2">
                   IPv6 ({result.prefixes_v6} total)
                 </div>
                 {result.sample_prefixes_v6 && result.sample_prefixes_v6.length > 0 ? (
                   <ul className="space-y-1">
                     {result.sample_prefixes_v6.map((p) => (
-                      <li
-                        key={p}
-                        className="font-mono text-sm text-body bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded break-all"
-                      >
+                      <li key={p} className="font-mono text-sm text-body bg-surface-200 px-2 py-1 rounded break-all">
                         {p}
                       </li>
                     ))}
                     {result.prefixes_v6 > 5 && (
-                      <li className="font-mono text-xs text-slate-500">… and {result.prefixes_v6 - 5} more</li>
+                      <li className="font-mono text-xs text-muted">… and {result.prefixes_v6 - 5} more</li>
                     )}
                   </ul>
                 ) : (
-                  <p className="font-mono text-sm text-slate-500">None announced</p>
+                  <p className="font-mono text-sm text-muted">None announced</p>
                 )}
               </div>
             </div>

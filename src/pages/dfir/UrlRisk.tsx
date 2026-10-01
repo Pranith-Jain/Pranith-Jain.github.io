@@ -156,13 +156,13 @@ export default function UrlRisk() {
         <section className="surface-card p-4">
           <form onSubmit={handleSubmit} className="flex gap-3">
             <div className="relative flex-1">
-              <Link2 size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+              <Link2 size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 placeholder="https://example.com/login"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -179,13 +179,13 @@ export default function UrlRisk() {
             </Button>
           </form>
           <div className="flex flex-wrap gap-1.5 mt-3">
-            <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
+            <span className="text-micro font-mono text-muted self-center mr-1">samples:</span>
             {SAMPLES.map((s) => (
               <button
                 key={s.label}
                 type="button"
                 onClick={() => setUrl(s.url)}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -194,7 +194,7 @@ export default function UrlRisk() {
         </section>
 
         {loading && (
-          <div className="flex items-center justify-center py-12 text-slate-500">
+          <div className="flex items-center justify-center py-12 text-muted">
             <Spinner size="md" className="mr-3" />
             Correlating provider evidence…
           </div>
@@ -246,7 +246,7 @@ export default function UrlRisk() {
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-lg font-bold text-heading leading-none">{risk.risk_score}</span>
-                      <span className="text-micro font-mono text-slate-400">/100</span>
+                      <span className="text-micro font-mono text-muted">/100</span>
                     </div>
                   </div>
                   <div>
@@ -258,7 +258,7 @@ export default function UrlRisk() {
                       {risk.verdict}
                     </span>
                     <p className="text-sm text-heading font-mono break-all">{result.url}</p>
-                    <p className="text-mini font-mono text-slate-400">
+                    <p className="text-mini font-mono text-muted">
                       hostname {result.hostname}
                       {result.ip_address ? ` · resolved ${result.ip_address}` : ''}
                       {risk.confidence > 0 ? ` · confidence ${risk.confidence}%` : ''}
@@ -266,9 +266,7 @@ export default function UrlRisk() {
                   </div>
                 </div>
               </div>
-              <p className="mt-3 text-sm text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
-                {risk.recommendation}
-              </p>
+              <p className="mt-3 text-sm text-muted border-t border-line-1 pt-3">{risk.recommendation}</p>
             </section>
 
             <section className="surface-card p-4">
@@ -279,7 +277,7 @@ export default function UrlRisk() {
                 {providerRows.map((p) => (
                   <div key={p.key} className="flex items-center gap-3">
                     <span className="w-40 text-sm font-medium text-heading flex-shrink-0">{p.label}</span>
-                    <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+                    <div className="flex-1 h-2 rounded-full bg-surface-300 overflow-hidden">
                       <div
                         className={`h-full rounded-full ${p.score > 0 ? 'bg-rose-500/70' : 'bg-emerald-500/50'}`}
                         style={{ width: `${Math.min((p.score / p.max) * 100, 100)}%` }}
@@ -326,7 +324,7 @@ export default function UrlRisk() {
                 <ul className="space-y-1.5">
                   {risk.evidence.map((line, i) => (
                     <li key={`${i}-${line}`} className="text-xs font-mono text-heading flex gap-2">
-                      <span className="text-slate-400">›</span>
+                      <span className="text-muted">›</span>
                       {line}
                     </li>
                   ))}
@@ -351,7 +349,7 @@ export default function UrlRisk() {
                   <ul className="space-y-1.5">
                     {risk.informational_findings.map((line, i) => (
                       <li key={`i-${i}`} className="text-xs font-mono text-muted flex gap-2">
-                        <span className="text-slate-400">i</span>
+                        <span className="text-muted">i</span>
                         {line}
                       </li>
                     ))}
@@ -370,7 +368,7 @@ export default function UrlRisk() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Correlated scoring weights carried over from the{' '}
           <a
             href="https://github.com/Zep11/IntelX-Phishing-Intelligence-Framework"

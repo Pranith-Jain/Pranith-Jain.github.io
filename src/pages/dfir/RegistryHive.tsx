@@ -135,7 +135,7 @@ function Node({ k, depth }: { k: RKey; depth: number }): JSX.Element {
   const [open, setOpen] = useState(depth < 1);
   const has = k.subkeys.length > 0 || k.values.length > 0;
   return (
-    <div className="ml-3 border-l border-slate-200 dark:border-[rgb(var(--border-400))] pl-3">
+    <div className="ml-3 border-l border-line-1 pl-3">
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -143,7 +143,7 @@ function Node({ k, depth }: { k: RKey; depth: number }): JSX.Element {
       >
         {has ? (open ? '▾ ' : '▸ ') : '· '}
         {k.name}{' '}
-        <span className="text-slate-500">
+        <span className="text-muted">
           ({k.subkeys.length} keys, {k.values.length} vals{k.modified ? ` · ${k.modified.slice(0, 19)}Z` : ''})
         </span>
       </button>
@@ -190,10 +190,10 @@ export default function RegistryHive(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('registryhive-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a hive file file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">Drop a hive file file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">100% client-side. No upload.</p>
       </button>
@@ -226,7 +226,7 @@ export default function RegistryHive(): JSX.Element {
         }}
       />
       {busy && (
-        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> parsing…
         </p>
       )}

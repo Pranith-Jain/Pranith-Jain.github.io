@@ -32,7 +32,7 @@ export function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; curr
                   ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
                   : isActive
                     ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300 ring-1 ring-rose-500/50'
-                    : 'bg-slate-100 text-slate-400 dark:bg-[rgb(var(--surface-300))] dark:text-slate-500'
+                    : 'bg-slate-100 text-slate-400 dark:bg-surface-300 dark:text-slate-500'
             }`}
           >
             {isDone ? (
@@ -59,7 +59,7 @@ export function renderMarkdown(safeMd: string): string {
     const trimmed = (code as string).replace(/\n$/, '');
     const escaped = (trimmed as string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const langAttr = lang ? ` data-language="${lang}"` : '';
-    return `<pre class="overflow-x-auto rounded-xl bg-slate-100 p-3 my-2 dark:bg-[rgb(var(--surface-300))]"${langAttr}><code class="text-xs font-mono leading-relaxed text-heading">${escaped}</code></pre>`;
+    return `<pre class="overflow-x-auto rounded-xl bg-surface-300 p-3 my-2 dark:bg-surface-300"${langAttr}><code class="text-xs font-mono leading-relaxed text-heading">${escaped}</code></pre>`;
   });
   html = html
     .replace(/### (.+)/g, '<h3 class="text-base font-semibold mt-4 mb-1.5">$1</h3>')
@@ -69,7 +69,7 @@ export function renderMarkdown(safeMd: string): string {
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(
       /`([^`]+)`/g,
-      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono">$1</code>'
+      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-surface-300 text-xs font-mono">$1</code>'
     )
     .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
     .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-4 list-decimal text-sm">$1</li>')
@@ -117,7 +117,7 @@ export function ChatNarrative({ markdown }: { markdown: string }) {
   }, [markdown]);
   return (
     <div
-      className="text-heading [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
+      className="text-heading [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-body [&_p]:dark:text-inverted [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-body [&_li]:dark:text-inverted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-surface-300 [&_code]:dark:bg-surface-200 [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

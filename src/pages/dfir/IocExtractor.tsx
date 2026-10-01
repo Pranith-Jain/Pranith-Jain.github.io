@@ -256,10 +256,10 @@ export default function IocExtractor(): JSX.Element {
           }}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileRef.current?.click()}
-          className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+          className="w-full border-2 border-dashed border-line-2 rounded-xl p-4 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
           aria-label="Drop an .eml or text file here, or click to choose"
         >
-          <Upload size={20} className="mx-auto mb-1 text-slate-500" />
+          <Upload size={20} className="mx-auto mb-1 text-muted" />
           <p className="text-sm font-mono text-muted">Drop an .eml or .txt file, or paste below</p>
         </button>
         <input
@@ -334,9 +334,7 @@ export default function IocExtractor(): JSX.Element {
         </details>
       )}
 
-      {results.length === 0 && input.trim() && (
-        <p className="text-sm font-mono text-slate-500">No indicators detected.</p>
-      )}
+      {results.length === 0 && input.trim() && <p className="text-sm font-mono text-muted">No indicators detected.</p>}
 
       {totalCount > 0 && (
         <div className="mb-4 flex gap-2">
@@ -357,7 +355,7 @@ export default function IocExtractor(): JSX.Element {
             <section key={bucket} className="surface-card p-5">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-heading">
-                  {LABELS[bucket]} <span className="text-xs font-mono text-slate-500 ml-2">{values.length}</span>
+                  {LABELS[bucket]} <span className="text-xs font-mono text-muted ml-2">{values.length}</span>
                 </h3>
                 <button
                   onClick={() => copy(id, blob)}

@@ -98,12 +98,12 @@ export default function TaxiiServer(): JSX.Element {
           <Database size={14} className="text-brand-600 dark:text-brand-400" /> Connection
         </h2>
         <div className="space-y-2">
-          <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
+          <div className="flex items-center gap-2 rounded-xl border border-line-1 bg-surface-200 px-3 py-2">
             <span className="text-micro font-mono uppercase tracking-wider text-muted shrink-0">Discovery</span>
             <code className="text-xs text-brand-600 dark:text-brand-400 flex-1 truncate font-mono">{baseUrl}</code>
             <CopyButton value={baseUrl} />
           </div>
-          <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
+          <div className="flex items-center gap-2 rounded-xl border border-line-1 bg-surface-200 px-3 py-2">
             <span className="text-micro font-mono uppercase tracking-wider text-muted shrink-0">Content-Type</span>
             <code className="text-xs text-muted font-mono">application/vnd.oasis.taxii+json; version=2.1</code>
           </div>
@@ -120,7 +120,7 @@ export default function TaxiiServer(): JSX.Element {
             <button
               aria-label="Refresh"
               onClick={fetchCollections}
-              className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted transition-colors"
+              className="p-1.5 rounded-xl hover:bg-surface-300 dark:hover:bg-surface-300 text-muted transition-colors"
             >
               <RefreshCw size={14} />
             </button>
@@ -138,7 +138,7 @@ export default function TaxiiServer(): JSX.Element {
                   className={`w-full text-left p-3 rounded-xl border transition-colors ${
                     selectedCollection === col.id
                       ? 'border-brand-500/60 bg-brand-500/5'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'
+                      : 'border-slate-200 dark:border-line-1 hover:border-brand-500/30'
                   }`}
                 >
                   <div className="text-sm font-medium">{col.title}</div>
@@ -211,7 +211,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 cursor-pointer hover:border-brand-500/30 transition-colors"
+      className="rounded-xl border border-line-1 bg-surface-200 p-3 cursor-pointer hover:border-brand-500/30 transition-colors"
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -222,7 +222,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
     >
       <div className="flex items-center gap-2">
         <span
-          className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted'}`}
+          className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted'}`}
         >
           {obj.type}
         </span>
@@ -230,21 +230,21 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
       </div>
       {obj.description && <p className="text-xs text-muted mt-1 line-clamp-2">{obj.description}</p>}
       {expanded && (
-        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs space-y-1">
+        <div className="mt-3 pt-3 border-t border-line-1 text-xs space-y-1">
           <div>
-            <span className="text-slate-500">ID:</span> <code className="font-mono text-body">{obj.id}</code>
+            <span className="text-muted">ID:</span> <code className="font-mono text-body">{obj.id}</code>
           </div>
           {obj.created && (
             <div>
-              <span className="text-slate-500">Created:</span> {new Date(obj.created).toLocaleString()}
+              <span className="text-muted">Created:</span> {new Date(obj.created).toLocaleString()}
             </div>
           )}
           {obj.modified && (
             <div>
-              <span className="text-slate-500">Modified:</span> {new Date(obj.modified).toLocaleString()}
+              <span className="text-muted">Modified:</span> {new Date(obj.modified).toLocaleString()}
             </div>
           )}
-          <pre className="bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto text-micro text-muted font-mono mt-2">
+          <pre className="bg-surface-300 rounded p-2 overflow-x-auto text-micro text-muted font-mono mt-2">
             {JSON.stringify(obj, null, 2)}
           </pre>
         </div>
@@ -257,7 +257,7 @@ function CodeBlock({ title, code }: { title: string; code: string }) {
   return (
     <div>
       <div className="text-xs text-muted mb-1">{title}</div>
-      <div className="flex items-start gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+      <div className="flex items-start gap-2 rounded-xl border border-line-1 bg-surface-200 p-3">
         <pre className="text-xs text-body flex-1 overflow-x-auto font-mono">{code}</pre>
         <CopyButton value={code} />
       </div>

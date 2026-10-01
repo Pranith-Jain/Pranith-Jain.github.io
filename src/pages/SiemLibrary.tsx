@@ -67,7 +67,7 @@ function QueryBlock({ label, query }: { label: string; query?: string }) {
           {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
         </button>
       </div>
-      <pre className="font-mono text-mini leading-relaxed text-body bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-mini leading-relaxed text-body bg-surface-200 border border-line-1 rounded p-3 overflow-x-auto whitespace-pre-wrap">
         {query}
       </pre>
     </div>
@@ -84,7 +84,7 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
           >
             {body.severity}
           </span>
-          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body">
+          <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border border-line-2 text-body">
             {body.category}
           </span>
           <a
@@ -125,7 +125,7 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
           </div>
         )}
         {body.references && body.references.length > 0 && (
-          <div className="text-mini font-mono text-muted pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="text-mini font-mono text-muted pt-2 border-t border-line-1">
             Refs: {body.references.join(' · ')}
           </div>
         )}
@@ -189,7 +189,7 @@ export default function SiemLibrary() {
               placeholder="Search use-cases, techniques..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-surface-200 border border-line-1 text-heading placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -203,7 +203,7 @@ export default function SiemLibrary() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedCategory
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             All
@@ -215,7 +215,7 @@ export default function SiemLibrary() {
               className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                 selectedCategory === cat.name
                   ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
               }`}
             >
               {cat.name} <span className="opacity-60 ml-0.5">({cat.count})</span>
@@ -238,13 +238,13 @@ export default function SiemLibrary() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
+          <div className="flex items-center justify-center py-16 text-muted">
+            <div className="w-6 h-6 border-2 border-line-2 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading use-cases...
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No use-cases match your filters.</p>
           </div>
         ) : (
@@ -261,9 +261,9 @@ export default function SiemLibrary() {
                   >
                     {uc.severity}
                   </span>
-                  <span className="font-mono text-micro text-slate-400 dark:text-slate-500">{uc.category}</span>
+                  <span className="font-mono text-micro text-muted">{uc.category}</span>
                 </div>
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug">
                   {uc.name}
                 </div>
                 <div className="font-mono text-micro text-orange-600 dark:text-orange-400/70">{uc.mitre}</div>
@@ -272,7 +272,7 @@ export default function SiemLibrary() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Authored detection library. Queries reference MITRE ATT&CK technique IDs; validate queries in your environment
           before enabling as alerts.
         </div>

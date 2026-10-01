@@ -97,7 +97,7 @@ export default function CrossCorrelate(): JSX.Element {
           <button
             type="button"
             onClick={() => load(sector)}
-            className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-rose-600 text-on-fill hover:bg-rose-700 transition-colors"
           >
             <Search size={14} /> Correlate
           </button>
@@ -109,7 +109,7 @@ export default function CrossCorrelate(): JSX.Element {
           {/* KPI row */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="surface-card p-4">
-              <p className="text-mini font-mono text-slate-500 mb-1">Insights</p>
+              <p className="text-mini font-mono text-muted mb-1">Insights</p>
               <p className="text-2xl font-bold font-display">{data.total}</p>
             </div>
             <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20 p-4">
@@ -142,7 +142,7 @@ export default function CrossCorrelate(): JSX.Element {
                         {insight.entities.map((e, j) => (
                           <span
                             key={j}
-                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted"
                           >
                             {e}
                           </span>
@@ -152,11 +152,11 @@ export default function CrossCorrelate(): JSX.Element {
 
                     {/* Implication + recommendation */}
                     <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="p-2.5 rounded-xl bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="p-2.5 rounded-xl bg-surface-100/60 dark:bg-surface-200/40 border border-line-1">
                         <p className="text-micro font-mono uppercase tracking-wider text-rose-500 mb-1">Implication</p>
                         <p className="text-mini text-muted">{insight.implication}</p>
                       </div>
-                      <div className="p-2.5 rounded-xl bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="p-2.5 rounded-xl bg-surface-100/60 dark:bg-surface-200/40 border border-line-1">
                         <p className="text-micro font-mono uppercase tracking-wider text-emerald-500 mb-1">
                           Recommendation
                         </p>

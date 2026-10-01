@@ -49,7 +49,7 @@ function variants(domain: string): { typo: string[]; homo: string[]; affix: stri
 function Group({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="surface-card p-3">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">
         {title} · {items.length}
       </div>
       <div className="flex flex-wrap gap-1.5">
@@ -60,7 +60,7 @@ function Group({ title, items }: { title: string; items: string[] }) {
             target="_blank"
             rel="noopener noreferrer"
             title="Check certificate transparency for this variant"
-            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-500/40 transition-colors"
+            className="font-mono text-mini px-1.5 py-0.5 rounded border border-line-1 text-body hover:border-brand-500/40 transition-colors"
           >
             {d}
           </a>

@@ -169,19 +169,19 @@ export default function PhishFeed(): JSX.Element {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             placeholder="Search URL, domain, or target brand…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={sourceFilter}
           onChange={(e) => setSourceFilter(e.target.value as 'all' | 'openphish' | 'phishtank')}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+          className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
         >
           <option value="all">All sources</option>
           <option value="openphish">OpenPhish</option>
@@ -193,7 +193,7 @@ export default function PhishFeed(): JSX.Element {
           className={`px-3 py-2 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition ${
             verifiedOnly
               ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+              : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
           }`}
         >
           <Shield className="w-3.5 h-3.5" /> Verified only
@@ -201,7 +201,7 @@ export default function PhishFeed(): JSX.Element {
         <button
           type="button"
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -209,7 +209,7 @@ export default function PhishFeed(): JSX.Element {
 
       {/* Sort + Export */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-xs text-slate-500 font-mono">sort:</span>
+        <span className="text-xs text-muted font-mono">sort:</span>
         {(['first_seen', 'domain', 'source'] as const).map((k) => (
           <button
             type="button"
@@ -218,7 +218,7 @@ export default function PhishFeed(): JSX.Element {
             className={`px-2 py-1 rounded text-xs font-mono border transition ${
               sortKey === k
                 ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
             }`}
           >
             {k === 'first_seen' ? 'newest' : k}
@@ -228,7 +228,7 @@ export default function PhishFeed(): JSX.Element {
         <select
           value={exportFormat}
           onChange={(e) => setExportFormat(e.target.value as 'txt' | 'hosts' | 'adblock')}
-          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body focus:outline-none focus:border-rose-500"
+          className="px-2 py-1 rounded text-xs font-mono border border-line-2 bg-surface-100 text-body focus:outline-none focus:border-rose-500"
         >
           <option value="txt">Plain list (.txt)</option>
           <option value="hosts">Hosts file</option>
@@ -237,7 +237,7 @@ export default function PhishFeed(): JSX.Element {
         <button
           type="button"
           onClick={doExport}
-          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 transition-colors"
+          className="px-3 py-1.5 rounded-xl border border-line-2 text-muted hover:border-line-3 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> Export ({filtered.length})
         </button>
@@ -265,8 +265,8 @@ export default function PhishFeed(): JSX.Element {
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-mono ${
                   risky
                     ? 'border-amber-300/50 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-900/5'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/30'
-                } hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)] transition`}
+                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/30'
+                } hover:bg-surface-200 dark:hover:bg-surface-200/40 transition`}
               >
                 <a
                   href={sanitizeUrl(u.url)}
@@ -305,7 +305,7 @@ export default function PhishFeed(): JSX.Element {
             );
           })}
           {filtered.length > 200 && (
-            <div className="text-center py-3 text-xs text-slate-500 font-mono">
+            <div className="text-center py-3 text-xs text-muted font-mono">
               Showing 200 of {filtered.length} - use export to download all
             </div>
           )}
@@ -325,18 +325,18 @@ export default function PhishFeed(): JSX.Element {
                 className={`w-full flex items-center gap-2 text-xs px-2 py-1 rounded transition ${
                   query === brand
                     ? 'bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300'
-                    : 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] text-muted'
+                    : 'hover:bg-slate-50 dark:hover:bg-surface-300/50 text-muted'
                 }`}
               >
                 <span className="font-mono truncate flex-1 text-left">{brand}</span>
-                <span className="font-mono text-slate-400">{count}</span>
+                <span className="font-mono text-muted">{count}</span>
               </button>
             ))}
           </div>
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+      <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
         Sources: OpenPhish + PhishTank (optional) · Built-in brand detection for target attribution · Cached 1h
         server-side
       </div>

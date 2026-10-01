@@ -3,7 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import { ToastProvider } from './components/ui/Toast.tsx';
+import { applySurfaceAttribute } from './lib/apply-surface.ts';
 import './index.css';
+
+// Before React mounts: the portfolio-only smooth-scroll anchor offset is
+// scoped to `html[data-surface='portfolio']`, so the attribute has to exist
+// for the first style resolution or the very first in-page anchor click
+// lands under the sticky header.
+applySurfaceAttribute();
 
 const rootElement = document.getElementById('root');
 

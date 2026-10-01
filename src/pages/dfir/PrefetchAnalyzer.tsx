@@ -220,7 +220,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <Activity size={22} className="text-brand-600 dark:text-brand-400" />
-        Prefetch Analyzer <span className="text-sm font-mono text-slate-500">Lite</span>
+        Prefetch Analyzer <span className="text-sm font-mono text-muted">Lite</span>
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
         Drop a Windows <code>.pf</code> prefetch file. Decompresses Win8+/Win10+ MAM containers (LZXPRESS-Huffman) in
@@ -231,10 +231,10 @@ export default function PrefetchAnalyzer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('prefetchanalyzer-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a .pf file file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">Drop a .pf file file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">100% client-side. No upload.</p>
       </button>
@@ -268,7 +268,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
         }}
       />
       {busy && (
-        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> parsing…
         </p>
       )}
@@ -285,14 +285,14 @@ export default function PrefetchAnalyzer(): JSX.Element {
               ['Run count', String(pf.runCount)],
             ].map(([k, v]) => (
               <div key={k} className="surface-card p-3">
-                <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
+                <div className="text-micro font-mono uppercase tracking-wider text-muted">{k}</div>
                 <div className="font-mono text-meta break-all">{v}</div>
               </div>
             ))}
           </div>
           {pf.lastRuns.length > 0 && (
             <div className="surface-card p-3">
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
+              <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
                 Last run times ({pf.lastRuns.length})
               </div>
               <div className="font-mono text-mini text-body">{pf.lastRuns.join('  ·  ')}</div>
@@ -311,7 +311,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
                   {f}
                 </div>
               ))}
-              {shown.length === 0 && <p className="font-mono text-meta text-slate-500">No matching file paths.</p>}
+              {shown.length === 0 && <p className="font-mono text-meta text-muted">No matching file paths.</p>}
             </div>
           </div>
         </div>

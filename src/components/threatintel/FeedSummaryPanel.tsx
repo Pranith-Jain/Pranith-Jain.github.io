@@ -57,15 +57,15 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
   }, [entries]);
 
   return (
-    <div className="relative rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-sm animate-fade-in overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10 hover:bg-brand-50/50 dark:hover:bg-white/5 transition-colors">
+    <div className="relative rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-surface-200 dark:to-surface-200 shadow-sm animate-fade-in overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10 hover:bg-brand-50/50 dark:hover:bg-surface-100/5 transition-colors">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
             <BarChart3 size={16} className="text-brand-400" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Feed Summary</h3>
-            <p className="text-micro text-slate-500">
+            <h3 className="text-sm font-bold text-heading">Feed Summary</h3>
+            <p className="text-micro text-muted">
               {summary.total} articles · {summary.sections.length} sections · {summary.sources.length}
               {summary.sources.length === 8 ? '+' : ''} sources
             </p>
@@ -74,7 +74,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
         <button
           aria-label="Close"
           onClick={onClose}
-          className="p-1.5 rounded-xl text-muted hover:text-slate-200 transition-colors"
+          className="p-1.5 rounded-xl text-muted hover:text-inverted transition-colors"
         >
           <X size={14} />
         </button>
@@ -92,19 +92,19 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
 
         {summary.sections.length > 0 && (
           <div className="space-y-1.5">
-            <span className="text-micro font-mono uppercase text-slate-500 flex items-center gap-1">
+            <span className="text-micro font-mono uppercase text-muted flex items-center gap-1">
               <FileText size={10} /> By section
             </span>
             {summary.sections.map(([id, count]) => (
               <div key={id} className="flex items-center gap-2">
                 <span className="text-xs text-body w-40 truncate flex-shrink-0">{sectionLabels[id] ?? id}</span>
-                <div className="flex-1 h-2 rounded-full bg-slate-200/60 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+                <div className="flex-1 h-2 rounded-full bg-track/60 dark:bg-surface-300 overflow-hidden">
                   <div
                     className="h-full rounded-full bg-brand-500/60"
                     style={{ width: `${Math.max(6, Math.round((count / summary.maxSection) * 100))}%` }}
                   />
                 </div>
-                <span className="text-micro font-mono text-slate-500 w-8 text-right flex-shrink-0">{count}</span>
+                <span className="text-micro font-mono text-muted w-8 text-right flex-shrink-0">{count}</span>
               </div>
             ))}
           </div>
@@ -112,16 +112,16 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
 
         {summary.sources.length > 0 && (
           <div className="space-y-1">
-            <span className="text-micro font-mono uppercase text-slate-500 flex items-center gap-1">
+            <span className="text-micro font-mono uppercase text-muted flex items-center gap-1">
               <Rss size={10} /> Top sources
             </span>
             <div className="flex flex-wrap gap-1.5">
               {summary.sources.map(([host, count]) => (
                 <span
                   key={host}
-                  className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-body bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="text-micro font-mono px-2 py-0.5 rounded border border-line-1 text-body bg-surface-100"
                 >
-                  {host} <span className="text-slate-400">×{count}</span>
+                  {host} <span className="text-muted">×{count}</span>
                 </span>
               ))}
             </div>
@@ -130,7 +130,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
 
         {summary.latest.length > 0 && (
           <div className="space-y-1.5">
-            <span className="text-micro font-mono uppercase text-slate-500">Latest</span>
+            <span className="text-micro font-mono uppercase text-muted">Latest</span>
             <ul className="space-y-1.5">
               {summary.latest.map((e, i) => (
                 <li key={`${e.link}-${i}`} className="flex items-start gap-2">
@@ -144,7 +144,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
                     >
                       {e.title}
                     </a>
-                    <span className="text-micro font-mono text-slate-500 ml-1.5">
+                    <span className="text-micro font-mono text-muted ml-1.5">
                       {e.source}
                       {e.pubDate ? ` · ${formatRelativeTime(e.pubDate)}` : ''}
                     </span>

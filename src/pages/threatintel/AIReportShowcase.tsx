@@ -156,7 +156,7 @@ const IOC_PILL: Record<IocKind, string> = {
 function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleReport }): JSX.Element {
   return (
     <div className="surface-card p-5 space-y-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-3">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line-1 pb-3">
         <div>
           <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
             AI-Generated Summary · {data.summary?.model ?? 'unknown model'}
@@ -245,7 +245,7 @@ function MindmapSimpleTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges:
                     {n.label}
                   </li>
                 ))}
-                {items.length > 10 && <li className="text-xs text-slate-500">+{items.length - 10} more</li>}
+                {items.length > 10 && <li className="text-xs text-muted">+{items.length - 10} more</li>}
               </ul>
             </div>
           );
@@ -275,20 +275,17 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
           STIX 2.1 Bundle · {objects.length} objects
         </p>
         <details className="text-xs">
-          <summary className="cursor-pointer text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
+          <summary className="cursor-pointer text-muted hover:text-body dark:hover:text-inverted font-mono">
             show raw JSON
           </summary>
-          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-mini text-body">
+          <pre className="mt-2 max-h-96 overflow-auto rounded border border-line-1 bg-surface-200 p-3 text-mini text-body">
             {JSON.stringify(data.stix.bundle, null, 2)}
           </pre>
         </details>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {Object.entries(typeCounts).map(([type, n]) => (
-          <div
-            key={type}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-center"
-          >
+          <div key={type} className="rounded border border-line-1 bg-surface-200 p-3 text-center">
             <p className="text-2xl font-display font-bold text-heading">{n}</p>
             <p className="text-micro font-mono uppercase tracking-wider text-muted mt-1">{type}</p>
           </div>
@@ -404,12 +401,12 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
 
   return (
     <div className="surface-card overflow-hidden">
-      <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
+      <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-line-1 bg-surface-200">
         <Link2 className="h-4 w-4 text-rose-600 dark:text-rose-400" />
         <p className="text-sm font-semibold text-heading">
           {iocs.length} IOC{iocs.length === 1 ? '' : 's'} extracted
         </p>
-        <span className="text-micro font-mono uppercase text-slate-500">{enrichable.length} cross-checkable</span>
+        <span className="text-micro font-mono uppercase text-muted">{enrichable.length} cross-checkable</span>
         <button
           type="button"
           onClick={() => void runEnrichment()}
@@ -476,11 +473,11 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
           }
           rows={iocs.slice(0, 50)}
           rowKey={(i, idx) => `${i.value}-${idx}`}
-          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]'}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/50'}
         />
       </div>
       {iocs.length > 50 && (
-        <p className="px-4 py-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
+        <p className="px-4 py-2 text-xs text-muted border-t border-line-1 bg-surface-200">
           Showing first 50 of {iocs.length} indicators.
         </p>
       )}
@@ -548,7 +545,7 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
           }
           rows={ttp}
           rowKey={(t, idx) => `${t.id}-${idx}`}
-          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]'}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/50'}
         />
       </div>
     </div>
@@ -560,18 +557,15 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
   return (
     <div className="space-y-2">
       {phases.map((p) => (
-        <div
-          key={p.phase}
-          className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
-        >
-          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
+        <div key={p.phase} className="rounded-xl border border-line-1 bg-surface-100 shadow-e1 overflow-hidden">
+          <div className="flex items-center gap-2 border-b border-line-1 bg-surface-200 px-4 py-2">
             <TrendingUp className="h-4 w-4 text-rose-600 dark:text-rose-400" />
             <h3 className="text-sm font-semibold text-heading">{p.phase}</h3>
-            <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+            <span className="ml-auto text-micro font-mono uppercase text-muted">
               {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
             </span>
           </div>
-          <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
+          <ul className="divide-y divide-line-1 dark:divide-slate-800/60">
             {p.techniques.map((t) => (
               <li key={t.id} className="flex items-start gap-3 px-4 py-2.5">
                 <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-micro font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
@@ -606,12 +600,9 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {questions.map(({ q, a, icon: Icon }) => (
-          <div
-            key={q}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-          >
+          <div key={q} className="rounded border border-line-1 bg-surface-200 p-3">
             <div className="flex items-center gap-2 mb-1">
-              <Icon className="h-3.5 w-3.5 text-slate-500" />
+              <Icon className="h-3.5 w-3.5 text-muted" />
               <p className="text-micro font-mono uppercase tracking-wider text-muted">{q}</p>
             </div>
             <p className="text-sm text-heading">{a || '-'}</p>
@@ -619,7 +610,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
         ))}
       </div>
       {fiveW.attribution_basis && (
-        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+        <div className="rounded border border-line-1 bg-surface-200 p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Attribution basis</p>
           <p className="text-sm text-body">{fiveW.attribution_basis}</p>
         </div>
@@ -629,11 +620,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
 }
 
 function EmptyTab({ msg }: { msg: string }): JSX.Element {
-  return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-      {msg}
-    </div>
-  );
+  return <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">{msg}</div>;
 }
 
 // ── TI-Mindmap-Hub MCP integration ────────────────────────────
@@ -692,7 +679,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <Search className="h-4 w-4 text-rose-600 dark:text-rose-400" />
         <h3 className="text-sm font-semibold text-heading">Cross-Source Search</h3>
-        <span className="ml-auto text-micro font-mono uppercase text-slate-500">via TI-Mindmap-Hub MCP · 25 tools</span>
+        <span className="ml-auto text-micro font-mono uppercase text-muted">via TI-Mindmap-Hub MCP · 25 tools</span>
       </div>
       <form
         onSubmit={(e) => {
@@ -701,13 +688,13 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
         }}
         className="flex flex-wrap items-center gap-2"
       >
-        <div className="flex rounded border border-slate-300 dark:border-[rgb(var(--border-400))] overflow-hidden text-xs font-mono">
+        <div className="flex rounded border border-line-2 overflow-hidden text-xs font-mono">
           {(['ioc', 'cve', 'report'] as McpMode[]).map((m) => (
             <button
               key={m}
               type="button"
               onClick={() => setMode(m)}
-              className={`px-2.5 py-1.5 ${mode === m ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
+              className={`px-2.5 py-1.5 ${mode === m ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'bg-white dark:bg-surface-200 text-body hover:bg-slate-50 dark:hover:bg-surface-300'}`}
             >
               {m}
             </button>
@@ -724,14 +711,14 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
                 ? 'CVE-2025-55182'
                 : 'ransomware · lazarus · apt29'
           }
-          className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 font-mono text-sm text-heading"
+          className="flex-1 min-w-[12rem] rounded border border-line-2 bg-surface-100 px-2.5 py-1.5 font-mono text-sm text-heading"
           autoComplete="off"
           spellCheck={false}
         />
         <button
           type="submit"
           disabled={disabled}
-          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-600 dark:bg-rose-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-600 dark:bg-rose-500 px-3 py-1.5 text-sm font-medium text-on-fill hover:bg-rose-700 disabled:opacity-50 transition-colors"
         >
           {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
           search
@@ -765,14 +752,10 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
 function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+    <div className="rounded border border-line-1 bg-surface-200 p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
         IOC search · <span className="text-heading">{hit.ioc_value}</span>
-        {hit.ioc_type && (
-          <span className="ml-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5">
-            {hit.ioc_type}
-          </span>
-        )}
+        {hit.ioc_type && <span className="ml-2 rounded border border-line-2 px-1.5 py-0.5">{hit.ioc_type}</span>}
         {typeof hit.total_reports === 'number' && (
           <span className="ml-2 text-emerald-600 dark:text-emerald-400">
             {hit.total_reports} report{hit.total_reports === 1 ? '' : 's'}
@@ -795,7 +778,7 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
 
 function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+    <div className="rounded border border-line-1 bg-surface-200 p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
         CVE · <span className="text-heading">{hit.cve_id}</span>
         {hit.severity && (
@@ -831,11 +814,11 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
 function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+    <div className="rounded border border-line-1 bg-surface-200 p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
         Reports · {reports.length} match{reports.length === 1 ? '' : 'es'}
         {typeof hit.total === 'number' && hit.total !== reports.length && (
-          <span className="ml-1 text-slate-500">(of {hit.total} total)</span>
+          <span className="ml-1 text-muted">(of {hit.total} total)</span>
         )}
       </p>
       {reports.length === 0 ? (
@@ -853,7 +836,7 @@ function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
 
 function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
   return (
-    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
+    <li className="rounded border border-line-1 bg-surface-100 px-2.5 py-1.5">
       <p className="text-xs font-medium text-heading line-clamp-2">{r.title ?? r.report_id}</p>
       <p className="mt-0.5 text-micro font-mono uppercase text-muted">
         {r.source ?? 'unknown'} {r.published_at ? `· ${r.published_at}` : ''}
@@ -987,7 +970,7 @@ export default function AIReportShowcase(): JSX.Element {
             </span>
           )}
           {startedAt && loading && (
-            <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono inline-flex items-center gap-1.5">
+            <span className="rounded border border-line-2 px-2 py-1 font-mono inline-flex items-center gap-1.5">
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
               analyzing…
             </span>
@@ -1004,7 +987,7 @@ export default function AIReportShowcase(): JSX.Element {
         <div className="flex items-center gap-2 mb-3">
           <Beaker className="h-4 w-4 text-rose-600 dark:text-rose-400" />
           <h3 className="text-sm font-semibold text-heading">Pick a sample report</h3>
-          <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+          <span className="ml-auto text-micro font-mono uppercase text-muted">
             {SAMPLE_REPORTS.length} curated samples
           </span>
         </div>
@@ -1019,7 +1002,7 @@ export default function AIReportShowcase(): JSX.Element {
                 className={`text-left rounded-xl border p-3 transition-all ${
                   active
                     ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/30 shadow-e2'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:border-rose-400/60'
+                    : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200 hover:border-rose-400/60'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -1091,7 +1074,7 @@ export default function AIReportShowcase(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                     tab === t.id
                       ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
+                      : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400 dark:hover:border-slate-500'
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" /> {t.label}
@@ -1103,7 +1086,7 @@ export default function AIReportShowcase(): JSX.Element {
               type="button"
               onClick={() => void runAnalyzer(sample)}
               disabled={loading}
-              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
+              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-line-2 px-2.5 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
             >
               <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
               re-run
@@ -1123,7 +1106,7 @@ export default function AIReportShowcase(): JSX.Element {
       )}
 
       {!data && !loading && !error && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-12 text-center">
+        <div className="rounded-xl border border-line-1 bg-surface-200 p-12 text-center">
           <BookOpen className="mx-auto h-10 w-10 text-muted mb-3" />
           <p className="text-sm text-muted">Pick a sample above to begin.</p>
         </div>

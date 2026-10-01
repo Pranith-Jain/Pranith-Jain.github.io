@@ -188,7 +188,7 @@ export default function OsvScanner(): JSX.Element {
                 '{\n  "dependencies": {\n    "lodash": "4.17.19",\n    "log4js": "0.6.0",\n    "minimist": "1.2.0"\n  }\n}'
               )
             }
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load example
           </button>
@@ -201,7 +201,7 @@ export default function OsvScanner(): JSX.Element {
                 setMeta(null);
                 setErr(null);
               }}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -224,7 +224,7 @@ export default function OsvScanner(): JSX.Element {
         type="button"
         onClick={() => void run()}
         disabled={running || !input.trim()}
-        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
       >
         {running && <Loader2 size={14} className="animate-spin" />} {running ? 'scanning OSV…' : 'scan dependencies'}
       </button>
@@ -236,10 +236,10 @@ export default function OsvScanner(): JSX.Element {
           <section className="surface-card p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
-                <span className="text-slate-500">Parsed:</span> <span className="font-mono">{meta.kind}</span>
+                <span className="text-muted">Parsed:</span> <span className="font-mono">{meta.kind}</span>
               </span>
               <span>
-                <span className="text-slate-500">Packages:</span> <span className="font-mono">{meta.total}</span>
+                <span className="text-muted">Packages:</span> <span className="font-mono">{meta.total}</span>
               </span>
               <span
                 className={`text-mini font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${vulnerable.length ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'}`}
@@ -264,7 +264,7 @@ export default function OsvScanner(): JSX.Element {
               <div className="flex items-center gap-2 flex-wrap">
                 <ShieldAlert size={15} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />
                 <span className="font-display font-semibold">{r.package}</span>
-                <span className="text-meta font-mono text-slate-500">
+                <span className="text-meta font-mono text-muted">
                   {r.version} · {r.ecosystem}
                 </span>
                 <span className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-600 dark:text-rose-400">

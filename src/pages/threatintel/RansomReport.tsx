@@ -87,7 +87,7 @@ function normSeverity(raw?: string): Severity {
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <section className="mb-6 break-inside-avoid">
-      <h2 className="text-xs font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-1.5 mb-3">
+      <h2 className="text-xs font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 border-b border-line-1 pb-1.5 mb-3">
         {title}
       </h2>
       {children}
@@ -416,7 +416,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="threat group - e.g. lockbit3, akira, qilin"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Threat group"
             />
             <datalist id="rl-groups">
@@ -439,7 +439,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
               type="button"
               onClick={() => void downloadPdf()}
               disabled={pdfBusy}
-              className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-line-1 hover:border-rose-500/40 disabled:opacity-50"
             >
               {pdfBusy ? <Loader2 size={13} className="animate-spin" /> : <FileDown size={13} />}{' '}
               {pdfBusy ? 'building…' : 'PDF'}
@@ -460,12 +460,12 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
       {!notConfigured && profile && (
         <div id="ransom-report">
           {/* Report header */}
-          <div className="mb-6 pb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
+          <div className="mb-6 pb-4 border-b border-line-1">
+            <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">
               Ransomware Threat Intelligence Report
             </div>
             <h2 className="text-2xl font-display font-bold capitalize">{profile.group ?? selected}</h2>
-            <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-meta font-mono text-slate-500">
+            <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-meta font-mono text-muted">
               {profile.firstseen && <span>first seen: {profile.firstseen.slice(0, 10)}</span>}
               {profile.lastseen && <span>last seen: {profile.lastseen.slice(0, 10)}</span>}
               {typeof profile.victims === 'number' && <span>victims: {profile.victims.toLocaleString()}</span>}
@@ -503,7 +503,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
 
           {vulns.length > 0 && (
             <Section title={`Exploited vulnerabilities (${vulns.length})`}>
-              <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="overflow-x-auto rounded border border-line-1">
                 <DataTable
                   columns={
                     [
@@ -594,7 +594,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
               <p className="text-micro font-mono text-muted mb-2">
                 From the latest 100 disclosures on ransomware.live.
               </p>
-              <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="overflow-x-auto rounded border border-line-1">
                 <DataTable
                   columns={
                     [
@@ -621,7 +621,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
                         header: 'Disclosed',
                         sortValue: (v: (typeof victims)[number]) => v.discovered ?? v.attackdate ?? '',
                         render: (v) => (
-                          <span className="font-mono text-mini text-slate-500 whitespace-nowrap">
+                          <span className="font-mono text-mini text-muted whitespace-nowrap">
                             {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '-'}
                           </span>
                         ),
@@ -642,13 +642,13 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
                 : 'No YARA rules published for this group on ransomware.live.'}
             </p>
             {yaraText && (
-              <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-mini font-mono whitespace-pre-wrap">
+              <pre className="mt-2 max-h-72 overflow-auto rounded border border-line-1 bg-surface-200 p-3 text-mini font-mono whitespace-pre-wrap">
                 {yaraText.slice(0, 20000)}
               </pre>
             )}
           </Section>
 
-          <p className="mt-6 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-muted">
+          <p className="mt-6 pt-3 border-t border-line-1 text-micro font-mono text-muted">
             Source: ransomware.live · generated by pranithjain.qzz.io threat-intel platform
           </p>
         </div>

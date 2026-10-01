@@ -66,7 +66,7 @@ export default function IntelBundleTab() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="rounded border border-line-1 p-4">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted mb-3">Inspect a persisted bundle</h2>
         <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr_auto] gap-2 mb-2">
           <input
@@ -75,7 +75,7 @@ export default function IntelBundleTab() {
             onChange={(e) => setSource(e.target.value)}
             placeholder="source (e.g. briefings)"
             list="intel-source-presets"
-            className="px-3 py-2 rounded bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono"
+            className="px-3 py-2 rounded bg-surface-100 border border-line-1 text-sm font-mono"
           />
           <datalist id="intel-source-presets">
             {SOURCE_PRESETS.map((p) => (
@@ -92,12 +92,12 @@ export default function IntelBundleTab() {
               if (e.key === 'Enter') void inspect();
             }}
             placeholder="item ref / slug (e.g. daily-2026-05-22)"
-            className="px-3 py-2 rounded bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono"
+            className="px-3 py-2 rounded bg-surface-100 border border-line-1 text-sm font-mono"
           />
           <button
             onClick={() => void inspect()}
             disabled={loading || !source.trim() || !ref.trim()}
-            className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+            className="px-4 py-2 border border-line-1 rounded text-sm hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
           >
             {loading ? 'Inspecting…' : 'Inspect'}
           </button>
@@ -136,7 +136,7 @@ function Result({ data }: { data: InspectShape }) {
       };
 
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 space-y-4">
+    <div className="rounded border border-line-1 p-4 space-y-4">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <h3 className="font-semibold">{data.title}</h3>
@@ -154,10 +154,7 @@ function Result({ data }: { data: InspectShape }) {
           { label: 'Malware', value: data.counts.malware },
           { label: 'CVEs', value: data.counts.cves },
         ].map((c) => (
-          <div
-            key={c.label}
-            className="rounded bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-2"
-          >
+          <div key={c.label} className="rounded bg-surface-100 border border-line-1 px-3 py-2">
             <div className="text-muted text-micro uppercase tracking-wider">{c.label}</div>
             <div className="text-lg font-mono">{c.value}</div>
           </div>
@@ -170,10 +167,7 @@ function Result({ data }: { data: InspectShape }) {
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.sectors.map((s) => (
-              <span
-                key={s}
-                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
-              >
+              <span key={s} className="text-mini font-mono px-1.5 py-0.5 rounded border border-line-1 bg-surface-100">
                 {s}
               </span>
             ))}
@@ -206,7 +200,7 @@ function Result({ data }: { data: InspectShape }) {
                 href={`https://attack.mitre.org/techniques/${a.mitreId.replace('.', '/')}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                className="text-mini font-mono px-1.5 py-0.5 rounded border border-line-1 bg-surface-100 hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
               >
                 {a.name} · {a.mitreId}
               </a>
@@ -245,14 +239,14 @@ function Result({ data }: { data: InspectShape }) {
         )}
       </Block>
 
-      <footer className="flex flex-wrap items-center gap-3 text-mini font-mono text-muted pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <footer className="flex flex-wrap items-center gap-3 text-mini font-mono text-muted pt-3 border-t border-line-1">
         <span>bundle: {data.bundleId.slice(0, 24)}…</span>
         <span>hash: {data.extractedHash.slice(0, 12)}…</span>
         <Link
           to={`/dfir/stix-builder/b/${encodeURIComponent(data.bundleId)}`}
           target="_blank"
           rel="noopener"
-          className="ml-auto px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+          className="ml-auto px-2 py-1 border border-line-1 rounded hover:bg-surface-300 dark:hover:bg-surface-300"
         >
           Open in STIX Builder ↗
         </Link>
@@ -260,7 +254,7 @@ function Result({ data }: { data: InspectShape }) {
           href={`/api/v1/intel-bundle/${encodeURIComponent(data.bundleId)}/export.stix.json`}
           download={`${data.bundleId}.stix.json`}
           rel="noopener"
-          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+          className="px-2 py-1 border border-line-1 rounded hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
         >
           Download STIX
         </a>

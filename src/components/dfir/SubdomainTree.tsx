@@ -14,7 +14,7 @@ export function SubdomainTree({ subdomains }: { subdomains: ExposureScanResponse
               {s.ips.length} IP{s.ips.length === 1 ? '' : 's'}
             </span>
           </div>
-          {s.ips.length > 0 && <div className="mt-1 font-mono text-xs text-slate-500">{s.ips.join(' · ')}</div>}
+          {s.ips.length > 0 && <div className="mt-1 font-mono text-xs text-muted">{s.ips.join(' · ')}</div>}
           {s.shodan?.status === 'ok' && (
             <div className="mt-2 font-mono text-xs">
               <span className="text-muted">ports: </span>

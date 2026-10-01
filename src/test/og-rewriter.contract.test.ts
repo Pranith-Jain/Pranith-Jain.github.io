@@ -272,7 +272,8 @@ describe('prerendered #root duplicate-meta stripping', () => {
 // one page across three origins — with it, `/dfir` has exactly one owner.
 // The inverse failure (a canonical pointing at a host with no DNS record) is
 // why only prefixes whose hostname actually resolves may appear in the map.
-const TOOLS_HOSTS = '/dfir=crucible.pranithjain.qzz.io,/threatintel=panopticon.pranithjain.qzz.io,/radar=scout.pranithjain.qzz.io';
+const TOOLS_HOSTS =
+  '/dfir=crucible.pranithjain.qzz.io,/threatintel=panopticon.pranithjain.qzz.io,/radar=scout.pranithjain.qzz.io';
 
 const canonicalOf = (html: string): string | null => {
   const m = /<link\s+rel="canonical"\s+href="([^"]*)"/i.exec(html);
@@ -282,7 +283,9 @@ const canonicalOf = (html: string): string | null => {
 describe('canonical ownership across the several front doors', () => {
   it('routes each app prefix to its own host', async () => {
     expect(canonicalOf(await serve('/dfir', { TOOLS_HOSTS }))).toBe('https://crucible.pranithjain.qzz.io/dfir');
-    expect(canonicalOf(await serve('/threatintel', { TOOLS_HOSTS }))).toBe('https://panopticon.pranithjain.qzz.io/threatintel');
+    expect(canonicalOf(await serve('/threatintel', { TOOLS_HOSTS }))).toBe(
+      'https://panopticon.pranithjain.qzz.io/threatintel'
+    );
     expect(canonicalOf(await serve('/radar', { TOOLS_HOSTS }))).toBe('https://scout.pranithjain.qzz.io/radar');
   });
 
@@ -298,15 +301,21 @@ describe('canonical ownership across the several front doors', () => {
 
   it('canonicalises a redirect-only route to the TARGET owner', async () => {
     // /copilot redirects to /threatintel/... → panopticon, not crucible/apex.
-    expect(canonicalOf(await serve('/copilot', { TOOLS_HOSTS }))).toBe('https://panopticon.pranithjain.qzz.io/threatintel/tools/copilot');
+    expect(canonicalOf(await serve('/copilot', { TOOLS_HOSTS }))).toBe(
+      'https://panopticon.pranithjain.qzz.io/threatintel/tools/copilot'
+    );
     // /agent redirects to /dfir/agent-suite → crucible.
-    expect(canonicalOf(await serve('/agent', { TOOLS_HOSTS }))).toBe('https://crucible.pranithjain.qzz.io/dfir/agent-suite');
+    expect(canonicalOf(await serve('/agent', { TOOLS_HOSTS }))).toBe(
+      'https://crucible.pranithjain.qzz.io/dfir/agent-suite'
+    );
   });
 
   it('falls back to the apex when TOOLS_HOSTS is unset or blank', async () => {
     for (const raw of [undefined, '', '   ']) {
       expect(canonicalOf(await serve('/dfir', { TOOLS_HOSTS: raw }))).toBe('https://pranithjain.qzz.io/dfir');
-      expect(canonicalOf(await serve('/threatintel', { TOOLS_HOSTS: raw }))).toBe('https://pranithjain.qzz.io/threatintel');
+      expect(canonicalOf(await serve('/threatintel', { TOOLS_HOSTS: raw }))).toBe(
+        'https://pranithjain.qzz.io/threatintel'
+      );
     }
   });
 

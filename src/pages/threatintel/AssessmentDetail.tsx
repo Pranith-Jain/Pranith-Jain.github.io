@@ -93,14 +93,14 @@ export default function AssessmentDetail(): JSX.Element {
                       ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 border-emerald-300'
                       : assessment.status === 'review'
                         ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 border-amber-300'
-                        : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 border-slate-300'
+                        : 'bg-slate-100 dark:bg-surface-300 text-slate-600 border-slate-300'
                   }`}
                 >
                   {assessment.status}
                 </span>
                 <span className="text-micro font-mono text-muted">{assessment.type}</span>
               </div>
-              <p className="text-sm text-slate-500">Topic: {assessment.topic}</p>
+              <p className="text-sm text-muted">Topic: {assessment.topic}</p>
             </div>
             <div className="text-right shrink-0">
               <div
@@ -131,10 +131,7 @@ export default function AssessmentDetail(): JSX.Element {
               <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">Sources</div>
               <div className="flex flex-wrap gap-1">
                 {assessment.sources.map((s, i) => (
-                  <span
-                    key={i}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
-                  >
+                  <span key={i} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                     {s}
                   </span>
                 ))}

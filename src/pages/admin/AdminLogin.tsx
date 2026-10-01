@@ -41,7 +41,7 @@ export default function AdminLogin({ onLogin }: Props) {
 
   return (
     <div className="max-w-sm mx-auto px-6 py-16 min-h-screen flex flex-col justify-center">
-      <h1 className="text-xl font-display font-bold text-slate-900 dark:text-white mb-1">Case Study Admin</h1>
+      <h1 className="text-xl font-display font-bold text-heading mb-1">Case Study Admin</h1>
       <p className="text-xs font-mono text-muted mb-6">Enter your admin token to continue</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -54,7 +54,7 @@ export default function AdminLogin({ onLogin }: Props) {
             autoComplete="off"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-full px-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-heading font-mono text-sm focus:outline-none focus:border-brand-500 transition-colors"
+            className="w-full px-3 py-2.5 bg-surface-100 border border-line-2 rounded text-heading font-mono text-sm focus:outline-none focus:border-brand-500 transition-colors"
             placeholder="Paste token..."
           />
         </div>
@@ -66,7 +66,7 @@ export default function AdminLogin({ onLogin }: Props) {
         <button
           type="submit"
           disabled={busy || !value.trim()}
-          className="w-full px-4 py-2.5 bg-brand-600 text-white rounded font-medium hover:bg-brand-500 disabled:opacity-50 transition-colors"
+          className="w-full px-4 py-2.5 bg-brand-600 text-on-fill rounded font-medium hover:bg-brand-500 disabled:opacity-50 transition-colors"
         >
           {busy ? 'Checking…' : 'Sign in'}
         </button>

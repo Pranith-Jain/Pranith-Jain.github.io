@@ -24,9 +24,9 @@ const TAG_COLORS: Record<string, string> = {
   config: 'text-amber-600 dark:text-amber-400 border-amber-300/50 dark:border-amber-500/30',
   tunnel: 'text-sky-600 dark:text-sky-400 border-sky-300/50 dark:border-sky-500/30',
   scanner: 'text-sky-600 dark:text-sky-400 border-sky-300/50 dark:border-sky-500/30',
-  history: 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]',
-  'source-code': 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]',
-  archive: 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]',
+  history: 'text-muted border-slate-300/50 dark:border-line-1',
+  'source-code': 'text-muted border-slate-300/50 dark:border-line-1',
+  archive: 'text-muted border-slate-300/50 dark:border-line-1',
 };
 
 /** Map a risk tag to the most relevant MITRE ATT&CK technique. */
@@ -56,7 +56,7 @@ function formatSize(bytes?: number): string {
 }
 
 function TagBadge({ tag }: { tag: string }): JSX.Element {
-  const color = TAG_COLORS[tag] ?? 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]';
+  const color = TAG_COLORS[tag] ?? 'text-muted border-slate-300/50 dark:border-line-1';
   return <span className={`font-mono text-micro px-1.5 py-0.5 rounded border ${color}`}>{tag}</span>;
 }
 
@@ -69,7 +69,7 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
     <>
       <tr
         onClick={() => setOpen((o) => !o)}
-        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.4)] cursor-pointer"
+        className="border-t border-line-1 hover:bg-surface-200 dark:hover:bg-surface-300/40 cursor-pointer"
       >
         <td className="py-2.5 pl-2 pr-3">
           <div className="flex items-center gap-2">
@@ -93,12 +93,12 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
               {artifact.http_status}
             </span>
           ) : (
-            <span className="font-mono text-xs text-slate-400">-</span>
+            <span className="font-mono text-xs text-muted">-</span>
           )}
         </td>
       </tr>
       {open && (
-        <tr className="bg-slate-50/60 dark:bg-[rgb(var(--surface-300)/0.2)]">
+        <tr className="bg-surface-200/60 dark:bg-surface-300/20">
           <td colSpan={4} className="px-9 py-3">
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 font-mono text-xs">
               <div className="flex gap-2">

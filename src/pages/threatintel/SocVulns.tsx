@@ -400,7 +400,7 @@ export default function SocVulns(): JSX.Element {
               centerSub="cves in window"
             />
           ) : (
-            <p className="text-meta font-mono text-slate-500 italic">No CVEs in window.</p>
+            <p className="text-meta font-mono text-muted italic">No CVEs in window.</p>
           )}
         </SocPanel>
 
@@ -410,7 +410,7 @@ export default function SocVulns(): JSX.Element {
             right={
               <Link
                 to="/threatintel/cves/cves"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
               >
                 all <ExternalLink size={10} />
               </Link>
@@ -428,7 +428,7 @@ export default function SocVulns(): JSX.Element {
             right={
               <Link
                 to="/threatintel/cves/cves?kev=1"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
               >
                 feed <ExternalLink size={10} />
               </Link>
@@ -468,7 +468,7 @@ export default function SocVulns(): JSX.Element {
 
 function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
   if (rows.length === 0) {
-    return <p className="text-meta font-mono text-slate-500 italic">No CISA KEV entries in window.</p>;
+    return <p className="text-meta font-mono text-muted italic">No CISA KEV entries in window.</p>;
   }
   return (
     <div className="space-y-3">
@@ -543,7 +543,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
           }
           rows={rows}
           rowKey={(r) => r.id}
-          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/40'}
         />
       </div>
     </div>

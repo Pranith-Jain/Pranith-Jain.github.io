@@ -99,7 +99,7 @@ function typeBadge(t: IocEntry['type']): string {
     case 'cve':
       return 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300';
     default:
-      return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+      return 'border-slate-300 dark:border-line-1 text-slate-500';
   }
 }
 
@@ -209,7 +209,7 @@ export function IocSnapshotPanel(): JSX.Element {
                     {summary.source_name}
                   </p>
                   {entries.length === 0 ? (
-                    <p className="text-mini font-mono text-slate-500">No fresh entries.</p>
+                    <p className="text-mini font-mono text-muted">No fresh entries.</p>
                   ) : (
                     <ul className="space-y-1.5 mt-1">
                       {entries.map((e, i) => {
@@ -244,7 +244,7 @@ export function IocSnapshotPanel(): JSX.Element {
                                 {e.value}
                               </code>
                             )}
-                            <span className="text-slate-500 shrink-0">{shortRel(e.timestamp)}</span>
+                            <span className="text-muted shrink-0">{shortRel(e.timestamp)}</span>
                           </li>
                         );
                       })}

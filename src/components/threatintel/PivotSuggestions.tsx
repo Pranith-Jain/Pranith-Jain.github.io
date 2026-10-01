@@ -111,7 +111,7 @@ export function PivotSuggestions({
 
   if (loading) {
     return (
-      <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+      <div className="mt-3 flex items-center gap-2 border-t border-line-1 pt-3">
         <Loader2 size={12} className="animate-spin text-brand-500" />
         <span className="font-mono text-mini text-muted">Suggesting pivots…</span>
       </div>
@@ -120,7 +120,7 @@ export function PivotSuggestions({
 
   if (error) {
     return (
-      <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+      <div className="mt-3 flex items-center gap-2 border-t border-line-1 pt-3">
         <AlertTriangle size={11} className="text-amber-500 shrink-0" />
         <span className="font-mono text-mini text-amber-600 dark:text-amber-400">{error}</span>
         <button
@@ -136,7 +136,7 @@ export function PivotSuggestions({
   if (suggestions.length === 0) return null;
 
   return (
-    <div className="mt-3 border-t border-slate-100 pt-2.5 dark:border-[rgb(var(--border-400))]">
+    <div className="mt-3 border-t border-line-1 pt-2.5">
       <div className="mb-2 flex items-center gap-1.5">
         <Crosshair size={11} className="text-brand-500" />
         <span className="text-mini font-semibold uppercase tracking-wider text-muted">Investigation pivots</span>
@@ -149,7 +149,7 @@ export function PivotSuggestions({
             <button
               key={i}
               onClick={() => onSubmit(s.query)}
-              className="group flex w-full items-start gap-2 rounded-xl border border-slate-100 bg-slate-50/50 px-2.5 py-2 text-left transition-all hover:border-brand-300 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3] dark:hover:border-brand-400/30 dark:hover:bg-brand-900/10"
+              className="group flex w-full items-start gap-2 rounded-xl border border-line-1 bg-surface-200/50 px-2.5 py-2 text-left transition-all hover:border-brand-300 hover:bg-brand-50/50 dark:bg-surface-200/30 dark:hover:border-brand-400/30 dark:hover:bg-brand-900/10"
             >
               <span
                 className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${CATEGORY_COLORS[s.category] ?? 'text-slate-600 bg-slate-50 dark:text-muted dark:bg-input-200/20'}`}
@@ -165,7 +165,7 @@ export function PivotSuggestions({
               </div>
               <ChevronRight
                 size={13}
-                className="mt-1 shrink-0 text-slate-300 transition-all group-hover:text-brand-500 group-hover:translate-x-0.5 dark:text-slate-500"
+                className="mt-1 shrink-0 text-inverted transition-all group-hover:text-brand-500 group-hover:translate-x-0.5"
               />
             </button>
           );

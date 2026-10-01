@@ -31,9 +31,8 @@ const STATUS_STYLES: Record<string, string> = {
   ok: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-900',
   degraded: 'text-amber-600 bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-900',
   down: 'text-rose-600 bg-rose-50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-900',
-  cold: 'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
-  unknown:
-    'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
+  cold: 'text-slate-500 bg-slate-50 dark:bg-surface-200 border-slate-300 dark:border-line-1',
+  unknown: 'text-slate-500 bg-slate-50 dark:bg-surface-200 border-slate-300 dark:border-line-1',
 };
 
 const RELIABILITY_BADGE: Record<string, string> = {
@@ -42,7 +41,7 @@ const RELIABILITY_BADGE: Record<string, string> = {
   C: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   D: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   E: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-  F: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500',
+  F: 'bg-slate-100 dark:bg-surface-300 text-slate-500',
 };
 
 export default function CollectionSlo(): JSX.Element {
@@ -163,9 +162,9 @@ export default function CollectionSlo(): JSX.Element {
                   key={k.label}
                   type="button"
                   onClick={k.onClick}
-                  className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-rose-500/50 bg-rose-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-500/30'}`}
+                  className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-rose-500/50 bg-rose-500/5' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/30'}`}
                 >
-                  <div className="flex items-center gap-1.5 text-mini font-mono text-slate-500 mb-1">
+                  <div className="flex items-center gap-1.5 text-mini font-mono text-muted mb-1">
                     <Icon size={12} className={k.color} /> {k.label}
                   </div>
                   <p className={`text-2xl font-bold font-display ${k.color}`}>{k.value}</p>
@@ -207,7 +206,7 @@ export default function CollectionSlo(): JSX.Element {
                       key: 'category',
                       header: 'Category',
                       sortValue: (s: CollectorSlo) => s.category ?? '',
-                      render: (s) => <span className="text-mini font-mono text-slate-500">{s.category ?? '-'}</span>,
+                      render: (s) => <span className="text-mini font-mono text-muted">{s.category ?? '-'}</span>,
                     },
                     {
                       key: 'status',
@@ -227,7 +226,7 @@ export default function CollectionSlo(): JSX.Element {
                       align: 'right',
                       sortValue: (s: CollectorSlo) => s.upstream_age_s ?? 0,
                       render: (s) => (
-                        <span className="text-mini font-mono text-slate-500">
+                        <span className="text-mini font-mono text-muted">
                           {s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '-'}
                         </span>
                       ),
@@ -248,7 +247,7 @@ export default function CollectionSlo(): JSX.Element {
                 }
                 rows={filtered}
                 rowKey={(s) => s.id}
-                rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)]'}
+                rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-surface-200/30'}
               />
             </div>
           </div>

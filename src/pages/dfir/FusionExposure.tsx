@@ -84,14 +84,14 @@ function dimBar(score: number): string {
   if (score >= 60) return 'bg-orange-500';
   if (score >= 40) return 'bg-amber-500';
   if (score >= 20) return 'bg-sky-500';
-  return 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]';
+  return 'bg-slate-300 dark:bg-surface-300';
 }
 
 function dimBg(score: number): string {
   if (score >= 80) return 'bg-rose-50 dark:bg-rose-950/30';
   if (score >= 60) return 'bg-orange-50 dark:bg-orange-950/30';
   if (score >= 40) return 'bg-amber-50 dark:bg-amber-950/30';
-  return 'bg-slate-50 dark:bg-[rgb(var(--surface-100))]/30';
+  return 'bg-slate-50 dark:bg-surface-100/30';
 }
 
 export default function FusionExposure(): JSX.Element {
@@ -159,11 +159,11 @@ export default function FusionExposure(): JSX.Element {
       {/* Filter bar */}
       <div className="mb-5 surface-card p-4 space-y-3">
         <div className="flex flex-wrap items-center gap-3">
-          <Filter size={14} className="text-slate-500 shrink-0" />
+          <Filter size={14} className="text-muted shrink-0" />
           <select
             value={sevFilter}
             onChange={(e) => setSevFilter(e.target.value)}
-            className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+            className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
             aria-label="Filter by severity"
           >
             <option value="">Any severity</option>
@@ -179,18 +179,18 @@ export default function FusionExposure(): JSX.Element {
               max={100}
               value={minScore}
               onChange={(e) => setMinScore(Number(e.target.value) || 0)}
-              className="w-16 text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+              className="w-16 text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
               placeholder="Min"
               aria-label="Minimum fusion score"
             />
-            <span className="text-micro text-slate-500 font-mono">min score</span>
+            <span className="text-micro text-muted font-mono">min score</span>
           </div>
           <label className="flex items-center gap-1.5 text-xs font-mono text-muted cursor-pointer">
             <input
               type="checkbox"
               checked={kevFilter}
               onChange={(e) => setKevFilter(e.target.checked)}
-              className="rounded border-slate-400"
+              className="rounded border-line-3"
             />
             KEV only
           </label>
@@ -199,7 +199,7 @@ export default function FusionExposure(): JSX.Element {
               type="checkbox"
               checked={exploitFilter}
               onChange={(e) => setExploitFilter(e.target.checked)}
-              className="rounded border-slate-400"
+              className="rounded border-line-3"
             />
             Exploit only
           </label>
@@ -207,7 +207,7 @@ export default function FusionExposure(): JSX.Element {
             type="button"
             onClick={fetchData}
             disabled={loading}
-            className="ml-auto text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+            className="ml-auto text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'loading' : 'refresh'}
@@ -217,7 +217,7 @@ export default function FusionExposure(): JSX.Element {
 
       {/* Summary */}
       {!loading && data && (
-        <div className="mb-4 flex flex-wrap items-center gap-3 text-mini font-mono text-slate-500">
+        <div className="mb-4 flex flex-wrap items-center gap-3 text-mini font-mono text-muted">
           <span>{data.count} exposures</span>
           {sevFilter && <span>severity: {sevFilter}</span>}
           {kevFilter && <span className="text-rose-500">KEV only</span>}
@@ -238,7 +238,7 @@ export default function FusionExposure(): JSX.Element {
               <button
                 type="button"
                 onClick={() => toggleExpand(item.cve_id)}
-                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
               >
                 {/* Fusion score badge */}
                 <div className="flex flex-col items-center shrink-0 w-12">
@@ -302,7 +302,7 @@ export default function FusionExposure(): JSX.Element {
 
               {/* Expanded detail */}
               {isOpen && (
-                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
+                <div className="border-t border-line-1 px-4 py-3 space-y-3 bg-surface-200/50">
                   {/* Description */}
                   {item.description && (
                     <p className="text-meta font-mono text-muted leading-relaxed line-clamp-2">{item.description}</p>
@@ -311,15 +311,12 @@ export default function FusionExposure(): JSX.Element {
                   {/* Dimension breakdown */}
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {item.dimensions.map((d) => (
-                      <div
-                        key={d.name}
-                        className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 ${dimBg(d.score)}`}
-                      >
+                      <div key={d.name} className={`rounded-xl border border-line-1 p-2.5 ${dimBg(d.score)}`}>
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-micro font-mono text-muted">{d.name}</span>
                           <span className="text-xs font-mono font-semibold">{d.score}/100</span>
                         </div>
-                        <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] mb-1.5">
+                        <div className="h-1.5 w-full rounded-full bg-track mb-1.5">
                           <div
                             className={`h-full rounded-full transition-all ${dimBar(d.score)}`}
                             style={{ width: `${d.score}%` }}
@@ -338,7 +335,7 @@ export default function FusionExposure(): JSX.Element {
                       href={`https://nvd.nist.gov/vuln/detail/${item.cve_id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-micro font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
+                      className="text-micro font-mono px-2 py-0.5 rounded border border-line-2 text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
                     >
                       NVD
                     </a>
@@ -346,7 +343,7 @@ export default function FusionExposure(): JSX.Element {
                       href={`https://cvefeed.io/vuln/detail/${item.cve_id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-micro font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
+                      className="text-micro font-mono px-2 py-0.5 rounded border border-line-2 text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
                     >
                       cvefeed
                     </a>

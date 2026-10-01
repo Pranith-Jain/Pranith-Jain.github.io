@@ -207,10 +207,7 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
           <div className="font-mono text-micro uppercase tracking-wider text-muted mb-1.5">Ports</div>
           <div className="flex flex-wrap gap-1.5">
             {data.open_ports.map((p) => (
-              <span
-                key={p}
-                className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-body"
-              >
+              <span key={p} className="font-mono text-xs px-1.5 py-0.5 rounded bg-surface-300 text-body">
                 {p}
               </span>
             ))}
@@ -287,13 +284,10 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
             { label: 'Registrar Changes', value: data.summary.registrar_changes, icon: Building2 },
             { label: 'NS Changes', value: data.summary.nameserver_changes, icon: Server },
           ].map(({ label, value, icon: Icon }) => (
-            <div
-              key={label}
-              className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
-            >
+            <div key={label} className="p-3 rounded-xl border border-line-1 bg-surface-200">
               <div className="flex items-center gap-2 mb-1">
                 <Icon size={14} className="text-muted" />
-                <span className="text-mini font-mono uppercase text-slate-500">{label}</span>
+                <span className="text-mini font-mono uppercase text-muted">{label}</span>
               </div>
               <span className="text-2xl font-mono font-bold">{value}</span>
             </div>
@@ -301,36 +295,36 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
         </div>
 
         {data.current && (
-          <div className="mb-5 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
+          <div className="mb-5 p-4 rounded-xl border border-line-1 bg-surface-200">
             <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
               <Globe size={14} className="text-brand-600" /> Current Registration
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
               <div>
-                <span className="text-slate-500">Registrar:</span>{' '}
+                <span className="text-muted">Registrar:</span>{' '}
                 <span className="font-mono">{data.current.registrar ?? '-'}</span>
               </div>
               <div>
-                <span className="text-slate-500">Created:</span>{' '}
+                <span className="text-muted">Created:</span>{' '}
                 <span className="font-mono">{formatDate(data.current.created_date)}</span>
               </div>
               <div>
-                <span className="text-slate-500">Expires:</span>{' '}
+                <span className="text-muted">Expires:</span>{' '}
                 <span className="font-mono">{formatDate(data.current.expires_date)}</span>
               </div>
               <div>
-                <span className="text-slate-500">Updated:</span>{' '}
+                <span className="text-muted">Updated:</span>{' '}
                 <span className="font-mono">{formatDate(data.current.updated_date)}</span>
               </div>
               {data.current.registrant_email && (
                 <div className="sm:col-span-2">
-                  <span className="text-slate-500">Registrant:</span>{' '}
+                  <span className="text-muted">Registrant:</span>{' '}
                   <span className="font-mono">{data.current.registrant_email}</span>
                 </div>
               )}
               {data.current.nameservers.length > 0 && (
                 <div className="sm:col-span-2">
-                  <span className="text-slate-500">Nameservers:</span>{' '}
+                  <span className="text-muted">Nameservers:</span>{' '}
                   <span className="font-mono text-xs">{data.current.nameservers.join(', ')}</span>
                 </div>
               )}
@@ -342,57 +336,52 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
           <h3 className="text-sm font-semibold mb-3">Snapshot Timeline</h3>
           <div className="space-y-2">
             {data.snapshots.length === 0 ? (
-              <p className="text-sm text-slate-500 text-center py-4">No WHOIS history recorded yet.</p>
+              <p className="text-sm text-muted text-center py-4">No WHOIS history recorded yet.</p>
             ) : (
               data.snapshots.map((snap, i) => (
-                <div
-                  key={snap.id}
-                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
-                >
+                <div key={snap.id} className="border border-line-1 rounded-xl bg-surface-100 overflow-hidden">
                   <button
                     onClick={() => setExpandedSnapshot(expandedSnapshot === snap.id ? null : snap.id)}
-                    className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                    className="w-full flex items-center justify-between p-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300/50"
                   >
                     <div className="flex items-center gap-3">
                       <div
-                        className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
+                        className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-surface-300'}`}
                       />
                       <span className="text-sm font-mono">{formatDateTime(snap.snapshot_at)}</span>
-                      <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
-                        {snap.source}
-                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded bg-surface-300 text-muted">{snap.source}</span>
                     </div>
                     {expandedSnapshot === snap.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                   </button>
                   {expandedSnapshot === snap.id && (
-                    <div className="px-3 pb-3 pt-1 border-t border-slate-100 dark:border-[rgb(var(--border-400))] text-sm space-y-1">
+                    <div className="px-3 pb-3 pt-1 border-t border-line-1 text-sm space-y-1">
                       <div>
-                        <span className="text-slate-500">Registrar:</span>{' '}
+                        <span className="text-muted">Registrar:</span>{' '}
                         <span className="font-mono">{snap.registrar ?? '-'}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500">Created:</span>{' '}
+                        <span className="text-muted">Created:</span>{' '}
                         <span className="font-mono">{formatDate(snap.created_date)}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500">Expires:</span>{' '}
+                        <span className="text-muted">Expires:</span>{' '}
                         <span className="font-mono">{formatDate(snap.expires_date)}</span>
                       </div>
                       {snap.registrant_email && (
                         <div>
-                          <span className="text-slate-500">Registrant Email:</span>{' '}
+                          <span className="text-muted">Registrant Email:</span>{' '}
                           <span className="font-mono">{snap.registrant_email}</span>
                         </div>
                       )}
                       {snap.registrant_org && (
                         <div>
-                          <span className="text-slate-500">Registrant Org:</span>{' '}
+                          <span className="text-muted">Registrant Org:</span>{' '}
                           <span className="font-mono">{snap.registrant_org}</span>
                         </div>
                       )}
                       {snap.nameservers.length > 0 && (
                         <div>
-                          <span className="text-slate-500">Nameservers:</span>{' '}
+                          <span className="text-muted">Nameservers:</span>{' '}
                           <span className="font-mono text-xs">{snap.nameservers.join(', ')}</span>
                         </div>
                       )}
@@ -419,7 +408,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
               return (
                 <div
                   key={`${d.domain}-${d.match_reason}`}
-                  className="p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
+                  className="p-3 rounded-xl border border-line-1 bg-surface-200"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -451,7 +440,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
             })}
           </div>
         ) : pivots ? (
-          <p className="text-sm text-slate-500 text-center py-4">No related domains found.</p>
+          <p className="text-sm text-muted text-center py-4">No related domains found.</p>
         ) : null}
       </section>
 
@@ -467,7 +456,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
             {data.changes.map((change) => {
               const colorClass =
                 CHANGE_COLORS[change.change_type] ??
-                'text-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))]';
+                'text-slate-600 bg-slate-50 dark:bg-surface-300 border-slate-200 dark:border-line-1';
               return (
                 <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                   <div className="flex items-center gap-2 mb-1">
@@ -566,13 +555,13 @@ export default function AssetIntel(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="IP (8.8.8.8) or domain (example.com)"
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-10 pr-4 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button
             type="submit"
             disabled={!qtype || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 transition-colors"
           >
             {loading ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
             {loading ? 'Scanning…' : 'Scan'}
@@ -602,8 +591,8 @@ export default function AssetIntel(): JSX.Element {
 
       {!loading && !error && !hostIntel && !whoisData && !initial && (
         <div className="text-center py-16">
-          <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
-          <p className="text-slate-500">Enter an IP address or domain to begin asset intelligence</p>
+          <ScanLine size={48} className="mx-auto mb-4 text-inverted dark:text-muted" />
+          <p className="text-muted">Enter an IP address or domain to begin asset intelligence</p>
           <p className="text-xs text-muted mt-1">
             IP → exposed host, open ports, CVEs, artifacts · Domain → WHOIS history, registration changes, related
             domains

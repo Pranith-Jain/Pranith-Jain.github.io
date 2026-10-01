@@ -23,10 +23,7 @@ export default function DashboardHub(): JSX.Element {
       title="Dashboard Hub"
       description="Threat intelligence dashboards - TI overview and CTI views. The threat landscape lives in the Intel Dashboard."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="Dashboard hub tools"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="Dashboard hub tools">
         {TABS.map((t) => (
           <button
             key={t.id}

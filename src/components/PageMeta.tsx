@@ -13,11 +13,7 @@ export function PageMeta({ title, description, section, canonicalPath, fullTitle
   const resolvedTitle = fullTitle ?? (section ? `${title} - ${section} · ${SITE_NAME}` : `${title} · ${SITE_NAME}`);
 
   const siteUrl = 'https://pranithjain.qzz.io';
-  const resolvedOgImage = ogImage
-    ? ogImage.startsWith('http')
-      ? ogImage
-      : `${siteUrl}${ogImage}`
-    : undefined;
+  const resolvedOgImage = ogImage ? (ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`) : undefined;
 
   const ogUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : siteUrl;
   // Product surfaces (codenames + legacy section labels) are tools, not profile pages.

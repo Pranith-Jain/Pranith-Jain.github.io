@@ -232,7 +232,7 @@ export default function ThreatSignalRss(): JSX.Element {
         type="button"
         onClick={() => void load()}
         disabled={loading}
-        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-40"
+        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-line-2 hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-40"
         title="Refetch the aggregate (the Worker still respects its 15-min KV cache per source)"
       >
         <RefreshCw size={11} className={loading ? 'animate-spin' : ''} />
@@ -391,7 +391,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 href={s.source.displayLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 p-3 flex flex-col gap-1 transition-colors hover:border-rose-500/50"
+                className="group rounded-xl border border-line-1 bg-surface-100/40 p-3 flex flex-col gap-1 transition-colors hover:border-rose-500/50"
               >
                 <div className="flex items-center gap-2">
                   <span
@@ -425,7 +425,7 @@ export default function ThreatSignalRss(): JSX.Element {
 
       {/* Filters */}
       {agg && agg.items.length > 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 p-3 mb-4 flex flex-col gap-2">
+        <div className="rounded-xl border border-line-1 bg-surface-100/50 dark:bg-surface-200/30 p-3 mb-4 flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
               <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-muted" />
@@ -434,14 +434,14 @@ export default function ThreatSignalRss(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="search posts…"
-                className="pl-7 pr-2 py-1 text-xs rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] w-48"
+                className="pl-7 pr-2 py-1 text-xs rounded border border-line-2 bg-surface-100 w-48"
               />
             </div>
             <label className="ml-auto inline-flex items-center gap-1 px-2 py-1 text-mini rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 cursor-pointer">
               <input type="checkbox" checked={freshOnly} onChange={(e) => setFreshOnly(e.target.checked)} />
               fresh this week
             </label>
-            <span className="text-xs text-slate-500 font-mono">
+            <span className="text-xs text-muted font-mono">
               showing {filtered.length} of {totalCount}
             </span>
           </div>
@@ -467,7 +467,7 @@ export default function ThreatSignalRss(): JSX.Element {
                     className={`inline-flex items-center gap-1 px-2 py-1 text-mini rounded border transition-colors ${
                       active
                         ? ACCENT_PILL[s.source.accent]
-                        : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
+                        : 'bg-transparent text-muted border-slate-300 dark:border-line-1 hover:border-slate-500'
                     }`}
                   >
                     {s.source.name}
@@ -479,7 +479,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setActiveSources(new Set())}
-                  className="text-micro font-mono text-slate-500 hover:text-rose-500 underline"
+                  className="text-micro font-mono text-muted hover:text-rose-500 underline"
                 >
                   clear
                 </button>
@@ -509,7 +509,7 @@ export default function ThreatSignalRss(): JSX.Element {
                     className={`inline-flex items-center gap-1 px-2 py-1 text-mini rounded border transition-colors ${
                       active
                         ? meta.className
-                        : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-slate-500'
+                        : 'bg-transparent text-muted border-slate-300 dark:border-line-1 hover:border-slate-500'
                     }`}
                   >
                     <Tag size={10} />
@@ -521,7 +521,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setActiveCategories(new Set())}
-                  className="text-micro font-mono text-slate-500 hover:text-rose-500 underline"
+                  className="text-micro font-mono text-muted hover:text-rose-500 underline"
                 >
                   clear
                 </button>
@@ -559,7 +559,7 @@ export default function ThreatSignalRss(): JSX.Element {
 function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.Element {
   const cat = categoryStyle(item.category);
   return (
-    <div className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-rose-500/50 hover:bg-white/80 dark:hover:bg-[rgb(var(--surface-200)/0.6)]">
+    <div className="group rounded-xl border border-line-1 bg-surface-100/60 dark:bg-surface-200/40 p-4 flex flex-col gap-2 transition-colors hover:border-rose-500/50 hover:bg-surface-100/80 dark:hover:bg-surface-200/60">
       <div className="flex items-start gap-2">
         <a
           href={sanitizeUrl(item.link)}
@@ -630,7 +630,7 @@ function StatCard({ label, value, accent = 'brand', small = false }: StatCardPro
           ? 'text-violet-500 dark:text-violet-400'
           : 'text-rose-500 dark:text-rose-400';
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2">
+    <div className="rounded-xl border border-line-1 bg-surface-100/40 px-3 py-2">
       <div className="text-micro uppercase tracking-wide text-muted font-mono">{label}</div>
       <div className={`font-bold font-mono ${color} ${small ? 'text-sm' : 'text-2xl'}`}>{value}</div>
     </div>

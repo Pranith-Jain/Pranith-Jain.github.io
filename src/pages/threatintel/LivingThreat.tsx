@@ -100,7 +100,7 @@ function fmtDate(iso: string | null): string {
 }
 
 function Pill({ text }: { text: string }) {
-  const pill = SEVERITY_PILL[text] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+  const pill = SEVERITY_PILL[text] ?? 'border-slate-300 dark:border-line-1 text-slate-500';
   return <span className={`px-1.5 py-0.5 text-micro font-mono rounded border ${pill}`}>{text}</span>;
 }
 
@@ -131,22 +131,22 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
   );
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 overflow-hidden">
       <button
         onClick={toggle}
-        className="w-full text-left p-3.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
+        className="w-full text-left p-3.5 hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors"
       >
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <Pill text={entry.severity} />
               {entry.priorityScore != null && (
-                <span className="text-micro font-mono text-slate-400">priority {entry.priorityScore}</span>
+                <span className="text-micro font-mono text-muted">priority {entry.priorityScore}</span>
               )}
               {entry.relevanceScore != null && (
-                <span className="text-micro font-mono text-slate-400">relevance {entry.relevanceScore}</span>
+                <span className="text-micro font-mono text-muted">relevance {entry.relevanceScore}</span>
               )}
-              <span className="text-micro font-mono text-slate-400">
+              <span className="text-micro font-mono text-muted">
                 {entry.techniqueCount} techniques · {entry.cves} CVEs
               </span>
             </div>
@@ -163,7 +163,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                 ))}
               </div>
             )}
-            <div className="mt-1.5 flex items-center gap-3 text-micro text-slate-400 font-mono">
+            <div className="mt-1.5 flex items-center gap-3 text-micro text-muted font-mono">
               <span className="flex items-center gap-1">
                 <Clock className="w-2.5 h-2.5" /> {fmtDate(entry.timestamp)}
               </span>
@@ -171,16 +171,16 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
               {entry.tactics.length > 0 && <span className="truncate max-w-[40ch]">{entry.tactics.join(' → ')}</span>}
             </div>
           </div>
-          <div className="shrink-0 text-slate-400 mt-0.5">
+          <div className="shrink-0 text-muted mt-0.5">
             {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </div>
         </div>
       </button>
 
       {expanded && (
-        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3.5 bg-slate-50/60 dark:bg-[rgb(var(--surface-100))]/40 space-y-3">
+        <div className="border-t border-line-1 p-3.5 bg-surface-200/60 dark:bg-surface-100/40 space-y-3">
           {loading ? (
-            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
+            <div className="flex items-center gap-2 text-xs text-muted font-mono">
               <Loader2 className="w-3.5 h-3.5 animate-spin" /> loading incident body…
             </div>
           ) : body ? (
@@ -193,7 +193,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                 compact
               />
               {body.operational_tags && body.operational_tags.length > 0 && (
-                <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono text-slate-500">
+                <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono text-muted">
                   <Tag className="w-3 h-3" />
                   {body.operational_tags.join(', ')}
                 </div>
@@ -201,12 +201,9 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
               {shownAnalyses.length > 0 && (
                 <div className="space-y-2">
                   {shownAnalyses.map((a) => (
-                    <div
-                      key={a.Stage}
-                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2.5"
-                    >
+                    <div key={a.Stage} className="rounded-lg border border-line-1 bg-surface-100 p-2.5">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
-                        <div className="flex items-center gap-1.5 text-micro font-mono text-slate-400 uppercase tracking-wider">
+                        <div className="flex items-center gap-1.5 text-micro font-mono text-muted uppercase tracking-wider">
                           <Target className="w-3 h-3" /> {a.Stage}
                         </div>
                         <div className="flex items-center gap-1 flex-wrap">
@@ -225,13 +222,13 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                       </div>
                       <div className="mt-1.5 text-mini text-body">{a.Description}</div>
                       {a.Detection && (
-                        <div className="mt-1.5 text-mini text-slate-500">
+                        <div className="mt-1.5 text-mini text-muted">
                           <span className="font-mono text-sky-600 dark:text-sky-400">Detection: </span>
                           {a.Detection}
                         </div>
                       )}
                       {a.Remediation && (
-                        <div className="mt-1 text-mini text-slate-500">
+                        <div className="mt-1 text-mini text-muted">
                           <span className="font-mono text-emerald-600 dark:text-emerald-400">Remediation: </span>
                           {a.Remediation}
                         </div>
@@ -255,25 +252,25 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
               )}
               {body.Tools.length > 0 && (
                 <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono">
-                  <Wrench className="w-3 h-3 text-slate-400" />
+                  <Wrench className="w-3 h-3 text-muted" />
                   {body.Tools.join(', ')}
                 </div>
               )}
               {body.kill_chain_summary && (
                 <div className="flex items-start gap-2 text-mini font-mono">
-                  <Flame className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                  <Flame className="w-3.5 h-3.5 text-muted mt-0.5 shrink-0" />
                   <div className="text-body">{body.kill_chain_summary}</div>
                 </div>
               )}
               {body.diamond_model_summary && (
-                <div className="flex items-start gap-2 text-mini font-mono text-slate-500">
+                <div className="flex items-start gap-2 text-mini font-mono text-muted">
                   <Fingerprint className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                   <div>{body.diamond_model_summary}</div>
                 </div>
               )}
               {body.Detection_Rules_And_Indicators && body.Detection_Rules_And_Indicators.length > 0 && (
                 <div>
-                  <div className="flex items-center gap-1.5 text-micro text-slate-400 font-mono mb-1">
+                  <div className="flex items-center gap-1.5 text-micro text-muted font-mono mb-1">
                     <FileText className="w-3 h-3" /> DETECTION RULES &amp; INDICATORS
                   </div>
                   <ul className="space-y-1 list-disc list-inside text-mini text-body">
@@ -285,7 +282,7 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
               )}
               {body.Post_Incident_Recommendations && body.Post_Incident_Recommendations.length > 0 && (
                 <div>
-                  <div className="flex items-center gap-1.5 text-micro text-slate-400 font-mono mb-1">
+                  <div className="flex items-center gap-1.5 text-micro text-muted font-mono mb-1">
                     <Shield className="w-3 h-3" /> POST-INCIDENT RECOMMENDATIONS
                   </div>
                   <ul className="space-y-1 list-disc list-inside text-mini text-body">
@@ -296,13 +293,13 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
                 </div>
               )}
               {body.Pyramid_Of_Pain && body.Pyramid_Of_Pain.length > 0 && (
-                <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono text-slate-500">
+                <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono text-muted">
                   <Tag className="w-3 h-3" /> Pyramid of Pain: {body.Pyramid_Of_Pain.join(', ')}
                 </div>
               )}
             </>
           ) : (
-            <div className="text-xs text-slate-400 font-mono">body unavailable</div>
+            <div className="text-xs text-muted font-mono">body unavailable</div>
           )}
         </div>
       )}
@@ -421,7 +418,7 @@ export default function LivingThreat(): JSX.Element {
             void loadIncidents();
           }}
           disabled={loading || listLoading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-line-1 text-muted hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading || listLoading ? 'animate-spin' : ''}`} />
           Refresh
@@ -442,7 +439,7 @@ export default function LivingThreat(): JSX.Element {
               { label: 'Synced', value: fmtDate(data.syncedAt), cls: 'text-slate-500' },
             ].map(({ label, value, cls }) => (
               <div key={label} className="surface-card/50 shadow-e1 p-2.5">
-                <div className="text-mini uppercase tracking-wider mb-0.5 text-slate-500">{label}</div>
+                <div className="text-mini uppercase tracking-wider mb-0.5 text-muted">{label}</div>
                 <div className={`text-lg font-bold ${cls}`}>{value}</div>
               </div>
             ))}
@@ -450,19 +447,19 @@ export default function LivingThreat(): JSX.Element {
 
           <div className="flex flex-col lg:flex-row gap-3 mb-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 type="text"
                 placeholder="Search title, source, actor, or technique…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
               value={tactic}
               onChange={(e) => setTactic(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
             >
               <option value="all">All tactics</option>
               {tactics.map(([t, n]) => (
@@ -474,7 +471,7 @@ export default function LivingThreat(): JSX.Element {
             <select
               value={severity}
               onChange={(e) => setSeverity(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
             >
               <option value="all">All severities</option>
               {Object.entries(data.counts.bySeverity)
@@ -490,12 +487,12 @@ export default function LivingThreat(): JSX.Element {
               placeholder="Technique ID (T1190)…"
               value={technique}
               onChange={(e) => setTechnique(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-mono text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500 w-full lg:w-44"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm font-mono text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 w-full lg:w-44"
             />
             <select
               value={limit}
               onChange={(e) => setLimit(Number(e.target.value))}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-body focus:outline-none focus:border-rose-500"
             >
               {[50, 100, 250, 500].map((n) => (
                 <option key={n} value={n}>
@@ -514,7 +511,7 @@ export default function LivingThreat(): JSX.Element {
                   className={`px-2 py-1 rounded-lg text-micro font-mono border transition ${
                     tactic === t
                       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   {t} · {n}
@@ -524,7 +521,7 @@ export default function LivingThreat(): JSX.Element {
           )}
 
           <div className="flex items-center justify-between mb-2">
-            <div className="text-mini font-mono text-slate-500">
+            <div className="text-mini font-mono text-muted">
               {listLoading ? 'loading…' : `${incidents.length} incidents`}
             </div>
           </div>
@@ -562,7 +559,7 @@ export default function LivingThreat(): JSX.Element {
               <IncidentCard key={e.slug} entry={e} />
             ))}
             {!listLoading && incidents.length === 0 && (
-              <div className="text-sm text-slate-400 font-mono py-8 text-center border border-dashed border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl">
+              <div className="text-sm text-muted font-mono py-8 text-center border border-dashed border-line-1 rounded-xl">
                 No incidents match the current filters.
               </div>
             )}

@@ -250,7 +250,7 @@ export default function UnifiedSearch(): JSX.Element {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search threat intelligence - e.g. LockBit, 185.234.72.0, CVE-2026-1234, RedLine…"
           aria-label="Search across all intelligence sources and tools"
-          className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
+          className="w-full pl-11 pr-4 py-3 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
         />
       </form>
 
@@ -271,7 +271,7 @@ export default function UnifiedSearch(): JSX.Element {
                   href={sanitizeUrl(p.path) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:bg-[rgb(var(--surface-200))] dark:text-rose-300 dark:hover:bg-rose-950/30 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-surface-100 px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-950/30 transition-colors"
                   title={p.desc}
                 >
                   {p.label}
@@ -281,7 +281,7 @@ export default function UnifiedSearch(): JSX.Element {
                 <Link
                   key={p.path}
                   to={p.path}
-                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:bg-[rgb(var(--surface-200))] dark:text-rose-300 dark:hover:bg-rose-950/30"
+                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-surface-100 px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-950/30"
                   title={p.desc}
                 >
                   {p.label}
@@ -296,22 +296,22 @@ export default function UnifiedSearch(): JSX.Element {
       {/* Tools - instant client-side catalog matches. */}
       {toolMatches.length > 0 && (
         <section className="mb-4 surface-card overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-rose-600 dark:text-rose-400">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-line-1 text-rose-600 dark:text-rose-400">
             <Wrench size={14} />
             <span className="font-display font-semibold text-sm">Tools</span>
             <span className="text-mini font-mono opacity-70">· {toolMatches.length}</span>
           </div>
-          <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+          <ul className="divide-y divide-line-1 dark:divide-slate-800/50">
             {toolMatches.map(({ section, ...tool }) => (
-              <li key={tool.to} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]">
+              <li key={tool.to} className="px-4 py-2.5 hover:bg-surface-200 dark:hover:bg-input-200/50">
                 <Link to={tool.to} className="flex items-start justify-between gap-2 group">
                   <div className="min-w-0">
                     <span className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
                       {tool.label}
                     </span>
-                    <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">{tool.desc}</span>
+                    <span className="text-mini font-mono text-muted mt-0.5 block truncate">{tool.desc}</span>
                   </div>
-                  <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
+                  <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-line-2 bg-surface-200/50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-muted">
                     {section.label}
                   </span>
                 </Link>
@@ -326,19 +326,19 @@ export default function UnifiedSearch(): JSX.Element {
           tile-level SECTIONS catalog. */}
       {pageMatches.length > 0 && (
         <section className="mb-4 surface-card overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-body">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-line-1 text-body">
             <Compass size={14} />
             <span className="font-display font-semibold text-sm">Pages</span>
             <span className="text-mini font-mono opacity-70">· {pageMatches.length}</span>
           </div>
-          <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+          <ul className="divide-y divide-line-1 dark:divide-slate-800/50">
             {pageMatches.map(({ page }) => {
               const Icon = PAGE_GROUP_ICONS[page.group] ?? Compass;
               const color = PAGE_GROUP_COLORS[page.group] ?? 'text-slate-500 border-slate-300 bg-slate-50';
               return (
                 <li
                   key={`${page.group}:${page.path}`}
-                  className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]"
+                  className="px-4 py-2.5 hover:bg-surface-200 dark:hover:bg-input-200/50"
                 >
                   <Link to={page.path} className="flex items-start justify-between gap-2 group">
                     <div className="min-w-0 flex items-start gap-2">
@@ -351,12 +351,10 @@ export default function UnifiedSearch(): JSX.Element {
                         <span className="text-sm font-medium text-heading group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
                           {page.label}
                         </span>
-                        <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
-                          {page.description}
-                        </span>
+                        <span className="text-mini font-mono text-muted mt-0.5 block truncate">{page.description}</span>
                       </div>
                     </div>
-                    <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
+                    <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-line-2 bg-surface-200/50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-muted">
                       {page.sectionLabel}
                     </span>
                   </Link>
@@ -368,7 +366,7 @@ export default function UnifiedSearch(): JSX.Element {
       )}
 
       {loading && (
-        <p role="status" className="font-mono text-sm text-slate-500 py-8">
+        <p role="status" className="font-mono text-sm text-muted py-8">
           Searching intelligence sources + live IOC/CVE check…
         </p>
       )}
@@ -381,8 +379,8 @@ export default function UnifiedSearch(): JSX.Element {
 
       {nothingAnywhere && (
         <div className="py-12 text-center">
-          <Search size={32} className="mx-auto text-slate-300 dark:text-muted mb-3" />
-          <p className="font-mono text-sm text-slate-500">
+          <Search size={32} className="mx-auto text-inverted dark:text-muted mb-3" />
+          <p className="font-mono text-sm text-muted">
             No results for &ldquo;{query.trim()}&rdquo; across any tool or intelligence source.
           </p>
         </div>
@@ -412,21 +410,21 @@ export default function UnifiedSearch(): JSX.Element {
             const Icon = SECTION_ICONS[section.kind] ?? Search;
             const color =
               SECTION_COLORS[section.kind] ??
-              'text-body border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]';
+              'text-body border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-surface-300/50';
             return (
               <section key={section.kind} className="surface-card overflow-hidden">
                 <div
-                  className={`flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${color.split(' ').slice(0, 1).join(' ')}`}
+                  className={`flex items-center gap-2 px-4 py-2.5 border-b border-line-1 ${color.split(' ').slice(0, 1).join(' ')}`}
                 >
                   <Icon size={14} />
                   <span className="font-display font-semibold text-sm">{section.label}</span>
                   <span className="text-mini font-mono opacity-70">· {section.total}</span>
                 </div>
-                <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                <ul className="divide-y divide-line-1 dark:divide-slate-800/50">
                   {(section.items ?? []).slice(0, 30).map((item, i) => (
                     <li
                       key={`${item.label}:${i}`}
-                      className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]"
+                      className="px-4 py-2.5 hover:bg-surface-200 dark:hover:bg-input-200/50"
                     >
                       {item.url ? (
                         <a
@@ -440,7 +438,7 @@ export default function UnifiedSearch(): JSX.Element {
                               {item.label}
                             </span>
                             {item.description && (
-                              <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
+                              <span className="text-mini font-mono text-muted mt-0.5 block truncate">
                                 {item.description}
                               </span>
                             )}
@@ -451,7 +449,7 @@ export default function UnifiedSearch(): JSX.Element {
                         <div>
                           <span className="text-sm font-medium text-heading truncate block">{item.label}</span>
                           {item.description && (
-                            <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
+                            <span className="text-mini font-mono text-muted mt-0.5 block truncate">
                               {item.description}
                             </span>
                           )}
@@ -465,7 +463,7 @@ export default function UnifiedSearch(): JSX.Element {
                   ))}
                 </ul>
                 {(section.items ?? []).length > 30 && (
-                  <div className="px-4 py-2 text-mini font-mono text-slate-500 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50">
+                  <div className="px-4 py-2 text-mini font-mono text-muted border-t border-line-1/50">
                     + {(section.items ?? []).length - 30} more
                   </div>
                 )}

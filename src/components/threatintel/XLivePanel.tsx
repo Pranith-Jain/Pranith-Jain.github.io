@@ -99,25 +99,22 @@ export function XLivePanel({
           all <ExternalLink size={9} />
         </Link>
       </div>
-      <p className="text-micro font-mono text-slate-500 mb-3">
+      <p className="text-micro font-mono text-muted mb-3">
         TweetFeed × fxtwitter - last {sinceHours}h of researcher-posted IOC tweets · click-through to x.com
       </p>
       {loading && (
-        <p className="text-xs font-mono text-slate-500 inline-flex items-center gap-1">
+        <p className="text-xs font-mono text-muted inline-flex items-center gap-1">
           <Loader2 size={11} className="animate-spin" /> loading…
         </p>
       )}
       {error && <p className="text-xs font-mono text-rose-500">load error: {error}</p>}
       {!loading && !error && items.length === 0 && (
-        <p className="text-xs font-mono text-slate-500">No X activity in the last {sinceHours}h.</p>
+        <p className="text-xs font-mono text-muted">No X activity in the last {sinceHours}h.</p>
       )}
       {items.length > 0 && (
         <ul className="space-y-2">
           {items.map((t) => (
-            <li
-              key={t.id}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-            >
+            <li key={t.id} className="rounded-xl border border-line-1 bg-surface-200 p-2.5">
               <div className="flex items-start gap-2">
                 {t.author.avatar_url && (
                   <img
@@ -130,12 +127,12 @@ export function XLivePanel({
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-1.5 mb-0.5 flex-wrap">
                     <span className="font-display font-semibold text-meta text-heading truncate">{t.author.name}</span>
-                    <span className="text-micro font-mono text-slate-500">@{t.author.screen_name}</span>
+                    <span className="text-micro font-mono text-muted">@{t.author.screen_name}</span>
                     <a
                       href={sanitizeUrl(t.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5 transition-colors"
+                      className="ml-auto text-micro font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5 transition-colors"
                       title={t.created_at}
                     >
                       {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
@@ -152,7 +149,7 @@ export function XLivePanel({
                     </div>
                   )}
                   {(t.likes > 0 || t.retweets > 0 || t.replies > 0) && (
-                    <div className="mt-1 flex items-center gap-2 text-micro font-mono text-slate-500">
+                    <div className="mt-1 flex items-center gap-2 text-micro font-mono text-muted">
                       {t.replies > 0 && (
                         <span className="inline-flex items-center gap-0.5">
                           <MessageSquare size={9} /> {compactNumber(t.replies)}

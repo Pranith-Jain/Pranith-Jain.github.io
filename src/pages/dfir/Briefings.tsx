@@ -165,7 +165,7 @@ export default function Briefings(): JSX.Element {
             }}
             placeholder="Filter by title, slug, or date (e.g. 2026-05)…"
             aria-label="Filter briefings"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
 
@@ -184,7 +184,7 @@ export default function Briefings(): JSX.Element {
                 className={`px-3 py-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors inline-flex items-center ${
                   isActive
                     ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'
-                    : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'
+                    : 'bg-white dark:bg-surface-200 text-muted border-slate-200 dark:border-line-1 hover:border-brand-500/30'
                 }`}
               >
                 {label}
@@ -197,9 +197,9 @@ export default function Briefings(): JSX.Element {
           <div className="space-y-4" aria-busy="true" aria-label="Loading briefings">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="surface-card p-6 animate-pulse">
-                <div className="h-4 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/2 mb-2" />
-                <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/4 mb-4" />
-                <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-3/4" />
+                <div className="h-4 bg-track rounded w-1/2 mb-2" />
+                <div className="h-3 bg-track rounded w-1/4 mb-4" />
+                <div className="h-3 bg-track rounded w-3/4" />
               </div>
             ))}
           </div>
@@ -222,21 +222,21 @@ export default function Briefings(): JSX.Element {
           </div>
         )}
         {!loading && !error && filtered.length === 0 && (
-          <p className="text-sm font-mono text-slate-500 py-10 text-center">
+          <p className="text-sm font-mono text-muted py-10 text-center">
             {filter === 'all' && !debouncedQuery.trim()
               ? 'No briefings indexed. Dailies publish 00:30 UTC; weeklies 00:45 UTC Monday.'
               : 'No briefings match the current filter.'}
           </p>
         )}
 
-        <div className="flex items-center justify-between py-3 text-xs font-mono text-slate-500">
+        <div className="flex items-center justify-between py-3 text-xs font-mono text-muted">
           <span>{total > 0 ? `${offset + 1}–${Math.min(offset + activeLimit, total)} of ${total}` : '-'}</span>
           <div className="flex gap-2">
             <button
               type="button"
               disabled={offset === 0}
               onClick={() => setOffset(Math.max(0, offset - activeLimit))}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-line-1 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
             >
               <ChevronLeft size={12} /> Prev
             </button>
@@ -244,7 +244,7 @@ export default function Briefings(): JSX.Element {
               type="button"
               disabled={offset + activeLimit >= total}
               onClick={() => setOffset(offset + activeLimit)}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-line-1 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
             >
               Next <ChevronRight size={12} />
             </button>
@@ -261,7 +261,7 @@ export default function Briefings(): JSX.Element {
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="min-w-0">
                   <h3 className="font-display font-bold text-lg leading-snug">{item.metadata.title}</h3>
-                  <p className="text-xs font-mono text-slate-500 mt-0.5">{item.metadata.date_range}</p>
+                  <p className="text-xs font-mono text-muted mt-0.5">{item.metadata.date_range}</p>
                 </div>
                 <span
                   className={`text-xs font-mono px-2 py-0.5 rounded border shrink-0 ${
@@ -276,7 +276,7 @@ export default function Briefings(): JSX.Element {
                 </span>
               </div>
               <div className="flex items-center gap-3 mt-3">
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-slate-500 min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-muted min-w-0 flex-1">
                   <span>
                     <span className="text-heading font-semibold">{item.metadata.stats.findings}</span> findings
                   </span>
@@ -306,7 +306,7 @@ export default function Briefings(): JSX.Element {
                     high
                   </span>
                   <span aria-hidden="true">·</span>
-                  <span className="text-slate-500 truncate w-full sm:w-auto sm:max-w-md">
+                  <span className="text-muted truncate w-full sm:w-auto sm:max-w-md">
                     {(item.metadata.sources ?? []).join(', ')}
                   </span>
                 </div>
@@ -318,7 +318,7 @@ export default function Briefings(): JSX.Element {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
+                  className="inline-flex items-center gap-1 rounded border border-line-1 px-2 py-0.5 text-micro text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
                   title="Share on X"
                 >
                   <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
@@ -331,7 +331,7 @@ export default function Briefings(): JSX.Element {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
+                  className="inline-flex items-center gap-1 rounded border border-line-1 px-2 py-0.5 text-micro text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40 transition-colors"
                   title="Share on LinkedIn"
                 >
                   <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
@@ -345,9 +345,9 @@ export default function Briefings(): JSX.Element {
         </div>
       </section>
 
-      <div className="mt-16 flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
+      <div className="mt-16 flex items-center gap-3 p-4 rounded-xl border border-line-1 bg-surface-200/60">
         <Rss size={16} className="text-muted shrink-0" />
-        <p className="text-sm font-mono text-slate-500 flex-1">
+        <p className="text-sm font-mono text-muted flex-1">
           Subscribe in your reader.{' '}
           <a
             href="/api/v1/briefings/rss"

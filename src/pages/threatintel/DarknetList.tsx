@@ -114,7 +114,7 @@ function StatusBadge({ status }: { status: DarknetSite['status'] }) {
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
       <span className="w-1.5 h-1.5 rounded-full bg-slate-400" /> UNKNOWN
     </span>
   );
@@ -124,7 +124,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
   const catMeta = CATEGORY_META[site.category] ?? {
     label: site.category,
     color: 'text-slate-500',
-    pill: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+    pill: 'border-slate-300 dark:border-line-1 text-slate-500',
   };
   const safeUrl = sanitizeUrl(site.url);
 
@@ -133,7 +133,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
       className={`rounded-xl border p-4 transition hover:shadow-e1 ${
         site.status === 'down'
           ? 'border-rose-200 dark:border-rose-800/40 bg-rose-50/30 dark:bg-rose-900/5'
-          : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50'
+          : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/50'
       }`}
     >
       <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -146,7 +146,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
               </span>
             )}
           </div>
-          <div className="flex items-center gap-2 text-mini text-slate-500 mt-0.5">
+          <div className="flex items-center gap-2 text-mini text-muted mt-0.5">
             <span className={`font-mono ${catMeta.color}`}>{catMeta.label}</span>
             {site.dwdId && <span className="font-mono opacity-60">{site.dwdId}</span>}
           </div>
@@ -167,7 +167,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
           <span className="truncate font-mono">{site.onion ?? site.url}</span>
         </a>
       ) : site.onion ? (
-        <div className="flex items-center gap-1 mt-1 mb-2 text-xs text-slate-400">
+        <div className="flex items-center gap-1 mt-1 mb-2 text-xs text-muted">
           <ShieldOff className="w-3 h-3 shrink-0" />
           <span className="truncate font-mono">{site.onion}</span>
         </div>
@@ -288,7 +288,7 @@ export default function DarknetList(): JSX.Element {
         <button
           onClick={load}
           disabled={loading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-line-1 text-muted hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -311,7 +311,7 @@ export default function DarknetList(): JSX.Element {
               { label: 'Categories', value: data.counts.categories, cls: 'text-slate-500' },
             ].map(({ label, value, cls }) => (
               <div key={label} className="surface-card/50 shadow-e1 p-2.5">
-                <div className="text-mini uppercase tracking-wider mb-0.5 text-slate-500">{label}</div>
+                <div className="text-mini uppercase tracking-wider mb-0.5 text-muted">{label}</div>
                 <div className={`text-lg font-bold ${cls}`}>{value}</div>
               </div>
             ))}
@@ -337,19 +337,19 @@ export default function DarknetList(): JSX.Element {
           {/* Search + filters */}
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 type="text"
                 placeholder="Search site name, DWD ID, category, or .onion address…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as 'all' | 'up' | 'down')}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
             >
               <option value="all">All status</option>
               <option value="up">Online only</option>
@@ -360,7 +360,7 @@ export default function DarknetList(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border flex items-center gap-1.5 transition ${
                 recommendedOnly
                   ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-amber-500/30'
+                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-amber-500/30'
               }`}
             >
               <Star className="w-3.5 h-3.5" />
@@ -370,13 +370,13 @@ export default function DarknetList(): JSX.Element {
 
           {/* Category pills */}
           <div className="flex flex-wrap items-center gap-1.5 mb-4">
-            <span className="text-xs text-slate-500 mr-1 font-mono">category:</span>
+            <span className="text-xs text-muted mr-1 font-mono">category:</span>
             <button
               onClick={() => setCategory('all')}
               className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                 category === 'all'
                   ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
               }`}
             >
               All <span className="opacity-60">{data.sites.length}</span>
@@ -391,7 +391,7 @@ export default function DarknetList(): JSX.Element {
                   className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
                     active
                       ? (meta?.pill ?? 'border-rose-500/60 bg-rose-500/10 text-rose-600')
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                      : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-slate-400'
                   }`}
                 >
                   {meta?.label ?? cat.title} <span className="opacity-60">{categoryCounts.get(cat.id) ?? 0}</span>
@@ -431,7 +431,7 @@ export default function DarknetList(): JSX.Element {
 
           {/* Site grid */}
           {filtered.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 font-mono text-sm">No sites match your filters</div>
+            <div className="text-center py-12 text-muted font-mono text-sm">No sites match your filters</div>
           ) : (
             <>
               <AiSummaryCard
@@ -451,7 +451,7 @@ export default function DarknetList(): JSX.Element {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono">
+          <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono">
             Source: darknetlist.is · {data.counts.sites} sites across {data.counts.categories} categories · scanned
             every 30 min via fresh SOCKS circuit
           </div>

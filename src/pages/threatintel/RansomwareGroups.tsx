@@ -54,13 +54,13 @@ function StatusBadge({ online }: { online: boolean | null }) {
   }
   if (online === false) {
     return (
-      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
         <span className="w-1.5 h-1.5 rounded-full bg-slate-400" /> OFFLINE
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
       <span className="w-1.5 h-1.5 rounded-full bg-slate-300" /> UNPROBED
     </span>
   );
@@ -95,7 +95,7 @@ function GroupCard({ row, recent }: { row: GroupRow; recent: boolean }) {
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+    <div className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
       <button type="button" onClick={toggle} className="w-full text-left" aria-expanded={open}>
         <div className="flex items-start justify-between gap-2 mb-1">
           <div className="min-w-0 flex items-center gap-2">
@@ -121,14 +121,14 @@ function GroupCard({ row, recent }: { row: GroupRow; recent: boolean }) {
           </div>
         </div>
         <p className="text-xs text-muted leading-snug line-clamp-2">{row.blurb}</p>
-        <p className="text-mini text-slate-500 font-mono mt-1.5">
+        <p className="text-mini text-muted font-mono mt-1.5">
           {row.victims_7d} victims / 7d · {row.victims_total} tracked · last seen {fmtDate(row.last_seen)}
           {row.mirrors > 0 && ` · ${row.up_mirrors}/${row.mirrors} mirrors up`}
         </p>
       </button>
       {open && (
-        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-          {loadingBody && <p className="text-mini font-mono text-slate-500">loading profile…</p>}
+        <div className="mt-3 pt-3 border-t border-line-1">
+          {loadingBody && <p className="text-mini font-mono text-muted">loading profile…</p>}
           {body?.meta && <p className="text-xs text-body leading-relaxed mb-2">{body.meta}</p>}
           {body && body.victims_sample.length > 0 && (
             <div className="mb-2">
@@ -137,7 +137,7 @@ function GroupCard({ row, recent }: { row: GroupRow; recent: boolean }) {
                 {body.victims_sample.slice(0, 5).map((v) => (
                   <li key={`${v.victim}-${v.discovered}`} className="text-xs font-mono text-body truncate">
                     {v.victim}{' '}
-                    <span className="text-slate-500">
+                    <span className="text-muted">
                       · {fmtDate(v.discovered)} · {v.origin}
                     </span>
                   </li>
@@ -152,7 +152,7 @@ function GroupCard({ row, recent }: { row: GroupRow; recent: boolean }) {
               </div>
               <ul className="space-y-0.5">
                 {body.mirrors_detail.slice(0, 4).map((m) => (
-                  <li key={m.fqdn} className="text-xs font-mono text-slate-500 truncate">
+                  <li key={m.fqdn} className="text-xs font-mono text-muted truncate">
                     <span className={m.available ? 'text-emerald-600 dark:text-emerald-400' : ''}>
                       {m.available ? '●' : '○'}
                     </span>{' '}
@@ -263,7 +263,7 @@ export default function RansomwareGroups(): JSX.Element {
         <button
           onClick={load}
           disabled={loading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-line-1 text-muted hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -284,7 +284,7 @@ export default function RansomwareGroups(): JSX.Element {
               { label: 'With activity', value: idx.counts.with_activity, cls: 'text-sky-600 dark:text-sky-400' },
             ].map(({ label, value, cls }) => (
               <div key={label} className="surface-card/50 shadow-e1 p-2.5">
-                <div className="text-mini uppercase tracking-wider mb-0.5 text-slate-500">{label}</div>
+                <div className="text-mini uppercase tracking-wider mb-0.5 text-muted">{label}</div>
                 <div className={`text-lg font-bold ${cls}`}>{value}</div>
               </div>
             ))}
@@ -292,19 +292,19 @@ export default function RansomwareGroups(): JSX.Element {
 
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 type="text"
                 placeholder="Search groups…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as StatusFilter)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
             >
               <option value="all">All groups</option>
               <option value="online">Leak site up</option>
@@ -314,7 +314,7 @@ export default function RansomwareGroups(): JSX.Element {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
-              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
+              className="px-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading focus:outline-none focus:border-rose-500"
             >
               <option value="recent">Recently active</option>
               <option value="victims">Most victims (7d)</option>
@@ -325,7 +325,7 @@ export default function RansomwareGroups(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border flex items-center gap-1.5 transition ${
                 activeOnly
                   ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
               }`}
             >
               <Activity className="w-3.5 h-3.5" />
@@ -336,7 +336,7 @@ export default function RansomwareGroups(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border transition ${
                 profileOnly
                   ? 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-violet-500/30'
+                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-violet-500/30'
               }`}
             >
               Profiles
@@ -351,7 +351,7 @@ export default function RansomwareGroups(): JSX.Element {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 font-mono text-sm">No groups match your filters</div>
+            <div className="text-center py-12 text-muted font-mono text-sm">No groups match your filters</div>
           ) : (
             <>
               <AiSummaryCard
@@ -371,7 +371,7 @@ export default function RansomwareGroups(): JSX.Element {
             </>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-muted font-mono flex items-center gap-2">
+          <div className="mt-6 pt-4 border-t border-line-1 text-xs text-muted font-mono flex items-center gap-2">
             <Globe className="w-3.5 h-3.5" />
             <span>
               Source: Ransomlook.io + ransomware.live ·{' '}

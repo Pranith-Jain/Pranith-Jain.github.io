@@ -188,7 +188,7 @@ export default function KnowledgeGraph(): JSX.Element {
                 type="button"
                 onClick={() => toggleType(t.id)}
                 className={`text-micro font-mono uppercase tracking-wider rounded-full border px-2 py-0.5 transition-colors ${
-                  active ? 'text-white' : 'text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'
+                  active ? 'text-white' : 'text-muted border-slate-300 dark:border-line-1'
                 }`}
                 style={active ? { background: c, borderColor: c } : undefined}
               >
@@ -200,7 +200,7 @@ export default function KnowledgeGraph(): JSX.Element {
             <button
               type="button"
               onClick={() => setTypes(new Set())}
-              className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted hover:text-slate-700 dark:hover:text-slate-300"
+              className="text-micro font-mono rounded-full border border-line-2 px-2 py-0.5 text-muted hover:text-body dark:hover:text-inverted"
             >
               clear
             </button>
@@ -211,7 +211,7 @@ export default function KnowledgeGraph(): JSX.Element {
               id="kg-days"
               value={days}
               onChange={(e) => setDays(parseInt(e.target.value, 10))}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-xs font-mono"
+              className="rounded border border-line-2 bg-surface-100 px-1.5 py-0.5 text-xs font-mono"
             >
               <option value={7}>7d</option>
               <option value={30}>30d</option>
@@ -227,7 +227,7 @@ export default function KnowledgeGraph(): JSX.Element {
               max={1000}
               value={limit}
               onChange={(e) => setLimit(Math.min(1000, Math.max(10, parseInt(e.target.value, 10) || 200)))}
-              className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-xs font-mono"
+              className="w-20 rounded border border-line-2 bg-surface-100 px-1.5 py-0.5 text-xs font-mono"
             />
             <label htmlFor="kg-minconn">min conn</label>
             <input
@@ -237,12 +237,12 @@ export default function KnowledgeGraph(): JSX.Element {
               max={50}
               value={minConn}
               onChange={(e) => setMinConn(Math.max(0, parseInt(e.target.value, 10) || 0))}
-              className="w-16 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-xs font-mono"
+              className="w-16 rounded border border-line-2 bg-surface-100 px-1.5 py-0.5 text-xs font-mono"
             />
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-xs hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
+              className="inline-flex items-center gap-1 rounded border border-line-2 px-2 py-0.5 text-xs hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
             >
               <RefreshCw className="h-3 w-3" /> refresh
             </button>
@@ -253,13 +253,9 @@ export default function KnowledgeGraph(): JSX.Element {
       {/* Status bar */}
       {data && (
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted font-mono">
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
-            {data.stats.nodeCount} nodes
-          </span>
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
-            {data.stats.edgeCount} edges
-          </span>
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
+          <span className="rounded border border-line-2 px-2 py-1">{data.stats.nodeCount} nodes</span>
+          <span className="rounded border border-line-2 px-2 py-1">{data.stats.edgeCount} edges</span>
+          <span className="rounded border border-line-2 px-2 py-1">
             types: {data.stats.sourceTypes.join(', ') || '-'}
           </span>
         </div>
@@ -305,7 +301,7 @@ export default function KnowledgeGraph(): JSX.Element {
             </ReactFlowProvider>
           </section>
         ) : (
-          <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+          <section className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
             No nodes match the current filters. Try widening the time window or clearing the type filter.
           </section>
         ))}

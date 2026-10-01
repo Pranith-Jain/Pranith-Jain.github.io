@@ -1,11 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { recommendCourses, similarCourses, type RecommendCourse } from './anarchy-recommend';
 
-const C = (
-  id: string,
-  tags: string[],
-  extra: Partial<RecommendCourse> = {}
-): RecommendCourse => ({
+const C = (id: string, tags: string[], extra: Partial<RecommendCourse> = {}): RecommendCourse => ({
   id,
   title: `Course ${id}`,
   tags,

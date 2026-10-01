@@ -165,10 +165,7 @@ export default function PendingTab() {
     return (
       <div>
         <p className="text-rose-700 dark:text-rose-400 mb-2">Failed to load: {error}</p>
-        <button
-          onClick={() => void load()}
-          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
-        >
+        <button onClick={() => void load()} className="px-3 py-1 border border-line-1 rounded text-sm">
           Retry
         </button>
       </div>
@@ -201,7 +198,7 @@ export default function PendingTab() {
               </button>
             </div>
             <table className="w-full text-sm">
-              <thead className="text-left text-xs uppercase tracking-wider text-muted border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <thead className="text-left text-xs uppercase tracking-wider text-muted border-b border-line-1">
                 <tr>
                   <th scope="col" className="py-2 pr-4">
                     Type
@@ -229,10 +226,7 @@ export default function PendingTab() {
               <tbody>
                 {shown.map((c) => {
                   return (
-                    <tr
-                      key={`${c.type}:${c.key}`}
-                      className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
-                    >
+                    <tr key={`${c.type}:${c.key}`} className="border-b border-line-1 align-top">
                       <td className="py-2 pr-4 text-muted uppercase text-xs">{c.type}</td>
                       <td className="py-2 pr-4 text-heading">{c.title}</td>
                       <td className="py-2 pr-4 text-body tabular-nums">{c.score.toFixed(2)}</td>
@@ -240,7 +234,7 @@ export default function PendingTab() {
                       <td className="py-2 pr-4 text-xs max-w-[12rem]">
                         {(() => {
                           const links = sourceLinksFrom(c.evidence);
-                          if (links.length === 0) return <span className="text-slate-400">-</span>;
+                          if (links.length === 0) return <span className="text-muted">-</span>;
                           return (
                             <div className="flex flex-col gap-0.5">
                               {links.map((u) => {
@@ -282,7 +276,7 @@ export default function PendingTab() {
                           </button>
                           <button
                             onClick={() => skip(c.key, c.type)}
-                            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                            className="px-2 py-1 border border-line-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-300"
                           >
                             Skip
                           </button>

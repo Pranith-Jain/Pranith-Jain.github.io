@@ -502,7 +502,7 @@ export default function GlobalPulse(): JSX.Element {
           {/* ─── Top Stats Bar ─── */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {/* Total events */}
-            <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
+            <div className="relative rounded-2xl border border-line-1/60 dark:border-white/[0.06] bg-surface-100 dark:bg-surface-100/[0.02] p-4 shadow-sm">
               <div className="flex items-center justify-between gap-2 mb-3">
                 <span className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-muted">
                   <Activity size={13} className="text-muted" /> Total Events
@@ -523,7 +523,7 @@ export default function GlobalPulse(): JSX.Element {
               <div className="flex items-end justify-between gap-2">
                 <CountUp
                   to={filteredEvents.length}
-                  className="text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
+                  className="text-3xl font-display font-bold text-heading tabular-nums leading-none"
                 />
                 {trend.length > 1 && (
                   <Sparkline
@@ -562,7 +562,7 @@ export default function GlobalPulse(): JSX.Element {
                 const bs = stats?.bySeverity ?? { critical: 0, high: 0, medium: 0, low: 0 };
                 const tot = bs.critical + bs.high + bs.medium + bs.low || 1;
                 return (
-                  <div className="mt-3 flex h-1.5 gap-px overflow-hidden rounded-full bg-slate-200/60 dark:bg-white/[0.06]">
+                  <div className="mt-3 flex h-1.5 gap-px overflow-hidden rounded-full bg-track/60 dark:bg-surface-100/[0.06]">
                     <div className="bg-rose-500" style={{ width: `${(bs.critical / tot) * 100}%` }} />
                     <div className="bg-orange-500" style={{ width: `${(bs.high / tot) * 100}%` }} />
                     <div className="bg-amber-500" style={{ width: `${(bs.medium / tot) * 100}%` }} />
@@ -576,23 +576,23 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Active layers */}
-            <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
+            <div className="relative rounded-2xl border border-line-1/60 dark:border-white/[0.06] bg-surface-100 dark:bg-surface-100/[0.02] p-4 shadow-sm">
               <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-muted mb-3">
                 <Layers size={13} className="text-muted" /> Active Layers
               </div>
               <CountUp
                 to={activeLayers.size}
-                className="block text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
+                className="block text-3xl font-display font-bold text-heading tabular-nums leading-none"
               />
               <div className="text-mini font-mono text-muted mt-2">{ALL_KINDS.length - activeLayers.size} hidden</div>
             </div>
 
             {/* Live status */}
-            <div className="relative rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-4 shadow-sm">
+            <div className="relative rounded-2xl border border-line-1/60 dark:border-white/[0.06] bg-surface-100 dark:bg-surface-100/[0.02] p-4 shadow-sm">
               <div className="flex items-center gap-1.5 text-mini font-semibold uppercase tracking-wider text-muted mb-3">
                 <Clock size={13} className="text-muted" /> Last Update
               </div>
-              <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none">
+              <div className="text-2xl font-display font-bold text-heading tabular-nums leading-none">
                 {lastUpdated ? formatTime(lastUpdated) : data ? formatTime(data.generated_at) : '-'}
               </div>
               <div className="mt-2.5">
@@ -623,7 +623,7 @@ export default function GlobalPulse(): JSX.Element {
                 ) : (
                   <span className="inline-flex items-center gap-1.5" aria-label="Paused">
                     <WifiOff size={11} className="text-muted" />
-                    <span className="text-mini font-semibold uppercase tracking-wider text-slate-500">PAUSED</span>
+                    <span className="text-mini font-semibold uppercase tracking-wider text-muted">PAUSED</span>
                   </span>
                 )}
               </div>
@@ -640,7 +640,7 @@ export default function GlobalPulse(): JSX.Element {
                 aria-label="Search events"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] bg-white dark:bg-white/[0.03] text-body placeholder-slate-400 focus:outline-none focus:border-rose-500/40 focus:ring-1 focus:ring-rose-500/20 transition-colors"
+                className="w-full pl-9 pr-3 py-2.5 text-xs font-mono rounded-xl border border-line-1/60 dark:border-white/[0.08] bg-surface-100 dark:bg-surface-100/[0.03] text-body placeholder-slate-400 focus:outline-none focus:border-rose-500/40 focus:ring-1 focus:ring-rose-500/20 transition-colors"
               />
               <svg
                 className="absolute left-3 top-2.5 w-4 h-4 text-muted"
@@ -661,7 +661,7 @@ export default function GlobalPulse(): JSX.Element {
                   type="button"
                   onClick={() => setSearchQuery('')}
                   aria-label="Clear event search"
-                  className="absolute right-2.5 top-2.5 text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                  className="absolute right-2.5 top-2.5 text-muted hover:text-muted dark:hover:text-inverted"
                 >
                   <X size={14} />
                 </button>
@@ -669,7 +669,7 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Time Range Filter */}
-            <div className="inline-flex rounded-xl border border-slate-200/60 dark:border-white/[0.08] overflow-hidden">
+            <div className="inline-flex rounded-xl border border-line-1/60 dark:border-white/[0.08] overflow-hidden">
               {[
                 { hours: 0, label: 'All' },
                 { hours: 1, label: '1h' },
@@ -693,7 +693,7 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Map Mode Toggle */}
-            <div className="inline-flex rounded-xl border border-slate-200/60 dark:border-white/[0.08] overflow-hidden">
+            <div className="inline-flex rounded-xl border border-line-1/60 dark:border-white/[0.08] overflow-hidden">
               <button
                 type="button"
                 onClick={() => setMapMode('3d')}
@@ -787,7 +787,7 @@ export default function GlobalPulse(): JSX.Element {
                 type="button"
                 onClick={() => load(true)}
                 disabled={loading}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-line-1/60 dark:border-white/[0.08] text-muted hover:bg-surface-200 dark:hover:bg-surface-100/[0.04] transition-colors disabled:opacity-50"
               >
                 <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
                 Refresh
@@ -795,7 +795,7 @@ export default function GlobalPulse(): JSX.Element {
               <button
                 type="button"
                 onClick={toggleFullscreen}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-line-1/60 dark:border-white/[0.08] text-muted hover:bg-surface-200 dark:hover:bg-surface-100/[0.04] transition-colors"
                 title="Toggle fullscreen (F)"
               >
                 {isFullscreen ? (
@@ -817,7 +817,7 @@ export default function GlobalPulse(): JSX.Element {
               <button
                 type="button"
                 onClick={exportToCsv}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-line-1/60 dark:border-white/[0.08] text-muted hover:bg-surface-200 dark:hover:bg-surface-100/[0.04] transition-colors"
                 title="Export to CSV"
               >
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -835,7 +835,7 @@ export default function GlobalPulse(): JSX.Element {
 
           {/* ─── Filters Panel ─── */}
           {showFilters && (
-            <div className="rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-5 animate-fade-in">
+            <div className="rounded-2xl border border-line-1/60 dark:border-white/[0.06] bg-surface-100 dark:bg-surface-100/[0.02] p-5 animate-fade-in">
               {/* Severity Filter */}
               <div className="mb-5">
                 <div className="flex items-center justify-between mb-2.5">
@@ -893,7 +893,7 @@ export default function GlobalPulse(): JSX.Element {
                     <div className="flex items-center justify-between mb-2.5">
                       <h4 className="text-mini font-semibold uppercase tracking-wider text-muted">
                         {groupLabels[group]}
-                        <span className="ml-2 text-muted/70 dark:text-slate-500/70">
+                        <span className="ml-2 text-muted/70">
                           {activeCount}/{layers.length}
                         </span>
                       </h4>
@@ -942,7 +942,7 @@ export default function GlobalPulse(): JSX.Element {
               })}
 
               {/* Preset Buttons */}
-              <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-100 dark:border-white/[0.04]">
+              <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-line-1 dark:border-white/[0.04]">
                 <button
                   type="button"
                   onClick={() => {
@@ -991,12 +991,12 @@ export default function GlobalPulse(): JSX.Element {
             {/* Globe/Map Container */}
             <div
               ref={globeContainerRef}
-              className="relative rounded-2xl overflow-hidden border border-slate-200/60 dark:border-white/[0.06] bg-slate-100 dark:bg-[#080c14]"
+              className="relative rounded-2xl overflow-hidden border border-line-1/60 dark:border-white/[0.06] bg-surface-300 dark:bg-[#080c14]"
               style={{ minHeight: '600px', maxHeight: isFullscreen ? '100vh' : '750px' }}
             >
               {/* Globe Status Badge */}
               <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
-                <div className="backdrop-blur-sm bg-white/80 dark:bg-white/[0.06] rounded-xl border border-slate-200/50 dark:border-white/[0.08] px-2.5 py-1.5 flex items-center gap-1.5">
+                <div className="backdrop-blur-sm bg-surface-100/80 dark:bg-surface-100/[0.06] rounded-xl border border-line-1/50 dark:border-white/[0.08] px-2.5 py-1.5 flex items-center gap-1.5">
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${mapMode === '3d' ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500'}`}
                   />
@@ -1009,8 +1009,8 @@ export default function GlobalPulse(): JSX.Element {
               {/* Empty State */}
               {geoPoints.length === 0 && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <div className="backdrop-blur-xl bg-white/80 dark:bg-white/[0.04] rounded-2xl px-10 py-8 text-center border border-slate-200/50 dark:border-white/[0.08] max-w-sm">
-                    <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-100 dark:bg-white/[0.04] flex items-center justify-center">
+                  <div className="backdrop-blur-xl bg-surface-100/80 dark:bg-surface-100/[0.04] rounded-2xl px-10 py-8 text-center border border-line-1/50 dark:border-white/[0.08] max-w-sm">
+                    <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-surface-300 dark:bg-surface-100/[0.04] flex items-center justify-center">
                       <Crosshair size={24} className="text-muted" />
                     </div>
                     <p className="text-sm font-semibold text-heading mb-1">No Geolocated Events</p>
@@ -1039,8 +1039,8 @@ export default function GlobalPulse(): JSX.Element {
                           <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-rose-500 animate-spin" />
                         </div>
                         <div className="text-center">
-                          <p className="text-sm font-medium text-slate-800 dark:text-slate-300">Loading Globe</p>
-                          <p className="text-xs text-slate-500 mt-1">Initializing 3D renderer…</p>
+                          <p className="text-sm font-medium text-heading dark:text-inverted">Loading Globe</p>
+                          <p className="text-xs text-muted mt-1">Initializing 3D renderer…</p>
                         </div>
                       </div>
                     </div>
@@ -1064,8 +1064,8 @@ export default function GlobalPulse(): JSX.Element {
                           <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-rose-500 animate-spin" />
                         </div>
                         <div className="text-center">
-                          <p className="text-sm font-medium text-slate-800 dark:text-slate-300">Loading Map</p>
-                          <p className="text-xs text-slate-500 mt-1">Initializing 2D renderer…</p>
+                          <p className="text-sm font-medium text-heading dark:text-inverted">Loading Map</p>
+                          <p className="text-xs text-muted mt-1">Initializing 2D renderer…</p>
                         </div>
                       </div>
                     </div>
@@ -1101,11 +1101,11 @@ export default function GlobalPulse(): JSX.Element {
 
             {/* Event Feed */}
             <aside
-              className="flex flex-col rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] shadow-sm overflow-hidden"
+              className="flex flex-col rounded-2xl border border-line-1/60 dark:border-white/[0.06] bg-surface-100 dark:bg-surface-100/[0.02] shadow-sm overflow-hidden"
               style={{ minHeight: '600px', maxHeight: '750px' }}
             >
               {/* Feed Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-white/[0.06]">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-line-1 dark:border-white/[0.06]">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-60" />
@@ -1143,7 +1143,7 @@ export default function GlobalPulse(): JSX.Element {
               </div>
 
               {/* CTI Quick Filters */}
-              <div className="flex items-center gap-1 px-4 py-2 border-b border-slate-100 dark:border-white/[0.04]">
+              <div className="flex items-center gap-1 px-4 py-2 border-b border-line-1 dark:border-white/[0.04]">
                 {[
                   { key: 'all' as const, label: 'All' },
                   { key: 'ransomware' as const, label: 'Ransomware', icon: <Skull size={11} /> },
@@ -1168,7 +1168,7 @@ export default function GlobalPulse(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setCtiFilter('all')}
-                    className="ml-auto text-micro font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                    className="ml-auto text-micro font-mono text-muted hover:text-muted dark:hover:text-inverted"
                   >
                     <X size={11} />
                   </button>
@@ -1182,7 +1182,7 @@ export default function GlobalPulse(): JSX.Element {
                 </span>
                 {filteredEvents.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center px-4">
-                    <Filter size={28} className="text-slate-300 dark:text-slate-500 mb-4" />
+                    <Filter size={28} className="text-inverted mb-4" />
                     <p className="text-xs font-medium text-muted">No events match filters</p>
                     <p className="text-mini text-muted mt-1">Adjust layers or severity</p>
                     <button
@@ -1197,7 +1197,7 @@ export default function GlobalPulse(): JSX.Element {
                     </button>
                   </div>
                 ) : (
-                  <div className="divide-y divide-slate-100/80 dark:divide-white/[0.04]">
+                  <div className="divide-y divide-line-1/80 dark:divide-white/[0.04]">
                     {filteredEvents.slice(0, 80).map((ev) => {
                       const def = LAYER_DEFS[ev.kind];
                       const sevConfig = SEVERITY_CONFIG[ev.severity];
@@ -1224,7 +1224,7 @@ export default function GlobalPulse(): JSX.Element {
                           className={`w-full text-left px-4 py-3 border-l-2 transition-all ${
                             isSelected
                               ? 'bg-rose-500/5 border-l-rose-500'
-                              : `hover:bg-slate-50/80 dark:hover:bg-white/[0.02] ${ctiBorder}`
+                              : `hover:bg-surface-200/80 dark:hover:bg-surface-100/[0.02] ${ctiBorder}`
                           }`}
                         >
                           <div className="flex items-start gap-2.5">
@@ -1243,16 +1243,14 @@ export default function GlobalPulse(): JSX.Element {
                                 <span className="text-micro font-mono uppercase tracking-wider text-muted">
                                   {def?.shortLabel}
                                 </span>
-                                <span className="text-micro font-mono text-muted/70 dark:text-slate-500/70 ml-auto">
+                                <span className="text-micro font-mono text-muted/70 ml-auto">
                                   {formatTime(ev.timestamp)}
                                 </span>
                               </div>
                               <p className="text-mini font-medium text-heading line-clamp-1">{ev.title}</p>
                               <p className="text-micro text-muted line-clamp-1 mt-0.5">{ev.description}</p>
                               <div className="flex items-center gap-1.5 mt-1">
-                                <span className="text-micro font-mono text-muted/70 dark:text-slate-500/70">
-                                  {ev.source}
-                                </span>
+                                <span className="text-micro font-mono text-muted/70">{ev.source}</span>
                                 {ev.kind === 'cve' && ev.magnitude != null && (
                                   <span
                                     className={`text-micro font-mono font-bold px-1 rounded ${
@@ -1313,14 +1311,14 @@ export default function GlobalPulse(): JSX.Element {
 
           {/* ─── Selected Event Detail ─── */}
           {selectedEvent && (
-            <div className="rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-5 animate-fade-in">
+            <div className="rounded-2xl border border-line-1/60 dark:border-white/[0.06] bg-surface-100 dark:bg-surface-100/[0.02] p-5 animate-fade-in">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2.5 mb-3">
                     <span className={LAYER_DEFS[selectedEvent.kind]?.color}>
                       {LAYER_DEFS[selectedEvent.kind]?.icon}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
+                    <h3 className="text-sm font-bold text-heading">{selectedEvent.title}</h3>
                     <SeverityPill severity={selectedEvent.severity} />
                   </div>
                   <p className="text-xs text-muted leading-relaxed mb-4">{selectedEvent.description}</p>
@@ -1418,7 +1416,7 @@ export default function GlobalPulse(): JSX.Element {
                     setSelectedEvent(null);
                     setShowAiAnalysis(false);
                   }}
-                  className="shrink-0 p-1.5 rounded-xl text-muted hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04] transition-colors"
+                  className="shrink-0 p-1.5 rounded-xl text-muted hover:text-muted dark:hover:text-inverted hover:bg-surface-300 dark:hover:bg-surface-100/[0.04] transition-colors"
                 >
                   <X size={14} />
                 </button>

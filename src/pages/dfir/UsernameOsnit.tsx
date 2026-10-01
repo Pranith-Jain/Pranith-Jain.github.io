@@ -90,7 +90,7 @@ export default function UsernameOsnit(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="username (letters / digits / . _ -)"
-              className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-heading focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded-xl border border-line-1 bg-surface-200 font-mono text-sm text-heading focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
               aria-label="Username"
@@ -99,7 +99,7 @@ export default function UsernameOsnit(): JSX.Element {
           <button
             type="submit"
             disabled={!valid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Search size={16} className="inline mr-2" />
             Search
@@ -124,10 +124,10 @@ export default function UsernameOsnit(): JSX.Element {
       {result && (
         <div className="space-y-6">
           <div className="flex items-center gap-4 font-mono text-sm">
-            <span className="text-slate-500">
+            <span className="text-muted">
               Checked <span className="text-heading font-bold">{result.total_checked}</span> platforms
             </span>
-            <span className="text-slate-500">
+            <span className="text-muted">
               Found <span className="text-emerald-600 dark:text-emerald-400 font-bold">{result.found}</span>
             </span>
             <div className="flex gap-1 ml-auto">
@@ -138,7 +138,7 @@ export default function UsernameOsnit(): JSX.Element {
                   className={`px-2.5 py-1 text-xs font-mono rounded-xl border ${
                     filter === f
                       ? 'bg-brand-600 text-white border-brand-600'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                      : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
                   }`}
                 >
                   {f === 'all' ? 'All' : 'Found'}
@@ -184,7 +184,7 @@ export default function UsernameOsnit(): JSX.Element {
                 {notFound.map((r) => (
                   <span
                     key={r.platform}
-                    className="text-xs font-mono px-2 py-0.5 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                    className="text-xs font-mono px-2 py-0.5 rounded-xl bg-surface-300 text-muted border border-line-1"
                   >
                     {r.name}
                   </span>

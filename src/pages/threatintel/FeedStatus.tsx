@@ -103,7 +103,7 @@ export default function FeedStatus(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -157,7 +157,7 @@ export default function FeedStatus(): JSX.Element {
                     </div>
                   </div>
                   <p className="text-meta font-mono text-muted leading-relaxed mb-1.5">{r.reason}</p>
-                  <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
+                  <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-muted">
                     <Link to={r.page_path} className="hover:text-rose-600 dark:hover:text-rose-400">
                       {r.page_path}
                     </Link>
@@ -179,7 +179,7 @@ export default function FeedStatus(): JSX.Element {
                     {r.admiralty_grade && (
                       <>
                         <span>·</span>
-                        <span className="text-slate-500">admiralty {r.admiralty_grade}</span>
+                        <span className="text-muted">admiralty {r.admiralty_grade}</span>
                       </>
                     )}
                   </div>

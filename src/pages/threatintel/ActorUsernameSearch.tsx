@@ -23,10 +23,7 @@ export default function ActorUsernameSearch(): JSX.Element {
       title="Forum Username Search"
       description="Search threat-actor handles across cybercrime forums. Local dataset (291K) or ScrapedIntel API (2M+)."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="Username sources"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="Username sources">
         {TABS.map((t) => (
           <button
             key={t.id}

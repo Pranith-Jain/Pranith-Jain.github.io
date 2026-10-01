@@ -150,23 +150,23 @@ export default function RansomwareQuant(): JSX.Element {
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Scenarios</div>
+            <div className="text-micro font-mono text-muted">Scenarios</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total_scenarios}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Total at Risk</div>
+            <div className="text-micro font-mono text-muted">Total at Risk</div>
             <div className="text-xl font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">
               {fmt(stats.total_at_risk)}
             </div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">After Insurance</div>
+            <div className="text-micro font-mono text-muted">After Insurance</div>
             <div className="text-xl font-bold font-mono mt-1 text-amber-600 dark:text-amber-400">
               {fmt(stats.total_after_insurance)}
             </div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Avg Downtime</div>
+            <div className="text-micro font-mono text-muted">Avg Downtime</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.avg_downtime_hours}h</div>
           </div>
         </div>
@@ -176,25 +176,22 @@ export default function RansomwareQuant(): JSX.Element {
         <button
           type="button"
           onClick={() => setShowCreate(!showCreate)}
-          className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+          className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
         >
           <Plus size={11} /> New Scenario
         </button>
       </div>
 
       {showCreate && (
-        <form
-          onSubmit={handleCreate}
-          className="mb-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4 space-y-3"
-        >
+        <form onSubmit={handleCreate} className="mb-5 rounded-xl border border-line-1 bg-surface-200 p-4 space-y-3">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <input
               name="name"
               placeholder="Scenario name *"
               required
-              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] col-span-2 sm:col-span-3"
+              className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200 col-span-2 sm:col-span-3"
             />
-            <label className="text-micro font-mono text-slate-500 col-span-2 sm:col-span-3">
+            <label className="text-micro font-mono text-muted col-span-2 sm:col-span-3">
               <input name="notifiable_breach" type="checkbox" defaultChecked className="mr-1" /> Notifiable breach (adds
               regulatory fines)
             </label>
@@ -205,7 +202,7 @@ export default function RansomwareQuant(): JSX.Element {
                   name="annual_revenue"
                   type="number"
                   defaultValue={defaultForm.annual_revenue}
-                  className="text-micro font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] w-full"
+                  className="text-micro font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 w-full"
                 />
               </div>
               <div>
@@ -214,7 +211,7 @@ export default function RansomwareQuant(): JSX.Element {
                   name="ransom_demand"
                   type="number"
                   defaultValue={defaultForm.ransom_demand}
-                  className="text-micro font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] w-full"
+                  className="text-micro font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 w-full"
                 />
               </div>
               <div>
@@ -223,7 +220,7 @@ export default function RansomwareQuant(): JSX.Element {
                   name="pii_records"
                   type="number"
                   defaultValue={defaultForm.pii_records}
-                  className="text-micro font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] w-full"
+                  className="text-micro font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 w-full"
                 />
               </div>
               <div>
@@ -232,7 +229,7 @@ export default function RansomwareQuant(): JSX.Element {
                   name="cyber_insurance_coverage"
                   type="number"
                   defaultValue={defaultForm.cyber_insurance_coverage}
-                  className="text-micro font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] w-full"
+                  className="text-micro font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 w-full"
                 />
               </div>
             </div>
@@ -241,13 +238,13 @@ export default function RansomwareQuant(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowCreate(false)}
-              className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
+              className="text-xs font-mono px-3 py-1.5 rounded border border-line-1"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
             >
               Calculate
             </button>
@@ -268,7 +265,7 @@ export default function RansomwareQuant(): JSX.Element {
               key={s.id}
               type="button"
               onClick={() => setSelectedId(selectedId === s.id ? null : s.id)}
-              className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedId === s.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-300'}`}
+              className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedId === s.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300'}`}
             >
               <div className="font-mono text-xs font-semibold truncate">{s.name}</div>
               <div className="flex items-center justify-between mt-1">
@@ -279,7 +276,7 @@ export default function RansomwareQuant(): JSX.Element {
                 </span>
                 <span className="text-micro text-muted">{s.estimated_downtime_hours}h downtime</span>
               </div>
-              <div className="mt-1 w-full h-1 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+              <div className="mt-1 w-full h-1 rounded-full bg-track overflow-hidden">
                 <div
                   className="h-full rounded-full bg-emerald-500"
                   style={{ width: `${Math.min(100, (s.insurance_recovery / Math.max(s.total_impact, 1)) * 100)}%` }}
@@ -303,7 +300,7 @@ export default function RansomwareQuant(): JSX.Element {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-mono font-semibold text-sm">{selected.name}</h3>
-                  <p className="text-micro text-slate-500 mt-0.5">{selected.description}</p>
+                  <p className="text-micro text-muted mt-0.5">{selected.description}</p>
                 </div>
                 <button
                   type="button"
@@ -316,25 +313,25 @@ export default function RansomwareQuant(): JSX.Element {
 
               {/* Summary cards */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                <div className="rounded-xl border border-line-1 p-2.5">
                   <div className="text-micro font-mono text-muted">Total Impact</div>
                   <div className="text-sm font-bold font-mono text-rose-600 dark:text-rose-400">
                     {fmt(selected.total_impact)}
                   </div>
                 </div>
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                <div className="rounded-xl border border-line-1 p-2.5">
                   <div className="text-micro font-mono text-muted">After Insurance</div>
                   <div className="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400">
                     {fmt(selected.total_impact_after_insurance)}
                   </div>
                 </div>
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                <div className="rounded-xl border border-line-1 p-2.5">
                   <div className="text-micro font-mono text-muted">Insurance Recovers</div>
                   <div className="text-sm font-bold font-mono text-brand-600 dark:text-brand-400">
                     {fmt(selected.insurance_recovery)}
                   </div>
                 </div>
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                <div className="rounded-xl border border-line-1 p-2.5">
                   <div className="text-micro font-mono text-muted">Total Downtime</div>
                   <div className="text-sm font-bold font-mono">
                     {selected.estimated_downtime_hours + selected.recovery_time_hours}h
@@ -344,7 +341,7 @@ export default function RansomwareQuant(): JSX.Element {
 
               {/* Breakdown */}
               <div className="surface-card p-3 space-y-2">
-                <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+                <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
                   Cost Breakdown
                 </h4>
                 {[
@@ -385,14 +382,14 @@ export default function RansomwareQuant(): JSX.Element {
                   },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-3">
-                    <span className="text-micro font-mono w-28 text-slate-500 shrink-0">{item.label}</span>
-                    <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+                    <span className="text-micro font-mono w-28 text-muted shrink-0">{item.label}</span>
+                    <div className="flex-1 h-3 rounded bg-surface-300 overflow-hidden">
                       <div className="h-full rounded bg-brand-500" style={{ width: `${Math.min(item.pct, 100)}%` }} />
                     </div>
                     <span className="text-micro font-mono w-20 text-right text-muted shrink-0">{fmt(item.value)}</span>
                   </div>
                 ))}
-                <div className="flex items-center gap-3 pt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="flex items-center gap-3 pt-1 border-t border-line-1">
                   <span className="text-micro font-mono w-28 font-bold shrink-0">Insurance</span>
                   <div className="flex-1" />
                   <span className="text-micro font-mono w-20 text-right text-emerald-600 dark:text-emerald-400 shrink-0">
@@ -403,7 +400,7 @@ export default function RansomwareQuant(): JSX.Element {
 
               {/* Parameters */}
               <div className="surface-card p-3">
-                <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+                <h4 className="text-micro font-mono uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
                   Parameters
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-micro font-mono">

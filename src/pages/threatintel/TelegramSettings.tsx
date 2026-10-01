@@ -142,7 +142,7 @@ export default function TelegramSettings(): JSX.Element {
           <Bot size={16} className="text-rose-600 dark:text-rose-400" /> Bot API Status
         </h2>
         {botStatus === null ? (
-          <div className="flex items-center gap-2 font-mono text-sm text-slate-500">
+          <div className="flex items-center gap-2 font-mono text-sm text-muted">
             <Loader2 size={14} className="animate-spin" /> loading...
           </div>
         ) : (
@@ -154,8 +154,8 @@ export default function TelegramSettings(): JSX.Element {
                 />
                 {botStatus.configured ? 'Token configured' : 'Token missing'}
               </span>
-              {botStatus.bot_username && <span className="text-slate-500">@{botStatus.bot_username}</span>}
-              <span className="text-slate-500">{botStatus.cached_channels.length} channel(s) mapped</span>
+              {botStatus.bot_username && <span className="text-muted">@{botStatus.bot_username}</span>}
+              <span className="text-muted">{botStatus.cached_channels.length} channel(s) mapped</span>
             </div>
             {botStatus.configured && botStatus.cached_channels.length === 0 && (
               <p className="text-xs font-mono text-amber-600 dark:text-amber-400">
@@ -168,7 +168,7 @@ export default function TelegramSettings(): JSX.Element {
                 type="button"
                 onClick={pollBot}
                 disabled={polling || !botStatus.configured}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 text-on-fill text-xs font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {polling ? <Loader2 size={12} className="animate-spin" /> : <Radio size={12} />}
                 Poll now
@@ -176,7 +176,7 @@ export default function TelegramSettings(): JSX.Element {
               <button
                 type="button"
                 onClick={loadBotStatus}
-                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
+                className="inline-flex items-center gap-1 text-xs font-mono text-muted hover:text-rose-600 transition-colors"
               >
                 <RefreshCw size={10} /> refresh
               </button>
@@ -203,18 +203,18 @@ export default function TelegramSettings(): JSX.Element {
             value={handle}
             onChange={(e) => setHandle(e.target.value)}
             placeholder="handle (e.g. IntCyberDigest)"
-            className="flex-1 min-w-[180px] px-3 py-2 surface-card text-sm font-mono text-heading placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+            className="flex-1 min-w-[180px] px-3 py-2 surface-card text-sm font-mono text-heading placeholder:text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
           />
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="display name (optional)"
-            className="flex-1 min-w-[140px] px-3 py-2 surface-card text-sm font-mono text-heading placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+            className="flex-1 min-w-[140px] px-3 py-2 surface-card text-sm font-mono text-heading placeholder:text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
           />
           <button
             type="submit"
             disabled={adding || !handle.trim()}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-on-fill text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {adding ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
             Add
@@ -231,19 +231,19 @@ export default function TelegramSettings(): JSX.Element {
 
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-display font-semibold text-sm">
-          Custom channels {channels.length > 0 && <span className="font-mono text-slate-500">· {channels.length}</span>}
+          Custom channels {channels.length > 0 && <span className="font-mono text-muted">· {channels.length}</span>}
         </h2>
         <button
           type="button"
           onClick={load}
-          className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-mono text-muted hover:text-rose-600 transition-colors"
         >
           <RefreshCw size={12} /> refresh
         </button>
       </div>
 
       {loading && (
-        <div className="flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> loading...
         </div>
       )}
@@ -255,7 +255,7 @@ export default function TelegramSettings(): JSX.Element {
       )}
 
       {!loading && !error && channels.length === 0 && (
-        <p className="font-mono text-sm text-slate-500">No custom channels added yet.</p>
+        <p className="font-mono text-sm text-muted">No custom channels added yet.</p>
       )}
 
       {!loading && channels.length > 0 && (
@@ -264,7 +264,7 @@ export default function TelegramSettings(): JSX.Element {
             <li key={ch.handle} className="surface-card p-3 flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <span className="font-display font-semibold text-sm">{ch.name}</span>
-                <code className="ml-2 text-xs font-mono text-slate-500">@{ch.handle}</code>
+                <code className="ml-2 text-xs font-mono text-muted">@{ch.handle}</code>
                 <p className="text-micro font-mono text-muted mt-0.5">
                   added {new Date(ch.added_at).toLocaleDateString()}
                 </p>
@@ -274,7 +274,7 @@ export default function TelegramSettings(): JSX.Element {
                   href={`https://telegram.me/s/${ch.handle}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-rose-600 transition-colors"
+                  className="rounded border border-line-1 p-1.5 text-muted hover:text-rose-600 transition-colors"
                   aria-label="Preview channel"
                 >
                   <ExternalLink size={12} />
@@ -282,7 +282,7 @@ export default function TelegramSettings(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => deleteChannel(ch.handle)}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-rose-600"
+                  className="rounded border border-line-1 p-1.5 text-muted hover:text-rose-600"
                   aria-label="Remove channel"
                 >
                   <Trash2 size={12} />

@@ -17,10 +17,8 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
   const Icon = def.icon;
   return (
     <div
-      className={`relative rounded-xl border px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 min-w-[140px] ${
-        data.selected
-          ? 'border-brand-500 ring-2 ring-brand-500/30'
-          : 'border-slate-300 dark:border-[rgb(var(--border-400))]'
+      className={`relative rounded-xl border px-3 py-2 bg-surface-100 dark:bg-surface-200 shadow-e1 min-w-[140px] ${
+        data.selected ? 'border-brand-500 ring-2 ring-brand-500/30' : 'border-slate-300 dark:border-line-1'
       }`}
     >
       {data.selected && data.onEdit && (
@@ -28,7 +26,7 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
           type="button"
           aria-label="Edit identifier"
           title="Edit identifier"
-          className="absolute -top-2 -right-7 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-brand-600 text-white shadow hover:bg-brand-700 transition-colors"
+          className="absolute -top-2 -right-7 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-brand-600 text-on-fill shadow hover:bg-brand-700 transition-colors"
           onClick={(e) => {
             e.stopPropagation();
             data.onEdit?.();
@@ -42,7 +40,7 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
           type="button"
           aria-label="Delete identifier"
           title="Delete identifier"
-          className="absolute -top-2 -right-2 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-rose-600 text-white shadow hover:bg-rose-700 transition-colors"
+          className="absolute -top-2 -right-2 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-rose-600 text-on-fill shadow hover:bg-rose-700 transition-colors"
           onClick={(e) => {
             e.stopPropagation();
             data.onDelete?.();
@@ -65,7 +63,7 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
         ) : (
           <Icon size={16} className="text-brand-600 dark:text-brand-400" />
         )}
-        <div className="text-xs font-mono text-slate-500">{def.label}</div>
+        <div className="text-xs font-mono text-muted">{def.label}</div>
       </div>
       <div className="mt-1 text-sm font-medium truncate max-w-[180px]">{data.primary || '-'}</div>
       <Handle type="source" position={Position.Bottom} className="!bg-slate-400" />

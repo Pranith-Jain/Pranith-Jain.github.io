@@ -38,9 +38,9 @@ export function SourceTogglePanel({
   for (const s of feedStatuses) statusByUrl.set(s.url, s);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
+    <div className="rounded-xl border border-line-1 bg-surface-200 p-3 space-y-3 max-h-[420px] overflow-y-auto">
       <div className="flex items-center justify-between gap-2">
-        <p className="text-mini font-mono text-slate-500">
+        <p className="text-mini font-mono text-muted">
           Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
           localStorage.
         </p>
@@ -48,14 +48,14 @@ export function SourceTogglePanel({
           <button
             type="button"
             onClick={onEnableAll}
-            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 hover:border-brand-500/40 transition-colors"
           >
             enable all ({allFeedIds.length})
           </button>
           <button
             type="button"
             onClick={onDisableAll}
-            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 transition-colors"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 hover:border-rose-500/40 transition-colors"
           >
             disable all
           </button>
@@ -63,7 +63,7 @@ export function SourceTogglePanel({
       </div>
       {sections.map((sec) => (
         <div key={sec.id}>
-          <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+          <h3 className="text-micro font-mono uppercase tracking-wider text-muted mb-1.5">
             {sec.label}
             <span className="ml-1.5 opacity-60">
               · {sec.feedIds.filter((id) => !disabled.has(id)).length}/{sec.feedIds.length} on
@@ -81,8 +81,8 @@ export function SourceTogglePanel({
                   onClick={() => onToggle(fid)}
                   className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
                     isEnabled
-                      ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
-                      : 'border-slate-200/40 dark:border-[rgb(var(--border-400))] bg-slate-100/40 dark:bg-[rgb(var(--input-200)/0.4)] opacity-60'
+                      ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
+                      : 'border-slate-200/40 dark:border-line-1 bg-slate-100/40 dark:bg-input-200/40 opacity-60'
                   }`}
                 >
                   <input
@@ -91,7 +91,7 @@ export function SourceTogglePanel({
                     onChange={() => {
                       /* button handles click */
                     }}
-                    className="rounded border-slate-400 shrink-0"
+                    className="rounded border-line-3 shrink-0"
                     tabIndex={-1}
                   />
                   <span className="flex-1 min-w-0">

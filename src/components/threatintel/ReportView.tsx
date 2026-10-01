@@ -113,15 +113,12 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
           <div className="flex flex-wrap items-center gap-2 mt-3 text-mini font-mono text-muted">
             <span>generated {report.cover.generated_at}</span>
             {report.cover.subject_badges.map((b) => (
-              <span
-                key={b}
-                className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))]"
-              >
+              <span key={b} className="px-1.5 py-0.5 rounded border border-line-2">
                 {b}
               </span>
             ))}
             {report.confidence.admiralty?.label && (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-300">
                 <ShieldAlert size={11} /> {report.confidence.admiralty.label}
               </span>
             )}
@@ -129,14 +126,14 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
           <div className="flex gap-2 mt-4">
             <button
               onClick={onExportPdf}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-brand-500/50 transition-colors"
             >
               <FileDown size={13} /> Export PDF
             </button>
             {onExportMd && (
               <button
                 onClick={onExportMd}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-brand-500/50 transition-colors"
               >
                 <FileText size={13} /> .md
               </button>
@@ -234,7 +231,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
               <li key={s.ref} id={`report-src-${s.ref}`} className="flex items-center gap-2 text-sm text-body">
                 <span className="font-mono text-xs text-muted">[{s.ref}]</span>
                 <span
-                  className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]"
+                  className="font-mono text-xs px-1.5 py-0.5 rounded bg-surface-300"
                   title="NATO Admiralty reliability"
                 >
                   {s.authority}

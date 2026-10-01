@@ -51,10 +51,10 @@ export function CopyToClipboard({ text, label, className = '', successMessage = 
         inline-flex items-center gap-2
         px-3 py-1.5
         rounded-xl
-        bg-slate-100 text-slate-600
-        hover:bg-slate-200 hover:text-slate-900
-        dark:bg-white/10 dark:text-slate-300
-        dark:hover:bg-white/20 dark:hover:text-white
+        bg-surface-300 text-muted
+        hover:bg-track hover:text-heading
+        dark:bg-surface-100/10 dark:text-inverted
+        dark:hover:bg-surface-100/20 dark:hover:text-white
         transition-all duration-200
         focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50
         ${className}

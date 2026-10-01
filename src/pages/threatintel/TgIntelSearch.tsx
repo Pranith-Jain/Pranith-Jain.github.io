@@ -108,7 +108,7 @@ const IOC_CLR: Record<string, string> = {
   url: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   btc: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   eth: 'bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300',
-  onion: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-body',
+  onion: 'bg-slate-100 dark:bg-surface-200 text-body',
 };
 
 const IOC_ICO: Record<string, typeof Server> = {
@@ -128,7 +128,7 @@ const SEV: Record<string, string> = {
   critical: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   high: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   medium: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
-  low: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))]',
+  low: 'bg-slate-100 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1',
 };
 
 const LEAK_CLR: Record<string, string> = {
@@ -138,7 +138,7 @@ const LEAK_CLR: Record<string, string> = {
   keyword: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   ioc: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
   cve: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted',
+  unknown: 'bg-slate-100 dark:bg-surface-300 text-muted',
 };
 
 function TgIntelSearch() {
@@ -263,14 +263,14 @@ function TgIntelSearch() {
           <button
             type="button"
             onClick={() => setShowSaved(!showSaved)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono font-semibold rounded border border-line-1 bg-surface-100 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
           >
             <Bookmark size={10} /> Saved ({savedSearches.length})
           </button>
           <button
             type="button"
             onClick={() => setShowFilters(!showFilters)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono font-semibold rounded border border-line-1 bg-surface-100 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
           >
             <Filter size={10} /> Filters
           </button>
@@ -285,7 +285,7 @@ function TgIntelSearch() {
             <button
               type="button"
               onClick={() => setShowSaved(false)}
-              className="text-muted hover:text-slate-900 dark:hover:text-slate-100"
+              className="text-muted hover:text-heading dark:hover:text-slate-100"
             >
               <X size={14} />
             </button>
@@ -295,10 +295,7 @@ function TgIntelSearch() {
           ) : (
             <div className="space-y-1.5">
               {savedSearches.map((s) => (
-                <div
-                  key={s.id}
-                  className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-100))]"
-                >
+                <div key={s.id} className="flex items-center justify-between p-2 rounded bg-surface-200">
                   <button type="button" onClick={() => loadSaved(s)} className="text-left flex-1 min-w-0">
                     <p className="text-tool font-semibold truncate">{s.name}</p>
                     <p className="text-meta font-mono text-muted truncate">{s.query}</p>
@@ -306,7 +303,7 @@ function TgIntelSearch() {
                   <button
                     type="button"
                     onClick={() => handleDeleteSaved(s.id)}
-                    className="p-1 text-slate-300 dark:text-muted hover:text-rose-500 ml-2"
+                    className="p-1 text-inverted dark:text-muted hover:text-rose-500 ml-2"
                   >
                     <Trash2 size={12} />
                   </button>
@@ -324,7 +321,7 @@ function TgIntelSearch() {
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value as 'boolean' | 'general')}
-              className="px-2.5 py-2 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-r border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono font-semibold text-muted focus:outline-none"
+              className="px-2.5 py-2 bg-surface-200 border-r border-line-1 text-mini font-mono font-semibold text-muted focus:outline-none"
             >
               <option value="boolean">Boolean</option>
               <option value="general">General</option>
@@ -337,7 +334,7 @@ function TgIntelSearch() {
               placeholder={
                 mode === 'boolean' ? 'ransomware AND channel.title:TeamPCP NOT tutorial' : 'search keywords...'
               }
-              className="flex-1 px-3 py-2 bg-transparent font-mono text-tool text-heading placeholder:text-slate-500 focus:outline-none"
+              className="flex-1 px-3 py-2 bg-transparent font-mono text-tool text-heading placeholder:text-muted focus:outline-none"
             />
             {query && (
               <button
@@ -348,7 +345,7 @@ function TgIntelSearch() {
                   setTotal(0);
                   setTimeline([]);
                 }}
-                className="px-2 text-muted hover:text-slate-900 dark:hover:text-slate-100"
+                className="px-2 text-muted hover:text-heading dark:hover:text-slate-100"
               >
                 <X size={14} />
               </button>
@@ -357,7 +354,7 @@ function TgIntelSearch() {
           <button
             aria-label="Search"
             type="submit"
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
           >
             <Search size={14} />
           </button>
@@ -365,7 +362,7 @@ function TgIntelSearch() {
             <button
               type="button"
               onClick={() => setShowSaveForm(true)}
-              className="px-2.5 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100 hover:border-rose-300 transition-colors"
+              className="px-2.5 py-2 border border-line-1 rounded-xl font-mono text-muted hover:text-heading dark:hover:text-slate-100 hover:border-rose-300 transition-colors"
             >
               <Star size={14} />
             </button>
@@ -379,19 +376,19 @@ function TgIntelSearch() {
             value={saveName}
             onChange={(e) => setSaveName(e.target.value)}
             placeholder="Search name..."
-            className="flex-1 max-w-xs px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
+            className="flex-1 max-w-xs px-3 py-1.5 bg-surface-100 border border-line-1 rounded font-mono text-tool focus:outline-none focus:border-rose-500"
           />
           <button
             type="button"
             onClick={handleSave}
-            className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded"
+            className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill text-mini font-mono font-semibold rounded"
           >
             Save
           </button>
           <button
             type="button"
             onClick={() => setShowSaveForm(false)}
-            className="text-muted hover:text-slate-900 dark:hover:text-slate-100"
+            className="text-muted hover:text-heading dark:hover:text-slate-100"
           >
             <X size={14} />
           </button>
@@ -403,7 +400,7 @@ function TgIntelSearch() {
         <div className="mb-4 surface-card p-4">
           <div className="flex flex-wrap items-end gap-3">
             <div>
-              <label htmlFor="tg-ch" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tg-ch" className="block text-micro font-mono text-muted mb-1">
                 Channel
               </label>
               <input
@@ -411,18 +408,18 @@ function TgIntelSearch() {
                 value={filterChannel}
                 onChange={(e) => setFilterChannel(e.target.value)}
                 placeholder="@handle"
-                className="px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500 w-36"
+                className="px-2.5 py-1.5 bg-surface-200 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500 w-36"
               />
             </div>
             <div>
-              <label htmlFor="tg-sev" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tg-sev" className="block text-micro font-mono text-muted mb-1">
                 Severity
               </label>
               <select
                 id="tg-sev"
                 value={filterSeverity}
                 onChange={(e) => setFilterSeverity(e.target.value)}
-                className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] focus:outline-none"
+                className="text-meta font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 focus:outline-none"
               >
                 <option value="">All</option>
                 <option value="critical">Critical</option>
@@ -432,7 +429,7 @@ function TgIntelSearch() {
               </select>
             </div>
             <div>
-              <label htmlFor="tg-from" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tg-from" className="block text-micro font-mono text-muted mb-1">
                 From
               </label>
               <input
@@ -440,11 +437,11 @@ function TgIntelSearch() {
                 type="date"
                 value={filterFrom}
                 onChange={(e) => setFilterFrom(e.target.value)}
-                className="px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="px-2.5 py-1.5 bg-surface-200 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
             <div>
-              <label htmlFor="tg-to" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tg-to" className="block text-micro font-mono text-muted mb-1">
                 To
               </label>
               <input
@@ -452,18 +449,18 @@ function TgIntelSearch() {
                 type="date"
                 value={filterTo}
                 onChange={(e) => setFilterTo(e.target.value)}
-                className="px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="px-2.5 py-1.5 bg-surface-200 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
             <div>
-              <label htmlFor="tg-days" className="block text-micro font-mono text-slate-500 mb-1">
+              <label htmlFor="tg-days" className="block text-micro font-mono text-muted mb-1">
                 Timeline
               </label>
               <select
                 id="tg-days"
                 value={timelineDays}
                 onChange={(e) => setTimelineDays(Number(e.target.value))}
-                className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] focus:outline-none"
+                className="text-meta font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 focus:outline-none"
               >
                 <option value={7}>7d</option>
                 <option value={30}>30d</option>
@@ -474,7 +471,7 @@ function TgIntelSearch() {
             <button
               type="button"
               onClick={() => doSearch(query, 0)}
-              className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded"
+              className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill text-mini font-mono font-semibold rounded"
             >
               Apply
             </button>
@@ -568,7 +565,7 @@ function TgIntelSearch() {
                   background: `linear-gradient(to top, var(--color-emerald-500) 0%, var(--color-amber-500) ${Math.min(100, ((t.medium + t.high) / Math.max(t.count, 1)) * 100)}%, var(--color-red-500) ${Math.min(100, (t.critical / Math.max(t.count, 1)) * 100)}%)`,
                 }}
               >
-                <div className="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-1.5 py-0.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-micro font-mono rounded whitespace-nowrap z-10">
+                <div className="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-1.5 py-0.5 bg-surface-100 dark:bg-surface-300 text-white dark:text-heading text-micro font-mono rounded whitespace-nowrap z-10">
                   {t.day}: {t.count}
                 </div>
               </button>
@@ -608,7 +605,7 @@ function TgIntelSearch() {
                     setFilterChannel(tc.channel_handle);
                     doSearch(query, 0);
                   }}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted hover:bg-track dark:hover:bg-surface-300 transition-colors"
                 >
                   @{tc.channel_handle} ({tc.count})
                 </button>
@@ -639,7 +636,7 @@ function TgIntelSearch() {
                         toggleExpand(entry.id);
                       }
                     }}
-                    className="flex items-start gap-3 p-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
+                    className="flex items-start gap-3 p-3 cursor-pointer hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
@@ -710,7 +707,7 @@ function TgIntelSearch() {
                   </div>
 
                   {isExpanded && (
-                    <div className="border-t border-slate-100 dark:border-[rgb(var(--border-300))] p-3 bg-slate-50 dark:bg-[rgb(var(--surface-100))]">
+                    <div className="border-t border-line-1 p-3 bg-surface-200">
                       <div className="flex items-center gap-1.5 mb-2">
                         <Eye size={10} className="text-rose-500" />
                         <h4 className="text-mini font-display font-semibold">Observables</h4>
@@ -745,7 +742,7 @@ function TgIntelSearch() {
                                       type="button"
                                       key={i.value}
                                       onClick={() => copyIOC(i.value)}
-                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${IOC_CLR[i.type] || 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted'} hover:opacity-80`}
+                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${IOC_CLR[i.type] || 'bg-slate-100 dark:bg-surface-300 text-muted'} hover:opacity-80`}
                                     >
                                       {i.value.length > 36 ? i.value.slice(0, 36) + '...' : i.value}
                                       {copiedIOC === i.value ? (
@@ -762,7 +759,7 @@ function TgIntelSearch() {
                         </div>
                       )}
                       {domains.length > 0 && (
-                        <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                        <div className="mt-2 pt-2 border-t border-line-1">
                           <span className="text-micro font-mono font-semibold text-muted">Domains:</span>
                           <div className="flex flex-wrap gap-1 mt-0.5">
                             {domains.map((d) => (
@@ -779,7 +776,7 @@ function TgIntelSearch() {
                           </div>
                         </div>
                       )}
-                      <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <div className="mt-2 pt-2 border-t border-line-1">
                         <span className="text-micro font-mono text-muted">
                           Sender:{' '}
                           <span className="font-semibold text-rose-600 dark:text-rose-400">
@@ -799,7 +796,7 @@ function TgIntelSearch() {
                 type="button"
                 onClick={() => doSearch(query, Math.max(0, (page - 1) * limit))}
                 disabled={page === 0}
-                className="px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-40 hover:border-rose-300 transition-colors"
+                className="px-3 py-1.5 text-mini font-mono font-semibold rounded border border-line-1 disabled:opacity-40 hover:border-rose-300 transition-colors"
               >
                 Previous
               </button>
@@ -810,7 +807,7 @@ function TgIntelSearch() {
                 type="button"
                 onClick={() => doSearch(query, (page + 1) * limit)}
                 disabled={(page + 1) * limit >= total}
-                className="px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-40 hover:border-rose-300 transition-colors"
+                className="px-3 py-1.5 text-mini font-mono font-semibold rounded border border-line-1 disabled:opacity-40 hover:border-rose-300 transition-colors"
               >
                 Next
               </button>
@@ -833,7 +830,7 @@ function TgIntelSearch() {
           <p className="font-display font-semibold text-lg mb-1">Telegram Intelligence Search</p>
           <p className="font-mono text-sm mb-3">Search across indexed Telegram messages</p>
           <div className="max-w-md mx-auto text-left space-y-1 text-meta font-mono">
-            <p className="text-slate-500">Examples:</p>
+            <p className="text-muted">Examples:</p>
             <p className="text-body">ransomware AND "dark web"</p>
             <p className="text-body">channel.title:TeamPCP AND text:credential</p>
             <p className="text-body">stealer NOT tutorial</p>

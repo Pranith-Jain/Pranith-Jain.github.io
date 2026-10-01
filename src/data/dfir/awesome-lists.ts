@@ -18,13 +18,7 @@
  */
 
 export type AwesomeFocus =
-  | 'threat-intel'
-  | 'osint'
-  | 'incident-response'
-  | 'cybersecurity-general'
-  | 'soc-cert'
-  | 'mcp-security'
-  | 'ai-skills';
+  'threat-intel' | 'osint' | 'incident-response' | 'cybersecurity-general' | 'soc-cert' | 'mcp-security' | 'ai-skills';
 
 export interface AwesomeList {
   id: string;

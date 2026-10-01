@@ -106,7 +106,7 @@ export function Dossier({ actor, onClose }: Props) {
               {actor.sector_scores.map((s) => (
                 <div key={s.sector} className="flex items-center gap-2">
                   <span className="w-28 text-meta text-muted capitalize">{s.sector}</span>
-                  <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full bg-surface-300 overflow-hidden">
                     <div
                       className="h-full rounded-full"
                       style={{
@@ -132,7 +132,7 @@ export function Dossier({ actor, onClose }: Props) {
                 href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] group transition-colors"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-surface-300 dark:hover:bg-surface-300 group transition-colors"
               >
                 <span className="font-mono text-mini text-brand-600 dark:text-brand-400 w-20 shrink-0">{t.id}</span>
                 <span className="text-[12.5px] text-heading flex-1">{t.name}</span>
@@ -151,7 +151,7 @@ export function Dossier({ actor, onClose }: Props) {
               {actor.malware.map((m) => (
                 <div
                   key={m.name}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-surface-200 dark:hover:bg-surface-300"
                 >
                   <span className="text-tool text-heading">{m.name}</span>
                   <span className="chip chip-cyan ml-auto">{m.type}</span>
@@ -173,7 +173,7 @@ export function Dossier({ actor, onClose }: Props) {
                   href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] group transition-colors"
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-surface-200 dark:hover:bg-surface-300 group transition-colors"
                 >
                   <span className="font-mono text-meta text-amber-600 dark:text-amber-400">{c.id}</span>
                   <span className="text-[12.5px] text-heading flex-1">{c.product}</span>
@@ -192,10 +192,7 @@ export function Dossier({ actor, onClose }: Props) {
             <SectionHeader Icon={Network}>Campaigns ({actor.campaigns.length})</SectionHeader>
             <div className="space-y-2">
               {actor.campaigns.map((c) => (
-                <div
-                  key={c.name}
-                  className="p-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                >
+                <div key={c.name} className="p-3 rounded-lg bg-surface-200 border border-line-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-[13.5px] font-medium text-heading">{c.name}</span>
                     <span className="text-[10.5px] font-mono text-muted ml-auto">
@@ -228,7 +225,7 @@ export function Dossier({ actor, onClose }: Props) {
                   href={h.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="block p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] border border-transparent hover:border-slate-200 dark:border-[rgb(var(--border-400))] transition-colors"
+                  className="block p-2.5 rounded-md hover:bg-surface-300 dark:hover:bg-surface-300 border border-transparent hover:border-line-1 transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-tool text-heading">{h.title}</span>
@@ -248,10 +245,7 @@ export function Dossier({ actor, onClose }: Props) {
             <SectionHeader Icon={Users}>Indictments & sanctions</SectionHeader>
             <div className="space-y-1.5">
               {actor.members.map((m) => (
-                <div
-                  key={m.name}
-                  className="flex items-center gap-2 p-2 rounded-md bg-slate-50 dark:bg-[rgb(var(--surface-300))]"
-                >
+                <div key={m.name} className="flex items-center gap-2 p-2 rounded-md bg-surface-200">
                   <span className="text-[12.5px] text-heading flex-1">{m.name}</span>
                   <span className="text-[11.5px] text-muted">{m.role}</span>
                   <span className={cn('chip', m.status === 'indicted' ? 'chip-red' : 'chip-gold')}>{m.status}</span>
@@ -280,7 +274,7 @@ export function Dossier({ actor, onClose }: Props) {
           </ul>
         </section>
 
-        <p className="text-[10.5px] text-muted font-mono uppercase tracking-[0.18em] pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <p className="text-[10.5px] text-muted font-mono uppercase tracking-[0.18em] pt-4 border-t border-line-1">
           TLP:CLEAR · public intel · corroborate before operational use
         </p>
       </div>

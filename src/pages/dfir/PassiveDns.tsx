@@ -96,7 +96,7 @@ export default function PassiveDns(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-mono text-sm font-medium transition-colors"
+            className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-on-fill font-mono text-sm font-medium transition-colors"
           >
             {loading ? <Loader2 size={16} className="animate-spin" /> : 'Query'}
           </button>

@@ -104,13 +104,13 @@ export default function EmailOsnit() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="user@example.com"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-2.5 bg-surface-100 border border-line-1 rounded-xl font-mono text-tool focus:outline-none focus:border-brand-500"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 transition-colors"
+            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : 'Resolve'}
           </button>
@@ -137,7 +137,7 @@ export default function EmailOsnit() {
                 className="w-12 h-12 rounded-full"
               />
             ) : (
-              <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-surface-300 flex items-center justify-center">
                 <User size={20} className="text-muted" />
               </div>
             )}
@@ -387,7 +387,7 @@ function Section({
     <div className="surface-card overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
+        className="w-full flex items-center justify-between p-3 hover:bg-surface-200 dark:hover:bg-surface-100 transition-colors"
       >
         <div className="flex items-center gap-2">
           <Icon size={14} className={color} />
@@ -395,9 +395,7 @@ function Section({
         </div>
         {expanded ? <ChevronUp size={14} className="text-muted" /> : <ChevronDown size={14} className="text-muted" />}
       </button>
-      {expanded && (
-        <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-300))] pt-2">{children}</div>
-      )}
+      {expanded && <div className="px-3 pb-3 border-t border-line-1 pt-2">{children}</div>}
     </div>
   );
 }

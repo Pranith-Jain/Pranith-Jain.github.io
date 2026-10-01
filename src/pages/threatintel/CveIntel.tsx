@@ -64,11 +64,7 @@ export default function CveIntel(): JSX.Element {
       title="CVE Intelligence"
       description="Unified CVE intelligence - recent vulnerabilities, exploitable CVEs, CISA KEV catalog, and Kubernetes-specific advisories. All feeds updated regularly."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="CVE intelligence"
-        role="tablist"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="CVE intelligence" role="tablist">
         {TABS.map((t) => (
           <button
             key={t.id}

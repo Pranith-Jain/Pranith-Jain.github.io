@@ -18,14 +18,14 @@ const CYCLE: Record<CheckStatus, CheckStatus> = {
 };
 
 const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string }> = {
-  unset: { label: '- unset', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500' },
+  unset: { label: '- unset', cls: 'border-slate-300 dark:border-line-1 text-slate-500' },
   covered: {
     label: 'covered',
     cls: 'border-emerald-400/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   },
   partial: { label: '~ partial', cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
   gap: { label: 'gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted' },
+  na: { label: 'n/a', cls: 'border-slate-300 dark:border-line-1 text-muted' },
 };
 
 const REGIME_STYLES: Record<RegimeId, string> = {
@@ -185,7 +185,7 @@ export default function PrivacyHub(): JSX.Element {
             className={`text-left rounded-xl border p-3 transition-colors ${
               tab === regime.id
                 ? 'border-brand-500/60 bg-brand-500/5'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
             }`}
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -196,7 +196,7 @@ export default function PrivacyHub(): JSX.Element {
               </span>
               <span className="text-xs font-mono font-bold text-heading">{c.score}%</span>
             </div>
-            <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
+            <div className="h-1.5 rounded bg-track overflow-hidden mb-1">
               <div
                 className={`h-full ${
                   c.score >= 75 ? 'bg-emerald-500' : c.score >= 40 ? 'bg-amber-500' : 'bg-rose-500'
@@ -204,7 +204,7 @@ export default function PrivacyHub(): JSX.Element {
                 style={{ width: `${Math.max(2, c.score)}%` }}
               />
             </div>
-            <div className="text-micro font-mono text-slate-400">
+            <div className="text-micro font-mono text-muted">
               {c.covered}/{c.total} items
             </div>
           </button>
@@ -215,13 +215,13 @@ export default function PrivacyHub(): JSX.Element {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={downloadMd}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
         >
           <Download size={13} /> Export markdown
         </button>
         <button
           onClick={reset}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
         >
           <RotateCcw size={13} /> Reset
         </button>
@@ -355,7 +355,7 @@ function ArticleRow({
 }): JSX.Element {
   const s = state.checks[article.id] ?? 'unset';
   return (
-    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
+    <li className="rounded border border-line-1 bg-surface-200 p-3">
       <div className="flex flex-wrap items-center gap-2 mb-1">
         <button
           onClick={() => cycle(article.id)}
@@ -364,7 +364,7 @@ function ArticleRow({
           {STATUS_STYLES[s].label}
         </button>
         <span className="font-display font-semibold text-sm text-heading">{article.title}</span>
-        {article.citation && <span className="text-micro font-mono text-slate-400">{article.citation}</span>}
+        {article.citation && <span className="text-micro font-mono text-muted">{article.citation}</span>}
       </div>
       <p className="text-meta font-mono text-muted leading-relaxed">{article.body}</p>
     </li>

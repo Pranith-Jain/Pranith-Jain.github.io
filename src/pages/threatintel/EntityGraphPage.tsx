@@ -129,14 +129,14 @@ export default function EntityGraphPage(): JSX.Element {
                 onClick={() => toggleType(t)}
                 className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-mono transition-all ${
                   active
-                    ? 'border-2 bg-white shadow-sm dark:bg-[rgb(var(--surface-200))]'
-                    : 'border border-slate-200 bg-slate-50 opacity-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]'
+                    ? 'border-2 bg-white shadow-sm dark:bg-surface-200'
+                    : 'border border-slate-200 bg-slate-50 opacity-50 dark:border-line-1 dark:bg-surface-100'
                 }`}
                 style={active ? { borderColor: NODE_COLORS[t] } : undefined}
               >
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: NODE_COLORS[t] }} />
                 <span className="font-semibold">{count}</span>
-                <span className="text-slate-500">{NODE_LABELS[t]}</span>
+                <span className="text-muted">{NODE_LABELS[t]}</span>
               </button>
             );
           })}
@@ -148,7 +148,7 @@ export default function EntityGraphPage(): JSX.Element {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter nodes…"
-                className="h-8 w-40 rounded-xl border border-slate-200 bg-white pl-7 pr-2 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
+                className="h-8 w-40 rounded-xl border border-line-1 bg-surface-100 pl-7 pr-2 text-xs dark:text-white"
               />
             </div>
             <button
@@ -167,7 +167,7 @@ export default function EntityGraphPage(): JSX.Element {
       {loading && (
         <div className="flex items-center justify-center py-24">
           <Loader2 size={28} className="animate-spin text-rose-500" />
-          <span className="ml-3 font-mono text-sm text-slate-500">Building graph…</span>
+          <span className="ml-3 font-mono text-sm text-muted">Building graph…</span>
         </div>
       )}
 
@@ -179,7 +179,7 @@ export default function EntityGraphPage(): JSX.Element {
 
       {!loading && !error && filteredGraph && (
         <div
-          className="rounded-xl border border-slate-200 bg-white overflow-hidden dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
+          className="rounded-xl border border-line-1 bg-surface-100 overflow-hidden"
           style={{ height: 'calc(100vh - 280px)', minHeight: 500 }}
         >
           <Suspense

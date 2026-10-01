@@ -256,7 +256,7 @@ export default function ExternalResources(): JSX.Element {
             className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               !featuredOnly && RESEARCH_KINDS.every((k) => activeKinds.has(k))
                 ? 'border-violet-500/50 bg-violet-500/10 text-violet-700 dark:text-violet-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-violet-500/40'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-violet-500/40'
             }`}
             aria-label="Show research, training, and lab resources"
           >
@@ -268,7 +268,7 @@ export default function ExternalResources(): JSX.Element {
             className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               activeTags.has('malware')
                 ? 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/40'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/40'
             }`}
             aria-label="Show malware samples and repositories"
           >
@@ -280,7 +280,7 @@ export default function ExternalResources(): JSX.Element {
             className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               activeTags.has('threat-intel')
                 ? 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-orange-500/40'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-orange-500/40'
             }`}
             aria-label="Show threat intelligence feeds"
           >
@@ -292,7 +292,7 @@ export default function ExternalResources(): JSX.Element {
             className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               featuredOnly
                 ? 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-amber-500/40'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-amber-500/40'
             }`}
             aria-label="Show featured quality resources only"
           >
@@ -306,7 +306,7 @@ export default function ExternalResources(): JSX.Element {
               setActiveTags(new Set());
               setFeaturedOnly(false);
             }}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/40 transition-colors"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-line-2 text-muted hover:border-rose-500/40 transition-colors"
             aria-label="Clear all filters"
           >
             Show all
@@ -323,7 +323,7 @@ export default function ExternalResources(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, description (e.g. 'osint', 'ransomware', 'llm')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Search external resources"
           />
         </div>
@@ -332,11 +332,11 @@ export default function ExternalResources(): JSX.Element {
       {/* Kind pills */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-500 mr-1">kind:</span>
+          <span className="text-mini font-mono text-muted mr-1">kind:</span>
           {ALL_KINDS.map((k) => {
             const count = kindCounts.get(k) ?? 0;
             const active = activeKinds.has(k);
-            const cls = active ? KIND_PILL[k] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+            const cls = active ? KIND_PILL[k] : 'border-slate-300 dark:border-line-1 text-slate-500';
             const isDisabled = count === 0 && !active;
             return (
               <button
@@ -359,11 +359,11 @@ export default function ExternalResources(): JSX.Element {
       {/* Tag pills */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-500 mr-1">tag:</span>
+          <span className="text-mini font-mono text-muted mr-1">tag:</span>
           {ALL_TAGS.map((t) => {
             const count = tagCounts.get(t) ?? 0;
             const active = activeTags.has(t);
-            const cls = active ? TAG_PILL[t] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+            const cls = active ? TAG_PILL[t] : 'border-slate-300 dark:border-line-1 text-slate-500';
             const isDisabled = count === 0 && !active;
             return (
               <button
@@ -479,7 +479,7 @@ export default function ExternalResources(): JSX.Element {
             )}
             {r.why && (
               <p className="text-meta font-mono italic text-muted leading-relaxed">
-                <span className="text-slate-400 not-italic">why:</span> {r.why}
+                <span className="text-muted not-italic">why:</span> {r.why}
               </p>
             )}
           </li>
@@ -502,7 +502,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={signOut}
-            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             title="Forget admin token"
           >
             <LogOut size={11} /> sign out
@@ -511,7 +511,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={() => setSignInOpen(true)}
-            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
             title="Paste your admin token to enable runtime editing"
           >
             <KeyRound size={11} /> editor sign in
@@ -537,20 +537,20 @@ export default function ExternalResources(): JSX.Element {
             onChange={(e) => setTokenDraft(e.target.value)}
             placeholder="admin token"
             aria-label="Admin token"
-            className="w-full px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-rose-500"
+            className="w-full px-3 py-2 rounded border border-line-1 bg-surface-100 text-sm font-mono focus:outline-none focus:border-rose-500"
           />
           <div className="flex justify-end gap-2">
             <button
               type="button"
               onClick={() => setSignInOpen(false)}
-              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-3 py-1.5 text-tool text-muted hover:text-body dark:hover:text-inverted"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!tokenDraft.trim()}
-              className="px-3 py-1.5 rounded bg-rose-600 text-white text-tool font-semibold hover:bg-rose-500 disabled:opacity-40 transition-colors"
+              className="px-3 py-1.5 rounded bg-rose-600 text-on-fill text-tool font-semibold hover:bg-rose-500 disabled:opacity-40 transition-colors"
             >
               Sign in
             </button>
@@ -658,7 +658,7 @@ function AddResourceCard({
               onChange={(e) => setUrl(e.target.value)}
               required
               placeholder="https://example.com"
-              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
+              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-surface-100 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500"
             />
           </label>
           <label className="block">
@@ -668,7 +668,7 @@ function AddResourceCard({
             <select
               value={kind}
               onChange={(e) => setKind(e.target.value as ResourceKind)}
-              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
+              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-surface-100 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500"
             >
               {ALL_KINDS.map((k) => (
                 <option key={k} value={k}>
@@ -688,7 +688,7 @@ function AddResourceCard({
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="hunter.how"
-            className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
+            className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-surface-100 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500"
           />
         </label>
         <label className="block">
@@ -698,7 +698,7 @@ function AddResourceCard({
             value={why}
             onChange={(e) => setWhy(e.target.value)}
             placeholder="one-line note: what this site fills that the existing catalog doesn't"
-            className="mt-1 w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
+            className="mt-1 w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500"
           />
         </label>
         {error && (
@@ -713,14 +713,14 @@ function AddResourceCard({
               setOpen(false);
               reset();
             }}
-            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-line-2 text-body hover:bg-surface-300 dark:hover:bg-surface-300"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={busy || !name.trim() || !url.trim()}
-            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-rose-600 dark:bg-rose-500 text-white font-semibold disabled:opacity-40 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center justify-center gap-1.5 transition-colors"
+            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-rose-600 dark:bg-rose-500 text-on-fill font-semibold disabled:opacity-40 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center justify-center gap-1.5 transition-colors"
           >
             {busy && <Loader2 size={12} className="animate-spin" />}
             {busy ? 'Saving…' : 'Save resource'}

@@ -96,20 +96,18 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
   const [open, setOpen] = useState(defaultOpen);
   const hasKids = (node.children?.length ?? 0) > 0;
   const isLeaf = !hasKids;
-  const pill =
-    TYPE_PILL[node.type] ??
-    'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted';
+  const pill = TYPE_PILL[node.type] ?? 'border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-surface-200 text-muted';
   return (
-    <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0">
+    <div className="border-b border-line-1 last:border-b-0">
       <div
-        className="flex items-start gap-3 px-3 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] transition-colors"
+        className="flex items-start gap-3 px-3 py-3 hover:bg-surface-200 dark:hover:bg-surface-200/50 transition-colors"
         style={{ paddingLeft: `${depth * 20 + 12}px` }}
       >
         <button
           type="button"
           onClick={() => hasKids && setOpen((v) => !v)}
           className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-muted ${
-            hasKids ? 'hover:bg-slate-200/60 dark:hover:bg-[rgb(var(--surface-300)/0.6)]' : 'opacity-0'
+            hasKids ? 'hover:bg-slate-200/60 dark:hover:bg-surface-300/60' : 'opacity-0'
           }`}
           aria-label={open ? 'Collapse' : 'Expand'}
         >
@@ -263,12 +261,12 @@ export default function OwaspAiLandscape(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 text-muted hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             aria-label="Refresh"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
+          <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">
             synced <span className="text-body">{relativeTime(meta?.fetchedAt)}</span>
           </span>
           {meta?.ok === false && (
@@ -304,7 +302,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search resources…"
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -318,7 +316,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                       className={`text-micro font-mono uppercase tracking-wider rounded-full border px-2.5 py-0.5 transition-colors ${
                         active
                           ? TYPE_PILL[t]
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-500'
+                          : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400 dark:hover:border-slate-500'
                       }`}
                     >
                       {t}
@@ -329,7 +327,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setActiveTypes(new Set())}
-                    className="text-micro font-mono uppercase tracking-wider rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-0.5 text-muted hover:text-slate-700 dark:hover:text-slate-300"
+                    className="text-micro font-mono uppercase tracking-wider rounded-full border border-line-2 px-2.5 py-0.5 text-muted hover:text-body dark:hover:text-inverted"
                   >
                     clear
                   </button>
@@ -367,12 +365,12 @@ export default function OwaspAiLandscape(): JSX.Element {
 
           {/* Tree */}
           {filtered.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400" />
+            <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
+              <FolderTree className="mx-auto mb-2 h-8 w-8 text-muted" />
               No resources match the current filters.
             </div>
           ) : (
-            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
+            <div className="overflow-hidden rounded-xl border border-line-1 bg-surface-100">
               {filtered.map((n) => (
                 <NodeRow key={n.title} node={n} depth={0} defaultOpen={!query && activeTypes.size === 0} />
               ))}

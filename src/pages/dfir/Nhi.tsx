@@ -36,7 +36,7 @@ const STATUS_CYCLE: Record<CoverageStatus, CoverageStatus> = {
 const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   unset: {
     label: '- unset',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+    cls: 'border-slate-300 dark:border-line-1 text-slate-500',
   },
   covered: {
     label: 'covered',
@@ -52,7 +52,7 @@ const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   },
   na: {
     label: 'n/a',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
+    cls: 'border-slate-300 dark:border-line-1 text-muted',
   },
 };
 
@@ -195,7 +195,7 @@ export default function Nhi(): JSX.Element {
           className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
             tab === 'inventory'
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+              : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
           }`}
         >
           Inventory ({items.length})
@@ -205,7 +205,7 @@ export default function Nhi(): JSX.Element {
           className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
             tab === 'top10'
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+              : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
           }`}
         >
           OWASP NHI Top 10
@@ -226,7 +226,7 @@ export default function Nhi(): JSX.Element {
                       return next;
                     });
                   }}
-                  className="w-full flex items-center gap-3 text-left surface-card hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 transition-colors"
+                  className="w-full flex items-center gap-3 text-left surface-card hover:border-brand-500/40 hover:bg-surface-200 dark:hover:bg-surface-300/60 px-4 py-3 transition-colors"
                   aria-expanded={expanded}
                 >
                   <span className="flex-none w-12 font-mono text-mini text-brand-600 dark:text-brand-400 font-bold">
@@ -247,15 +247,15 @@ export default function Nhi(): JSX.Element {
                 </button>
                 {expanded && (
                   <div className="animate-fade-in-up overflow-hidden">
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-3">
+                    <div className="rounded-xl border border-line-1 bg-surface-200/50 mt-2 p-4 space-y-3">
                       <p className="text-sm font-mono text-body leading-relaxed">{item.summary}</p>
-                      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+                      <div className="rounded border border-line-1 bg-surface-100 p-3">
                         <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
                           Attack
                         </h4>
                         <p className="text-xs font-mono text-body leading-relaxed">{item.attack}</p>
                       </div>
-                      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
+                      <div className="rounded border border-line-1 bg-surface-100 p-3">
                         <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
                           Mitigation
                         </h4>
@@ -326,14 +326,14 @@ export default function Nhi(): JSX.Element {
             <button
               onClick={exportMd}
               disabled={items.length === 0}
-              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
+              className="text-sm font-mono px-3 py-1.5 rounded border border-line-2 hover:border-brand-500/40 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
             >
               <Download size={13} /> Export markdown
             </button>
             <button
               onClick={reset}
               disabled={items.length === 0}
-              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
+              className="text-sm font-mono px-3 py-1.5 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
             >
               <RotateCcw size={13} /> Reset all
             </button>
@@ -341,7 +341,7 @@ export default function Nhi(): JSX.Element {
 
           {/* List */}
           {items.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-muted">
+            <div className="rounded-xl border border-dashed border-line-2 p-8 text-center text-sm font-mono text-muted">
               No NHIs yet. Click <strong>Add NHI</strong> to start an inventory. Everything stays in your browser.
             </div>
           ) : (
@@ -354,7 +354,7 @@ export default function Nhi(): JSX.Element {
                     {/* Row header */}
                     <button
                       onClick={() => setExpandedItem(isOpen ? null : e.id)}
-                      className="w-full flex items-center gap-3 text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.4)]"
+                      className="w-full flex items-center gap-3 text-left px-4 py-3 hover:bg-surface-200 dark:hover:bg-surface-300/40"
                       aria-expanded={isOpen}
                     >
                       <span className="flex-1 min-w-0">
@@ -380,7 +380,7 @@ export default function Nhi(): JSX.Element {
 
                     {/* Risk bar */}
                     <div className="px-4 pb-3">
-                      <div className="h-1 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+                      <div className="h-1 rounded bg-track overflow-hidden">
                         <div
                           className={`h-full transition-all ${gradeBar(risk.grade)}`}
                           style={{ width: `${Math.max(2, risk.score)}%` }}
@@ -389,7 +389,7 @@ export default function Nhi(): JSX.Element {
                     </div>
 
                     {isOpen && (
-                      <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-4">
+                      <div className="border-t border-line-1 px-4 py-3 space-y-4">
                         {/* Fields */}
                         <div className="grid gap-3 sm:grid-cols-2">
                           <Field label="Name">
@@ -398,14 +398,14 @@ export default function Nhi(): JSX.Element {
                               value={e.name}
                               onChange={(ev) => update(e.id, { name: ev.target.value })}
                               placeholder="prod-deploy-bot"
-                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Type">
                             <select
                               value={e.type}
                               onChange={(ev) => update(e.id, { type: ev.target.value as NhiType })}
-                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                             >
                               {NHI_TYPES.map((t) => (
                                 <option key={t.id} value={t.id}>
@@ -420,7 +420,7 @@ export default function Nhi(): JSX.Element {
                               value={e.owner}
                               onChange={(ev) => update(e.id, { owner: ev.target.value })}
                               placeholder="alice@team - name + escalation path"
-                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Scope / permissions">
@@ -429,7 +429,7 @@ export default function Nhi(): JSX.Element {
                               value={e.scope}
                               onChange={(ev) => update(e.id, { scope: ev.target.value })}
                               placeholder="repo:write, deploy:prod"
-                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Last rotated (YYYY-MM-DD)">
@@ -437,7 +437,7 @@ export default function Nhi(): JSX.Element {
                               type="date"
                               value={e.lastRotated}
                               onChange={(ev) => update(e.id, { lastRotated: ev.target.value })}
-                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Rotation cadence (days, 0 = never)">
@@ -446,7 +446,7 @@ export default function Nhi(): JSX.Element {
                               min={0}
                               value={e.rotationDays}
                               onChange={(ev) => update(e.id, { rotationDays: Number(ev.target.value) || 0 })}
-                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Storage">
@@ -455,7 +455,7 @@ export default function Nhi(): JSX.Element {
                               value={e.storage}
                               onChange={(ev) => update(e.id, { storage: ev.target.value })}
                               placeholder="AWS Secrets Manager - secret/prod/deploy"
-                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Monitored?">
@@ -475,7 +475,7 @@ export default function Nhi(): JSX.Element {
                             onChange={(ev) => update(e.id, { notes: ev.target.value })}
                             rows={2}
                             placeholder="Free text - incident history, special handling, related tickets…"
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-line-2 bg-surface-200 px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
 
@@ -484,7 +484,7 @@ export default function Nhi(): JSX.Element {
                           <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono mb-2">
                             OWASP NHI Top 10 coverage
                           </h3>
-                          <p className="text-mini font-mono text-slate-400 mb-2">
+                          <p className="text-mini font-mono text-muted mb-2">
                             Click each row to cycle: unset → covered → partial → gap → n/a → unset.
                           </p>
                           <div className="grid gap-1.5">

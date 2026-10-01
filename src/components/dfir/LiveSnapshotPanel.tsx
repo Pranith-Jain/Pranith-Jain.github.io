@@ -445,7 +445,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                 {ransomware.count} total tracked
               </p>
               {recentVictims.length === 0 ? (
-                <p className="text-mini font-mono text-slate-500">No claims in the last 24 h.</p>
+                <p className="text-mini font-mono text-muted">No claims in the last 24 h.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentVictims.map((v, i) => {
@@ -483,7 +483,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                         >
                           {v.victim}
                         </a>
-                        <span className="text-slate-500 shrink-0">{shortRel(v.discovered)}</span>
+                        <span className="text-muted shrink-0">{shortRel(v.discovered)}</span>
                       </li>
                     );
                   })}
@@ -517,7 +517,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                 {telegram.channels.filter((c) => c.ok).length} channels live
               </p>
               {recentMessages.length === 0 ? (
-                <p className="text-mini font-mono text-slate-500">No recent messages.</p>
+                <p className="text-mini font-mono text-muted">No recent messages.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentMessages.map((m) => {
@@ -547,7 +547,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           >
                             {m.channel_name}
                           </a>
-                          <span className="text-slate-500 shrink-0">{shortRel(m.datetime)}</span>
+                          <span className="text-muted shrink-0">{shortRel(m.datetime)}</span>
                         </div>
                         {!compact && <p className="text-muted line-clamp-1 break-all pl-3.5">{m.text}</p>}
                       </li>
@@ -584,7 +584,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                 <span className="text-heading font-bold text-base">{scam.total_items}</span> official alerts · FTC + IC3
               </p>
               {recentScam.length === 0 ? (
-                <p className="text-mini font-mono text-slate-500">No recent alerts.</p>
+                <p className="text-mini font-mono text-muted">No recent alerts.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentScam.map((it) => {
@@ -615,7 +615,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           >
                             {it.title}
                           </a>
-                          <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
+                          <span className="text-muted shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
                         {!compact && <p className="text-muted truncate pl-3.5">{it.source}</p>}
                       </li>
@@ -648,7 +648,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                 BleepingComputer · Krebs · DFIR Report · SecurityWeek
               </p>
               {recentThreatIntel.length === 0 ? (
-                <p className="text-mini font-mono text-slate-500">No recent posts.</p>
+                <p className="text-mini font-mono text-muted">No recent posts.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentThreatIntel.map((it) => {
@@ -679,7 +679,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           >
                             {it.title}
                           </a>
-                          <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
+                          <span className="text-muted shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
                         {!compact && <p className="text-muted truncate pl-3.5">{it.source}</p>}
                       </li>
@@ -712,7 +712,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                 VentureBeat · HN AI · YC blog · cyber funding
               </p>
               {recentTechAi.length === 0 ? (
-                <p className="text-mini font-mono text-slate-500">No recent posts.</p>
+                <p className="text-mini font-mono text-muted">No recent posts.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentTechAi.map((it) => {
@@ -743,7 +743,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           >
                             {it.title}
                           </a>
-                          <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
+                          <span className="text-muted shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
                         {/* Tech & AI shows source for non-compact only - analysts want to see when YC blog / HN surfaces. */}
                         {!compact && <p className="text-muted truncate pl-3.5">{it.source}</p>}
@@ -779,7 +779,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                 00:05 · weekly Mon 00:15 UTC
               </p>
               {briefings.items.length === 0 ? (
-                <p className="text-mini font-mono text-slate-500">No briefings yet.</p>
+                <p className="text-mini font-mono text-muted">No briefings yet.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {briefings.items.slice(0, itemLimit).map((b) => {
@@ -817,7 +817,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           </span>
                         ) : (
                           <span
-                            className="text-slate-500 shrink-0 tabular-nums"
+                            className="text-muted shrink-0 tabular-nums"
                             title={`${findings} findings · ${iocs} IOCs · ${critical} critical`}
                           >
                             {findings}f·{iocs}i{critical > 0 ? `·${critical}!` : ''}

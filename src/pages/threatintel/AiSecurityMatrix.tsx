@@ -94,23 +94,21 @@ export default function AiSecurityMatrix(): JSX.Element {
     >
       <AiSummaryCard
         surface="AI Security Matrix"
-        items={filtered
-          .slice(0, 15)
-          .map((t) => ({
-            title: t.repo,
-            body: `${t.category} · ★${fmtStars(t.stars)} · ${(t.scope ?? []).join('/')}`,
-            source: t.homepage ?? `https://github.com/${t.repo}`,
-          }))}
+        items={filtered.slice(0, 15).map((t) => ({
+          title: t.repo,
+          body: `${t.category} · ★${fmtStars(t.stars)} · ${(t.scope ?? []).join('/')}`,
+          source: t.homepage ?? `https://github.com/${t.repo}`,
+        }))}
         requireAdmin={false}
       />
       <div className="relative my-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
         <input
           type="text"
           placeholder="Search repos, descriptions, scopes…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+          className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
         />
       </div>
       <div className="flex flex-wrap items-center gap-1.5 mb-4">
@@ -121,7 +119,7 @@ export default function AiSecurityMatrix(): JSX.Element {
             className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
               cat === c
                 ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+                : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
             }`}
           >
             {c === 'all' ? 'All' : c} · {c === 'all' ? total : (byCategory[c] ?? 0)}
@@ -135,10 +133,7 @@ export default function AiSecurityMatrix(): JSX.Element {
         {filtered.map((t) => {
           const open = openSlug === t.slug;
           return (
-            <div
-              key={t.slug}
-              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
-            >
+            <div key={t.slug} className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
               <button
                 type="button"
                 onClick={() => setOpenSlug(open ? null : t.slug)}
@@ -148,13 +143,13 @@ export default function AiSecurityMatrix(): JSX.Element {
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
                         {t.category}
                       </span>
                       {(t.scope ?? []).slice(0, 4).map((s) => (
                         <span
                           key={s}
-                          className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body"
                         >
                           {s}
                         </span>
@@ -174,7 +169,7 @@ export default function AiSecurityMatrix(): JSX.Element {
                 </div>
               </button>
               {open && (
-                <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted">
+                <div className="mt-2 pt-2 border-t border-line-1 flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted">
                   <span className="font-mono">license: {t.license ?? '—'}</span>
                   <span className="font-mono">added: {t.added ?? '—'}</span>
                   <span className="font-mono">

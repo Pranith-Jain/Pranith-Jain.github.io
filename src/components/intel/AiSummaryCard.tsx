@@ -58,7 +58,7 @@ function ShareRow({
   const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareText = tweet || summary.split('\n')[0] || `AI threat summary: ${surface}`;
   return (
-    <div className="mt-3 pt-3 border-t border-slate-200 dark:border-white/8">
+    <div className="mt-3 pt-3 border-t border-line-1 dark:border-white/8">
       <ShareBar shareText={shareText} linkedinText={linkedin} url={pageUrl} size="sm" label="Share:" xPrefix="🚨 " />
     </div>
   );
@@ -176,7 +176,7 @@ export function AiSummaryCard({
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-surface-200 dark:hover:bg-wash transition-colors"
       >
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
@@ -238,7 +238,7 @@ export function AiSummaryCard({
                     <p key={i} className={line.startsWith('- ') || line.startsWith('• ') ? 'ml-4' : ''}>
                       {parts.map((part, j) =>
                         part.startsWith('**') && part.endsWith('**') ? (
-                          <strong key={j} className="text-slate-900 dark:text-white">
+                          <strong key={j} className="text-heading">
                             {part.slice(2, -2)}
                           </strong>
                         ) : (

@@ -78,7 +78,7 @@ interface ScanResult {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 
 const SEV_STYLES: Record<string, string> = {
   critical: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
@@ -268,7 +268,7 @@ export default function Nova(): JSX.Element {
           <button
             onClick={runScan}
             disabled={scanning || !prompt.trim()}
-            className="px-4 py-2 rounded-xl bg-brand-600 text-white text-sm font-medium disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 rounded-xl bg-brand-600 text-on-fill text-sm font-medium disabled:opacity-50 flex items-center gap-2"
           >
             {scanning ? <Loader2 size={15} className="animate-spin" /> : <ScanSearch size={15} />}
             Scan prompt
@@ -322,7 +322,7 @@ export default function Nova(): JSX.Element {
             <p className="text-sm text-body">{ruleBody.description}</p>
             <div>
               <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Condition</div>
-              <p className="font-mono text-xs text-heading bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-line-1 rounded px-3 py-2 break-all">
+              <p className="font-mono text-xs text-heading bg-surface-200 border border-line-1 rounded px-3 py-2 break-all">
                 {ruleBody.condition}
               </p>
             </div>

@@ -63,9 +63,7 @@ export function ActorTtpsPanel({
 
   if (loading) {
     return (
-      <section
-        className={`${mbClass} surface-card p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
-      >
+      <section className={`${mbClass} surface-card p-5 inline-flex items-center gap-2 font-mono text-sm text-muted`}>
         <Loader2 size={14} className="animate-spin" /> loading TTP distribution from active actors…
       </section>
     );
@@ -83,7 +81,7 @@ export function ActorTtpsPanel({
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <div>
           <h3 className="font-display font-semibold text-base">{title}</h3>
-          <p className="text-mini font-mono text-slate-500 mt-1">
+          <p className="text-mini font-mono text-muted mt-1">
             {subtitle ??
               `MITRE ATT&CK techniques the ${data.groups_with_ttp_data} mapped active group${data.groups_with_ttp_data === 1 ? '' : 's'} ${data.groups_with_ttp_data === 1 ? 'is' : 'are'} known to use. Sort: number of active groups using each, then post-volume weight.`}
             {unmapped > 0 && (
@@ -118,14 +116,14 @@ export function ActorTtpsPanel({
                   <span className="truncate"> · {t.name}</span>
                   <ExternalLink size={9} className="text-muted shrink-0" />
                 </a>
-                <div className="h-3 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
+                <div className="h-3 bg-surface-300 rounded overflow-hidden">
                   <div className="h-full bg-rose-500/70 dark:bg-rose-500/60" style={{ width: `${widthPct}%` }} />
                 </div>
                 <span className="text-muted text-right">
                   {t.used_by_count} grp · {t.weighted_activity}p
                 </span>
               </div>
-              <div className="text-micro text-slate-500 ml-[180px] mt-0.5">
+              <div className="text-micro text-muted ml-[180px] mt-0.5">
                 {t.tactic} · used by: {t.used_by_groups.join(', ')}
               </div>
             </li>

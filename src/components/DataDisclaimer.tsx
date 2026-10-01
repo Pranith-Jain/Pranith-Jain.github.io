@@ -175,7 +175,7 @@ const GRADE_STYLES: Record<string, string> = {
   C: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   D: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   E: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-  F: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500',
+  F: 'bg-slate-100 dark:bg-surface-300 text-slate-500',
 };
 
 export function DataDisclaimer() {
@@ -195,10 +195,10 @@ export function DataDisclaimer() {
 
       {/* Sources */}
       <div>
-        <p className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+        <p className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-2 flex items-center gap-1.5">
           <Radio size={12} /> Backend data sources ({SOURCES.length})
         </p>
-        <p className="text-mini font-mono text-slate-500 mb-3">
+        <p className="text-mini font-mono text-muted mb-3">
           Reliability graded per NATO Admiralty Code (A=best, F=unassessed). Risk level indicates how much corroboration
           is recommended before acting on data from each source.
         </p>
@@ -206,14 +206,14 @@ export function DataDisclaimer() {
           {SOURCES.map((s) => (
             <div
               key={s.id}
-              className="flex items-start gap-2 text-mini font-mono py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
+              className="flex items-start gap-2 text-mini font-mono py-1 border-b border-line-1 last:border-0"
             >
               <span className={`px-1 py-0.5 rounded text-micro font-bold shrink-0 ${GRADE_STYLES[s.grade] ?? ''}`}>
                 {s.grade}
               </span>
               <div className="flex-1 min-w-0">
                 <span className="font-medium text-heading">{s.name}</span>
-                <span className="text-slate-500"> - {s.desc}</span>
+                <span className="text-muted"> - {s.desc}</span>
                 {s.bias && <span className="text-amber-600 dark:text-amber-400 block truncate">{s.bias}</span>}
               </div>
               <span
@@ -228,15 +228,12 @@ export function DataDisclaimer() {
 
       {/* Open source */}
       <div>
-        <p className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+        <p className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-2 flex items-center gap-1.5">
           <Github size={12} /> Open source tools & libraries
         </p>
         <div className="flex flex-wrap gap-1.5">
           {OS_TOOLS.map((t) => (
-            <span
-              key={t}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-muted"
-            >
+            <span key={t} className="rounded border border-line-1 px-2 py-0.5 text-micro font-mono text-muted">
               {t}
             </span>
           ))}

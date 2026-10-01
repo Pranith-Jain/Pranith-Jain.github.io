@@ -130,7 +130,7 @@ export default function CveResourcesCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, description, category - e.g. 'wordpress', 'cisco', 'rss', 'kev'"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search CVE resources"
           />
         </div>
@@ -143,7 +143,7 @@ export default function CveResourcesCatalog(): JSX.Element {
                 key={p}
                 type="button"
                 onClick={() => togglePricing(p)}
-                className={`text-mini font-mono px-2 py-1 rounded border ${active ? PRICING_PILL[p] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+                className={`text-mini font-mono px-2 py-1 rounded border ${active ? PRICING_PILL[p] : 'border-slate-300 dark:border-line-1 text-slate-500'}`}
               >
                 {p === 'paid' && <Lock size={9} className="inline mr-0.5" />}
                 {PRICING_LABELS[p]}
@@ -169,9 +169,7 @@ export default function CveResourcesCatalog(): JSX.Element {
           {ALL_CATEGORIES.map((c) => {
             const count = catCounts.get(c) ?? 0;
             const active = activeCats.has(c);
-            const cls = active
-              ? CATEGORY_PILL[c]
-              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+            const cls = active ? CATEGORY_PILL[c] : 'border-slate-300 dark:border-line-1 text-slate-500';
             return (
               <button
                 key={c}
@@ -188,7 +186,7 @@ export default function CveResourcesCatalog(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-mini font-mono text-slate-400 mb-4">
+      <p className="text-mini font-mono text-muted mb-4">
         Showing {filtered.length} of {RESOURCES.length}
       </p>
 

@@ -36,7 +36,7 @@ export function Experience({ experiences }: ExperienceProps) {
           small caps-mono kicker, display heading, no chrome. */}
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Experience</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Experience highlights
         </h2>
       </div>
@@ -59,7 +59,7 @@ export function Experience({ experiences }: ExperienceProps) {
                 className="flex w-full items-start gap-4 px-5 py-4 text-left"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="text-lg font-semibold text-slate-900 dark:text-white">{exp.title}</div>
+                  <div className="text-lg font-semibold text-heading">{exp.title}</div>
                   <div className="text-sm text-body">
                     {exp.company}
                     {exp.location && ` • ${exp.location}`} • {exp.period}
@@ -68,7 +68,7 @@ export function Experience({ experiences }: ExperienceProps) {
                 <div className="flex items-center gap-3 shrink-0">
                   {exp.badge && <Badge tone="success">{exp.badge}</Badge>}
                   <ChevronDown
-                    className={`h-4 w-4 text-slate-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                    className={`h-4 w-4 text-muted transition-transform ${isOpen ? 'rotate-180' : ''}`}
                     aria-hidden="true"
                   />
                 </div>
@@ -79,7 +79,7 @@ export function Experience({ experiences }: ExperienceProps) {
                   id={bodyId}
                   role="region"
                   aria-labelledby={headerId}
-                  className="border-t border-slate-200/70 dark:border-[rgb(var(--border-400))] px-5 pb-5 pt-4"
+                  className="border-t border-line-1/70 px-5 pb-5 pt-4"
                 >
                   {/* Sections (for main experience) */}
                   {exp.sections &&

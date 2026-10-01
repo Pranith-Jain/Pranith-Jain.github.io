@@ -2,7 +2,8 @@ import tseslint from 'typescript-eslint';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import * as noRawDarkColors from './eslint-rules/no-raw-dark-colors.js';
+import noRawColors from './eslint-rules/no-raw-colors.js';
+import { RAW_COLORS_BASELINE } from './eslint-rules/raw-colors-baseline.mjs';
 import * as noRawKvAccess from './eslint-rules/no-raw-kv-access.js';
 import { KV_ALLOW_FILES } from './eslint-rules/kv-policy.js';
 
@@ -63,7 +64,7 @@ export default tseslint.config(
       'jsx-a11y/scope': 'warn',
       'jsx-a11y/no-redundant-roles': 'warn',
       'jsx-a11y/alt-text': 'warn',
-      'no-raw-dark-colors/no-raw-dark-colors': 'warn',
+      'no-raw-colors/no-raw-colors': 'warn',
     },
     settings: {
       'jsx-a11y': {
@@ -78,9 +79,9 @@ export default tseslint.config(
   // Custom ESLint plugins
   {
     plugins: {
-      'no-raw-dark-colors': {
+      'no-raw-colors': {
         rules: {
-          'no-raw-dark-colors': noRawDarkColors.default,
+          'no-raw-colors': noRawColors,
         },
       },
       'no-raw-kv-access': {
@@ -88,6 +89,27 @@ export default tseslint.config(
           'no-raw-kv-access': noRawKvAccess.default,
         },
       },
+    },
+  },
+
+  // Legacy raw-palette debt: `no-raw-colors` stays ON repo-wide, but is
+  // waived for the 203 files that already carried raw palette colours before
+  // the rule landed. Scoping the waiver to a list (rather than setting the
+  // rule to 'off') is what keeps it catching NEW raw colours - the actual
+  // value - including in any file created after the baseline.
+  //
+  // CI runs `--max-warnings 0`, so without this waiver every push fails on
+  // pre-existing findings. Shrink the list as files are cleaned up:
+  //     node scripts/update-raw-colors-baseline.mjs
+  // and delete this block once the script reports zero.
+  //
+  // See eslint-rules/raw-colors-baseline.mjs for why a blanket `--fix` is not
+  // safe here (state variants like `hover:` are not themes, and
+  // `bg-white ... dark:bg-transparent` is not the same as `bg-surface-100`).
+  {
+    files: RAW_COLORS_BASELINE,
+    rules: {
+      'no-raw-colors/no-raw-colors': 'off',
     },
   },
 

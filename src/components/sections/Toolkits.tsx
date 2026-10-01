@@ -81,7 +81,7 @@ export function Toolkits() {
     <section id="toolkits" className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Tooling</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Security tools I built
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
@@ -99,17 +99,17 @@ export function Toolkits() {
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div className="flex items-baseline gap-1 tabular-nums">
-                  <span className="font-display text-2xl font-bold text-slate-900 dark:text-white">{app.stat}</span>
+                  <span className="font-display text-2xl font-bold text-heading">{app.stat}</span>
                   <span className="text-mini font-mono text-muted">{app.statLabel}</span>
                 </div>
               </div>
-              <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {app.title}
               </h3>
               <p className="mt-0.5 text-xs font-medium text-muted">{app.subtitle}</p>
               <p className="mt-2 text-sm text-muted leading-relaxed flex-1">{app.description}</p>
 
-              <dl className="mt-4 -mx-1 divide-y divide-slate-200/70 dark:divide-[rgb(var(--border-400))] border-y border-slate-200/70 dark:border-[rgb(var(--border-400))]">
+              <dl className="mt-4 -mx-1 divide-y divide-line-1/70 border-y border-line-1/70">
                 {app.rows.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[7.5rem_1fr] items-baseline gap-3 px-1 py-2 text-sm">
                     <dt className="text-eyebrow font-mono uppercase text-muted">{k}</dt>
@@ -122,7 +122,7 @@ export function Toolkits() {
                 {app.builtWith.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded border border-black/10 bg-black/[0.02] px-2 py-0.5 text-mini font-mono text-slate-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-muted"
+                    className="rounded border border-black/10 bg-black/[0.02] px-2 py-0.5 text-mini font-mono text-muted dark:border-white/10 dark:bg-white/[0.03]"
                   >
                     {tech}
                   </span>

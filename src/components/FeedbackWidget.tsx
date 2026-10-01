@@ -186,7 +186,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Optional comment…"
-          className="flex-1 text-mini px-2 py-1 rounded border border-slate-200 bg-white dark:border-white/10 dark:bg-transparent dark:text-slate-300 placeholder:text-slate-400 focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
+          className="flex-1 text-mini px-2 py-1 rounded border border-line-1 bg-surface-100 dark:border-white/10 dark:bg-transparent dark:text-inverted placeholder:text-muted focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
           maxLength={500}
         />
         {saving && <span className="text-micro text-muted animate-pulse">Saving…</span>}

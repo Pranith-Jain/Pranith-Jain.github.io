@@ -53,14 +53,14 @@ export function PinForm({
         {coordLat.toFixed(5)}, {coordLng.toFixed(5)}
       </div>
       <input
-        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))]"
+        className="w-full rounded border border-line-2 px-2 py-1 bg-surface-100"
         placeholder="Label"
         aria-label="Pin label"
         value={label}
         onChange={(e) => setLabel(e.target.value)}
       />
       <textarea
-        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))]"
+        className="w-full rounded border border-line-2 px-2 py-1 bg-surface-100"
         placeholder="Note"
         aria-label="Pin note"
         value={note}
@@ -98,7 +98,7 @@ export function PinForm({
         <button type="button" onClick={onCancel} className="px-3 py-1 text-sm">
           Cancel
         </button>
-        <button type="submit" className="px-3 py-1 text-sm rounded bg-brand-600 text-white">
+        <button type="submit" className="px-3 py-1 text-sm rounded bg-brand-600 text-on-fill">
           {isEdit ? 'Save pin' : 'Add pin'}
         </button>
       </div>

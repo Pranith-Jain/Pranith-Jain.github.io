@@ -118,7 +118,7 @@ export default function ActorUsernames(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter a username / handle (min 2 chars)…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Search threat-actor usernames"
             />
           </div>
@@ -130,7 +130,7 @@ export default function ActorUsernames(): JSX.Element {
           </button>
         </div>
         <div className="flex items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">match:</span>
+          <span className="text-mini font-mono text-muted mr-1">match:</span>
           {MODES.map((m) => (
             <button
               key={m.id}
@@ -139,7 +139,7 @@ export default function ActorUsernames(): JSX.Element {
               className={`text-mini font-mono px-2 py-1 rounded border ${
                 mode === m.id
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                  : 'border-slate-300 dark:border-line-1 text-slate-500'
               }`}
             >
               {m.label}
@@ -149,7 +149,7 @@ export default function ActorUsernames(): JSX.Element {
       </form>
 
       {data && (
-        <p className="text-mini font-mono text-slate-500 mb-4">
+        <p className="text-mini font-mono text-muted mb-4">
           {data.total_matches} match{data.total_matches === 1 ? '' : 'es'} for “{data.query}”
           {data.truncated && (
             <span className="text-amber-600 dark:text-amber-400"> · showing top {data.results.length}</span>
@@ -163,7 +163,7 @@ export default function ActorUsernames(): JSX.Element {
       )}
 
       {submitted.trim().length < 2 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500">
+        <div className="rounded-xl border border-dashed border-line-2 p-8 text-center text-sm font-mono text-muted">
           Enter at least 2 characters and hit search.
         </div>
       ) : (
@@ -180,7 +180,7 @@ export default function ActorUsernames(): JSX.Element {
               <li key={m.username} className="surface-card p-3">
                 <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
                   <span className="font-mono font-semibold text-sm text-heading break-all">{m.username}</span>
-                  <span className="text-mini font-mono text-slate-500 shrink-0">
+                  <span className="text-mini font-mono text-muted shrink-0">
                     {m.forum_count} forum{m.forum_count === 1 ? '' : 's'}
                   </span>
                 </div>
@@ -190,7 +190,7 @@ export default function ActorUsernames(): JSX.Element {
                       key={f.forum}
                       className={`text-mini font-mono px-2 py-0.5 rounded border ${
                         f.dead
-                          ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted line-through'
+                          ? 'border-slate-300 dark:border-line-1 text-muted line-through'
                           : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                       }`}
                       title={f.dead ? 'defunct forum' : 'active forum'}

@@ -19,7 +19,7 @@ function NumberField({
 }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{placeholder ?? 'Input'}</span>
+      <span className="text-micro font-mono uppercase tracking-wider text-muted">{placeholder ?? 'Input'}</span>
       <div className="flex items-center gap-1.5">
         <input
           type="number"
@@ -27,9 +27,9 @@ function NumberField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="0"
-          className="w-full px-2.5 py-1.5 rounded-lg text-sm font-mono bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading focus:outline-none focus:border-brand-500"
+          className="w-full px-2.5 py-1.5 rounded-lg text-sm font-mono bg-surface-200 border border-line-1 text-heading focus:outline-none focus:border-brand-500"
         />
-        {suffix && <span className="text-xs font-mono text-slate-400">{suffix}</span>}
+        {suffix && <span className="text-xs font-mono text-muted">{suffix}</span>}
       </div>
     </label>
   );
@@ -54,9 +54,9 @@ function Result({
   };
   return (
     <div className="surface-card p-4 text-center">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mb-1">{label}</div>
       <div className={`text-2xl font-mono font-bold ${tones[tone]}`}>{value}</div>
-      {hint && <div className="text-micro font-mono text-slate-400 mt-1">{hint}</div>}
+      {hint && <div className="text-micro font-mono text-muted mt-1">{hint}</div>}
     </div>
   );
 }
@@ -291,7 +291,7 @@ export default function SocCalculators() {
           </div>
         </Panel>
 
-        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-line-1">
           Estimates only — plug in your own averages (your EPS, your analyst wage, your auto-rate) for planning
           conversations, not commitments.
         </div>

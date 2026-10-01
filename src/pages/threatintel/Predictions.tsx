@@ -95,7 +95,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
         <span className="font-mono text-muted">{top ? `${top.name} ${pct}%` : `${pct}%`}</span>
         <span className="font-mono text-muted">{formatVolume(m.volume)} vol</span>
       </div>
-      <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+      <div className="h-1.5 w-full rounded-full bg-surface-300 overflow-hidden">
         <div className={`h-full rounded-full ${meta.bar}`} style={{ width: `${Math.min(100, Math.max(2, pct))}%` }} />
       </div>
       <div className="mt-3 text-mini font-mono text-muted">resolves {formatEndDate(m.end_date)}</div>
@@ -160,7 +160,7 @@ export default function Predictions(): JSX.Element {
             className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
               active
                 ? 'border-rose-500 bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400 dark:hover:border-slate-600'
             }`}
           >
             {b === 'all' ? 'All' : BUCKET_META[b].label} ({count})
@@ -193,7 +193,7 @@ export default function Predictions(): JSX.Element {
             <section key={bucket}>
               <h2 className="flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-muted mb-4">
                 <meta.icon size={14} className={meta.accent.split(' ')[0]} /> {meta.label}
-                <span className="text-slate-400">· {markets.length}</span>
+                <span className="text-muted">· {markets.length}</span>
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {markets.map((m) => (

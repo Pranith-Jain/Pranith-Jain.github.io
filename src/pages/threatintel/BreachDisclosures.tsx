@@ -106,7 +106,7 @@ export default function BreachDisclosures(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1"
             aria-label="Refresh breach disclosures"
           >
             <RefreshCw size={11} /> refresh
@@ -132,7 +132,7 @@ export default function BreachDisclosures(): JSX.Element {
         </div>
 
         {newsLoading && (
-          <div className="surface-card p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+          <div className="surface-card p-4 inline-flex items-center gap-2 font-mono text-sm text-muted">
             <Loader2 size={14} className="animate-spin" /> loading breach-news feeds…
           </div>
         )}
@@ -144,7 +144,7 @@ export default function BreachDisclosures(): JSX.Element {
         )}
 
         {news && news.length === 0 && !newsLoading && (
-          <p className="text-sm font-mono text-slate-500 italic">No items returned from upstream feeds.</p>
+          <p className="text-sm font-mono text-muted italic">No items returned from upstream feeds.</p>
         )}
 
         {news && news.length > 0 && (
@@ -177,7 +177,7 @@ export default function BreachDisclosures(): JSX.Element {
                         </span>
                         <ExternalLink size={11} className="text-muted shrink-0" aria-hidden="true" />
                       </div>
-                      <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+                      <div className="text-mini font-mono text-muted flex items-center gap-2 flex-wrap">
                         {item.source && <span className="text-rose-600 dark:text-rose-400">{item.source}</span>}
                         {item.pubDate && <span className="text-muted">{formatRelativeTime(item.pubDate)}</span>}
                       </div>

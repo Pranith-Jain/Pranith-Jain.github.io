@@ -132,7 +132,7 @@ export default function NotFound(): JSX.Element {
             </p>
             <Link
               to={moved.to}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 text-white px-5 py-3 text-sm font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 text-on-fill px-5 py-3 text-sm font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <code className="text-white">{moved.to}</code>
               <ArrowRight size={14} aria-hidden="true" />
@@ -159,7 +159,7 @@ export default function NotFound(): JSX.Element {
                 <Link
                   key={s.href}
                   to={s.href}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[rgb(var(--border-400))] bg-white px-3 py-1.5 text-sm font-mono text-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:text-brand-300 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-line-1 bg-surface-100 px-3 py-1.5 text-sm font-mono text-body hover:border-brand-500/40 hover:text-brand-600 dark:hover:border-brand-500/40 dark:hover:text-brand-300 transition-colors"
                 >
                   {s.label}
                   <ArrowRight size={12} aria-hidden="true" />
@@ -172,19 +172,19 @@ export default function NotFound(): JSX.Element {
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl border border-line-1 px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
           >
             <Home size={14} aria-hidden="true" /> Home
           </Link>
           <Link
             to="/threatintel"
-            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl border border-line-1 px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
           >
             <Terminal size={14} aria-hidden="true" /> Threat Intel
           </Link>
           <Link
             to="/dfir"
-            className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--border-400))] px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl border border-line-1 px-5 py-3 text-sm font-mono text-body hover:border-brand-500/40 transition-colors"
           >
             <Terminal size={14} aria-hidden="true" /> DFIR Toolkit
           </Link>
@@ -213,9 +213,9 @@ export default function NotFound(): JSX.Element {
                       <Link
                         key={item.href}
                         to={item.href}
-                        className="group flex items-start gap-2 sm:gap-2.5 rounded-xl border border-[rgb(var(--border-400))] bg-white/70 px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[44px] hover:border-brand-500/40 hover:bg-white dark:bg-[rgb(var(--surface-200)/0.6)] dark:hover:bg-[rgb(var(--surface-200))] dark:hover:border-brand-500/40 transition-colors"
+                        className="group flex items-start gap-2 sm:gap-2.5 rounded-xl border border-line-1 bg-surface-100/70 px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[44px] hover:border-brand-500/40 hover:bg-surface-100 dark:bg-surface-200/60 dark:hover:bg-surface-200 dark:hover:border-brand-500/40 transition-colors"
                       >
-                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded bg-slate-100 text-slate-600 group-hover:bg-brand-500/10 group-hover:text-brand-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted dark:group-hover:bg-brand-500/15 dark:group-hover:text-brand-300 transition-colors">
+                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded bg-surface-300 text-muted group-hover:bg-brand-500/10 group-hover:text-brand-600 dark:group-hover:bg-brand-500/15 dark:group-hover:text-brand-300 transition-colors">
                           <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                         </span>
                         <span className="flex flex-col min-w-0 leading-tight">

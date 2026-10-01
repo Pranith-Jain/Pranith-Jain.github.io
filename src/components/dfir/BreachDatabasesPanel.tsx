@@ -91,7 +91,7 @@ const DATABASES: ReadonlyArray<BreachDb> = [
 const TIER_STYLE: Record<BreachDb['tier'], string> = {
   'free-check': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   'freemium-api': 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
-  paid: 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted',
+  paid: 'border-slate-300 dark:border-line-1 bg-slate-100 dark:bg-surface-300 text-muted',
 };
 
 const TIER_LABEL: Record<BreachDb['tier'], string> = {
@@ -124,12 +124,12 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
 
   return (
     <section className="mt-10">
-      <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-line-1">
         <h2 className="font-display font-bold text-xl inline-flex items-center gap-2 text-heading">
           <Database size={18} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           External breach databases
         </h2>
-        <span className="text-xs font-mono text-slate-500">{DATABASES.length} sources</span>
+        <span className="text-xs font-mono text-muted">{DATABASES.length} sources</span>
       </div>
       <p className="text-sm text-muted mb-4 max-w-3xl">
         For deeper coverage beyond what this tool can check directly. Each link opens an external search - credentials

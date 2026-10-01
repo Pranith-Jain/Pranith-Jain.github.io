@@ -185,7 +185,7 @@ export default function MostWanted(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, category, risk, origin, tools, or aliases…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+          className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -215,7 +215,7 @@ export default function MostWanted(): JSX.Element {
               {actor.categories.map((cat) => (
                 <span
                   key={cat}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted border border-line-1"
                 >
                   {cat}
                 </span>

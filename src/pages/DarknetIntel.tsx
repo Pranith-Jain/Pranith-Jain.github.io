@@ -29,7 +29,7 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 focus:border-brand-500 transition-colors';
+  'w-full rounded border border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-input-200 px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 focus:border-brand-500 transition-colors';
 const BTN =
   'inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
@@ -64,11 +64,7 @@ function ResultCard({ data, label }: { data: unknown; label?: string }) {
   const lines = str.split('\n');
   return (
     <div className={`${CARD} overflow-hidden`}>
-      {label && (
-        <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-2 text-xs font-medium text-muted">
-          {label}
-        </div>
-      )}
+      {label && <div className="border-b border-line-1 px-4 py-2 text-xs font-medium text-muted">{label}</div>}
       <pre className="overflow-x-auto p-4 text-xs leading-relaxed text-body font-mono max-h-96">
         {lines.length > 200 ? lines.slice(0, 200).join('\n') + '\n... (truncated)' : str}
       </pre>
@@ -121,7 +117,7 @@ function ToolForm({
     : null;
   return (
     <div className={`${CARD} overflow-hidden`}>
-      <div className="px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="px-4 py-3 border-b border-line-1">
         <div className="flex items-center justify-between">
           <div>
             <h4 className="text-sm font-semibold text-heading">{title}</h4>
@@ -219,7 +215,7 @@ function ProvidersTab() {
 
   if (loading)
     return (
-      <div className="flex items-center gap-2 text-sm text-slate-500 py-8">
+      <div className="flex items-center gap-2 text-sm text-muted py-8">
         <Loader2 className="h-4 w-4 animate-spin" /> Loading sources...
       </div>
     );
@@ -263,7 +259,7 @@ function ProvidersTab() {
                     ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
                     : keyStatus[s.name] === 'missing'
                       ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400'
-                      : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted'
+                      : 'bg-slate-100 dark:bg-surface-200 text-muted'
                 }`}
               >
                 {keyStatus[s.name] === 'configured'
@@ -685,7 +681,7 @@ export default function DarknetIntel() {
             className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
               tab === t.id
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             {t.icon}

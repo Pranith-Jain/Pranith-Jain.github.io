@@ -107,7 +107,7 @@ export default function GrcChecklists() {
             className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
               tab === 'frameworks'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             <ShieldCheck size={13} className="inline mr-1" />
@@ -118,7 +118,7 @@ export default function GrcChecklists() {
             className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
               tab === 'mapper'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             <GitMerge size={13} className="inline mr-1" />
@@ -137,7 +137,7 @@ export default function GrcChecklists() {
                   className={`text-left rounded-xl border p-3 transition-colors ${
                     selectedKey === fw.key
                       ? 'border-brand-500/60 bg-brand-500/5'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
                   }`}
                 >
                   <div className="text-xs font-mono uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 mb-0.5">
@@ -156,14 +156,18 @@ export default function GrcChecklists() {
               <div className={`${CARD} p-4`}>
                 <div className="flex flex-wrap items-center gap-3 mb-3">
                   <div className="relative flex-1 min-w-[200px] max-w-md">
-                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
+                    <Search
+                      size={14}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
+                      aria-hidden="true"
+                    />
                     <input
                       type="text"
                       placeholder="Search controls by ID, name, requirement..."
                       aria-label="Search compliance controls"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full px-9 py-1.5 rounded-lg text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+                      className="w-full px-9 py-1.5 rounded-lg text-sm bg-surface-200 border border-line-1 text-heading placeholder:text-muted focus:outline-none focus:border-brand-500"
                     />
                   </div>
                   <div className="text-xs text-muted font-mono">
@@ -172,8 +176,8 @@ export default function GrcChecklists() {
                 </div>
 
                 {fwLoading ? (
-                  <div className="flex items-center justify-center py-12 text-slate-500">
-                    <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
+                  <div className="flex items-center justify-center py-12 text-muted">
+                    <div className="w-6 h-6 border-2 border-line-2 border-t-brand-500 rounded-full animate-spin mr-3" />
                     Loading framework...
                   </div>
                 ) : fwError ? (
@@ -193,10 +197,7 @@ export default function GrcChecklists() {
                           </h3>
                           <div className="space-y-1.5">
                             {controls.map((ctl) => (
-                              <div
-                                key={ctl.id}
-                                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                              >
+                              <div key={ctl.id} className="rounded border border-line-1 bg-surface-200 p-2.5">
                                 <div className="flex flex-wrap items-center gap-2 mb-1">
                                   <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">
                                     {ctl.id}
@@ -236,19 +237,16 @@ export default function GrcChecklists() {
                       .map(([fw, controls]) => {
                         const list = Array.isArray(controls) ? controls : [];
                         return (
-                          <div
-                            key={fw}
-                            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                          >
+                          <div key={fw} className="rounded border border-line-1 bg-surface-200 p-2.5">
                             <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-1.5">
                               {FRAMEWORK_LABELS[fw] ?? fw}
                             </div>
                             <div className="flex flex-wrap gap-1">
-                              {list.length === 0 && <span className="text-micro font-mono text-slate-400">—</span>}
+                              {list.length === 0 && <span className="text-micro font-mono text-muted">—</span>}
                               {list.map((c) => (
                                 <span
                                   key={c}
-                                  className="font-mono text-micro px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body"
+                                  className="font-mono text-micro px-1.5 py-0.5 rounded border border-line-2 text-body"
                                 >
                                   {c}
                                 </span>
@@ -264,7 +262,7 @@ export default function GrcChecklists() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Summarized from public standards & regulations — not a substitute for the official texts. Pairs with the GRC
           Toolkit (self-assessment) and the DPDP AI controls for AI-risk coverage.
         </div>

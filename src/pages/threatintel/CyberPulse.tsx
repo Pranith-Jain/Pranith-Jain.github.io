@@ -284,7 +284,7 @@ export default function CyberPulse(): JSX.Element {
       )}
 
       {/* Filters bar */}
-      <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
+      <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl border border-line-1 bg-surface-100/50">
         <Filter className="w-4 h-4 text-muted" />
         <div className="relative">
           <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
@@ -293,7 +293,7 @@ export default function CyberPulse(): JSX.Element {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search incidents..."
-            className="pl-7 pr-2 py-1 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-white w-48"
+            className="pl-7 pr-2 py-1 text-sm rounded border border-line-2 bg-surface-100 text-heading w-48"
           />
         </div>
         <FilterSelect value={typeFilter} onChange={setTypeFilter} options={TYPE_LABELS} placeholder="Type" />
@@ -319,7 +319,7 @@ export default function CyberPulse(): JSX.Element {
           <button
             type="button"
             onClick={clearFilters}
-            className="text-xs text-muted hover:text-slate-900 dark:hover:text-white flex items-center gap-1 transition-colors"
+            className="text-xs text-muted hover:text-heading dark:hover:text-white flex items-center gap-1 transition-colors"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -365,7 +365,7 @@ export default function CyberPulse(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="p-1 rounded hover:bg-track dark:hover:bg-surface-300"
           >
             <RefreshCw className={`w-4 h-4 text-muted ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -467,7 +467,7 @@ export default function CyberPulse(): JSX.Element {
                       />
                       {TYPE_LABELS[t.incident_type] ?? t.incident_type}
                     </span>
-                    <span className="font-mono text-slate-900 dark:text-white">{t.count}</span>
+                    <span className="font-mono text-heading">{t.count}</span>
                   </button>
                 ))}
               </div>
@@ -486,11 +486,11 @@ export default function CyberPulse(): JSX.Element {
                     type="button"
                     key={a.name}
                     onClick={() => setTypeFilter('')}
-                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-muted"
+                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-surface-300 dark:hover:bg-surface-200 text-body"
                   >
                     <span className="truncate">{a.name}</span>
                     <span className="flex items-center gap-1 font-mono">
-                      <span className="text-slate-900 dark:text-white">{a.this_week}</span>
+                      <span className="text-heading">{a.this_week}</span>
                       <span className="text-green-600 dark:text-green-400">+{a.delta}</span>
                     </span>
                   </button>
@@ -507,12 +507,9 @@ export default function CyberPulse(): JSX.Element {
               </h3>
               <div className="space-y-1.5">
                 {stats.top_victims.map((v) => (
-                  <div
-                    key={v.victim_name}
-                    className="flex items-center justify-between px-2 py-1 text-xs text-slate-700 dark:text-muted"
-                  >
+                  <div key={v.victim_name} className="flex items-center justify-between px-2 py-1 text-xs text-body">
                     <span className="truncate">{v.victim_name}</span>
-                    <span className="font-mono text-slate-900 dark:text-white">{v.count}</span>
+                    <span className="font-mono text-heading">{v.count}</span>
                   </div>
                 ))}
               </div>
@@ -575,7 +572,7 @@ function FilterSelect({
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-brand-500/50 text-brand-600 dark:text-brand-400 bg-brand-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-muted'}`}
+        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-brand-500/50 text-brand-600 dark:text-brand-400 bg-brand-500/10' : 'border-slate-300 dark:border-line-1 text-slate-700 dark:text-muted'}`}
       >
         {value ? (options[value] ?? value) : placeholder}
         <ChevronDown className="w-3 h-3" />
@@ -583,14 +580,14 @@ function FilterSelect({
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute z-20 mt-1 left-0 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded shadow-e3 max-h-48 overflow-auto min-w-[120px]">
+          <div className="absolute z-20 mt-1 left-0 bg-surface-100 border border-line-1 rounded shadow-e3 max-h-48 overflow-auto min-w-[120px]">
             <button
               type="button"
               onClick={() => {
                 onChange('');
                 setOpen(false);
               }}
-              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted"
+              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-surface-300 dark:hover:bg-surface-300 text-muted"
             >
               All
             </button>
@@ -602,7 +599,7 @@ function FilterSelect({
                   onChange(k);
                   setOpen(false);
                 }}
-                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] ${value === k ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-body'}`}
+                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-surface-300 dark:hover:bg-surface-300 ${value === k ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-body'}`}
               >
                 {v}
               </button>
@@ -626,7 +623,7 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
   })();
 
   return (
-    <div className="surface-card p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))] transition-colors">
+    <div className="surface-card p-4 hover:border-line-2 dark:hover:border-line-2 transition-colors">
       <PostSummary text={postSummary} />
       <div className="flex items-start gap-3">
         <div
@@ -668,25 +665,18 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
             )}
             {inc.victim_sector && <span className="text-muted">{inc.victim_sector}</span>}
             {inc.records_count && (
-              <span className="font-mono text-slate-700 dark:text-slate-500">
-                {formatNumber(inc.records_count)} records
-              </span>
+              <span className="font-mono text-body dark:text-muted">{formatNumber(inc.records_count)} records</span>
             )}
-            {inc.data_volume && <span className="font-mono text-slate-700 dark:text-slate-500">{inc.data_volume}</span>}
+            {inc.data_volume && <span className="font-mono text-body dark:text-muted">{inc.data_volume}</span>}
           </div>
 
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             {tags.slice(0, 5).map((tag) => (
-              <span
-                key={tag}
-                className="px-1.5 py-0.5 text-micro rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted"
-              >
+              <span key={tag} className="px-1.5 py-0.5 text-micro rounded bg-surface-300 text-muted">
                 {tag}
               </span>
             ))}
-            <span className="text-micro text-slate-600 dark:text-slate-600 ml-auto">
-              {relativeTime(inc.discovered_at)}
-            </span>
+            <span className="text-micro text-muted ml-auto">{relativeTime(inc.discovered_at)}</span>
             {inc.source_url && (
               <a
                 href={inc.source_url}

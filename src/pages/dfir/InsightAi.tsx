@@ -199,7 +199,7 @@ export default function InsightAi(): JSX.Element {
               onChange={(e) => setAlertText(e.target.value)}
               rows={10}
               placeholder="Paste alert text, SIEM event, or investigation notes…"
-              className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-xl border border-line-1 bg-surface-200 p-3 font-mono text-xs text-heading focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {EXAMPLE_PROMPTS.slice(0, 3).map((ex) => (
@@ -207,7 +207,7 @@ export default function InsightAi(): JSX.Element {
                   key={ex}
                   type="button"
                   onClick={() => setAlertText(ex)}
-                  className="px-2.5 py-1 rounded text-xs font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                  className="px-2.5 py-1 rounded text-xs font-medium border border-line-1 text-body hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                 >
                   {ex.slice(0, 40)}…
                 </button>
@@ -225,7 +225,7 @@ export default function InsightAi(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                     selectedModes.has(m.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
+                      : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
                   }`}
                 >
                   {m.icon} {m.label}
@@ -244,7 +244,7 @@ export default function InsightAi(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                     selectedSiems.has(s.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
+                      : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
                   }`}
                 >
                   <Terminal size={12} /> {s.label}
@@ -256,7 +256,7 @@ export default function InsightAi(): JSX.Element {
           <button
             onClick={handleGenerate}
             disabled={loading || !alertText.trim() || selectedModes.size === 0}
-            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+            className="w-full px-6 py-3 bg-brand-600 hover:bg-brand-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
@@ -304,7 +304,7 @@ export default function InsightAi(): JSX.Element {
                         className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                           activeTab === m
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
+                            : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
                         }`}
                       >
                         {mode.icon} {mode.label}
@@ -323,43 +323,43 @@ export default function InsightAi(): JSX.Element {
                   <div className="flex gap-1.5">
                     <button
                       onClick={copyResult}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
                     >
                       {copied ? <Check size={13} /> : <Copy size={13} />}
                       {copied ? 'Copied' : 'Copy'}
                     </button>
                     <button
                       onClick={() => downloadAs('md')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
                     >
                       <Download size={13} /> .md
                     </button>
                     <button
                       onClick={() => downloadAs('json')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
                     >
                       <FileJson size={13} /> .json
                     </button>
                     <button
                       onClick={() => downloadAs('yaml')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
                     >
                       <FileText size={13} /> .yaml
                     </button>
                     <button
                       onClick={() => downloadAs('txt')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-1 text-xs font-medium text-body hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
                     >
                       <FileText size={13} /> .txt
                     </button>
                   </div>
                 </div>
                 <div className="prose prose-sm dark:prose-invert max-w-none">
-                  <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-body font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[600px] overflow-y-auto">
+                  <pre className="bg-surface-200 rounded-xl p-4 overflow-x-auto text-xs text-body font-mono border border-line-1 whitespace-pre-wrap max-h-[600px] overflow-y-auto">
                     {result}
                   </pre>
                 </div>
-                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <div className="mt-3 pt-3 border-t border-line-1">
                   <ShareBar
                     shareText={
                       result
@@ -377,8 +377,8 @@ export default function InsightAi(): JSX.Element {
           )}
 
           {!result && !loading && !error && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Sparkles size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
+            <div className="rounded-xl border border-dashed border-line-2 p-10 text-center">
+              <Sparkles size={32} className="text-inverted dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Paste an alert and select modes, then click <span className="font-semibold">Generate</span>
               </p>

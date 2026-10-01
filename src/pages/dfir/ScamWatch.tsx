@@ -219,13 +219,13 @@ export default function ScamWatch(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title or description - e.g. pig butchering, voice clone, romance"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Scam Watch"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -238,7 +238,7 @@ export default function ScamWatch(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               activeSection === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All <span className="opacity-60">· {sectionCounts.all ?? 0}</span>
@@ -250,7 +250,7 @@ export default function ScamWatch(): JSX.Element {
               className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                 activeSection === sec.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
               }`}
             >
               {sec.label} <span className="opacity-60">· {sectionCounts[sec.id] ?? 0}</span>
@@ -261,7 +261,7 @@ export default function ScamWatch(): JSX.Element {
             className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
               showSourcePanel
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
             aria-pressed={showSourcePanel}
           >
@@ -273,7 +273,7 @@ export default function ScamWatch(): JSX.Element {
           <button
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'fetching' : 'refresh'}
@@ -281,7 +281,7 @@ export default function ScamWatch(): JSX.Element {
         </div>
 
         {activeSection !== 'all' && (
-          <p className="text-mini font-mono text-slate-400">
+          <p className="text-mini font-mono text-muted">
             <span className="text-body">{SECTIONS.find((s) => s.id === activeSection)?.label}:</span>{' '}
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
@@ -314,12 +314,12 @@ export default function ScamWatch(): JSX.Element {
       )}
 
       {!loading && !error && items.length === 0 && (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-muted">
+        <div className="rounded-xl border border-dashed border-line-2 p-8 text-center text-sm font-mono text-muted">
           No items returned from the aggregator. Try refresh; the upstream feeds may be temporarily slow.
         </div>
       )}
 
-      <p className="text-mini font-mono text-slate-400 mb-3">
+      <p className="text-mini font-mono text-muted mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {ALL_FEED_IDS.length} feeds returned data
       </p>
 
@@ -327,7 +327,7 @@ export default function ScamWatch(): JSX.Element {
         {annotated.slice(0, 200).map(({ item, section }) => (
           <li
             key={item.link ?? `${item.title}-${item.pubDate}`}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
+            className="rounded border border-line-1 bg-surface-100 p-3"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
               <a
@@ -344,7 +344,7 @@ export default function ScamWatch(): JSX.Element {
                 {section}
               </span>
             </div>
-            <div className="text-mini font-mono text-slate-400 mb-1">
+            <div className="text-mini font-mono text-muted mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>
@@ -358,7 +358,7 @@ export default function ScamWatch(): JSX.Element {
       </ul>
 
       {annotated.length > 200 && (
-        <p className="mt-4 text-mini font-mono text-slate-400">
+        <p className="mt-4 text-mini font-mono text-muted">
           Showing 200 most-recent items. Tighten the search or filter to narrow.
         </p>
       )}
@@ -385,7 +385,7 @@ function sectionStyle(section: string): string {
     case 'news':
       return 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300';
     default:
-      return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+      return 'border-slate-300 dark:border-line-1 text-slate-500';
   }
 }
 

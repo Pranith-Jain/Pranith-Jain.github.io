@@ -79,7 +79,7 @@ const RISK_COLORS: Record<RiskLevel, { text: string; chip: string; bar: string }
 };
 
 const STATUS_TONES: Record<RiskStatus, string> = {
-  identified: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted',
+  identified: 'bg-slate-100 dark:bg-surface-200 text-muted',
   assessed: 'bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300',
   treatment: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   monitoring: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
@@ -226,21 +226,21 @@ export default function RiskRegister(): JSX.Element {
       {stats && (
         <div className="mb-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Total Risks</div>
+            <div className="text-micro font-mono text-muted">Total Risks</div>
             <div className="text-xl font-bold font-mono mt-1">{stats.total}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Open</div>
+            <div className="text-micro font-mono text-muted">Open</div>
             <div className="text-xl font-bold font-mono mt-1 text-amber-600 dark:text-amber-400">
               {stats.open_risks}
             </div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">High / Critical</div>
+            <div className="text-micro font-mono text-muted">High / Critical</div>
             <div className="text-xl font-bold font-mono mt-1 text-rose-600 dark:text-rose-400">{summary.high}</div>
           </div>
           <div className="surface-card p-3">
-            <div className="text-micro font-mono text-slate-500">Total ALE</div>
+            <div className="text-micro font-mono text-muted">Total ALE</div>
             <div className="text-xl font-bold font-mono mt-1 text-emerald-600 dark:text-emerald-400">
               {stats.total_ale > 0
                 ? `${stats.currency === 'USD' ? '$' : stats.currency}${stats.total_ale.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
@@ -256,7 +256,7 @@ export default function RiskRegister(): JSX.Element {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+            className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
             aria-label="Filter by status"
           >
             <option value="">Any status</option>
@@ -270,7 +270,7 @@ export default function RiskRegister(): JSX.Element {
           <select
             value={catFilter}
             onChange={(e) => setCatFilter(e.target.value)}
-            className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
+            className="text-xs font-mono px-2 py-1.5 rounded border border-line-2 bg-surface-200"
             aria-label="Filter by category"
           >
             <option value="">Any category</option>
@@ -284,14 +284,14 @@ export default function RiskRegister(): JSX.Element {
             type="button"
             onClick={fetchData}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
           </button>
           <button
             type="button"
             onClick={() => setShowForm((v) => !v)}
-            className="ml-auto text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 inline-flex items-center gap-1.5"
+            className="ml-auto text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 inline-flex items-center gap-1.5"
           >
             <Plus size={12} /> Add Risk
           </button>
@@ -299,23 +299,23 @@ export default function RiskRegister(): JSX.Element {
 
         {/* Create form */}
         {showForm && (
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4 space-y-3">
+          <div className="rounded-xl border border-line-1 bg-surface-200 p-4 space-y-3">
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-micro font-mono text-slate-500 mb-1">Title</label>
+                <label className="block text-micro font-mono text-muted mb-1">Title</label>
                 <input
                   value={form.title}
                   onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-line-2 bg-surface-100"
                   placeholder="Risk title"
                 />
               </div>
               <div>
-                <label className="block text-micro font-mono text-slate-500 mb-1">Category</label>
+                <label className="block text-micro font-mono text-muted mb-1">Category</label>
                 <select
                   value={form.category}
                   onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-line-2 bg-surface-100"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c} value={c}>
@@ -325,21 +325,21 @@ export default function RiskRegister(): JSX.Element {
                 </select>
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-micro font-mono text-slate-500 mb-1">Description</label>
+                <label className="block text-micro font-mono text-muted mb-1">Description</label>
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-line-2 bg-surface-100"
                   rows={2}
                   placeholder="Risk description"
                 />
               </div>
               <div>
-                <label className="block text-micro font-mono text-slate-500 mb-1">Inherent Level</label>
+                <label className="block text-micro font-mono text-muted mb-1">Inherent Level</label>
                 <select
                   value={form.inherent_level}
                   onChange={(e) => setForm((f) => ({ ...f, inherent_level: e.target.value as RiskLevel }))}
-                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-line-2 bg-surface-100"
                 >
                   {(['low', 'medium', 'high', 'critical'] as RiskLevel[]).map((l) => (
                     <option key={l} value={l}>
@@ -349,11 +349,11 @@ export default function RiskRegister(): JSX.Element {
                 </select>
               </div>
               <div>
-                <label className="block text-micro font-mono text-slate-500 mb-1">Current Level</label>
+                <label className="block text-micro font-mono text-muted mb-1">Current Level</label>
                 <select
                   value={form.current_level}
                   onChange={(e) => setForm((f) => ({ ...f, current_level: e.target.value as RiskLevel }))}
-                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-line-2 bg-surface-100"
                 >
                   {(['low', 'medium', 'high', 'critical'] as RiskLevel[]).map((l) => (
                     <option key={l} value={l}>
@@ -363,11 +363,11 @@ export default function RiskRegister(): JSX.Element {
                 </select>
               </div>
               <div>
-                <label className="block text-micro font-mono text-slate-500 mb-1">Residual Level</label>
+                <label className="block text-micro font-mono text-muted mb-1">Residual Level</label>
                 <select
                   value={form.residual_level}
                   onChange={(e) => setForm((f) => ({ ...f, residual_level: e.target.value as RiskLevel }))}
-                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+                  className="w-full px-2 py-1.5 text-xs font-mono rounded border border-line-2 bg-surface-100"
                 >
                   {(['low', 'medium', 'high', 'critical'] as RiskLevel[]).map((l) => (
                     <option key={l} value={l}>
@@ -382,14 +382,14 @@ export default function RiskRegister(): JSX.Element {
                 type="button"
                 onClick={handleCreate}
                 disabled={!form.title}
-                className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-on-fill hover:bg-brand-700 disabled:opacity-50 transition-colors"
               >
                 Create
               </button>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))]"
+                className="text-xs font-mono px-3 py-1.5 rounded border border-line-2"
               >
                 Cancel
               </button>
@@ -409,7 +409,7 @@ export default function RiskRegister(): JSX.Element {
               <button
                 type="button"
                 onClick={() => toggleExpand(entry.id)}
-                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
               >
                 {/* Priority score */}
                 <div className="flex flex-col items-center shrink-0 w-10">
@@ -435,7 +435,7 @@ export default function RiskRegister(): JSX.Element {
                     </span>
                     <span className="text-micro font-mono text-muted shrink-0">{entry.category}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-micro text-slate-500 mt-0.5">
+                  <div className="flex items-center gap-3 text-micro text-muted mt-0.5">
                     <span>inherent: {entry.inherent_level}</span>
                     <span>current: {entry.current_level}</span>
                     <span>residual: {entry.residual_level}</span>
@@ -462,7 +462,7 @@ export default function RiskRegister(): JSX.Element {
               </button>
 
               {isOpen && (
-                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
+                <div className="border-t border-line-1 px-4 py-3 space-y-3 bg-surface-200/50">
                   {/* Description */}
                   {entry.description && (
                     <p className="text-meta font-mono text-muted leading-relaxed">{entry.description}</p>
@@ -478,8 +478,8 @@ export default function RiskRegister(): JSX.Element {
                       const color = RISK_COLORS[val]?.bar ?? 'bg-slate-300';
                       return (
                         <div key={level} className="flex items-center gap-2">
-                          <span className="text-micro font-mono text-slate-500 w-16 shrink-0 capitalize">{level}</span>
-                          <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+                          <span className="text-micro font-mono text-muted w-16 shrink-0 capitalize">{level}</span>
+                          <div className="flex-1 h-2 rounded-full bg-track">
                             <div
                               className={`h-full rounded-full ${color} transition-all`}
                               style={{ width: `${pct}%` }}
@@ -495,8 +495,8 @@ export default function RiskRegister(): JSX.Element {
 
                   {/* Treatment */}
                   {entry.treatment_strategy && (
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                      <div className="text-micro font-mono text-slate-500 mb-1">
+                    <div className="rounded-xl border border-line-1 p-2.5">
+                      <div className="text-micro font-mono text-muted mb-1">
                         Treatment: {entry.treatment_strategy}
                         {entry.treatment_owner && ` · Owner: ${entry.treatment_owner}`}
                         {entry.treatment_due && ` · Due: ${entry.treatment_due.slice(0, 10)}`}
@@ -507,8 +507,8 @@ export default function RiskRegister(): JSX.Element {
 
                   {/* FAIR Quantification */}
                   {entry.fair && (
-                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                      <div className="text-micro font-mono text-slate-500 mb-1">FAIR Quantification</div>
+                    <div className="rounded-xl border border-line-1 p-2.5">
+                      <div className="text-micro font-mono text-muted mb-1">FAIR Quantification</div>
                       <div className="grid grid-cols-3 gap-2 text-micro font-mono">
                         <div>
                           <span className="text-muted">SLE:</span>{' '}
@@ -538,7 +538,7 @@ export default function RiskRegister(): JSX.Element {
                           className={`text-micro font-mono px-2 py-0.5 rounded border transition-colors ${
                             entry.status === s
                               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                              : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
                           }`}
                         >
                           {s}

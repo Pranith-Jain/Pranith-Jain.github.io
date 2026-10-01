@@ -9,11 +9,9 @@ const STYLES: Record<string, string> = {
   pass: 'bg-emerald-500/15 dark:bg-emerald-400/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40',
   fail: 'bg-rose-500/15 dark:bg-rose-400/15 text-rose-600 dark:text-rose-400 border-rose-500/40',
   softfail: 'bg-amber-500/15 dark:bg-amber-400/15 text-amber-600 dark:text-amber-400 border-amber-500/40',
-  neutral:
-    'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
-  none: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
-  unknown:
-    'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
+  neutral: 'bg-slate-200 dark:bg-surface-300 text-muted border-slate-300 dark:border-line-1',
+  none: 'bg-slate-200 dark:bg-surface-300 text-muted border-slate-300 dark:border-line-1',
+  unknown: 'bg-slate-200 dark:bg-surface-300 text-muted border-slate-300 dark:border-line-1',
 };
 
 // Pair each verdict with an icon so pass/fail is not conveyed by color alone

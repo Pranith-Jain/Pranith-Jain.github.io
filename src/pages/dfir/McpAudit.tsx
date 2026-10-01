@@ -130,28 +130,28 @@ export default function McpAudit(): JSX.Element {
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setInput(SAMPLE_CLEAN)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               title="Sample MCP config - no findings expected"
             >
               MCP · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_DIRTY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               title="Sample MCP config - multiple findings"
             >
               MCP · dirty
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_CLEAN)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               title="Sample Claude Code settings - no findings expected"
             >
               Claude Code · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_DIRTY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-line-2 bg-surface-200 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               title="Sample Claude Code settings - multiple findings"
             >
               Claude Code · dirty
@@ -159,7 +159,7 @@ export default function McpAudit(): JSX.Element {
             {input && (
               <button
                 onClick={() => setInput('')}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               >
                 Clear
               </button>
@@ -172,7 +172,7 @@ export default function McpAudit(): JSX.Element {
           rows={12}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
           aria-label="MCP config JSON"
         />
         {parseError && (
@@ -231,10 +231,7 @@ export default function McpAudit(): JSX.Element {
             ) : (
               <ul className="space-y-3">
                 {findings.map((f, i) => (
-                  <li
-                    key={`${f.id}-${i}`}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                  >
+                  <li key={`${f.id}-${i}`} className="rounded border border-line-1 bg-surface-200 p-3">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-heading">{f.title}</span>
                       <span
@@ -242,7 +239,7 @@ export default function McpAudit(): JSX.Element {
                       >
                         {f.severity}
                       </span>
-                      <code className="text-mini font-mono text-slate-400">{f.scope}</code>
+                      <code className="text-mini font-mono text-muted">{f.scope}</code>
                     </div>
                     <p className="text-sm font-mono text-muted mb-1.5">{f.detail}</p>
                     <p className="text-xs font-mono text-emerald-700 dark:text-emerald-400">→ {f.remediation}</p>

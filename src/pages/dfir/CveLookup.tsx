@@ -219,7 +219,7 @@ export default function CveLookup(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <BookText size={16} className="inline mr-2" />
             Lookup
@@ -295,7 +295,7 @@ export default function CveLookup(): JSX.Element {
                 </span>
               )}
             </div>
-            <div className="flex flex-wrap gap-4 font-mono text-xs text-slate-500">
+            <div className="flex flex-wrap gap-4 font-mono text-xs text-muted">
               {result.published && (
                 <span>
                   Published: <span className="text-body">{result.published.slice(0, 10)}</span>
@@ -327,7 +327,7 @@ export default function CveLookup(): JSX.Element {
                   </span>
                 </div>
 
-                <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-3">
+                <div className="h-2 rounded bg-track overflow-hidden mb-3">
                   <div
                     className={`h-full transition-all ${TIER_BARS[p.tier]}`}
                     style={{ width: `${Math.max(2, p.score)}%` }}
@@ -342,7 +342,7 @@ export default function CveLookup(): JSX.Element {
                 {/* Per-signal contribution bar */}
                 {total > 0 && (
                   <div className="mb-4">
-                    <div className="flex h-3 rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <div className="flex h-3 rounded overflow-hidden border border-line-1">
                       {p.contributions.cvss > 0 && (
                         <div
                           className="bg-amber-500"
@@ -364,9 +364,9 @@ export default function CveLookup(): JSX.Element {
                           title={`KEV contribution: ${p.contributions.kev}`}
                         />
                       )}
-                      <div className="bg-slate-300 dark:bg-[rgb(var(--surface-300))]" style={{ flex: 1 }} />
+                      <div className="bg-slate-300 dark:bg-surface-300" style={{ flex: 1 }} />
                     </div>
-                    <div className="flex flex-wrap gap-3 mt-1.5 text-micro font-mono text-slate-400">
+                    <div className="flex flex-wrap gap-3 mt-1.5 text-micro font-mono text-muted">
                       <span className="inline-flex items-center gap-1">
                         <span className="inline-block w-2 h-2 bg-amber-500 rounded" /> CVSS · {p.contributions.cvss}
                       </span>
@@ -383,7 +383,7 @@ export default function CveLookup(): JSX.Element {
                 <ul className="space-y-1 text-sm font-mono text-body">
                   {p.rationale.map((r, i) => (
                     <li key={i} className="flex gap-2">
-                      <span className="text-slate-400 select-none">›</span>
+                      <span className="text-muted select-none">›</span>
                       <span
                         dangerouslySetInnerHTML={{
                           __html: r
@@ -407,9 +407,7 @@ export default function CveLookup(): JSX.Element {
                   <CopyButton
                     value={`${result.cve_id} - ${TIER_LABELS[p.tier]} (${p.score}/100, ${p.sla}).\n${p.rationale.map((r) => '- ' + r.replace(/\*\*/g, '')).join('\n')}`}
                   />
-                  <span className="ml-2 self-center text-mini font-mono text-slate-400">
-                    Copy ticket-ready rationale
-                  </span>
+                  <span className="ml-2 self-center text-mini font-mono text-muted">Copy ticket-ready rationale</span>
                 </div>
               </section>
             );
@@ -436,7 +434,7 @@ export default function CveLookup(): JSX.Element {
                   className={`px-3 py-2 rounded-xl text-xs font-mono border transition-colors ${
                     ruleFormat === f
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
+                      : 'border-slate-200 dark:border-line-1 text-muted hover:border-slate-300 dark:hover:border-line-1'
                   }`}
                 >
                   {f.toUpperCase()}
@@ -465,7 +463,7 @@ export default function CveLookup(): JSX.Element {
                     setCopied('explain');
                     setTimeout(() => setCopied(null), 2000);
                   }}
-                  className="text-xs font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300"
+                  className="text-xs font-mono text-muted hover:text-muted dark:hover:text-inverted"
                 >
                   {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                 </button>
@@ -478,11 +476,11 @@ export default function CveLookup(): JSX.Element {
 
           {ruleText && (
             <section className="surface-card animate-fade-in-up">
-              <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="flex items-center justify-between p-3 border-b border-line-1">
                 <div className="flex items-center gap-2">
                   <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
                   <span className="text-sm font-mono font-semibold text-body">{ruleName}</span>
-                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
+                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                     {ruleFormat.toUpperCase()}
                   </span>
                 </div>
@@ -493,7 +491,7 @@ export default function CveLookup(): JSX.Element {
                     setCopied('rule');
                     setTimeout(() => setCopied(null), 2000);
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-muted hover:bg-surface-300 dark:hover:bg-surface-300 transition-colors"
                 >
                   {copied === 'rule' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                   {copied === 'rule' ? 'Copied' : 'Copy'}
@@ -520,7 +518,7 @@ export default function CveLookup(): JSX.Element {
               <div className="flex items-center gap-6">
                 <div className="text-center">
                   <div className="text-3xl sm:text-4xl font-display font-bold">{result.cvss.base_score}</div>
-                  <div className="text-xs font-mono text-slate-500">/ 10</div>
+                  <div className="text-xs font-mono text-muted">/ 10</div>
                 </div>
                 <div>
                   <span
@@ -528,7 +526,7 @@ export default function CveLookup(): JSX.Element {
                   >
                     {result.cvss.severity}
                   </span>
-                  <div className="flex items-center mt-2 font-mono text-xs text-slate-500 break-all">
+                  <div className="flex items-center mt-2 font-mono text-xs text-muted break-all">
                     <span>{result.cvss.vector}</span>
                     <CopyButton value={result.cvss.vector} />
                   </div>
@@ -544,15 +542,15 @@ export default function CveLookup(): JSX.Element {
               <div className="flex gap-8 font-mono">
                 <div>
                   <div className="text-2xl font-bold">{(result.epss.score * 100).toFixed(2)}%</div>
-                  <div className="text-xs text-slate-500">exploit probability</div>
+                  <div className="text-xs text-muted">exploit probability</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold">{(result.epss.percentile * 100).toFixed(1)}th</div>
-                  <div className="text-xs text-slate-500">percentile</div>
+                  <div className="text-xs text-muted">percentile</div>
                 </div>
                 <div>
                   <div className="text-sm text-muted">{result.epss.date}</div>
-                  <div className="text-xs text-slate-500">data date</div>
+                  <div className="text-xs text-muted">data date</div>
                 </div>
               </div>
             </section>
@@ -590,19 +588,19 @@ export default function CveLookup(): JSX.Element {
               <div className="grid sm:grid-cols-3 gap-4 font-mono text-sm">
                 {result.kev.date_added && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">Date Added</div>
+                    <div className="text-xs text-muted mb-1">Date Added</div>
                     <div className="text-heading">{result.kev.date_added}</div>
                   </div>
                 )}
                 {result.kev.due_date && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">Due Date</div>
+                    <div className="text-xs text-muted mb-1">Due Date</div>
                     <div className="text-heading">{result.kev.due_date}</div>
                   </div>
                 )}
                 {result.kev.required_action && (
                   <div className="sm:col-span-3">
-                    <div className="text-xs text-slate-500 mb-1">Required Action</div>
+                    <div className="text-xs text-muted mb-1">Required Action</div>
                     <div className="text-heading">{result.kev.required_action}</div>
                   </div>
                 )}
@@ -640,7 +638,7 @@ export default function CveLookup(): JSX.Element {
                     return (
                       <li
                         key={link.slug}
-                        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/80 dark:bg-[rgb(var(--surface-200))]/60 p-3"
+                        className="rounded-xl border border-line-1 bg-surface-100/80 dark:bg-surface-200/60 p-3"
                       >
                         <div className="flex items-start justify-between gap-2 mb-1.5 flex-wrap">
                           <Link
@@ -660,11 +658,11 @@ export default function CveLookup(): JSX.Element {
                           </div>
                         </div>
                         <div className="flex flex-wrap items-center gap-1.5 text-micro font-mono">
-                          <span className="text-slate-500">evidence:</span>
+                          <span className="text-muted">evidence:</span>
                           {link.sources.map((s) => (
                             <span
                               key={s}
-                              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-body"
+                              className="rounded border border-line-2 bg-surface-200 px-1.5 py-0.5 text-body"
                               title={`Attribution sourced from ${ACTOR_LINK_SOURCE_LABEL[s] ?? s}`}
                             >
                               {ACTOR_LINK_SOURCE_LABEL[s] ?? s}
@@ -713,7 +711,7 @@ export default function CveLookup(): JSX.Element {
                       href={`https://cwe.mitre.org/data/definitions/${num}.html`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-brand-600 dark:text-brand-400 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-line-1 text-xs font-mono text-brand-600 dark:text-brand-400 hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                     >
                       {id}
                       <ExternalLink size={10} />
@@ -761,7 +759,7 @@ export default function CveLookup(): JSX.Element {
                   <div className="flex items-baseline justify-between gap-2 mb-3">
                     <h3 className="font-display font-semibold text-lg">
                       References{' '}
-                      <span className="text-slate-500 text-sm font-normal">
+                      <span className="text-muted text-sm font-normal">
                         ({filtered.length} of {result.references.length})
                       </span>
                     </h3>
@@ -788,7 +786,7 @@ export default function CveLookup(): JSX.Element {
                             className={`text-micro font-mono px-2 py-0.5 rounded border ${
                               active
                                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                                : 'border-slate-300 dark:border-line-1 text-slate-500'
                             }`}
                           >
                             {t}
@@ -810,7 +808,7 @@ export default function CveLookup(): JSX.Element {
                           <ExternalLink size={11} className="shrink-0" />
                         </a>
                         {tags && tags.length > 0 && (
-                          <span className="text-xs font-mono text-slate-500 shrink-0">[{tags.join(', ')}]</span>
+                          <span className="text-xs font-mono text-muted shrink-0">[{tags.join(', ')}]</span>
                         )}
                       </li>
                     ))}

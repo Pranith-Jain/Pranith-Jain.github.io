@@ -87,7 +87,7 @@ function HBar({
   formatValue?: (n: number) => string;
 }) {
   if (items.length === 0) {
-    return <p className="text-xs text-slate-500 italic">No data in window.</p>;
+    return <p className="text-xs text-muted italic">No data in window.</p>;
   }
   const ceiling = max ?? Math.max(...items.map((i) => i.value), 1);
   const fmt = formatValue ?? ((n: number) => n.toLocaleString());
@@ -101,12 +101,12 @@ function HBar({
               <span className="text-body truncate" title={String(it.label)}>
                 {String(it.label)}
               </span>
-              <span className="text-slate-500 tabular-nums shrink-0">
+              <span className="text-muted tabular-nums shrink-0">
                 {fmt(it.value)}
                 {it.hint && <span className="text-muted ml-1">{String(it.hint)}</span>}
               </span>
             </div>
-            <div className="h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+            <div className="h-1.5 rounded-full bg-surface-300 overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{ width: `${Math.max(2, pct)}%`, backgroundColor: color }}
@@ -124,7 +124,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
   const order: RecentCve['severity'][] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'];
   const segments = order.map((sev) => ({ sev, n: counts[sev] ?? 0 })).filter((s) => s.n > 0);
   if (total === 0) {
-    return <p className="text-xs text-slate-500 italic">No CVEs in window.</p>;
+    return <p className="text-xs text-muted italic">No CVEs in window.</p>;
   }
   return (
     <div>
@@ -152,7 +152,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
                 style={{ backgroundColor: SEVERITY_COLORS[sev] }}
               />
               <span className="text-body">{sev}</span>
-              <span className="ml-auto text-slate-500 tabular-nums">
+              <span className="ml-auto text-muted tabular-nums">
                 {n} <span className="text-muted">({pct.toFixed(0)}%)</span>
               </span>
             </li>
@@ -165,7 +165,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
 
 function Sparkbars({ buckets, color }: { buckets: { label: string; value: number }[]; color: string }) {
   if (buckets.length === 0) {
-    return <p className="text-xs text-slate-500 italic">No data.</p>;
+    return <p className="text-xs text-muted italic">No data.</p>;
   }
   const ceiling = Math.max(...buckets.map((b) => b.value), 1);
   const w = 360;
@@ -211,7 +211,7 @@ function Sparkbars({ buckets, color }: { buckets: { label: string; value: number
                 fontSize="9"
                 fontFamily="ui-monospace,monospace"
                 fill="currentColor"
-                className="text-slate-500"
+                className="text-muted"
               >
                 {String(b.label)}
               </text>
@@ -1004,7 +1004,7 @@ export default function Metrics(): JSX.Element {
           <div
             role="group"
             aria-label="Time window"
-            className="inline-flex rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden text-mini font-mono"
+            className="inline-flex rounded border border-line-1 overflow-hidden text-mini font-mono"
           >
             {WINDOW_OPTIONS.map((d) => {
               const active = d === windowDays;
@@ -1017,7 +1017,7 @@ export default function Metrics(): JSX.Element {
                   className={`px-2.5 py-1.5 transition-colors ${
                     active
                       ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                      : 'text-muted hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                      : 'text-muted hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-surface-300'
                   }`}
                 >
                   {d}d
@@ -1028,7 +1028,7 @@ export default function Metrics(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -1036,7 +1036,7 @@ export default function Metrics(): JSX.Element {
       </section>
 
       {state.loading && (
-        <div className="surface-card p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="surface-card p-6 inline-flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> computing aggregates from upstream feeds…
         </div>
       )}
@@ -1063,7 +1063,7 @@ export default function Metrics(): JSX.Element {
           <div className="flex items-baseline gap-3 mb-3">
             <Flame size={18} className="text-rose-600 dark:text-rose-400" />
             <h2 className="font-display font-bold text-lg text-heading">This week's read: ransomware posture</h2>
-            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-muted">
               auto-computed · updates on refresh
             </span>
           </div>
@@ -1071,12 +1071,12 @@ export default function Metrics(): JSX.Element {
             <div>
               <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 text-mini font-mono">
-                <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1.5">
-                  <div className="text-slate-500">last 7d</div>
+                <div className="rounded border border-line-1 px-2 py-1.5">
+                  <div className="text-muted">last 7d</div>
                   <div className="text-heading font-semibold text-sm">{String(headlineRead.last7)}</div>
                 </div>
-                <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1.5">
-                  <div className="text-slate-500">prior 7d</div>
+                <div className="rounded border border-line-1 px-2 py-1.5">
+                  <div className="text-muted">prior 7d</div>
                   <div className="text-heading font-semibold text-sm">{String(headlineRead.prior7)}</div>
                 </div>
                 <div
@@ -1085,7 +1085,7 @@ export default function Metrics(): JSX.Element {
                       ? 'border-rose-500/40 text-rose-600 dark:text-rose-300'
                       : headlineRead.trendLabel === 'cooling'
                         ? 'border-emerald-500/40 text-emerald-600 dark:text-emerald-300'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-body'
+                        : 'border-slate-200 dark:border-line-1 text-body'
                   }`}
                 >
                   <div className="opacity-70">trend</div>
@@ -1099,7 +1099,7 @@ export default function Metrics(): JSX.Element {
                   {typeof s === 'string' ? s : String(s)}
                 </p>
               ))}
-              <p className="text-mini font-mono text-slate-500 pt-1">
+              <p className="text-mini font-mono text-muted pt-1">
                 Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 7
                 days. Sources: ransomlook.io aggregated leak-site index merged with MyThreatIntel CTI events (deduped by
                 victim).{' '}
@@ -1217,13 +1217,13 @@ export default function Metrics(): JSX.Element {
           expand to see the catalog. */}
       {!state.loading && (
         <details className="mb-2 group">
-          <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 font-mono py-3">
+          <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-muted hover:text-rose-600 dark:hover:text-rose-400 font-mono py-3">
             Analyst panels (10 more). Sectors, brands, IOC volume, malware families, re-leaks, IP origins, breaches,
             chatter, dark-web, MTI profiled
             <span className="ml-2 text-muted group-open:hidden">expand</span>
             <span className="ml-2 text-muted hidden group-open:inline">collapse</span>
           </summary>
-          <p className="mt-2 text-meta font-mono text-slate-500 max-w-2xl mb-4">
+          <p className="mt-2 text-meta font-mono text-muted max-w-2xl mb-4">
             All ten are computed live from the same upstream feeds the narrative panels above use. No interpretation
             captions; the chart speaks for itself once you know what you're looking at.
           </p>
@@ -1349,25 +1349,25 @@ export default function Metrics(): JSX.Element {
         <div className="grid sm:grid-cols-2 gap-2 text-meta font-mono">
           <Link
             to="/threatintel/iocs/cross"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
+            className="px-3 py-2 rounded border border-line-1 hover:border-rose-500/40 text-body"
           >
             Cross-source IOC correlation →
           </Link>
           <Link
             to="/threatintel/actors/hub"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
+            className="px-3 py-2 rounded border border-line-1 hover:border-rose-500/40 text-body"
           >
             Actor activity timeline + MITRE TTPs →
           </Link>
           <Link
             to="/threatintel/darkweb/leaks"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
+            className="px-3 py-2 rounded border border-line-1 hover:border-rose-500/40 text-body"
           >
             Victim re-leak detection →
           </Link>
           <Link
             to="/threatintel/catalog?cat=iocs"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-body"
+            className="px-3 py-2 rounded border border-line-1 hover:border-rose-500/40 text-body"
           >
             Live IOC stream →
           </Link>
@@ -1375,7 +1375,7 @@ export default function Metrics(): JSX.Element {
       </section>
 
       {state.refreshedAt && (
-        <p className="text-micro font-mono text-slate-500 mt-6 text-right">
+        <p className="text-micro font-mono text-muted mt-6 text-right">
           recomputed {new Date(state.refreshedAt).toLocaleString()}
         </p>
       )}
@@ -1431,7 +1431,7 @@ function Stat({
           </span>
         )}
       </span>
-      <span className="text-micro uppercase tracking-wider text-slate-500">{label}</span>
+      <span className="text-micro uppercase tracking-wider text-muted">{label}</span>
     </div>
   );
 }
@@ -1468,7 +1468,7 @@ function ChartCard({
           </Link>
         )}
       </div>
-      <p className="text-xs italic text-slate-500 mb-3 leading-relaxed">{question}</p>
+      <p className="text-xs italic text-muted mb-3 leading-relaxed">{question}</p>
       <div className="mb-3">{children}</div>
       {interpretation && (
         <p className="text-meta text-body leading-relaxed mb-2 border-l-2 border-rose-500/40 pl-3">{interpretation}</p>

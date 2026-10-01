@@ -80,7 +80,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               {body.keys.map((k, i) => (
                 <div
                   key={i}
-                  className="font-mono text-xs text-brand-600 dark:text-brand-400 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-3 py-1.5 break-all"
+                  className="font-mono text-xs text-brand-600 dark:text-brand-400 bg-surface-200 border border-line-1 rounded px-3 py-1.5 break-all"
                 >
                   {k}
                 </div>
@@ -132,7 +132,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               {body.parsers.map((p, i) => (
                 <span
                   key={i}
-                  className="font-mono text-micro text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
+                  className="font-mono text-micro text-muted bg-surface-300 border border-line-1 px-2 py-0.5 rounded"
                 >
                   {p}
                 </span>
@@ -140,7 +140,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
             </div>
           </div>
         )}
-        <div className="text-micro text-muted pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-micro text-muted pt-2 border-t border-line-1">
           Data from{' '}
           <a
             href={body.sourceUrl}
@@ -226,7 +226,7 @@ export default function WinReg() {
               placeholder="Search artifacts by name, key, technique..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-9 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+              className="w-full px-9 py-2 rounded-xl text-sm bg-surface-200 border border-line-1 text-heading placeholder:text-muted focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="text-xs text-muted font-mono">
@@ -241,7 +241,7 @@ export default function WinReg() {
             className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
               !selectedCategory
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
             }`}
           >
             All Categories
@@ -253,7 +253,7 @@ export default function WinReg() {
               className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-colors ${
                 selectedCategory === cat.key
                   ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+                  : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'
               }`}
             >
               {cat.name} <span className="opacity-60 ml-0.5">({cat.count})</span>
@@ -276,13 +276,13 @@ export default function WinReg() {
 
         {/* Artifact grid */}
         {artsLoading ? (
-          <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
+          <div className="flex items-center justify-center py-16 text-muted">
+            <div className="w-6 h-6 border-2 border-line-2 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading artifacts...
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${CARD} p-12 text-center`}>
-            <FileJson size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+            <FileJson size={32} className="mx-auto mb-3 text-inverted" />
             <p className="text-sm text-muted">No artifacts match your filters.</p>
           </div>
         ) : (
@@ -293,7 +293,7 @@ export default function WinReg() {
                 onClick={() => setDetailSlug(art.slug)}
                 className={`${CARD} text-left p-4 transition-colors hover:border-brand-400 dark:hover:border-brand-600 group`}
               >
-                <div className="text-sm font-semibold text-body group-hover:text-slate-900 dark:group-hover:text-white mb-2 leading-snug">
+                <div className="text-sm font-semibold text-body group-hover:text-heading dark:group-hover:text-white mb-2 leading-snug">
                   {art.name}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mb-2">
@@ -330,7 +330,7 @@ export default function WinReg() {
         )}
 
         {/* Source footer */}
-        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-line-1">
           Data sourced from{' '}
           <a
             href="https://dfir-scripts.github.io/registry/"

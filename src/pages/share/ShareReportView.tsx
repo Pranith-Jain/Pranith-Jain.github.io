@@ -83,8 +83,8 @@ function IocSection({ label, values, tone }: { label: string; values?: string[];
   if (!values || values.length === 0) return null;
   return (
     <div>
-      <h4 className="mb-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">
-        {label} <span className="text-slate-400">({values.length})</span>
+      <h4 className="mb-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-muted">
+        {label} <span className="text-muted">({values.length})</span>
       </h4>
       <div className="flex flex-wrap gap-1.5">
         {values.slice(0, 60).map((v) => (
@@ -118,19 +118,19 @@ export default function ShareReportView(): JSX.Element {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-input-200">
-        <p className="animate-pulse font-mono text-sm text-slate-500">loading shared report…</p>
+      <div className="flex min-h-screen items-center justify-center bg-surface-200">
+        <p className="animate-pulse font-mono text-sm text-muted">loading shared report…</p>
       </div>
     );
   }
 
   if (error || !data) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-input-200 px-4">
-        <div className="max-w-md rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
-          <Lock className="mx-auto mb-3 text-slate-400" size={28} />
+      <div className="flex min-h-screen items-center justify-center bg-surface-200 px-4">
+        <div className="max-w-md rounded-xl border border-line-1 bg-surface-100 p-8 text-center shadow-sm">
+          <Lock className="mx-auto mb-3 text-muted" size={28} />
           <h1 className="mb-2 text-lg font-semibold">Report unavailable</h1>
-          <p className="text-sm text-slate-500">{error || 'Unknown error'}</p>
+          <p className="text-sm text-muted">{error || 'Unknown error'}</p>
         </div>
       </div>
     );
@@ -155,7 +155,7 @@ export default function ShareReportView(): JSX.Element {
     (cls ? 'bg-slate-600' : '');
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-input-200">
+    <div className="min-h-screen bg-surface-200">
       {/* Classification banner */}
       {b.classification && (
         <div className={`${clsColor} py-1 text-center font-mono text-xs font-bold uppercase tracking-widest`}>
@@ -164,7 +164,7 @@ export default function ShareReportView(): JSX.Element {
       )}
 
       {/* Branded header */}
-      <header className="border-b border-slate-200 bg-white dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
+      <header className="border-b border-line-1 bg-surface-100">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             {b.logoUrl && /^https:\/\//.test(b.logoUrl) && (
@@ -185,10 +185,10 @@ export default function ShareReportView(): JSX.Element {
                   <Building2 size={14} style={{ color: accent }} /> {b.orgName}
                 </div>
               )}
-              <div className="text-xs text-slate-500">Threat Investigation Report</div>
+              <div className="text-xs text-muted">Threat Investigation Report</div>
             </div>
           </div>
-          <div className="flex items-center gap-2 font-mono text-xs text-slate-400">
+          <div className="flex items-center gap-2 font-mono text-xs text-muted">
             <Clock size={12} />
             {data.created_at ? new Date(data.created_at).toISOString().slice(0, 10) : ''}
           </div>
@@ -209,7 +209,7 @@ export default function ShareReportView(): JSX.Element {
               href={data.source_url}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-2 inline-flex items-center gap-1 break-all text-xs text-slate-500 hover:underline"
+              className="mt-2 inline-flex items-center gap-1 break-all text-xs text-muted hover:underline"
             >
               <ExternalLink size={11} /> {data.source_url}
             </a>
@@ -224,8 +224,8 @@ export default function ShareReportView(): JSX.Element {
 
         {/* Executive summary */}
         {r?.summary && (
-          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
-            <h2 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
+          <section className="rounded-xl border border-line-1 bg-surface-100 p-5">
+            <h2 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-muted">
               <FileWarning size={15} style={{ color: accent }} /> Executive Summary
             </h2>
             <p className="text-sm leading-relaxed text-body">
@@ -236,15 +236,15 @@ export default function ShareReportView(): JSX.Element {
 
         {/* ATT&CK techniques */}
         {r?.ttp && r.ttp.length > 0 && (
-          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
-            <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
+          <section className="rounded-xl border border-line-1 bg-surface-100 p-5">
+            <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-muted">
               <Crosshair size={15} style={{ color: accent }} /> MITRE ATT&CK Techniques
             </h2>
             <ul className="space-y-1.5">
               {r.ttp.map((t) => (
                 <li key={t.id + t.name} className="font-mono text-sm">
                   <span className="text-indigo-500">{t.id}</span> {t.name}
-                  {t.tactic && <span className="ml-2 text-xs text-slate-500">— {t.tactic}</span>}
+                  {t.tactic && <span className="ml-2 text-xs text-muted">— {t.tactic}</span>}
                 </li>
               ))}
             </ul>
@@ -253,8 +253,8 @@ export default function ShareReportView(): JSX.Element {
 
         {/* CVEs */}
         {r?.cves && r.cves.length > 0 && (
-          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-slate-500">CVEs</h2>
+          <section className="rounded-xl border border-line-1 bg-surface-100 p-5">
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">CVEs</h2>
             <div className="flex flex-wrap gap-1.5">
               {r.cves.map((c) => (
                 <Chip key={c.id} tone="amber">
@@ -268,8 +268,8 @@ export default function ShareReportView(): JSX.Element {
 
         {/* IOC block — grouped by kind from the flat ExtractedIoc list */}
         {Object.keys(iocGroups).length > 0 && (
-          <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Indicators of Compromise</h2>
+          <section className="space-y-4 rounded-xl border border-line-1 bg-surface-100 p-5">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-muted">Indicators of Compromise</h2>
             {(Object.entries(IOC_LABELS) as Array<[string, string]>).map(([kind, label]) => {
               const values = iocGroups[kind];
               if (!values || values.length === 0) return null;
@@ -285,7 +285,7 @@ export default function ShareReportView(): JSX.Element {
         )}
 
         {/* Footer */}
-        <footer className="border-t border-slate-200 pt-4 text-center text-xs text-slate-400 dark:border-line-1">
+        <footer className="border-t border-line-1 pt-4 text-center text-xs text-muted">
           {b.footer || 'Shared via capability link — do not redistribute without authorization.'}
         </footer>
       </main>

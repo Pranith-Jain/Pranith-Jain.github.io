@@ -120,21 +120,19 @@ export default function DiamondModelSection({ actor }: Props): JSX.Element {
             ))}
           </div>
 
-          <hr className="border-slate-200 dark:border-[rgb(var(--border-400))]" />
+          <hr className="border-line-1" />
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <div>
-              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">Motivation</p>
+              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-muted">Motivation</p>
               <p className="text-xs font-mono text-heading mt-0.5">{actor.motivation}</p>
             </div>
             <div>
-              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">Active Since</p>
+              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-muted">Active Since</p>
               <p className="text-xs font-mono text-heading mt-0.5">{actor.active_since || '\u2014'}</p>
             </div>
             <div>
-              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">
-                Sophistication
-              </p>
+              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-muted">Sophistication</p>
               <p className="text-xs font-mono capitalize text-heading mt-0.5">{actor.sophistication}</p>
             </div>
           </div>

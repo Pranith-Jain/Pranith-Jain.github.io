@@ -83,7 +83,7 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
         aria-modal="true"
         className="relative w-[min(640px,92vw)] surface-raised shadow-2xl z-10 animate-fade-in-up"
       >
-        <div className="flex items-center gap-3 px-4 h-12 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="flex items-center gap-3 px-4 h-12 border-b border-line-1">
           <Search size={16} className="text-muted" />
           <input
             ref={inputRef}
@@ -130,9 +130,7 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
                 onMouseEnter={() => setActive(i)}
                 className={cn(
                   'w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors',
-                  i === active
-                    ? 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
-                    : 'hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                  i === active ? 'bg-slate-100 dark:bg-surface-300' : 'hover:bg-slate-100 dark:hover:bg-surface-300'
                 )}
               >
                 <span className="text-muted">
@@ -146,23 +144,19 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
           })}
         </div>
 
-        <div className="flex items-center gap-3 px-4 h-9 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-muted">
+        <div className="flex items-center gap-3 px-4 h-9 border-t border-line-1 text-micro font-mono uppercase tracking-wider text-muted">
           <span className="flex items-center gap-1">
-            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-micro normal-case">
+            <kbd className="px-1 py-px rounded border border-line-1 bg-surface-200 text-micro normal-case">
               &uarr;&darr;
             </kbd>{' '}
             navigate
           </span>
           <span className="flex items-center gap-1">
-            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-micro normal-case">
-              &crarr;
-            </kbd>{' '}
+            <kbd className="px-1 py-px rounded border border-line-1 bg-surface-200 text-micro normal-case">&crarr;</kbd>{' '}
             open
           </span>
           <span className="ml-auto flex items-center gap-1">
-            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-micro normal-case">
-              esc
-            </kbd>{' '}
+            <kbd className="px-1 py-px rounded border border-line-1 bg-surface-200 text-micro normal-case">esc</kbd>{' '}
             close
           </span>
         </div>

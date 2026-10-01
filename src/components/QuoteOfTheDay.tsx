@@ -64,9 +64,9 @@ export function QuoteOfTheDay(): JSX.Element | null {
   if (!quote) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-e1 dark:hover:shadow-brand-500/5">
+    <section className="group relative overflow-hidden rounded-xl border border-line-1/70 p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-e1 dark:hover:shadow-brand-500/5">
       {/* Subtle gradient background */}
-      <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))]" />
+      <div aria-hidden className="absolute inset-0 bg-wash" />
       {/* Decorative icon */}
       <div aria-hidden className="absolute -right-4 -bottom-4 text-brand-100 dark:text-brand-500/10">
         <Shield size={80} strokeWidth={1} />

@@ -202,8 +202,7 @@ function getVerificationVerdict(v: EmailVerification): {
   }
   return {
     label: 'Unknown',
-    classes:
-      'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
+    classes: 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300 border-slate-300 dark:border-line-1',
     Icon: BadgeCheck,
     blurb: 'Neither free verifier (throwaway.sslboard.com, rapid-email-verifier.fly.dev) responded.',
   };
@@ -215,10 +214,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
   return (
     <div className="space-y-4">
       {breaches.map((b, i) => (
-        <div
-          key={i}
-          className="p-4 rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
-        >
+        <div key={i} className="p-4 rounded-xl border border-line-1 bg-surface-200/50">
           <div className="flex items-start justify-between gap-3 mb-2">
             <div className="flex items-center gap-2 min-w-0">
               {b.logo && (
@@ -234,28 +230,25 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
               )}
               <div className="min-w-0">
                 <h4 className="font-semibold text-heading truncate">{b.name}</h4>
-                {b.domain && <p className="text-xs text-slate-500 truncate">{b.domain}</p>}
+                {b.domain && <p className="text-xs text-muted truncate">{b.domain}</p>}
               </div>
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0">
               <span
-                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_COLORS[b.source ?? ''] || 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_COLORS[b.source ?? ''] || 'border-slate-300 dark:border-line-1 text-slate-500'}`}
               >
                 {SOURCE_LABELS[b.source ?? ''] ?? b.source ?? 'unknown'}
               </span>
-              {b.breach_date && <span className="text-xs font-mono text-slate-500">{b.breach_date}</span>}
+              {b.breach_date && <span className="text-xs font-mono text-muted">{b.breach_date}</span>}
               {b.pwn_count !== undefined && (
-                <span className="text-xs font-mono text-slate-500">{humanizeCount(b.pwn_count)} records</span>
+                <span className="text-xs font-mono text-muted">{humanizeCount(b.pwn_count)} records</span>
               )}
             </div>
           </div>
           {b.data_classes && b.data_classes.length > 0 && (
             <div className="flex flex-wrap gap-1 mb-2">
               {b.data_classes.slice(0, 8).map((d, j) => (
-                <span
-                  key={j}
-                  className="text-xs px-2 py-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-body rounded"
-                >
+                <span key={j} className="text-xs px-2 py-0.5 bg-track text-body rounded">
                   {d}
                 </span>
               ))}
@@ -286,7 +279,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
   return (
     <section className="surface-card p-5">
       <div className="flex items-start gap-4">
-        <Icon size={22} className="shrink-0 mt-0.5 text-slate-500" />
+        <Icon size={22} className="shrink-0 mt-0.5 text-muted" />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h3 className="font-display font-semibold text-base">Email deliverability</h3>
@@ -300,7 +293,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/sslboard/throwaway"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-body dark:hover:text-inverted transition-colors"
             >
               throwaway <ExternalLink size={9} />
             </a>
@@ -308,7 +301,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/umuterturk/email-verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="inline-flex items-center gap-1 text-micro font-mono text-muted hover:text-body dark:hover:text-inverted transition-colors"
             >
               rapid-verifier <ExternalLink size={9} />
             </a>
@@ -316,7 +309,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
           <p className="text-sm text-muted mt-1.5">{v.blurb}</p>
 
           <div className="mt-3 flex items-center gap-3">
-            <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+            <div className="flex-1 h-1.5 rounded-full bg-surface-300 overflow-hidden">
               <div
                 className={`h-full ${
                   verification.score >= 80
@@ -328,7 +321,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
                 style={{ width: `${Math.max(2, Math.min(100, verification.score))}%` }}
               />
             </div>
-            <span className="text-xs font-mono text-slate-500 shrink-0">score {verification.score}/100</span>
+            <span className="text-xs font-mono text-muted shrink-0">score {verification.score}/100</span>
           </div>
 
           <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1.5 text-mini font-mono">
@@ -357,12 +350,12 @@ function SourceSignal({ label, t, r }: { label: string; t: boolean; r: boolean }
     <div className="flex items-center gap-1.5">
       <span
         aria-hidden="true"
-        className={`inline-block w-1.5 h-1.5 rounded-full ${t ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
+        className={`inline-block w-1.5 h-1.5 rounded-full ${t ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-surface-300'}`}
       />
       <span className="sr-only">{t ? 'present' : 'absent'} (text record)</span>
       <span
         aria-hidden="true"
-        className={`inline-block w-1.5 h-1.5 rounded-full ${r ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
+        className={`inline-block w-1.5 h-1.5 rounded-full ${r ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-surface-300'}`}
       />
       <span className="sr-only">{r ? 'present' : 'absent'} (reverse record)</span>
       <span className="text-body">{label}</span>
@@ -375,7 +368,7 @@ function Signal({ label, value }: { label: string; value: boolean }): JSX.Elemen
     <div className="flex items-center gap-1.5">
       <span
         aria-hidden="true"
-        className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
+        className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-surface-300'}`}
       />
       <span className="sr-only">{value ? 'pass' : 'fail'}:</span>
       <span className={value ? 'text-body' : 'text-muted'}>{label}</span>
@@ -479,12 +472,12 @@ function PasswordTab(): JSX.Element {
               data-form-type="other"
               aria-label="Password to check against breach datasets"
               style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' } as CSSProperties}
-              className="w-full px-4 py-3 pr-12 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 pr-12 bg-surface-100 border border-line-1 rounded-xl font-mono text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-body dark:hover:text-inverted transition-colors"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -493,7 +486,7 @@ function PasswordTab(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>
@@ -693,12 +686,12 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>
@@ -730,7 +723,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="font-display font-bold text-xl">{result.email}</h2>
-                <p className="text-xs text-slate-500 mt-1 font-mono">
+                <p className="text-xs text-muted mt-1 font-mono">
                   sources: {result.sources_queried?.map((s) => SOURCE_LABELS[s] ?? s).join(', ') || 'none'}
                 </p>
               </div>
@@ -746,13 +739,13 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
             {/* Per-source summary */}
             {result.sources_queried && result.sources_queried.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-line-1">
                 {result.sources_queried.map((s) => {
                   const count = result.breaches.filter((b) => b.source === s).length;
                   return (
                     <span
                       key={s}
-                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-line-1 text-slate-500'}`}
                     >
                       {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
                     </span>
@@ -806,7 +799,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
                   more.
                 </p>
               </div>
-              <ExternalLink size={14} className="text-slate-500 shrink-0" />
+              <ExternalLink size={14} className="text-muted shrink-0" />
             </div>
           </Link>
         </div>
@@ -933,12 +926,12 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>
@@ -975,7 +968,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="font-display font-bold text-xl">{result.domain}</h2>
-                <p className="text-xs text-slate-500 mt-1 font-mono">
+                <p className="text-xs text-muted mt-1 font-mono">
                   sources: {result.sources_queried?.map((s) => SOURCE_LABELS[s] ?? s).join(', ') || 'none'}
                 </p>
               </div>
@@ -991,13 +984,13 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
             {/* Per-source summary */}
             {result.sources_queried && result.sources_queried.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-line-1">
                 {result.sources_queried.map((s) => {
                   const count = result.breaches.filter((b) => b.source === s).length;
                   return (
                     <span
                       key={s}
-                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-line-1 text-slate-500'}`}
                     >
                       {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
                     </span>
@@ -1045,7 +1038,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
                   commit-author search, paste-site dorks, LinkedIn @domain dork, Shodan, Censys, crt.sh, and more.
                 </p>
               </div>
-              <ExternalLink size={14} className="text-slate-500 shrink-0" />
+              <ExternalLink size={14} className="text-muted shrink-0" />
             </div>
           </Link>
         </div>
@@ -1117,7 +1110,7 @@ export default function BreachPage(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
                 mode === m.id
                   ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-700 dark:text-brand-300 border-brand-500/40'
-                  : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
+                  : 'bg-white dark:bg-surface-200 text-muted border-slate-200 dark:border-line-1 hover:border-brand-500/40'
               }`}
             >
               <Icon size={12} />

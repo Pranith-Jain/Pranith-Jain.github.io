@@ -114,7 +114,7 @@ export default function LinkAuditTab() {
         {summary && (
           <span className="text-xs font-mono text-muted">
             {summary.checked} checked — <span className="text-emerald-600">{summary.verified} ok</span> —{' '}
-            <span className="text-slate-500">{summary.unchecked} unchecked</span> —{' '}
+            <span className="text-muted">{summary.unchecked} unchecked</span> —{' '}
             <span className="text-rose-600">{summary.broken} broken</span>
           </span>
         )}
@@ -131,7 +131,7 @@ export default function LinkAuditTab() {
       {audits.length > 0 && (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="text-left text-xs uppercase tracking-wider text-muted border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <thead className="text-left text-xs uppercase tracking-wider text-muted border-b border-line-1">
               <tr>
                 <th className="py-2 pr-4">Post</th>
                 <th className="py-2 pr-4">Type</th>
@@ -144,7 +144,7 @@ export default function LinkAuditTab() {
             </thead>
             <tbody>
               {audits.map((a) => (
-                <tr key={a.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <tr key={a.slug} className="border-b border-line-1">
                   <td className="py-2 pr-4 text-heading max-w-md truncate" title={a.title}>
                     <a
                       href={`/blog/${a.slug}`}
@@ -165,7 +165,7 @@ export default function LinkAuditTab() {
                     {a.broken > 0 ? (
                       <span className="text-rose-600 dark:text-rose-400 font-medium">{a.broken}</span>
                     ) : (
-                      <span className="text-slate-400">0</span>
+                      <span className="text-muted">0</span>
                     )}
                     {a.brokenUrls.length > 0 && (
                       <div className="text-xs text-rose-500 dark:text-rose-400 text-left mt-1 max-w-sm">

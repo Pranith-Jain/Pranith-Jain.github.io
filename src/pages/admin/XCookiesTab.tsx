@@ -208,12 +208,12 @@ export default function XCookiesTab() {
   }
 
   const inputCls =
-    'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading font-mono focus:outline-none focus:border-brand-500';
+    'w-full px-3 py-2 bg-white dark:bg-input-200 border border-slate-200 dark:border-line-1 rounded text-sm text-heading font-mono focus:outline-none focus:border-brand-500';
 
   return (
     <div className="space-y-8">
       {/* Current status */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
+      <section className="rounded-xl border border-line-1 bg-surface-200/50 p-5">
         <h2 className="text-sm font-semibold text-heading mb-4">X (Twitter) Session Cookies</h2>
         {loading ? (
           <p className="text-sm text-muted">Loading…</p>
@@ -232,14 +232,14 @@ export default function XCookiesTab() {
               <span className="text-xs text-muted">Source: {SOURCE_LABEL[status.source]}</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-              <div className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
-                <span className="text-slate-500">auth_token: </span>
+              <div className="px-3 py-2 rounded border border-line-1 bg-surface-100">
+                <span className="text-muted">auth_token: </span>
                 <span className={status.authToken.set ? 'text-heading' : 'text-rose-500'}>
                   {status.authToken.set ? `set ····${status.authToken.last4}` : 'missing'}
                 </span>
               </div>
-              <div className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
-                <span className="text-slate-500">ct0: </span>
+              <div className="px-3 py-2 rounded border border-line-1 bg-surface-100">
+                <span className="text-muted">ct0: </span>
                 <span className={status.ct0.set ? 'text-heading' : 'text-rose-500'}>
                   {status.ct0.set ? `set ····${status.ct0.last4}` : 'missing'}
                 </span>
@@ -261,7 +261,7 @@ export default function XCookiesTab() {
             type="button"
             onClick={() => void handleTest()}
             disabled={testing}
-            className="px-4 py-2 border border-slate-300 dark:border-[rgb(var(--border-500))] rounded text-sm text-body hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+            className="px-4 py-2 border border-line-2 rounded text-sm text-body hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
           >
             {testing ? 'Testing…' : 'Test connection'}
           </button>
@@ -289,7 +289,7 @@ export default function XCookiesTab() {
       </section>
 
       {/* Set override */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
+      <section className="rounded-xl border border-line-1 bg-surface-200/50 p-5">
         <h2 className="text-sm font-semibold text-heading mb-4">Set Admin Override</h2>
         {error && <p className="text-sm text-rose-600 dark:text-rose-400 mb-4">{error}</p>}
         {saved && <p className="text-sm text-emerald-600 dark:text-emerald-400 mb-4">{saved}</p>}
@@ -340,7 +340,7 @@ export default function XCookiesTab() {
             <button
               type="submit"
               disabled={saving || !authToken.trim() || !ct0.trim()}
-              className="px-4 py-2 bg-brand-600 text-white text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 bg-brand-600 text-on-fill text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
             >
               {saving ? 'Saving…' : 'Save cookies'}
             </button>
@@ -359,7 +359,7 @@ export default function XCookiesTab() {
       </section>
 
       {/* Query IDs */}
-      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
+      <section className="rounded-xl border border-line-1 bg-surface-200/50 p-5">
         <h2 className="text-sm font-semibold text-heading mb-4">GraphQL Query IDs</h2>
         <p className="text-xs text-muted leading-relaxed mb-4">
           X rotates these query IDs every few weeks; stale IDs break every authenticated fetch. Paste fresh IDs from
@@ -398,7 +398,7 @@ export default function XCookiesTab() {
             <button
               type="submit"
               disabled={qidsSaving}
-              className="px-4 py-2 bg-brand-600 text-white text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 bg-brand-600 text-on-fill text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50 transition-colors"
             >
               {qidsSaving ? 'Saving…' : 'Save query IDs'}
             </button>

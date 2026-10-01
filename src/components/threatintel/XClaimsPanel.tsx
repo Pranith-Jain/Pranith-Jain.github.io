@@ -105,7 +105,7 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
       className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
         tab === id
           ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-          : 'border-slate-300/60 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
+          : 'border-slate-300/60 dark:border-line-1 text-muted hover:border-slate-400'
       }`}
     >
       <Icon size={12} /> {label} <span className="opacity-70">{count}</span>
@@ -115,13 +115,13 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
   const rows = tab === 'ransomware' ? ransomware : breach;
 
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200)/0.4)] p-5 mb-6 animate-fade-in-up">
+    <section className="rounded-xl border border-line-1 bg-surface-100/60 dark:bg-surface-200/40 p-5 mb-6 animate-fade-in-up">
       <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
         <div>
           <h2 className="font-display font-bold text-base flex items-center gap-2">
             <ShieldAlert size={16} className="text-rose-500" /> Extracted claims
           </h2>
-          <p className="text-mini font-mono text-slate-500 mt-0.5">
+          <p className="text-mini font-mono text-muted mt-0.5">
             Ransomware victim + breach claims parsed from FalconFeeds / @DailyDarkWeb posts. Heuristic - verify before
             use.
           </p>
@@ -133,13 +133,13 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
       </div>
 
       {loading ? (
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 py-4">
+        <div className="flex items-center gap-2 text-xs font-mono text-muted py-4">
           <Loader2 size={12} className="animate-spin" /> loading claims…
         </div>
       ) : rows.length === 0 ? (
-        <p className="text-xs font-mono text-slate-500 py-3">No {tab} claims in the current window.</p>
+        <p className="text-xs font-mono text-muted py-3">No {tab} claims in the current window.</p>
       ) : (
-        <ul className="divide-y divide-slate-200/70 dark:divide-slate-800">
+        <ul className="divide-y divide-line-1/70 dark:divide-slate-800">
           {tab === 'ransomware'
             ? ransomware.slice(0, 40).map((r, i) => (
                 <li key={`${r.group}-${r.victim}-${i}`} className="py-2 flex items-start justify-between gap-3">
@@ -148,7 +148,7 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
                     <span className="ml-2 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-300">
                       {r.group}
                     </span>
-                    <span className="block text-mini font-mono text-slate-500 mt-0.5">
+                    <span className="block text-mini font-mono text-muted mt-0.5">
                       {r.country && (
                         <span className="inline-flex items-center gap-1 mr-2">
                           <Globe size={10} /> {r.country}
@@ -173,7 +173,7 @@ export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
                 <li key={`${b.source_url}-${i}`} className="py-2 flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <span className="text-sm font-medium break-words">{b.victim ?? 'Unattributed breach claim'}</span>
-                    <span className="block text-mini font-mono text-slate-500 mt-0.5">
+                    <span className="block text-mini font-mono text-muted mt-0.5">
                       {b.country && (
                         <span className="inline-flex items-center gap-1 mr-2">
                           <Globe size={10} /> {b.country}

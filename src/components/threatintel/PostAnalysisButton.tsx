@@ -201,7 +201,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
         } ${
           open
             ? 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-            : 'border-[rgb(var(--border-500))] text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/30'
+            : 'border-line-2 text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/30'
         }`}
         title="AI threat analysis"
         aria-expanded={open}
@@ -225,10 +225,10 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
               maxHeight: pos.maxHeight,
               ...(pos.above ? { transform: 'translateY(-100%)' } : {}),
             }}
-            className="z-[70] overflow-y-auto rounded-xl border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3 animate-fade-in"
+            className="z-[70] overflow-y-auto rounded-xl border border-line-1 bg-surface-100 shadow-e3 animate-fade-in"
           >
             {/* Header — flat, hairline-divided, mono kicker per the design system */}
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-[rgb(var(--border-400))] sticky top-0 bg-white dark:bg-[rgb(var(--surface-200))] z-10">
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-line-1 sticky top-0 bg-surface-100 z-10">
               <div className="flex items-center gap-2">
                 <Brain size={14} className="text-brand-600 dark:text-brand-400" />
                 <span className="font-mono text-micro uppercase tracking-wider text-muted">AI Analysis</span>
@@ -243,14 +243,14 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                   aria-label="Refresh"
                   onClick={fetchAnalysis}
                   disabled={loading}
-                  className="p-1 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                  className="p-1 rounded text-muted hover:text-body dark:hover:text-inverted transition-colors"
                 >
                   <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
                 </button>
                 <button
                   aria-label="Close"
                   onClick={() => setOpen(false)}
-                  className="p-1 rounded text-muted hover:text-slate-700 dark:hover:text-slate-200"
+                  className="p-1 rounded text-muted hover:text-body dark:hover:text-inverted"
                 >
                   <X size={12} />
                 </button>
@@ -292,28 +292,28 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                           <Shield size={10} />
                           {analysis.threat_level?.toUpperCase()}
                         </span>
-                        <span className="text-micro font-mono text-slate-500">conf: {analysis.confidence}</span>
+                        <span className="text-micro font-mono text-muted">conf: {analysis.confidence}</span>
                       </div>
 
                       <p className="text-xs text-body leading-relaxed">{analysis.summary}</p>
 
                       {analysis.impact && (
-                        <div className="rounded-xl bg-slate-50 dark:bg-white/[0.04] p-2.5">
-                          <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Impact</span>
-                          <p className="text-xs text-slate-700 dark:text-muted">{analysis.impact}</p>
+                        <div className="rounded-xl bg-surface-200 dark:bg-surface-100/[0.04] p-2.5">
+                          <span className="text-micro font-mono uppercase text-muted block mb-0.5">Impact</span>
+                          <p className="text-xs text-body">{analysis.impact}</p>
                         </div>
                       )}
 
                       {analysis.context && (
-                        <div className="rounded-xl bg-slate-50 dark:bg-white/[0.04] p-2.5">
-                          <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Context</span>
-                          <p className="text-xs text-slate-700 dark:text-muted">{analysis.context}</p>
+                        <div className="rounded-xl bg-surface-200 dark:bg-surface-100/[0.04] p-2.5">
+                          <span className="text-micro font-mono uppercase text-muted block mb-0.5">Context</span>
+                          <p className="text-xs text-body">{analysis.context}</p>
                         </div>
                       )}
 
                       {analysis.related_ttps?.filter(Boolean).length ? (
                         <div>
-                          <span className="text-micro font-mono uppercase text-slate-500 block mb-1">MITRE ATT&CK</span>
+                          <span className="text-micro font-mono uppercase text-muted block mb-1">MITRE ATT&CK</span>
                           <div className="flex flex-wrap gap-1">
                             {analysis.related_ttps.filter(Boolean).map((t, i) => (
                               <span
@@ -329,7 +329,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
 
                       {analysis.recommended_actions?.length > 0 && (
                         <div>
-                          <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
+                          <span className="text-micro font-mono uppercase text-muted block mb-1">Actions</span>
                           <ul className="space-y-0.5">
                             {analysis.recommended_actions.map((a, i) => (
                               <li key={i} className="flex items-start gap-1.5 text-xs text-muted">
@@ -358,7 +358,7 @@ function AnalysisShareRow({ analysis, title }: { analysis: PostAnalysis; title: 
   const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareText = analysis.tweet || analysis.summary || `Threat analysis: ${title}`;
   return (
-    <div className="pt-2 border-t border-[rgb(var(--border-400))]">
+    <div className="pt-2 border-t border-line-1">
       <ShareBar shareText={shareText} url={pageUrl} size="sm" label="Share:" />
     </div>
   );

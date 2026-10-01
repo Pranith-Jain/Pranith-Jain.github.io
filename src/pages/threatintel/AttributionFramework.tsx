@@ -17,7 +17,7 @@ const LEVEL_BADGE: Record<string, string> = {
   probable: 'bg-blue-100 text-brand-800 dark:bg-blue-900/30 dark:text-brand-300',
   'reasonably-likely': 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   possible: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-  doubtful: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
+  doubtful: 'bg-slate-100 text-slate-600 dark:bg-surface-300 dark:text-muted',
   improbable: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
 };
 
@@ -64,7 +64,7 @@ export default function AttributionFramework(): JSX.Element {
           value={indicators}
           onChange={(e) => setIndicators(e.target.value)}
           placeholder="Enter IOCs, one per line…"
-          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
+          className="w-full h-28 bg-surface-200 border border-line-1 rounded-xl p-3 text-sm font-mono text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
         />
         <div className="mt-3">
           <label htmlFor="attribution-context" className="text-xs text-muted mb-1 block">
@@ -76,14 +76,14 @@ export default function AttributionFramework(): JSX.Element {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="e.g., targeting financial sector"
-            className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full bg-surface-200 border border-line-1 rounded-xl px-3 py-2 text-sm text-heading placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
         <button
           type="button"
           onClick={() => void handleAssess()}
           disabled={loading || !indicators.trim()}
-          className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-disabled disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-on-fill transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Scale size={14} />}
           {loading ? 'Analyzing…' : 'Assess Attribution'}
@@ -112,7 +112,7 @@ export default function AttributionFramework(): JSX.Element {
                 <div className="text-micro font-mono text-muted">confidence</div>
               </div>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2">
+            <div className="w-full bg-track rounded-full h-2">
               <div className="bg-rose-500 h-2 rounded-full" style={{ width: `${assessment.confidence}%` }} />
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function AttributionFramework(): JSX.Element {
             <button
               type="button"
               onClick={() => setExpandedEvidence(!expandedEvidence)}
-              className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
+              className="w-full flex items-center justify-between p-4 text-left hover:bg-surface-200 dark:hover:bg-surface-200/20 transition-colors"
             >
               <span className="font-display font-bold text-sm">Evidence ({assessment.evidence.length})</span>
               {expandedEvidence ? (
@@ -130,12 +130,9 @@ export default function AttributionFramework(): JSX.Element {
               )}
             </button>
             {expandedEvidence && (
-              <div className="px-4 pb-4 space-y-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+              <div className="px-4 pb-4 space-y-2 border-t border-line-1">
                 {assessment.evidence.map((e, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-3 py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 last:border-0"
-                  >
+                  <div key={i} className="flex items-start gap-3 py-2 border-b border-line-1/50 last:border-0">
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 shrink-0">
                       {e.type}
                     </span>

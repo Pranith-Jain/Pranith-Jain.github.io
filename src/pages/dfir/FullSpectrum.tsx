@@ -386,7 +386,7 @@ function ResultCard({
             ) : d?.total_hits ? (
               <span>{d.total_hits} scans found</span>
             ) : (
-              <span className="text-slate-500">No scan data</span>
+              <span className="text-muted">No scan data</span>
             )}
           </div>
         );
@@ -435,13 +435,11 @@ function ResultCard({
   const borderCls = state.error
     ? 'border-rose-500/50'
     : state.data
-      ? 'border-slate-200 dark:border-[rgb(var(--border-400))]'
-      : 'border-slate-200 dark:border-[rgb(var(--border-400))]/50';
+      ? 'border-slate-200 dark:border-line-1'
+      : 'border-slate-200 dark:border-line-1/50';
 
   return (
-    <div
-      className={`rounded-xl border ${borderCls} bg-white dark:bg-[rgb(var(--surface-200))] p-4 flex flex-col gap-2`}
-    >
+    <div className={`rounded-xl border ${borderCls} bg-surface-100 dark:bg-surface-200 p-4 flex flex-col gap-2`}>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
           <Icon size={14} className="text-brand-600 dark:text-brand-400 shrink-0" />
@@ -532,12 +530,12 @@ export default function FullSpectrum(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
             aria-label="Domain to investigate"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-heading placeholder:text-muted dark:placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
             disabled={!valid || TOOL_CONFIG.some((t) => state[t.key].loading)}
-            className="px-5 py-3 bg-brand-500 text-white font-mono font-semibold disabled:opacity-30 hover:bg-brand-700 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-500 text-on-fill font-mono font-semibold disabled:opacity-30 hover:bg-brand-700 inline-flex items-center gap-2"
           >
             {TOOL_CONFIG.some((t) => state[t.key].loading) ? (
               <Loader2 size={16} className="animate-spin" />

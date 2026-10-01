@@ -112,7 +112,7 @@ function renderMarkdown(safeMd: string): string {
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(
       /`([^`]+)`/g,
-      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono">$1</code>'
+      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-surface-300 text-xs font-mono">$1</code>'
     )
     .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
     .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-4 list-decimal text-sm">$1</li>')
@@ -153,7 +153,7 @@ const TYPE_BADGES: Record<string, { label: string; color: string }> = {
   },
   generic: {
     label: 'General',
-    color: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
+    color: 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300',
   },
 };
 
@@ -250,7 +250,7 @@ export default function DfirCopilot(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Paste an IOC - IP, domain, hash, URL, email, or CVE…"
               aria-label="Indicator of compromise to investigate"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400"
             />
           </div>
           <button
@@ -263,7 +263,7 @@ export default function DfirCopilot(): JSX.Element {
           </button>
         </div>
         {iocType !== 'unknown' && (
-          <div className="mt-2 text-mini font-mono text-slate-500">
+          <div className="mt-2 text-mini font-mono text-muted">
             Detected: <span className={IOC_COLORS[iocType]}>{iocType.toUpperCase()}</span>
           </div>
         )}
@@ -284,7 +284,7 @@ export default function DfirCopilot(): JSX.Element {
                   setQuery(ex.label);
                   investigate(ex.label);
                 }}
-                className="text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded-xl border border-line-1 text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {ex.label} <span className="text-muted ml-1">({ex.type})</span>
               </button>
@@ -322,7 +322,7 @@ export default function DfirCopilot(): JSX.Element {
                 )}
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-slate-500">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-muted">
               <span>model: {result.model_used}</span>
               {result._meta && (
                 <span>
@@ -346,12 +346,12 @@ export default function DfirCopilot(): JSX.Element {
               <span>{new Date(result.processed_at).toLocaleString()}</span>
             </div>
             {result.sources.length > 0 && (
-              <div className="mt-3 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
+              <div className="mt-3 border-t border-line-1 pt-3">
                 <div className="flex flex-wrap gap-1.5">
                   {result.sources.map((s, i) => (
                     <span
                       key={s.name}
-                      className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted"
+                      className="inline-flex items-center gap-1 rounded border border-line-1 bg-surface-200 px-2 py-0.5 font-mono text-mini text-muted"
                     >
                       <span className="font-bold text-muted">{i + 1}.</span>
                       {s.name}
@@ -365,7 +365,7 @@ export default function DfirCopilot(): JSX.Element {
 
           {/* Narrative report */}
           <div className="overflow-hidden surface-card">
-            <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]">
+            <div className="flex items-center gap-2 border-b border-line-1 bg-surface-200/80 px-6 py-3 dark:bg-surface-200/40">
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-body">Investigation Report</span>
               {result._meta && (
@@ -375,7 +375,7 @@ export default function DfirCopilot(): JSX.Element {
               )}
             </div>
             <div
-              className="px-6 py-5 text-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+              className="px-6 py-5 text-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-line-1 [&_h2]:dark:border-line-1 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-body [&_p]:dark:text-inverted [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-body [&_li]:dark:text-inverted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-surface-300 [&_code]:dark:bg-surface-200 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
               dangerouslySetInnerHTML={{ __html: narrativeHtml }}
             />
           </div>
@@ -383,20 +383,17 @@ export default function DfirCopilot(): JSX.Element {
           {/* Source details */}
           {result.sources.length > 0 && (
             <details className="group">
-              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-muted dark:hover:text-slate-300">
+              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-muted hover:text-body dark:hover:text-inverted">
                 <Sparkles size={14} />
                 Raw source data ({result.sources.length} sources)
               </summary>
               <div className="mt-3 space-y-3">
                 {result.sources.map((s) => (
-                  <details
-                    key={s.name}
-                    className="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.3)]"
-                  >
+                  <details key={s.name} className="rounded-xl border border-line-1 bg-surface-200/30 p-3">
                     <summary className="cursor-pointer text-xs font-medium">
                       {s.name} ({s.items} items)
                     </summary>
-                    <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-slate-100 p-2 font-mono text-mini dark:bg-[rgb(var(--surface-200))]">
+                    <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-surface-300 p-2 font-mono text-mini">
                       {JSON.stringify(s.data, null, 2)}
                     </pre>
                   </details>
@@ -406,7 +403,7 @@ export default function DfirCopilot(): JSX.Element {
           )}
 
           {/* Metadata */}
-          <div className="text-mini font-mono text-slate-500 flex items-center gap-2">
+          <div className="text-mini font-mono text-muted flex items-center gap-2">
             <Info size={12} />
             Investigated at {result.processed_at} · IOC type: {result.query_type} · Model: {result.model_used}
           </div>

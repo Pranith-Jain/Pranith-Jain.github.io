@@ -282,7 +282,7 @@ export default function LiveFeed(): JSX.Element {
           <span>{kpis.total} visible</span>
           <button
             onClick={fetchData}
-            className="ml-2 inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]"
+            className="ml-2 inline-flex items-center gap-1 rounded border border-line-1 px-2 py-1 hover:bg-surface-200 dark:hover:bg-surface-200"
           >
             <Clock size={12} /> Refresh
           </button>
@@ -383,7 +383,7 @@ export default function LiveFeed(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search intel..."
-              className="pl-8 pr-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono w-48 focus:outline-none focus:ring-2 focus:ring-rose-500/30"
+              className="pl-8 pr-3 py-1.5 rounded-lg border border-line-1 bg-surface-100 text-sm font-mono w-48 focus:outline-none focus:ring-2 focus:ring-rose-500/30"
             />
           </div>
         </div>
@@ -407,7 +407,7 @@ export default function LiveFeed(): JSX.Element {
                   onClick={() => setSelected(a)}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="h-8 w-8 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-200))] grid place-items-center shrink-0 mt-0.5">
+                    <div className="h-8 w-8 rounded-lg bg-surface-200 grid place-items-center shrink-0 mt-0.5">
                       <Icon size={14} className="text-muted" />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -423,10 +423,10 @@ export default function LiveFeed(): JSX.Element {
                         >
                           <AlertTriangle size={10} /> {a.severity}
                         </span>
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-[11px] font-mono text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-300 text-[11px] font-mono text-muted border border-line-1">
                           {a.source}
                         </span>
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-[11px] font-mono text-muted">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-200 text-[11px] font-mono text-muted">
                           <Clock size={10} /> {new Date(a.publishedAt).toLocaleDateString()}
                         </span>
                         {a.iocs.slice(0, 3).map((i) => (
@@ -460,7 +460,7 @@ export default function LiveFeed(): JSX.Element {
           {visible.length < filtered.length && (
             <button
               onClick={() => setVisibleCount((c) => c + 25)}
-              className="w-full py-3 rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-sm font-mono text-muted hover:border-rose-300 hover:text-rose-600"
+              className="w-full py-3 rounded-xl border border-dashed border-line-2 text-sm font-mono text-muted hover:border-rose-300 hover:text-rose-600"
             >
               Load more — {filtered.length - visible.length} remaining
             </button>
@@ -488,14 +488,14 @@ export default function LiveFeed(): JSX.Element {
               ].map((actor) => (
                 <div
                   key={actor.name}
-                  className="flex items-center gap-3 p-2.5 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="flex items-center gap-3 p-2.5 rounded-lg bg-surface-200/50 border border-line-1"
                 >
                   <span
                     className="h-2 w-2 rounded-full shrink-0"
                     style={{ background: actor.color, boxShadow: `0 0 6px ${actor.color}` }}
                   />
                   <span className="text-sm font-medium text-heading truncate flex-1">{actor.name}</span>
-                  <span className="text-xs font-mono font-bold text-muted bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1 rounded-full">
+                  <span className="text-xs font-mono font-bold text-muted bg-surface-100 border border-line-1 px-2 py-1 rounded-full">
                     {actor.count}
                   </span>
                 </div>
@@ -544,28 +544,28 @@ export default function LiveFeed(): JSX.Element {
             <div className="grid grid-cols-2 gap-2">
               <Link
                 to="/threatintel/tools/stix-hub"
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 hover:border-rose-300 text-center"
+                className="rounded-lg border border-line-1 p-3 hover:border-rose-300 text-center"
               >
                 <FileText size={16} className="mx-auto text-muted mb-1" />
                 <div className="text-xs font-medium text-heading">STIX Hub</div>
               </Link>
               <Link
                 to="/dfir/extract"
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 hover:border-rose-300 text-center"
+                className="rounded-lg border border-line-1 p-3 hover:border-rose-300 text-center"
               >
                 <Hash size={16} className="mx-auto text-muted mb-1" />
                 <div className="text-xs font-medium text-heading">IOC Extractor</div>
               </Link>
               <Link
                 to="/threatintel/cves/cves"
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 hover:border-rose-300 text-center"
+                className="rounded-lg border border-line-1 p-3 hover:border-rose-300 text-center"
               >
                 <Bug size={16} className="mx-auto text-muted mb-1" />
                 <div className="text-xs font-medium text-heading">CVE Intel</div>
               </Link>
               <Link
                 to="/dfir/ioc-investigate"
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 hover:border-rose-300 text-center"
+                className="rounded-lg border border-line-1 p-3 hover:border-rose-300 text-center"
               >
                 <Target size={16} className="mx-auto text-muted mb-1" />
                 <div className="text-xs font-medium text-heading">IOC Check</div>
@@ -579,8 +579,8 @@ export default function LiveFeed(): JSX.Element {
       {selected && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setSelected(null)} />
-          <div className="relative w-full max-w-6xl max-h-[90vh] bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-            <div className="h-14 px-5 flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] shrink-0">
+          <div className="relative w-full max-w-6xl max-h-[90vh] bg-surface-100 border border-line-1 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+            <div className="h-14 px-5 flex items-center justify-between border-b border-line-1 bg-surface-200 shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-mono font-bold border ${severityTone(selected.severity)}`}
@@ -593,54 +593,52 @@ export default function LiveFeed(): JSX.Element {
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => copy(selected.title)}
-                  className="h-8 px-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] inline-flex items-center gap-1"
+                  className="h-8 px-3 rounded-lg border border-line-1 text-xs font-mono hover:bg-surface-300 dark:hover:bg-surface-200 inline-flex items-center gap-1"
                 >
                   {copied === selected.title ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}{' '}
                   Copy
                 </button>
                 <button
                   onClick={() => setSelected(null)}
-                  className="h-8 w-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] grid place-items-center hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))]"
+                  className="h-8 w-8 rounded-lg border border-line-1 grid place-items-center hover:bg-surface-300 dark:hover:bg-surface-200"
                 >
                   ✕
                 </button>
               </div>
             </div>
             <div className="flex-1 overflow-y-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] min-h-0">
-              <div className="p-5 sm:p-6 space-y-4 border-r border-slate-200 dark:border-[rgb(var(--border-400))]/50">
+              <div className="p-5 sm:p-6 space-y-4 border-r border-line-1/50">
                 <h2 className="text-lg font-bold text-heading leading-tight">
                   {selected.id} — {selected.title.slice(0, 140)}
                 </h2>
-                <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                   <div className="font-mono text-[11px] tracking-widest text-sky-600 dark:text-sky-400 mb-2">
                     DESCRIPTION
                   </div>
-                  <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                    {selected.description || 'No description.'}
-                  </p>
+                  <p className="text-sm leading-relaxed text-body">{selected.description || 'No description.'}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                  <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                     <div className="font-mono text-[11px] tracking-widest text-orange-600 mb-2">RISK ASSESSMENT</div>
-                    <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                    <p className="text-xs leading-relaxed text-body">
                       {selected.aiSummary?.threat_assessment || 'Pending.'}
                     </p>
                   </div>
-                  <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                  <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                     <div className="font-mono text-[11px] tracking-widest text-sky-600 mb-2">EXPLOITABILITY</div>
-                    <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    <p className="text-xs leading-relaxed text-muted">
                       Investigating exploitability — check KEV and PoC scanner for{' '}
                       {selected.iocs.find((i) => i.type === 'cve')?.value || 'related CVE'}.
                     </p>
                   </div>
                 </div>
-                <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                   <div className="font-mono text-[11px] tracking-widest text-muted mb-2">AFFECTED PRODUCTS</div>
                   <div className="flex flex-wrap gap-1.5">
                     {selected.tags.slice(0, 6).map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-1 rounded bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted"
+                        className="px-2 py-1 rounded bg-surface-100 border border-line-1 text-xs font-mono text-muted"
                       >
                         {t}
                       </span>
@@ -648,7 +646,7 @@ export default function LiveFeed(): JSX.Element {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                  <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                     <div className="font-mono text-[11px] tracking-widest text-emerald-600 mb-2">REMEDIATION</div>
                     <ul className="space-y-1.5">
                       {(selected.aiSummary
@@ -659,22 +657,22 @@ export default function LiveFeed(): JSX.Element {
                           ]
                         : ['No actions defined']
                       ).map((a, i) => (
-                        <li key={i} className="flex gap-2 text-xs text-slate-700 dark:text-slate-300">
+                        <li key={i} className="flex gap-2 text-xs text-body">
                           <span className="text-emerald-500">›</span> {a}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                  <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                     <div className="font-mono text-[11px] tracking-widest text-amber-600 mb-2">DETECTION</div>
-                    <div className="font-mono text-xs p-2 rounded bg-slate-900 text-sky-300 border border-slate-700">
+                    <div className="font-mono text-xs p-2 rounded bg-surface-100 text-sky-300 border border-slate-700">
                       Sigma: {selected.mitre[0]?.id.toLowerCase()}_detect
                     </div>
                   </div>
                 </div>
-                <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                <div className="rounded-xl bg-surface-200 border border-line-1 p-4">
                   <div className="font-mono text-[11px] tracking-widest text-muted mb-3">ATTACK TIMELINE</div>
-                  <div className="relative pl-6 border-l border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3">
+                  <div className="relative pl-6 border-l border-line-1 space-y-3">
                     {[
                       {
                         phase: 'Initial',
@@ -691,9 +689,9 @@ export default function LiveFeed(): JSX.Element {
                       { phase: 'Action', time: 'Now', title: 'Added to triage queue', desc: 'Auto-enrichment' },
                     ].map((s, i) => (
                       <div key={i} className="relative">
-                        <div className="absolute -left-[29px] top-1 h-3 w-3 rounded-full bg-white dark:bg-[rgb(var(--surface-100))] border-2 border-sky-500" />
+                        <div className="absolute -left-[29px] top-1 h-3 w-3 rounded-full bg-surface-100 border-2 border-sky-500" />
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-300 border border-line-1 text-muted">
                             {s.phase}
                           </span>
                           <span className="text-xs font-mono text-muted">{s.time}</span>
@@ -705,29 +703,26 @@ export default function LiveFeed(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-4 sm:p-5 space-y-4">
+              <div className="bg-surface-200/50 p-4 sm:p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono tracking-widest font-bold text-heading flex items-center gap-2">
                     <Target size={14} className="text-sky-500" /> IOCs
                   </span>
-                  <span className="text-xs font-mono px-2 py-1 rounded bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                  <span className="text-xs font-mono px-2 py-1 rounded bg-surface-100 border border-line-1 text-muted">
                     {selected.iocs.length} indicators
                   </span>
                 </div>
                 <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
                   {selected.iocs.length ? (
                     selected.iocs.map((ioc) => (
-                      <div
-                        key={ioc.value}
-                        className="rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-3"
-                      >
+                      <div key={ioc.value} className="rounded-lg bg-surface-100 border border-line-1 p-3">
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                          <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-surface-300 border border-line-1 text-muted">
                             {ioc.type}
                           </span>
                           <button
                             onClick={() => copy(ioc.value)}
-                            className="ml-auto p-1 rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))]"
+                            className="ml-auto p-1 rounded hover:bg-surface-300 dark:hover:bg-surface-200"
                           >
                             {copied === ioc.value ? (
                               <Check size={12} className="text-emerald-500" />
@@ -748,7 +743,7 @@ export default function LiveFeed(): JSX.Element {
                           </button>
                           <button
                             onClick={() => copy(ioc.value)}
-                            className="text-xs font-mono px-2 py-1 rounded bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
+                            className="text-xs font-mono px-2 py-1 rounded bg-surface-100 border border-line-1 text-muted"
                           >
                             Copy
                           </button>
@@ -759,13 +754,13 @@ export default function LiveFeed(): JSX.Element {
                     <div className="text-xs text-muted">No IOCs</div>
                   )}
                 </div>
-                <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
                   <div className="font-mono text-[11px] tracking-widest text-muted mb-2">MITRE ATT&CK</div>
                   <div className="flex flex-wrap gap-1.5">
                     {selected.mitre.map((m) => (
                       <span
                         key={m.id}
-                        className="px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-violet-700 dark:text-violet-300"
+                        className="px-2 py-1 rounded bg-surface-300 border border-line-1 text-xs font-mono text-violet-700 dark:text-violet-300"
                       >
                         {m.id} {m.name}
                       </span>
@@ -788,19 +783,19 @@ export default function LiveFeed(): JSX.Element {
                       const all = selected.iocs.map((i) => i.value).join('\n');
                       copy(all);
                     }}
-                    className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading"
+                    className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading"
                   >
                     Copy IOCs
                   </button>
                   <button
                     onClick={() => stixExport(selected)}
-                    className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading inline-flex items-center justify-center gap-1"
+                    className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading inline-flex items-center justify-center gap-1"
                   >
                     <Download size={12} /> STIX 2.1
                   </button>
                   <button
                     onClick={() => stixExport(selected)}
-                    className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading"
+                    className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading"
                   >
                     JSON
                   </button>
@@ -815,17 +810,17 @@ export default function LiveFeed(): JSX.Element {
       {iocModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={() => setIocModal(null)} />
-          <div className="relative w-full max-w-[720px] max-h-[90vh] bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-            <div className="h-14 px-5 flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shrink-0">
+          <div className="relative w-full max-w-[720px] max-h-[90vh] bg-surface-200 border border-line-1 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+            <div className="h-14 px-5 flex items-center justify-between border-b border-line-1 bg-surface-100 shrink-0">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#ff3b3b]" />
-                <span className="text-xs font-mono uppercase px-2 py-1 rounded-full bg-slate-900 text-sky-400 border border-slate-700 font-bold">
+                <span className="text-xs font-mono uppercase px-2 py-1 rounded-full bg-surface-100 text-sky-400 border border-slate-700 font-bold">
                   {iocModal.type}
                 </span>
                 <span className="text-xs px-2 py-1 rounded-full bg-rose-500/15 text-rose-600 border border-rose-500/30 font-bold">
                   MALICIOUS
                 </span>
-                <span className="hidden sm:inline text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                <span className="hidden sm:inline text-xs font-mono px-2 py-0.5 rounded bg-surface-300 border border-line-1 text-muted">
                   CONF 92%
                 </span>
               </div>
@@ -838,21 +833,21 @@ export default function LiveFeed(): JSX.Element {
                 </button>
                 <button
                   onClick={() => setIocModal(null)}
-                  className="h-8 w-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] grid place-items-center hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))]"
+                  className="h-8 w-8 rounded-lg border border-line-1 grid place-items-center hover:bg-surface-300 dark:hover:bg-surface-200"
                 >
                   ✕
                 </button>
               </div>
             </div>
             <div className="flex-1 overflow-y-auto p-5 space-y-4">
-              <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+              <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="font-mono text-base font-bold text-heading break-all">
                     {defanged ? defang(iocModal.value) : refang(iocModal.value)}
                   </div>
                   <button
                     onClick={() => copy(iocModal.value)}
-                    className="shrink-0 p-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                    className="shrink-0 p-2 rounded-lg border border-line-1 hover:bg-surface-200 dark:hover:bg-surface-300"
                   >
                     {copied === iocModal.value ? (
                       <Check size={14} className="text-emerald-500" />
@@ -862,10 +857,10 @@ export default function LiveFeed(): JSX.Element {
                   </button>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                  <span className="text-xs font-mono px-2 py-1 rounded bg-surface-300 border border-line-1 text-muted">
                     First seen: {new Date().toLocaleDateString()}
                   </span>
-                  <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                  <span className="text-xs font-mono px-2 py-1 rounded bg-surface-300 border border-line-1 text-muted">
                     Last seen: 2h ago
                   </span>
                   <span className="text-xs font-mono px-2 py-1 rounded bg-sky-500/10 border border-sky-500/20 text-sky-600">
@@ -875,7 +870,7 @@ export default function LiveFeed(): JSX.Element {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
                   <div className="font-mono text-xs tracking-widest text-muted mb-3">
                     REPUTATION — VT / OTX / ABUSEIPDB
                   </div>
@@ -891,7 +886,7 @@ export default function LiveFeed(): JSX.Element {
                     ].map((r) => (
                       <div
                         key={r.name}
-                        className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                        className="flex items-center justify-between p-2.5 rounded-lg bg-surface-200 border border-line-1"
                       >
                         <span className="flex items-center gap-2">
                           <span className="h-2 w-2 rounded-full" style={{ background: r.color }} />
@@ -901,14 +896,14 @@ export default function LiveFeed(): JSX.Element {
                       </div>
                     ))}
                     <div className="flex items-center gap-2 pt-1">
-                      <div className="flex-1 h-1.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
+                      <div className="flex-1 h-1.5 bg-track rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500" style={{ width: '82%' }} />
                       </div>
                       <span className="text-[10px] font-mono text-muted">MALICIOUS 82%</span>
                     </div>
                   </div>
                 </div>
-                <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+                <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
                   <div className="font-mono text-xs tracking-widest text-muted mb-3">OVERVIEW</div>
                   <div className="space-y-2 text-xs">
                     <div className="flex justify-between">
@@ -923,10 +918,10 @@ export default function LiveFeed(): JSX.Element {
                       <span className="text-muted">Sources</span>
                       <span className="text-heading">3 feeds</span>
                     </div>
-                    <div className="pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <div className="pt-2 border-t border-line-1">
                       <Link
                         to={`/dfir/ioc-investigate?indicator=${encodeURIComponent(iocModal.value)}`}
-                        className="w-full h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-mono grid place-items-center"
+                        className="w-full h-8 rounded-lg bg-surface-100 dark:bg-surface-100 text-white dark:text-heading text-xs font-mono grid place-items-center"
                       >
                         Open in IOC Investigate →
                       </Link>
@@ -935,9 +930,9 @@ export default function LiveFeed(): JSX.Element {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+              <div className="rounded-xl bg-surface-100 border border-line-1 p-4">
                 <div className="font-mono text-xs tracking-widest text-muted mb-3">TIMELINE — OBSERVATIONS</div>
-                <div className="relative pl-6 border-l border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3">
+                <div className="relative pl-6 border-l border-line-1 space-y-3">
                   {[
                     { time: '2024-12-18 08:42 UTC', ev: 'First observed in intel feed', src: 'Unit 42' },
                     { time: '2024-12-18 14:20 UTC', ev: 'Correlated across 3 sources', src: 'THN + CISA' },
@@ -945,10 +940,10 @@ export default function LiveFeed(): JSX.Element {
                     { time: '2h ago', ev: 'Last seen active', src: 'Live polling' },
                   ].map((s, i) => (
                     <div key={i} className="relative">
-                      <div className="absolute -left-[29px] top-1 h-3 w-3 rounded-full bg-white dark:bg-[rgb(var(--surface-100))] border-2 border-sky-500" />
+                      <div className="absolute -left-[29px] top-1 h-3 w-3 rounded-full bg-surface-100 border-2 border-sky-500" />
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] font-mono text-muted">{s.time}</span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-surface-300 border border-line-1 text-muted">
                           {s.src}
                         </span>
                       </div>
@@ -967,7 +962,7 @@ export default function LiveFeed(): JSX.Element {
                 </button>
                 <Link
                   to={`/dfir/ioc-investigate?indicator=${encodeURIComponent(iocModal.value)}`}
-                  className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading grid place-items-center gap-1"
+                  className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading grid place-items-center gap-1"
                 >
                   <Search size={12} /> Search DB
                 </Link>
@@ -986,7 +981,7 @@ export default function LiveFeed(): JSX.Element {
                       '_blank'
                     )
                   }
-                  className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading"
+                  className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading"
                 >
                   STIX 2.1
                 </button>
@@ -997,13 +992,13 @@ export default function LiveFeed(): JSX.Element {
                       '_blank'
                     )
                   }
-                  className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted hover:text-heading"
+                  className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted hover:text-heading"
                 >
                   JSON
                 </button>
                 <button
                   onClick={() => setIocModal(null)}
-                  className="h-9 rounded-lg bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-mono text-muted"
+                  className="h-9 rounded-lg bg-surface-100 border border-line-1 text-xs font-mono text-muted"
                 >
                   Close
                 </button>

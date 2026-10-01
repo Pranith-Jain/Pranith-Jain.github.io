@@ -16,7 +16,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
           "Recent writing" section above. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">External coverage</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Press &amp; interviews
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">
@@ -35,16 +35,16 @@ export function Featured({ featuredArticles }: FeaturedProps) {
             className="group flex flex-col gap-5 p-6 surface-card card-hover hover:border-brand-500/40 h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 transition-colors"
           >
             <div className="flex items-center justify-between">
-              <span className="rounded bg-slate-100 px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:bg-white/5 dark:text-muted">
+              <span className="rounded bg-surface-300 px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] text-muted dark:bg-surface-100/5">
                 {article.category === 'Security Specialist' ? 'Expert Profile' : 'Published Article'}
               </span>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h3 className="text-xl font-bold text-heading group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {article.title}
               </h3>
               <p className="mt-3 text-sm text-muted leading-relaxed">{article.description}</p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-slate-500">
+              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-muted">
                 <span>{article.source}</span>
                 <span>•</span>
                 <span>{article.category}</span>

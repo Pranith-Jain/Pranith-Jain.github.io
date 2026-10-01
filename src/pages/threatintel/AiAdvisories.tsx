@@ -100,7 +100,7 @@ export default function AiAdvisories(): JSX.Element {
     `px-2 py-1 rounded text-xs font-mono font-medium border transition ${
       active
         ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+        : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
     }`;
 
   return (
@@ -116,23 +116,21 @@ export default function AiAdvisories(): JSX.Element {
     >
       <AiSummaryCard
         surface="AI Advisories"
-        items={filteredAdv
-          .slice(0, 10)
-          .map((a) => ({
-            title: a.title,
-            body: `${a.source} · ${KIND_LABEL[a.kind] ?? a.kind} · ${fmtDate(a.updated)}`,
-            source: a.link,
-          }))}
+        items={filteredAdv.slice(0, 10).map((a) => ({
+          title: a.title,
+          body: `${a.source} · ${KIND_LABEL[a.kind] ?? a.kind} · ${fmtDate(a.updated)}`,
+          source: a.link,
+        }))}
         requireAdmin={false}
       />
       <div className="relative my-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
         <input
           type="text"
           placeholder="Search advisories + research…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+          className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl text-sm text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
         />
       </div>
 
@@ -148,18 +146,15 @@ export default function AiAdvisories(): JSX.Element {
       </div>
       <div className="grid gap-2 mb-8">
         {filteredAdv.map((a) => (
-          <div
-            key={a.id}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
-          >
+          <div key={a.id} className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+              <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
                 {a.source}
               </span>
-              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-body">
+              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-surface-300 dark:bg-surface-100/5 text-body">
                 {KIND_LABEL[a.kind] ?? a.kind}
               </span>
-              <span className="text-micro font-mono text-slate-500">{fmtDate(a.updated)}</span>
+              <span className="text-micro font-mono text-muted">{fmtDate(a.updated)}</span>
             </div>
             <a
               href={sanitizeUrl(a.link) ?? undefined}
@@ -171,7 +166,7 @@ export default function AiAdvisories(): JSX.Element {
                 {a.title} <ExternalLink className="inline w-2.5 h-2.5 text-muted" />
               </h3>
             </a>
-            {a.cves.length > 0 && <p className="text-mini font-mono text-slate-500 mt-1">{a.cves.join(', ')}</p>}
+            {a.cves.length > 0 && <p className="text-mini font-mono text-muted mt-1">{a.cves.join(', ')}</p>}
           </div>
         ))}
       </div>
@@ -188,15 +183,12 @@ export default function AiAdvisories(): JSX.Element {
       </div>
       <div className="grid gap-2">
         {filteredRes.map((r) => (
-          <div
-            key={r.id}
-            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4"
-          >
+          <div key={r.id} className="rounded-xl border border-line-1 bg-surface-100/50 p-4">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+              <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-line-2 text-muted">
                 {r.source}
               </span>
-              <span className="text-micro font-mono text-slate-500">{fmtDate(r.pubDate)}</span>
+              <span className="text-micro font-mono text-muted">{fmtDate(r.pubDate)}</span>
             </div>
             <a
               href={sanitizeUrl(r.link) ?? undefined}

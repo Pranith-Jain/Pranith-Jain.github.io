@@ -112,7 +112,7 @@ export default function ImageFingerprint(): JSX.Element {
               ~{cmp.sim}% similar
             </span>
           </div>
-          <p className="font-mono text-mini text-slate-500 mt-1">
+          <p className="font-mono text-mini text-muted mt-1">
             ≤ 10 distance ⇒ likely the same image (resized/recompressed). High distance ⇒ unrelated.
           </p>
         </div>

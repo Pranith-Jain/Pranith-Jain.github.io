@@ -95,7 +95,7 @@ export default function EvtxParser(): JSX.Element {
       </Link>
       <h1 className="font-display font-bold text-2xl flex items-center gap-2">
         <ScrollText size={22} className="text-brand-600 dark:text-brand-400" />
-        EVTX Parser <span className="text-sm font-mono text-slate-500">Lite</span>
+        EVTX Parser <span className="text-sm font-mono text-muted">Lite</span>
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
         Drop a Windows <code>.evtx</code> log. Walks the real ElfFile → ElfChnk → record structure and extracts each
@@ -106,10 +106,10 @@ export default function EvtxParser(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('evtxparser-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-line-2 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a .evtx file file or click to choose"
       >
-        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <Upload size={24} className="mx-auto mb-2 text-muted" />
         <p className="text-sm font-mono text-body">Drop a .evtx file file here, or click to choose</p>
         <p className="text-mini font-mono text-muted mt-1">100% client-side. No upload.</p>
       </button>
@@ -143,7 +143,7 @@ export default function EvtxParser(): JSX.Element {
       />
 
       {busy && (
-        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-muted">
           <Loader2 size={14} className="animate-spin" /> parsing…
         </p>
       )}
@@ -151,7 +151,7 @@ export default function EvtxParser(): JSX.Element {
 
       {data && (
         <div className="mt-6 space-y-3">
-          <div className="font-mono text-meta text-slate-500">
+          <div className="font-mono text-meta text-muted">
             {data.records.length.toLocaleString()} records · {data.chunks} chunks
             {data.records.length >= MAX ? ` (capped at ${MAX})` : ''}
           </div>
@@ -165,14 +165,14 @@ export default function EvtxParser(): JSX.Element {
           <ul className="space-y-2">
             {shown.map((r) => (
               <li key={r.id} className="surface-card p-3">
-                <div className="font-mono text-mini text-slate-500 mb-1">
+                <div className="font-mono text-mini text-muted mb-1">
                   record #{r.id} · {r.time}
                 </div>
                 <div className="font-mono text-mini text-body break-all">{r.strings.join('  ·  ')}</div>
               </li>
             ))}
           </ul>
-          {shown.length === 0 && <p className="font-mono text-meta text-slate-500">No records match the filter.</p>}
+          {shown.length === 0 && <p className="font-mono text-meta text-muted">No records match the filter.</p>}
         </div>
       )}
     </div>

@@ -94,7 +94,7 @@ const SEVERITY_TONE: Record<Severity, string> = {
   critical: 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   high: 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  low: 'border-slate-300 dark:border-line-1 text-slate-500',
 };
 
 const ACTOR_TYPE_TONE: Record<ActorType, string> = {
@@ -327,17 +327,10 @@ export default function TelegramLinkedActors(): JSX.Element {
         </h2>
         <p className="text-xs font-mono text-muted mt-1.5 max-w-3xl leading-relaxed">
           For a given Telegram handle, surface every known attribution: the in-repo{' '}
-          <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-            threat-actor-catalog
-          </code>{' '}
-          (operator-curated), deepdarkCTI&apos;s{' '}
-          <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-            telegram_threat_actors.md
-          </code>
-          , and MISP Galaxy&apos;s{' '}
-          <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-            associated-telegram-handle
-          </code>{' '}
+          <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">threat-actor-catalog</code> (operator-curated),
+          deepdarkCTI&apos;s{' '}
+          <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">telegram_threat_actors.md</code>, and MISP
+          Galaxy&apos;s <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">associated-telegram-handle</code>{' '}
           custom field - cross-referenced with leak-monitor activity in the last 30 days.
         </p>
 
@@ -346,13 +339,13 @@ export default function TelegramLinkedActors(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="handle (e.g. apt28world, lockbitsupport, alphvteam)"
-            className="flex-1 min-w-[220px] px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+            className="flex-1 min-w-[220px] px-3 py-1.5 rounded-xl border border-line-1 bg-surface-100/40 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
             aria-label="Telegram handle to pivot"
           />
           <button
             type="button"
             onClick={() => setActiveHandle(null)}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1"
           >
             <Users size={12} /> all
           </button>
@@ -409,19 +402,10 @@ export default function TelegramLinkedActors(): JSX.Element {
           <div className="surface-card p-4">
             <p className="text-sm font-mono text-body">
               <strong>@{standaloneHandle}</strong> is not in the catalog or in the recent leak feed. Try a known handle
-              (e.g.{' '}
-              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-                apt28world
-              </code>
-              ,{' '}
-              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-                lockbitsupport
-              </code>
-              ,{' '}
-              <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
-                alphvteam
-              </code>
-              ) or use the Channel Search tab to find new candidates.
+              (e.g. <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">apt28world</code>,{' '}
+              <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">lockbitsupport</code>,{' '}
+              <code className="text-mini bg-surface-300 px-1 py-0.5 rounded">alphvteam</code>) or use the Channel Search
+              tab to find new candidates.
             </p>
           </div>
         )}
@@ -483,12 +467,12 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
 
   return (
     <li
-      className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 ${
+      className={`rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-4 ${
         pivot.catalogActors.length > 0
           ? 'border-rose-500/40'
           : pivot.searchActors.length > 0
             ? 'border-orange-500/30'
-            : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
+            : 'border-slate-200 dark:border-line-1'
       }`}
     >
       <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
@@ -506,7 +490,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
               </span>
             )}
             {noAttribution && (
-              <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+              <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-2 text-muted">
                 no actor attribution
               </span>
             )}
@@ -530,7 +514,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             href={sanitizeUrl(`https://telegram.me/s/${pivot.handle}`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
+            className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
           >
             <ExternalLink size={11} /> telegram.me/s/{pivot.handle}
           </a>
@@ -538,7 +522,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <button
               type="button"
               onClick={onClearFilter}
-              className="text-micro font-mono text-muted hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+              className="text-micro font-mono text-muted hover:text-muted dark:hover:text-inverted transition-colors"
             >
               clear
             </button>
@@ -568,13 +552,13 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                     {TYPE_LABELS[a.type]}
                   </span>
                   <span className={`text-micro font-mono ${STATUS_COLORS[a.status]}`}>{a.status}</span>
-                  {a.country && <span className="text-slate-500">· {a.country}</span>}
+                  {a.country && <span className="text-muted">· {a.country}</span>}
                 </div>
                 {a.mitreGroups.length > 0 && (
-                  <p className="font-mono text-mini text-slate-500 mt-0.5">MITRE: {a.mitreGroups.join(', ')}</p>
+                  <p className="font-mono text-mini text-muted mt-0.5">MITRE: {a.mitreGroups.join(', ')}</p>
                 )}
                 {a.malware.length > 0 && (
-                  <p className="font-mono text-mini text-slate-500">
+                  <p className="font-mono text-mini text-muted">
                     malware: {a.malware.slice(0, 3).join(', ')}
                     {a.malware.length > 3 ? ` +${a.malware.length - 3}` : ''}
                   </p>
@@ -595,14 +579,14 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             {pivot.searchActors.map((la) => (
               <li key={`${pivot.handle}:${la.actor_id}`} className="text-xs font-mono">
                 <span className="font-semibold text-heading">{la.name}</span>
-                {la.country && <span className="ml-1 text-slate-500">· {la.country}</span>}
+                {la.country && <span className="ml-1 text-muted">· {la.country}</span>}
                 <span
                   className={`ml-2 text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${confidenceTone(la.confidence)}`}
                   title={`Confidence ${(la.confidence * 100).toFixed(0)}%`}
                 >
                   {(la.confidence * 100).toFixed(0)}%
                 </span>
-                <span className="ml-2 text-slate-500">via {la.sources.map((s) => SOURCE_LABEL[s]).join(', ')}</span>
+                <span className="ml-2 text-muted">via {la.sources.map((s) => SOURCE_LABEL[s]).join(', ')}</span>
                 {la.citations[0] && (
                   <span className="ml-1 text-muted" title={la.citations.join(' · ')}>
                     - {la.citations[0]}
@@ -616,7 +600,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
 
       {/* Recent leaks */}
       {pivot.recentLeaks.length > 0 && (
-        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
+        <div className="rounded border border-line-1 p-3">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -634,14 +618,14 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                     {l.severity}
                   </span>
                   <span className="font-mono text-body">{l.leak_type}</span>
-                  {l.credential_count > 0 && <span className="text-slate-500">{l.credential_count} creds</span>}
-                  <span className="text-slate-500 ml-auto">{relativeAgo(l.discovered_at, '-')}</span>
+                  {l.credential_count > 0 && <span className="text-muted">{l.credential_count} creds</span>}
+                  <span className="text-muted ml-auto">{relativeAgo(l.discovered_at, '-')}</span>
                   {l.message_link && (
                     <a
                       href={sanitizeUrl(l.message_link)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 hover:text-rose-600 transition-colors"
+                      className="text-muted hover:text-rose-600 transition-colors"
                     >
                       <ExternalLink size={10} />
                     </a>

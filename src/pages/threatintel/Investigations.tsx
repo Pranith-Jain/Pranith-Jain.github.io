@@ -57,13 +57,13 @@ interface Investigation {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  open: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted',
+  open: 'bg-slate-200 dark:bg-surface-300 text-muted',
   'in-progress': 'bg-brand-500/15 text-brand-600 dark:text-brand-400',
   closed: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
 };
 
 const TLP_COLORS: Record<string, string> = {
-  white: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted',
+  white: 'bg-slate-200 dark:bg-surface-300 text-muted',
   green: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
   amber: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
   red: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
@@ -380,10 +380,7 @@ function InvestigationsPage(): JSX.Element {
                 TLP:{inv.tlp.toUpperCase()}
               </span>
               {inv.tags.map((t) => (
-                <span
-                  key={t}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
-                >
+                <span key={t} className="text-micro font-mono px-1.5 py-0.5 rounded bg-surface-300 text-muted">
                   {t}
                 </span>
               ))}
@@ -393,7 +390,7 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="button"
               onClick={exportJson}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
+              className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 text-muted hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
             >
               <FileDown size={11} /> JSON
             </button>
@@ -401,7 +398,7 @@ function InvestigationsPage(): JSX.Element {
               type="button"
               onClick={exportPdf}
               disabled={exportingPdf}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors disabled:opacity-50"
+              className="text-mini font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 text-muted hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors disabled:opacity-50"
             >
               <FileDown size={11} /> {exportingPdf ? 'PDF…' : 'PDF'}
             </button>
@@ -424,12 +421,12 @@ function InvestigationsPage(): JSX.Element {
               key={s}
               type="button"
               onClick={() => updateSeverity(s)}
-              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-line-1 text-slate-500'}`}
             >
               {s}
             </button>
           ))}
-          <span className="ml-4 text-mini font-mono text-slate-500">Status:</span>
+          <span className="ml-4 text-mini font-mono text-muted">Status:</span>
           {(['open', 'in-progress', 'closed'] as const).map((s) => (
             <button
               key={s}
@@ -452,7 +449,7 @@ function InvestigationsPage(): JSX.Element {
                 <select
                   value={obsType}
                   onChange={(e) => setObsType(e.target.value)}
-                  className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-body"
+                  className="text-meta font-mono px-2 py-1.5 rounded border border-line-1 bg-surface-100 text-body"
                 >
                   <option value="ipv4">IPv4</option>
                   <option value="ipv6">IPv6</option>
@@ -466,7 +463,7 @@ function InvestigationsPage(): JSX.Element {
                   value={obsValue}
                   onChange={(e) => setObsValue(e.target.value)}
                   placeholder="observable value"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                  className="flex-1 px-3 py-1.5 bg-surface-100 border border-line-1 rounded font-mono text-meta text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addObservable();
                   }}
@@ -475,19 +472,19 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addObservable()}
                   disabled={!obsValue.trim()}
-                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                 >
                   <Plus size={12} />
                 </button>
               </div>
               {inv.observables.length === 0 ? (
-                <p className="text-meta font-mono text-slate-500 text-center py-4">No observables added yet</p>
+                <p className="text-meta font-mono text-muted text-center py-4">No observables added yet</p>
               ) : (
                 <div className="space-y-1 max-h-60 overflow-y-auto">
                   {inv.observables.map((o) => (
                     <div
                       key={o.id}
-                      className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] group"
+                      className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-surface-200 dark:hover:bg-surface-300/50 group"
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="text-micro font-mono uppercase text-muted shrink-0 w-10">{o.type}</span>
@@ -516,7 +513,7 @@ function InvestigationsPage(): JSX.Element {
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
                   placeholder="new task"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                  className="flex-1 px-3 py-1.5 bg-surface-100 border border-line-1 rounded font-mono text-meta text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addTask();
                   }}
@@ -525,19 +522,19 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addTask()}
                   disabled={!taskTitle.trim()}
-                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                 >
                   <Plus size={12} />
                 </button>
               </div>
               {inv.tasks.length === 0 ? (
-                <p className="text-meta font-mono text-slate-500 text-center py-4">No tasks yet</p>
+                <p className="text-meta font-mono text-muted text-center py-4">No tasks yet</p>
               ) : (
                 <div className="space-y-1">
                   {inv.tasks.map((t) => (
                     <div
                       key={t.id}
-                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-surface-200 dark:hover:bg-surface-300/50"
                     >
                       <button
                         type="button"
@@ -547,7 +544,7 @@ function InvestigationsPage(): JSX.Element {
                         {t.status === 'completed' ? (
                           <CheckCircle2 size={14} className="text-emerald-500" />
                         ) : (
-                          <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-[rgb(var(--border-400))]" />
+                          <div className="w-3.5 h-3.5 rounded-full border-2 border-line-2" />
                         )}
                       </button>
                       <span
@@ -583,23 +580,20 @@ function InvestigationsPage(): JSX.Element {
               </h2>
               <div className="space-y-3 max-h-[40vh] overflow-y-auto">
                 {[...inv.timeline].reverse().map((ev) => (
-                  <div
-                    key={ev.id}
-                    className="relative pl-4 border-l-2 border-slate-200 dark:border-[rgb(var(--border-400))]"
-                  >
+                  <div key={ev.id} className="relative pl-4 border-l-2 border-line-1">
                     <p className="text-meta font-mono text-body leading-snug">{ev.message}</p>
                     <p className="text-micro font-mono text-muted mt-0.5">{relativeTime(ev.created_at)}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="mt-3 pt-3 border-t border-line-1">
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={noteText}
                     onChange={(e) => setNoteText(e.target.value)}
                     placeholder="add a note…"
-                    className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+                    className="flex-1 px-3 py-1.5 bg-surface-100 border border-line-1 rounded font-mono text-meta text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') void addNote();
                     }}
@@ -608,7 +602,7 @@ function InvestigationsPage(): JSX.Element {
                     type="button"
                     onClick={() => void addNote()}
                     disabled={!noteText.trim()}
-                    className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+                    className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                   >
                     Add
                   </button>
@@ -618,7 +612,7 @@ function InvestigationsPage(): JSX.Element {
 
             <section className="surface-card p-4">
               <h2 className="font-display font-semibold text-sm mb-2">Meta</h2>
-              <div className="text-mini font-mono text-slate-500 space-y-1">
+              <div className="text-mini font-mono text-muted space-y-1">
                 <p>Created: {new Date(inv.created_at).toLocaleString()}</p>
                 <p>Updated: {new Date(inv.updated_at).toLocaleString()}</p>
                 <p>TLP: {inv.tlp.toUpperCase()}</p>
@@ -640,7 +634,7 @@ function InvestigationsPage(): JSX.Element {
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
         >
           <Plus size={14} /> New Investigation
         </button>
@@ -654,7 +648,7 @@ function InvestigationsPage(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search investigations…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
+            className="w-full pl-9 pr-3 py-2 bg-surface-100 border border-line-1 rounded-xl font-mono text-tool text-heading placeholder:text-muted focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
@@ -690,7 +684,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.title}
                 onChange={(e) => setCreateForm((p) => ({ ...p, title: e.target.value }))}
                 placeholder="Investigation title"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-tool focus:outline-none focus:border-rose-500"
               />
             </div>
             <div className="sm:col-span-2">
@@ -699,13 +693,13 @@ function InvestigationsPage(): JSX.Element {
                 onChange={(e) => setCreateForm((p) => ({ ...p, description: e.target.value }))}
                 placeholder="Description (optional)"
                 rows={2}
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
               value={createForm.severity}
               onChange={(e) => setCreateForm((p) => ({ ...p, severity: e.target.value as Investigation['severity'] }))}
-              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+              className="text-meta font-mono px-2 py-2 rounded border border-line-1 bg-surface-100"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -715,7 +709,7 @@ function InvestigationsPage(): JSX.Element {
             <select
               value={createForm.tlp}
               onChange={(e) => setCreateForm((p) => ({ ...p, tlp: e.target.value as Investigation['tlp'] }))}
-              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+              className="text-meta font-mono px-2 py-2 rounded border border-line-1 bg-surface-100"
             >
               <option value="white">TLP:WHITE</option>
               <option value="green">TLP:GREEN</option>
@@ -728,7 +722,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.tags}
                 onChange={(e) => setCreateForm((p) => ({ ...p, tags: e.target.value }))}
                 placeholder="Tags (comma separated)"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2 bg-surface-100 border border-line-1 rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -736,14 +730,14 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="submit"
               disabled={!createForm.title.trim()}
-              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
+              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-on-fill font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
             >
               Create
             </button>
             <button
               type="button"
               onClick={() => setShowCreate(false)}
-              className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 font-mono text-meta rounded hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-4 py-2 border border-line-1 text-muted font-mono text-meta rounded hover:text-body dark:hover:text-inverted"
             >
               Cancel
             </button>
@@ -766,8 +760,8 @@ function InvestigationsPage(): JSX.Element {
 
       {!loading && filtered.length === 0 && !error && (
         <div className="surface-card p-12 text-center">
-          <AlertTriangle size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
-          <p className="text-sm font-mono text-slate-500">
+          <AlertTriangle size={32} className="mx-auto text-inverted mb-3" />
+          <p className="text-sm font-mono text-muted">
             {search || filterSeverity !== 'all' || filterStatus !== 'all'
               ? 'No matching investigations'
               : 'No investigations yet'}
@@ -809,16 +803,13 @@ function InvestigationsPage(): JSX.Element {
                       TLP:{inv.tlp.toUpperCase()}
                     </span>
                     {inv.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
-                      >
+                      <span key={t} className="text-micro font-mono px-1 py-0.5 rounded bg-surface-300 text-muted">
                         {t}
                       </span>
                     ))}
                   </div>
                   {inv.description && (
-                    <p className="text-meta font-mono text-slate-500 mt-1 line-clamp-1">{inv.description}</p>
+                    <p className="text-meta font-mono text-muted mt-1 line-clamp-1">{inv.description}</p>
                   )}
                 </div>
                 <div className="shrink-0 text-right text-micro font-mono text-muted">

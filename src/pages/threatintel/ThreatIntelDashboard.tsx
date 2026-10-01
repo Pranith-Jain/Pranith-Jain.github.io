@@ -105,7 +105,7 @@ const BAR_PALETTE = [
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
+  'w-full rounded-xl border border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-input-200 px-3 py-2 text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
 
 const SEVERITY_PILL: Record<string, string> = {
   Critical: 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
@@ -142,12 +142,12 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
   const total = data.reduce((s, d) => s + d.count, 0);
   return (
     <div className={`${CARD} overflow-hidden mt-4`}>
-      <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="px-4 py-2 border-b border-line-1">
         <span className="text-mini font-mono uppercase tracking-wider text-muted">Data Summary</span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-mini uppercase tracking-wider text-muted">
+          <thead className="border-b border-line-1 text-left text-mini uppercase tracking-wider text-muted">
             <tr>
               <th className="py-2 px-4 font-medium">{label}</th>
               <th className="py-2 px-4 font-medium text-right">Count</th>
@@ -159,24 +159,21 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
             {data.map((row) => {
               const pct = total > 0 ? (row.count / total) * 100 : 0;
               return (
-                <tr
-                  key={row.name}
-                  className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
-                >
+                <tr key={row.name} className="border-b border-line-1 last:border-0">
                   <td className="py-2 px-4 text-sm text-heading">{row.name}</td>
                   <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
                     {row.count.toLocaleString()}
                   </td>
                   <td className="py-2 px-4 text-sm text-right text-muted">{pct.toFixed(1)}%</td>
                   <td className="py-2 px-4">
-                    <div className="w-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-surface-300 rounded-full h-2 overflow-hidden">
                       <div className="h-full bg-rose-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
                     </div>
                   </td>
                 </tr>
               );
             })}
-            <tr className="font-semibold border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <tr className="font-semibold border-t border-line-1">
               <td className="py-2 px-4 text-sm text-heading">Total</td>
               <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
                 {total.toLocaleString()}
@@ -579,7 +576,7 @@ export function CveLandscapePanel(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-line-2 hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
         >
           <RefreshCw size={11} /> retry
         </button>
@@ -599,7 +596,7 @@ export function CveLandscapePanel(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2 py-1 font-mono hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
@@ -646,10 +643,7 @@ export function CveLandscapePanel(): JSX.Element {
             Live feeds
           </span>
           {Array.from(feeds.entries()).map(([name, snap]) => (
-            <span
-              key={name}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5"
-            >
+            <span key={name} className="rounded border border-line-1 px-1.5 py-0.5">
               {name}: {snap.total.toLocaleString()}
             </span>
           ))}
@@ -663,7 +657,7 @@ export function CveLandscapePanel(): JSX.Element {
             key={t.id}
             type="button"
             onClick={() => setView(t.id)}
-            className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${view === t.id ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'}`}
+            className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${view === t.id ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-line-1 text-muted hover:border-slate-400'}`}
           >
             {t.label}
           </button>
@@ -685,7 +679,7 @@ export function CveLandscapePanel(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-slate-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-muted"
               >
                 ×
               </button>
@@ -701,38 +695,38 @@ export function CveLandscapePanel(): JSX.Element {
                   key={sev}
                   type="button"
                   onClick={() => setSevFilter((p) => (active ? p.filter((s) => s !== sev) : [...p, sev]))}
-                  className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${active ? cls : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+                  className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${active ? cls : 'bg-transparent text-muted border-slate-300 dark:border-line-1'}`}
                 >
                   {sev}
                 </button>
               );
             })}
-            <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+            <div className="w-px h-5 bg-track dark:bg-line-1" />
             <button
               type="button"
               onClick={() => setExploitedOnly((p) => !p)}
-              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${exploitedOnly ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800' : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${exploitedOnly ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800' : 'bg-transparent text-muted border-slate-300 dark:border-line-1'}`}
             >
               Exploited only
             </button>
             <button
               type="button"
               onClick={() => setKevOnly((p) => !p)}
-              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${kevOnly ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-transparent text-muted border-slate-300 dark:border-[rgb(var(--border-400))]'}`}
+              className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${kevOnly ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-transparent text-muted border-slate-300 dark:border-line-1'}`}
             >
               On KEV only
             </button>
-            <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+            <div className="w-px h-5 bg-track dark:bg-line-1" />
             <select
               value={topN}
               onChange={(e) => setTopN(Number(e.target.value))}
-              className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1 text-mini font-mono text-body"
+              className="rounded-xl border border-line-2 bg-surface-200 px-2 py-1 text-mini font-mono text-body"
             >
               <option value={10}>Top 10</option>
               <option value={20}>Top 20</option>
               <option value={50}>Top 50</option>
             </select>
-            <div className="w-px h-5 bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+            <div className="w-px h-5 bg-track dark:bg-line-1" />
             <div className="flex gap-1">
               {[
                 { type: 'pie' as ChartType, icon: <PieIcon className="h-3.5 w-3.5" /> },
@@ -758,7 +752,7 @@ export function CveLandscapePanel(): JSX.Element {
                   setExploitedOnly(false);
                   setKevOnly(false);
                 }}
-                className="text-mini text-muted hover:text-slate-700 dark:hover:text-slate-200 ml-1"
+                className="text-mini text-muted hover:text-body dark:hover:text-inverted ml-1"
               >
                 Clear
               </button>
@@ -791,7 +785,7 @@ export function CveLandscapePanel(): JSX.Element {
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded px-2 py-0.5 transition-colors"
+                className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 border border-line-2 rounded px-2 py-0.5 transition-colors"
               >
                 ↓ CSV
               </button>

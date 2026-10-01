@@ -53,7 +53,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
         <table className="w-full text-sm font-mono">
           <tbody>
             {displayEntries.map(([key, value]) => (
-              <tr key={key} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-0">
+              <tr key={key} className="border-b border-line-1 last:border-0">
                 <th scope="row" className="py-2 pr-4 text-muted align-top whitespace-nowrap w-40 font-normal text-left">
                   {key}
                 </th>

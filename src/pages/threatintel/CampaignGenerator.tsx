@@ -318,13 +318,13 @@ export default function CampaignGenerator(): JSX.Element {
             <Target size={14} className="text-rose-600 dark:text-rose-400" /> Analyst brief
           </h2>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-500">samples:</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-muted">samples:</span>
             {SAMPLES.map((s) => (
               <button
                 key={s.label}
                 type="button"
                 onClick={() => loadSample(s)}
-                className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
+                className="text-mini font-mono rounded border border-line-2 px-2 py-0.5 text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
               >
                 {s.label}
               </button>
@@ -334,10 +334,7 @@ export default function CampaignGenerator(): JSX.Element {
 
         <div className="grid sm:grid-cols-2 gap-4 mb-4">
           <div>
-            <label
-              htmlFor="cg-actor"
-              className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
-            >
+            <label htmlFor="cg-actor" className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5">
               Suspected actor
             </label>
             <input
@@ -346,14 +343,11 @@ export default function CampaignGenerator(): JSX.Element {
               value={actor}
               onChange={(e) => setActor(e.target.value)}
               placeholder="e.g. Suspected LockBit affiliate"
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
+              className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
             />
           </div>
           <div>
-            <label
-              htmlFor="cg-sector"
-              className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
-            >
+            <label htmlFor="cg-sector" className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5">
               Targeted sector / region
             </label>
             <input
@@ -362,13 +356,13 @@ export default function CampaignGenerator(): JSX.Element {
               value={sector}
               onChange={(e) => setSector(e.target.value)}
               placeholder="e.g. Manufacturing, North America"
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
+              className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
             />
           </div>
         </div>
 
         <div className="mb-4">
-          <label htmlFor="cg-ttps" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+          <label htmlFor="cg-ttps" className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5">
             Observed TTPs / behaviour
           </label>
           <textarea
@@ -377,13 +371,13 @@ export default function CampaignGenerator(): JSX.Element {
             onChange={(e) => setTtps(e.target.value)}
             placeholder="Free-form description of what was seen - entry vector, lateral movement, persistence, exfil, etc."
             rows={5}
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
+            className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
           />
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="cg-iocs" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+            <label htmlFor="cg-iocs" className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5">
               IOCs (one per line)
             </label>
             <textarea
@@ -392,15 +386,12 @@ export default function CampaignGenerator(): JSX.Element {
               onChange={(e) => setIocs(e.target.value)}
               placeholder="185.220.101.45&#10;c2.bad-domain.com&#10;9cf5b1…"
               rows={5}
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
+              className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
             />
             <div className="text-micro font-mono text-muted mt-1">{iocList.length} parsed · max 30</div>
           </div>
           <div>
-            <label
-              htmlFor="cg-notes"
-              className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
-            >
+            <label htmlFor="cg-notes" className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5">
               Notes / context
             </label>
             <textarea
@@ -409,7 +400,7 @@ export default function CampaignGenerator(): JSX.Element {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Anything else - timeline anomalies, relationships, the gut-feel angle."
               rows={5}
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
+              className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
             />
           </div>
         </div>
@@ -422,7 +413,7 @@ export default function CampaignGenerator(): JSX.Element {
             type="button"
             onClick={() => void generate()}
             disabled={empty || tooLong || loading}
-            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-4 py-2 text-xs font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-4 py-2 text-xs font-mono font-semibold text-on-fill hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
@@ -453,15 +444,15 @@ export default function CampaignGenerator(): JSX.Element {
                 <span className={`px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[result.campaign.confidence]}`}>
                   confidence: {result.campaign.confidence}
                 </span>
-                <span className="text-slate-500">model: {result.model_used}</span>
-                <span className="text-slate-500">generated: {new Date(result.generated_at).toLocaleString()}</span>
+                <span className="text-muted">model: {result.model_used}</span>
+                <span className="text-muted">generated: {new Date(result.generated_at).toLocaleString()}</span>
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <button
                 type="button"
                 onClick={() => void copyMarkdown()}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
+                className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2.5 py-1 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
               >
                 {copied ? (
                   <>
@@ -485,7 +476,7 @@ export default function CampaignGenerator(): JSX.Element {
                   type="button"
                   onClick={() => void saveCampaign()}
                   disabled={saving}
-                  className="inline-flex items-center gap-1.5 rounded bg-rose-600 px-2.5 py-1 text-mini font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40"
+                  className="inline-flex items-center gap-1.5 rounded bg-rose-600 px-2.5 py-1 text-mini font-mono font-semibold text-on-fill hover:bg-rose-500 disabled:opacity-40"
                 >
                   {saving ? <Loader2 size={11} className="animate-spin" /> : <Save size={11} />}
                   {saving ? 'saving' : 'save campaign'}
@@ -493,7 +484,7 @@ export default function CampaignGenerator(): JSX.Element {
               )}
               <Link
                 to="/threatintel/catalog?cat=campaigns"
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
+                className="inline-flex items-center gap-1.5 rounded border border-line-2 px-2.5 py-1 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
                 title="Browse saved campaigns"
               >
                 <FolderOpen size={11} /> browse
@@ -505,7 +496,7 @@ export default function CampaignGenerator(): JSX.Element {
             <p className="text-sm text-body leading-relaxed mb-4">{result.campaign.summary}</p>
           )}
 
-          <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="mb-5 pt-3 border-t border-line-1">
             <ShareBar
               shareText={
                 result.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${result.campaign.campaign_name}`
@@ -518,20 +509,17 @@ export default function CampaignGenerator(): JSX.Element {
 
           {result.campaign.actor_context && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">Actor context</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-1.5">Actor context</h3>
               <p className="text-sm text-body leading-relaxed">{result.campaign.actor_context}</p>
             </div>
           )}
 
           {orderedKillChain.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Kill chain</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Kill chain</h3>
               <ol className="space-y-2">
                 {orderedKillChain.map((k) => (
-                  <li
-                    key={k.phase}
-                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-                  >
+                  <li key={k.phase} className="rounded-xl border border-line-1 bg-surface-200 p-3">
                     <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
                     </div>
@@ -544,13 +532,10 @@ export default function CampaignGenerator(): JSX.Element {
 
           {result.campaign.mitre_techniques.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">MITRE ATT&amp;CK</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">MITRE ATT&amp;CK</h3>
               <ul className="space-y-1.5">
                 {result.campaign.mitre_techniques.map((m) => (
-                  <li
-                    key={m.id}
-                    className="text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
-                  >
+                  <li key={m.id} className="text-sm rounded-xl border border-line-1 bg-surface-200 p-2.5">
                     <a
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
                       target="_blank"
@@ -560,7 +545,7 @@ export default function CampaignGenerator(): JSX.Element {
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}
                     <span className="font-semibold text-heading">- {m.name}</span>
-                    <div className="text-mini font-mono text-slate-500 mt-0.5">{m.rationale}</div>
+                    <div className="text-mini font-mono text-muted mt-0.5">{m.rationale}</div>
                   </li>
                 ))}
               </ul>
@@ -569,7 +554,7 @@ export default function CampaignGenerator(): JSX.Element {
 
           {result.campaign.hunting_hypotheses.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Hunting hypotheses</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Hunting hypotheses</h3>
               <ul className="space-y-1.5 list-disc list-inside text-sm text-body">
                 {result.campaign.hunting_hypotheses.map((h) => (
                   <li key={h}>{h}</li>
@@ -580,15 +565,10 @@ export default function CampaignGenerator(): JSX.Element {
 
           {result.campaign.detection_opportunities.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">
-                Detection opportunities
-              </h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Detection opportunities</h3>
               <ul className="space-y-1.5">
                 {result.campaign.detection_opportunities.map((d) => (
-                  <li
-                    key={d}
-                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 text-body"
-                  >
+                  <li key={d} className="text-sm font-mono rounded border border-line-1 bg-surface-200 p-2.5 text-body">
                     {d}
                   </li>
                 ))}
@@ -598,14 +578,14 @@ export default function CampaignGenerator(): JSX.Element {
 
           {result.campaign.iocs_to_pivot.length > 0 && (
             <div className="mb-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">IOCs to pivot on</h3>
+              <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">IOCs to pivot on</h3>
               <ul className="space-y-1">
                 {result.campaign.iocs_to_pivot.map((ioc) => {
                   const fragment = ioc.split(/[\s-:-]/)[0] ?? ioc;
                   return (
                     <li
                       key={ioc}
-                      className="text-sm flex items-start gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2"
+                      className="text-sm flex items-start gap-2 rounded border border-line-1 bg-surface-200 p-2"
                     >
                       <span className="flex-1 text-body">{ioc}</span>
                       <Link

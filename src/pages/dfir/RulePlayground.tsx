@@ -143,13 +143,13 @@ export default function RulePlayground(): JSX.Element {
       <div className="flex flex-wrap gap-1.5 mb-4">
         <button
           onClick={loadYara}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           Load YARA sample
         </button>
         <button
           onClick={loadSigma}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           Load Sigma sample
         </button>
@@ -159,7 +159,7 @@ export default function RulePlayground(): JSX.Element {
               setRule('');
               setSample('');
             }}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+            className="text-xs font-mono px-2 py-1 rounded border border-line-2 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
           >
             Clear
           </button>
@@ -181,7 +181,7 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="rule MyRule { strings: $a = ... condition: ... }   - or -   title: …\nlogsource: …\ndetection: …"
             aria-labelledby="rule-playground-rule-label"
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
           />
         </section>
 
@@ -199,7 +199,7 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="Paste a log line, EDR cmdline, file fragment, or any text the rule should be tested against."
             aria-labelledby="rule-playground-sample-label"
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-line-2 bg-surface-200 px-3 py-2 font-mono text-xs text-heading focus:border-brand-500/60 focus:outline-none"
           />
         </section>
       </div>
@@ -223,7 +223,7 @@ export default function RulePlayground(): JSX.Element {
               <span className="text-muted">Name:</span> {result.parsed.name}
             </p>
             {result.parsed.condition && (
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 mb-3">
+              <div className="rounded border border-line-1 bg-surface-200 p-2.5 mb-3">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-muted block mb-1">
                   Condition (informational)
                 </span>
@@ -234,7 +234,7 @@ export default function RulePlayground(): JSX.Element {
               <div className="grid gap-1.5 sm:grid-cols-2 mb-3">
                 {result.parsed.meta.map((m) => (
                   <div key={m.k} className="text-mini font-mono text-muted">
-                    <span className="text-slate-400">{m.k}:</span> {m.v}
+                    <span className="text-muted">{m.k}:</span> {m.v}
                   </div>
                 ))}
               </div>
@@ -287,7 +287,7 @@ export default function RulePlayground(): JSX.Element {
                 )}
               </span>
             </div>
-            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-heading leading-relaxed overflow-x-auto">
+            <div className="rounded border border-line-1 bg-surface-200 p-3 font-mono text-sm text-heading leading-relaxed overflow-x-auto">
               {highlight(sample, result.matches)}
             </div>
           </section>
@@ -299,7 +299,7 @@ export default function RulePlayground(): JSX.Element {
                 {result.matches.map((m, i) => (
                   <li
                     key={`${m.name}-${i}`}
-                    className="text-meta font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-1.5 last:border-0"
+                    className="text-meta font-mono flex flex-wrap items-baseline gap-2 border-b border-line-1 pb-1.5 last:border-0"
                   >
                     <span
                       className={`text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_STYLES[m.kind]}`}

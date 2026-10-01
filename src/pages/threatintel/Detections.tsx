@@ -180,7 +180,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
             <code className="text-mini font-mono text-rose-600 dark:text-rose-400 break-all">{d.group_key}</code>
           )}
           {d.description && <p className="text-meta text-muted mt-1 leading-relaxed">{d.description}</p>}
-          <div className="text-mini font-mono text-slate-500 mt-1 flex flex-wrap gap-x-3 gap-y-0.5">
+          <div className="text-mini font-mono text-muted mt-1 flex flex-wrap gap-x-3 gap-y-0.5">
             <span className="text-muted">rule: {d.rule_id}</span>
             {d.last_observed && <span>last seen {shortRel(d.last_observed)}</span>}
             <span>
@@ -194,7 +194,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         />
       </button>
       {open && (
-        <ul className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] divide-y divide-slate-100 dark:divide-slate-800/60">
+        <ul className="border-t border-line-1 divide-y divide-line-1 dark:divide-slate-800/60">
           {d.indicators.map((it, i) => (
             <li key={`${it.source}:${it.value}:${i}`} className="px-4 py-2 flex items-center gap-3">
               <span
@@ -204,7 +204,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
               </span>
               <div className="min-w-0 flex-1">
                 <IocChip value={it.value} size="sm" bare truncate={56} className="min-w-0" />
-                <div className="text-mini font-mono text-slate-500 flex flex-wrap gap-x-2">
+                <div className="text-mini font-mono text-muted flex flex-wrap gap-x-2">
                   <span>{it.source}</span>
                   {it.context && (
                     <span className="text-muted italic truncate max-w-[44ch]" title={it.context}>
@@ -213,7 +213,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
                   )}
                 </div>
               </div>
-              <span className="shrink-0 text-mini font-mono text-slate-500" title={it.observed_at ?? ''}>
+              <span className="shrink-0 text-mini font-mono text-muted" title={it.observed_at ?? ''}>
                 {shortRel(it.observed_at)}
               </span>
             </li>
@@ -369,13 +369,11 @@ export default function Detections(): JSX.Element {
               <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
                 <div className="space-y-3">
                   <div>
-                    <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-1">
-                      what fired
-                    </div>
+                    <div className="text-mini font-mono uppercase tracking-[0.18em] text-muted mb-1">what fired</div>
                     <p className="text-sm text-heading leading-relaxed">{n.what}</p>
                   </div>
                   <div>
-                    <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-1">
+                    <div className="text-mini font-mono uppercase tracking-[0.18em] text-muted mb-1">
                       why it matters
                     </div>
                     <p className="text-sm text-body leading-relaxed">{n.why}</p>
@@ -388,14 +386,14 @@ export default function Detections(): JSX.Element {
                   </div>
                 </div>
                 <div>
-                  <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-2">
+                  <div className="text-mini font-mono uppercase tracking-[0.18em] text-muted mb-2">
                     triggering indicators
                   </div>
                   <ul className="space-y-1.5">
                     {indicatorPreview.map((it, i) => (
                       <li
                         key={`${it.source}:${it.value}:${i}`}
-                        className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 px-2.5 py-1.5"
+                        className="rounded border border-line-1 bg-surface-100/60 dark:bg-surface-200/40 px-2.5 py-1.5"
                       >
                         <div className="flex items-center gap-2 mb-0.5">
                           <span
@@ -403,20 +401,20 @@ export default function Detections(): JSX.Element {
                           >
                             {it.kind}
                           </span>
-                          <span className="text-micro font-mono text-slate-500">{it.source}</span>
+                          <span className="text-micro font-mono text-muted">{it.source}</span>
                         </div>
                         <IocChip value={it.value} size="sm" bare truncate={64} className="min-w-0 max-w-full" />
                       </li>
                     ))}
                   </ul>
                   {remaining > 0 && (
-                    <p className="text-mini font-mono text-slate-500 mt-2">+ {remaining} more on the rule card below</p>
+                    <p className="text-mini font-mono text-muted mt-2">+ {remaining} more on the rule card below</p>
                   )}
                 </div>
               </div>
               {supporting.length > 0 && (
-                <div className="mt-5 pt-4 border-t border-slate-200/60 dark:border-[rgb(var(--border-400))]/60">
-                  <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-2">
+                <div className="mt-5 pt-4 border-t border-line-1/60">
+                  <div className="text-mini font-mono uppercase tracking-[0.18em] text-muted mb-2">
                     also firing right now
                   </div>
                   <div className="grid gap-2 sm:grid-cols-2">
@@ -425,7 +423,7 @@ export default function Detections(): JSX.Element {
                       return (
                         <div
                           key={`${d.rule_id}:${d.group_key ?? ''}`}
-                          className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2"
+                          className="rounded border border-line-1 bg-surface-100/60 dark:bg-surface-200/40 px-3 py-2"
                         >
                           <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                             <span
@@ -434,7 +432,7 @@ export default function Detections(): JSX.Element {
                               {d.severity}
                             </span>
                             <span className="font-display font-semibold text-tool text-heading">{d.rule_name}</span>
-                            <span className="text-micro font-mono text-slate-500">×{d.match_count}</span>
+                            <span className="text-micro font-mono text-muted">×{d.match_count}</span>
                           </div>
                           <p className="text-meta text-muted leading-relaxed">{sn.what}</p>
                         </div>
@@ -456,14 +454,14 @@ export default function Detections(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by rule, group key, or indicator…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter detections"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -480,7 +478,7 @@ export default function Detections(): JSX.Element {
               type="button"
               onClick={() => void buildStix()}
               disabled={stixLoading || !data}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-line-1 hover:border-rose-500/40 disabled:opacity-40"
             >
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
@@ -493,7 +491,7 @@ export default function Detections(): JSX.Element {
           )}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">severity:</span>
+          <span className="text-mini font-mono text-muted mr-1">severity:</span>
           {SEV_ORDER.map((s) => {
             const active = sevFilter.has(s);
             const n = data?.severity_counts[s] ?? 0;
@@ -503,7 +501,7 @@ export default function Detections(): JSX.Element {
                 type="button"
                 onClick={() => toggleSev(s)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? SEVERITY_TONE[s] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                  active ? SEVERITY_TONE[s] : 'border-slate-300 dark:border-line-1 text-slate-500'
                 }`}
               >
                 {s} <span className="opacity-70">· {n}</span>
@@ -521,7 +519,7 @@ export default function Detections(): JSX.Element {
           )}
         </div>
         {data && (
-          <p className="text-mini font-mono text-slate-500 mt-3">
+          <p className="text-mini font-mono text-muted mt-3">
             Showing <span className="text-body">{filtered.length}</span> of{' '}
             <span className="text-body">{data.detections.length}</span> detections ·{' '}
             <span className="text-body">{data.rule_count}</span> rules ·{' '}

@@ -155,12 +155,12 @@ export default function SecHeadersLive(): JSX.Element {
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
           placeholder="example.com"
-          className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-4 py-3 bg-surface-100 border border-line-1 rounded-xl font-mono text-heading placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           type="submit"
           disabled={!valid || loading}
-          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
         >
           {loading ? (
             <Loader2 size={16} className="inline animate-spin" />
@@ -202,7 +202,7 @@ export default function SecHeadersLive(): JSX.Element {
               </div>
             </div>
             {data.missing && data.missing.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
+              <div className="mt-3 flex flex-wrap gap-1.5 border-t border-line-1 pt-3">
                 <span className="text-mini font-mono uppercase tracking-[0.16em] text-muted">missing</span>
                 {data.missing.map((m) => (
                   <span
@@ -269,24 +269,24 @@ export default function SecHeadersLive(): JSX.Element {
                   if (!value) return null;
                   const isOpen = expandedOutput === key;
                   return (
-                    <div key={key} className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <div key={key} className="rounded border border-line-1">
                       <button
                         type="button"
                         onClick={() => setExpandedOutput(isOpen ? null : key)}
-                        className="w-full px-3 py-2 flex items-center justify-between text-mini font-mono uppercase tracking-wider text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                        className="w-full px-3 py-2 flex items-center justify-between text-mini font-mono uppercase tracking-wider text-muted hover:bg-surface-200 dark:hover:bg-surface-300/50"
                       >
                         {key}
                         {isOpen ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
                       </button>
                       {isOpen && (
-                        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 relative">
+                        <div className="border-t border-line-1 p-3 relative">
                           <pre className="text-micro font-mono text-heading whitespace-pre-wrap break-all">{value}</pre>
                           <CopyButton
                             text={value}
                             variant="ghost"
                             size="sm"
                             label="Copy header value"
-                            className="absolute top-2 right-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))]"
+                            className="absolute top-2 right-2 border border-line-1 bg-surface-100"
                           />
                         </div>
                       )}

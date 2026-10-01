@@ -211,7 +211,7 @@ export default function SupplyChainAttacks(): JSX.Element {
           const titleHref = safeHref(inc.url);
           const packages = inc.iocs.packages ?? [];
           return (
-            <div key={inc.id} className="rounded-xl border border-line-1 bg-slate-50 dark:bg-input-200 p-3">
+            <div key={inc.id} className="rounded-xl border border-line-1 bg-surface-200 p-3">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-heading leading-snug">
                   {titleHref ? (
@@ -275,7 +275,7 @@ export default function SupplyChainAttacks(): JSX.Element {
               {inc.summary && <p className="text-xs text-muted mt-2 leading-relaxed">{inc.summary}</p>}
 
               {inc.blast_radius && (
-                <p className="text-micro font-mono text-slate-500 mt-2 flex items-start gap-1">
+                <p className="text-micro font-mono text-muted mt-2 flex items-start gap-1">
                   <ShieldAlert size={12} className="shrink-0 mt-0.5" /> {inc.blast_radius}
                 </p>
               )}
@@ -286,7 +286,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                     <Link
                       key={pkg}
                       to={`/dfir/ioc-check?indicator=${encodeURIComponent(pkg)}`}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 text-body hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                       title="Pivot to IOC checker"
                     >
                       {pkg} →
@@ -297,7 +297,7 @@ export default function SupplyChainAttacks(): JSX.Element {
 
               {inc.remediation.length > 0 && (
                 <details className="mt-2 group">
-                  <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-rose-600 dark:hover:text-rose-400">
+                  <summary className="text-micro font-mono text-muted cursor-pointer hover:text-rose-600 dark:hover:text-rose-400">
                     remediation · {inc.remediation.length}
                   </summary>
                   <ul className="mt-1 ml-3 list-disc text-xs text-muted space-y-0.5">

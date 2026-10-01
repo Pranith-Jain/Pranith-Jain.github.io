@@ -177,7 +177,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Indicator hit rates, false-positive rates and feed value are measured per source; low-value feeds are cancelled on the evidence.',
           '5': 'Lifecycle is fully automated including sunset, with feedback from detection outcomes re-scoring source reliability, and internally derived indicators promoted back to the TIP.',
         },
-        evidence: ['TIP configuration and lifecycle policy', 'Per-feed hit-rate/FP report', 'Feed decommissioning decision record'],
+        evidence: [
+          'TIP configuration and lifecycle policy',
+          'Per-feed hit-rate/FP report',
+          'Feed decommissioning decision record',
+        ],
         crosswalk: { nist_csf_2: ['ID.RA-02', 'DE.AE-07'] },
         domainId: 'TI',
       },
@@ -196,7 +200,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Extraction quality is reviewed; coverage of the prioritised threat profile by extracted procedures is measured; ambiguous mappings are arbitrated and the rationale recorded.',
           '5': 'Extraction is partly automated (NLP-assisted with human validation), feeds a behaviour library reused by threat modeling, detection engineering and emulation, and is contributed to community knowledge bases.',
         },
-        evidence: ['Structured TTP/procedure library with citations', 'Mapping quality-review records', 'Behaviour library referenced by detection tickets'],
+        evidence: [
+          'Structured TTP/procedure library with citations',
+          'Mapping quality-review records',
+          'Behaviour library referenced by detection tickets',
+        ],
         crosswalk: { nist_csf_2: ['ID.RA-03', 'ID.IM-02'] },
         domainId: 'TI',
       },
@@ -205,7 +213,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Intelligence-to-detection tasking',
         weight: 18.0,
         profile: 'essential',
-        question: 'Does intelligence reliably and measurably produce detection, hunting and emulation work — and can you prove the linkage?',
+        question:
+          'Does intelligence reliably and measurably produce detection, hunting and emulation work — and can you prove the linkage?',
         levels: {
           '0': 'No route from intelligence to engineering. The two functions do not interact.',
           '1': 'Occasional informal requests, typically during a live incident.',
@@ -227,7 +236,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Dissemination, sharing and community contribution',
         weight: 12.0,
         profile: 'comprehensive',
-        question: 'Is intelligence delivered in the form each consumer can act on, and does the organisation contribute back to sector and community sharing?',
+        question:
+          'Is intelligence delivered in the form each consumer can act on, and does the organisation contribute back to sector and community sharing?',
         levels: {
           '0': 'No dissemination. Intelligence stays with the person who produced it.',
           '1': 'Ad hoc emails and chat messages, one format for all audiences.',
@@ -257,7 +267,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Asset, identity and crown-jewel identification',
         weight: 13.0,
         profile: 'essential',
-        question: 'Do you know what you are actually protecting — the systems, data, identities and business processes whose compromise would matter most?',
+        question:
+          'Do you know what you are actually protecting — the systems, data, identities and business processes whose compromise would matter most?',
         levels: {
           '0': 'No asset inventory beyond what infrastructure teams happen to hold.',
           '1': 'Partial inventories in spreadsheets, stale, no criticality rating.',
@@ -279,7 +290,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'System and data-flow threat modeling',
         weight: 16.0,
         profile: 'standard',
-        question: 'Are systems threat-modelled using a recognised structured method, and does that modelling happen at the right point in the delivery lifecycle?',
+        question:
+          'Are systems threat-modelled using a recognised structured method, and does that modelling happen at the right point in the delivery lifecycle?',
         levels: {
           '0': 'No threat modeling.',
           '1': 'Occasional whiteboard sessions for high-profile projects, no method, no record.',
@@ -347,7 +359,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Attack path and exposure analysis',
         weight: 15.0,
         profile: 'comprehensive',
-        question: 'Do you analyse real, computed attack paths through identity, network and cloud relationships in the live estate — not only hypothetical ones?',
+        question:
+          'Do you analyse real, computed attack paths through identity, network and cloud relationships in the live estate — not only hypothetical ones?',
         levels: {
           '0': 'No attack path analysis. Exposure is understood only as a vulnerability list.',
           '1': 'Path thinking happens only after a red team or pentest report describes one.',
@@ -356,7 +369,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Path exposure is trended as a metric (number and shortest length of viable paths to each crown jewel); choke points are instrumented for detection where remediation is not feasible; reduction is reported.',
           '5': 'Continuous path computation is integrated with change management and CTEM cycles; new paths raise alerts in near real time and automatically create both a remediation and a detection work item.',
         },
-        evidence: ['Attack path analysis output with paths to crown jewels', 'Trend of viable path count and shortest path length', 'Choke-point instrumentation records'],
+        evidence: [
+          'Attack path analysis output with paths to crown jewels',
+          'Trend of viable path count and shortest path length',
+          'Choke-point instrumentation records',
+        ],
         crosswalk: { nist_csf_2: ['ID.RA-01', 'ID.RA-05', 'ID.IM-02', 'PR.AA-05'] },
         domainId: 'TM',
       },
@@ -365,10 +382,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Abuse cases to detection requirements traceability',
         weight: 14.0,
         profile: 'standard',
-        question: 'Can you trace a specific detection rule back to the threat model or attack tree node that justified it — and identify model nodes with no detection?',
+        question:
+          'Can you trace a specific detection rule back to the threat model or attack tree node that justified it — and identify model nodes with no detection?',
         levels: {
           '0': 'No traceability. Detections exist for reasons nobody records.',
-          '1': 'Traceability exists in individuals\' memory only.',
+          '1': "Traceability exists in individuals' memory only.",
           '2': 'Some detection tickets reference a threat model informally in free text.',
           '3': 'A maintained traceability matrix links threat model / attack tree nodes to detection requirements, to deployed detections, and to validation results, with a unique identifier at each step.',
           '4': 'Orphaned nodes (modelled but undetected and un-prevented) and orphaned detections (deployed but justified by nothing) are both reported as defects and worked down; coverage of model nodes is a reported metric.',
@@ -387,7 +405,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Model maintenance and change triggers',
         weight: 12.0,
         profile: 'comprehensive',
-        question: 'Are threat models, attack trees and path analyses kept alive by defined triggers, or do they decay silently after first publication?',
+        question:
+          'Are threat models, attack trees and path analyses kept alive by defined triggers, or do they decay silently after first publication?',
         levels: {
           '0': 'Models, where they exist, are never updated.',
           '1': 'Updated only when someone remembers or an auditor asks.',
@@ -417,7 +436,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Log source inventory and ownership',
         weight: 14.0,
         profile: 'essential',
-        question: 'Is there a complete, owned inventory of telemetry sources with their scope, coverage percentage and criticality?',
+        question:
+          'Is there a complete, owned inventory of telemetry sources with their scope, coverage percentage and criticality?',
         levels: {
           '0': 'No inventory. Nobody can list what is being collected.',
           '1': 'A partial list held by the platform team, out of date.',
@@ -438,7 +458,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Telemetry quality, completeness and timeliness',
         weight: 18.0,
         profile: 'essential',
-        question: 'Do you measure whether the data arriving is complete, correctly parsed, timely and unaltered — and do you alert when it is not?',
+        question:
+          'Do you measure whether the data arriving is complete, correctly parsed, timely and unaltered — and do you alert when it is not?',
         levels: {
           '0': 'Data quality is unknown. Gaps are discovered during investigations.',
           '1': 'Occasional manual checks; problems found reactively when a search returns nothing.',
@@ -460,7 +481,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Normalisation and data model discipline',
         weight: 14.0,
         profile: 'standard',
-        question: 'Is telemetry normalised to a documented, versioned data model so detections are portable and analysts are not re-learning field names per source?',
+        question:
+          'Is telemetry normalised to a documented, versioned data model so detections are portable and analysts are not re-learning field names per source?',
         levels: {
           '0': 'Raw, source-specific fields only. Every search is bespoke.',
           '1': 'Inconsistent ad hoc field extractions built by whoever needed them.',
@@ -482,7 +504,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'ATT&CK technique coverage measurement',
         weight: 20.0,
         profile: 'standard',
-        question: 'Is coverage measured honestly at technique and sub-technique level, grounded in data-component availability and detection validity — not in rule counts?',
+        question:
+          'Is coverage measured honestly at technique and sub-technique level, grounded in data-component availability and detection validity — not in rule counts?',
         levels: {
           '0': 'Coverage is not measured.',
           '1': 'A hand-drawn Navigator layer produced once, based on opinion.',
@@ -514,7 +537,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Per-surface coverage is measured and reported separately, preventing a strong endpoint programme from masking a blind cloud or identity plane; gaps carry owners and dates.',
           '5': 'New surfaces are onboarded as part of technology adoption governance — no material new platform reaches production without a telemetry plan and baseline detections.',
         },
-        evidence: ['Per-surface coverage report', 'Accepted-risk records for uncovered surfaces', 'Technology-adoption gate requiring a telemetry plan'],
+        evidence: [
+          'Per-surface coverage report',
+          'Accepted-risk records for uncovered surfaces',
+          'Technology-adoption gate requiring a telemetry plan',
+        ],
         crosswalk: { nist_csf_2: ['DE.CM-01', 'DE.CM-02', 'DE.CM-03', 'DE.CM-06', 'ID.AM-04'] },
         domainId: 'DC',
       },
@@ -532,7 +559,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Gap closure rate and ageing are reported; gaps that cannot be closed are compensated with alternative detection or explicit risk acceptance at the right level.',
           '5': 'Gaps are generated automatically from coverage and validation results, costed, and fed into budget planning with demonstrated closure of the highest-risk items each cycle.',
         },
-        evidence: ['Visibility gap register with owners and dates', 'Gap ageing and closure-rate trend', 'Risk acceptance records for tolerated gaps'],
+        evidence: [
+          'Visibility gap register with owners and dates',
+          'Gap ageing and closure-rate trend',
+          'Risk acceptance records for tolerated gaps',
+        ],
         crosswalk: { nist_csf_2: ['ID.RA-06', 'ID.IM-01', 'ID.IM-03'] },
         domainId: 'DC',
       },
@@ -549,7 +580,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Detection lifecycle and intake',
         weight: 10.0,
         profile: 'essential',
-        question: 'Is there a defined lifecycle from requirement through design, build, test, release, monitor and retire — with a controlled intake?',
+        question:
+          'Is there a defined lifecycle from requirement through design, build, test, release, monitor and retire — with a controlled intake?',
         levels: {
           '0': 'No lifecycle. Rules appear when someone has an idea or a vendor ships content.',
           '1': 'Informal build-and-deploy by individuals; no stages, no record.',
@@ -558,7 +590,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Stage transition criteria are explicit and gated; lifecycle metrics (queue depth, lead time, stage ageing, rejection reasons) are measured and reviewed.',
           '5': 'The lifecycle is automated end to end with policy-as-code gates; lead time from intake to validated production is measured against a target and continuously reduced.',
         },
-        evidence: ['Documented lifecycle with stage gates', 'Intake queue showing source attribution per item', 'Lead-time and queue-depth trends'],
+        evidence: [
+          'Documented lifecycle with stage gates',
+          'Intake queue showing source attribution per item',
+          'Lead-time and queue-depth trends',
+        ],
         crosswalk: { nist_csf_2: ['DE.CM-09', 'ID.IM-01'] },
         domainId: 'DE',
       },
@@ -567,16 +603,21 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Detection-as-code',
         weight: 12.0,
         profile: 'standard',
-        question: 'Is detection content managed as code — versioned, peer-reviewed, and deployed through an automated pipeline?',
+        question:
+          'Is detection content managed as code — versioned, peer-reviewed, and deployed through an automated pipeline?',
         levels: {
-          '0': 'Rules are edited directly in the console. No history beyond the tool\'s audit log.',
+          '0': "Rules are edited directly in the console. No history beyond the tool's audit log.",
           '1': 'Occasional manual exports kept in a shared folder as backup.',
           '2': 'Content is stored in version control but deployed manually; commits are not reviewed.',
           '3': 'All detection content lives in version control with mandatory peer review, branch protection, meaningful commit history and a documented release process.',
           '4': 'CI validates syntax, schema, metadata completeness and test results before merge; deployment is automated with rollback; production drift from the repository is detected and alerted.',
           '5': 'Full GitOps — the repository is the single source of truth, environments are reproducible, deployments are automated with progressive rollout, and drift is auto-remediated.',
         },
-        evidence: ['Repository with branch protection and review history', 'CI pipeline definition and passing runs', 'Drift detection alerts and rollback records'],
+        evidence: [
+          'Repository with branch protection and review history',
+          'CI pipeline definition and passing runs',
+          'Drift detection alerts and rollback records',
+        ],
         crosswalk: { nist_csf_2: ['PR.PS-01', 'PR.PS-06', 'DE.CM-09'] },
         domainId: 'DE',
       },
@@ -585,7 +626,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Detection standards, metadata and documentation',
         weight: 10.0,
         profile: 'essential',
-        question: 'Does every detection carry the metadata needed to operate, audit and improve it — and is a shared standard enforced?',
+        question:
+          'Does every detection carry the metadata needed to operate, audit and improve it — and is a shared standard enforced?',
         levels: {
           '0': 'No standard. Rule names are the only documentation.',
           '1': 'Some rules have descriptions; quality varies by author.',
@@ -607,7 +649,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Testing and pre-deployment validation',
         weight: 13.0,
         profile: 'standard',
-        question: 'Is every detection proven to fire on true positive input and stay quiet on benign input, before it reaches production?',
+        question:
+          'Is every detection proven to fire on true positive input and stay quiet on benign input, before it reaches production?',
         levels: {
           '0': 'No testing. Rules are enabled and observed.',
           '1': 'Author eyeballs a historical search and calls it tested.',
@@ -616,7 +659,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Tests run automatically in CI against a representative dataset or lab range; regression tests re-run on every change and on data model changes; test coverage of the detection portfolio is measured.',
           '5': 'Tests are generated from the emulation library, run continuously against production-like telemetry, and any detection without a passing test in the current period is automatically flagged as unverified in coverage reporting.',
         },
-        evidence: ['Test definitions stored with the detection content', 'CI test run history and coverage-of-portfolio metric', 'Unverified-detection report'],
+        evidence: [
+          'Test definitions stored with the detection content',
+          'CI test run history and coverage-of-portfolio metric',
+          'Unverified-detection report',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-02', 'DE.CM-09', 'PR.PS-06'] },
         domainId: 'DE',
       },
@@ -625,7 +672,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Tuning, precision and false-positive management',
         weight: 10.0,
         profile: 'essential',
-        question: 'Is alert precision measured per detection and improved deliberately, rather than by disabling noisy rules?',
+        question:
+          'Is alert precision measured per detection and improved deliberately, rather than by disabling noisy rules?',
         levels: {
           '0': 'No feedback loop. Noisy rules are muted or ignored by analysts.',
           '1': 'Tuning happens reactively when analysts complain loudly enough.',
@@ -634,7 +682,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Precision and volume thresholds are agreed; rules breaching them enter a formal remediation path with a deadline, ending in fix, demote-to-hunt, or retire; the effect of each change is measured after the fact.',
           '5': 'Tuning is partly automated with statistical baselining and allow-list governance; suppression is time-boxed and expires by default; precision is trended per rule and per domain with alerting on degradation.',
         },
-        evidence: ['Per-rule precision and volume report', 'Tuning change records with rationale and post-change effect', 'Expiring suppression policy and audit'],
+        evidence: [
+          'Per-rule precision and volume report',
+          'Tuning change records with rationale and post-change effect',
+          'Expiring suppression policy and audit',
+        ],
         crosswalk: { nist_csf_2: ['DE.AE-08', 'ID.IM-01', 'RS.AN-08'] },
         domainId: 'DE',
       },
@@ -643,16 +695,21 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Detection health and silent-failure monitoring',
         weight: 10.0,
         profile: 'essential',
-        question: 'Would you know if a detection stopped working — not because it was deleted, but because its data stopped arriving or its schema changed?',
+        question:
+          'Would you know if a detection stopped working — not because it was deleted, but because its data stopped arriving or its schema changed?',
         levels: {
           '0': 'No health monitoring. Silent failure is discovered during an incident, or never.',
           '1': 'Occasional manual review of whether rules have fired recently.',
           '2': 'Basic "rule has not fired in N days" reporting exists, treated as informational.',
-          '3': 'Health is monitored on multiple signals — data source availability for each rule\'s required components, execution errors, schema drift, scheduling failures, and unexpected volume change — with defined thresholds.',
+          '3': "Health is monitored on multiple signals — data source availability for each rule's required components, execution errors, schema drift, scheduling failures, and unexpected volume change — with defined thresholds.",
           '4': 'Health failures raise operational tickets with SLAs; the percentage of the portfolio in a healthy state is a reported KPI; dependency mapping shows which detections a given log source outage disables.',
           '5': 'Health monitoring is closed-loop with canary events proving the full path from generation to alert; failures auto-open incidents, and coverage reporting automatically discounts unhealthy detections.',
         },
-        evidence: ['Detection health dashboard with dependency mapping', 'Portfolio-health KPI trend', 'Canary-to-alert proof and auto-ticketing configuration'],
+        evidence: [
+          'Detection health dashboard with dependency mapping',
+          'Portfolio-health KPI trend',
+          'Canary-to-alert proof and auto-ticketing configuration',
+        ],
         crosswalk: { nist_csf_2: ['DE.CM-09', 'PR.PS-04', 'DE.AE-03'] },
         domainId: 'DE',
       },
@@ -670,7 +727,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'The portfolio is reviewed on a cadence against the threat profile; retirement volume and reasons are reported; retired content is archived and recoverable with its history.',
           '5': 'Deprecation is automated against ATT&CK changes, telemetry decommissioning and threat profile shifts, with impact analysis run before removal and coverage recomputed after.',
         },
-        evidence: ['Retirement criteria and decision log', 'Portfolio review records and retirement statistics', 'Automated deprecation impact analysis'],
+        evidence: [
+          'Retirement criteria and decision log',
+          'Portfolio review records and retirement statistics',
+          'Automated deprecation impact analysis',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-03', 'PR.PS-06'] },
         domainId: 'DE',
       },
@@ -679,7 +740,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Portfolio composition and detection strategy',
         weight: 12.0,
         profile: 'standard',
-        question: 'Is the detection portfolio deliberately balanced across the pyramid of pain — or is it a pile of indicator matches with a few behavioural rules on top?',
+        question:
+          'Is the detection portfolio deliberately balanced across the pyramid of pain — or is it a pile of indicator matches with a few behavioural rules on top?',
         levels: {
           '0': 'No concept of portfolio. Content is whatever the tool shipped with.',
           '1': 'Predominantly signature and indicator matching; behavioural detection is incidental.',
@@ -701,13 +763,14 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Detection content sourcing and provenance',
         weight: 8.0,
         profile: 'essential',
-        question: 'Do you have a deliberate strategy for where detection ideas come from, and is the provenance of every deployed detection recorded?',
+        question:
+          'Do you have a deliberate strategy for where detection ideas come from, and is the provenance of every deployed detection recorded?',
         levels: {
           '0': 'Detection content is whatever the platform shipped with.',
           '1': 'Content is copied ad hoc from blog posts and vendor reports when someone happens to read one.',
           '2': 'Named sources are used routinely — vendor content subscriptions, community rule repositories — but adoption is uncritical and provenance is not recorded.',
           '3': 'A documented sourcing strategy spans annual threat reports, vendor and government advisories, community rule repositories and intelligence platforms; every deployed detection records its source, licence and adoption date.',
-          '4': 'Content is evaluated before adoption against the organisation\'s own threat profile and telemetry — not enabled wholesale — and the value of each source is measured by the true positives and validated coverage it actually produced.',
+          '4': "Content is evaluated before adoption against the organisation's own threat profile and telemetry — not enabled wholesale — and the value of each source is measured by the true positives and validated coverage it actually produced.",
           '5': 'Sourcing is automated and bidirectional: upstream repositories are tracked for updates and deprecations with impact analysis, sector campaign reporting triggers targeted content review within a defined window, and internally developed detections are contributed back.',
         },
         evidence: [
@@ -723,7 +786,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Detection modality breadth',
         weight: 7.0,
         profile: 'standard',
-        question: 'Does detection span the modalities the adversary can be caught in — event analytics, file and memory content, network, identity behaviour, integrity and deception — rather than relying on one?',
+        question:
+          'Does detection span the modalities the adversary can be caught in — event analytics, file and memory content, network, identity behaviour, integrity and deception — rather than relying on one?',
         levels: {
           '0': 'A single modality, almost always log or event analytics in a SIEM.',
           '1': 'A second modality exists incidentally because a product provides it, but nobody plans across them.',
@@ -732,7 +796,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Modality coverage is measured per prioritised scenario, and gaps are closed with the modality that fits rather than the tool already owned; where commercial endpoint tooling is absent, open-source equivalents are deliberately deployed to reach the same behaviours.',
           '5': 'Modalities are composed rather than parallel — a single scenario is detected across several modalities that corroborate each other, raising both confidence and the cost of evasion, and the composition is validated end to end.',
         },
-        evidence: ['Modality map per prioritised scenario with justification', 'Deployed content in more than one modality', 'Evidence of corroboration across modalities'],
+        evidence: [
+          'Modality map per prioritised scenario with justification',
+          'Deployed content in more than one modality',
+          'Evidence of corroboration across modalities',
+        ],
         crosswalk: { nist_csf_2: ['DE.CM-01', 'DE.CM-02', 'DE.CM-04', 'DE.CM-09', 'PR.DS-06'] },
         domainId: 'DE',
       },
@@ -749,7 +817,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Atomic testing and control verification',
         weight: 13.0,
         profile: 'essential',
-        question: 'Are individual techniques executed safely and repeatably to verify that telemetry, detection and alerting actually fire?',
+        question:
+          'Are individual techniques executed safely and repeatably to verify that telemetry, detection and alerting actually fire?',
         levels: {
           '0': 'No technique-level testing.',
           '1': 'Occasional manual tests by a curious engineer, undocumented.',
@@ -758,7 +827,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Test coverage of the in-scope technique set is measured; failures create tracked defects; re-test after fix is mandatory; results feed coverage scoring directly.',
           '5': 'Atomic testing is continuous and automated with safe-execution guardrails and change control, results stream into coverage dashboards in near real time, and untested techniques are automatically reported as unproven.',
         },
-        evidence: ['Test library mapped to sub-technique IDs', 'Per-stage outcome records', 'Defect and re-test records'],
+        evidence: [
+          'Test library mapped to sub-technique IDs',
+          'Per-stage outcome records',
+          'Defect and re-test records',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-02', 'DE.CM-09', 'PR.PS-06'] },
         domainId: 'AV',
       },
@@ -767,7 +840,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Breach and attack simulation automation',
         weight: 12.0,
         profile: 'standard',
-        question: 'Is there automated, scheduled simulation providing continuous assurance across prevention and detection layers?',
+        question:
+          'Is there automated, scheduled simulation providing continuous assurance across prevention and detection layers?',
         levels: {
           '0': 'No automated simulation capability.',
           '1': 'A trial or proof of concept was run once.',
@@ -776,7 +850,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Results are trended, control drift (a previously passing test that now fails) is alerted on, and simulation scope covers all critical segments and cloud/identity planes as well as endpoint.',
           '5': 'Simulation is integrated into change management — infrastructure or control changes trigger targeted re-simulation — and results are an input to control investment decisions.',
         },
-        evidence: ['Simulation schedule, scope and scenario provenance', 'Control drift alerts and trend', 'Change-triggered simulation records'],
+        evidence: [
+          'Simulation schedule, scope and scenario provenance',
+          'Control drift alerts and trend',
+          'Change-triggered simulation records',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-02', 'PR.PS-06', 'DE.CM-09'] },
         domainId: 'AV',
       },
@@ -785,12 +863,13 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Threat-actor emulation plans',
         weight: 15.0,
         profile: 'comprehensive',
-        question: 'Do you emulate the full behaviour chains of the specific adversaries in your threat profile, in sequence, rather than isolated techniques?',
+        question:
+          'Do you emulate the full behaviour chains of the specific adversaries in your threat profile, in sequence, rather than isolated techniques?',
         levels: {
           '0': 'No emulation. Testing, where it exists, is technique-by-technique only.',
           '1': 'A single generic scenario borrowed from a public plan, run once.',
           '2': 'Public emulation plans are executed occasionally with limited tailoring to the environment.',
-          '3': 'Emulation plans are authored for the top-ranked actors in the threat profile, sequencing techniques into realistic operations against realistic objectives, tailored to the organisation\'s platforms and crown jewels.',
+          '3': "Emulation plans are authored for the top-ranked actors in the threat profile, sequencing techniques into realistic operations against realistic objectives, tailored to the organisation's platforms and crown jewels.",
           '4': 'Plans are refreshed as actor tradecraft evolves; coverage of the prioritised actor set by current emulation plans is measured; detection outcomes are recorded per step in the chain, showing where in the kill chain detection actually occurs.',
           '5': 'Emulation is derived automatically from the behaviour library and attack trees, includes evasion variants of previously detected behaviours to test resilience, and produces a measured "adversary dwell time before detection" per scenario.',
         },
@@ -807,7 +886,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Purple team programme',
         weight: 13.0,
         profile: 'comprehensive',
-        question: 'Is there a structured, recurring collaboration in which offensive execution and defensive engineering work the same exercise together and fix gaps live?',
+        question:
+          'Is there a structured, recurring collaboration in which offensive execution and defensive engineering work the same exercise together and fix gaps live?',
         levels: {
           '0': 'No purple teaming. Offence and defence do not work together.',
           '1': 'Occasional informal collaboration after a red team engagement.',
@@ -816,7 +896,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Every exercise produces measured outcomes per technique (prevented / detected-and-alerted / detected-not-alerted / logged-only / invisible), a tracked backlog, and a mandatory re-test that confirms closure.',
           '5': 'Purple teaming is continuous rather than episodic, integrated with the detection pipeline so improvements are shipped within the exercise window, and its findings measurably improve time-to-detect over successive cycles.',
         },
-        evidence: ['Programme charter, cadence and rules of engagement', 'Per-technique outcome matrix and re-test confirmations', 'Time-to-detect improvement trend across cycles'],
+        evidence: [
+          'Programme charter, cadence and rules of engagement',
+          'Per-technique outcome matrix and re-test confirmations',
+          'Time-to-detect improvement trend across cycles',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-02', 'ID.IM-01', 'RS.MA-01'] },
         domainId: 'AV',
       },
@@ -825,16 +909,21 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Penetration testing integration',
         weight: 12.0,
         profile: 'standard',
-        question: 'Are penetration test findings systematically converted into detection requirements — not only into vulnerability remediation tickets?',
+        question:
+          'Are penetration test findings systematically converted into detection requirements — not only into vulnerability remediation tickets?',
         levels: {
           '0': 'Penetration testing is not performed, or reports never reach the detection team.',
           '1': 'Tests are run for compliance; the detection team occasionally hears about the results.',
           '2': 'Reports are shared with the SOC after the fact; a few detections may be built informally.',
-          '3': 'Every engagement has a defined detection-feedback stage — the tester\'s activity timeline is reconciled against SOC telemetry and alerts to determine what was seen, and each unseen action becomes a detection requirement.',
+          '3': "Every engagement has a defined detection-feedback stage — the tester's activity timeline is reconciled against SOC telemetry and alerts to determine what was seen, and each unseen action becomes a detection requirement.",
           '4': 'The "detection rate" of each engagement is measured (percentage of tester actions that produced telemetry, a detection, and an alert), trended across engagements, and improvement is a stated objective of the testing programme.',
           '5': 'Testers deliver machine-readable activity timelines that are automatically diffed against SIEM data; detection gaps are auto-created; scoping of subsequent tests deliberately targets previously blind areas.',
         },
-        evidence: ['Tester activity timeline reconciled against SOC telemetry', 'Engagement detection-rate metric and trend', 'Detection requirements traced to specific test actions'],
+        evidence: [
+          'Tester activity timeline reconciled against SOC telemetry',
+          'Engagement detection-rate metric and trend',
+          'Detection requirements traced to specific test actions',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-02', 'ID.RA-01', 'PR.PS-06'] },
         domainId: 'AV',
       },
@@ -843,7 +932,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Red teaming and independent assurance',
         weight: 12.0,
         profile: 'comprehensive',
-        question: 'Is the detection and response capability tested by objective-based, intelligence-led adversarial engagements under realistic constraints?',
+        question:
+          'Is the detection and response capability tested by objective-based, intelligence-led adversarial engagements under realistic constraints?',
         levels: {
           '0': 'No red teaming.',
           '1': 'A one-off engagement, scoped as an extended penetration test.',
@@ -865,7 +955,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Findings-to-closure loop',
         weight: 13.0,
         profile: 'standard',
-        question: 'Do validation findings reliably become closed detection or control changes, confirmed by re-test — and is the loop\'s speed measured?',
+        question:
+          "Do validation findings reliably become closed detection or control changes, confirmed by re-test — and is the loop's speed measured?",
         levels: {
           '0': 'Findings sit in reports. No reliable route to remediation.',
           '1': 'Some findings produce informal requests; many are lost.',
@@ -874,7 +965,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Time from finding to closed-and-re-tested is measured and trended; ageing is reported; overdue findings are escalated.',
           '5': 'The loop is partly automated — findings create detection backlog entries directly, and re-test is automatically scheduled and reported with measured cycle time.',
         },
-        evidence: ['Validation backlog with owners and due dates', 'Closure records with re-test confirmations', 'Finding-to-closure cycle-time trend'],
+        evidence: [
+          'Validation backlog with owners and due dates',
+          'Closure records with re-test confirmations',
+          'Finding-to-closure cycle-time trend',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-01', 'ID.IM-02'] },
         domainId: 'AV',
       },
@@ -883,7 +978,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Control efficacy scoring',
         weight: 10.0,
         profile: 'comprehensive',
-        question: 'Is the effectiveness of controls scored honestly and used to drive investment — not only to describe current posture?',
+        question:
+          'Is the effectiveness of controls scored honestly and used to drive investment — not only to describe current posture?',
         levels: {
           '0': 'No efficacy scoring. Controls are assumed effective because they exist.',
           '1': 'Occasional subjective ratings in slide decks.',
@@ -892,7 +988,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Scores are aggregated to domain-level efficacy and used to prioritise investment; regression is investigated and reported.',
           '5': 'Efficacy scoring is automated from validation outcomes, feeds the risk register and budget process, and is independently assured.',
         },
-        evidence: ['Per-technique efficacy scores with evidence mapping', 'Domain-level efficacy trend', 'Investment decisions traced to efficacy scores'],
+        evidence: [
+          'Per-technique efficacy scores with evidence mapping',
+          'Domain-level efficacy trend',
+          'Investment decisions traced to efficacy scores',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-02'] },
         domainId: 'AV',
       },
@@ -909,7 +1009,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Triage enrichment and context automation',
         weight: 13.0,
         profile: 'essential',
-        question: 'Are alerts automatically enriched with the context an analyst needs to decide in minutes rather than after a manual pivot marathon?',
+        question:
+          'Are alerts automatically enriched with the context an analyst needs to decide in minutes rather than after a manual pivot marathon?',
         levels: {
           '0': 'No enrichment. Every alert is a manual pivot chain.',
           '1': 'Occasional manual enrichment by senior analysts.',
@@ -918,7 +1019,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Enrichment completeness and accuracy are measured; gaps are closed; enrichment data is reconciled against authoritative sources.',
           '5': 'Enrichment is continuously validated, versioned, and used to auto-prioritise the queue — high-context alerts surface first with measured improvement in time-to-triage.',
         },
-        evidence: ['Enrichment automation with per-alert completeness metric', 'Time-to-triage trend with enrichment coverage', 'Reconciliation against asset/identity sources'],
+        evidence: [
+          'Enrichment automation with per-alert completeness metric',
+          'Time-to-triage trend with enrichment coverage',
+          'Reconciliation against asset/identity sources',
+        ],
         crosswalk: { nist_csf_2: ['DE.AE-02', 'DE.AE-08'] },
         domainId: 'AA',
       },
@@ -927,7 +1032,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Correlation and attack-chain assembly',
         weight: 14.0,
         profile: 'standard',
-        question: 'Are related events assembled into a single attack narrative rather than presented as a scatter of individual alerts?',
+        question:
+          'Are related events assembled into a single attack narrative rather than presented as a scatter of individual alerts?',
         levels: {
           '0': 'Alerts are isolated events. No correlation.',
           '1': 'Analysts mentally correlate by searching neighbouring time windows.',
@@ -936,7 +1042,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Correlation accuracy is measured (grouped vs. should-have-been-grouped); false grouping and missed grouping are tracked; logic is tuned against validation outcomes.',
           '5': 'Correlation uses behavioural graph analysis or equivalent, automatically links across identity, endpoint, network and cloud planes, and its accuracy is continuously validated.',
         },
-        evidence: ['Correlation rules producing cases with tactic progression', 'Grouping-accuracy metric', 'Validation of correlation with emulation chains'],
+        evidence: [
+          'Correlation rules producing cases with tactic progression',
+          'Grouping-accuracy metric',
+          'Validation of correlation with emulation chains',
+        ],
         crosswalk: { nist_csf_2: ['DE.AE-02'] },
         domainId: 'AA',
       },
@@ -945,7 +1055,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Response automation and orchestration',
         weight: 12.0,
         profile: 'standard',
-        question: 'Are routine response actions automated with human oversight where judgment is needed — and are playbooks tested rather than hoped to work?',
+        question:
+          'Are routine response actions automated with human oversight where judgment is needed — and are playbooks tested rather than hoped to work?',
         levels: {
           '0': 'All response is manual.',
           '1': 'A few scripts exist for enrichment or notification.',
@@ -954,7 +1065,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Playbook execution success, time-to-containment and override rates are measured; playbooks are rehearsed against live or simulated incidents.',
           '5': 'Response orchestration is rehearsed continuously, handles compound incidents, and automatically invokes the right playbook from the case context with measured time-to-action.',
         },
-        evidence: ['SOAR playbooks with approval gates and execution history', 'Time-to-containment metric with playbook vs. manual split', 'Playbook rehearsal records'],
+        evidence: [
+          'SOAR playbooks with approval gates and execution history',
+          'Time-to-containment metric with playbook vs. manual split',
+          'Playbook rehearsal records',
+        ],
         crosswalk: { nist_csf_2: ['RS.MA-01', 'RS.AN-03'] },
         domainId: 'AA',
       },
@@ -963,7 +1078,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Advanced analytics governance',
         weight: 11.0,
         profile: 'comprehensive',
-        question: 'Are advanced analytics (ML, UEBA, anomaly detection) governed as detection — with documented training data, measured precision, and an analyst-override path?',
+        question:
+          'Are advanced analytics (ML, UEBA, anomaly detection) governed as detection — with documented training data, measured precision, and an analyst-override path?',
         levels: {
           '0': 'No advanced analytics beyond threshold rules.',
           '1': 'Anomaly features are enabled with default vendor tuning.',
@@ -972,7 +1088,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Model drift, feature stability, and analyst-override rates are measured; retraining is triggered on drift and validated before promotion.',
           '5': 'Analytics are part of the closed loop — validation outcomes retrain models, and model contribution to case detection is measured separately from rule contribution.',
         },
-        evidence: ['Model cards with training window and retraining cadence', 'Precision/recall per analytic with drift monitoring', 'Analyst-override log and re-tuning records'],
+        evidence: [
+          'Model cards with training window and retraining cadence',
+          'Precision/recall per analytic with drift monitoring',
+          'Analyst-override log and re-tuning records',
+        ],
         crosswalk: { nist_csf_2: ['DE.AE-02'] },
         domainId: 'AA',
       },
@@ -981,7 +1101,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Threat hunting programme',
         weight: 15.0,
         profile: 'standard',
-        question: 'Is hunting hypothesis-driven, measured, and deliberately targeted at the gaps emulation and detection leave?',
+        question:
+          'Is hunting hypothesis-driven, measured, and deliberately targeted at the gaps emulation and detection leave?',
         levels: {
           '0': 'No hunting. The SOC is purely reactive.',
           '1': 'Occasional ad hoc hunts during quiet shifts.',
@@ -990,7 +1111,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Hunt hypotheses come from emulation gaps and intelligence; mean time from hypothesis to finding is measured; findings become detection requirements; hunt coverage of the technique set is reported.',
           '5': 'Hunting is continuously fed by validation outcomes and CTI; hypotheses are partly generated from the behaviour library; findings measurably close coverage gaps within a defined window and are published where appropriate.',
         },
-        evidence: ['Hunt hypothesis library with falsification criteria', 'Hypothesis-to-finding cycle-time trend', 'Hunt-to-detection requirement linkage'],
+        evidence: [
+          'Hunt hypothesis library with falsification criteria',
+          'Hypothesis-to-finding cycle-time trend',
+          'Hunt-to-detection requirement linkage',
+        ],
         crosswalk: { nist_csf_2: ['ID.RA-03', 'DE.AE-02'] },
         domainId: 'AA',
       },
@@ -1008,7 +1133,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Case data is analysed for patterns (repeat techniques, repeat entities, mean time per stage); lessons become detection, hunting or emulation work; case quality is reviewed.',
           '5': 'Case knowledge is automatically linked to the traceability graph (attack tree node → detection → case); analysts query prior cases by context and receive ranked relevant history at triage.',
         },
-        evidence: ['Case schema with technique/entity/campaign tagging', 'Case-pattern analysis and resulting work items', 'Prior-case ranking at triage'],
+        evidence: [
+          'Case schema with technique/entity/campaign tagging',
+          'Case-pattern analysis and resulting work items',
+          'Prior-case ranking at triage',
+        ],
         crosswalk: { nist_csf_2: ['RS.AN-03', 'ID.IM-01'] },
         domainId: 'AA',
       },
@@ -1017,7 +1146,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Deception and adversary engagement',
         weight: 13.0,
         profile: 'standard',
-        question: 'Is deception deliberately placed at attack-tree choke points and operated as a high-precision detection layer?',
+        question:
+          'Is deception deliberately placed at attack-tree choke points and operated as a high-precision detection layer?',
         levels: {
           '0': 'No deception.',
           '1': 'A honeypot exists as a technology demo, unmonitored.',
@@ -1026,7 +1156,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Deception coverage of choke points is measured; engagement is used to collect adversary tradecraft that feeds the behaviour library; placement is refreshed against evolving paths.',
           '5': 'Deception is orchestrated and repositioned automatically as attack paths shift; interactions feed real-time threat intel and trigger containment with measured time-to-action.',
         },
-        evidence: ['Deception placement map with ATT&CK mapping and choke-point justification', 'Decoy interaction → alert → case trail', 'Tradecraft collection and behaviour library linkage'],
+        evidence: [
+          'Deception placement map with ATT&CK mapping and choke-point justification',
+          'Decoy interaction → alert → case trail',
+          'Tradecraft collection and behaviour library linkage',
+        ],
         crosswalk: { nist_csf_2: ['DE.CM-01', 'PR.AC-05'] },
         domainId: 'AA',
       },
@@ -1035,7 +1169,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Agentic and AI-assisted operations',
         weight: 11.0,
         profile: 'standard',
-        question: 'Are agentic or AI-assisted capabilities governed as SOC tooling — with bounded autonomy, human override, and measured contribution to detection and triage?',
+        question:
+          'Are agentic or AI-assisted capabilities governed as SOC tooling — with bounded autonomy, human override, and measured contribution to detection and triage?',
         levels: {
           '0': 'No AI-assisted operations. All analysis is human-only.',
           '1': 'Analysts use unmanaged AI tools ad hoc for queries or summaries.',
@@ -1044,7 +1179,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'AI contribution to triage and classification is measured separately from human contribution; override rates and error modes are trended; models are tuned against operational outcomes.',
           '5': 'AI assistance is part of the closed loop — case outcomes retrain triage models, agentic investigation is orchestrated with audit trails, and automation level is raised only when measured accuracy supports it.',
         },
-        evidence: ['AI-assistance policy with bounded tasks and human-in-the-loop gates', 'Measured precision and override-rate trends', 'Retraining records tied to case outcomes'],
+        evidence: [
+          'AI-assistance policy with bounded tasks and human-in-the-loop gates',
+          'Measured precision and override-rate trends',
+          'Retraining records tied to case outcomes',
+        ],
         crosswalk: { nist_csf_2: ['DE.AE-02', 'GV.RM-01'] },
         domainId: 'AA',
       },
@@ -1061,7 +1200,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Response plan, playbooks and readiness',
         weight: 18.0,
         profile: 'essential',
-        question: 'Do response plans and playbooks exist, are they current, and can they be executed at 03:00 by whoever is on shift?',
+        question:
+          'Do response plans and playbooks exist, are they current, and can they be executed at 03:00 by whoever is on shift?',
         levels: {
           '0': 'No plans or playbooks. Response is improvisation.',
           '1': 'A generic incident response plan exists from a template; not tailored, not practised.',
@@ -1070,7 +1210,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Playbook completeness and freshness are measured; tabletop exercises per crown-jewel scenario occur at least annually; findings become tracked work.',
           '5': 'Playbooks are rehearsed against live or emulated incidents on a cadence that produces measurable improvement; playbook time-to-containment is trended and used to resource decisions.',
         },
-        evidence: ['Crown-jewel playbooks with owners and decision gates', 'Review cadence and tabletop exercise records', 'Time-to-containment per playbook trend'],
+        evidence: [
+          'Crown-jewel playbooks with owners and decision gates',
+          'Review cadence and tabletop exercise records',
+          'Time-to-containment per playbook trend',
+        ],
         crosswalk: { nist_csf_2: ['RS.MA-01', 'RS.AN-03'] },
         domainId: 'IR',
       },
@@ -1079,7 +1223,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Detection-to-response handoff and SLAs',
         weight: 17.0,
         profile: 'essential',
-        question: 'Does a detection reliably reach a responder with enough context to act — and are the thresholds between alert, case, and incident declared in advance?',
+        question:
+          'Does a detection reliably reach a responder with enough context to act — and are the thresholds between alert, case, and incident declared in advance?',
         levels: {
           '0': 'No defined handoff. Alerts may or may not reach anyone at night.',
           '1': 'Alerts page someone; what happens next depends on who answers.',
@@ -1101,7 +1246,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Forensic readiness and evidence handling',
         weight: 15.0,
         profile: 'standard',
-        question: 'Can evidence be collected, preserved and presented to the standard it will be judged by — and is that readiness tested before the incident?',
+        question:
+          'Can evidence be collected, preserved and presented to the standard it will be judged by — and is that readiness tested before the incident?',
         levels: {
           '0': 'No forensic capability. Evidence handling is improvised.',
           '1': 'Tools exist on laptops but no defined process; legal admissibility is unconsidered.',
@@ -1110,7 +1256,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Forensic readiness is tested (tabletop collections against a time limit); chain-of-custody compliance is audited; retention conformance is measured.',
           '5': 'Forensic collection is automated and orchestrated per playbook; evidence is automatically preserved at containment time; collection success is measured and rehearsed.',
         },
-        evidence: ['Evidence collection standards with chain-of-custody procedure', 'Retention policy with compliance measurement', 'Tabletop collection test records'],
+        evidence: [
+          'Evidence collection standards with chain-of-custody procedure',
+          'Retention policy with compliance measurement',
+          'Tabletop collection test records',
+        ],
         crosswalk: { nist_csf_2: ['RS.AN-03', 'RC.RP-01'] },
         domainId: 'IR',
       },
@@ -1119,7 +1269,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Containment, eradication and recovery',
         weight: 17.0,
         profile: 'standard',
-        question: 'Are containment options pre-authorised, tested, and measured against the adversary clock — and does recovery include verification that the adversary is actually gone?',
+        question:
+          'Are containment options pre-authorised, tested, and measured against the adversary clock — and does recovery include verification that the adversary is actually gone?',
         levels: {
           '0': 'Containment authority is unclear. Recovery is rebuilding and hoping.',
           '1': 'Containment happens ad hoc via helpdesk or sysadmin intervention; recovery is manual.',
@@ -1128,7 +1279,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Containment time is measured against adversary breakout estimates; containment decisions are audited; recovery verification is tested and measured.',
           '5': 'Containment is orchestrated and rehearsed with measured time-to-containment demonstrated against an adversary-time benchmark; recovery verification is automated and continuously validated.',
         },
-        evidence: ['Pre-authorised containment matrix with empowered individuals', 'Time-to-containment trend vs. breakout benchmark', 'Eradication verification artefacts'],
+        evidence: [
+          'Pre-authorised containment matrix with empowered individuals',
+          'Time-to-containment trend vs. breakout benchmark',
+          'Eradication verification artefacts',
+        ],
         crosswalk: { nist_csf_2: ['RS.MA-01', 'RC.RP-01'] },
         domainId: 'IR',
       },
@@ -1137,7 +1292,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Exercising and crisis management',
         weight: 16.0,
         profile: 'standard',
-        question: 'Has the response capability been rehearsed under pressure — and does rehearsal include the decisions that cannot be made for the first time during the crisis?',
+        question:
+          'Has the response capability been rehearsed under pressure — and does rehearsal include the decisions that cannot be made for the first time during the crisis?',
         levels: {
           '0': 'No exercises.',
           '1': 'A single tabletop was run years ago; findings were not tracked.',
@@ -1159,7 +1315,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Post-incident review to detection backlog',
         weight: 17.0,
         profile: 'essential',
-        question: 'Does every incident make the detection capability harder to surprise next time — and is that feedback measured?',
+        question:
+          'Does every incident make the detection capability harder to surprise next time — and is that feedback measured?',
         levels: {
           '0': 'No post-incident review. Lessons are tribal and lost.',
           '1': 'A write-up is produced for major incidents but rarely reviewed by engineering.',
@@ -1189,7 +1346,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Strategy, mandate and funding',
         weight: 15.0,
         profile: 'essential',
-        question: 'Is there a detection strategy with a declared scope, a named owner empowered to fund it, and a link back to business risk?',
+        question:
+          'Is there a detection strategy with a declared scope, a named owner empowered to fund it, and a link back to business risk?',
         levels: {
           '0': 'No strategy. Detection is whatever the tooling vendor ships.',
           '1': 'An informal intent exists; funding is annual and opportunistic.',
@@ -1198,7 +1356,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Strategy execution is measured — milestones, spend, capability uplift — and re-baselined at least annually; variance is reported.',
           '5': 'Strategy is a rolling, threat-driven plan with automated re-prioritisation as the landscape shifts; funding tracks demonstrated risk reduction.',
         },
-        evidence: ['Published detection strategy with named owner and capability roadmap', 'Ring-fenced funding and milestone tracking', 'Annual re-baselining record'],
+        evidence: [
+          'Published detection strategy with named owner and capability roadmap',
+          'Ring-fenced funding and milestone tracking',
+          'Annual re-baselining record',
+        ],
         crosswalk: { nist_csf_2: ['GV.OC-01', 'GV.RM-01', 'GV.PO-01'] },
         domainId: 'GV',
       },
@@ -1207,7 +1369,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Roles, skills and capability development',
         weight: 15.0,
         profile: 'standard',
-        question: 'Are detection, engineering and validation roles staffed, skilled, and developed — or dependent on one person who could leave tomorrow?',
+        question:
+          'Are detection, engineering and validation roles staffed, skilled, and developed — or dependent on one person who could leave tomorrow?',
         levels: {
           '0': 'No defined roles. Whoever is free handles detection.',
           '1': 'Informal roles; skills are whatever the current staff bring.',
@@ -1216,7 +1379,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Skills coverage is measured and trended; bench strength is tracked; succession is explicitly planned for critical roles.',
           '5': 'Skills development is tied to the capability roadmap; internal mentoring, external contributions, and rotation produce measurable improvement in coverage.',
         },
-        evidence: ['Roles and skills matrix with key-person dependency map', 'Training plans and completion trends', 'Succession plans for critical roles'],
+        evidence: [
+          'Roles and skills matrix with key-person dependency map',
+          'Training plans and completion trends',
+          'Succession plans for critical roles',
+        ],
         crosswalk: { nist_csf_2: ['GV.RR-01', 'GV.RR-04', 'PR.AT-01'] },
         domainId: 'GV',
       },
@@ -1225,7 +1392,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Metrics and performance measurement',
         weight: 18.0,
         profile: 'essential',
-        question: 'Are detection metrics defined, measured honestly, and used to decide what to do next — or are they vanity counters?',
+        question:
+          'Are detection metrics defined, measured honestly, and used to decide what to do next — or are they vanity counters?',
         levels: {
           '0': 'No metrics. Activity is counted as success.',
           '1': 'Basic volume metrics (alerts, rules enabled) reported in slide decks.',
@@ -1247,7 +1415,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Risk and compliance alignment',
         weight: 14.0,
         profile: 'standard',
-        question: 'Is detection explicitly aligned to the risk and compliance frameworks it is claimed to support — with evidence rather than assertion?',
+        question:
+          'Is detection explicitly aligned to the risk and compliance frameworks it is claimed to support — with evidence rather than assertion?',
         levels: {
           '0': 'No alignment. Compliance is asserted without evidence.',
           '1': 'Regulatory requirements are known informally.',
@@ -1256,7 +1425,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Compliance evidence is independently reviewed and sampled; control failures are tracked as risks; audit findings become detection work.',
           '5': 'Compliance evidence is continuously validated and automatically assembled; control drift triggers immediate re-validation with measured turnaround.',
         },
-        evidence: ['Control-to-evidence traceability matrix', 'Independent review of compliance evidence', 'Audit-finding-to-detection-work linkage'],
+        evidence: [
+          'Control-to-evidence traceability matrix',
+          'Independent review of compliance evidence',
+          'Audit-finding-to-detection-work linkage',
+        ],
         crosswalk: { nist_csf_2: ['GV.OC-03', 'GV.RM-01'] },
         domainId: 'GV',
       },
@@ -1265,7 +1438,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Executive and board reporting',
         weight: 13.0,
         profile: 'standard',
-        question: 'Do boards receive an honest, evidence-backed detection narrative — or a green RAG status with a rule count?',
+        question:
+          'Do boards receive an honest, evidence-backed detection narrative — or a green RAG status with a rule count?',
         levels: {
           '0': 'No reporting. Detection is invisible to management.',
           '1': 'Slide-deck reporting with activity counts.',
@@ -1274,7 +1448,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Reporting is independently assured; gaps and risks are presented with costed closure plans; board decisions are recorded and tracked.',
           '5': 'Reporting is a continuous assurance dashboard with statistical significance; board-level risk appetite explicitly bounds detection investment.',
         },
-        evidence: ['Evidence-backed board pack with validated coverage and gap cost', 'Independent assurance of board reporting', 'Board decision tracker'],
+        evidence: [
+          'Evidence-backed board pack with validated coverage and gap cost',
+          'Independent assurance of board reporting',
+          'Board decision tracker',
+        ],
         crosswalk: { nist_csf_2: ['GV.OV-02', 'GV.OV-03'] },
         domainId: 'GV',
       },
@@ -1292,7 +1470,11 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
           '4': 'Progression is measured — capability uplift per cycle, backlog burn-down, recurrence rate — and reported; the cadence is independently reviewed.',
           '5': 'Improvement is continuous and largely automated; cycle time from lesson to shipped change is measured and trended; improvement itself is retrospectively improved.',
         },
-        evidence: ['Improvement backlog with prioritisation and progression metrics', 'Cross-cycle capability uplift trend', 'Independent review of improvement effectiveness'],
+        evidence: [
+          'Improvement backlog with prioritisation and progression metrics',
+          'Cross-cycle capability uplift trend',
+          'Independent review of improvement effectiveness',
+        ],
         crosswalk: { nist_csf_2: ['ID.IM-03', 'GV.OV-03'] },
         domainId: 'GV',
       },
@@ -1301,7 +1483,8 @@ export const TID_CMM_DOMAINS: TidCmmDomain[] = [
         name: 'Third-party and supply-chain detection',
         weight: 12.0,
         profile: 'comprehensive',
-        question: 'Are the detections that protect third-party and supply-chain ingress as mature as those that protect first-party estate — or are supplier connections an unmonitored bypass?',
+        question:
+          'Are the detections that protect third-party and supply-chain ingress as mature as those that protect first-party estate — or are supplier connections an unmonitored bypass?',
         levels: {
           '0': 'No visibility into third-party/supply-chain activity.',
           '1': 'Some third-party logs are collected incidentally.',
@@ -1441,16 +1624,38 @@ export const UTIOM_DOCTRINE: UtiomDoctrineLaw[] = [
     blurb:
       'Every material capability must be justified by business consequence, relevant threat or operational resilience. Crown jewels are the primary consequence anchor — together with dependencies, identities, shared infrastructure and realistic attack paths.',
   },
-  { n: 2, title: 'Strategy before sensors', blurb: 'Telemetry and tools must follow strategy. Architecture is driven by intent, not by vendor capability.' },
+  {
+    n: 2,
+    title: 'Strategy before sensors',
+    blurb: 'Telemetry and tools must follow strategy. Architecture is driven by intent, not by vendor capability.',
+  },
   {
     n: 3,
     title: 'Crown jewels drive prioritisation',
-    blurb: 'Security resources are finite. Crown jewels determine where visibility, detection and response must be strongest.',
+    blurb:
+      'Security resources are finite. Crown jewels determine where visibility, detection and response must be strongest.',
   },
-  { n: 4, title: 'Threats shape architecture', blurb: 'Detection engineering must be informed by real adversary behaviour, designed around realistic attack paths.' },
-  { n: 5, title: 'Visibility is a design decision', blurb: 'Blind spots are not accidents. They are architectural choices.' },
-  { n: 6, title: 'Operations is continuous response', blurb: 'Incident response is not a phase. It is the operating state of modern security operations.' },
-  { n: 7, title: 'Improvement is mandatory', blurb: 'Every incident must refine the system, through measurable feedback loops.' },
+  {
+    n: 4,
+    title: 'Threats shape architecture',
+    blurb:
+      'Detection engineering must be informed by real adversary behaviour, designed around realistic attack paths.',
+  },
+  {
+    n: 5,
+    title: 'Visibility is a design decision',
+    blurb: 'Blind spots are not accidents. They are architectural choices.',
+  },
+  {
+    n: 6,
+    title: 'Operations is continuous response',
+    blurb: 'Incident response is not a phase. It is the operating state of modern security operations.',
+  },
+  {
+    n: 7,
+    title: 'Improvement is mandatory',
+    blurb: 'Every incident must refine the system, through measurable feedback loops.',
+  },
 ];
 
 export interface UtiomPrinciple {
@@ -1459,27 +1664,114 @@ export interface UtiomPrinciple {
   blurb: string;
 }
 export const UTIOM_PRINCIPLES: UtiomPrinciple[] = [
-  { n: 1, title: 'Unified operating model', blurb: 'Governance, engineering and operations on one lifecycle — board decision and detection rule are two ends of the same thread.' },
-  { n: 2, title: 'Threat-informed by default', blurb: 'MITRE ATT&CK is a capability language anchored to crown jewels, not a technique checklist.' },
-  { n: 3, title: 'Validation as a rail', blurb: 'Every design decision on the left has a matching validation activity on the right (V-model). Remove the right arm and the left is opinion.' },
-  { n: 4, title: 'Measurable over aspirational', blurb: '70 explicit metrics (MTTD / MTTC / MTTR / validation rate / crown-jewel coverage) with formulas, split into leading and lagging.' },
-  { n: 5, title: 'Open and vendor-neutral', blurb: 'CC BY-SA 4.0, no products to buy, nothing to install — assessments run entirely in your browser.' },
+  {
+    n: 1,
+    title: 'Unified operating model',
+    blurb:
+      'Governance, engineering and operations on one lifecycle — board decision and detection rule are two ends of the same thread.',
+  },
+  {
+    n: 2,
+    title: 'Threat-informed by default',
+    blurb: 'MITRE ATT&CK is a capability language anchored to crown jewels, not a technique checklist.',
+  },
+  {
+    n: 3,
+    title: 'Validation as a rail',
+    blurb:
+      'Every design decision on the left has a matching validation activity on the right (V-model). Remove the right arm and the left is opinion.',
+  },
+  {
+    n: 4,
+    title: 'Measurable over aspirational',
+    blurb:
+      '70 explicit metrics (MTTD / MTTC / MTTR / validation rate / crown-jewel coverage) with formulas, split into leading and lagging.',
+  },
+  {
+    n: 5,
+    title: 'Open and vendor-neutral',
+    blurb: 'CC BY-SA 4.0, no products to buy, nothing to install — assessments run entirely in your browser.',
+  },
 ];
 
 export const UTIOM_FAMILY = [
-  { id: 'utiom', name: 'UTIOM', label: 'The operating model', version: 'v1.3', blurb: '7 phases, 3 pillars, 4 assessment tools & dashboard. Defines how the whole operation should be run.' },
-  { id: 'tid-cmm', name: 'TID-CMM', label: 'The detection module', version: 'v1.5', blurb: '8 domains, 58 sub-capabilities, ATT&CK v19.2. Measures whether detection is genuinely driven by adversary behaviour and proven to work.' },
-  { id: 'tir-cmm', name: 'TIR-CMM', label: 'The response module', version: 'v1.0', blurb: '58 sub-capabilities, 3 tiers. Measures containment authority, tempo against breakout time, and whether any of it was rehearsed.' },
-  { id: 'rsmm', name: 'RSMM', label: 'The platform module', version: '5 levels', blurb: 'Realistic SIEM Maturity Model — anti-aspirational; the top is a platform that reliably serves the operation.' },
-  { id: 'kevmapp', name: 'KEVMAP', label: 'Exploitation context', version: 'enrichment', blurb: 'Not a maturity model — CISA KEV and exposure context that sharpens prioritisation in Strategy / Crown Jewels / Visibility / Detection.' },
+  {
+    id: 'utiom',
+    name: 'UTIOM',
+    label: 'The operating model',
+    version: 'v1.3',
+    blurb: '7 phases, 3 pillars, 4 assessment tools & dashboard. Defines how the whole operation should be run.',
+  },
+  {
+    id: 'tid-cmm',
+    name: 'TID-CMM',
+    label: 'The detection module',
+    version: 'v1.5',
+    blurb:
+      '8 domains, 58 sub-capabilities, ATT&CK v19.2. Measures whether detection is genuinely driven by adversary behaviour and proven to work.',
+  },
+  {
+    id: 'tir-cmm',
+    name: 'TIR-CMM',
+    label: 'The response module',
+    version: 'v1.0',
+    blurb:
+      '58 sub-capabilities, 3 tiers. Measures containment authority, tempo against breakout time, and whether any of it was rehearsed.',
+  },
+  {
+    id: 'rsmm',
+    name: 'RSMM',
+    label: 'The platform module',
+    version: '5 levels',
+    blurb:
+      'Realistic SIEM Maturity Model — anti-aspirational; the top is a platform that reliably serves the operation.',
+  },
+  {
+    id: 'kevmapp',
+    name: 'KEVMAP',
+    label: 'Exploitation context',
+    version: 'enrichment',
+    blurb:
+      'Not a maturity model — CISA KEV and exposure context that sharpens prioritisation in Strategy / Crown Jewels / Visibility / Detection.',
+  },
 ] as const;
 
 export const UTIOM_ASSESSMENT_TOOLS = [
-  { id: 'maturity', name: 'Maturity assessment', meta: '50 criteria · staged', url: 'https://utiom.de/maturity.html', question: 'Where are we, honestly?' },
-  { id: 'capability', name: 'Capability assessment', meta: '105 indicators', url: 'https://utiom.de/capability.html', question: 'What should we fix first?' },
-  { id: 'metrics', name: 'Metrics calculator', meta: '70 metrics', url: 'https://utiom.de/metrics.html', question: 'Did the fix work?' },
-  { id: 'roadmap', name: 'Improvement roadmap', meta: 'combines all three', url: 'https://utiom.de/roadmap.html', question: 'So what do we actually do about it?' },
-  { id: 'dashboard', name: 'Capability dashboard', meta: 'derived view', url: 'https://utiom.de/dashboard.html', question: 'Why is it where it is?' },
+  {
+    id: 'maturity',
+    name: 'Maturity assessment',
+    meta: '50 criteria · staged',
+    url: 'https://utiom.de/maturity.html',
+    question: 'Where are we, honestly?',
+  },
+  {
+    id: 'capability',
+    name: 'Capability assessment',
+    meta: '105 indicators',
+    url: 'https://utiom.de/capability.html',
+    question: 'What should we fix first?',
+  },
+  {
+    id: 'metrics',
+    name: 'Metrics calculator',
+    meta: '70 metrics',
+    url: 'https://utiom.de/metrics.html',
+    question: 'Did the fix work?',
+  },
+  {
+    id: 'roadmap',
+    name: 'Improvement roadmap',
+    meta: 'combines all three',
+    url: 'https://utiom.de/roadmap.html',
+    question: 'So what do we actually do about it?',
+  },
+  {
+    id: 'dashboard',
+    name: 'Capability dashboard',
+    meta: 'derived view',
+    url: 'https://utiom.de/dashboard.html',
+    question: 'Why is it where it is?',
+  },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1521,7 +1813,7 @@ function bandFor(score: number): string {
 
 function weightedMean(
   entries: Array<{ id: string; raw: number | null; weight: number; na: boolean }>,
-  cap?: (id: string) => number | null,
+  cap?: (id: string) => number | null
 ): number | null {
   let wSum = 0;
   let vSum = 0;
@@ -1557,7 +1849,7 @@ export function scoreTidCmm(input: TidScoreInput): TidOverallResult {
       }
       let v = raw as number;
       let cap: string | null = null;
-      if ((v >= 4) && evidenced && evidenced[s.id] === false) {
+      if (v >= 4 && evidenced && evidenced[s.id] === false) {
         v = 3;
         cap = 'C3';
       }
@@ -1597,7 +1889,7 @@ export function scoreTidCmm(input: TidScoreInput): TidOverallResult {
       adjusted: adj ?? 0,
       subcaps: d.subcaps.map((s) => {
         const adjS = adjustedSub[s.id]!;
-        const rawS = scores[s.id] === 'NA' ? null : (scores[s.id] as number | null) ?? null;
+        const rawS = scores[s.id] === 'NA' ? null : ((scores[s.id] as number | null) ?? null);
         return { id: s.id, raw: rawS, adjusted: adjS.na ? null : adjS.v, na: adjS.na, cappedBy: adjS.cappedBy };
       }),
       capNotes: [],
@@ -1626,7 +1918,9 @@ export function scoreTidCmm(input: TidScoreInput): TidOverallResult {
     const capped = Math.min(dcAfterC4, c4Ceiling);
     if (capped !== dcAfterC4) {
       const det = domainDetails.find((x) => x.domainId === 'DC')!;
-      det.capNotes.push(`C4 intent ceiling: ${dcAfterC4.toFixed(2)} → ${capped.toFixed(2)} (max(TI,TM)+1 = ${c4Ceiling.toFixed(2)})`);
+      det.capNotes.push(
+        `C4 intent ceiling: ${dcAfterC4.toFixed(2)} → ${capped.toFixed(2)} (max(TI,TM)+1 = ${c4Ceiling.toFixed(2)})`
+      );
       det.adjusted = capped;
     }
     dcAfterC4 = capped;
@@ -1662,7 +1956,9 @@ export function scoreTidCmm(input: TidScoreInput): TidOverallResult {
       if (det.adjusted > c1Ceiling) {
         const prev = det.adjusted;
         det.adjusted = c1Ceiling;
-        det.capNotes.push(`C1 validation ceiling: ${prev.toFixed(2)} → ${c1Ceiling.toFixed(2)} (AV+1 = ${avAdj.toFixed(2)}+1)`);
+        det.capNotes.push(
+          `C1 validation ceiling: ${prev.toFixed(2)} → ${c1Ceiling.toFixed(2)} (AV+1 = ${avAdj.toFixed(2)}+1)`
+        );
       }
     }
   }
@@ -1671,7 +1967,12 @@ export function scoreTidCmm(input: TidScoreInput): TidOverallResult {
   const overallEntries = TID_CMM_DOMAINS.map((d) => {
     const det = domainDetails.find((x) => x.domainId === d.id)!;
     const hasData = d.subcaps.some((s) => scores[s.id] !== null && scores[s.id] !== undefined && scores[s.id] !== 'NA');
-    return { id: d.id, raw: det.adjusted, weight: d.weight, na: !hasData && det.adjusted === 0 ? false : det.adjusted === 0 && !hasData ? true : false };
+    return {
+      id: d.id,
+      raw: det.adjusted,
+      weight: d.weight,
+      na: !hasData && det.adjusted === 0 ? false : det.adjusted === 0 && !hasData ? true : false,
+    };
   });
 
   // Count domains with no data as not contributing (weight excluded)
@@ -1710,7 +2011,7 @@ export function scoreTidCmm(input: TidScoreInput): TidOverallResult {
 export function tidCmmDomainScore(
   subcaps: TidCmmSubcap[],
   _scores: Record<string, number | 'NA' | null>,
-  adjustedSub: Record<string, { v: number | null; na: boolean; cappedBy: string | null }>,
+  adjustedSub: Record<string, { v: number | null; na: boolean; cappedBy: string | null }>
 ): number | null {
   const entries = subcaps.map((s) => {
     const adj = adjustedSub[s.id];

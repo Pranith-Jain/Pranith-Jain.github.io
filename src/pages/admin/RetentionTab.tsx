@@ -93,7 +93,7 @@ export default function RetentionTab() {
   return (
     <div className="space-y-6 max-w-3xl">
       {/* ── Telegram Leak Cleanup ─────────────────────────── */}
-      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="rounded border border-line-1 p-4">
         <h2 className="text-lg font-semibold text-heading mb-1">Telegram leak cleanup</h2>
         <p className="text-sm text-muted mb-4">
           Deletes <code className="font-mono">telegram_leak_entries</code> older than the retention window. The weekly
@@ -110,7 +110,7 @@ export default function RetentionTab() {
               value={tgDays}
               onChange={(e) => setTgDays(Math.max(1, Math.min(365, Number(e.target.value) || TG_DEFAULT_DAYS)))}
               disabled={busy !== null}
-              className="w-32 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+              className="w-32 px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <button
@@ -129,7 +129,7 @@ export default function RetentionTab() {
         )}
 
         {tgResult && (
-          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 text-sm">
+          <div className="rounded border border-line-1 p-3 text-sm">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Done</span>
               <span className="text-body">
@@ -144,7 +144,7 @@ export default function RetentionTab() {
       </div>
 
       {/* ── Full Retention Sweep ──────────────────────────── */}
-      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
+      <div className="rounded border border-line-1 p-4">
         <h2 className="text-lg font-semibold text-heading mb-1">Full data retention sweep</h2>
         <p className="text-sm text-muted mb-4">
           Deletes rows older than the retention window across 13 data tables (briefings, IOC logs, report-extraction
@@ -161,13 +161,13 @@ export default function RetentionTab() {
               value={days}
               onChange={(e) => setDays(Math.max(1, Math.min(3650, Number(e.target.value) || DEFAULT_DAYS)))}
               disabled={busy !== null}
-              className="w-32 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading disabled:opacity-50"
+              className="w-32 px-2 py-1 bg-surface-100 border border-line-1 rounded text-sm text-heading disabled:opacity-50"
             />
           </label>
           <button
             onClick={() => runSweep(true)}
             disabled={busy !== null}
-            className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+            className="px-4 py-1.5 border border-line-1 rounded text-sm text-heading hover:bg-surface-300 dark:hover:bg-surface-300 disabled:opacity-50"
           >
             {busy === 'dry' ? 'Previewing…' : 'Dry-run preview'}
           </button>
@@ -215,7 +215,7 @@ export default function RetentionTab() {
             </div>
 
             {result.tables_swept.length > 0 && (
-              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded">
+              <div className="border border-line-1 rounded">
                 <DataTable
                   columns={
                     [

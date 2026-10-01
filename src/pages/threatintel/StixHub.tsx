@@ -23,10 +23,7 @@ export default function StixHub(): JSX.Element {
       title="STIX Hub"
       description="STIX 2.1 bundle browsing and IP indicator enrichment export."
     >
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
-        aria-label="STIX hub tools"
-      >
+      <nav className="flex flex-wrap gap-1 border-b border-line-1 mb-6" aria-label="STIX hub tools">
         {TABS.map((t) => (
           <button
             key={t.id}

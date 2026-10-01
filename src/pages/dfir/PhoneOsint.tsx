@@ -284,7 +284,7 @@ export default function PhoneOsint(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="+1 555 123 4567 or 5551234567"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Phone number"
             />
           </div>
@@ -292,7 +292,7 @@ export default function PhoneOsint(): JSX.Element {
             aria-label="Search"
             type="submit"
             disabled={!input.trim()}
-            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded font-mono text-sm font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40 transition-colors"
+            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-on-fill rounded font-mono text-sm font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-40 transition-colors"
           >
             <Search size={16} />
           </button>
@@ -337,7 +337,7 @@ export default function PhoneOsint(): JSX.Element {
           <h3 className="font-display font-semibold text-sm text-heading mb-3">Server-Side Intel</h3>
 
           {!!apiResult.carrier && (
-            <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mb-3 pb-3 border-b border-line-1">
               <p className="text-mini font-mono text-muted mb-1">Carrier / Line Type</p>
               <div className="flex flex-wrap gap-3 text-sm font-mono">
                 <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
@@ -352,7 +352,7 @@ export default function PhoneOsint(): JSX.Element {
           )}
 
           {!!apiResult.numverify && (
-            <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mb-3 pb-3 border-b border-line-1">
               <p className="text-mini font-mono text-muted mb-1">NumVerify API</p>
               <div className="grid gap-1 sm:grid-cols-2 text-sm font-mono">
                 {Object.entries(apiResult.numverify as Record<string, string>).map(([k, v]) =>
@@ -367,13 +367,13 @@ export default function PhoneOsint(): JSX.Element {
           )}
 
           {!!apiResult.breach && (
-            <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="mb-3 pb-3 border-b border-line-1">
               <p className="text-mini font-mono text-muted mb-1">Breach Exposure</p>
               <div className="text-sm font-mono">
                 {(apiResult.breach as Record<string, string>).checked ? (
                   <span className="text-green-600 dark:text-green-400">Checked via Hudson Rock</span>
                 ) : (
-                  <span className="text-slate-500">{(apiResult.breach as Record<string, string>).reason}</span>
+                  <span className="text-muted">{(apiResult.breach as Record<string, string>).reason}</span>
                 )}
               </div>
             </div>
@@ -389,7 +389,7 @@ export default function PhoneOsint(): JSX.Element {
                     href={d.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-line-2 hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
                   >
                     {d.engine}: {d.query.slice(0, 30)}
                     {d.query.length > 30 ? '...' : ''} <ExternalLink size={9} className="opacity-60" />
@@ -416,7 +416,7 @@ export default function PhoneOsint(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors flex items-center gap-1 ${
                   active
                     ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
                 }`}
                 aria-pressed={active}
               >
@@ -428,7 +428,7 @@ export default function PhoneOsint(): JSX.Element {
             <button
               type="button"
               onClick={() => setActiveCategory(null)}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40 transition-colors"
+              className="text-mini font-mono px-2 py-1 rounded border border-line-2 text-muted hover:border-brand-500/40 transition-colors"
             >
               clear
             </button>
@@ -439,7 +439,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* Results */}
       {input.trim() && parsed && (
         <>
-          <p className="text-mini font-mono text-slate-400 mb-4">
+          <p className="text-mini font-mono text-muted mb-4">
             {filtered.length} lookup{filtered.length !== 1 ? 's' : ''} available
           </p>
           <ul className="grid gap-3 md:grid-cols-2">
@@ -457,7 +457,7 @@ export default function PhoneOsint(): JSX.Element {
                       {l.service} <ExternalLink size={12} className="opacity-60 shrink-0" />
                     </a>
                     <div className="flex items-center gap-1 shrink-0">
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 flex items-center gap-1">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-line-2 text-muted flex items-center gap-1">
                         <Icon size={9} /> {CATEGORY_LABELS[l.category] ?? l.category}
                       </span>
                       {!l.free && (

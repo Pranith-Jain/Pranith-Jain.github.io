@@ -56,15 +56,13 @@ function severityRank(s: Severity): number {
 function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void }): JSX.Element {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0">
+    <div className="border-b border-line-1 last:border-b-0">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-start gap-3 px-3 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+        className="w-full flex items-start gap-3 px-3 py-2.5 text-left hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
       >
-        <span className="mt-0.5 text-slate-400 dark:text-slate-500">
-          {open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-        </span>
+        <span className="mt-0.5 text-muted">{open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}</span>
         <span className={`shrink-0 px-1.5 py-0.5 text-micro font-mono rounded border ${SEVERITY_TONE[f.severity]}`}>
           {f.severity}
         </span>
@@ -72,7 +70,7 @@ function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void 
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm font-medium text-heading">{f.name}</span>
             <span className="text-micro font-mono text-muted">{f.category}</span>
-            <span className="text-micro font-mono text-slate-400">·</span>
+            <span className="text-micro font-mono text-muted">·</span>
             <button
               type="button"
               onClick={(e) => {
@@ -94,13 +92,13 @@ function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void 
           </div>
           <p className="text-xs text-muted mt-0.5">{f.description}</p>
         </div>
-        <span className="shrink-0 text-micro font-mono text-slate-400">{f.confidence}</span>
+        <span className="shrink-0 text-micro font-mono text-muted">{f.confidence}</span>
       </button>
       {open && (
         <div className="px-3 pb-3 pl-10 space-y-2">
           <div>
             <span className="text-micro font-mono uppercase tracking-wider text-muted">snippet</span>
-            <pre className="mt-1 text-mini font-mono text-body whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <pre className="mt-1 text-mini font-mono text-body whitespace-pre-wrap break-all bg-surface-200 rounded p-2 border border-line-1">
               {f.snippet}
             </pre>
           </div>
@@ -116,7 +114,7 @@ function FindingRow({ f, onJump }: { f: Finding; onJump: (line: number) => void 
 
 function StatCard({ label, value, tone }: { label: string; value: string | number; tone?: string }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-4 py-3">
+    <div className="rounded-xl border border-line-1 bg-surface-100 px-4 py-3">
       <div className={`text-2xl font-display font-bold tabular-nums ${tone ?? 'text-slate-900 dark:text-white'}`}>
         {value}
       </div>
@@ -248,8 +246,8 @@ export default function PowershellAnalyzer(): JSX.Element {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* ── Input ── */}
           <div className="space-y-4">
-            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="rounded-xl border border-line-1 bg-surface-100 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-line-1">
                 <span className="text-sm font-mono text-body flex items-center gap-2">
                   <Terminal size={14} /> {filename}
                 </span>
@@ -262,14 +260,14 @@ export default function PowershellAnalyzer(): JSX.Element {
                 onChange={(e) => setCode(e.target.value)}
                 placeholder="# Paste PowerShell code here..."
                 spellCheck={false}
-                className="w-full h-80 px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] text-sm font-mono text-heading border-0 outline-none resize-y"
+                className="w-full h-80 px-4 py-3 bg-surface-200 text-sm font-mono text-heading border-0 outline-none resize-y"
               />
-              <div className="flex items-center gap-2 px-3 py-2.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="flex items-center gap-2 px-3 py-2.5 border-t border-line-1">
                 <button
                   type="button"
                   onClick={analyze}
                   disabled={!code.trim() || analyzing}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 text-on-fill text-sm font-medium hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <Sparkles size={14} /> {analyzing ? 'Analyzing…' : 'Analyze'}
                 </button>
@@ -279,14 +277,14 @@ export default function PowershellAnalyzer(): JSX.Element {
                     setCode(SAMPLE);
                     setFilename('sample_suspicious.ps1');
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-line-1 text-sm text-body hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                 >
                   <FileCode size={14} /> Sample
                 </button>
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-body hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-line-1 text-sm text-body hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
                 >
                   <Upload size={14} /> Upload
                 </button>
@@ -304,7 +302,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                     setResult(null);
                     setFilename('Pasted Code');
                   }}
-                  className="ml-auto text-sm text-muted hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                  className="ml-auto text-sm text-muted hover:text-body dark:hover:text-inverted transition-colors"
                 >
                   Clear
                 </button>
@@ -313,8 +311,8 @@ export default function PowershellAnalyzer(): JSX.Element {
 
             {/* Source viewer with line numbers */}
             {code && (
-              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <div className="rounded-xl border border-line-1 bg-surface-200 overflow-hidden">
+                <div className="flex items-center justify-between px-4 py-2 border-b border-line-1">
                   <span className="text-micro font-mono uppercase tracking-wider text-muted">
                     source · {lines.length} lines
                   </span>
@@ -338,7 +336,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                           id={`psa-line-${ln}`}
                           className={`flex ${isActive ? 'bg-brand-500/15' : isFinding ? 'bg-amber-500/10' : ''}`}
                         >
-                          <span className="shrink-0 w-12 pr-3 text-right text-slate-400 dark:text-slate-500 select-none border-r border-slate-200 dark:border-[rgb(var(--border-400))] mr-3">
+                          <span className="shrink-0 w-12 pr-3 text-right text-muted select-none border-r border-line-1 mr-3">
                             {ln}
                           </span>
                           <span className="px-3 text-body whitespace-pre-wrap break-all">{line || ' '}</span>
@@ -354,8 +352,8 @@ export default function PowershellAnalyzer(): JSX.Element {
           {/* ── Results ── */}
           <div className="space-y-4">
             {!result && (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-12 text-center">
-                <ShieldCheck size={32} className="mx-auto text-slate-400 dark:text-slate-500 mb-3" />
+              <div className="rounded-xl border border-dashed border-line-2 p-12 text-center">
+                <ShieldCheck size={32} className="mx-auto text-muted mb-3" />
                 <p className="text-sm text-muted">
                   Paste a PowerShell script and click <strong>Analyze</strong> to see findings, IOCs, MITRE ATT&CK
                   mapping, and a risk score.
@@ -366,7 +364,7 @@ export default function PowershellAnalyzer(): JSX.Element {
             {result && (
               <>
                 {/* Risk summary */}
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+                <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
                   <div className="flex items-center justify-between mb-3">
                     <h2 className="text-sm font-display font-bold flex items-center gap-2">
                       <AlertTriangle size={16} className="text-brand-600 dark:text-brand-400" /> Executive Summary
@@ -420,7 +418,7 @@ export default function PowershellAnalyzer(): JSX.Element {
 
                   {/* Risk bar */}
                   <div className="mb-3">
-                    <div className="h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--border-400))] overflow-hidden">
+                    <div className="h-2 rounded-full bg-track dark:bg-line-1 overflow-hidden">
                       <div
                         className={`h-full ${SEVERITY_BAR[result.risk.severity]} transition-all`}
                         style={{ width: `${result.risk.riskScore}%` }}
@@ -434,7 +432,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                     {result.risk.categories.map((c) => (
                       <span
                         key={c}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-body"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-2 text-body"
                       >
                         {c}
                       </span>
@@ -443,10 +441,10 @@ export default function PowershellAnalyzer(): JSX.Element {
                 </div>
 
                 {/* Obfuscation */}
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
+                <div className="rounded-xl border border-line-1 bg-surface-100 p-4">
                   <h3 className="text-sm font-display font-bold mb-2">Obfuscation Analysis</h3>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--border-400))] overflow-hidden">
+                    <div className="flex-1 h-2 rounded-full bg-track dark:bg-line-1 overflow-hidden">
                       <div
                         className="h-full bg-sky-500 transition-all"
                         style={{ width: `${result.obfuscation.score}%` }}
@@ -457,7 +455,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                   <ul className="space-y-1">
                     {result.obfuscation.reasons.map((r, i) => (
                       <li key={i} className="text-xs text-muted flex items-start gap-1.5">
-                        <span className="text-slate-400 mt-0.5">•</span>
+                        <span className="text-muted mt-0.5">•</span>
                         {r}
                       </li>
                     ))}
@@ -465,10 +463,10 @@ export default function PowershellAnalyzer(): JSX.Element {
                 </div>
 
                 {/* Findings */}
-                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
-                  <div className="px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
+                <div className="rounded-xl border border-line-1 bg-surface-100 overflow-hidden">
+                  <div className="px-4 py-2.5 border-b border-line-1 flex items-center justify-between">
                     <h3 className="text-sm font-display font-bold">
-                      Findings <span className="text-slate-400">({result.findings.length})</span>
+                      Findings <span className="text-muted">({result.findings.length})</span>
                     </h3>
                   </div>
                   {sortedFindings.length === 0 ? (
@@ -493,13 +491,13 @@ export default function PowershellAnalyzer(): JSX.Element {
 
                 {/* MITRE ATT&CK */}
                 {Object.keys(result.mitreMap).length > 0 && (
-                  <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
-                    <div className="px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <div className="rounded-xl border border-line-1 bg-surface-100 overflow-hidden">
+                    <div className="px-4 py-2.5 border-b border-line-1">
                       <h3 className="text-sm font-display font-bold">
-                        MITRE ATT&CK <span className="text-slate-400">({Object.keys(result.mitreMap).length})</span>
+                        MITRE ATT&CK <span className="text-muted">({Object.keys(result.mitreMap).length})</span>
                       </h3>
                     </div>
-                    <div className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+                    <div className="divide-y divide-line-1">
                       {Object.entries(result.mitreMap)
                         .sort(([a], [b]) => a.localeCompare(b))
                         .map(([id, info]) => (
@@ -509,7 +507,7 @@ export default function PowershellAnalyzer(): JSX.Element {
                                 {id}
                               </span>
                               <span className="text-xs text-body">{info.technique}</span>
-                              <span className="text-micro font-mono text-slate-400">· {info.tactic}</span>
+                              <span className="text-micro font-mono text-muted">· {info.tactic}</span>
                             </div>
                             <div className="mt-1 flex flex-wrap gap-1">
                               {info.findings.map((fn) => (
@@ -526,20 +524,20 @@ export default function PowershellAnalyzer(): JSX.Element {
 
                 {/* IOCs */}
                 {result.iocs.length > 0 && (
-                  <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
-                    <div className="px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <div className="rounded-xl border border-line-1 bg-surface-100 overflow-hidden">
+                    <div className="px-4 py-2.5 border-b border-line-1">
                       <h3 className="text-sm font-display font-bold">
-                        Indicators of Compromise <span className="text-slate-400">({result.iocs.length})</span>
+                        Indicators of Compromise <span className="text-muted">({result.iocs.length})</span>
                       </h3>
                     </div>
-                    <div className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+                    <div className="divide-y divide-line-1">
                       {result.iocs.map((ioc, i) => (
                         <div key={`${ioc.value}-${i}`} className="px-4 py-2 flex items-center gap-3">
                           <span className="shrink-0 text-micro font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">
                             {ioc.type}
                           </span>
                           <code className="flex-1 text-xs font-mono text-body break-all">{ioc.value}</code>
-                          <span className="shrink-0 text-micro font-mono text-slate-400">L{ioc.line}</span>
+                          <span className="shrink-0 text-micro font-mono text-muted">L{ioc.line}</span>
                           <CopyChip value={ioc.value} title="Copy IOC" />
                         </div>
                       ))}

@@ -69,19 +69,14 @@ export default function CveHealthCheck({ bare }: CveHealthCheckProps): JSX.Eleme
         {data.checks.map((check) => {
           const Icon = STATUS_ICON[check.status] ?? CheckCircle;
           return (
-            <div
-              key={check.name}
-              className="p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl"
-            >
+            <div key={check.name} className="p-3 bg-surface-100 border border-line-1 rounded-xl">
               <div className="flex items-center gap-2">
                 <Icon className={`h-4 w-4 ${STATUS_COLOR[check.status]}`} />
-                <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
-                  {formatName(check.name)}
-                </span>
+                <span className="font-mono text-sm font-medium text-heading">{formatName(check.name)}</span>
               </div>
               <p className="text-xs text-muted mt-1 ml-6">{check.message}</p>
               {check.details && (
-                <pre className="mt-2 ml-6 p-2 bg-slate-50 dark:bg-[rgb(var(--surface-300))] rounded-xl text-mini font-mono text-muted overflow-x-auto border border-slate-100 dark:border-[rgb(var(--border-400))]">
+                <pre className="mt-2 ml-6 p-2 bg-surface-200 rounded-xl text-mini font-mono text-muted overflow-x-auto border border-line-1">
                   {JSON.stringify(check.details, null, 2)}
                 </pre>
               )}
@@ -111,7 +106,7 @@ export default function CveHealthCheck({ bare }: CveHealthCheckProps): JSX.Eleme
             type="button"
             onClick={refetch}
             disabled={loading}
-            className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="px-3 py-2 bg-surface-100 border border-line-2 rounded-xl text-sm flex items-center gap-1.5 hover:bg-surface-200 dark:hover:bg-surface-300 transition-colors"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             Re-check

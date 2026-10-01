@@ -42,18 +42,28 @@ export function searchAll(q: string, actors: Actor[]): SearchHit[] {
   const out: SearchHit[] = [];
 
   for (const a of actors) {
-    if (a.name.toLowerCase().includes(ql))         out.push({ type: 'actor', id: a.id, label: a.name, sub: a.aka.join(' · '), actorId: a.id });
-    if (a.apt?.toLowerCase().includes(ql))         out.push({ type: 'actor', id: a.id, label: a.apt!,  sub: a.name, actorId: a.id });
-    if (a.aka.some(k => k.toLowerCase().includes(ql))) {
-      if (!out.find(x => x.type === 'actor' && x.id === a.id)) {
+    if (a.name.toLowerCase().includes(ql))
+      out.push({ type: 'actor', id: a.id, label: a.name, sub: a.aka.join(' · '), actorId: a.id });
+    if (a.apt?.toLowerCase().includes(ql))
+      out.push({ type: 'actor', id: a.id, label: a.apt!, sub: a.name, actorId: a.id });
+    if (a.aka.some((k) => k.toLowerCase().includes(ql))) {
+      if (!out.find((x) => x.type === 'actor' && x.id === a.id)) {
         out.push({ type: 'actor', id: a.id, label: a.name, sub: a.aka.join(' · '), actorId: a.id });
       }
     }
     for (const m of a.malware) {
-      if (m.name.toLowerCase().includes(ql)) out.push({ type: 'malware', id: `${a.id}/${m.name}`, label: m.name, sub: `${m.type} · ${m.platform}`, actorId: a.id });
+      if (m.name.toLowerCase().includes(ql))
+        out.push({
+          type: 'malware',
+          id: `${a.id}/${m.name}`,
+          label: m.name,
+          sub: `${m.type} · ${m.platform}`,
+          actorId: a.id,
+        });
     }
     for (const c of a.cves) {
-      if (c.id.toLowerCase().includes(ql)) out.push({ type: 'cve', id: c.id, label: c.id, sub: `${c.product} · CVSS ${c.cvss}`, actorId: a.id });
+      if (c.id.toLowerCase().includes(ql))
+        out.push({ type: 'cve', id: c.id, label: c.id, sub: `${c.product} · CVSS ${c.cvss}`, actorId: a.id });
     }
     for (const t of a.ttps) {
       if (t.id.toLowerCase().includes(ql) || t.name.toLowerCase().includes(ql)) {
@@ -61,7 +71,14 @@ export function searchAll(q: string, actors: Actor[]): SearchHit[] {
       }
     }
     for (const c of a.campaigns) {
-      if (c.name.toLowerCase().includes(ql)) out.push({ type: 'campaign', id: `${a.id}/${c.name}`, label: c.name, sub: c.summary.slice(0, 90), actorId: a.id });
+      if (c.name.toLowerCase().includes(ql))
+        out.push({
+          type: 'campaign',
+          id: `${a.id}/${c.name}`,
+          label: c.name,
+          sub: c.summary.slice(0, 90),
+          actorId: a.id,
+        });
     }
   }
 
@@ -77,7 +94,9 @@ export function groupFeed(items: FeedItem[]) {
   return Object.entries(out).sort(([a], [b]) => (a < b ? 1 : -1));
 }
 
-export function unique<T>(arr: T[]): T[] { return Array.from(new Set(arr)); }
+export function unique<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr));
+}
 
 export function cssVar(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();

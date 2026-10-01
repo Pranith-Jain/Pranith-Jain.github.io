@@ -18,8 +18,8 @@ export interface StatItem {
 
 export function StatBar({ items }: { items: StatItem[] }): JSX.Element {
   return (
-    <section className="rounded-xl border border-slate-200/80 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200)/0.4)] overflow-hidden">
-      <dl className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-slate-200/80 dark:divide-slate-800/80">
+    <section className="rounded-xl border border-line-1/80 bg-surface-100/60 dark:bg-surface-200/40 overflow-hidden">
+      <dl className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-line-1/80 dark:divide-slate-800/80">
         {items.map((s) => (
           <div key={s.label} className="px-4 py-3 sm:py-3.5">
             <dt className="text-micro font-mono uppercase tracking-[0.14em] text-muted">{s.label}</dt>

@@ -88,7 +88,7 @@ export default function OsintFramework(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, description, or category - e.g. crypto, breach, court, image"
-            className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded border border-line-1 bg-surface-200 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
             aria-label="Search OSINT framework"
           />
         </div>
@@ -100,7 +100,7 @@ export default function OsintFramework(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               pricingFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -115,7 +115,7 @@ export default function OsintFramework(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   pricingFilter === p
                     ? PRICING_STYLES[p]
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {PRICING_LABELS[p]} <span className="opacity-60">· {count}</span>
@@ -131,7 +131,7 @@ export default function OsintFramework(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               category === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -145,7 +145,7 @@ export default function OsintFramework(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   category === c
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-line-1 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {CATEGORY_LABELS[c]} <span className="opacity-60">· {categoryCounts[c]}</span>
@@ -184,7 +184,7 @@ export default function OsintFramework(): JSX.Element {
           </article>
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-muted">
+          <div className="col-span-full rounded-xl border border-dashed border-line-2 p-8 text-center text-sm font-mono text-muted">
             No entries match those filters. Try clearing the search or relaxing the category filter.
           </div>
         )}

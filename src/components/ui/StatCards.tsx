@@ -47,8 +47,8 @@ export function StatCards({ cards, cols = 'grid-cols-2 sm:grid-cols-4' }: StatCa
               card.onClick
                 ? card.selected
                   ? 'border-brand-500/60 bg-brand-500/5'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] hover:border-brand-500/30'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)]'
+                  : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/40 hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/40'
             }`}
           >
             <div className="flex items-center gap-2 mb-1.5">

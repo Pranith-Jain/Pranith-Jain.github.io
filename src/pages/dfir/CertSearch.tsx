@@ -149,7 +149,7 @@ export default function CertSearch(): JSX.Element {
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
                 placeholder="example.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-surface-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -161,7 +161,7 @@ export default function CertSearch(): JSX.Element {
             <button
               type="submit"
               disabled={loading || !domain.trim()}
-              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
+              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-on-fill font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'searching…' : 'search'}
@@ -170,13 +170,13 @@ export default function CertSearch(): JSX.Element {
         </form>
 
         <div className="flex flex-wrap gap-2 mt-3 items-center">
-          <span className="text-micro font-mono text-slate-400 mr-1">samples:</span>
+          <span className="text-micro font-mono text-muted mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.domain}
               type="button"
               onClick={() => void lookup(s.domain)}
-              className="text-mini font-mono px-3 py-2 sm:px-2 sm:py-0.5 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
+              className="text-mini font-mono px-3 py-2 sm:px-2 sm:py-0.5 min-h-[44px] sm:min-h-0 rounded border border-line-2 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
             >
               {s.label}
             </button>
@@ -198,15 +198,15 @@ export default function CertSearch(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4">
               <div>
                 <div className="text-2xl font-bold text-heading">{data.total}</div>
-                <div className="text-mini font-mono text-slate-400">total issuances</div>
+                <div className="text-mini font-mono text-muted">total issuances</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-heading">{data.unique_names.length}</div>
-                <div className="text-mini font-mono text-slate-400">unique DNS names</div>
+                <div className="text-mini font-mono text-muted">unique DNS names</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-heading">{data.issuers.length}</div>
-                <div className="text-mini font-mono text-slate-400">distinct issuers</div>
+                <div className="text-mini font-mono text-muted">distinct issuers</div>
               </div>
             </div>
             {data.issuers.length > 0 && (
@@ -229,7 +229,7 @@ export default function CertSearch(): JSX.Element {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono inline-flex items-center gap-2">
                 <Globe2 size={12} /> Unique DNS names
                 {filter && (
-                  <span className="text-slate-500">
+                  <span className="text-muted">
                     ({filteredNames.length} of {data.unique_names.length})
                   </span>
                 )}
@@ -243,15 +243,12 @@ export default function CertSearch(): JSX.Element {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="filter (e.g. api, dev, staging)"
-                className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-7 pr-3 py-1.5 bg-surface-200 border border-line-1 rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
             <ul className="font-mono text-meta text-body space-y-1 max-h-80 overflow-auto break-all">
               {filteredNames.map((n, ni) => (
-                <li
-                  key={`${n}-${ni}`}
-                  className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-1 last:border-0 flex items-baseline gap-2"
-                >
+                <li key={`${n}-${ni}`} className="border-b border-line-1 pb-1 last:border-0 flex items-baseline gap-2">
                   <span className="flex-1">{n}</span>
                   <Link
                     to={`/dfir/domain?domain=${encodeURIComponent(n.replace(/^\*\./, ''))}`}
@@ -282,12 +279,12 @@ export default function CertSearch(): JSX.Element {
                   className={`rounded border p-2 ${
                     it.revoked
                       ? 'border-rose-500/40 bg-rose-500/5'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
+                      : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
                     <span className="text-mini font-mono text-brand-700 dark:text-brand-300">{it.issuer}</span>
-                    <span className="text-micro font-mono text-slate-400">
+                    <span className="text-micro font-mono text-muted">
                       {it.not_before?.slice(0, 10)} → {it.not_after?.slice(0, 10)}
                       {it.revoked && (
                         <span className="ml-2 px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/40">
@@ -306,7 +303,7 @@ export default function CertSearch(): JSX.Element {
             </ul>
           </section>
 
-          <p className="text-micro font-mono text-slate-400">
+          <p className="text-micro font-mono text-muted">
             Source:{' '}
             <a
               href={sanitizeUrl(data.source_url) || undefined}

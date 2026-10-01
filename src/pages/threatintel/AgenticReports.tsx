@@ -57,7 +57,7 @@ export default function AgenticReports(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search reports, actors, tags…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+            className="w-full pl-9 pr-4 py-2 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
       </div>
@@ -88,7 +88,7 @@ export default function AgenticReports(): JSX.Element {
               {r.tags.slice(0, 5).map((t) => (
                 <span
                   key={t}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-line-1 bg-surface-200 text-muted"
                 >
                   {t}
                 </span>
@@ -98,7 +98,7 @@ export default function AgenticReports(): JSX.Element {
           </button>
         ))}
         {filtered.length === 0 && (
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+          <div className="rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
             No reports match your search.
           </div>
         )}
@@ -210,10 +210,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
           ]
             .filter((f) => f.value)
             .map((f) => (
-              <div
-                key={f.label}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
-              >
+              <div key={f.label} className="rounded border border-line-1 bg-surface-200 px-2 py-1.5">
                 <div className="text-micro font-mono uppercase tracking-wider text-muted">{f.label}</div>
                 <div className="text-xs text-heading mt-0.5">{f.value}</div>
               </div>
@@ -231,10 +228,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
         <Section title="Detection Opportunities" icon={<Shield className="h-4 w-4" />} count={report.detection.length}>
           <div className="space-y-2">
             {report.detection.map((d, i) => (
-              <div
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
-              >
+              <div key={i} className="rounded border border-line-1 bg-surface-200 p-3">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <span className="text-sm font-medium text-heading">{d.title}</span>
                   <span
@@ -248,7 +242,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                 </div>
                 <p className="text-xs text-body mb-1">{d.description}</p>
                 {d.query && (
-                  <pre className="text-xs font-mono text-heading bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded p-2 overflow-x-auto mt-2">
+                  <pre className="text-xs font-mono text-heading bg-surface-300 rounded p-2 overflow-x-auto mt-2">
                     {d.query}
                   </pre>
                 )}
@@ -356,10 +350,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
         <Section title="Victimology & Scale" icon={<Target className="h-4 w-4" />}>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {report.metrics.map((m) => (
-              <div
-                key={m.label}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
-              >
+              <div key={m.label} className="rounded border border-line-1 bg-surface-200 px-2 py-1.5">
                 <div className="text-micro font-mono uppercase tracking-wider text-muted">{m.label}</div>
                 <div className="text-sm font-semibold text-heading">{m.value}</div>
               </div>
@@ -379,7 +370,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
               </li>
             ))}
           </ul>
-          <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
+          <div className="border-t border-line-1 pt-3">
             <div className="text-micro font-mono uppercase tracking-wider text-muted mb-2">Recommended Actions</div>
             <div className="space-y-1.5">
               {report.conclusion.actions.map((a, i) => (
@@ -419,7 +410,7 @@ function Section({
         <span className="text-rose-600 dark:text-rose-400">{icon}</span>
         <h3 className="text-sm font-semibold text-heading">{title}</h3>
         {typeof count === 'number' && (
-          <span className="ml-auto text-micro font-mono uppercase text-slate-500">{count}</span>
+          <span className="ml-auto text-micro font-mono uppercase text-muted">{count}</span>
         )}
       </div>
       {children}

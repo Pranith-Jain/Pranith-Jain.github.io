@@ -22,7 +22,7 @@ function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
       <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
         {type}
       </div>
-      <div className="text-base font-semibold text-slate-900 dark:text-white leading-snug">{title}</div>
+      <div className="text-base font-semibold text-heading leading-snug">{title}</div>
       <div className="mt-1.5 text-xs text-muted">
         {issuer} · {year}
       </div>
@@ -54,7 +54,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
     <div id={id} className="scroll-mt-28">
       <div className="flex items-baseline justify-between mb-4">
         <h3 className="text-xs font-bold uppercase tracking-wider text-muted">{title}</h3>
-        <span className="text-mini font-mono text-slate-500">{certs.length}</span>
+        <span className="text-mini font-mono text-muted">{certs.length}</span>
       </div>
       <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((cert) => (
@@ -74,7 +74,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-brand-600 dark:text-muted dark:hover:text-brand-400 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted hover:text-brand-600 dark:hover:text-brand-400 transition"
             aria-expanded={showAll}
           >
             {showAll ? (
@@ -130,7 +130,7 @@ export function Certifications({ certifications, education }: CertificationsProp
     <section id="certifications" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">Credentials</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Education, certifications &amp; coursework
         </h2>
       </div>
@@ -141,7 +141,7 @@ export function Certifications({ certifications, education }: CertificationsProp
         <ul className="space-y-3">
           {education.map((e) => (
             <li key={e.degree} className="surface-card px-5 py-4">
-              <div className="font-semibold text-slate-900 dark:text-white">{e.degree}</div>
+              <div className="font-semibold text-heading">{e.degree}</div>
               <div className="text-sm text-muted">{e.school}</div>
             </li>
           ))}

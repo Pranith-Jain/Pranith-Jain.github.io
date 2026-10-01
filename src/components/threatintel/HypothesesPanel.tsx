@@ -71,16 +71,16 @@ export function HypothesesPanel({ steps }: { steps: TraceStepWithHypotheses[] })
     .join(' · ');
 
   return (
-    <div className="mt-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/30">
+    <div className="mt-3 rounded-xl border border-line-1 bg-surface-200/50 dark:bg-surface-200/30">
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex w-full items-center justify-between px-3 py-2 text-left"
       >
         <div className="flex items-center gap-2">
           {expanded ? (
-            <ChevronDown size={14} className="text-slate-400" />
+            <ChevronDown size={14} className="text-muted" />
           ) : (
-            <ChevronRight size={14} className="text-slate-400" />
+            <ChevronRight size={14} className="text-muted" />
           )}
           <FlaskConical size={14} className="text-violet-500" />
           <span className="text-xs font-mono font-semibold text-body">Hypotheses</span>
@@ -89,7 +89,7 @@ export function HypothesesPanel({ steps }: { steps: TraceStepWithHypotheses[] })
       </button>
 
       {expanded && (
-        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-2 space-y-1.5">
+        <div className="border-t border-line-1 px-3 py-2 space-y-1.5">
           {hypotheses.map((h) => {
             const meta = STATUS_META[h.status];
             const Icon = meta.icon;
@@ -108,9 +108,7 @@ export function HypothesesPanel({ steps }: { steps: TraceStepWithHypotheses[] })
                       ↳ {h.evidence}
                     </p>
                   )}
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">
-                    proposed at step {h.firstStep}
-                  </p>
+                  <p className="text-[10px] text-muted font-mono">proposed at step {h.firstStep}</p>
                 </div>
               </div>
             );

@@ -55,10 +55,10 @@ interface MemoryEntry {
 function Stat({ label, value, suffix }: { label: string; value: string | number; suffix?: string }): JSX.Element {
   return (
     <div className="surface-card p-3">
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted">{label}</div>
       <div className="text-2xl font-bold text-heading">
         {value}
-        {suffix ? <span className="text-sm font-normal text-slate-400">{suffix}</span> : null}
+        {suffix ? <span className="text-sm font-normal text-muted">{suffix}</span> : null}
       </div>
     </div>
   );
@@ -112,10 +112,10 @@ export default function AgentMetrics(): JSX.Element {
     };
   }, []);
 
-  if (loading) return <div className="p-8 text-center font-mono text-sm text-slate-500">Loading metrics…</div>;
+  if (loading) return <div className="p-8 text-center font-mono text-sm text-muted">Loading metrics…</div>;
   if (error) return <div className="p-8 text-center font-mono text-sm text-rose-600">{error}</div>;
   if (!data || data.totalInvestigations === 0)
-    return <div className="p-8 text-center font-mono text-sm text-slate-500">No investigations recorded yet.</div>;
+    return <div className="p-8 text-center font-mono text-sm text-muted">No investigations recorded yet.</div>;
 
   const f = data.features;
 
@@ -131,7 +131,7 @@ export default function AgentMetrics(): JSX.Element {
       </div>
 
       <div>
-        <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">Feature Telemetry</h3>
+        <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">Feature Telemetry</h3>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           <Stat label="Parallel Burst" value={f.parallelBurst} />
           <Stat label="Self-Correction" value={f.selfCorrection} />
@@ -146,7 +146,7 @@ export default function AgentMetrics(): JSX.Element {
 
       {providers && (
         <div>
-          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">LLM Provider Health</h3>
+          <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">LLM Provider Health</h3>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {Object.entries(providers).map(([name, p]) => (
               <div key={name} className="surface-card p-3">
@@ -160,7 +160,7 @@ export default function AgentMetrics(): JSX.Element {
                     {p.healthy ? 'HEALTHY' : 'DEGRADED'}
                   </span>
                 </div>
-                <div className="mt-2 text-micro font-mono text-slate-500">
+                <div className="mt-2 text-micro font-mono text-muted">
                   {p.avgResponseMs > 0 ? `${Math.round(p.avgResponseMs)}ms · ` : ''}
                   {p.successes}✓ / {p.failures}✗
                   {p.consecutiveFailures > 0 ? ` · ${p.consecutiveFailures} consec. fails` : ''}
@@ -173,9 +173,7 @@ export default function AgentMetrics(): JSX.Element {
       )}
 
       <div>
-        <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
-          Top Tools (latency / success)
-        </h3>
+        <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">Top Tools (latency / success)</h3>
         <div className="surface-card overflow-x-auto">
           <DataTable
             columns={
@@ -223,12 +221,12 @@ export default function AgentMetrics(): JSX.Element {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div>
-          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">Top Models</h3>
-          <div className="surface-card divide-y divide-slate-100 dark:divide-[rgb(var(--border-400)/0.5)]">
+          <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">Top Models</h3>
+          <div className="surface-card divide-y divide-line-1">
             {data.topModels.map((m) => (
               <div key={m.model} className="flex items-center justify-between px-3 py-2 text-sm">
                 <span className="font-mono text-heading">{m.model}</span>
-                <span className="tabular-nums text-slate-500">
+                <span className="tabular-nums text-muted">
                   {m.count}× · avg {m.avgScore}
                 </span>
               </div>
@@ -237,10 +235,10 @@ export default function AgentMetrics(): JSX.Element {
         </div>
 
         <div>
-          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">Recent Errors</h3>
-          <div className="surface-card divide-y divide-slate-100 dark:divide-[rgb(var(--border-400)/0.5)]">
+          <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">Recent Errors</h3>
+          <div className="surface-card divide-y divide-line-1">
             {data.recentErrors.length === 0 ? (
-              <div className="px-3 py-2 text-sm text-slate-500">None.</div>
+              <div className="px-3 py-2 text-sm text-muted">None.</div>
             ) : (
               data.recentErrors.map((e, i) => (
                 <div key={i} className="px-3 py-2 text-sm">
@@ -255,16 +253,16 @@ export default function AgentMetrics(): JSX.Element {
 
       {memory && memory.length > 0 && (
         <div>
-          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">Investigation Memory</h3>
-          <div className="surface-card divide-y divide-slate-100 dark:divide-[rgb(var(--border-400)/0.5)]">
+          <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">Investigation Memory</h3>
+          <div className="surface-card divide-y divide-line-1">
             {memory.map((m, i) => (
               <div key={i} className="px-3 py-2 text-sm">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-mono text-heading truncate">{m.query}</span>
-                  <span className="shrink-0 tabular-nums text-micro text-slate-500">{m.qualityScore}/100</span>
+                  <span className="shrink-0 tabular-nums text-micro text-muted">{m.qualityScore}/100</span>
                 </div>
-                <div className="mt-0.5 flex flex-wrap gap-1 text-micro font-mono text-slate-500">
-                  <span className="rounded bg-slate-100 px-1 dark:bg-[rgb(var(--surface-300))]">{m.queryType}</span>
+                <div className="mt-0.5 flex flex-wrap gap-1 text-micro font-mono text-muted">
+                  <span className="rounded bg-surface-300 px-1">{m.queryType}</span>
                   {m.actors.slice(0, 2).map((a) => (
                     <span key={a} className="rounded bg-rose-500/10 px-1 text-rose-600">
                       {a}
@@ -289,14 +287,10 @@ export default function AgentMetrics(): JSX.Element {
 
       {graph && graph.nodes.length > 0 && (
         <div>
-          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
+          <h3 className="text-mini font-mono uppercase tracking-wider text-muted mb-2">
             Knowledge Graph ({graph.nodes.length} entities, {graph.edges.length} relationships)
           </h3>
-          <Suspense
-            fallback={
-              <div className="h-[460px] animate-pulse rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300))]" />
-            }
-          >
+          <Suspense fallback={<div className="h-[460px] animate-pulse rounded-xl bg-surface-300" />}>
             <RelationshipGraph graph={graph} />
           </Suspense>
         </div>

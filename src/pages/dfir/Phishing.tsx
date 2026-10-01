@@ -219,7 +219,7 @@ export default function Phishing(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2 transition-colors"
+            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2 transition-colors"
           >
             <ScanText size={16} /> Analyze
           </button>
@@ -294,7 +294,7 @@ export default function Phishing(): JSX.Element {
           <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
           Phishing Kit Fingerprint
         </h2>
-        <p className="text-xs text-slate-500 mb-4 max-w-xl">
+        <p className="text-xs text-muted mb-4 max-w-xl">
           Paste a suspected phishing URL. The page content is fetched server-side, then a structural fingerprint
           (stripped of text/scripts/styles) is hashed in your browser. The hash and the submitted URL are sent to
           aggregate sightings; the URL is retained for up to 30 days and may be shown to others as a sample URL.
@@ -306,7 +306,7 @@ export default function Phishing(): JSX.Element {
             onChange={(e) => setFpUrl(e.target.value)}
             placeholder="https://phishing-site.example.com/login"
             aria-label="Phishing URL to fingerprint"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="button"
@@ -371,7 +371,7 @@ export default function Phishing(): JSX.Element {
           <Eye size={16} className="text-brand-600 dark:text-brand-400" />
           URL Auto-Analysis
         </h2>
-        <p className="text-xs text-slate-500 mb-4 max-w-xl">
+        <p className="text-xs text-muted mb-4 max-w-xl">
           Enter a URL to fetch and scan for phishing indicators - form extraction, password fields, suspicious keywords,
           scripts/iframes, external links, DNS resolution, and auto risk score.
         </p>
@@ -383,7 +383,7 @@ export default function Phishing(): JSX.Element {
             onKeyDown={(e) => e.key === 'Enter' && void runAutoAnalyze()}
             placeholder="https://example.com/login"
             aria-label="URL to auto-analyze"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-surface-200 border border-line-1 rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="button"
@@ -427,7 +427,7 @@ export default function Phishing(): JSX.Element {
 
             {/* Key indicators */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-line-1 bg-surface-200/50 p-3">
                 <p className="text-micro font-mono text-muted flex items-center gap-1">
                   <Lock size={10} /> Password field
                 </p>
@@ -437,19 +437,19 @@ export default function Phishing(): JSX.Element {
                   {aaResult.has_password_field ? 'YES' : 'NO'}
                 </p>
               </div>
-              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-line-1 bg-surface-200/50 p-3">
                 <p className="text-micro font-mono text-muted flex items-center gap-1">
                   <FileText size={10} /> Fields
                 </p>
                 <p className="text-sm font-bold">{aaResult.forms.length}</p>
               </div>
-              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-line-1 bg-surface-200/50 p-3">
                 <p className="text-micro font-mono text-muted flex items-center gap-1">
                   <ExternalLink size={10} /> Ext. links
                 </p>
                 <p className="text-sm font-bold">{aaResult.external_links}</p>
               </div>
-              <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
+              <div className="rounded-xl border border-line-1 bg-surface-200/50 p-3">
                 <p className="text-micro font-mono text-muted flex items-center gap-1">
                   <FileText size={10} /> Scripts
                 </p>
@@ -484,11 +484,9 @@ export default function Phishing(): JSX.Element {
                 </p>
                 {aaResult.forms.slice(0, 8).map((f, i) => (
                   <div key={i} className="flex gap-2 text-mini font-mono text-muted">
-                    <span className="text-micro px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] uppercase">
-                      {f.type}
-                    </span>
+                    <span className="text-micro px-1.5 py-0.5 rounded bg-surface-300 uppercase">{f.type}</span>
                     <span className="text-brand-600 dark:text-brand-400">{f.name || '-'}</span>
-                    <span className="text-slate-500">{f.placeholder || ''}</span>
+                    <span className="text-muted">{f.placeholder || ''}</span>
                   </div>
                 ))}
               </div>

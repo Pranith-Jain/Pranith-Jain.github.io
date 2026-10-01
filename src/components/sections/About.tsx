@@ -11,7 +11,7 @@ export function About({ stats }: AboutProps) {
     <section id="about" className="scroll-mt-24">
       <div className="max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-muted">About me</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-heading">
           Alerts first, then everything else
         </h2>
 
@@ -23,9 +23,9 @@ export function About({ stats }: AboutProps) {
           </p>
           <p>
             That's where the automation came from. With{' '}
-            <span className="font-semibold text-slate-900 dark:text-white">n8n and a few MCP servers</span>, I moved the
-            repeatable parts of triage off the analyst critical path. Mean response dropped from four hours to under 75
-            minutes. The decisions that actually need a human stayed with the human.
+            <span className="font-semibold text-heading">n8n and a few MCP servers</span>, I moved the repeatable parts
+            of triage off the analyst critical path. Mean response dropped from four hours to under 75 minutes. The
+            decisions that actually need a human stayed with the human.
           </p>
           <p>
             I ship the tools I wish I'd had on shift. The interactive ones live at{' '}
@@ -46,11 +46,9 @@ export function About({ stats }: AboutProps) {
           </p>
           <p>
             Lately I've been spending most of my reading time on{' '}
-            <span className="font-semibold text-slate-900 dark:text-white">
-              AI security and Non-Human Identity governance
-            </span>
-            . Prompt injection, MCP attack surface, service-account sprawl. The investigation-first mindset transfers
-            well; the tooling is mostly still being built.
+            <span className="font-semibold text-heading">AI security and Non-Human Identity governance</span>. Prompt
+            injection, MCP attack surface, service-account sprawl. The investigation-first mindset transfers well; the
+            tooling is mostly still being built.
           </p>
           <p>If you're hiring for any of this, or working on the same problems in the open, my inbox is below.</p>
         </div>
@@ -60,12 +58,12 @@ export function About({ stats }: AboutProps) {
           Plain numbers, caps-mono labels, no card chrome. Each cell is
           separated by a thin left rule on sm+ so the row reads as a clean
           band of facts, not four boxes. */}
-      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-[rgb(var(--border-400))]">
+      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-line-1/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-line-1">
         {stats.map((stat) => (
           <div key={stat.label}>
             <dt className="text-eyebrow font-mono uppercase text-muted">{stat.label}</dt>
             <dd className="mt-1 flex items-baseline gap-1.5">
-              <span className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
+              <span className="text-3xl font-bold text-heading tracking-tight">{stat.value}</span>
               {stat.suffix && (
                 <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{stat.suffix}</span>
               )}

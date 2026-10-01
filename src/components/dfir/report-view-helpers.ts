@@ -130,7 +130,7 @@ export function renderMarkdown(md: string): string {
   s = s.replace(/```(\w*)\n([\s\S]*?)```/g, (_m, lang, body) => {
     const idx = codeBlocks.length;
     codeBlocks.push(
-      `<pre data-codeblock="${idx}" data-lang="${esc(lang)}" class="rounded bg-slate-900 dark:bg-[rgb(var(--input-200))] text-slate-100 p-3 my-3 text-xs overflow-x-auto font-mono leading-relaxed"><code>${esc(body.trimEnd())}</code></pre>`
+      `<pre data-codeblock="${idx}" data-lang="${esc(lang)}" class="rounded bg-surface-100 dark:bg-input-200 text-slate-100 p-3 my-3 text-xs overflow-x-auto font-mono leading-relaxed"><code>${esc(body.trimEnd())}</code></pre>`
     );
     return `\n\n§§CODEBLOCK${idx}§§\n\n`;
   });
@@ -138,7 +138,7 @@ export function renderMarkdown(md: string): string {
   // Inline code
   s = s.replace(
     /`([^`\n]+)`/g,
-    '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono">$1</code>'
+    '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-surface-300 text-xs font-mono">$1</code>'
   );
 
   // Headings
@@ -190,18 +190,18 @@ export function renderMarkdown(md: string): string {
     const ths = header
       .map(
         (h) =>
-          `<th class="text-left px-2 py-1 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">${h}</th>`
+          `<th class="text-left px-2 py-1 font-mono text-micro uppercase tracking-wider text-muted border-b border-line-1">${h}</th>`
       )
       .join('');
     const trs = body
       .map(
         (cols) =>
-          `<tr class="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">${cols
+          `<tr class="border-b border-line-1">${cols
             .map((c) => `<td class="px-2 py-1 text-sm font-mono align-top">${c}</td>`)
             .join('')}</tr>`
       )
       .join('');
-    return `<table class="w-full my-3 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded overflow-hidden"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+    return `<table class="w-full my-3 border border-line-1 rounded overflow-hidden"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
   });
 
   // Paragraphs

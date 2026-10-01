@@ -44,7 +44,7 @@ interface SearchResult {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 
 function fmt(n: number | null | undefined): string {
   return typeof n === 'number' ? n.toLocaleString() : '—';
@@ -127,7 +127,7 @@ export default function Destroylist(): JSX.Element {
           ['Root domains', fmt(data?.counts.primaryRoots)],
         ].map(([label, value]) => (
           <div key={label} className="surface-card p-4 text-center">
-            <div className="text-2xl font-display font-bold text-slate-900 dark:text-white tabular-nums">{value}</div>
+            <div className="text-2xl font-display font-bold text-heading tabular-nums">{value}</div>
             <div className="text-micro font-mono uppercase tracking-wider text-muted mt-1">{label}</div>
           </div>
         ))}
@@ -135,7 +135,7 @@ export default function Destroylist(): JSX.Element {
 
       {/* Domain check */}
       <section className="surface-card p-5 mb-6">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Check a domain</h2>
+        <h2 className="text-lg font-bold text-heading mb-3">Check a domain</h2>
         <div className="flex gap-2">
           <input
             value={checkDomain}
@@ -148,7 +148,7 @@ export default function Destroylist(): JSX.Element {
           <button
             onClick={() => void runCheck()}
             disabled={checking || !checkDomain.trim()}
-            className="px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-500 disabled:opacity-50 whitespace-nowrap inline-flex items-center gap-2"
+            className="px-4 py-2 bg-brand-600 text-on-fill rounded-xl text-sm font-medium hover:bg-brand-500 disabled:opacity-50 whitespace-nowrap inline-flex items-center gap-2"
           >
             {checking ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Check
@@ -189,7 +189,7 @@ export default function Destroylist(): JSX.Element {
 
       {/* Root-domain search */}
       <section className="surface-card p-5 mb-6">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Search root domains</h2>
+        <h2 className="text-lg font-bold text-heading mb-3">Search root domains</h2>
         <div className="flex gap-2">
           <input
             value={searchQ}
@@ -202,7 +202,7 @@ export default function Destroylist(): JSX.Element {
           <button
             onClick={() => void runSearch()}
             disabled={searching || searchQ.trim().length < 3}
-            className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50 whitespace-nowrap"
+            className="px-4 py-2 border border-line-1 rounded-xl text-sm font-medium hover:bg-surface-200 dark:hover:bg-surface-300 disabled:opacity-50 whitespace-nowrap"
           >
             Search
           </button>
@@ -228,7 +228,7 @@ export default function Destroylist(): JSX.Element {
       </section>
 
       {/* Feed info footer */}
-      <footer className="pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-sm text-muted">
+      <footer className="pt-6 border-t border-line-1 text-sm text-muted">
         <p>
           Primary feed synced <strong>{data ? relativeAgo(data.syncedAt) : '—'}</strong> · MIT license ·{' '}
           <a

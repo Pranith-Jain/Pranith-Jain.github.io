@@ -61,7 +61,7 @@ const TAG_PILL: Record<string, string> = {
     'border-orange-300 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
   'awesome-list':
     'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
-  os: 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-body',
+  os: 'border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-surface-200 text-body',
 };
 
 function hostnameOf(url: string): string {
@@ -93,15 +93,15 @@ function ToolRow({
   const visible = !query || matchesText(haystack, query);
   if (!visible) return <></>;
   return (
-    <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0">
+    <div className="border-b border-line-1 last:border-b-0">
       <div
-        className="flex items-start gap-3 px-3 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] transition-colors"
+        className="flex items-start gap-3 px-3 py-3 hover:bg-surface-200 dark:hover:bg-surface-200/50 transition-colors"
         style={{ paddingLeft: `${depth * 16 + 12}px` }}
       >
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-muted hover:bg-slate-200/60 dark:hover:bg-[rgb(var(--surface-300)/0.6)]"
+          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-muted hover:bg-track/60 dark:hover:bg-surface-300/60"
           aria-label={open ? 'Collapse' : 'Expand'}
         >
           {open ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -121,8 +121,7 @@ function ToolRow({
               <span
                 key={t}
                 className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${
-                  TAG_PILL[t] ??
-                  'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted'
+                  TAG_PILL[t] ?? 'border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-surface-200 text-muted'
                 }`}
               >
                 {t}
@@ -165,7 +164,7 @@ function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: strin
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
+      className="block rounded-xl border border-line-1 bg-surface-100 p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start gap-2">
         <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400" />
@@ -191,20 +190,20 @@ function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.
       ? 'border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
       : ds.releaseStatus === 'pending'
         ? 'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300'
-        : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted';
+        : 'border-slate-300 dark:border-line-1 bg-slate-50 dark:bg-surface-200 text-muted';
   return (
     <a
       href={ds.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
+      className="block rounded-xl border border-line-1 bg-surface-100 p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start gap-2">
         <Database className="mt-0.5 h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-2">
             <h3 className="text-base font-medium text-heading">{ds.title}</h3>
-            <span className="text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-muted">
+            <span className="text-micro font-mono rounded border border-line-2 px-1.5 py-0.5 text-muted">
               {ds.wave}
             </span>
             <span className={`text-micro font-mono rounded border px-1.5 py-0.5 ${statusTone}`}>
@@ -303,7 +302,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
       }
       headerExtra={
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
-          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-muted font-mono">
+          <span className="rounded border border-line-2 px-2 py-1 text-muted font-mono">
             mirrored <span className="text-body">2026-06-13</span>
           </span>
           <span className="rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 text-emerald-700 dark:text-emerald-300 font-mono">
@@ -326,13 +325,13 @@ export default function RedHuntLabsResearch(): JSX.Element {
               className={`inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-sm font-medium transition-colors ${
                 active
                   ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-300/60 dark:border-rose-500/40/60'
-                  : 'border border-transparent text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'
+                  : 'border border-transparent text-muted hover:bg-slate-100 dark:hover:bg-surface-300/50'
               }`}
             >
               <Icon className="h-4 w-4" />
               {t.label}
               {t.count > 0 && (
-                <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-micro font-mono">
+                <span className="rounded-full border border-line-2 bg-surface-100 px-1.5 py-0.5 text-micro font-mono">
                   {t.count}
                 </span>
               )}
@@ -363,14 +362,14 @@ export default function RedHuntLabsResearch(): JSX.Element {
                       ? `Search ${RESEARCH_ITEMS.length} research projects…`
                       : `Search ${DATASETS.length} datasets…`
                 }
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-heading placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
+                className="w-full rounded-xl border border-line-2 bg-surface-100 py-2 pl-9 pr-3 text-sm text-heading placeholder:text-muted focus:border-rose-500/60 focus:outline-none"
               />
             </div>
             {query && (
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-muted hover:text-slate-700 dark:hover:text-slate-300"
+                className="text-mini font-mono rounded border border-line-2 px-2.5 py-1 text-muted hover:text-body dark:hover:text-inverted"
               >
                 clear
               </button>
@@ -401,7 +400,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
 
       {/* Tab content */}
       {tab === 'tools' && (
-        <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
+        <div className="overflow-hidden rounded-xl border border-line-1 bg-surface-100">
           {filteredTools.length === 0 ? (
             <div className="p-8 text-center text-sm text-muted">
               <FolderTree className="mx-auto mb-2 h-8 w-8 text-muted" />
@@ -420,7 +419,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             const haystack = `${r.title} ${r.summary} ${r.details ?? ''}`;
             return query && !matchesText(haystack, query);
           }) ? (
-            <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+            <div className="col-span-full rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
               <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No research projects match &quot;{query}&quot;.
             </div>
@@ -437,7 +436,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             const haystack = `${d.title} ${d.description} ${d.wave}`;
             return query && !matchesText(haystack, query);
           }) ? (
-            <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
+            <div className="col-span-full rounded-xl border border-line-1 bg-surface-200 p-8 text-center text-sm text-muted">
               <Search className="mx-auto mb-2 h-8 w-8 text-muted" />
               No datasets match &quot;{query}&quot;.
             </div>
@@ -460,10 +459,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             <h2 className="mb-2 text-lg font-semibold text-heading">Join Hands in our Research</h2>
             <div className="grid gap-2 sm:grid-cols-3">
               {ABOUT.principles.map((p) => (
-                <div
-                  key={p.title}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4"
-                >
+                <div key={p.title} className="rounded-xl border border-line-1 bg-surface-100 p-4">
                   <h3 className="text-sm font-medium text-heading">{p.title}</h3>
                   <p className="mt-1 text-xs text-muted leading-relaxed">{p.body}</p>
                 </div>

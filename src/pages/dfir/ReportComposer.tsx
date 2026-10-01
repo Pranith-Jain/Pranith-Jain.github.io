@@ -249,14 +249,14 @@ export default function ReportComposer(): JSX.Element {
         </h1>
         <div className="flex flex-wrap items-center gap-2">
           {savedAt && (
-            <span className="text-xs text-slate-500 flex items-center gap-1">
+            <span className="text-xs text-muted flex items-center gap-1">
               <Check size={12} /> saved {savedAt}
             </span>
           )}
           <button
             type="button"
             onClick={() => setShowPreview((s) => !s)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-2 hover:bg-surface-300 dark:hover:bg-surface-300 text-xs font-mono"
           >
             {showPreview ? <EyeOff size={14} /> : <Eye size={14} />}
             {showPreview ? 'Hide' : 'Preview'}
@@ -265,7 +265,7 @@ export default function ReportComposer(): JSX.Element {
             type="button"
             onClick={() => handleExport('pdf')}
             disabled={exporting !== null}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-on-fill text-xs font-medium disabled:opacity-50"
           >
             <FileText size={14} /> {exporting === 'pdf' ? 'Building…' : 'PDF'}
           </button>
@@ -273,14 +273,14 @@ export default function ReportComposer(): JSX.Element {
             type="button"
             onClick={() => handleExport('docx')}
             disabled={exporting !== null}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-on-fill text-xs font-medium disabled:opacity-50"
           >
             <FileType2 size={14} /> {exporting === 'docx' ? 'Building…' : 'DOCX'}
           </button>
           <button
             type="button"
             onClick={resetAll}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-line-2 hover:bg-surface-300 dark:hover:bg-surface-300 text-xs font-mono transition-colors"
             title="Discard and start fresh"
           >
             <RotateCcw size={14} />
@@ -291,7 +291,7 @@ export default function ReportComposer(): JSX.Element {
         Build an investigation report in the browser, then export to PDF or DOCX. No server, no API keys - your draft
         stays in localStorage until you export.
       </p>
-      <p className="text-xs text-slate-500 mb-8 font-mono">
+      <p className="text-xs text-muted mb-8 font-mono">
         {wordCount} words · {doc.findings.length} finding(s) · {doc.sections.length} section(s) · {doc.iocs.length}{' '}
         IOC(s) · {doc.sources.length} source(s)
       </p>
@@ -303,14 +303,14 @@ export default function ReportComposer(): JSX.Element {
       )}
 
       {showPreview && (
-        <div className="mb-10 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 shadow-e1">
+        <div className="mb-10 rounded-xl border border-line-2 bg-surface-100 p-6 shadow-e1">
           <PreviewPanel doc={doc} />
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* ── Cover / Meta ──────────────────────────────── */}
-        <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
+        <section className="lg:col-span-2 rounded-xl border border-line-1 p-4 bg-surface-100/50 dark:bg-surface-200/30">
           <h2 className="text-sm font-semibold uppercase text-muted mb-3 flex items-center gap-2">
             <Shield size={14} /> Cover & TLP
           </h2>
@@ -320,7 +320,7 @@ export default function ReportComposer(): JSX.Element {
                 type="text"
                 value={doc.meta.title}
                 onChange={(e) => updateMeta('title', e.target.value)}
-                className="w-full px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm"
+                className="w-full px-3 py-2 rounded border border-line-2 bg-surface-100 text-sm"
               />
             </Field>
             <Field label="Subject">
@@ -329,7 +329,7 @@ export default function ReportComposer(): JSX.Element {
                 value={doc.meta.subject}
                 onChange={(e) => updateMeta('subject', e.target.value)}
                 placeholder="e.g. APT29 phishing campaign - 2026-06"
-                className="w-full px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm"
+                className="w-full px-3 py-2 rounded border border-line-2 bg-surface-100 text-sm"
               />
             </Field>
             <Field label="Case ID">
@@ -338,7 +338,7 @@ export default function ReportComposer(): JSX.Element {
                 value={doc.meta.caseId}
                 onChange={(e) => updateMeta('caseId', e.target.value)}
                 placeholder="IR-2026-014"
-                className="w-full px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono"
+                className="w-full px-3 py-2 rounded border border-line-2 bg-surface-100 text-sm font-mono"
               />
             </Field>
             <Field label="Author">
@@ -347,7 +347,7 @@ export default function ReportComposer(): JSX.Element {
                 value={doc.meta.author}
                 onChange={(e) => updateMeta('author', e.target.value)}
                 placeholder="Your name / handle"
-                className="w-full px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm"
+                className="w-full px-3 py-2 rounded border border-line-2 bg-surface-100 text-sm"
               />
             </Field>
             <Field label="Classification">
@@ -355,7 +355,7 @@ export default function ReportComposer(): JSX.Element {
                 type="text"
                 value={doc.meta.classification}
                 onChange={(e) => updateMeta('classification', e.target.value)}
-                className="w-full px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm"
+                className="w-full px-3 py-2 rounded border border-line-2 bg-surface-100 text-sm"
               />
             </Field>
             <Field label="TLP">
@@ -370,7 +370,7 @@ export default function ReportComposer(): JSX.Element {
                       className={`px-2 py-1.5 rounded text-xs font-mono border transition-colors ${
                         on
                           ? TLP_COLORS[o.value]
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
+                          : 'border-slate-300 dark:border-line-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-surface-300'
                       }`}
                       title={o.description}
                     >
@@ -384,19 +384,19 @@ export default function ReportComposer(): JSX.Element {
         </section>
 
         {/* ── Executive summary ──────────────────────────── */}
-        <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
+        <section className="lg:col-span-2 rounded-xl border border-line-1 p-4 bg-surface-100/50 dark:bg-surface-200/30">
           <h2 className="text-sm font-semibold uppercase text-muted mb-3">Executive Summary</h2>
           <textarea
             value={doc.executiveSummary}
             onChange={(e) => update('executiveSummary', e.target.value)}
             rows={4}
             placeholder="A 3-5 sentence TL;DR for executives. Supports markdown: # ## **bold** *em* `code` - bullets"
-            className="w-full px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono"
+            className="w-full px-3 py-2 rounded border border-line-2 bg-surface-100 text-sm font-mono"
           />
         </section>
 
         {/* ── Findings ───────────────────────────────────── */}
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
+        <section className="rounded-xl border border-line-1 p-4 bg-surface-100/50 dark:bg-surface-200/30">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold uppercase text-muted flex items-center gap-2">
               <Star size={14} /> Key Findings ({doc.findings.length})
@@ -411,25 +411,22 @@ export default function ReportComposer(): JSX.Element {
           </div>
           <div className="space-y-2">
             {doc.findings.map((f, i) => (
-              <div
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/50"
-              >
+              <div key={i} className="rounded border border-line-1 p-2.5 bg-surface-200/50">
                 <div className="flex items-start gap-2">
-                  <span className="text-xs font-mono text-slate-500 mt-2 w-5">{i + 1}.</span>
+                  <span className="text-xs font-mono text-muted mt-2 w-5">{i + 1}.</span>
                   <textarea
                     value={f.text}
                     onChange={(e) => updateFinding(i, { text: e.target.value })}
                     rows={2}
                     placeholder="Finding statement…"
-                    className="flex-1 px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm"
+                    className="flex-1 px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-sm"
                   />
                 </div>
                 <div className="flex items-center gap-2 mt-2">
                   <select
                     value={f.confidence}
                     onChange={(e) => updateFinding(i, { confidence: e.target.value as Finding['confidence'] })}
-                    className="px-2 py-1 text-xs rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono"
+                    className="px-2 py-1 text-xs rounded border border-line-2 bg-surface-100 font-mono"
                   >
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
@@ -450,13 +447,13 @@ export default function ReportComposer(): JSX.Element {
               </div>
             ))}
             {doc.findings.length === 0 && (
-              <p className="text-xs text-slate-500 italic text-center py-4">No findings yet.</p>
+              <p className="text-xs text-muted italic text-center py-4">No findings yet.</p>
             )}
           </div>
         </section>
 
         {/* ── IOCs ───────────────────────────────────────── */}
-        <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
+        <section className="rounded-xl border border-line-1 p-4 bg-surface-100/50 dark:bg-surface-200/30">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold uppercase text-muted">IOCs ({doc.iocs.length})</h2>
             <button
@@ -469,15 +466,12 @@ export default function ReportComposer(): JSX.Element {
           </div>
           <div className="space-y-2">
             {doc.iocs.map((ioc, i) => (
-              <div
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/50"
-              >
+              <div key={i} className="rounded border border-line-1 p-2.5 bg-surface-200/50">
                 <div className="grid grid-cols-[100px_1fr] gap-1.5">
                   <select
                     value={ioc.type}
                     onChange={(e) => updateIoc(i, { type: e.target.value as IocEntry['type'] })}
-                    className="px-1.5 py-1.5 text-xs rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono"
+                    className="px-1.5 py-1.5 text-xs rounded border border-line-2 bg-surface-100 font-mono"
                   >
                     {IOC_TYPES.map((t) => (
                       <option key={t.value} value={t.value}>
@@ -490,7 +484,7 @@ export default function ReportComposer(): JSX.Element {
                     value={ioc.value}
                     onChange={(e) => updateIoc(i, { value: e.target.value })}
                     placeholder="Indicator value"
-                    className="px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono"
+                    className="px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-xs font-mono"
                   />
                 </div>
                 <div className="flex items-start gap-1.5 mt-1.5">
@@ -499,7 +493,7 @@ export default function ReportComposer(): JSX.Element {
                     value={ioc.context}
                     onChange={(e) => updateIoc(i, { context: e.target.value })}
                     placeholder="Context (where it was found, what it does)"
-                    className="flex-1 px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs"
+                    className="flex-1 px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-xs"
                   />
                   <button
                     type="button"
@@ -512,12 +506,12 @@ export default function ReportComposer(): JSX.Element {
                 </div>
               </div>
             ))}
-            {doc.iocs.length === 0 && <p className="text-xs text-slate-500 italic text-center py-4">No IOCs yet.</p>}
+            {doc.iocs.length === 0 && <p className="text-xs text-muted italic text-center py-4">No IOCs yet.</p>}
           </div>
         </section>
 
         {/* ── Sections ──────────────────────────────────── */}
-        <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
+        <section className="lg:col-span-2 rounded-xl border border-line-1 p-4 bg-surface-100/50 dark:bg-surface-200/30">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold uppercase text-muted">Sections ({doc.sections.length})</h2>
             <button
@@ -530,23 +524,20 @@ export default function ReportComposer(): JSX.Element {
           </div>
           <div className="space-y-3">
             {doc.sections.map((s, i) => (
-              <div
-                key={s.id}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/50"
-              >
+              <div key={s.id} className="rounded border border-line-1 p-3 bg-surface-200/50">
                 <div className="flex items-center gap-2 mb-2">
                   <input
                     type="text"
                     value={s.heading}
                     onChange={(e) => updateSection(i, { heading: e.target.value })}
                     placeholder="Section heading"
-                    className="flex-1 px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-semibold"
+                    className="flex-1 px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-sm font-semibold"
                   />
                   <button
                     type="button"
                     onClick={() => moveSection(i, -1)}
                     disabled={i === 0}
-                    className="p-1 text-muted hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
+                    className="p-1 text-muted hover:text-body dark:hover:text-inverted disabled:opacity-30"
                     aria-label="Move up"
                     title="Move up"
                   >
@@ -556,7 +547,7 @@ export default function ReportComposer(): JSX.Element {
                     type="button"
                     onClick={() => moveSection(i, 1)}
                     disabled={i === doc.sections.length - 1}
-                    className="p-1 text-muted hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30"
+                    className="p-1 text-muted hover:text-body dark:hover:text-inverted disabled:opacity-30"
                     aria-label="Move down"
                     title="Move down"
                   >
@@ -576,18 +567,18 @@ export default function ReportComposer(): JSX.Element {
                   onChange={(e) => updateSection(i, { body: e.target.value })}
                   rows={5}
                   placeholder="Section body. Markdown: # ## **bold** *em* `code` - bullets"
-                  className="w-full px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono"
+                  className="w-full px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-xs font-mono"
                 />
               </div>
             ))}
             {doc.sections.length === 0 && (
-              <p className="text-xs text-slate-500 italic text-center py-4">No sections yet.</p>
+              <p className="text-xs text-muted italic text-center py-4">No sections yet.</p>
             )}
           </div>
         </section>
 
         {/* ── Sources ────────────────────────────────────── */}
-        <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 bg-white/50 dark:bg-[rgb(var(--surface-200))]/30">
+        <section className="lg:col-span-2 rounded-xl border border-line-1 p-4 bg-surface-100/50 dark:bg-surface-200/30">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold uppercase text-muted">Sources ({doc.sources.length})</h2>
             <button
@@ -600,31 +591,28 @@ export default function ReportComposer(): JSX.Element {
           </div>
           <div className="space-y-2">
             {doc.sources.map((s, i) => (
-              <div
-                key={i}
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/50"
-              >
+              <div key={i} className="rounded border border-line-1 p-2.5 bg-surface-200/50">
                 <div className="grid grid-cols-[40px_1fr_1fr_120px_auto] gap-1.5">
-                  <span className="text-xs font-mono text-slate-500 text-center py-1.5">[{i + 1}]</span>
+                  <span className="text-xs font-mono text-muted text-center py-1.5">[{i + 1}]</span>
                   <input
                     type="text"
                     value={s.name}
                     onChange={(e) => updateSource(i, { name: e.target.value, ref: i + 1 })}
                     placeholder="Source name (e.g. Shodan, VirusTotal)"
-                    className="px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs"
+                    className="px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-xs"
                   />
                   <input
                     type="url"
                     value={s.url}
                     onChange={(e) => updateSource(i, { url: e.target.value })}
                     placeholder="https://…"
-                    className="px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs font-mono"
+                    className="px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-xs font-mono"
                   />
                   <input
                     type="date"
                     value={s.retrieved}
                     onChange={(e) => updateSource(i, { retrieved: e.target.value })}
-                    className="px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-xs"
+                    className="px-2 py-1.5 rounded border border-line-2 bg-surface-100 text-xs"
                   />
                   <button
                     type="button"
@@ -637,9 +625,7 @@ export default function ReportComposer(): JSX.Element {
                 </div>
               </div>
             ))}
-            {doc.sources.length === 0 && (
-              <p className="text-xs text-slate-500 italic text-center py-4">No sources yet.</p>
-            )}
+            {doc.sources.length === 0 && <p className="text-xs text-muted italic text-center py-4">No sources yet.</p>}
           </div>
         </section>
       </div>
@@ -671,7 +657,7 @@ function PreviewPanel({ doc }: { doc: ReportDoc }): JSX.Element {
         TLP:{doc.meta.tlp}
       </div>
       <h1 className="text-2xl font-bold mb-1">{doc.meta.title || 'Untitled report'}</h1>
-      {doc.meta.subject && <p className="text-slate-500 text-sm mb-3">Subject: {doc.meta.subject}</p>}
+      {doc.meta.subject && <p className="text-muted text-sm mb-3">Subject: {doc.meta.subject}</p>}
       {doc.executiveSummary && (
         <>
           <h2 className="text-lg font-semibold mt-4 mb-2">Executive Summary</h2>
