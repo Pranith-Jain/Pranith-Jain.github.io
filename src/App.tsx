@@ -9,8 +9,8 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
-import { navLinks, personalInfo, stats, toolsNavLinks } from './data/content';
-import { currentSurface, SurfaceContext, useSurface, type Surface } from './lib/surface';
+import { navLinks, personalInfo, stats, toolsNavLinks, TOOLS_NAV_BY_HOST } from './data/content';
+import { currentSurface, SurfaceContext, useSurface, TOOL_HOSTS_BY_PATH, type Surface } from './lib/surface';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SkipToContent } from './components/SkipToContent';
@@ -1198,7 +1198,17 @@ export function AppContent({ surface }: { surface?: Surface } = {}) {
   // prerenderer (SSR has no window → would always answer "portfolio");
   // resolved from location.hostname in the browser.
   const activeSurface: Surface = surface ?? currentSurface();
-  const activeNavLinks = activeSurface === 'tools' ? toolsNavLinks : navLinks;
+
+  // Tools nav is per-HOST, not per-surface. Every tools host serves the same
+  // route table, so a single shared array meant `scout.` advertised
+  // PANOPTICON's dropdown while rendering the recon scanner — nav and landing
+  // disagreed about which product you were on. A host with no entry falls back
+  // to the all-tools nav so nothing becomes unreachable.
+  const activeNavLinks =
+    activeSurface === 'portfolio'
+      ? navLinks
+      : (TOOLS_NAV_BY_HOST[typeof window === 'undefined' ? '' : window.location.hostname.toLowerCase()] ??
+        toolsNavLinks);
 
   // /dfir/* and /threatintel/* are stand-alone web apps hosted next to the
   // portfolio. They get their own app-shell chrome and skip the portfolio

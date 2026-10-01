@@ -27,12 +27,20 @@ const SITE_LINKS: Array<{ label: string; href: string }> = [
   { label: 'Projects', href: '/projects' },
 ];
 
+/**
+ * Platform destinations.
+ *
+ * Absolute URLs, and each points at the host that OWNS the page. Every tools
+ * host serves the same route table, so a relative `/dfir` in the footer of
+ * `scout.` renders the DFIR pages under SCOUT's chrome — a dead-looking
+ * sub-page rather than a trip to CRUCIBLE. Mirrors TOOL_HOSTS_BY_PATH.
+ */
 const BUILD_LINKS: Array<{ label: string; href: string }> = [
-  { label: 'DFIR Toolkit', href: '/dfir' },
-  { label: 'Threat Intel', href: '/threatintel' },
-  { label: 'Briefings', href: '/threatintel/briefings' },
-  { label: 'Most Wanted', href: '/threatintel/most-wanted' },
-  { label: 'Live Center', href: '/threatintel/live-center' },
+  { label: 'DFIR Toolkit', href: 'https://crucible.pranithjain.qzz.io/dfir' },
+  { label: 'Threat Intel', href: 'https://panopticon.pranithjain.qzz.io/threatintel' },
+  { label: 'Briefings', href: 'https://panopticon.pranithjain.qzz.io/threatintel/briefings' },
+  { label: 'Most Wanted', href: 'https://panopticon.pranithjain.qzz.io/threatintel/most-wanted' },
+  { label: 'Live Center', href: 'https://panopticon.pranithjain.qzz.io/threatintel/live-center' },
   { label: 'Blog', href: '/blog' },
 ];
 
