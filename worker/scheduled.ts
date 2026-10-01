@@ -32,7 +32,6 @@ import {
 import { fetchXFeed } from '../api/src/routes/x-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmCveRecentCache } from '../api/src/routes/cve-recent';
-import { warmCveDigestCache } from '../api/src/routes/cve-digest';
 import { warmRansomwareRecentCache } from '../api/src/routes/ransomware-recent';
 import { warmPromptintelCache } from '../api/src/routes/promptintel';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
@@ -282,18 +281,19 @@ export async function executeCronJob(
           } catch (e) {
             logCronFail('cve-recent-warm')(e);
           }
-          // Daily CVE digest (last 24h). Same reasoning as the warm above: the
-          // request handler never builds it, so without this cron
-          // /api/v1/cve-digest answers 503 forever. Fans out over ctiwatch
-          // (~9 pages for a real 24h), so it runs here in the 30s DO budget
-          // rather than on a user fetch's 10ms cap. Runs AFTER the cve-recent
-          // warm so a budget-exhausted hour degrades the sample feed first and
-          // keeps the digest — which is the one with a completeness promise.
+          // Daily CVE digest (last 24h) — via the queue, NOT inline. The build
+          // fans out over ctiwatch paging + VulnTracker + EPSS (~20
+          // subrequests), and running it here after cve-recent's own ~25-fetch
+          // fan-out starved it two hours running (skipped-empty both times).
+          // A queue message gets its own consumer invocation → its own
+          // 50-subrequest budget (same pattern as the gp:warm slices above).
+          // The request handler never builds (10ms cap), so this enqueue is
+          // what keeps /api/v1/cve-digest from 503ing.
           try {
-            const warm = await warmCveDigestCache(env as unknown as ApiEnv);
-            console.log(JSON.stringify({ job: 'cve-digest-warm', count: warm.count, ok: warm.ok }));
+            await env.FEEDS_QUEUE.send({ digestWarm: true });
+            console.log(JSON.stringify({ job: 'cve-digest-enqueue', status: 'sent' }));
           } catch (e) {
-            logCronFail('cve-digest-warm')(e);
+            logCronFail('cve-digest-enqueue')(e);
           }
           try {
             const warm = await warmRansomwareRecentCache(env as unknown as ApiEnv);
