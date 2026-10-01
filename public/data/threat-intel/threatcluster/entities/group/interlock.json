@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-29T17:02:08.000Z",
-  "lastSeen": "2026-09-29T17:02:08.000Z",
+  "firstSeen": "2026-09-30T17:00:59.000Z",
+  "lastSeen": "2026-09-30T17:00:59.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-29",
+      "date": "2026-09-30",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "tekko-enterprises-inc-e7ef",
-      "title": "Tekko Enterprises, Inc — claimed by interlock",
-      "pubDate": "2026-09-29T17:02:08.000Z"
+      "slug": "blaise-c-bender-pc-cf2d",
+      "title": "Blaise C. Bender, PC — claimed by interlock",
+      "pubDate": "2026-09-30T17:00:59.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "professional-services",
+      "name": "Professional Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "tekko-enterprises-inc-e7ef",
-      "victim": "Tekko Enterprises, Inc — claimed by interlock",
-      "sector": "Not Found",
+      "id": "blaise-c-bender-pc-cf2d",
+      "victim": "Blaise C. Bender, PC — claimed by interlock",
+      "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-09-29T17:02:08.000Z"
+      "pubDate": "2026-09-30T17:00:59.000Z"
     }
   ]
 }

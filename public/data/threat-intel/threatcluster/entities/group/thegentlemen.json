@@ -4,14 +4,14 @@
   "name": "thegentlemen",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 25,
-  "firstSeen": "2026-09-30T03:34:08.000Z",
+  "mentionCount": 15,
+  "firstSeen": "2026-09-30T03:37:36.000Z",
   "lastSeen": "2026-09-30T03:40:46.000Z",
-  "summary": "Ransomware group with 25 leak-site victims across 10 sectors and 18 countries.",
+  "summary": "Ransomware group with 15 leak-site victims across 8 sectors and 11 countries.",
   "frequency": [
     {
       "date": "2026-09-30",
-      "count": 25
+      "count": 15
     }
   ],
   "recentActivity": [
@@ -93,24 +93,12 @@
       "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
-      "weight": 5
+      "weight": 3
     },
     {
       "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
-      "weight": 5
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
       "weight": 3
     },
     {
@@ -127,9 +115,15 @@
     },
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
       "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
     },
     {
       "type": "sector",
@@ -141,12 +135,6 @@
       "type": "sector",
       "slug": "other",
       "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "education",
-      "name": "Education",
       "weight": 1
     }
   ],
@@ -256,76 +244,6 @@
       "sector": "Professional Services",
       "country": "GB",
       "pubDate": "2026-09-30T03:37:36.000Z"
-    },
-    {
-      "id": "agospap-2a32",
-      "victim": "Agospap — claimed by thegentlemen",
-      "sector": "Not Found",
-      "country": "GR",
-      "pubDate": "2026-09-30T03:37:14.000Z"
-    },
-    {
-      "id": "dbu-construction-dbf1",
-      "victim": "DBU Construction — claimed by thegentlemen",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-30T03:36:53.000Z"
-    },
-    {
-      "id": "northern-nj-eye-institute-decb",
-      "victim": "Northern NJ Eye Institute — claimed by thegentlemen",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-09-30T03:36:33.000Z"
-    },
-    {
-      "id": "tommy-garner-air-conditioning-heating-111c",
-      "victim": "Tommy Garner Air Conditioning Heating — claimed by thegentlemen",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-09-30T03:36:12.000Z"
-    },
-    {
-      "id": "auto-holler-c302",
-      "victim": "Auto Holler — claimed by thegentlemen",
-      "sector": "Retail & E-Commerce",
-      "country": "AT",
-      "pubDate": "2026-09-30T03:35:51.000Z"
-    },
-    {
-      "id": "vus-the-english-center-20b6",
-      "victim": "VUS - The English Center — claimed by thegentlemen",
-      "sector": "Education",
-      "country": "VN",
-      "pubDate": "2026-09-30T03:35:31.000Z"
-    },
-    {
-      "id": "josee-bendaaa-guerrero-asociados-14a9",
-      "victim": "Josee Bendaaa-Guerrero Asociados — claimed by thegentlemen",
-      "sector": "Professional Services",
-      "country": "BZ",
-      "pubDate": "2026-09-30T03:35:10.000Z"
-    },
-    {
-      "id": "don-hierro-6e88",
-      "victim": "Don Hierro — claimed by thegentlemen",
-      "sector": "Manufacturing",
-      "country": "MX",
-      "pubDate": "2026-09-30T03:34:49.000Z"
-    },
-    {
-      "id": "corswarem-group-4e8c",
-      "victim": "Corswarem Group — claimed by thegentlemen",
-      "sector": "Not Found",
-      "country": "BE",
-      "pubDate": "2026-09-30T03:34:28.000Z"
-    },
-    {
-      "id": "pulmonary-services-group-1eca",
-      "victim": "Pulmonary Services Group — claimed by thegentlemen",
-      "sector": "Healthcare",
-      "country": "PR",
-      "pubDate": "2026-09-30T03:34:08.000Z"
     }
   ]
 }

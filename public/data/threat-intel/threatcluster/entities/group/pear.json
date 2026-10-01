@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "pear",
+  "name": "pear",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-09-30T22:34:21.000Z",
+  "lastSeen": "2026-09-30T22:34:21.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-09-30",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "software-answers-a-banyan-software-company-6775",
+      "title": "Software Answers, a Banyan Software Company — claimed by pear",
+      "pubDate": "2026-09-30T22:34:21.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "software-answers-a-banyan-software-company-6775",
+      "victim": "Software Answers, a Banyan Software Company — claimed by pear",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-09-30T22:34:21.000Z"
+    }
+  ]
+}

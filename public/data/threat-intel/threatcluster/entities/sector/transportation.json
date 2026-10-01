@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-29T15:24:54.000Z",
-  "lastSeen": "2026-09-29T15:24:54.000Z",
+  "firstSeen": "2026-09-30T13:06:09.000Z",
+  "lastSeen": "2026-09-30T13:06:09.000Z",
   "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-29",
+      "date": "2026-09-30",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "trailerbridge-com-6835",
-      "title": "trailerbridge.com — claimed by braincipher",
-      "pubDate": "2026-09-29T15:24:54.000Z"
+      "slug": "becker-logistik-5eb6",
+      "title": "Becker Logistik — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:06:09.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "braincipher",
-      "name": "braincipher",
+      "slug": "lamashtu",
+      "name": "lamashtu",
       "weight": 1
     }
   ],

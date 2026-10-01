@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-29T18:57:21.000Z",
-  "lastSeen": "2026-09-29T18:57:21.000Z",
+  "firstSeen": "2026-09-30T19:28:35.000Z",
+  "lastSeen": "2026-09-30T19:28:35.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-29",
+      "date": "2026-09-30",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "unique-repair-services-a5ea",
-      "title": "Unique Repair Services — claimed by kairos",
-      "pubDate": "2026-09-29T18:57:21.000Z"
+      "slug": "le-centre-national-de-l-expertise-hospitali-re-cneh-62d1",
+      "title": "Le Centre National de l'Expertise Hospitalière (CNEH) — claimed by kairos",
+      "pubDate": "2026-09-30T19:28:35.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "healthcare",
+      "name": "Healthcare",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "unique-repair-services-a5ea",
-      "victim": "Unique Repair Services — claimed by kairos",
-      "sector": "Other",
-      "country": "US",
-      "pubDate": "2026-09-29T18:57:21.000Z"
+      "id": "le-centre-national-de-l-expertise-hospitali-re-cneh-62d1",
+      "victim": "Le Centre National de l'Expertise Hospitalière (CNEH) — claimed by kairos",
+      "sector": "Healthcare",
+      "country": "FR",
+      "pubDate": "2026-09-30T19:28:35.000Z"
     }
   ]
 }

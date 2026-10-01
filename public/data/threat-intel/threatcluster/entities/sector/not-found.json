@@ -4,15 +4,11 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-09-29T17:02:08.000Z",
-  "lastSeen": "2026-09-30T07:51:07.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 4 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-30T07:51:07.000Z",
+  "lastSeen": "2026-09-30T20:11:02.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
-    {
-      "date": "2026-09-29",
-      "count": 1
-    },
     {
       "date": "2026-09-30",
       "count": 4
@@ -21,58 +17,52 @@
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "wolfusofsky-de-2210",
+      "title": "wolfusofsky.de — claimed by safepay",
+      "pubDate": "2026-09-30T20:11:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "p-m-i-0ed8",
+      "title": "P***** M***** I** — claimed by netrunner",
+      "pubDate": "2026-09-30T14:01:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gerlon-4ea0",
+      "title": "GERLON — claimed by lamashtu",
+      "pubDate": "2026-09-30T12:34:03.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "www-newyjh-com-0df6",
       "title": "www.newyjh.com — claimed by ulose",
       "pubDate": "2026-09-30T07:51:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "agospap-2a32",
-      "title": "Agospap — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:37:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "corswarem-group-4e8c",
-      "title": "Corswarem Group — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:34:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "warning-d2db",
-      "title": "WARNING — claimed by shinyhunters",
-      "pubDate": "2026-09-30T00:02:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tekko-enterprises-inc-e7ef",
-      "title": "Tekko Enterprises, Inc — claimed by interlock",
-      "pubDate": "2026-09-29T17:02:08.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 2
+      "slug": "safepay",
+      "name": "safepay",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "netrunner",
+      "name": "netrunner",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "lamashtu",
+      "name": "lamashtu",
+      "weight": 1
     },
     {
       "type": "group",
       "slug": "ulose",
       "name": "ulose",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "shinyhunters",
-      "name": "shinyhunters",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "interlock",
-      "name": "interlock",
       "weight": 1
     }
   ],

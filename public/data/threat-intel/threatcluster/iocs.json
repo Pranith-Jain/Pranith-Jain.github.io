@@ -1,11 +1,507 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-09-30T11:19:53Z",
-  "syncedAt": "2026-09-30T11:19:54.184Z",
+  "generatedAt": "2026-10-01T11:47:14Z",
+  "syncedAt": "2026-10-01T11:47:14.502Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 505,
+  "count": 513,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "agent2.sh",
+      "confidence": "high",
+      "reason": "Described as part of a multi-stage payload chain used by attackers",
+      "first_seen": "2026-09-30T21:13:41.814200+00:00",
+      "last_seen": "2026-09-30T21:13:41.814200+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.microsoft.com",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+          "pub_date": "2026-09-30T21:13:41.8142+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "bypass.eu.org",
+      "confidence": "high",
+      "reason": "Described as campaign-associated infrastructure used by attackers",
+      "first_seen": "2026-09-30T21:13:41.814200+00:00",
+      "last_seen": "2026-09-30T21:13:41.814200+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.microsoft.com",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+          "pub_date": "2026-09-30T21:13:41.8142+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claudecode-developers.squarespace.com",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude-code-docs-dvlr2jpuuw.edgeone.app",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude-code-install.squarespace.com",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude-code-macos.com",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude-code-update.squarespace.com",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claudecodeupdate.squarespace.com",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude.update-version.com",
+      "confidence": "high",
+      "reason": "Listed as a domain hosting malicious payload",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claulastver.squarespace.com",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "notebooklm-version-upd.squarespace.com",
+      "confidence": "high",
+      "reason": "Listed as part of the attacker's phishing infrastructure",
+      "first_seen": "2026-09-30T17:00:25.403246+00:00",
+      "last_seen": "2026-09-30T17:00:25.403246+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "pushsecurity.com",
+          "url": "https://pushsecurity.com/blog/installfix",
+          "pub_date": "2026-09-30T17:00:25.403246+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "fonts.chrorne.com",
+      "confidence": "high",
+      "reason": "Listed among domains related to Antino-related samples",
+      "first_seen": "2026-09-30T16:03:22.001025+00:00",
+      "last_seen": "2026-09-30T16:03:22.001025+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.security.com",
+          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
+          "pub_date": "2026-09-30T16:03:22.001025+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "fonts.tarotfree101.top",
+      "confidence": "high",
+      "reason": "Listed among domains related to Antino-related samples",
+      "first_seen": "2026-09-30T16:03:22.001025+00:00",
+      "last_seen": "2026-09-30T16:03:22.001025+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.security.com",
+          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
+          "pub_date": "2026-09-30T16:03:22.001025+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "microsoft-flash.com",
+      "confidence": "high",
+      "reason": "Listed among domains related to Antino-related samples",
+      "first_seen": "2026-09-30T16:03:22.001025+00:00",
+      "last_seen": "2026-09-30T16:03:22.001025+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.security.com",
+          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
+          "pub_date": "2026-09-30T16:03:22.001025+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "pub-abfa7742e315485a98a5fafd6dbfb68e.r2.dev",
+      "confidence": "high",
+      "reason": "Listed among domains related to Antino-related samples",
+      "first_seen": "2026-09-30T16:03:22.001025+00:00",
+      "last_seen": "2026-09-30T16:03:22.001025+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.security.com",
+          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
+          "pub_date": "2026-09-30T16:03:22.001025+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "robot.avbliud.com",
+      "confidence": "high",
+      "reason": "Listed among domains related to Antino-related samples",
+      "first_seen": "2026-09-30T16:03:22.001025+00:00",
+      "last_seen": "2026-09-30T16:03:22.001025+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.security.com",
+          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
+          "pub_date": "2026-09-30T16:03:22.001025+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "www.f1ash.org.cn",
+      "confidence": "high",
+      "reason": "Listed among domains related to Antino-related samples",
+      "first_seen": "2026-09-30T16:03:22.001025+00:00",
+      "last_seen": "2026-09-30T16:03:22.001025+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.security.com",
+          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
+          "pub_date": "2026-09-30T16:03:22.001025+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "driverupdate.sbs",
+      "confidence": "high",
+      "reason": "Used to deliver a malicious ISO file in a phishing attack",
+      "first_seen": "2026-09-30T15:44:45+00:00",
+      "last_seen": "2026-09-30T15:44:45+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Hackread",
+          "url": "https://hackread.com/global-group-ransomware-winmerge-deploy-encryptor/",
+          "pub_date": "2026-09-30T15:44:45+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "globalsupportupdate.top",
+      "confidence": "high",
+      "reason": "Used to retrieve a ransomware encryptor",
+      "first_seen": "2026-09-30T15:44:45+00:00",
+      "last_seen": "2026-09-30T15:44:45+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Hackread",
+          "url": "https://hackread.com/global-group-ransomware-winmerge-deploy-encryptor/",
+          "pub_date": "2026-09-30T15:44:45+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "96.62.224.81",
+      "confidence": "high",
+      "reason": "Listed as a server IP in a ClickFix attack",
+      "first_seen": "2026-09-30T14:31:15+00:00",
+      "last_seen": "2026-09-30T14:31:15+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Techtimes",
+          "url": "https://www.techtimes.com/articles/328282/20260930/fake-chatgpt-model-real-chatgptcom-delivers-8-stage-rat-via-clickfix.htm",
+          "pub_date": "2026-09-30T14:31:15+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "page.dev",
+      "confidence": "high",
+      "reason": "Used in a spear-phishing campaign to deliver malicious files",
+      "first_seen": "2026-09-30T14:13:51+00:00",
+      "last_seen": "2026-09-30T14:13:51+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Blog.Talosintelligence",
+          "url": "https://blog.talosintelligence.com/china-nexus-uat-11587-targets-government-and-policy-organizations-across-asia-with-antino-backdoor/",
+          "pub_date": "2026-09-30T14:13:51+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "pub-0173d1566dcd4fd49fa25f11f14bfe4c.r2.dev",
+      "confidence": "high",
+      "reason": "Used as a Cloudflare R2 staging domain for malicious activity",
+      "first_seen": "2026-09-30T14:13:51+00:00",
+      "last_seen": "2026-09-30T14:13:51+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Blog.Talosintelligence",
+          "url": "https://blog.talosintelligence.com/china-nexus-uat-11587-targets-government-and-policy-organizations-across-asia-with-antino-backdoor/",
+          "pub_date": "2026-09-30T14:13:51+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "wps-cn.com",
+      "confidence": "high",
+      "reason": "Used to deliver Antino malware samples",
+      "first_seen": "2026-09-30T14:13:51+00:00",
+      "last_seen": "2026-09-30T14:13:51+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Blog.Talosintelligence",
+          "url": "https://blog.talosintelligence.com/china-nexus-uat-11587-targets-government-and-policy-organizations-across-asia-with-antino-backdoor/",
+          "pub_date": "2026-09-30T14:13:51+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "www.wps-cn.com",
+      "confidence": "high",
+      "reason": "Listed as a standalone Antino fake-installer delivery domain",
+      "first_seen": "2026-09-30T14:13:51+00:00",
+      "last_seen": "2026-09-30T14:13:51+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Blog.Talosintelligence",
+          "url": "https://blog.talosintelligence.com/china-nexus-uat-11587-targets-government-and-policy-organizations-across-asia-with-antino-backdoor/",
+          "pub_date": "2026-09-30T14:13:51+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "103.27.110.220",
+      "confidence": "high",
+      "reason": "Listed as a historical serving IP for Antino payload",
+      "first_seen": "2026-09-30T14:13:51+00:00",
+      "last_seen": "2026-09-30T14:13:51+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Blog.Talosintelligence",
+          "url": "https://blog.talosintelligence.com/china-nexus-uat-11587-targets-government-and-policy-organizations-across-asia-with-antino-backdoor/",
+          "pub_date": "2026-09-30T14:13:51+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "hf98x4d.site",
+      "confidence": "high",
+      "reason": "Linked to information-stealing malware families",
+      "first_seen": "2026-09-30T12:35:09+00:00",
+      "last_seen": "2026-09-30T12:35:09+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Darktrace",
+          "url": "https://www.darktrace.com/es/blog/ai-assisted-attacks-still-leave-a-behavioral-trace",
+          "pub_date": "2026-09-30T12:35:09+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "138.124.123.87",
+      "confidence": "high",
+      "reason": "Listed as part of a malware delivery operation",
+      "first_seen": "2026-09-30T12:35:09+00:00",
+      "last_seen": "2026-09-30T12:35:09+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Darktrace",
+          "url": "https://www.darktrace.com/es/blog/ai-assisted-attacks-still-leave-a-behavioral-trace",
+          "pub_date": "2026-09-30T12:35:09+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "185.177.239.241",
+      "confidence": "high",
+      "reason": "Listed as an IP used in attacks",
+      "first_seen": "2026-09-30T10:41:36+00:00",
+      "last_seen": "2026-09-30T10:41:36+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Bloglab.360",
+          "url": "https://blog.netlab.360.com/aian-quan-zhuan-ti-zhou-bao-8/",
+          "pub_date": "2026-09-30T10:41:36+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "api.imghippo.com",
+      "confidence": "high",
+      "reason": "Shared payload URL associated with the MALFEX campaign",
+      "first_seen": "2026-09-30T00:00:00+00:00",
+      "last_seen": "2026-09-30T00:00:00+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Cloudsek",
+          "url": "https://www.cloudsek.com/blog/malfex-malicious-npm-postinstall-supply-chain-campaign",
+          "pub_date": "2026-09-30T00:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "104.234.65.75",
+      "confidence": "high",
+      "reason": "Listed as a payload host in a threat report",
+      "first_seen": "2026-09-30T00:00:00+00:00",
+      "last_seen": "2026-09-30T00:00:00+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Cloudsek",
+          "url": "https://www.cloudsek.com/blog/malfex-malicious-npm-postinstall-supply-chain-campaign",
+          "pub_date": "2026-09-30T00:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.137.198.133",
+      "confidence": "high",
+      "reason": "Listed as part of a C2 infrastructure in a threat report",
+      "first_seen": "2026-09-30T00:00:00+00:00",
+      "last_seen": "2026-09-30T00:00:00+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Safedep",
+          "url": "https://safedep.io/polinrider-ethereum-c2-github-repositories",
+          "pub_date": "2026-09-30T00:00:00+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "docupdatedd.org",
@@ -186,7 +682,7 @@
       "type": "domain",
       "value": "vidmemax.com",
       "confidence": "high",
-      "reason": "Resolved to an actor-controlled VPS used in attacks",
+      "reason": "Resolved to an actor-controlled VPS",
       "first_seen": "2026-09-29T20:30:31.342952+00:00",
       "last_seen": "2026-09-29T20:30:31.342952+00:00",
       "source_count": 1,
@@ -234,7 +730,7 @@
       "type": "ipv4",
       "value": "89.125.66.183",
       "confidence": "high",
-      "reason": "Used as a WebDAV server for malicious activity.",
+      "reason": "Used as a WebDAV server by attackers",
       "first_seen": "2026-09-29T18:30:57.944399+00:00",
       "last_seen": "2026-09-29T18:30:57.944399+00:00",
       "source_count": 1,
@@ -250,7 +746,7 @@
       "type": "domain",
       "value": "secure-dns-hub.com",
       "confidence": "high",
-      "reason": "Listed as an indicator in Microsoft's report, associated with malicious activity",
+      "reason": "Listed as an indicator in Microsoft's report",
       "first_seen": "2026-09-29T17:20:08+00:00",
       "last_seen": "2026-09-29T17:20:08+00:00",
       "source_count": 1,
@@ -266,7 +762,7 @@
       "type": "ipv4",
       "value": "103.160.59.97",
       "confidence": "high",
-      "reason": "Listed as an indicator in Microsoft's report, associated with malicious activity",
+      "reason": "Listed as an indicator in Microsoft's report",
       "first_seen": "2026-09-29T17:20:08+00:00",
       "last_seen": "2026-09-29T17:20:08+00:00",
       "source_count": 1,
@@ -434,102 +930,6 @@
           "source": "Hornreview",
           "url": "https://hornreview.org/2026/09/28/the-ai-disinformation-war-in-the-horn-and-the-economics-of-digital-conflict/",
           "pub_date": "2026-09-28T18:46:11+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "fonts.chrorne.com",
-      "confidence": "high",
-      "reason": "Listed among domains related to Antino-related samples",
-      "first_seen": "2026-09-28T18:35:59.996122+00:00",
-      "last_seen": "2026-09-28T18:35:59.996122+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.security.com",
-          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
-          "pub_date": "2026-09-28T18:35:59.996122+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "fonts.tarotfree101.top",
-      "confidence": "high",
-      "reason": "Listed among domains related to Antino-related samples",
-      "first_seen": "2026-09-28T18:35:59.996122+00:00",
-      "last_seen": "2026-09-28T18:35:59.996122+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.security.com",
-          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
-          "pub_date": "2026-09-28T18:35:59.996122+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "microsoft-flash.com",
-      "confidence": "high",
-      "reason": "Listed among domains related to Antino-related samples",
-      "first_seen": "2026-09-28T18:35:59.996122+00:00",
-      "last_seen": "2026-09-28T18:35:59.996122+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.security.com",
-          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
-          "pub_date": "2026-09-28T18:35:59.996122+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "pub-abfa7742e315485a98a5fafd6dbfb68e.r2.dev",
-      "confidence": "high",
-      "reason": "Listed among domains related to Antino-related samples",
-      "first_seen": "2026-09-28T18:35:59.996122+00:00",
-      "last_seen": "2026-09-28T18:35:59.996122+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.security.com",
-          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
-          "pub_date": "2026-09-28T18:35:59.996122+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "robot.avbliud.com",
-      "confidence": "high",
-      "reason": "Listed among domains related to Antino-related samples",
-      "first_seen": "2026-09-28T18:35:59.996122+00:00",
-      "last_seen": "2026-09-28T18:35:59.996122+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.security.com",
-          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
-          "pub_date": "2026-09-28T18:35:59.996122+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "www.f1ash.org.cn",
-      "confidence": "high",
-      "reason": "Listed among domains related to Antino-related samples",
-      "first_seen": "2026-09-28T18:35:59.996122+00:00",
-      "last_seen": "2026-09-28T18:35:59.996122+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.security.com",
-          "url": "https://www.security.com/threat-intelligence/jewelbug-crypto-fraud-espionage",
-          "pub_date": "2026-09-28T18:35:59.996122+00:00"
         }
       ]
     },
@@ -7410,7 +7810,7 @@
       "value": "185.254.222.105",
       "confidence": "high",
       "reason": "IP address used as a source for malicious email activity",
-      "first_seen": "2026-09-01T00:33:21+00:00",
+      "first_seen": "2026-09-03T02:00:03+00:00",
       "last_seen": "2026-09-03T02:00:03+00:00",
       "source_count": 1,
       "sources": [
@@ -8020,278 +8420,6 @@
           "source": "Privateinternetaccess",
           "url": "https://www.privateinternetaccess.com/blog/coinbase-scam-emails/",
           "pub_date": "2026-09-01T11:55:33+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "healthcomfsdpower.com",
-      "confidence": "high",
-      "reason": "Listed among domains used in a malicious campaign",
-      "first_seen": "2026-09-01T07:00:26+00:00",
-      "last_seen": "2026-09-01T07:00:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/mirage-kitten-new-backdoors-noderabbit-pollcat/121244/",
-          "pub_date": "2026-09-01T07:00:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "healthful-hub.com",
-      "confidence": "high",
-      "reason": "Listed among domains used in a malicious campaign",
-      "first_seen": "2026-09-01T07:00:26+00:00",
-      "last_seen": "2026-09-01T07:00:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/mirage-kitten-new-backdoors-noderabbit-pollcat/121244/",
-          "pub_date": "2026-09-01T07:00:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "healthfullyrecipes.com",
-      "confidence": "high",
-      "reason": "Listed among domains used in a malicious campaign",
-      "first_seen": "2026-09-01T07:00:26+00:00",
-      "last_seen": "2026-09-01T07:00:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/mirage-kitten-new-backdoors-noderabbit-pollcat/121244/",
-          "pub_date": "2026-09-01T07:00:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "msmanagementgrp.com",
-      "confidence": "high",
-      "reason": "Domain used as part of Mirage Kitten's C2 infrastructure",
-      "first_seen": "2026-09-01T07:00:26+00:00",
-      "last_seen": "2026-09-01T07:00:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/mirage-kitten-new-backdoors-noderabbit-pollcat/121244/",
-          "pub_date": "2026-09-01T07:00:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "msmanagementgrpmedia.com",
-      "confidence": "high",
-      "reason": "Domain used as part of Mirage Kitten's C2 infrastructure",
-      "first_seen": "2026-09-01T07:00:26+00:00",
-      "last_seen": "2026-09-01T07:00:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/mirage-kitten-new-backdoors-noderabbit-pollcat/121244/",
-          "pub_date": "2026-09-01T07:00:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "sahi-finance.com",
-      "confidence": "high",
-      "reason": "Associated with malware targeting FinTech sectors",
-      "first_seen": "2026-09-01T07:00:26+00:00",
-      "last_seen": "2026-09-01T07:00:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/mirage-kitten-new-backdoors-noderabbit-pollcat/121244/",
-          "pub_date": "2026-09-01T07:00:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "visitfinancedentists.com",
-      "confidence": "high",
-      "reason": "Identified as part of Mirage Kitten's infrastructure for C2 communications.",
-      "first_seen": "2026-09-01T07:00:26+00:00",
-      "last_seen": "2026-09-01T07:00:26+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Securelist",
-          "url": "https://securelist.com/mirage-kitten-new-backdoors-noderabbit-pollcat/121244/",
-          "pub_date": "2026-09-01T07:00:26+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "crironxil.aguasedum.cfd",
-      "confidence": "high",
-      "reason": "Communicated with infected host",
-      "first_seen": "2026-09-01T00:33:21+00:00",
-      "last_seen": "2026-09-01T00:33:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Isc.Sans.Edu",
-          "url": "https://isc.sans.edu/diary/rss/33300",
-          "pub_date": "2026-09-01T00:33:21+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "relatorio01a.colombstracciatella.cfd",
-      "confidence": "high",
-      "reason": "Used to send malicious emails",
-      "first_seen": "2026-09-01T00:33:21+00:00",
-      "last_seen": "2026-09-01T00:33:21+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Isc.Sans.Edu",
-          "url": "https://isc.sans.edu/diary/rss/33300",
-          "pub_date": "2026-09-01T00:33:21+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "startcareer.org",
-      "confidence": "high",
-      "reason": "Listed as a domain hosting a dropped malware payload",
-      "first_seen": "2026-08-31T21:19:17.623504+00:00",
-      "last_seen": "2026-08-31T21:19:17.623504+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.malwarebytes.com",
-          "url": "https://www.malwarebytes.com/blog/scams/2026/08/beware-of-fake-indeed-interview-apps-used-to-install-spyware",
-          "pub_date": "2026-08-31T21:19:17.623504+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "dosportal.app",
-      "confidence": "high",
-      "reason": "Domain used in an OAuth phishing campaign",
-      "first_seen": "2026-08-31T18:26:30+00:00",
-      "last_seen": "2026-08-31T18:26:30+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Socprime",
-          "url": "https://socprime.com/active-threats/inhospitable-mapping-russian-cyber-espionage-infrastructure/",
-          "pub_date": "2026-08-31T18:26:30+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "js-mirror.com",
-      "confidence": "high",
-      "reason": "Domain used for suspicious outbound traffic",
-      "first_seen": "2026-08-31T13:05:38.820639+00:00",
-      "last_seen": "2026-08-31T13:05:38.820639+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.chainguard.dev",
-          "url": "https://www.chainguard.dev/unchained/the-keyv-and-cacheable-npm-supply-chain-attack-inside-the-mini-shai-hulud-campaign",
-          "pub_date": "2026-08-31T13:05:38.820639+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "npm-cache.com",
-      "confidence": "high",
-      "reason": "Domain used in a supply chain attack",
-      "first_seen": "2026-08-31T13:05:38.820639+00:00",
-      "last_seen": "2026-08-31T13:05:38.820639+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.chainguard.dev",
-          "url": "https://www.chainguard.dev/unchained/the-keyv-and-cacheable-npm-supply-chain-attack-inside-the-mini-shai-hulud-campaign",
-          "pub_date": "2026-08-31T13:05:38.820639+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "pypi-get.com",
-      "confidence": "high",
-      "reason": "Domain used in a supply chain attack",
-      "first_seen": "2026-08-31T13:05:38.820639+00:00",
-      "last_seen": "2026-08-31T13:05:38.820639+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "www.chainguard.dev",
-          "url": "https://www.chainguard.dev/unchained/the-keyv-and-cacheable-npm-supply-chain-attack-inside-the-mini-shai-hulud-campaign",
-          "pub_date": "2026-08-31T13:05:38.820639+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "fine-work-team.com",
-      "confidence": "high",
-      "reason": "Listed as a delivery URL for a malicious script",
-      "first_seen": "2026-08-31T12:34:31.263942+00:00",
-      "last_seen": "2026-08-31T12:34:31.263942+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "hunt.io",
-          "url": "https://hunt.io/blog/chinese-speaking-operator-philippine-nuclear-naval-contractor",
-          "pub_date": "2026-08-31T12:34:31.263942+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "snake.zooparkko.com",
-      "confidence": "high",
-      "reason": "Used for data exfiltration in a ClickFix attack",
-      "first_seen": "2026-08-31T12:34:31.263942+00:00",
-      "last_seen": "2026-08-31T12:34:31.263942+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "hunt.io",
-          "url": "https://hunt.io/blog/chinese-speaking-operator-philippine-nuclear-naval-contractor",
-          "pub_date": "2026-08-31T12:34:31.263942+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "timelevel12.com",
-      "confidence": "high",
-      "reason": "Listed as a delivery URL for a malicious script",
-      "first_seen": "2026-08-31T12:34:31.263942+00:00",
-      "last_seen": "2026-08-31T12:34:31.263942+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "hunt.io",
-          "url": "https://hunt.io/blog/chinese-speaking-operator-philippine-nuclear-naval-contractor",
-          "pub_date": "2026-08-31T12:34:31.263942+00:00"
         }
       ]
     }

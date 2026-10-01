@@ -1,0 +1,202 @@
+{
+  "type": "group",
+  "slug": "lamashtu",
+  "name": "lamashtu",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 10,
+  "firstSeen": "2026-09-30T12:34:03.000Z",
+  "lastSeen": "2026-09-30T13:32:57.000Z",
+  "summary": "Ransomware group with 10 leak-site victims across 8 sectors and 5 countries.",
+  "frequency": [
+    {
+      "date": "2026-09-30",
+      "count": 10
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "dr-damiel-pugliese-d338",
+      "title": "Dr Damiel Pugliese — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:32:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "astidental-di-sabbione-4df1",
+      "title": "Astidental di Sabbione — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:32:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vinco-energy-b4c1",
+      "title": "Vinco Energy — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:06:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "becker-logistik-5eb6",
+      "title": "Becker Logistik — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:06:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "wilhelm-k-hne-ef0a",
+      "title": "Wilhelm Kühne — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:05:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "fiducial-a0c7",
+      "title": "FIDUCIAL — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:04:52.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "virtual-ideas-c3d7",
+      "title": "Virtual Ideas — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:04:17.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "projahn-f59b",
+      "title": "PROJAHN — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:03:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "altmannshofer-sicherheits-videotechnik-6017",
+      "title": "Altmannshofer Sicherheits-Videotechnik — claimed by lamashtu",
+      "pubDate": "2026-09-30T13:02:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gerlon-4ea0",
+      "title": "GERLON — claimed by lamashtu",
+      "pubDate": "2026-09-30T12:34:03.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "dr-damiel-pugliese-d338",
+      "victim": "Dr Damiel Pugliese — claimed by lamashtu",
+      "sector": "Healthcare",
+      "country": null,
+      "pubDate": "2026-09-30T13:32:57.000Z"
+    },
+    {
+      "id": "astidental-di-sabbione-4df1",
+      "victim": "Astidental di Sabbione — claimed by lamashtu",
+      "sector": "Manufacturing",
+      "country": "IT",
+      "pubDate": "2026-09-30T13:32:20.000Z"
+    },
+    {
+      "id": "vinco-energy-b4c1",
+      "victim": "Vinco Energy — claimed by lamashtu",
+      "sector": "Energy & Utilities",
+      "country": "US",
+      "pubDate": "2026-09-30T13:06:49.000Z"
+    },
+    {
+      "id": "becker-logistik-5eb6",
+      "victim": "Becker Logistik — claimed by lamashtu",
+      "sector": "Transportation",
+      "country": "DE",
+      "pubDate": "2026-09-30T13:06:09.000Z"
+    },
+    {
+      "id": "wilhelm-k-hne-ef0a",
+      "victim": "Wilhelm Kühne — claimed by lamashtu",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-09-30T13:05:31.000Z"
+    },
+    {
+      "id": "fiducial-a0c7",
+      "victim": "FIDUCIAL — claimed by lamashtu",
+      "sector": "Financial Services",
+      "country": "FR",
+      "pubDate": "2026-09-30T13:04:52.000Z"
+    },
+    {
+      "id": "virtual-ideas-c3d7",
+      "victim": "Virtual Ideas — claimed by lamashtu",
+      "sector": "Technology",
+      "country": "AU",
+      "pubDate": "2026-09-30T13:04:17.000Z"
+    },
+    {
+      "id": "projahn-f59b",
+      "victim": "PROJAHN — claimed by lamashtu",
+      "sector": "Other",
+      "country": "DE",
+      "pubDate": "2026-09-30T13:03:39.000Z"
+    },
+    {
+      "id": "altmannshofer-sicherheits-videotechnik-6017",
+      "victim": "Altmannshofer Sicherheits-Videotechnik — claimed by lamashtu",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-09-30T13:02:58.000Z"
+    },
+    {
+      "id": "gerlon-4ea0",
+      "victim": "GERLON — claimed by lamashtu",
+      "sector": "Not Found",
+      "country": "DE",
+      "pubDate": "2026-09-30T12:34:03.000Z"
+    }
+  ]
+}
