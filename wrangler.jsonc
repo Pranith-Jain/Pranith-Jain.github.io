@@ -39,7 +39,11 @@
 	"routes": [
 		{ "pattern": "crucible.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
 		{ "pattern": "panopticon.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
-		{ "pattern": "scout.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" }
+		{ "pattern": "scout.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
+		{ "pattern": "argus.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
+		{ "pattern": "agent.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
+		{ "pattern": "copilot.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" },
+		{ "pattern": "brief.pranithjain.qzz.io/*", "zone_name": "pranithjain.qzz.io" }
 	],
 	"assets": {
 		"directory": "./dist",
@@ -122,7 +126,7 @@
 		// split and serves the portfolio surface + apex canonical everywhere.
 		// Only add a prefix once that hostname resolves: a canonical pointing
 		// at a host with no DNS record is worse than the duplicate it fixes.
-		"TOOLS_HOSTS": "/dfir=crucible.pranithjain.qzz.io,/threatintel=panopticon.pranithjain.qzz.io,/radar=scout.pranithjain.qzz.io"
+		"TOOLS_HOSTS": "/dfir=crucible.pranithjain.qzz.io,/threatintel=panopticon.pranithjain.qzz.io,/radar=scout.pranithjain.qzz.io,/argus=argus.pranithjain.qzz.io,/dfir/agent-suite=agent.pranithjain.qzz.io,/threatintel/tools/copilot=copilot.pranithjain.qzz.io,/daily-briefs=brief.pranithjain.qzz.io"
 	},
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }

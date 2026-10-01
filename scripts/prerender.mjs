@@ -454,7 +454,21 @@ async function main() {
   // portfolio tree whenever this one has no file, so an under-rendered tools
   // route degrades to portfolio chrome rather than to a bare shell.
   const toolsPrerenderDir = resolve(ROOT, 'dist/__prerendered-tools');
-  const toolsRoutes = ROUTES.filter((route) => !APP_ROUTE_PREFIXES.some((p) => route.startsWith(p)));
+  // `/` is EXCLUDED from the tools tree on purpose. It is the one route whose
+// content depends on which tools host is asking: crucible serves the CRUCIBLE
+// toolkit, panopticon the threat-intel platform, scout recon, argus Argus, and
+// agent/copilot/brief their single tool. SSR only receives a `surface`
+// ('portfolio' | 'tools'), not a hostname, so it cannot pick between them —
+// prerendering `/` once for the tools surface would bake one tool's landing
+// into every host's first paint.
+//
+// Leaving it out makes the worker fall through to the portfolio file, whose
+// `/` is the SPA shell; the client then resolves the landing from
+// `location.hostname` before paint. `/daily-briefs` is excluded for the same
+// reason: it now has its own host (brief.) and its own landing.
+const toolsRoutes = ROUTES.filter(
+  (route) => !APP_ROUTE_PREFIXES.some((p) => route.startsWith(p)) && route !== '/' && route !== '/daily-briefs',
+);
   await mkdir(toolsPrerenderDir, { recursive: true });
 
   const manifest = [];

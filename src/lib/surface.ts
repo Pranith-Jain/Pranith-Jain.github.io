@@ -32,9 +32,19 @@ export const PORTFOLIO_ORIGIN = 'https://pranithjain.qzz.io';
  * nobody can reach.
  */
 export const TOOL_HOSTS_BY_PATH: Readonly<Record<string, string>> = {
+  // Whole-area hosts. Each renders its own tool's landing at `/`.
   '/dfir': 'crucible.pranithjain.qzz.io',
   '/threatintel': 'panopticon.pranithjain.qzz.io',
   '/radar': 'scout.pranithjain.qzz.io',
+  '/argus': 'argus.pranithjain.qzz.io',
+  // Single-page hosts. These are exact paths, not areas: they live INSIDE a
+  // surface (`/dfir/*`, `/threatintel/*`) or outside it entirely (`/daily-briefs`
+  // is a top-level portfolio route). Ownership resolves longest-prefix-first
+  // (see `parseToolHosts`), so `/dfir/agent-suite` wins over `/dfir` and the
+  // page keeps its CRUCIBLE chrome — only the canonical origin moves.
+  '/dfir/agent-suite': 'agent.pranithjain.qzz.io',
+  '/threatintel/tools/copilot': 'copilot.pranithjain.qzz.io',
+  '/daily-briefs': 'brief.pranithjain.qzz.io',
 };
 
 /** Every configured tools hostname. */

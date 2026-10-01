@@ -1,4 +1,4 @@
-import { useEffect, lazy, useMemo, type ComponentType } from 'react';
+import { Suspense, useEffect, lazy, useMemo, type ComponentType } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -16,6 +16,7 @@ import { Footer } from './components/Footer';
 import { SkipToContent } from './components/SkipToContent';
 import { StructuredData } from './components/StructuredData';
 import { ScrollProgress } from './components/ui/ScrollProgress';
+import { TabLoader } from './components/ui/TabLoader';
 import { BackToTop } from './components/ui/BackToTop';
 import { Layout } from './components/Layout';
 import { AppShell } from './components/AppShell';
@@ -1130,6 +1131,31 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
 ];
 
 /**
+ * Path prefix → the component its owning host renders at `/`.
+ *
+ * These are the SAME components the apex paths already use
+ * (`/dfir` → DFIR, `/threatintel` → ThreatIntelHome, `/radar` → RadarHome,
+ * `/argus` → ArgusPage), so a subdomain root and its apex path are guaranteed
+ * to render identical content. Adding a host means adding one entry here plus
+ * one in `TOOL_HOSTS_BY_PATH` and `vars.TOOLS_HOSTS`.
+ *
+ * Keyed by prefix rather than hostname so the lookup in `SurfaceHome` can
+ * invert `TOOL_HOSTS_BY_PATH` directly and stay in sync automatically.
+ */
+const LANDING_BY_PREFIX: Readonly<Record<string, ComponentType>> = {
+  '/dfir': DFIR,
+  '/threatintel': ThreatIntelHome,
+  '/radar': RadarHome,
+  '/argus': ArgusPage,
+  // Single-page hosts: their `/` is that one tool, not the parent area's
+  // landing. These reuse the same components the apex paths render, so
+  // `agent./` and `/dfir/agent-suite` stay identical.
+  '/dfir/agent-suite': AgentSuite,
+  '/threatintel/tools/copilot': Copilot,
+  '/daily-briefs': DailyBriefs,
+};
+
+/**
  * `/` — the one route whose CONTENT differs by surface.
  *
  * Chrome (nav) is handled by PortfolioShell; this is the Home → ToolsHome
@@ -1137,7 +1163,30 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
  * value wins during SSR, and the hostname wins in the browser.
  */
 function SurfaceHome() {
-  return useSurface() === 'tools' ? <ToolsHome /> : <Home />;
+  const surface = useSurface();
+  if (surface === 'portfolio') return <Home />;
+
+  // During SSR there is no `window`, so the prerenderer resolves the host
+  // itself: it renders `/` once per surface with an explicit `surface` prop,
+  // and that pass falls through to ToolsHome below. In the browser the
+  // hostname decides, which is what actually varies per host.
+  const host = typeof window === 'undefined' ? '' : window.location.hostname.toLowerCase();
+  const owned = Object.entries(TOOL_HOSTS_BY_PATH).find(([, toolHost]) => toolHost === host);
+  if (!owned) return <ToolsHome />;
+
+  const Landing = LANDING_BY_PREFIX[owned[0]];
+  // These landings are `lazy()`, and `/` is an EAGER route (it renders
+  // directly rather than through <LazyRoute>), so there is no Suspense
+  // boundary above this point. Without one, React throws on the suspended
+  // lazy component and the ErrorBoundary swallows the whole page — which is
+  // why the tools hosts rendered empty until this was wrapped.
+  return Landing ? (
+    <Suspense fallback={<TabLoader />}>
+      <Landing />
+    </Suspense>
+  ) : (
+    <ToolsHome />
+  );
 }
 
 export function AppContent({ surface }: { surface?: Surface } = {}) {
