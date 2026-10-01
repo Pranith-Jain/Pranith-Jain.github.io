@@ -145,11 +145,11 @@ if (CHECK) {
     process.exit(0);
   }
   if (stale.length) {
-    console.error(
+    console.warn(
       `Baseline lists ${stale.length} file(s) that are now CLEAN (stale entries):\n  ` +
         stale.slice(0, 8).join('\n  ') +
         (stale.length > 8 ? '\n  ...' : '') +
-        '\n  These suppress nothing. Run: node scripts/update-raw-colors-baseline.mjs'
+        '\n  Non-fatal: these may be clean locally but still dirty in the commit.'
     );
   }
   if (missing.length) {
@@ -160,5 +160,9 @@ if (CHECK) {
         '\n  These would fail CI at --max-warnings 0. Run: node scripts/update-raw-colors-baseline.mjs'
     );
   }
-  process.exit(1);
+  // Only a MISSING entry is fatal. Stale entries are reported but tolerated:
+  // a file can be clean in the working tree and still dirty in the commit,
+  // which is exactly what an in-progress token sweep looks like. Pruning on
+  // staleness would drop those files from the waiver and break the next push.
+  process.exit(missing.length ? 1 : 0);
 }

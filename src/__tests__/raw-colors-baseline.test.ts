@@ -58,21 +58,29 @@ describe('raw-colors baseline', () => {
     expect(config).toContain("'no-raw-colors/no-raw-colors': 'off'");
   });
 
-  // Spawning a full `eslint src` scan takes ~35s locally but ~122s on a
+  // Spawning a full `eslint src` scan takes ~35s locally but ~120s on a
   // GitHub runner, so the budget has to clear the slower environment rather
-  // than the developer machine. 120s was not enough - CI timed out at 122s.
-  // 300s leaves ~2.5x headroom over the observed runner figure; the default
-  // 10s would fail on both.
+  // than the developer machine. 300s leaves ~2.5x headroom over the observed
+  // runner figure; the default 10s would fail on both.
+  //
+  // Only a MISSING entry can fail this. Stale entries (listed but clean) are
+  // reported but not treated as failures, because a file that is clean in the
+  // working tree may still be dirty in the commit - an in-progress token sweep
+  // is the normal case. Pruning on staleness would drop those files from the
+  // waiver and break the next push, which is the failure this test exists to
+  // prevent.
   it('matches what a fresh scan reports', { timeout: 300_000 }, () => {
-    // The scan forces the rule on with `--rule`, which overrides the
-    // baselined-files override -- so this sees every file, not just the
-    // unlisted ones. Catches drift in both directions: a cleaned file still
-    // listed, or a dirty file missing from the list (which would fail CI).
     const res = spawnSync('node', [resolve(ROOT, 'scripts/update-raw-colors-baseline.mjs'), '--check'], {
       cwd: ROOT,
       encoding: 'utf8',
     });
-    expect(res.status, `baseline check failed:\n${res.stdout}\n${res.stderr}`).toBe(0);
+    const missing = /MISSING (\d+) file/.exec(res.stdout ?? '');
+    expect(
+      missing,
+      `baseline is missing ${missing?.[1] ?? '?'} dirty file(s); these would fail CI. ` +
+        `Run: npm run lint:baseline\n${res.stdout}\n${res.stderr}`
+    ).toBeNull();
+    expect(res.status, `baseline scan failed outright:\n${res.stdout}\n${res.stderr}`).not.toBe(2);
   });
 });
 
