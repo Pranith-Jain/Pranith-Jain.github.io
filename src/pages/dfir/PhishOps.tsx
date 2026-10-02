@@ -16,6 +16,7 @@ import {
   ListTree,
   FileText,
 } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 type StepId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
@@ -349,12 +350,7 @@ export default function PhishOps(): JSX.Element {
 
   const downloadReport = useCallback(() => {
     const blob = new Blob([buildReport(state)], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `phishops-report-${Date.now()}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `phishops-report-${Date.now()}.md`);
   }, [state]);
 
   const step = STEPS.find((s) => s.id === state.currentStep)!;

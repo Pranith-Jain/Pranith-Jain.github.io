@@ -9,6 +9,7 @@ import { IntelCard } from '../../components/intel/IntelCard';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import { BackLink } from '../../components/BackLink';
 import type { IntelBundleResponse, IntelView } from '../../hooks/useIntelBundle';
+import { downloadBlob } from '../../lib/download';
 
 /**
  * /dfir/stix-builder - the manual entry point for the intel-bundle pipeline.
@@ -236,12 +237,7 @@ export default function StixBuilder(): JSX.Element {
     const blob = new Blob([JSON.stringify(build.result.bundle, null, 2)], {
       type: 'application/stix+json; version=2.1',
     });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${build.result.bundle.id}.stix.json`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadBlob(blob, `${build.result.bundle.id}.stix.json`);
   }
 
   const activeMode = MODES.find((m) => m.id === mode) ?? MODES[0]!;

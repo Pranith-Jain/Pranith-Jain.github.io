@@ -40,6 +40,7 @@ import { InvestigationTrace } from '../../components/threatintel/InvestigationTr
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
 import { useToast } from '../../components/ui/Toast';
+import { downloadBlob } from '../../lib/download';
 
 // ── Types ───────────────────────────────────────────────────────────────
 
@@ -662,14 +663,7 @@ export default function VeraChat(): JSX.Element {
     }
     const markdown = lines.join('---\n\n');
     const blob = new Blob([markdown], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    const firstUser = chatMessages.find((m) => m.role === 'user');
-    const name = firstUser ? firstUser.content.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 40) : 'vera_export';
-    a.href = url;
-    a.download = `${name}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `${name}.md`);
   }, [chatMessages]);
 
   // ── Derived state ───────────────────────────────────────────────────

@@ -30,6 +30,7 @@ import {
   type AnarchyProgress,
 } from '../lib/anarchy-library';
 import { recommendCourses, similarCourses } from '../lib/anarchy-recommend';
+import { downloadBlob } from '../lib/download';
 
 interface AnarchyProvider {
   name: string;
@@ -468,14 +469,7 @@ export default function Anarchy() {
 
   const exportLibrary = useCallback(() => {
     const blob = new Blob([serializeLibrary(bookmarks, progress)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'anarchy-library.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'anarchy-library.json');
   }, [bookmarks, progress]);
 
   const importLibraryFile = useCallback(async (file: File) => {

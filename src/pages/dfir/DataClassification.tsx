@@ -19,6 +19,7 @@ import {
   type Tier,
   type TierPolicy,
 } from '../../data/data-classification';
+import { downloadBlob } from '../../lib/download';
 
 export default function DataClassification(): JSX.Element {
   const [state, setState] = useState<ClassificationState>(emptyState);
@@ -70,12 +71,7 @@ export default function DataClassification(): JSX.Element {
 
   const exportMd = () => {
     const blob = new Blob([buildMarkdown(state)], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'data-classification.md';
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'data-classification.md');
   };
 
   const dist = useMemo(() => distributionByTier(state), [state]);

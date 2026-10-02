@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, Copy, Download, FileCode, Info, Shield, Zap } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 /**
  * /dfir/csrf-poc - Client-side CSRF proof-of-concept generator.
@@ -219,12 +220,7 @@ export default function CsrfPocGenerator(): JSX.Element {
 
   const handleDownload = () => {
     const blob = new Blob([poc], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `csrf-poc-${Date.now()}.html`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `csrf-poc-${Date.now()}.html`);
   };
 
   return (

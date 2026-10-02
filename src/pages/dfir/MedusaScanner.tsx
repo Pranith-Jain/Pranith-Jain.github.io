@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { type ScannerHit, type Severity, type ScannerRule, ALL_RULES, detectLanguage } from '../../lib/scanner-rules';
 import { Textarea } from '../../components/ui/Input';
+import { downloadBlob } from '../../lib/download';
 
 const SEV_STYLE: Record<Severity, { text: string; chip: string; Icon: typeof ShieldAlert; bg: string }> = {
   critical: {
@@ -351,12 +352,7 @@ export default function MedusaScanner(): JSX.Element {
       })),
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `medusa-scan-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `medusa-scan-${Date.now()}.json`);
   }, [result, mode, filename, counts]);
 
   const handleCopyJson = useCallback(async () => {

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, Copy, Download, Filter, Info, Search, Shield, Tag } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 /**
  * /dfir/xss-payloads - XSS payload selector by context.
@@ -540,12 +541,7 @@ export default function XssPayloadSelector(): JSX.Element {
     const selected = filtered.filter((p) => selectedPayloads.has(p.id));
     const text = selected.map((p) => `// ${p.name} [${p.context}] [${p.severity}]\n${p.payload}`).join('\n\n');
     const blob = new Blob([text], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `xss-payloads-${Date.now()}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `xss-payloads-${Date.now()}.txt`);
   };
 
   const stats = useMemo(() => {

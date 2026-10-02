@@ -21,6 +21,7 @@ import {
   setPosition,
 } from '../../lib/dfir/osint/osint-mutations';
 import { reverseGeocode } from '../../lib/dfir/osint/geocode';
+import { downloadBlob } from '../../lib/download';
 
 const ICONS_KEY = 'dfir-osint-icons:v1';
 
@@ -126,14 +127,7 @@ export default function OsintMapper(): JSX.Element {
 
   function doExport() {
     const blob = new Blob([buildExport(project, icons)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${project.name.replace(/\s+/g, '-') || 'case'}.osint.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `${project.name.replace(/\s+/g, '-') || 'case'}.osint.json`);
   }
 
   function doImport(e: React.ChangeEvent<HTMLInputElement>) {

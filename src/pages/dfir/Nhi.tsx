@@ -13,6 +13,7 @@ import {
   type NhiType,
 } from '../../data/nhi';
 import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
+import { downloadBlob } from '../../lib/download';
 
 /** Risk grade from entryRisk(). `safe` keeps its own all-clear green; the
  *  four risk tiers map onto the canonical severity ramp. */
@@ -141,12 +142,7 @@ export default function Nhi(): JSX.Element {
 
   const exportMd = () => {
     const blob = new Blob([buildMarkdown(items)], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'nhi-inventory.md';
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'nhi-inventory.md');
   };
 
   const aggregate = useMemo(() => {

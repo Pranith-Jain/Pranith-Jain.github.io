@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ShieldCheck, ExternalLink, RotateCcw, Download } from 'lucide-react';
 import { OWASP_LISTS, OWASP_ITEMS, type OwaspList, type OwaspItem } from '../../data/owasp';
+import { downloadBlob } from '../../lib/download';
 
 const STORAGE_KEY = 'dfir.owasp.checks';
 
@@ -120,12 +121,7 @@ export default function Owasp(): JSX.Element {
       lines.push('');
     }
     const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `owasp-${activeList}-${new Date().toISOString().slice(0, 10)}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `owasp-${activeList}-${new Date().toISOString().slice(0, 10)}.md`);
   };
 
   const toggleExpanded = (id: string) => {

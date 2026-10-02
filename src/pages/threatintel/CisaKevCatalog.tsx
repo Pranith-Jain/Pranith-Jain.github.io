@@ -7,6 +7,7 @@ import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { SeverityBadge } from '../../components/SeverityBadge';
 import { normalizeSeverity } from '../../components/severity';
+import { downloadBlob } from '../../lib/download';
 
 interface KevEntry {
   cve_id: string;
@@ -59,12 +60,7 @@ function downloadCsv(entries: KevEntry[]) {
       .join(',')
   );
   const blob = new Blob([header + rows.join('\n')], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `cisa-kev-${new Date().toISOString().slice(0, 10)}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, `cisa-kev-${new Date().toISOString().slice(0, 10)}.csv`);
 }
 
 function SeverityBar({ counts }: { counts: Record<string, number> }) {

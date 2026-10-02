@@ -4,6 +4,7 @@ import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { downloadBlob } from '../../lib/download';
 
 interface CertInAdvisory {
   id: string;
@@ -89,12 +90,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
   function exportJSON(): void {
     if (!data) return;
     const blob = new Blob([JSON.stringify(data.advisories, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `cert-in-advisories-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `cert-in-advisories-${new Date().toISOString().slice(0, 10)}.json`);
   }
 
   function exportCSV(): void {
@@ -116,12 +112,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
       );
     }
     const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `cert-in-advisories-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `cert-in-advisories-${new Date().toISOString().slice(0, 10)}.csv`);
   }
 
   return (

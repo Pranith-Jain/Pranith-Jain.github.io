@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Plus, Trash2, FileDown, Edit2, X, ExternalLink, ScrollText } from 'lucide-react';
 import { CopyButton } from '../../components/ui/CopyButton';
+import { downloadBlob } from '../../lib/download';
 
 interface YaraRule {
   id: string;
@@ -98,15 +99,7 @@ export default function YaraManager(): JSX.Element {
   const exportAll = useCallback(() => {
     const text = rules.map((r) => r.rule).join('\n\n');
     const blob = new Blob([text], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'yara-rules-export.yara';
-    // Firefox / Safari require the anchor to be in the document for click() to fire.
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'yara-rules-export.yara');
   }, [rules]);
 
   const filtered = filter

@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { FileText, Search, Download, Copy, Check, AlertTriangle } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { fetchJson } from '../../lib/fetch-helpers';
+import { downloadBlob } from '../../lib/download';
 
 interface EnrichResult {
   ip: string;
@@ -69,12 +70,7 @@ function computeConfidence(r: EnrichResult): number {
 
 function downloadStixJson(bundle: StixBundle, filename: string) {
   const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, filename);
 }
 
 export default function StixIpExport() {

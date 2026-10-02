@@ -5,6 +5,7 @@ import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { relativeAgo } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { downloadBlob } from '../../lib/download';
 
 interface PhishingUrl {
   url: string;
@@ -124,12 +125,7 @@ export default function PhishFeed(): JSX.Element {
     const ext = exportFormat === 'hosts' ? 'hosts' : exportFormat === 'adblock' ? 'txt' : 'txt';
     const mime = 'text/plain';
     const blob = new Blob([exportList], { type: mime });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `phish-feed-${new Date().toISOString().slice(0, 10)}.${ext}`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `phish-feed-${new Date().toISOString().slice(0, 10)}.${ext}`);
   };
 
   const targetBreakdown = useMemo(() => {

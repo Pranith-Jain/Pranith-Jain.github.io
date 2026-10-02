@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { Upload, Shield, Download, AlertTriangle, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 interface IpEnrichment {
   org?: string;
@@ -281,12 +282,7 @@ export default function DmarcAnalyzer(): JSX.Element {
       })
       .join('\n');
     const blob = new Blob([header + rows], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `dmarc-${report.domain}-${report.beginDate}-${report.endDate}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `dmarc-${report.domain}-${report.beginDate}-${report.endDate}.csv`);
   };
 
   const totalEmails = report?.records.reduce((s, r) => s + r.count, 0) ?? 0;

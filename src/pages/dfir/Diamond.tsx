@@ -12,6 +12,7 @@ import {
   type VertexId,
 } from '../../data/diamond';
 import { detectIoc as detectIocBase } from '../../lib/dfir/ioc-detect';
+import { downloadBlob } from '../../lib/download';
 
 const STORAGE_KEY = 'dfir.diamond.event';
 const EMPTY_EVENT: EventForm = {
@@ -513,15 +514,7 @@ function Diamond(): JSX.Element {
   const exportMd = () => {
     const md = buildMarkdown(event);
     const blob = new Blob([md], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'diamond-event.md';
-    // Firefox / Safari require the anchor to be in the document for click() to fire.
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'diamond-event.md');
   };
 
   return (

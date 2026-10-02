@@ -21,6 +21,7 @@ import { streamIoc } from '../../lib/dfir/api';
 import type { ProviderResultWire, DoneEvent, Verdict } from '../../lib/dfir/types';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { recordHistory } from '../../lib/dfir/history';
+import { downloadBlob } from '../../lib/download';
 
 type VerdictFilter = 'all' | Verdict | 'error' | 'unsupported';
 type SortKey = 'source' | 'verdict' | 'score' | 'status';
@@ -36,12 +37,7 @@ const VERDICT_ORDER: Record<string, number> = {
 
 function downloadFile(filename: string, content: string, mime: string) {
   const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, filename);
 }
 
 function summaryIcon(verdict: Verdict) {

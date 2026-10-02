@@ -16,6 +16,7 @@ import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
 import type { Node, Edge } from '@xyflow/react';
 import { GitBranch, Loader2, Download, Save, FolderOpen, Trash2, X, AlertTriangle } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { downloadUrl } from '../../lib/download';
 import {
   exportFlowvizStix,
   exportFlowvizAfb,
@@ -105,10 +106,7 @@ function FlowVizInner(): JSX.Element {
       const el = viewportRef.current?.querySelector('.react-flow__viewport') as HTMLElement | null;
       if (!el) throw new Error('canvas not ready');
       const url = await toPng(el, { pixelRatio: 2, backgroundColor: '#0f172a' });
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'flowviz.png';
-      a.click();
+      downloadUrl(url, 'flowviz.png');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'png export failed');
     }

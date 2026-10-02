@@ -33,6 +33,7 @@ import { DataGapsPanel, type ToolFailure } from '../../components/threatintel/Da
 import { InvestigationTrace } from '../../components/threatintel/InvestigationTrace';
 import { HypothesesPanel } from '../../components/threatintel/HypothesesPanel';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { downloadBlob } from '../../lib/download';
 
 interface AgentToolResult {
   tool: string;
@@ -976,12 +977,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
 
 function downloadFile(filename: string, content: string, mime: string): void {
   const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, filename);
 }
 
 function buildMarkdown(state: AgentState): string {

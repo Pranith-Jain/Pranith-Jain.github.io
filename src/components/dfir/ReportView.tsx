@@ -71,6 +71,7 @@ import type {
 } from './report-view-types';
 import { buildShareMarkdown, renderMarkdown } from './report-view-helpers';
 import { SEVERITY_COLORS } from './report-view-types';
+import { downloadBlob } from '../../lib/download';
 export type {
   Severity,
   Stakeholder,
@@ -797,12 +798,7 @@ function NextActionsBar({
       gradient: { colors: ['#ffe766', '#ff6666', '#990000'], minValue: 0, maxValue: 100 },
     };
     const blob = new Blob([JSON.stringify(layer, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `mitre-navigator-${actionCard.navigatorLayer.name.replace(/\s+/g, '-').toLowerCase()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `mitre-navigator-${actionCard.navigatorLayer.name.replace(/\s+/g, '-').toLowerCase()}.json`);
   };
 
   const hasNavigator = (actionCard?.navigatorLayer?.techniques?.length ?? 0) > 0;
@@ -886,15 +882,13 @@ function NextActionsBar({
                   } catch {
                     // Fallback: download as a .md file
                     const blob = new Blob([md], { type: 'text/markdown' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `dfir-report-${actionCard.verdict.headline
-                      .replace(/[^a-z0-9]+/gi, '-')
-                      .toLowerCase()
-                      .slice(0, 60)}.md`;
-                    a.click();
-                    URL.revokeObjectURL(url);
+                    downloadBlob(
+                      blob,
+                      `dfir-report-${actionCard.verdict.headline
+                        .replace(/[^a-z0-9]+/gi, '-')
+                        .toLowerCase()
+                        .slice(0, 60)}.md`
+                    );
                   }
                 }}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-line-2 text-body text-mini font-mono hover:bg-surface-200 dark:hover:bg-input-200/40"

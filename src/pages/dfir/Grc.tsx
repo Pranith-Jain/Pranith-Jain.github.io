@@ -25,6 +25,7 @@ import {
   type GrcAssessment,
   type MaturityLevel,
 } from '../../data/grc';
+import { downloadBlob } from '../../lib/download';
 
 const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   unset: { label: '- unset', cls: 'border-slate-300 dark:border-line-1 text-slate-500' },
@@ -111,12 +112,7 @@ export default function Grc(): JSX.Element {
       }
     }
     const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'grc-assessment.md';
-    link.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'grc-assessment.md');
   };
 
   const toggleExpanded = (id: string) =>

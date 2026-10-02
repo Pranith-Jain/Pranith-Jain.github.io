@@ -6,6 +6,7 @@ import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { DataState } from '../../components/DataState';
 import { PageMeta } from '../../components/PageMeta';
 import { fetchJsonCached } from '../../lib/api-client';
+import { downloadBlob } from '../../lib/download';
 
 interface ActionableIoc {
   ioc_value: string;
@@ -69,12 +70,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
   const exportAsJson = () => {
     if (!data?.length) return;
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `iocs-${iocType || 'all'}-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `iocs-${iocType || 'all'}-${Date.now()}.json`);
   };
 
   const iocTypeColor = (type: string) => {

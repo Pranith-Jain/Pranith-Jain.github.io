@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { downloadBlob, downloadText, downloadJson } from './download';
+import { downloadBlob, downloadUrl, downloadText, downloadJson } from './download';
 
 /**
  * Guards the two behaviours that were wrong in four page-local copies:
@@ -73,6 +73,47 @@ describe('downloadBlob', () => {
     const blob = new Blob(['payload'], { type: 'text/plain' });
     downloadBlob(blob, 'p.txt');
     expect(createObjectURL).toHaveBeenCalledWith(blob);
+  });
+});
+
+describe('downloadUrl', () => {
+  let clicked: HTMLAnchorElement[];
+  let revokeObjectURL: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    clicked = [];
+    revokeObjectURL = vi.fn();
+    vi.stubGlobal('URL', { ...URL, createObjectURL: vi.fn(), revokeObjectURL } as unknown as typeof URL);
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (this: HTMLAnchorElement) {
+      clicked.push(this);
+      expect(document.body.contains(this), 'anchor must be attached when click() fires').toBe(true);
+    });
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
+  it('attaches, clicks and detaches for a data: URL', () => {
+    downloadUrl('data:image/png;base64,AAAA', 'chart.png');
+    expect(clicked).toHaveLength(1);
+    expect(clicked[0]!.download).toBe('chart.png');
+    expect(clicked[0]!.getAttribute('href')).toBe('data:image/png;base64,AAAA');
+    expect(document.body.contains(clicked[0]!)).toBe(false);
+  });
+
+  it('does not revoke the caller-supplied URL', () => {
+    // The same blob URL is usually also rendered in an <img>; revoking it
+    // here would break the preview.
+    downloadUrl('blob:abc', 'x.png');
+    expect(revokeObjectURL).not.toHaveBeenCalled();
+  });
+
+  it('leaves no anchor behind', () => {
+    const before = document.body.querySelectorAll('a[download]').length;
+    downloadUrl('data:,x', 'a.png');
+    downloadUrl('data:,y', 'b.png');
+    expect(document.body.querySelectorAll('a[download]').length).toBe(before);
   });
 });
 

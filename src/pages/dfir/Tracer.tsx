@@ -22,6 +22,7 @@ import {
 } from '../../lib/dfir/tracer-graph';
 import { buildDorkQueries, deriveOsintTargets, tier2Pivots } from '../../lib/dfir/osint-pivots';
 import { toJSON, toCSV } from '../../lib/dfir/tracer-export';
+import { downloadBlob, downloadUrl } from '../../lib/download';
 
 const CHAINS: { id: TracerChain; label: string }[] = [
   { id: 'evm', label: 'EVM (ETH)' },
@@ -217,12 +218,7 @@ export default function Tracer({ initialAddress = '' }: { initialAddress?: strin
 
   const download = useCallback((filename: string, content: string, mime: string) => {
     const blob = new Blob([content], { type: mime });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, filename);
   }, []);
 
   const saveTrace = useCallback(async () => {
@@ -281,10 +277,7 @@ export default function Tracer({ initialAddress = '' }: { initialAddress?: strin
         const target = vp ?? flow;
         if (!target) return setError('Canvas not ready for export.');
         const dataUrl = await toPng(target, { backgroundColor: '#0b0f1a', pixelRatio: 2 });
-        const a = document.createElement('a');
-        a.href = dataUrl;
-        a.download = `${base}.png`;
-        a.click();
+        downloadUrl(dataUrl, `${base}.png`);
       } catch (_catchErr) {
         logCatch(_catchErr);
         setError('PNG export failed - JSON/CSV still work.');

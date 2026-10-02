@@ -2,6 +2,7 @@ import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Download, RefreshCw, Clock, Shield, Terminal, Activity, Copy, Check } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 interface BlocklistMeta {
   ok: boolean;
@@ -118,12 +119,7 @@ export default function BlocklistsPage(): JSX.Element {
       if (ctrl.signal.aborted) return;
       const text = await res.text();
       const blob = new Blob([text], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `blocklist-${key}.${ext}`;
-      a.click();
-      URL.revokeObjectURL(url);
+      downloadBlob(blob, `blocklist-${key}.${ext}`);
     } catch (_catchErr) {
       logCatch(_catchErr);
       /* ignore */

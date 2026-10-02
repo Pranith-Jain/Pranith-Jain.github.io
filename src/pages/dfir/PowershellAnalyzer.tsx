@@ -20,6 +20,7 @@ import {
   type Severity,
 } from '../../lib/dfir/powershell-analyzer';
 import { CopyChip } from '../../components/dfir/CopyButton';
+import { downloadBlob } from '../../lib/download';
 
 const SAMPLE = `# Sample suspicious script
 $encoded = 'JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0AA=='
@@ -177,12 +178,7 @@ export default function PowershellAnalyzer(): JSX.Element {
         type: 'application/json',
       }
     );
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `psa-report-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `psa-report-${Date.now()}.json`);
   }, [result, filename, code]);
 
   const exportCsv = useCallback(() => {
@@ -199,12 +195,7 @@ export default function PowershellAnalyzer(): JSX.Element {
     ]);
     const csv = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `psa-findings-${Date.now()}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `psa-findings-${Date.now()}.csv`);
   }, [result]);
 
   const copyCode = useCallback(() => {

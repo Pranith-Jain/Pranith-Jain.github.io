@@ -3,6 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
 import { Shield, Search, Globe, Link, FileDigit, AlertTriangle, Download, Loader2, Terminal } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 type IocType = 'ip' | 'hash' | 'domain' | 'url';
 
@@ -68,12 +69,7 @@ function DiagnosticBadge({ d }: { d: { provider: string; status: string; ms: num
 
 function downloadFile(name: string, content: string, mime: string) {
   const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, name);
 }
 
 const IOC_LABELS: Record<IocType, string> = { ip: 'IP Address', hash: 'File Hash', domain: 'Domain', url: 'URL' };

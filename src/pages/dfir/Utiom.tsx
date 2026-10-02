@@ -21,6 +21,7 @@ import {
   UTIOM_META,
   UTIOM_STORAGE_KEY,
 } from '../../data/frameworks';
+import { downloadBlob } from '../../lib/download';
 
 // Minimal UTIOM self-assessment: 7 phases 0–5 + pillar derivation (client-only).
 // Mirrors the utiom.de browser-only pattern (no backend, localStorage, printable).
@@ -105,12 +106,7 @@ export default function Utiom(): JSX.Element {
       lines.push('');
     }
     const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `utiom-self-check-${new Date().toISOString().slice(0, 10)}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `utiom-self-check-${new Date().toISOString().slice(0, 10)}.md`);
   };
 
   const reset = () => {

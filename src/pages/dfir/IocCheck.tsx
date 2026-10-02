@@ -32,6 +32,7 @@ import { PivotMatrix } from '../../components/dfir/PivotMatrix';
 import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
 import { PivotsTab } from '../../components/dfir/PivotsTab';
 import { Textarea } from '../../components/ui/Input';
+import { downloadBlob } from '../../lib/download';
 
 type BulkVerdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -117,12 +118,7 @@ const BULK_MAX = 30;
 
 function downloadFile(filename: string, content: string, mime: string) {
   const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, filename);
 }
 
 function rowsToCsv(rows: BulkRow[]): string {

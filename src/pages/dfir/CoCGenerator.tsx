@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Fingerprint, Plus, Trash2, Download, RefreshCw } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 interface CustodyRecord {
   id: string;
@@ -114,12 +115,7 @@ export default function CoCGenerator() {
       '',
     ];
     const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'chain-of-custody.md';
-    link.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'chain-of-custody.md');
   };
 
   return (

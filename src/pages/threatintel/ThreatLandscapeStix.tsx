@@ -5,6 +5,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { DataState } from '../../components/DataState';
 import { PageMeta } from '../../components/PageMeta';
+import { downloadBlob } from '../../lib/download';
 
 interface StixBundle {
   bundle_id: string;
@@ -110,12 +111,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
   const exportAsJson = () => {
     if (!data?.length) return;
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `stix-bundles-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `stix-bundles-${Date.now()}.json`);
   };
 
   return (

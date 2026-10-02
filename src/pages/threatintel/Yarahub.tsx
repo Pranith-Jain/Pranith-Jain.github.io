@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback, useRef, type FormEvent } from 'react'
 import { Input } from '../../components/ui/Input';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Search, Loader2, ExternalLink, FileDown, X, FileCode } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 interface YaraRuleEntry {
   rule_name: string;
@@ -286,12 +287,7 @@ export default function Yarahub(): JSX.Element {
                 type="button"
                 onClick={() => {
                   const blob = new Blob([ruleContent], { type: 'text/plain' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `${contentName}.yar`;
-                  a.click();
-                  URL.revokeObjectURL(url);
+                  downloadBlob(blob, `${contentName}.yar`);
                 }}
                 className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >

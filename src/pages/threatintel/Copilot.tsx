@@ -44,6 +44,7 @@ import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions'
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
 import { useToast } from '../../components/ui/Toast';
+import { downloadBlob } from '../../lib/download';
 
 interface Source {
   name: string;
@@ -732,14 +733,7 @@ export default function Copilot(): JSX.Element {
     }
     const markdown = lines.join('---\n\n');
     const blob = new Blob([markdown], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    const firstUser = chatMessages.find((m) => m.role === 'user');
-    const name = firstUser ? firstUser.content.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 40) : 'copilot_export';
-    a.href = url;
-    a.download = `${name}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `${name}.md`);
   }, [chatMessages]);
 
   const badge = result?.query_type ? TYPE_BADGES[result.query_type] : null;
@@ -1354,12 +1348,7 @@ export default function Copilot(): JSX.Element {
                         type="button"
                         onClick={() => {
                           const blob = new Blob([result.narrative], { type: 'text/markdown' });
-                          const url = URL.createObjectURL(blob);
-                          const a = document.createElement('a');
-                          a.href = url;
-                          a.download = `${result.query.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
-                          a.click();
-                          URL.revokeObjectURL(url);
+                          downloadBlob(blob, `${result.query.replace(/[^a-zA-Z0-9]/g, '_')}.md`);
                         }}
                         className="inline-flex items-center gap-1.5 rounded border border-line-1 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40"
                       >

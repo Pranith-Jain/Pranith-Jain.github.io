@@ -7,6 +7,7 @@ import { useDataFetch } from '../../hooks/useDataFetch';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { downloadBlob } from '../../lib/download';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
@@ -513,16 +514,9 @@ function downloadFilteredCsv(rows: CorrelatedIoc[]): void {
       ].join(',')
     );
   }
-  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
   const ts = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
-  a.download = `ioc-correlation-${ts}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+  downloadBlob(blob, `ioc-correlation-${ts}.csv`);
 }
 
 async function buildStixBundle(

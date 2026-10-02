@@ -27,6 +27,7 @@ import {
   Line,
   ResponsiveContainer,
 } from 'recharts';
+import { downloadBlob } from '../../lib/download';
 
 interface CveEntry {
   cveId: string;
@@ -778,12 +779,7 @@ export function CveLandscapePanel(): JSX.Element {
                   const rows = nonNull.map((r) => header.map((h) => String(r[h] ?? '')).join(','));
                   const csv = [header.join(','), ...rows].join('\n');
                   const blob = new Blob([csv], { type: 'text/csv' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `threat-dashboard-${view}-${new Date().toISOString().slice(0, 10)}.csv`;
-                  a.click();
-                  URL.revokeObjectURL(url);
+                  downloadBlob(blob, `threat-dashboard-${view}-${new Date().toISOString().slice(0, 10)}.csv`);
                 }}
                 className="text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 border border-line-2 rounded px-2 py-0.5 transition-colors"
               >

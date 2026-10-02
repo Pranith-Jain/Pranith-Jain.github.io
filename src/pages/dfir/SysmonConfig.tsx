@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { TerminalSquare, Copy, Check, Download, RefreshCw } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 /**
  * Sysmon v15.x config generator — focuses on the events that matter for
@@ -111,12 +112,7 @@ export default function SysmonConfig() {
 
   const download = () => {
     const blob = new Blob([xml], { type: 'application/xml' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = name.endsWith('.xml') ? name : `${name}.xml`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, name.endsWith('.xml') ? name : `${name}.xml`);
   };
 
   return (

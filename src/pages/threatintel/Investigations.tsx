@@ -16,6 +16,7 @@ import {
   X,
   FileDown,
 } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 interface Observable {
   id: string;
@@ -334,12 +335,7 @@ function InvestigationsPage(): JSX.Element {
   const exportJson = () => {
     if (!activeInv) return;
     const blob = new Blob([JSON.stringify(activeInv, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `investigation-${activeInv.title.replace(/[^a-z0-9]+/gi, '-')}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `investigation-${activeInv.title.replace(/[^a-z0-9]+/gi, '-')}.json`);
   };
 
   const [exportingPdf, setExportingPdf] = useState(false);

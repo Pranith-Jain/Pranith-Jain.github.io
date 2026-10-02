@@ -27,6 +27,7 @@ import {
   scoreTidCmm,
   type MaturityLevel,
 } from '../../data/frameworks';
+import { downloadBlob } from '../../lib/download';
 
 const LEVEL_PILLS: Record<number, string> = {
   0: 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
@@ -106,12 +107,7 @@ export default function TidCmm(): JSX.Element {
       lines.push('');
     }
     const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `tid-cmm-assessment-${new Date().toISOString().slice(0, 10)}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `tid-cmm-assessment-${new Date().toISOString().slice(0, 10)}.md`);
   };
 
   const reset = () => {

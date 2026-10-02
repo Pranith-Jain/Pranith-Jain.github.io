@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { Scale, ExternalLink, Download, RotateCcw } from 'lucide-react';
 import { REGIMES, type Article, type RegimeId } from '../../data/privacy-hub';
+import { downloadBlob } from '../../lib/download';
 
 const STORAGE_KEY = 'dfir.privacy-hub.checks.v1';
 
@@ -121,12 +122,7 @@ export default function PrivacyHub(): JSX.Element {
   const downloadMd = () => {
     const md = exportMd(state);
     const blob = new Blob([md], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'privacy-hub-assessment.md';
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'privacy-hub-assessment.md');
   };
 
   const allCoverage = useMemo(

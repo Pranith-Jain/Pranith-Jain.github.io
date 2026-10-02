@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { FileCheck, Upload, FileSearch, ShieldAlert } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 import { sanitizeInvisibleText, scanInvisibleText } from '../../lib/invisible-prompt';
 
 interface Row {
@@ -128,11 +129,7 @@ export default function WebLogAnalyzer(): JSX.Element {
   function download() {
     if (!res) return;
     const blob = new Blob([csv(res.rows)], { type: 'text/csv' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'suspicious-requests.csv';
-    a.click();
-    URL.revokeObjectURL(a.href);
+    downloadBlob(blob, 'suspicious-requests.csv');
   }
 
   function pipeToExtractor() {

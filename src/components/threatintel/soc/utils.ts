@@ -1,5 +1,7 @@
 /** Time helpers used by SOC dashboards (relative age, day-bucketing, CSV export). */
 
+import { downloadBlob } from '../../../lib/download';
+
 /**
  * Locale-stable integer formatter. Always uses thousands separators from
  * the en-US convention so the server-prerendered HTML matches what the
@@ -44,10 +46,5 @@ export function downloadCsv(filename: string, rows: (string | number)[][]): void
   };
   const csv = rows.map((r) => r.map(esc).join(',')).join('\r\n');
   const blob = new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  downloadBlob(blob, filename);
 }

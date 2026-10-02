@@ -4,6 +4,7 @@ import { DataPageLayout } from '../components/DataPageLayout';
 import { Button } from '../components/ui/Button';
 import { Spinner } from '../components/ui/Spinner';
 import { Bot, Search, AlertTriangle, Download, ChevronDown, ChevronRight } from 'lucide-react';
+import { downloadBlob } from '../lib/download';
 
 interface TierReason {
   rule: string;
@@ -183,12 +184,7 @@ const SEVERITY_STYLE: Record<string, string> = {
 
 function downloadFile(filename: string, text: string, mime: string) {
   const blob = new Blob([text], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, filename);
 }
 
 export default function NhiScan() {

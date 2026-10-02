@@ -2,6 +2,7 @@ import { logCatch } from '../../lib/log';
 import { useState, useMemo, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Network, Search, Download, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { downloadBlob } from '../../lib/download';
 
 type EntityType =
   | 'ip'
@@ -212,12 +213,7 @@ export default function Pivex(): JSX.Element {
       metadata: { generated: new Date().toISOString(), totalNodes: nodes.length, totalEdges: edges.length },
     };
     const blob = new Blob([JSON.stringify(graph, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `pivex-graph-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `pivex-graph-${Date.now()}.json`);
   }, [nodes, edges]);
 
   const getNodeColor = (type: string): string => ENTITY_COLORS[type] ?? ENTITY_COLORS.reference ?? '';

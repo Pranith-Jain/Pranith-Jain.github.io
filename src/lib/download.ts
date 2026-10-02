@@ -42,6 +42,27 @@ export function downloadBlob(blob: Blob, filename: string): void {
 }
 
 /**
+ * Download an already-materialised URL (blob: or data:) under `filename`.
+ *
+ * Use this for canvas exports. `html-to-image`'s `toPng()` returns a **data
+ * URL**, not a blob, so those call sites cannot use {@link downloadBlob} —
+ * but they were still hand-rolling the anchor dance, including the detached
+ * `.click()` that silently fails in Firefox.
+ *
+ * No revocation happens here: a `data:` URL has no blob to release, and a
+ * `blob:` URL passed in by the caller is usually also being rendered in an
+ * `<img>`, so revoking it would break the preview.
+ */
+export function downloadUrl(url: string, filename: string): void {
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+}
+
+/**
  * Build a `Blob` from text and download it.
  *
  * Convenience wrapper for the common "save this report as .md/.json/.txt"

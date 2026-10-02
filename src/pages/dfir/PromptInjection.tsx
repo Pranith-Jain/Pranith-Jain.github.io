@@ -12,6 +12,7 @@ import {
 } from '../../lib/dfir/prompt-injection-patterns';
 import { RED_TEAM_PROMPTS, RED_TEAM_CATEGORIES, type RedTeamCategory } from '../../data/redteam-prompts';
 import { SEVERITY_TONE as SEVERITY_STYLES, SEVERITY_BAR } from '../../components/severity';
+import { downloadBlob } from '../../lib/download';
 
 const SAMPLES: { label: string; text: string }[] = [
   {
@@ -133,12 +134,7 @@ export default function PromptInjection(): JSX.Element {
 
   const exportRedTeam = () => {
     const blob = new Blob([JSON.stringify(filteredRedTeam, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `redteam-prompts-${rtCategory}-${rtOwasp}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, `redteam-prompts-${rtCategory}-${rtOwasp}.json`);
   };
 
   return (

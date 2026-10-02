@@ -35,6 +35,7 @@ import { CountryIntelPanel } from '../../components/threatintel/CountryIntelPane
 import { useGlobalPulse } from '../../hooks/useGlobalPulse';
 import type { PulseKind, PulseEvent, GlobalPulseResponse, LayerDef } from './global-pulse-types';
 import { LAYER_DEFS, SEVERITY_CONFIG, ALL_KINDS, formatTime, formatTimeFull, signalRank } from './global-pulse-types';
+import { downloadBlob } from '../../lib/download';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
@@ -345,12 +346,7 @@ export default function GlobalPulse(): JSX.Element {
       ...rows.map((r) => r.map((v) => (typeof v === 'string' ? '"' + v.replace(/"/g, '""') + '"' : v)).join(',')),
     ].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'global-pulse-' + new Date().toISOString().split('T')[0] + '.csv';
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadBlob(blob, 'global-pulse-' + new Date().toISOString().split('T')[0] + '.csv');
   }, [filteredEvents]);
 
   // Last-good: paint the previous response instantly on mount (client-only, so

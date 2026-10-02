@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Users, ExternalLink, Download, Bot, Loader2, Shield, Globe, X } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { downloadBlob } from '../../lib/download';
 
 interface ForumRef {
   forum: string;
@@ -71,12 +72,7 @@ function ForumLogo({ logoUrl, forum }: { logoUrl?: string; forum: string }) {
 
 function downloadFile(name: string, content: string, mime: string) {
   const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, name);
 }
 
 export default function ScrapedIntelUsernames(): JSX.Element {

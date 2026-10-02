@@ -22,6 +22,7 @@ import {
   type VerdictResult,
   type ExportRow,
 } from '../../lib/dfir/cve-priority';
+import { downloadBlob } from '../../lib/download';
 
 /**
  * CVE Exploit Prioritizer.
@@ -127,12 +128,7 @@ async function pool<T, R>(items: T[], size: number, fn: (t: T) => Promise<R>): P
 
 function downloadFile(filename: string, content: string, mime: string) {
   const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(blob, filename);
 }
 
 export default function CvePrioritizer(): JSX.Element {
