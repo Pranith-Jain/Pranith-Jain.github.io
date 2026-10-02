@@ -39,7 +39,7 @@ export function Contact({ personalInfo }: ContactProps) {
             Investigating an incident, or building detections before one happens?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-muted">
-            I work with security teams on phishing, BEC, and malware cases - and on the detection engineering,
+            I work with security teams on phishing, BEC, and malware cases, and on the detection engineering,
             threat-intel feeds, and email-defense work that prevents the next one. Available for short engagements and
             strategy calls.
           </p>
