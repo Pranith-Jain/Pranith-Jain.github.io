@@ -4,17 +4,27 @@
   "name": "kairos",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
+  "mentionCount": 2,
   "firstSeen": "2026-09-30T19:28:35.000Z",
-  "lastSeen": "2026-09-30T19:28:35.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "lastSeen": "2026-10-01T19:00:23.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-30",
       "count": 1
+    },
+    {
+      "date": "2026-10-01",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "slate-valley-unified-school-district-6f6f",
+      "title": "Slate Valley Unified School District — claimed by kairos",
+      "pubDate": "2026-10-01T19:00:23.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "le-centre-national-de-l-expertise-hospitali-re-cneh-62d1",
@@ -25,6 +35,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
       "weight": 1
@@ -32,6 +48,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "slate-valley-unified-school-district-6f6f",
+      "victim": "Slate Valley Unified School District — claimed by kairos",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-10-01T19:00:23.000Z"
+    },
     {
       "id": "le-centre-national-de-l-expertise-hospitali-re-cneh-62d1",
       "victim": "Le Centre National de l'Expertise Hospitalière (CNEH) — claimed by kairos",

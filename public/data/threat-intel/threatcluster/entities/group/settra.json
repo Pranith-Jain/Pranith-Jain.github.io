@@ -4,40 +4,78 @@
   "name": "settra",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-09-30T13:37:55.000Z",
-  "lastSeen": "2026-09-30T13:37:55.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 3,
+  "firstSeen": "2026-10-02T09:03:48.000Z",
+  "lastSeen": "2026-10-02T09:04:38.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-30",
-      "count": 1
+      "date": "2026-10-02",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "dfiretailgroup-com-3a44",
-      "title": "dfiretailgroup.com — claimed by settra",
-      "pubDate": "2026-09-30T13:37:55.000Z"
+      "slug": "baltimorefreightliner-com-d2e9",
+      "title": "baltimorefreightliner.com — claimed by settra",
+      "pubDate": "2026-10-02T09:04:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "goldenpearfunding-com-4193",
+      "title": "goldenpearfunding.com — claimed by settra",
+      "pubDate": "2026-10-02T09:04:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mcpolymers-com-8ea2",
+      "title": "mcpolymers.com — claimed by settra",
+      "pubDate": "2026-10-02T09:03:48.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "dfiretailgroup-com-3a44",
-      "victim": "dfiretailgroup.com — claimed by settra",
-      "sector": "Retail & E-Commerce",
+      "id": "baltimorefreightliner-com-d2e9",
+      "victim": "baltimorefreightliner.com — claimed by settra",
+      "sector": "Transportation",
       "country": "US",
-      "pubDate": "2026-09-30T13:37:55.000Z"
+      "pubDate": "2026-10-02T09:04:38.000Z"
+    },
+    {
+      "id": "goldenpearfunding-com-4193",
+      "victim": "goldenpearfunding.com — claimed by settra",
+      "sector": "Financial Services",
+      "country": null,
+      "pubDate": "2026-10-02T09:04:13.000Z"
+    },
+    {
+      "id": "mcpolymers-com-8ea2",
+      "victim": "mcpolymers.com — claimed by settra",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-10-02T09:03:48.000Z"
     }
   ]
 }

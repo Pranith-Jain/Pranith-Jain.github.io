@@ -5,46 +5,56 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 3,
-  "firstSeen": "2026-09-30T03:38:18.000Z",
-  "lastSeen": "2026-09-30T13:37:55.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 3 countries.",
+  "firstSeen": "2026-10-01T11:58:21.000Z",
+  "lastSeen": "2026-10-02T09:31:28.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-09-30",
-      "count": 3
+      "date": "2026-10-01",
+      "count": 1
+    },
+    {
+      "date": "2026-10-02",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "dfiretailgroup-com-3a44",
-      "title": "dfiretailgroup.com — claimed by settra",
-      "pubDate": "2026-09-30T13:37:55.000Z"
+      "slug": "www-raajratna-com-e56c",
+      "title": "www.raajratna.com — claimed by krybit",
+      "pubDate": "2026-10-02T09:31:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "quality-sport-topsport-italia-99e5",
-      "title": "QUALITY SPORT Topsport Italia — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:39:19.000Z"
+      "slug": "main-place-mall-9695",
+      "title": "Main Place Mall — claimed by netrunner",
+      "pubDate": "2026-10-02T00:05:15.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "drinks-wines-spirits-715c",
-      "title": "Drinks Wines Spirits — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:38:18.000Z"
+      "slug": "owens-distributors-e9c4",
+      "title": "Owens Distributors — claimed by genesis",
+      "pubDate": "2026-10-01T11:58:21.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 2
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 1
     },
     {
       "type": "group",
-      "slug": "settra",
-      "name": "settra",
+      "slug": "netrunner",
+      "name": "netrunner",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "genesis",
+      "name": "genesis",
       "weight": 1
     }
   ],

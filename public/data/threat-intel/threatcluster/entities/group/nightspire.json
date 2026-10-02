@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "nightspire",
+  "name": "nightspire",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-10-01T13:35:58.000Z",
+  "lastSeen": "2026-10-01T13:35:58.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-10-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "c-ro-nty-es-674c",
+      "title": "C*ro *nty *es — claimed by nightspire",
+      "pubDate": "2026-10-01T13:35:58.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "c-ro-nty-es-674c",
+      "victim": "C*ro *nty *es — claimed by nightspire",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-10-01T13:35:58.000Z"
+    }
+  ]
+}

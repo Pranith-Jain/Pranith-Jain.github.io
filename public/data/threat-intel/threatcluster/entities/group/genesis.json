@@ -1,0 +1,94 @@
+{
+  "type": "group",
+  "slug": "genesis",
+  "name": "genesis",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-10-01T11:58:21.000Z",
+  "lastSeen": "2026-10-01T11:59:23.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-10-01",
+      "count": 4
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "vpne-99d4",
+      "title": "VPNE — claimed by genesis",
+      "pubDate": "2026-10-01T11:59:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tlc-perinatal-924b",
+      "title": "TLC Perinatal — claimed by genesis",
+      "pubDate": "2026-10-01T11:59:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vera-science-7207",
+      "title": "Vera Science — claimed by genesis",
+      "pubDate": "2026-10-01T11:58:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "owens-distributors-e9c4",
+      "title": "Owens Distributors — claimed by genesis",
+      "pubDate": "2026-10-01T11:58:21.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "vpne-99d4",
+      "victim": "VPNE — claimed by genesis",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-10-01T11:59:23.000Z"
+    },
+    {
+      "id": "tlc-perinatal-924b",
+      "victim": "TLC Perinatal — claimed by genesis",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-10-01T11:59:01.000Z"
+    },
+    {
+      "id": "vera-science-7207",
+      "victim": "Vera Science — claimed by genesis",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-10-01T11:58:41.000Z"
+    },
+    {
+      "id": "owens-distributors-e9c4",
+      "victim": "Owens Distributors — claimed by genesis",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-10-01T11:58:21.000Z"
+    }
+  ]
+}

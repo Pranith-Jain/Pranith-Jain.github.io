@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "morpheus",
+  "name": "morpheus",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-10-01T14:30:01.000Z",
+  "lastSeen": "2026-10-01T14:30:01.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-10-01",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "superior-plating-technology-co-9f35",
+      "title": "Superior Plating Technology CO — claimed by morpheus",
+      "pubDate": "2026-10-01T14:30:01.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "superior-plating-technology-co-9f35",
+      "victim": "Superior Plating Technology CO — claimed by morpheus",
+      "sector": "Manufacturing",
+      "country": null,
+      "pubDate": "2026-10-01T14:30:01.000Z"
+    }
+  ]
+}

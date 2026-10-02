@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-10-01T11:47:14.983Z",
-  "eventCount": 2,
+  "syncedAt": "2026-10-02T11:14:53.783Z",
+  "eventCount": 3,
   "events": [
     {
       "uuid": "558ee81f-5e54-52c5-a042-49b937c93432",
@@ -22,6 +22,16 @@
       "threat_level_id": "2",
       "timestamp": "1790709140",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "30c26383-64df-5869-9a77-0628a3113ddb",
+      "info": "Critical FortiMail Vulnerability Actively Exploited in the Wild",
+      "date": "2026-10-01",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1790896513",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     }
   ]

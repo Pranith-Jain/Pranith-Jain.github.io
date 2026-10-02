@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "akira",
+  "name": "akira",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-10-01T12:56:13.000Z",
+  "lastSeen": "2026-10-01T13:27:59.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-10-01",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "wesmar-b834",
+      "title": "Wesmar — claimed by akira",
+      "pubDate": "2026-10-01T13:27:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dpl-group-01a8",
+      "title": "DPL Group — claimed by akira",
+      "pubDate": "2026-10-01T13:27:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "krycler-ervin-taubman-amp-kaminsky-9310",
+      "title": "Krycler, Ervin, Taubman &amp; Kaminsky — claimed by akira",
+      "pubDate": "2026-10-01T12:56:13.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "wesmar-b834",
+      "victim": "Wesmar — claimed by akira",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-10-01T13:27:59.000Z"
+    },
+    {
+      "id": "dpl-group-01a8",
+      "victim": "DPL Group — claimed by akira",
+      "sector": "Other",
+      "country": null,
+      "pubDate": "2026-10-01T13:27:57.000Z"
+    },
+    {
+      "id": "krycler-ervin-taubman-amp-kaminsky-9310",
+      "victim": "Krycler, Ervin, Taubman &amp; Kaminsky — claimed by akira",
+      "sector": "Professional Services",
+      "country": null,
+      "pubDate": "2026-10-01T12:56:13.000Z"
+    }
+  ]
+}
