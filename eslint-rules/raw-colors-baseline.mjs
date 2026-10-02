@@ -37,22 +37,6 @@
  *    instead of surfacing it.
  *  - Steps with no token at all (`slate-950`, `border-slate-700`).
  *
- * ## Scope: this list must cover the COMMITTED tree
- *
- * CI lints the committed tree. A file that is clean in your working tree can
- * still be dirty in the commit - that is what an in-progress token sweep looks
- * like partway through. Two mistakes follow, both of which have happened here:
- *
- *   - Generating from the working tree alone under-reports, and the next push
- *     fails with hundreds of warnings.
- *   - Pruning "stale" entries against the working tree drops files CI still
- *     flags, failing the push in the other direction.
- *
- * So regenerate against the committed tree (a `git worktree` of HEAD, or just
- * after committing) and treat staleness as non-fatal. A file may remain here
- * after it is clean; that suppresses nothing. Only a MISSING entry is a real
- * failure, and `--check` fails on exactly that.
- *
  * Each entry should leave the list as its file is cleaned up.
  */
 export const RAW_COLORS_BASELINE = [
@@ -102,47 +86,34 @@ export const RAW_COLORS_BASELINE = [
   "src/pages/dfir/AgentMap.tsx",
   "src/pages/dfir/AttackNavigator.tsx",
   "src/pages/dfir/Catalog.tsx",
-  "src/pages/dfir/ChronoAi.tsx",
-  "src/pages/dfir/CtMonitor.tsx",
   "src/pages/dfir/CveLookup.tsx",
   "src/pages/dfir/DarkWeb.tsx",
   "src/pages/dfir/DetectionChokepointsHub.tsx",
   "src/pages/dfir/Diamond.tsx",
   "src/pages/dfir/DiamondModelSection.tsx",
-  "src/pages/dfir/Dnscope.tsx",
   "src/pages/dfir/GrcEvidence.tsx",
   "src/pages/dfir/InfostealerIntel.tsx",
-  "src/pages/dfir/InsightAi.tsx",
   "src/pages/dfir/IocPivot.tsx",
   "src/pages/dfir/IrPlaybooks.tsx",
-  "src/pages/dfir/MalbriefAi.tsx",
   "src/pages/dfir/MitreMatrix.tsx",
   "src/pages/dfir/Notebooks.tsx",
   "src/pages/dfir/PhishBook.tsx",
   "src/pages/dfir/PhoneOsintNew.tsx",
-  "src/pages/dfir/Pivex.tsx",
-  "src/pages/dfir/QuerycraftAi.tsx",
   "src/pages/dfir/ReportAnalyzer.tsx",
-  "src/pages/dfir/SandboxIntegration.tsx",
-  "src/pages/dfir/StealerParser.tsx",
   "src/pages/dfir/ThreatFeeds.tsx",
-  "src/pages/dfir/ThreatGraph.tsx",
   "src/pages/dfir/UrlRisk.tsx",
-  "src/pages/dfir/VerdiktAi.tsx",
   "src/pages/dfir/WikiArticle.tsx",
   "src/pages/dfir/ZeroTrustAiAgents.tsx",
   "src/pages/threatintel/AIReportShowcase.tsx",
   "src/pages/threatintel/AiHoneypotObservatory.tsx",
   "src/pages/threatintel/Analyze.tsx",
   "src/pages/threatintel/AssessmentDetail.tsx",
-  "src/pages/threatintel/AttributionFramework.tsx",
   "src/pages/threatintel/BreachForums.tsx",
   "src/pages/threatintel/CampaignLifecycle.tsx",
   "src/pages/threatintel/Catalog.tsx",
   "src/pages/threatintel/CertInAdvisories.tsx",
   "src/pages/threatintel/CisaKevCatalog.tsx",
   "src/pages/threatintel/Copilot.tsx",
-  "src/pages/threatintel/CrossCampaignCorrelation.tsx",
   "src/pages/threatintel/CveDetail.tsx",
   "src/pages/threatintel/CyberPulse.tsx",
   "src/pages/threatintel/DarkWebPlaybook.tsx",

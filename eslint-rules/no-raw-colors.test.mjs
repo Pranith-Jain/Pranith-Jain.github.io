@@ -92,9 +92,21 @@ describe('no-raw-colors: alpha overlays are never auto-fixed', () => {
     expect(output).toBe('<div className="dark:bg-white/10" />');
   });
 
-  it('still fixes an opaque dark:bg-white', () => {
-    const { output } = lint('<div className="dark:bg-white" />');
-    expect(output).toBe('<div className="dark:bg-surface-100" />');
+  it('leaves an opaque dark:bg-white alone, and says why', () => {
+    // Same inversion as the alpha case, with no alpha to excuse it. A white
+    // surface chosen deliberately for dark mode (QR codes, paper previews)
+    // has no token equivalent: --surface-100 is near-black in dark mode, so
+    // "fixing" this would flip the panel to black.
+    const { messages, output } = lint('<div className="dark:bg-white" />');
+    expect(messages.map((m) => m.messageId)).toEqual(['rawColorNoToken']);
+    expect(output).toBe('<div className="dark:bg-white" />');
+  });
+
+  it('still fixes an opaque dark:bg-slate-200, where the token is not a surface flip', () => {
+    // The gate is scoped to the extremes: slate-200 maps to --track, whose
+    // dark half is a mid-step, not a near-black surface. That one is safe.
+    const { output } = lint('<div className="dark:bg-slate-200" />');
+    expect(output).toBe('<div className="dark:bg-track" />');
   });
 
   it('still fixes alpha on a mid-ramp step, where the mapping is safe', () => {

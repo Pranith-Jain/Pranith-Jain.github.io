@@ -427,6 +427,21 @@ function inspect(raw) {
       issues.push({ messageId: 'rawColorNoToken', data: { raw: cls }, fixable: false });
       continue;
     }
+
+    // Same inversion without the alpha: `dark:bg-white` is a surface chosen
+    // deliberately for dark mode (QR codes, paper previews). --surface-100 is
+    // near-black in dark mode, so rewriting it to `dark:bg-surface-100` would
+    // turn an explicitly white panel black -- the exact opposite of the
+    // author's intent, and a silent rendering change an autofixer must not
+    // make. Reported, never auto-fixed. Scoped to the `bg` prop because
+    // surface tokens are backgrounds; `text-white` and `border-white` are
+    // gated on their own terms above and via DARK mapping.
+    const opaqueExtremeOnDark =
+      !u.opacity && u.variants.includes('dark') && u.prop === 'bg' && (u.value === 'white' || u.value === 'black');
+    if (token && opaqueExtremeOnDark) {
+      issues.push({ messageId: 'rawColorNoToken', data: { raw: cls }, fixable: false });
+      continue;
+    }
     const prefix = u.variants.length ? `${u.variants.join(':')}:` : '';
     if (token) {
       const rebuilt = `${prefix}${token}${u.opacity ? `/${u.opacity}` : ''}`;
