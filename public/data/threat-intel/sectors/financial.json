@@ -1,10 +1,67 @@
 {
   "sector": "financial",
   "title": "Financial sector brief",
-  "generatedAt": "2026-10-01",
-  "topCount": 0,
-  "preview": "No KEV-flagged CVEs in the current window.",
-  "sizeBytes": 288,
+  "generatedAt": "2026-10-02",
+  "topCount": 8,
+  "preview": "CVE-2025-59374 (critical) leads with priority 91.",
+  "sizeBytes": 2820,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
-  "topThreats": []
+  "topThreats": [
+    {
+      "cveId": "CVE-2025-59374",
+      "title": "\"UNSUPPORTED WHEN ASSIGNED\" Certain versions of the ASUS Live Update client were distributed with unauthorized modificat",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2020-0796",
+      "title": "A remote code execution vulnerability exists in the way that the Microsoft Server Message Block 3.1.1 (SMBv3) protocol h",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 10; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2025-57819",
+      "title": "FreePBX is an open-source web-based graphical user interface. FreePBX 15, 16, and 17 endpoints are vulnerable due to ins",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2018-19949",
+      "title": "If exploited, this command injection vulnerability could allow remote attackers to run arbitrary commands. QNAP has alre",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2020-12812",
+      "title": "An improper authentication vulnerability in SSL VPN in FortiOS 6.4.0, 6.2.0 to 6.2.3, 6.0.9 and below may result in a us",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2019-2725",
+      "title": "Vulnerability in the Oracle WebLogic Server component of Oracle Fusion Middleware (subcomponent: Web Services). Supporte",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2018-19323",
+      "title": "The GDrv low-level driver in GIGABYTE APP Center v1.05.21 and earlier, AORUS GRAPHICS ENGINE before 1.57, XTREME GAMING ",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2018-7602",
+      "title": "A remote code execution vulnerability exists within multiple subsystems of Drupal 7.x and 8.x. This potentially allows a",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    }
+  ]
 }

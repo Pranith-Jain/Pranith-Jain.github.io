@@ -4,21 +4,27 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-30T03:37:36.000Z",
-  "lastSeen": "2026-10-01T09:04:21.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 5 ransomware groups and 4 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-09-30T17:00:59.000Z",
+  "lastSeen": "2026-10-01T12:56:13.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
       "date": "2026-09-30",
-      "count": 6
+      "count": 2
     },
     {
       "date": "2026-10-01",
-      "count": 1
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "krycler-ervin-taubman-amp-kaminsky-9310",
+      "title": "Krycler, Ervin, Taubman &amp; Kaminsky — claimed by akira",
+      "pubDate": "2026-10-01T12:56:13.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "dynamic-office-solutions-6241",
@@ -36,38 +42,14 @@
       "slug": "blaise-c-bender-pc-cf2d",
       "title": "Blaise C. Bender, PC — claimed by interlock",
       "pubDate": "2026-09-30T17:00:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "law-offices-of-r-david-williams-p-a-0a2c",
-      "title": "Law Offices of R. David Williams, P.A. — claimed by rhysida",
-      "pubDate": "2026-09-30T10:10:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "legalwise-184e",
-      "title": "LegalWise — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:40:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "auren-3314",
-      "title": "Auren — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:39:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "williamson-dacar-associates-e1c4",
-      "title": "Williamson Dacar Associates — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:37:36.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 3
+      "slug": "akira",
+      "name": "akira",
+      "weight": 1
     },
     {
       "type": "group",
@@ -85,12 +67,6 @@
       "type": "group",
       "slug": "interlock",
       "name": "interlock",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "rhysida",
-      "name": "rhysida",
       "weight": 1
     }
   ],

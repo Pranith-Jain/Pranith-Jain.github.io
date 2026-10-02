@@ -4,15 +4,11 @@
   "name": "aurora",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-09-30T16:55:16.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-10-01T06:55:01.000Z",
   "lastSeen": "2026-10-01T06:55:01.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-09-30",
-      "count": 1
-    },
     {
       "date": "2026-10-01",
       "count": 1
@@ -24,12 +20,6 @@
       "slug": "laboratorios-roemmers-saicf-0ccb",
       "title": "Laboratorios Roemmers SAICF — claimed by aurora",
       "pubDate": "2026-10-01T06:55:01.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "buford-thompson-company-ltd-2aef",
-      "title": "Buford-Thompson Company, LTD — claimed by aurora",
-      "pubDate": "2026-09-30T16:55:16.000Z"
     }
   ],
   "relatedEntities": [
@@ -37,12 +27,6 @@
       "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
       "weight": 1
     }
   ],
@@ -54,13 +38,6 @@
       "sector": "Healthcare",
       "country": "AR",
       "pubDate": "2026-10-01T06:55:01.000Z"
-    },
-    {
-      "id": "buford-thompson-company-ltd-2aef",
-      "victim": "Buford-Thompson Company, LTD — claimed by aurora",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-09-30T16:55:16.000Z"
     }
   ]
 }
