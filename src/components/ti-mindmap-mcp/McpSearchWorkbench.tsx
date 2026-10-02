@@ -12,6 +12,8 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { SeverityBadge } from '../SeverityBadge';
+import { normalizeSeverity } from '../severity';
 import { AlertTriangle, Calendar, ExternalLink, FileText, Filter, Loader2, Search, Shield, X } from 'lucide-react';
 import {
   searchIoc,
@@ -634,7 +636,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
         <div className="flex items-center gap-2 min-w-0">
           <Shield className="h-4 w-4 text-orange-500 shrink-0" />
           <span className="text-sm font-mono font-semibold text-heading">{hit.cve_id}</span>
-          {hit.severity && <SeverityBadge severity={hit.severity} />}
+          {hit.severity && <SeverityBadge severity={normalizeSeverity(hit.severity)} />}
         </div>
         <div className="flex items-center gap-2 shrink-0">
           {typeof hit.cvss_score === 'number' && (
@@ -970,19 +972,4 @@ function ReportRow({
       )}
     </li>
   );
-}
-
-// ── Severity badge ────────────────────────────────────────────────
-
-function SeverityBadge({ severity }: { severity: string }): JSX.Element {
-  const s = severity.toLowerCase();
-  const cls =
-    s === 'critical'
-      ? 'bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800'
-      : s === 'high'
-        ? 'bg-orange-100 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-800'
-        : s === 'medium'
-          ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800'
-          : 'bg-slate-100 dark:bg-input-200/40 text-muted border-line-1';
-  return <span className={`rounded px-1.5 py-0.5 text-micro font-mono border ${cls}`}>{severity}</span>;
 }

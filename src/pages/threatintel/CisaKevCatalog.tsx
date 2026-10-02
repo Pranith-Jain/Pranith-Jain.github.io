@@ -5,6 +5,8 @@ import { fetchJson } from '../../lib/fetch-helpers';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
+import { SeverityBadge } from '../../components/SeverityBadge';
+import { normalizeSeverity } from '../../components/severity';
 
 interface KevEntry {
   cve_id: string;
@@ -34,14 +36,6 @@ const SEVERITY_COLORS: Record<string, string> = {
   Medium: 'bg-amber-500 text-white',
   Low: 'bg-emerald-500 text-white',
   '(none)': 'bg-slate-300 dark:bg-surface-300 text-body',
-};
-
-const SEVERITY_PILL: Record<string, string> = {
-  Critical: 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300',
-  High: 'border-orange-300 dark:border-orange-600 bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
-  Medium: 'border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
-  Low: 'border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
-  '(none)': 'border-slate-300 dark:border-line-2 bg-slate-50 dark:bg-surface-200 text-muted',
 };
 
 const SEV_ORDER = ['Critical', 'High', 'Medium', 'Low'];
@@ -107,11 +101,10 @@ function SeverityBar({ counts }: { counts: Record<string, number> }) {
   );
 }
 
-function SeverityBadge({ severity }: { severity: string | null }) {
-  const s = severity || '(none)';
-  const cls = SEVERITY_PILL[s] || SEVERITY_PILL['(none)'];
-  return <span className={`inline-block text-mini font-semibold px-2 py-0.5 rounded-full border ${cls}`}>{s}</span>;
-}
+// The severity pill comes from the shared component. This file's local copy
+// coloured Low emerald, which contradicted the ramp documented in
+// components/severity.ts: low is intentionally slate, because a low-severity
+// finding is still a finding and green reads as "safe/done".
 
 const PAGE_SIZES = [25, 50, 100];
 
@@ -358,7 +351,10 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                 sortValue: (v: (typeof pageEntries)[number]) => v.severity,
                 render: (v) => (
                   <span>
-                    <SeverityBadge severity={v.severity} />
+                    {/* A missing severity renders nothing. normalizeSeverity
+                        falls back to 'low', which would label absent data as
+                        a real low-severity finding. */}
+                    {v.severity && <SeverityBadge severity={normalizeSeverity(v.severity)} />}
                     {v.cvss_score != null && (
                       <span className="ml-1.5 text-mini text-muted font-mono">{v.cvss_score.toFixed(1)}</span>
                     )}

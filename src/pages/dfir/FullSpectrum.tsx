@@ -1,6 +1,6 @@
 import { useReducer, useState, useRef, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { SEVERITY_BAR, type Severity } from '../../components/severity';
+import { SEVERITY_BAR, normalizeSeverity } from '../../components/severity';
 import {
   Search,
   Shield,
@@ -107,22 +107,9 @@ function fetchTool(url: string, signal?: AbortSignal): Promise<unknown> {
   });
 }
 
-function normalizeSeverity(raw: string | undefined): Severity {
-  switch ((raw ?? '').toLowerCase()) {
-    case 'critical':
-      return 'critical';
-    case 'high':
-      return 'high';
-    case 'medium':
-      return 'medium';
-    case 'info':
-    case 'informational':
-      return 'info';
-    case 'low':
-    default:
-      return 'low';
-  }
-}
+// normalizeSeverity now lives in components/severity.ts. This local copy was
+// behaviourally identical to the shared helper minus the Spanish/synonym
+// aliases, so swapping it in is a no-op for existing data.
 
 const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; buildUrl: (d: string) => string }> = [
   {
