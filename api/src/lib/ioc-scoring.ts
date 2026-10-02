@@ -18,28 +18,18 @@
  *   3. Reward corroboration across independent sources
  *   4. Allow analysts to tune decay rates per indicator type
  *
+ * Source reliability is NOT defined here. This module used to carry its own
+ * Admiralty A–F weight table, which drifted from the ~100-source registry in
+ * `lib/confidence.ts` — every observation defaulted to tier C because nothing
+ * here knew the registry. Tiers and weights now come from `confidence.ts`, so
+ * both scoring paths grade the same source identically.
+ *
  * Usage:
  *   import { scoreIoc, type IocObservation } from '../lib/ioc-scoring';
  *   const score = scoreIoc(observations);
  */
 
-// ── Source Reliability Tiers (Admiralty Code) ─────────────────────
-
-/**
- * Source reliability ratings following the NATO Admiralty Code (A-F).
- * Each tier has a weight multiplier for score calculation.
- */
-export const SOURCE_RELIABILITY: Record<string, { weight: number; label: string }> = {
-  A: { weight: 1.0, label: 'Completely reliable' },
-  B: { weight: 0.8, label: 'Usually reliable' },
-  C: { weight: 0.6, label: 'Fairly reliable' },
-  D: { weight: 0.4, label: 'Not usually reliable' },
-  E: { weight: 0.2, label: 'Unreliable' },
-  F: { weight: 0.1, label: 'Reliability cannot be judged' },
-};
-
-/** Default reliability tier for sources not explicitly rated. */
-const DEFAULT_RELIABILITY = 'C';
+import { reliabilityWeight, resolveSourceReliability } from './confidence';
 
 // ── Decay Configuration ──────────────────────────────────────────
 
@@ -133,14 +123,6 @@ function correlationBoost(sourceCount: number): number {
 }
 
 /**
- * Get the reliability weight for a source tier.
- */
-function getReliabilityWeight(tier?: string): number {
-  const t = (tier ?? DEFAULT_RELIABILITY).toUpperCase();
-  return SOURCE_RELIABILITY[t]?.weight ?? SOURCE_RELIABILITY[DEFAULT_RELIABILITY]?.weight ?? 0.6;
-}
-
-/**
  * Score an IOC based on its observations.
  *
  * @param observations - Array of observations from different sources
@@ -200,7 +182,10 @@ export function scoreIoc(
   const breakdown: IocScore['breakdown'] = [];
 
   for (const obs of unique) {
-    const weight = getReliabilityWeight(obs.reliability);
+    // Resolve the tier once so the breakdown reports the grade that was
+    // actually applied rather than echoing back the caller's input.
+    const tier = resolveSourceReliability(obs.source, obs.reliability);
+    const weight = reliabilityWeight(tier);
     const decay = timeDecay(obs.observedAt, now, decayHalfLifeDays);
     const baseContrib = obs.sourceScore ?? weight * 100;
     const decayedContrib = baseContrib * decay;
@@ -210,7 +195,7 @@ export function scoreIoc(
 
     breakdown.push({
       source: obs.source,
-      reliability: obs.reliability ?? DEFAULT_RELIABILITY,
+      reliability: tier,
       weight,
       contribution: Math.round(decayedContrib),
       observedAt: obs.observedAt,

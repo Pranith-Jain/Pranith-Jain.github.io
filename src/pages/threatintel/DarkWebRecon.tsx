@@ -41,6 +41,8 @@ interface ChainAbuseResult {
   address: string;
   reports: ChainAbuseReport[];
   count: number;
+  /** 'unknown' means the lookup did not complete — not an absence of reports. */
+  verdict?: 'clean' | 'flagged' | 'unknown';
   unavailable?: boolean;
   note?: string;
 }
@@ -322,7 +324,13 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
 }
 
 function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
-  if (data.unavailable) {
+  // `verdict` is authoritative, but payloads served from a cache written
+  // before the field existed won't carry it — fall back to the old count
+  // heuristic rather than treating a verdict-less response as clean.
+  const verdict: 'clean' | 'flagged' | 'unknown' =
+    data.verdict ?? (data.unavailable ? 'unknown' : data.count > 0 ? 'flagged' : 'clean');
+
+  if (verdict === 'unknown') {
     return (
       <div className="space-y-2">
         <div className="flex items-center gap-2">
@@ -330,6 +338,9 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
           <span className="text-xs text-muted font-mono">{data.address}</span>
         </div>
         <p className="text-sm text-muted">{data.note ?? 'BTC abuse lookup is temporarily unavailable.'}</p>
+        <p className="text-xs text-muted">
+          Result unknown — this address has <em>not</em> been cleared.
+        </p>
       </div>
     );
   }
@@ -338,12 +349,12 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
       <div className="flex items-center gap-2">
         <span
           className={`px-2 py-0.5 rounded text-xs font-medium ${
-            data.count > 0
+            verdict === 'flagged'
               ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300'
               : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
           }`}
         >
-          {data.count > 0 ? `${data.count} report${data.count !== 1 ? 's' : ''}` : 'No reports'}
+          {verdict === 'flagged' ? `${data.count} report${data.count !== 1 ? 's' : ''}` : 'No reports'}
         </span>
         <span className="text-xs text-muted font-mono">{data.address}</span>
       </div>

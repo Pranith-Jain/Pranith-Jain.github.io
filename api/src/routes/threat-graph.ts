@@ -60,6 +60,33 @@ export interface GraphEdge {
   last_seen: string;
 }
 
+/**
+ * A `graph_nodes` ⋈ `graph_edges` join row with every column aliased.
+ *
+ * Kept as a flat row type rather than a `GraphNode & GraphEdge` intersection
+ * precisely because the two tables share column names — an intersection type
+ * would collapse `id`/`confidence`/`first_seen`/`last_seen` to one field each
+ * and hide the collision instead of preventing it.
+ */
+interface NeighborRow {
+  n_id: string;
+  n_type: NodeType;
+  n_value: string;
+  n_properties: string;
+  n_first_seen: string;
+  n_last_seen: string;
+  n_confidence: number;
+  n_sources: string;
+  e_id: string;
+  e_source_id: string;
+  e_target_id: string;
+  e_relationship: EdgeType;
+  e_confidence: number;
+  e_evidence: string;
+  e_first_seen: string;
+  e_last_seen: string;
+}
+
 export interface GraphPath {
   nodes: GraphNode[];
   edges: GraphEdge[];
@@ -119,6 +146,54 @@ export async function ensureGraphTables(db: D1Database): Promise<void> {
 }
 
 // ── Graph Operations ────────────────────────────────────────────────────
+
+/**
+ * Tolerant JSON parsing for the text columns (`properties`, `sources`,
+ * `evidence`). These are written by `JSON.stringify` but a truncated write
+ * or a manual D1 edit can leave malformed values; a throw here would take
+ * down a whole graph read, so degrade to the empty value instead.
+ */
+function parseJsonObject(raw: unknown): Record<string, unknown> {
+  if (typeof raw !== 'string' || !raw) return {};
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)
+      ? (parsed as Record<string, unknown>)
+      : {};
+  } catch (err) {
+    logError('threat-graph parseJsonObject failed', err);
+    return {};
+  }
+}
+
+function parseJsonArray(raw: unknown): unknown[] {
+  if (typeof raw !== 'string' || !raw) return [];
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    logError('threat-graph parseJsonArray failed', err);
+    return [];
+  }
+}
+
+/**
+ * Column list for a node+edge join.
+ *
+ * `graph_nodes` and `graph_edges` both expose `id`, `first_seen`,
+ * `last_seen` and `confidence`. Under `SELECT n.*, e.*` those names collide
+ * and reading a row by name yields the *node* column for all four — so a
+ * joined row silently reports the edge's confidence/timestamps as the node's.
+ * Every column is aliased here so node and edge fields cannot be confused.
+ */
+const NEIGHBOR_COLUMNS = `
+  n.id AS n_id, n.type AS n_type, n.value AS n_value, n.properties AS n_properties,
+  n.first_seen AS n_first_seen, n.last_seen AS n_last_seen,
+  n.confidence AS n_confidence, n.sources AS n_sources,
+  e.id AS e_id, e.source_id AS e_source_id, e.target_id AS e_target_id,
+  e.relationship AS e_relationship, e.confidence AS e_confidence,
+  e.evidence AS e_evidence, e.first_seen AS e_first_seen, e.last_seen AS e_last_seen
+`;
 
 /**
  * Upsert a node. If it exists, update last_seen and merge properties.
@@ -319,15 +394,15 @@ export async function getNeighbors(
   const params: unknown[] = [nodeId];
 
   if (direction === 'outgoing') {
-    query = `SELECT n.*, e.* FROM graph_nodes n
+    query = `SELECT ${NEIGHBOR_COLUMNS} FROM graph_nodes n
              JOIN graph_edges e ON n.id = e.target_id
              WHERE e.source_id = ?`;
   } else if (direction === 'incoming') {
-    query = `SELECT n.*, e.* FROM graph_nodes n
+    query = `SELECT ${NEIGHBOR_COLUMNS} FROM graph_nodes n
              JOIN graph_edges e ON n.id = e.source_id
              WHERE e.target_id = ?`;
   } else {
-    query = `SELECT n.*, e.* FROM graph_nodes n
+    query = `SELECT ${NEIGHBOR_COLUMNS} FROM graph_nodes n
              JOIN graph_edges e ON (n.id = e.target_id AND e.source_id = ?)
                                OR (n.id = e.source_id AND e.target_id = ?)`;
     params.push(nodeId);
@@ -343,28 +418,28 @@ export async function getNeighbors(
   const rows = await db
     .prepare(query)
     .bind(...params)
-    .all<GraphNode & GraphEdge>();
+    .all<NeighborRow>();
 
   return (rows.results ?? []).map((row) => ({
     node: {
-      id: row.id,
-      type: row.type,
-      value: row.value,
-      properties: JSON.parse((row.properties as unknown as string) ?? '{}'),
-      first_seen: row.first_seen,
-      last_seen: row.last_seen,
-      confidence: row.confidence,
-      sources: JSON.parse((row.sources as unknown as string) ?? '[]'),
+      id: row.n_id,
+      type: row.n_type,
+      value: row.n_value,
+      properties: parseJsonObject(row.n_properties),
+      first_seen: row.n_first_seen,
+      last_seen: row.n_last_seen,
+      confidence: row.n_confidence,
+      sources: parseJsonArray(row.n_sources) as string[],
     },
     edge: {
-      id: row.id, // This is wrong but simplified
-      source_id: row.source_id,
-      target_id: row.target_id,
-      relationship: row.relationship,
-      confidence: row.confidence,
-      evidence: JSON.parse((row.evidence as unknown as string) ?? '[]'),
-      first_seen: row.first_seen,
-      last_seen: row.last_seen,
+      id: row.e_id,
+      source_id: row.e_source_id,
+      target_id: row.e_target_id,
+      relationship: row.e_relationship,
+      confidence: row.e_confidence,
+      evidence: parseJsonArray(row.e_evidence) as GraphEdge['evidence'],
+      first_seen: row.e_first_seen,
+      last_seen: row.e_last_seen,
     },
   }));
 }
@@ -500,73 +575,185 @@ export async function neighborhood(
   return { nodes, edges };
 }
 
+/** Rows pulled per keyset page while scanning the graph for components. */
+const COMMUNITY_SCAN_PAGE = 5_000;
+
 /**
- * Detect communities using connected components.
+ * Hard ceiling on edges examined for community detection.
+ *
+ * Component search has to see the whole graph to be correct, so past this
+ * point we return the best-effort answer and flag it rather than loading
+ * unbounded rows into an isolate (Workers cap memory at 128 MB).
  */
-export async function detectCommunities(db: D1Database, minSize: number = 3): Promise<GraphCluster[]> {
-  // Get all nodes and edges
-  const allNodes = await db
-    .prepare('SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes')
-    .all<GraphNode>();
-  const allEdges = await db
-    .prepare(
-      'SELECT id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen FROM graph_edges'
-    )
-    .all<GraphEdge>();
+const COMMUNITY_MAX_EDGES = 200_000;
 
+/** Ceiling on nodes returned across all communities, to bound response size. */
+const COMMUNITY_MAX_NODES = 5_000;
+
+/** D1 allows 100 bound parameters per statement; leave headroom. */
+const COMMUNITY_NODE_BATCH = 90;
+
+/**
+ * Detect communities as connected components.
+ *
+ * Memory-conscious by design: the previous version ran
+ * `SELECT * FROM graph_nodes` and `SELECT * FROM graph_edges`, materialising
+ * every row — including the `properties`, `sources` and `evidence` JSON blobs
+ * — before doing any work, then re-scanned the entire node list per cluster
+ * using `component.includes()` (quadratic). This version scans only the `id`
+ * columns needed for traversal via keyset pagination, and hydrates full node
+ * rows for the surviving clusters only.
+ *
+ * Returns the clusters plus scan counters so callers can report truncation
+ * instead of presenting a partial answer as complete.
+ */
+export async function detectCommunities(
+  db: D1Database,
+  minSize: number = 3
+): Promise<{
+  clusters: GraphCluster[];
+  nodesScanned: number;
+  edgesScanned: number;
+  truncated: boolean;
+}> {
+  // Seed adjacency from node ids so isolated nodes still form size-1
+  // components (matching previous behaviour when minSize <= 1).
   const adjacency = new Map<string, Set<string>>();
-  for (const node of allNodes.results ?? []) {
-    adjacency.set(node.id, new Set());
-  }
-  for (const edge of allEdges.results ?? []) {
-    adjacency.get(edge.source_id)?.add(edge.target_id);
-    adjacency.get(edge.target_id)?.add(edge.source_id);
+  let lastNodeId = '';
+  let nodesScanned = 0;
+  for (;;) {
+    const page = await db
+      .prepare('SELECT id FROM graph_nodes WHERE id > ? ORDER BY id LIMIT ?')
+      .bind(lastNodeId, COMMUNITY_SCAN_PAGE)
+      .all<{ id: string }>();
+    const rows = page.results ?? [];
+    if (rows.length === 0) break;
+    for (const row of rows) adjacency.set(row.id, new Set());
+    nodesScanned += rows.length;
+    lastNodeId = rows[rows.length - 1]!.id;
+    if (rows.length < COMMUNITY_SCAN_PAGE) break;
   }
 
-  // Find connected components
+  // Add undirected adjacency from edges, streaming pages so the full edge
+  // set is never resident at once.
+  let lastEdgeId = '';
+  let edgesScanned = 0;
+  let truncated = false;
+  for (;;) {
+    const page = await db
+      .prepare('SELECT id, source_id, target_id FROM graph_edges WHERE id > ? ORDER BY id LIMIT ?')
+      .bind(lastEdgeId, COMMUNITY_SCAN_PAGE)
+      .all<{ id: string; source_id: string; target_id: string }>();
+    const rows = page.results ?? [];
+    if (rows.length === 0) break;
+    for (const row of rows) {
+      adjacency.get(row.source_id)?.add(row.target_id);
+      adjacency.get(row.target_id)?.add(row.source_id);
+    }
+    edgesScanned += rows.length;
+    if (edgesScanned >= COMMUNITY_MAX_EDGES) {
+      truncated = true;
+      break;
+    }
+    lastEdgeId = rows[rows.length - 1]!.id;
+    if (rows.length < COMMUNITY_SCAN_PAGE) break;
+  }
+
+  // Connected components. Membership uses a Set, and the queue is indexed by
+  // cursor rather than shift() to avoid repeated array re-allocation.
   const visited = new Set<string>();
-  const clusters: GraphCluster[] = [];
+  const components: string[][] = [];
 
-  for (const nodeId of adjacency.keys()) {
-    if (visited.has(nodeId)) continue;
+  for (const startId of adjacency.keys()) {
+    if (visited.has(startId)) continue;
 
     const component: string[] = [];
-    const queue = [nodeId];
+    const member = new Set<string>();
+    const queue: string[] = [startId];
 
-    while (queue.length > 0) {
-      const current = queue.shift()!;
+    for (let head = 0; head < queue.length; head++) {
+      const current = queue[head]!;
       if (visited.has(current)) continue;
       visited.add(current);
+      member.add(current);
       component.push(current);
 
       for (const neighbor of adjacency.get(current) ?? []) {
-        if (!visited.has(neighbor)) {
-          queue.push(neighbor);
-        }
+        if (!visited.has(neighbor)) queue.push(neighbor);
       }
     }
 
-    if (component.length >= minSize) {
-      const clusterNodes = (allNodes.results ?? []).filter((n) => component.includes(n.id));
+    if (component.length >= minSize) components.push(component);
+  }
 
-      // Determine centroid type (most common type)
-      const typeCounts = new Map<NodeType, number>();
-      for (const node of clusterNodes) {
-        typeCounts.set(node.type, (typeCounts.get(node.type) ?? 0) + 1);
-      }
-      const centroidType = [...typeCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'ip';
+  // Bound total response size across all communities.
+  const clusters: GraphCluster[] = [];
+  let nodesReturned = 0;
+  const ordered = components.sort((a, b) => b.length - a.length);
 
-      clusters.push({
-        id: `cluster-${clusters.length}`,
-        nodes: clusterNodes,
-        centroid_type: centroidType,
-        labels: extractClusterLabels(clusterNodes),
-        confidence: Math.min(100, component.length * 10),
+  for (const component of ordered) {
+    if (nodesReturned >= COMMUNITY_MAX_NODES) {
+      truncated = true;
+      break;
+    }
+    const room = COMMUNITY_MAX_NODES - nodesReturned;
+    const ids = room >= component.length ? component : component.slice(0, room);
+    truncated = truncated || ids.length < component.length;
+
+    const clusterNodes = await hydrateNodes(db, ids);
+    if (clusterNodes.length === 0) continue;
+
+    nodesReturned += clusterNodes.length;
+
+    // Determine centroid type (most common type)
+    const typeCounts = new Map<NodeType, number>();
+    for (const node of clusterNodes) {
+      typeCounts.set(node.type, (typeCounts.get(node.type) ?? 0) + 1);
+    }
+    const centroidType = [...typeCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'ip';
+
+    clusters.push({
+      id: `cluster-${clusters.length}`,
+      nodes: clusterNodes,
+      centroid_type: centroidType,
+      labels: extractClusterLabels(clusterNodes),
+      confidence: Math.min(100, component.length * 10),
+    });
+  }
+
+  return {
+    clusters: clusters.sort((a, b) => b.nodes.length - a.nodes.length),
+    nodesScanned,
+    edgesScanned,
+    truncated,
+  };
+}
+
+/**
+ * Fetch full node rows for a set of ids, batched to stay inside D1's
+ * 100-bound-parameter ceiling.
+ */
+async function hydrateNodes(db: D1Database, ids: string[]): Promise<GraphNode[]> {
+  const out: GraphNode[] = [];
+  for (let i = 0; i < ids.length; i += COMMUNITY_NODE_BATCH) {
+    const batch = ids.slice(i, i + COMMUNITY_NODE_BATCH);
+    const placeholders = batch.map(() => '?').join(',');
+    const res = await db
+      .prepare(
+        `SELECT id, type, value, properties, first_seen, last_seen, confidence, sources
+           FROM graph_nodes WHERE id IN (${placeholders})`
+      )
+      .bind(...batch)
+      .all<GraphNode>();
+    for (const row of res.results ?? []) {
+      out.push({
+        ...row,
+        properties: parseJsonObject(row.properties),
+        sources: parseJsonArray(row.sources) as string[],
       });
     }
   }
-
-  return clusters.sort((a, b) => b.nodes.length - a.nodes.length);
+  return out;
 }
 
 function extractClusterLabels(nodes: GraphNode[]): string[] {
@@ -669,13 +856,22 @@ export async function graphCommunitiesHandler(c: Context<{ Bindings: Env }>): Pr
   await ensureGraphTables(db);
 
   const minSize = parseInt(c.req.query('min_size') ?? '3');
-  const communities = await detectCommunities(db, minSize);
+  const result = await detectCommunities(db, minSize);
 
   return c.json(
     {
-      communities,
-      count: communities.length,
-      total_nodes: communities.reduce((sum, c) => sum + c.nodes.length, 0),
+      communities: result.clusters,
+      count: result.clusters.length,
+      total_nodes: result.clusters.reduce((sum, c) => sum + c.nodes.length, 0),
+      // Surface the scan budget: a truncated result is a subset of the real
+      // graph and must not be read as a complete clustering.
+      scan: {
+        nodes_scanned: result.nodesScanned,
+        edges_scanned: result.edgesScanned,
+        truncated: result.truncated,
+        max_edges: COMMUNITY_MAX_EDGES,
+        max_nodes: COMMUNITY_MAX_NODES,
+      },
     },
     200,
     { 'Cache-Control': 'public, max-age=120' }

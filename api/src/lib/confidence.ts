@@ -481,6 +481,85 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
   },
 };
 
+// ─── Canonical Admiralty primitives ───────────────────────────────────────
+//
+// Single source of truth for A–F semantics. The decay engine
+// (`lib/ioc-scoring.ts`) previously carried its own weight table, so the two
+// scoring paths could disagree about the same source. Both now resolve
+// through the helpers below.
+
+/**
+ * Admiralty tier → weight multiplier, normalised to 0–1.
+ *
+ * Used for multiplicative source weighting (decay/correlation scoring),
+ * where a weight scales a contribution. Distinct from `reliabilityScore()`,
+ * which is a linear 5–0 rank used for additive crediting.
+ */
+export const ADMIRALTY_WEIGHT: Record<SourceReliability, number> = {
+  A: 1.0,
+  B: 0.8,
+  C: 0.6,
+  D: 0.4,
+  E: 0.2,
+  F: 0.1,
+};
+
+/** Tier assigned to sources absent from the registry — "fairly reliable". */
+export const DEFAULT_SOURCE_RELIABILITY: SourceReliability = 'C';
+
+/**
+ * Registry key aliases.
+ *
+ * The registry namespaces abuse.ch under `abusech-*`, but callers and
+ * observation payloads refer to the bare provider name. Without this map the
+ * decay engine silently graded `threatfox` as an unknown C instead of its
+ * registered B.
+ */
+const SOURCE_ID_ALIASES: Record<string, string> = {
+  threatfox: 'abusech-threatfox',
+  urlhaus: 'abusech-urlhaus',
+  malwarebazaar: 'abusech-malwarebazaar',
+};
+
+/** Linear A–F → 5–0 rank, used for additive credibility crediting. */
+export function reliabilityScore(r: SourceReliability): number {
+  return { A: 5, B: 4, C: 3, D: 2, E: 1, F: 0 }[r] ?? 0;
+}
+
+/**
+ * Look up a registry entry by source id, tolerating case differences and the
+ * `-feed` suffix convention used by `feed-status.ts`.
+ */
+export function lookupSourceReliability(id: string): SourceReliabilityEntry | undefined {
+  if (!id) return undefined;
+  const lower = id.toLowerCase();
+  const alias = SOURCE_ID_ALIASES[lower];
+  if (alias) return SOURCE_RELIABILITY_REGISTRY[alias];
+  return (
+    SOURCE_RELIABILITY_REGISTRY[lower] ?? SOURCE_RELIABILITY_REGISTRY[id] ?? SOURCE_RELIABILITY_REGISTRY[`${id}-feed`]
+  );
+}
+
+/** Multiplicative weight for a tier, defaulting to the unrated tier. */
+export function reliabilityWeight(r?: SourceReliability): number {
+  return ADMIRALTY_WEIGHT[r ?? DEFAULT_SOURCE_RELIABILITY] ?? ADMIRALTY_WEIGHT[DEFAULT_SOURCE_RELIABILITY] ?? 0.6;
+}
+
+/**
+ * Resolve a source to its Admiralty tier.
+ *
+ * An explicit tier always wins (callers may know better than the registry).
+ * Otherwise the tier comes from `SOURCE_RELIABILITY_REGISTRY`, falling back
+ * to `DEFAULT_SOURCE_RELIABILITY` for sources that are not registered.
+ */
+export function resolveSourceReliability(sourceId: string, explicit?: string): SourceReliability {
+  if (explicit) {
+    const upper = explicit.toUpperCase();
+    if (upper in ADMIRALTY_WEIGHT) return upper as SourceReliability;
+  }
+  return lookupSourceReliability(sourceId)?.reliability ?? DEFAULT_SOURCE_RELIABILITY;
+}
+
 /**
  * Compute a confidence score for a finding based on source reliabilities,
  * number of corroborating sources, and whether contradictory sources exist.
@@ -492,9 +571,9 @@ export function computeConfidence(params: {
 }): ConfidenceScore {
   const { sourceIds, contradictorySourceIds = [], findingType } = params;
 
-  // Map source IDs to reliability scores (A=5, B=4, C=3, D=2, E=1, F=0)
-  const reliabilityScore = (r: SourceReliability): number => ({ A: 5, B: 4, C: 3, D: 2, E: 1, F: 0 })[r] ?? 0;
-  const entryFor = (id: string): SourceReliabilityEntry | undefined => SOURCE_RELIABILITY_REGISTRY[id];
+  // Resolution goes through `lookupSourceReliability` so aliases and the
+  // `-feed` suffix resolve identically to every other caller.
+  const entryFor = (id: string): SourceReliabilityEntry | undefined => lookupSourceReliability(id);
 
   // Reliability-weighted count
   let weightedCredibility = 0;
@@ -593,7 +672,7 @@ export function computeConfidence(params: {
   };
 }
 
-function reliabilityLabel(r: SourceReliability): string {
+export function reliabilityLabel(r: SourceReliability): string {
   const labels: Record<SourceReliability, string> = {
     A: 'Reliable',
     B: 'Usually reliable',
@@ -605,7 +684,7 @@ function reliabilityLabel(r: SourceReliability): string {
   return labels[r];
 }
 
-function credibilityLabel(c: InfoCredibility): string {
+export function credibilityLabel(c: InfoCredibility): string {
   const labels: Record<InfoCredibility, string> = {
     1: 'Confirmed',
     2: 'Probably True',

@@ -135,10 +135,27 @@ export interface ChainAbuseReport {
   scamType: string;
 }
 
+/**
+ * Three-state abuse verdict.
+ *
+ * Modelled explicitly because `count: 0` is ambiguous: it means both "ChainAbuse
+ * has no reports" (clean) and "we could not ask ChainAbuse" (unknown). Consumers
+ * that only branch on `count` — most notably the `btc_abuse_check` MCP tool, where
+ * the payload is read by a language model rather than a human — read the latter
+ * as a clean wallet. `verdict` is required on every result so a caller cannot
+ * accidentally infer "clean" from an empty report list.
+ */
+export type ChainAbuseVerdict = 'clean' | 'flagged' | 'unknown';
+
 export interface ChainAbuseResult {
   address: string;
   reports: ChainAbuseReport[];
   count: number;
+  /**
+   * Authoritative result state. `unknown` whenever the lookup did not complete;
+   * never treat `unknown` as an absence of abuse reports.
+   */
+  verdict: ChainAbuseVerdict;
   /** Set when the lookup could not run (no credentials / upstream down); UI shows this instead of erroring. */
   unavailable?: boolean;
   note?: string;
@@ -521,6 +538,7 @@ export async function btcAbuseCheck(address: string, apiKey?: string): Promise<C
       address,
       reports: [],
       count: 0,
+      verdict: 'unknown',
       unavailable: true,
       note: 'BTC abuse lookup unavailable: ChainAbuse now requires an API key (set CHAINABUSE_API_KEY).',
     };
@@ -535,28 +553,35 @@ export async function btcAbuseCheck(address: string, apiKey?: string): Promise<C
       },
     });
     if (res.status === 404) {
-      return { address, reports: [], count: 0 };
+      // 404 from ChainAbuse means the address is not in their database —
+      // a completed lookup with a genuinely empty result.
+      return { address, reports: [], count: 0, verdict: 'clean' };
     }
     if (!res.ok) {
       return {
         address,
         reports: [],
         count: 0,
+        verdict: 'unknown',
         unavailable: true,
         note: `BTC abuse lookup unavailable: ChainAbuse returned HTTP ${res.status}.`,
       };
     }
     const data = (await res.json()) as { reports?: ChainAbuseReport[]; count?: number };
+    const reports = data.reports ?? [];
+    const count = data.count ?? reports.length;
     return {
       address,
-      reports: data.reports ?? [],
-      count: data.count ?? 0,
+      reports,
+      count,
+      verdict: count > 0 ? 'flagged' : 'clean',
     };
   } catch (err) {
     return {
       address,
       reports: [],
       count: 0,
+      verdict: 'unknown',
       unavailable: true,
       note: `BTC abuse lookup unavailable: ${err instanceof Error ? err.message : 'upstream error'}.`,
     };

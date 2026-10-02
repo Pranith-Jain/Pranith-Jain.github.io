@@ -157,7 +157,7 @@ export function registerTelegramDarknetAgentTools(h: McpToolHost): void {
   // ── Dark Web: BTC Abuse Check ─────────────────────────────────────────
   h.tools(
     'btc_abuse_check',
-    'Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.',
+    'Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns the `verdict` field, which is authoritative: "flagged" means abuse reports exist, "clean" means the lookup completed and found none, and "unknown" means the lookup did NOT complete (missing CHAINABUSE_API_KEY or upstream error) — an "unknown" verdict is NOT evidence of a clean address and must not be reported as such. On "flagged", reports include categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.',
     {
       address: z.string().describe('Bitcoin address to check, e.g. "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"'),
     },

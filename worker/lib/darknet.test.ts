@@ -111,6 +111,77 @@ describe('btcAbuseCheck', () => {
     expect(r.count).toBe(0);
     expect(r.reports).toHaveLength(0);
   });
+
+  // ── verdict: the field that stops "couldn't check" reading as "clean" ──
+
+  it('reports verdict=unknown (not clean) when no API key is configured', async () => {
+    const r = await btcAbuseCheck(ADDR);
+    expect(r.verdict).toBe('unknown');
+    // The dangerous shape this guards against: an empty result set that a
+    // consumer could read as a cleared address.
+    expect(r.count).toBe(0);
+    expect(r.reports).toHaveLength(0);
+  });
+
+  it('reports verdict=unknown on upstream error', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('boom', { status: 500 }));
+    const r = await btcAbuseCheck(ADDR, 'k3y');
+    expect(r.verdict).toBe('unknown');
+    expect(r.unavailable).toBe(true);
+  });
+
+  it('reports verdict=unknown when the network throws', async () => {
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('ECONNRESET'));
+    const r = await btcAbuseCheck(ADDR, 'k3y');
+    expect(r.verdict).toBe('unknown');
+  });
+
+  it('reports verdict=flagged when abuse reports exist', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ reports: [{ id: '1', address: ADDR, category: 'RANSOMWARE' }], count: 1 }), {
+        status: 200,
+      })
+    );
+    const r = await btcAbuseCheck(ADDR, 'k3y');
+    expect(r.verdict).toBe('flagged');
+    expect(r.unavailable).toBeUndefined();
+  });
+
+  it('reports verdict=clean on a completed lookup with no reports', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{"reports":[],"count":0}', { status: 200 }));
+    const r = await btcAbuseCheck(ADDR, 'k3y');
+    expect(r.verdict).toBe('clean');
+    expect(r.unavailable).toBeUndefined();
+  });
+
+  it('reports verdict=clean on 404 (address absent from ChainAbuse DB)', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('', { status: 404 }));
+    const r = await btcAbuseCheck(ADDR, 'k3y');
+    expect(r.verdict).toBe('clean');
+  });
+
+  it('falls back to reports.length when upstream omits count', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ reports: [{ id: '1', address: ADDR, category: 'SCAM' }] }), { status: 200 })
+    );
+    const r = await btcAbuseCheck(ADDR, 'k3y');
+    expect(r.count).toBe(1);
+    expect(r.verdict).toBe('flagged');
+  });
+
+  it('never reports verdict=clean on a failed lookup', async () => {
+    for (const res of [
+      new Response('', { status: 401 }),
+      new Response('', { status: 403 }),
+      new Response('', { status: 429 }),
+      new Response('', { status: 500 }),
+      new Response('', { status: 503 }),
+    ]) {
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(res);
+      const r = await btcAbuseCheck(ADDR, 'k3y');
+      expect(r.verdict).toBe('unknown');
+    }
+  });
 });
 
 describe('parseHtmlBasic', () => {
