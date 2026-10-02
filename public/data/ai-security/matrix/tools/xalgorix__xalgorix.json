@@ -3,13 +3,13 @@
   "repo": "xalgorix/xalgorix",
   "category": "agent",
   "scope": ["recon", "webapp", "network"],
-  "stars": 1146,
+  "stars": 1153,
   "description": "Autonomous AI pentesting agents — real-time reconnaissance, vulnerability detection, and exploitation orchestration. Go + TypeScript.",
   "homepage": "https://www.xalgorix.com",
   "added": "2026-09-14",
-  "checkedAt": "2026-10-01T03:19:04Z",
-  "pushedAt": "2026-09-30",
-  "daysIdle": 1,
+  "checkedAt": "2026-10-02T03:18:55Z",
+  "pushedAt": "2026-10-02",
+  "daysIdle": 0,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -23,28 +23,28 @@
       "description": "Runs a second, independent agent whose only job is to re-exploit what the first one claimed, so a finding is either reproduced or dropped. One self-hosted binary with a local dashboard."
     },
     "derived": {
-      "checked_at": "2026-10-01T03:19:04Z",
+      "checked_at": "2026-10-02T03:18:55Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-30",
-        "days_since_push": 1,
-        "total_commits": 1262,
-        "last100_span_days": 4,
+        "pushed_at": "2026-10-02",
+        "days_since_push": 0,
+        "total_commits": 1270,
+        "last100_span_days": 6,
         "last100_authors": 1,
-        "last_commit_sha": "0b627c3",
-        "last_commit_message": "release: v4.6.128 (#776)",
-        "last_commit_at": "2026-09-30",
+        "last_commit_sha": "2e9bd86",
+        "last_commit_message": "fix: follow-up to #783 - preserve scan outcomes and finding upgrades (#784)\n\n* fix: preserve partial stops and wildcard child outcomes\n\n* fix: retain verified finding upgrades across aggregate replay",
+        "last_commit_at": "2026-10-02",
         "releases": 100,
-        "latest_release_at": "2026-09-30",
-        "days_since_release": 1,
-        "days_idle": 1,
+        "latest_release_at": "2026-10-02",
+        "days_since_release": 0,
+        "days_idle": 0,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "xalgorix/xalgorix",
-        "stars": 1146,
-        "forks": 211,
+        "stars": 1153,
+        "forks": 212,
         "created_at": "2026-03-13",
         "is_fork": false,
         "contributors": 17,
@@ -74,9 +74,9 @@
       },
       "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
       "shape": {
-        "loc": 158912,
-        "code_files": 481,
-        "files": 1440,
+        "loc": 162480,
+        "code_files": 499,
+        "files": 1458,
         "has_ci": true,
         "has_tests": true,
         "has_dockerfile": true,
@@ -94,7 +94,7 @@
       "risk_where": {
         "host_access": "docker-compose.yml:27",
         "install": "README.md:83",
-        "phones_home": "internal/tools/reporting/reporting.go:2744"
+        "phones_home": "internal/tools/reporting/reporting.go:2755"
       }
     }
   }
