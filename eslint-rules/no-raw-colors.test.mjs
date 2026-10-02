@@ -92,6 +92,26 @@ describe('no-raw-colors: alpha overlays are never auto-fixed', () => {
     expect(output).toBe('<div className="dark:bg-white/10" />');
   });
 
+  it('still refuses the gated classes when a SIBLING is auto-fixed', () => {
+    // The gates above are enforced in the diagnostic loop, but the className
+    // is rebuilt through rawToToken(), which had no equivalent check. So a
+    // mixed className — one gated class plus one genuinely mappable sibling —
+    // took the sibling's fix and silently rewrote the gated one too:
+    //   dark:bg-white/10 bg-slate-200
+    //     -> dark:bg-surface-100/10 bg-track     (the exact inversion)
+    // The single-class tests never caught it because `changed` stays false
+    // and no fix is emitted at all.
+    expect(lint('<div className="dark:bg-white/10 bg-slate-200" />').output).toBe(
+      '<div className="dark:bg-white/10 bg-track" />'
+    );
+    expect(lint('<div className="dark:bg-white bg-slate-200" />').output).toBe(
+      '<div className="dark:bg-white bg-track" />'
+    );
+    expect(lint('<div className="dark:bg-black/50 bg-slate-200" />').output).toBe(
+      '<div className="dark:bg-black/50 bg-track" />'
+    );
+  });
+
   it('leaves an opaque dark:bg-white alone, and says why', () => {
     // Same inversion as the alpha case, with no alpha to excuse it. A white
     // surface chosen deliberately for dark mode (QR codes, paper previews)

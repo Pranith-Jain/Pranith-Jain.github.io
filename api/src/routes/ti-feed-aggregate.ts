@@ -54,8 +54,25 @@ interface TrendingThreat {
 
 const feed = new Hono<{ Bindings: FeedEnv }>();
 
-// In-memory dedup cache (resets on cold start, fine for this use case)
-const recentHashes = new Map<string, string>();
+/**
+ * Dedup state is PER REQUEST, not module scope.
+ *
+ * This used to be a module-level `const recentHashes = new Map()`. Worker
+ * module scope is reused across every request in an isolate, so it became a
+ * global "seen" set: hashItem() is deterministic (type + lowercased title from
+ * fixed SQL literals), so the second request in an isolate — a different
+ * `type`/`hours`/`limit` combination, or simply the 300 s route-cache entry
+ * expiring — found every hash already present, skipped every item, and
+ * returned `{items: [], total: 0}`. The empty result then got cached for
+ * another 300 s.
+ *
+ * Cross-request dedup needs durable state (KV/D1); until that exists, an
+ * in-request map is the honest scope, and the SQL already de-dups by
+ * uniqueness before this loop runs.
+ */
+function newDedupState(): Map<string, string> {
+  return new Map<string, string>();
+}
 
 function hashItem(item: Partial<FeedItem>): string {
   const key = `${item.type}:${item.title?.toLowerCase().trim()}`.slice(0, 200);
@@ -199,7 +216,8 @@ feed.get('/feed-aggregate', async (c) => {
     }
   }
 
-  // Dedup
+  // Dedup — within this request only.
+  const recentHashes = newDedupState();
   const deduped: FeedItem[] = [];
 
   for (const item of items) {
@@ -210,11 +228,6 @@ feed.get('/feed-aggregate', async (c) => {
     }
     recentHashes.set(hash, item.id);
     deduped.push(item);
-  }
-
-  // Clean old hashes
-  for (const [hash, _] of recentHashes) {
-    if (recentHashes.size > 10000) recentHashes.delete(hash);
   }
 
   // Score and sort

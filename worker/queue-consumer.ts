@@ -26,6 +26,46 @@ import { fetchXAccountPosts, X_ACCOUNTS } from '../api/src/routes/cyberpulse-ing
 // TTL so layers don't go dark at 2h → fallback to last-good (which looked like "8h old").
 const GP_WARM_TTL_SECONDS = 180 * 60;
 
+/**
+ * Refresh a KV key's TTL without paying for a content write.
+ *
+ * The write-on-change guard below compares the fetched body against what is
+ * stored and skips the `put` when they are byte-identical — correct, because
+ * KV `expirationTtl` is measured from the `put`. Which means a feed that stops
+ * changing also stops having its TTL extended, so the slice expires TTL-hours
+ * after the last *content change* rather than after the last successful warm,
+ * even though the producer keeps running and logging success. A quiet feed
+ * then goes dark and the layer drops out of the map.
+ *
+ * So: still skip the write most of the time, but force a refresh once the key
+ * is two-thirds of the way through its TTL. That costs at most one extra write
+ * per key per TTL window — negligible against the 1k/day write budget — and
+ * bounds worst-case slice age to TTL/3 past the last real write.
+ *
+ * The marker lives in the Cache API, which is per-colo and unmetered against
+ * the KV write quota; same approach as api/src/lib/lastgood-debounce.ts.
+ */
+async function shouldRefreshWarmKey(key: string, ttlSeconds: number): Promise<boolean> {
+  const marker = `https://warm-ttl-refresh.internal/v1/${key}`;
+  try {
+    const hit = await caches.default.match(marker);
+    if (!hit) {
+      await caches.default.put(
+        marker,
+        new Response('1', {
+          headers: { 'cache-control': `max-age=${Math.floor(ttlSeconds / 3)}` },
+        })
+      );
+      return true;
+    }
+    return false;
+  } catch {
+    // Marker unavailable — fall back to refreshing, since an unnecessary
+    // write is far cheaper than an expired slice.
+    return true;
+  }
+}
+
 // Within-batch fan-out bound. The relevant runtime limit is ~6 simultaneously
 // OPEN outbound connections (not a total-subrequest cap). Several sources fan
 // out beyond a single fetch — andreafortuna does fetch + KV get/put, and the
@@ -87,7 +127,7 @@ export async function handleQueue(
             // 100k reads). One cheap read per warm saves the write whenever
             // the feed hasn't moved.
             const key = gpWarmKey(gp.key);
-            if ((await kv.get(key)) !== body) {
+            if ((await kv.get(key)) !== body || (await shouldRefreshWarmKey(key, GP_WARM_TTL_SECONDS))) {
               await kv.put(key, body, { expirationTtl: GP_WARM_TTL_SECONDS });
             }
           } else {
@@ -157,7 +197,7 @@ export async function handleQueue(
             }
             const key = `cp:warm:${cp.type}`;
             const raw = JSON.stringify(posts);
-            if ((await kv.get(key)) !== raw) {
+            if ((await kv.get(key)) !== raw || (await shouldRefreshWarmKey(key, CP_WARM_TTL_SECONDS))) {
               await kv.put(key, raw, {
                 expirationTtl: CP_WARM_TTL_SECONDS,
               });

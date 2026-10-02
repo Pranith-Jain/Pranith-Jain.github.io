@@ -377,7 +377,7 @@ export default function CveDetail(): JSX.Element {
               <Shield size={14} className="text-sky-500" /> IOCs
             </span>
             <span className="text-xs font-mono px-2 py-1 rounded bg-surface-100 border border-line-1 text-muted">
-              {data.iocs?.length || 1} indicators
+              {data.iocs?.length ?? 0} indicators
             </span>
           </div>
           <div className="space-y-2">

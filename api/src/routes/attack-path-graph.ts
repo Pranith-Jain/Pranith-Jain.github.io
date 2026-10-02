@@ -21,6 +21,16 @@ interface PathEdge {
 }
 
 interface AttackPath {
+  /**
+   * True when every node/edge/score below is synthesised rather than read from
+   * the asset graph. The demo graph is a deliberate product feature (the UI
+   * offers it), but it was previously indistinguishable from a real result —
+   * a D1 blip or an empty `asm_assets` table returned a fully-formed attack
+   * path with HTTP 200 and no marker, which reads as "this is your attack
+   * path" to any API consumer. Flagging it keeps the feature and removes the
+   * ambiguity.
+   */
+  demo?: boolean;
   nodes: PathNode[];
   edges: PathEdge[];
   paths: Array<{
@@ -76,7 +86,9 @@ export async function attackPathGraphHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     // Load ASM domains + assets
     const domains = await db.prepare('SELECT id, domain FROM asm_domains').all<AsmDomain>();
-    const assets = await db.prepare('SELECT id, domain_id, type, value, metadata, first_seen, last_seen, status FROM asm_assets').all<AsmAsset>();
+    const assets = await db
+      .prepare('SELECT id, domain_id, type, value, metadata, first_seen, last_seen, status FROM asm_assets')
+      .all<AsmAsset>();
 
     if (!assets.results || assets.results.length === 0) {
       return c.json(generateDemoGraph());
@@ -256,26 +268,17 @@ function buildResult(nodes: PathNode[], edges: PathEdge[]): AttackPath {
     }
   }
 
-  // If no paths found via BFS, create synthetic paths
-  if (paths.length === 0 && entryPoints.length > 0 && crownJewels.length > 0) {
-    for (const entry of entryPoints) {
-      const en = nodes.find((n) => n.id === entry);
-      if (!en) continue;
-      for (const jewel of crownJewels) {
-        const jn = nodes.find((n) => n.id === jewel);
-        if (!jn) continue;
-        // Direct connection via intermediary
-        const intermediary = nodes.find((n) => n.id !== en.id && n.id !== jn.id && !n.is_entry && !n.is_crown_jewel);
-        if (intermediary) {
-          paths.push({
-            hops: [en.label, intermediary.label, jn.label],
-            total_score: 55,
-            hop_count: 2,
-          });
-        }
-      }
-    }
-  }
+  // No synthetic paths.
+  //
+  // This used to fabricate a 2-hop route through an arbitrary unrelated node
+  // with a hardcoded `total_score: 55` whenever BFS found no real reachability.
+  // `hops` and `total_score` are the actionable output of an attack-path tool:
+  // inventing one asserts a route from an internet-exposed asset to a crown
+  // jewel that does not exist in the asset graph, and findChokePoints() then
+  // derived its counts and `stats.worst_score` from the invented paths.
+  //
+  // "No reachable path" is the finding. The UI already renders an empty path
+  // list, and that empty state is more useful than a fabricated route.
 
   paths.sort((a, b) => b.total_score - a.total_score);
 
@@ -485,5 +488,7 @@ function generateDemoGraph(): AttackPath {
     { source: 'payments-app', target: 'customer-db', label: 'depends on', weight: 8 },
   ];
 
-  return buildResult(nodes, edges);
+  // Flagged so a consumer can never mistake the demo for a real graph — see
+  // the `demo` field on AttackPath.
+  return { ...buildResult(nodes, edges), demo: true };
 }

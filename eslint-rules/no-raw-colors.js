@@ -417,28 +417,10 @@ function inspect(raw) {
     const scoped = !u.opacity && Object.hasOwn(VARIANT_MAP, cls) ? VARIANT_MAP[cls] : undefined;
     const token = gated ? undefined : (scoped ?? RAW_TO_TOKEN[tableKey]);
 
-    // `dark:bg-white/10` is an overlay that LIFTS the surface (white at 10% on
-    // a navy card). Rewriting it to `dark:bg-surface-100/10` would DARKEN it,
-    // because --surface-100 is near-black in dark mode -- the opposite of the
-    // author's intent. Same for `black` under `dark:`. So an alpha-modified
-    // pure white/black is reported but never auto-fixed.
-    const alphaOnExtremes = Boolean(u.opacity) && (u.value === 'white' || u.value === 'black');
-    if (token && alphaOnExtremes) {
-      issues.push({ messageId: 'rawColorNoToken', data: { raw: cls }, fixable: false });
-      continue;
-    }
-
-    // Same inversion without the alpha: `dark:bg-white` is a surface chosen
-    // deliberately for dark mode (QR codes, paper previews). --surface-100 is
-    // near-black in dark mode, so rewriting it to `dark:bg-surface-100` would
-    // turn an explicitly white panel black -- the exact opposite of the
-    // author's intent, and a silent rendering change an autofixer must not
-    // make. Reported, never auto-fixed. Scoped to the `bg` prop because
-    // surface tokens are backgrounds; `text-white` and `border-white` are
-    // gated on their own terms above and via DARK mapping.
-    const opaqueExtremeOnDark =
-      !u.opacity && u.variants.includes('dark') && u.prop === 'bg' && (u.value === 'white' || u.value === 'black');
-    if (token && opaqueExtremeOnDark) {
+    // Report-but-never-fix classes. Deliberately the same predicate the
+    // rebuild path uses — see isNeverAutoFixed for why the two diverging was
+    // a real bug rather than a theoretical one.
+    if (token && isNeverAutoFixed(u, token, onSaturatedFill)) {
       issues.push({ messageId: 'rawColorNoToken', data: { raw: cls }, fixable: false });
       continue;
     }
@@ -499,6 +481,32 @@ function inspect(raw) {
 }
 
 /** Rebuild a single class from the RAW_TO_TOKEN table, or null. */
+/**
+ * Classes this rule reports but must NEVER auto-fix, even when a sibling in
+ * the same className is fixable.
+ *
+ * Single source of truth on purpose. These checks used to live only in the
+ * diagnostic loop, while the rebuild went through rawToToken() with no
+ * equivalent guard — so a mixed className took the sibling's fix and silently
+ * rewrote the gated class too, reintroducing the exact inversion the rule
+ * exists to prevent. Any change here must apply to both callers.
+ */
+function isNeverAutoFixed(u, token, onSaturatedFill) {
+  if (!token) return false;
+  // `dark:bg-white/10` LIFTS the surface; the token form DARKENS it, because
+  // --surface-100 is near-black in dark mode. Same spelling, opposite effect.
+  if (Boolean(u.opacity) && (u.value === 'white' || u.value === 'black')) return true;
+  // An opaque, explicitly-white dark surface (QR codes, paper previews) has no
+  // token equivalent — rewriting it turns the panel near-black.
+  if (!u.opacity && u.variants.includes('dark') && u.prop === 'bg' && (u.value === 'white' || u.value === 'black')) {
+    return true;
+  }
+  // White ink only becomes a token on a saturated fill. Off one, it is a
+  // contrast bug worth reporting, not worth silently rewriting.
+  if (`${u.prop}-${u.value}` === 'text-white' && !onSaturatedFill) return true;
+  return false;
+}
+
 function rawToToken(cls, onSaturatedFill = false) {
   // Variant-scoped mappings first: the bare form may be intentionally
   // unmapped while one variant state is unambiguous.
@@ -506,6 +514,7 @@ function rawToToken(cls, onSaturatedFill = false) {
   const u = splitUtility(cls);
   const tableKey = `${u.prop}-${u.value}`;
   if (tableKey === 'text-white' && !onSaturatedFill) return null;
+  if (isNeverAutoFixed(u, RAW_TO_TOKEN[tableKey], onSaturatedFill)) return null;
   const token = RAW_TO_TOKEN[tableKey];
   if (!token) return null;
   const prefix = u.variants.length ? `${u.variants.join(':')}:` : '';
