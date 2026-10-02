@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "booba-project",
+  "name": "booba project",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-10-01T14:50:46.000Z",
+  "lastSeen": "2026-10-01T14:50:50.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-10-01",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "funap-funda-o-prof-dr-manoel-pedro-pimentel-d056",
+      "title": "FUNAP - Fundação \"Prof. Dr. Manoel Pedro Pimentel\" — claimed by booba project",
+      "pubDate": "2026-10-01T14:50:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "associated-gastroenterologists-of-central-new-york-p-c-2a01",
+      "title": "ASSOCIATED GASTROENTEROLOGISTS OF CENTRAL NEW YORK, P.C — claimed by booba project",
+      "pubDate": "2026-10-01T14:50:46.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "funap-funda-o-prof-dr-manoel-pedro-pimentel-d056",
+      "victim": "FUNAP - Fundação \"Prof. Dr. Manoel Pedro Pimentel\" — claimed by booba project",
+      "sector": "Government & Defense",
+      "country": "BR",
+      "pubDate": "2026-10-01T14:50:50.000Z"
+    },
+    {
+      "id": "associated-gastroenterologists-of-central-new-york-p-c-2a01",
+      "victim": "ASSOCIATED GASTROENTEROLOGISTS OF CENTRAL NEW YORK, P.C — claimed by booba project",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-10-01T14:50:46.000Z"
+    }
+  ]
+}

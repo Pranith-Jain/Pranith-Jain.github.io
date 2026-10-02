@@ -4,17 +4,39 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-09-30T03:38:58.000Z",
-  "lastSeen": "2026-09-30T22:34:21.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 6 ransomware groups and 4 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-09-30T17:37:25.000Z",
+  "lastSeen": "2026-10-01T21:33:33.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 4 countries.",
   "frequency": [
     {
       "date": "2026-09-30",
-      "count": 7
+      "count": 2
+    },
+    {
+      "date": "2026-10-01",
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "euroditel-resotelecom-1644",
+      "title": "EURODITEL/RESOTELECOM — claimed by krybit",
+      "pubDate": "2026-10-01T21:33:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "promind-it-5d63",
+      "title": "ProMind IT — claimed by auditteam",
+      "pubDate": "2026-10-01T15:20:22.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vpne-99d4",
+      "title": "VPNE — claimed by genesis",
+      "pubDate": "2026-10-01T11:59:23.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "software-answers-a-banyan-software-company-6775",
@@ -26,44 +48,26 @@
       "slug": "titus-ecd6",
       "title": "Titus — claimed by play",
       "pubDate": "2026-09-30T17:37:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "econ-tec-com-d82a",
-      "title": "econ-tec.com — claimed by safepay",
-      "pubDate": "2026-09-30T13:36:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "virtual-ideas-c3d7",
-      "title": "Virtual Ideas — claimed by lamashtu",
-      "pubDate": "2026-09-30T13:04:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "clicks-digital-gmbh-information-6939",
-      "title": "clicks digital GmbH Information — claimed by rhysida",
-      "pubDate": "2026-09-30T12:07:42.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "datacomm-services-1f3a",
-      "title": "Datacomm Services — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:40:01.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "telrad-networks-ba77",
-      "title": "Telrad Networks — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:38:58.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 2
+      "slug": "krybit",
+      "name": "krybit",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "auditteam",
+      "name": "auditteam",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "genesis",
+      "name": "genesis",
+      "weight": 1
     },
     {
       "type": "group",
@@ -75,24 +79,6 @@
       "type": "group",
       "slug": "play",
       "name": "play",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "lamashtu",
-      "name": "lamashtu",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "rhysida",
-      "name": "rhysida",
       "weight": 1
     }
   ],

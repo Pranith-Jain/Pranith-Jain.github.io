@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-09-30T14:01:58.000Z",
-  "lastSeen": "2026-09-30T14:01:58.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
+  "firstSeen": "2026-10-02T00:05:15.000Z",
+  "lastSeen": "2026-10-02T00:05:15.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-30",
+      "date": "2026-10-02",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "p-m-i-0ed8",
-      "title": "P***** M***** I** — claimed by netrunner",
-      "pubDate": "2026-09-30T14:01:58.000Z"
+      "slug": "main-place-mall-9695",
+      "title": "Main Place Mall — claimed by netrunner",
+      "pubDate": "2026-10-02T00:05:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "p-m-i-0ed8",
-      "victim": "P***** M***** I** — claimed by netrunner",
-      "sector": "Not Found",
-      "country": null,
-      "pubDate": "2026-09-30T14:01:58.000Z"
+      "id": "main-place-mall-9695",
+      "victim": "Main Place Mall — claimed by netrunner",
+      "sector": "Retail & E-Commerce",
+      "country": "MY",
+      "pubDate": "2026-10-02T00:05:15.000Z"
     }
   ]
 }

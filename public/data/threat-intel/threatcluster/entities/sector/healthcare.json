@@ -4,21 +4,63 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-09-30T03:37:57.000Z",
-  "lastSeen": "2026-10-01T06:55:01.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 6 ransomware groups and 4 countries.",
+  "mentionCount": 10,
+  "firstSeen": "2026-09-30T19:28:35.000Z",
+  "lastSeen": "2026-10-01T21:05:18.000Z",
+  "summary": "Sector hit by 10 leak-site victims across 8 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-09-30",
-      "count": 7
+      "count": 2
     },
     {
       "date": "2026-10-01",
-      "count": 1
+      "count": 8
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "hospital-hermilio-valdiz-n-b8a6",
+      "title": "Hospital Hermilio Valdizán — claimed by ransomhouse",
+      "pubDate": "2026-10-01T21:05:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "associated-gastroenterologists-of-central-new-york-p-c-2a01",
+      "title": "ASSOCIATED GASTROENTEROLOGISTS OF CENTRAL NEW YORK, P.C — claimed by booba project",
+      "pubDate": "2026-10-01T14:50:46.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "parkdental-com-9f2c",
+      "title": "parkdental.com — claimed by chaos",
+      "pubDate": "2026-10-01T12:26:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tlc-perinatal-924b",
+      "title": "TLC Perinatal — claimed by genesis",
+      "pubDate": "2026-10-01T11:59:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vera-science-7207",
+      "title": "Vera Science — claimed by genesis",
+      "pubDate": "2026-10-01T11:58:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "guardian-pharmacy-llc-b1ef",
+      "title": "Guardian Pharmacy LLC — claimed by incransom",
+      "pubDate": "2026-10-01T11:30:04.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "northern-counties-health-care-3b70",
+      "title": "Northern Counties Health Care — claimed by incransom",
+      "pubDate": "2026-10-01T11:29:32.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "laboratorios-roemmers-saicf-0ccb",
@@ -36,44 +78,38 @@
       "slug": "le-centre-national-de-l-expertise-hospitali-re-cneh-62d1",
       "title": "Le Centre National de l'Expertise Hospitalière (CNEH) — claimed by kairos",
       "pubDate": "2026-09-30T19:28:35.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dr-damiel-pugliese-d338",
-      "title": "Dr Damiel Pugliese — claimed by lamashtu",
-      "pubDate": "2026-09-30T13:32:57.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "west-county-health-centers-47dd",
-      "title": "West County Health Centers — claimed by storm",
-      "pubDate": "2026-09-30T06:19:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "samwumed-3aec",
-      "title": "Samwumed — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:40:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "europrim-5df5",
-      "title": "Europrim — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:39:04.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "custom-rx-shoppe-183f",
-      "title": "Custom Rx Shoppe — claimed by thegentlemen",
-      "pubDate": "2026-09-30T03:37:57.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "thegentlemen",
-      "name": "thegentlemen",
-      "weight": 3
+      "slug": "genesis",
+      "name": "genesis",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "ransomhouse",
+      "name": "ransomhouse",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "booba-project",
+      "name": "booba project",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "chaos",
+      "name": "chaos",
+      "weight": 1
     },
     {
       "type": "group",
@@ -91,18 +127,6 @@
       "type": "group",
       "slug": "kairos",
       "name": "kairos",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "lamashtu",
-      "name": "lamashtu",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "storm",
       "weight": 1
     }
   ],
