@@ -1,5 +1,6 @@
 import type { ProviderId } from '../providers/types';
 import type { IndicatorType } from './indicator';
+import { resolveSourceReliability } from './confidence';
 
 /**
  * NATO Admiralty Code — reliability × credibility grading for intelligence.
@@ -22,34 +23,16 @@ export interface AdmiraltyGrade {
   label: string;
 }
 
-/** Source-type reliability ceiling — the most authoritative source sets the cap. */
-const SOURCE_RELIABILITY: Partial<Record<ProviderId, Reliability>> = {
-  virustotal: 'B',
-  abuseipdb: 'B',
-  shodan: 'C',
-  censys: 'C',
-  netlas: 'C',
-  otx: 'C',
-  urlscan: 'C',
-  hybridanalysis: 'B',
-  spamhaus: 'B',
-  threatfox: 'B',
-  urlhaus: 'B',
-  malwarebazaar: 'B',
-  malshare: 'B',
-  hashlookup: 'B',
-  greynoise: 'C',
-  c2tracker: 'B',
-  sslbl: 'B',
-  yaraify: 'C',
-  malpedia: 'B',
-  kaspersky: 'B',
-  dphish: 'B',
-  destroylist: 'B',
-  stalkphish: 'B',
-  apivoid: 'B',
-  metadefender: 'B',
-};
+/**
+ * Source reliability is NOT defined here.
+ *
+ * This module used to carry its own A-F table keyed by `ProviderId`. The
+ * canonical registry in `lib/confidence.ts` now covers every provider
+ * adapter, so the same source grades identically here, in
+ * `lib/dfir/admiralty-quick.ts` and in `computeConfidence`. Previously
+ * `abuseipdb` graded B on the IOC-enrichment path and C on the PIR/copilot
+ * path, so an indicator's confidence depended on which endpoint you hit.
+ */
 
 /** Indicator-type baseline credibility — more persistent artifacts score higher. */
 const TYPE_CREDIBILITY: Partial<Record<IndicatorType, Credibility>> = {
@@ -77,7 +60,7 @@ export function admiraltyGrade(type: IndicatorType, sources: ProviderId[]): Admi
 
   let reliability: Reliability = 'F';
   for (const s of sources) {
-    const r = SOURCE_RELIABILITY[s];
+    const r = resolveSourceReliability(s);
     if (r && RELIABILITY_ORDER[r] < RELIABILITY_ORDER[reliability]) {
       reliability = r;
     }

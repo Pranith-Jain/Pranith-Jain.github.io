@@ -21,13 +21,45 @@ export interface AdmiraltyGrade {
   label: string;
 }
 
-const SOURCE_RELIABILITY: Record<string, AdmiraltyReliability> = {
+/**
+ * Client-side mirror of the canonical registry in
+ * `api/src/lib/confidence.ts` (`SOURCE_RELIABILITY_REGISTRY`).
+ *
+ * ## Why this is duplicated
+ *
+ * The registry is the single source of truth for source reliability, but it
+ * lives under `api/` and is ~32KB of data. `api/src/` and `src/` share no
+ * runtime imports anywhere in this repo, and the eager bundle budget has
+ * ~4KB of gzip headroom, so the client cannot import it.
+ *
+ * This follows the same pattern as `components/dfir/tool-count.ts`: a leaf
+ * mirror, kept honest by `admiralty-drift.test.ts`, which asserts every
+ * grade here equals the registry's. That test fails the build if either
+ * side is edited without the other.
+ *
+ * Two grades were reconciled during the merge:
+ *   - `yaraify` was B here and C in `api/src/lib/admiralty.ts`. Crowdsourced
+ *     rules of uneven quality, so C wins — now consistent everywhere.
+ *   - `abuseipdb` was B here and C in the registry. Deferred to the registry,
+ *     which carries an explicit `known_bias` ("can be gamed"); whether
+ *     AbuseIPDB should really be C is an analyst call, so the registry value
+ *     stands rather than being silently overridden in two other tables.
+ *
+ * The `D` fallback for unrecognised sources is deliberate and NOT the same as
+ * the registry's `C` default: this module grades rows that arrive from live
+ * feeds without per-source provenance, and D is the honest ceiling for
+ * "we do not know what this is".
+ *
+ * Exported so `api/test/lib/admiralty-drift.test.ts` can diff it against the
+ * canonical registry. Not part of the UI's API surface.
+ */
+export const SOURCE_RELIABILITY: Record<string, AdmiraltyReliability> = {
   // abuse.ch family - curated, vetted, well-maintained
   urlhaus: 'B',
   threatfox: 'B',
   malwarebazaar: 'B',
   sslbl: 'B',
-  yaraify: 'B',
+  yaraify: 'C',
   // institutional / curated lists
   'sans-isc': 'B',
   'cisa-kev': 'A',
@@ -45,12 +77,10 @@ const SOURCE_RELIABILITY: Record<string, AdmiraltyReliability> = {
   reddit: 'D',
   // commercial wrappers
   virustotal: 'B',
-  abuseipdb: 'B',
+  abuseipdb: 'C',
   // MyThreatIntel (sourced from many places - average C)
   mti: 'C',
   mythreatintel: 'C',
-  // catch-all
-  '': 'D',
 };
 
 const KIND_CREDIBILITY: Record<string, AdmiraltyCredibility> = {
