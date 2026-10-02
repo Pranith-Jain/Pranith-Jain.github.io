@@ -1,23 +1,15 @@
 {
-  "updatedAt": "2026-10-01T13:07:10.771Z",
-  "total": 50,
-  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 2 },
+  "updatedAt": "2026-10-02T12:27:56.161Z",
+  "total": 49,
+  "bySource": { "hacktron": 35, "unit42": 4, "csa": 9, "bleepingcomputer": 1 },
   "items": [
     {
       "id": "aHR0cHM6Ly93",
-      "title": "AI's Third Wave: Coworkers Break the Security Model That Worked for Agents",
-      "link": "https://www.bleepingcomputer.com/news/security/ais-third-wave-coworkers-break-the-security-model-that-worked-for-agents/",
-      "pubDate": "Wed, 30 Sep 2026 10:01:11 -0400",
+      "title": "Autonomous AI agents tried to hack US, Canadian government websites",
+      "link": "https://www.bleepingcomputer.com/news/security/autonomous-ai-agents-tried-to-hack-us-canadian-government-websites/",
+      "pubDate": "Thu, 01 Oct 2026 16:52:50 -0400",
       "source": "bleepingcomputer",
-      "description": "Persistent AI coworkers may operate continuously with standing access, creating identity risks that existing security models were not designed to handle. Token Security explains why these agents need their own identities, owners, scoped permissions, and lifecycle controls. [...]"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "Custom ChatGPTs push ClickFix attacks to deploy RAT malware",
-      "link": "https://www.bleepingcomputer.com/news/security/custom-chatgpts-push-clickfix-attacks-to-deploy-rat-malware/",
-      "pubDate": "Tue, 29 Sep 2026 16:59:39 -0400",
-      "source": "bleepingcomputer",
-      "description": "Custom variants of OpenAI's ChatGPT promoted in sponsored Google results are directing unsuspecting users to malicious sites that use ClickFix attacks to deliver malware. [...]"
+      "description": "Autonomous AI agents using aggressive strategies attempted to hack U.S. and Canadian government websites to find school and divorce statistics. [...]"
     },
     {
       "id": "aHR0cHM6Ly9j",

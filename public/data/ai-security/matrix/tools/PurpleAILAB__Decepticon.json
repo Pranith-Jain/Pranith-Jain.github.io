@@ -3,13 +3,13 @@
   "repo": "PurpleAILAB/Decepticon",
   "category": "agent",
   "scope": ["redteam", "network", "webapp"],
-  "stars": 5628,
+  "stars": 5636,
   "description": "Autonomous Hacking Agent for Red Team",
   "homepage": "https://decepticon.red",
   "added": "2026-09-12",
-  "checkedAt": "2026-10-01T03:17:24Z",
-  "pushedAt": "2026-09-25",
-  "daysIdle": 6,
+  "checkedAt": "2026-10-02T03:17:18Z",
+  "pushedAt": "2026-10-01",
+  "daysIdle": 1,
   "archived": false,
   "license": "Apache-2.0",
   "upstream": {
@@ -23,32 +23,32 @@
       "description": "Runs a red-team engagement from a terminal CLI, with an orchestrator that starts specialist stacks like BloodHound or a C2 server only when the engagement reaches them."
     },
     "derived": {
-      "checked_at": "2026-10-01T03:17:24Z",
+      "checked_at": "2026-10-02T03:17:18Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-25",
-        "days_since_push": 6,
-        "total_commits": 1230,
-        "last100_span_days": 94,
+        "pushed_at": "2026-10-01",
+        "days_since_push": 1,
+        "total_commits": 1245,
+        "last100_span_days": 93,
         "last100_authors": 5,
-        "last_commit_sha": "a04f96b",
-        "last_commit_message": "Merge pull request #826 from BitterSecurity/release/oss-1.1.47-20260926\n\ndocs: prepare Decepticon v1.1.47 release",
-        "last_commit_at": "2026-09-25",
-        "releases": 65,
-        "latest_release_at": "2026-09-25",
-        "days_since_release": 6,
-        "days_idle": 6,
+        "last_commit_sha": "6a9d54c",
+        "last_commit_message": "feat(opplan): enforce versioned evidence-backed DAG execution\n\n* feat(opplan): enforce versioned evidence-backed DAG execution\n\n* build(skillogy): refresh DAG orchestration skill graph\n\n* fix(opplan): clear CodeQL findings in revocation path",
+        "last_commit_at": "2026-10-01",
+        "releases": 67,
+        "latest_release_at": "2026-10-01",
+        "days_since_release": 1,
+        "days_idle": 1,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "BitterSecurity/Decepticon",
-        "stars": 5628,
-        "forks": 1064,
+        "stars": 5636,
+        "forks": 1066,
         "created_at": "2025-06-06",
         "is_fork": false,
         "contributors": 18,
-        "top_contributor_share": 0.43,
+        "top_contributor_share": 0.44,
         "homepage": "https://decepticon.red",
         "description": "Autonomous Hacking Agent for Red Team",
         "topics": [
@@ -66,9 +66,9 @@
       },
       "licence": { "file": "Apache-2.0", "api_spdx": "Apache-2.0", "readme_claim": "Apache-2.0", "conflict": null },
       "shape": {
-        "loc": 189645,
-        "code_files": 961,
-        "files": 2052,
+        "loc": 191270,
+        "code_files": 963,
+        "files": 2055,
         "has_ci": true,
         "has_tests": true,
         "has_dockerfile": true,
@@ -85,7 +85,12 @@
       },
       "substrate": { "bundled": ["binwalk", "radare2"], "manifests": ["containers/sandbox.Dockerfile"] },
       "rebadge": [],
-      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": true }
+      "risk": { "licence": false, "install": true, "phones_home": true, "opaque": false, "host_access": true },
+      "risk_where": {
+        "host_access": "docker-compose.yml:531",
+        "install": "README_KO.md:66",
+        "phones_home": "telemetry-gateway/export_corpus.py:2"
+      }
     }
   }
 }

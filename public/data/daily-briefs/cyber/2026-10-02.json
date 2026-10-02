@@ -1,0 +1,102 @@
+{
+  "type": "cyber",
+  "date": "2026-10-02",
+  "threatLevel": "",
+  "executiveSummary": "Active exploitation of NetScaler ADC/Gateway unauthenticated RCE presents immediate initial-access risk to many CI operators; patch to fixed builds, assess for compromise, and consider temporarily disabling DTLS on VPN vServers. Security Advisory F5 BIG-IP APM OAuth Authorization Server heap overflow (RCE) is under active exploitation; apply hotfixes/iRules, restrict OAuth endpoints, and investigate for anomalous OAuth failures and crashes. Security Advisory U.S. agencies warn of active targeting of Siemens S7 PLCs via S7comm and open-source tooling; remove Internet exposure, enforce protection levels, and monitor TCP/102. Security Advisory Cisco Catalyst SD-WAN Manager zero-day (CVE-2026-76504) is confirmed exploited and listed in KEV; remove Internet exposure and upgrade immediately. Security Advisory CISA weekly bulletins highlight critical OT/adjacent flaws, including Advantech EKI industrial gateways enabling unauthenticated RCE and insecure management functions; prioritize isolation and firmware updates. Supporting Report Armatura One embeds vulnerable ActiveMQ OpenWire (CVE-2023-46604) by default; upgrade to vendor-fixed versions and restrict broker exposure. Vendor Advisory Additional KEV additions affecting enterprise perimeters (FortiMail path traversal; Apple OOB write) increase IT-to-OT pivot risk; patch and validate no pre-patch compromise. Security Advisory Mass exploitation of Oracle PeopleSoft (CVE-2026-35273) by ShinyHunters (incl. FBI jobs portal) underscores WAF-bypass risk on HR/recruiting systems; patch and normalize encodings in WAF. View Article",
+  "keyFindings": [
+    {
+      "title": "NetScaler ADC/Gateway unauth RCE (CVE-2026-88771/88772) is actively exploited; a",
+      "summary": "NetScaler ADC/Gateway unauth RCE (CVE-2026-88771/88772) is actively exploited; attacks observed since late September. Security Advisory"
+    },
+    {
+      "title": "F5 BIG-IP APM OAuth Authorization Server RCE (CVE-2026-94127) is under active ex",
+      "summary": "F5 BIG-IP APM OAuth Authorization Server RCE (CVE-2026-94127) is under active exploitation; TMM crashes and OAuth failure spikes are investigative leads. Security Advisory"
+    },
+    {
+      "title": "Active campaigns probing/manipulating Siemens S7 PLCs via S7comm and snap7 requi",
+      "summary": "Active campaigns probing/manipulating Siemens S7 PLCs via S7comm and snap7 require urgent exposure reduction and protocol monitoring. Security Advisory"
+    },
+    {
+      "title": "Cisco SD-WAN Manager zero-day (CVE-2026-76504) enables unauth admin API access; ",
+      "summary": "Cisco SD-WAN Manager zero-day (CVE-2026-76504) enables unauth admin API access; active exploitation confirmed and added to KEV. Security Advisory"
+    },
+    {
+      "title": "Advantech EKI industrial gateways host multiple critical OT flaws (RCE, insecure",
+      "summary": "Advantech EKI industrial gateways host multiple critical OT flaws (RCE, insecure mgmt, OPC UA DoS) with process impact potential; prioritize segmentation and patching. Supporting Report"
+    },
+    {
+      "title": "Armatura One uses default-enabled ActiveMQ OpenWire (CVE-2023-46604); upgrade an",
+      "summary": "Armatura One uses default-enabled ActiveMQ OpenWire (CVE-2023-46604); upgrade and restrict broker ports to mitigate facility access system compromise. ICS Advisory"
+    },
+    {
+      "title": "ShinyHunters mass exploited Oracle PeopleSoft (CVE-2026-35273), bypassing initia",
+      "summary": "ShinyHunters mass exploited Oracle PeopleSoft (CVE-2026-35273), bypassing initial WAF rules via URL encoding; patch and normalize encodings server-side. View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Energy • Water/Wastewater • Transport • Healthcare • Manufacturing • Gov",
+        "label": "Sectors Implicated"
+      },
+      {
+        "value": "NetScaler • F5 APM • SD-WAN • Email GW • Access Control",
+        "label": "Notable Perimeter Devices Affected"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Perimeter/Access NetScaler ADC/Gateway, F5 BIG-IP APM, Cisco Catalyst SD-WAN Manager, FortiMail, Cisco Secure Email Gateway OT/ICS & Adjacent Siemens S7 PLCs (S7comm), Advantech EKI gateways, Armatura One (ActiveMQ), Monta OCPP platform, Meari IoT Cloud Enterprise Apps Oracle PeopleSoft, WordPress (wpForo), Microsoft 365 (AiTM), Snowflake"
+    ],
+    "sectors": [
+      "Water/Wastewater S7 PLC targeting; perimeter devices used for remote access. Energy & Transportation EV charging OCPP issues; SD-WAN/ADC perimeters; OT gateways. Healthcare IoT/IoMT posture (Armatura physical access; Meari IoT cloud exposure). Manufacturing S7 PLCs; AD/GPO ransomware tradecraft in enterprise domains. Telecom & Government SaaS identity compromise (Snowflake); PeopleSoft exploitation; policy org AiTM."
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "relevance": "Direct OT Impact Siemens S7 PLC targeting indicates potential manipulation of controller memory/logic if exposed or weakly segmented. Security Advisory Advantech EKI gateways bridging OPC UA/industrial protocols contain critical remote exploitation paths that could disrupt control visibility and operations. Supporting Report Armatura One (physical access) RCE could enable lateral movement into facility networks and interfere with safety/access systems. ICS Advisory IT-to-OT Spillover Perimeter appliance exploitation (NetScaler, F5 APM, SD-WAN Manager, Email Gateways, FortiMail) provides high-privilege footholds with potential pivot to OT jump hosts/DMZs. Security Advisory Security Advisory Enterprise web compromises (WordPress backdoors, PeopleSoft exploitation) risk identity/data exposure that can fuel targeted intrusions into CI operators. View Article macOS/Windows malware campaigns (MovieReaper, MacSync) increase the chance of developer/workstation compromise near OT tooling or vendor access paths. View Article",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Fixes: 14.1-73.37, 13.1-64.23; FIPS/NDcPP updates available.",
+        "Action: Patch, disable DTLS until updated, assess for compromise.",
+        "Apply hotfix and iRule; restrict OAuth endpoints; investigate TMM cores.",
+        "CVE-2026-76504: Active exploitation; remove Internet exposure and upgrade.",
+        "Unauth RCE, insecure mgmt (TCP/5058), OPC UA DoS; patch and segment.",
+        "Upgrade to V4.7.2 (or 4.6.1_USA); restrict OpenWire 61616/TCP.",
+        "FortiMail path traversal; Apple OOB write - patch, validate no pre-patch compromise."
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploit public-facing applications (ATT&CK T1190): NetScaler ADC/Gateway, F5 APM, SD-WAN Manager, PeopleSoft.",
+      "External remote services (T1133) and Valid Accounts (T1078): VPN/Gateway abuse; AiTM session hijacking (TA419).",
+      "Adversary-in-the-middle (T1557) for MFA bypass: Reverse proxy cookie theft against M365.",
+      "Modify cloud/edge configurations (T1098.003/T1556): SD-WAN/ADC admin plane abuse; API manipulation.",
+      "Domain Policy Modification (T1484.001): Ransomware leveraging domain-root GPOs to disable protections and deploy payloads.",
+      "ICS Protocol Abuse: S7comm memory read/write, OPC UA session exhaustion (DoS)."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1133",
+      "T1078",
+      "T1557",
+      "T1098.003",
+      "T1556",
+      "T1484.001"
+    ]
+  },
+  "outlook72h": "Day 0-1: Emergency patch windows for NetScaler ADC/Gateway, F5 APM, Cisco SD-WAN Manager. Disable DTLS on unpatched NetScaler VPN vServers; remove Internet exposure of SD-WAN Manager; apply F5 iRule/hotfix. Day 0-2: Validate Siemens S7 exposure; block TCP/102 at perimeters; enforce PLC protection levels; baseline S7comm and create alerts for write operations. Day 1-2: Update Advantech EKI/WISE gateways; restrict management interfaces; deploy monitoring for TCP/5058 and OPC UA session spikes. Day 1-3: Review edge device logs for indicators (web shells, abnormal OAuth/API usage); rotate tokens/creds; perform targeted threat hunting in management networks. Day 2-3: Patch Oracle PeopleSoft; update WAF normalization rules; review export/job histories and SSO sessions for anomalies.",
+  "relatedCves": [
+    "CVE-2026-76504",
+    "CVE-2023-46604",
+    "CVE-2026-35273",
+    "CVE-2026-88771",
+    "CVE-2026-94127",
+    "CVE-2026-76461",
+    "CVE-2026-86950"
+  ]
+}
