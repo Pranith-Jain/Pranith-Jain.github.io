@@ -17,6 +17,7 @@ import {
   Terminal,
 } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
+import { downloadText } from '../../lib/download';
 function detectIocType(value: string): 'ip' | 'domain' | 'url' | 'hash' | 'unknown' {
   const v = value.trim();
   if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(v)) return 'ip';
@@ -41,16 +42,6 @@ const TYPE_ICONS: Record<string, React.ReactNode> = {
   hash: <Fingerprint size={14} />,
   unknown: <Search size={14} />,
 };
-
-function downloadBlob(content: string, filename: string, type: string) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
 
 export default function VerdiktAi(): JSX.Element {
   const [iocValue, setIocValue] = useState('');
@@ -201,7 +192,7 @@ export default function VerdiktAi(): JSX.Element {
         lines.push(`\n### ${q.siem}\n${q.query}`);
       }
     }
-    downloadBlob(lines.join('\n'), `verdikt-ai-${Date.now()}.md`, 'text/markdown');
+    downloadText(lines.join('\n'), `verdikt-ai-${Date.now()}.md`, 'text/markdown');
   };
 
   return (

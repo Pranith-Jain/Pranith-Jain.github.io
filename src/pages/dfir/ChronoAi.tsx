@@ -17,6 +17,7 @@ import {
   Wifi,
   Users,
 } from 'lucide-react';
+import { downloadText } from '../../lib/download';
 const KILL_CHAIN_PHASES = [
   {
     id: 'recon',
@@ -85,16 +86,6 @@ const PHASE_ICONS: Record<string, React.ReactNode> = {
   c2: <Wifi size={12} />,
   actions: <Users size={12} />,
 };
-
-function downloadBlob(content: string, filename: string, type: string) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
 
 export default function ChronoAi(): JSX.Element {
   const [logs, setLogs] = useState('');
@@ -204,7 +195,7 @@ export default function ChronoAi(): JSX.Element {
           `| ${e.timestamp} | ${e.source} | ${e.event} | ${e.phase} | ${e.technique} | ${e.isLateral ? 'Lateral' : ''} ${e.isPersistence ? 'Persistence' : ''} |`
       ),
     ].join('\n');
-    downloadBlob(text, `chrono-ai-${Date.now()}.md`, 'text/markdown');
+    downloadText(text, `chrono-ai-${Date.now()}.md`, 'text/markdown');
   };
 
   return (

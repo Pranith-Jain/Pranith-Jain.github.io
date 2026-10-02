@@ -21,6 +21,7 @@ import {
   Braces,
   Terminal,
 } from 'lucide-react';
+import { downloadText } from '../../lib/download';
 type ModeId = 'full-runbook' | 'triage' | 'playbook' | 'fp-analysis' | 'queries' | 'attack' | 'artifacts' | 'timeline';
 
 type SiemFormat = 'kql' | 'spl' | 'sigma' | 'xql';
@@ -51,16 +52,6 @@ const EXAMPLE_PROMPTS = [
   'Large data transfer to external cloud storage at 3 AM',
   'WMI persistence creation followed by beacon callout',
 ];
-
-function downloadBlob(content: string, filename: string, type: string) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
 
 export default function InsightAi(): JSX.Element {
   const [alertText, setAlertText] = useState('');
@@ -156,24 +147,24 @@ export default function InsightAi(): JSX.Element {
     const ts = Date.now();
     switch (fmt) {
       case 'md':
-        downloadBlob(result, `insight-ai-${ts}.md`, 'text/markdown');
+        downloadText(result, `insight-ai-${ts}.md`, 'text/markdown');
         break;
       case 'json':
-        downloadBlob(
+        downloadText(
           JSON.stringify({ result, generatedAt: new Date().toISOString(), modes: [...selectedModes] }, null, 2),
           `insight-ai-${ts}.json`,
           'application/json'
         );
         break;
       case 'yaml':
-        downloadBlob(
+        downloadText(
           `# INSIGHT-AI Runbook\n# Generated: ${new Date().toISOString()}\n---\n${result}`,
           `insight-ai-${ts}.yaml`,
           'text/yaml'
         );
         break;
       case 'txt':
-        downloadBlob(result, `insight-ai-${ts}.txt`, 'text/plain');
+        downloadText(result, `insight-ai-${ts}.txt`, 'text/plain');
         break;
     }
   };

@@ -82,6 +82,7 @@ import {
 } from 'lucide-react';
 import { HUB_META } from './threatintel-hubs';
 import { HUB_META as DFIR_HUB_META } from './dfir-hubs';
+import { pillarFor, pillarOrder, type Surface } from './pillars';
 import { MAIN_TOOL_COUNT } from '../components/dfir/tool-count';
 
 export interface SidebarItem {
@@ -95,6 +96,16 @@ export interface SidebarItem {
 export interface SidebarGroup {
   title: string;
   items: SidebarItem[];
+  /**
+   * Band this group sits under, e.g. "IOCs & Enrichment".
+   *
+   * The registries declare 40 hubs; emitted flat, the sidebar reads as a
+   * tool dump. `pillar` is what `Sidebar.tsx` uses to draw the band label.
+   * Presentation-only — see `data/pillars.ts`.
+   */
+  pillar?: string;
+  /** Pillar blurb, shown as the band's subtitle on the first group only. */
+  pillarBlurb?: string;
 }
 export interface SidebarConfig {
   sectionLabel: string;
@@ -296,6 +307,52 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
 /*  Build the threat-intel sidebar from the registry                  */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Attach pillar metadata to hub groups and order them so each pillar's hubs
+ * are adjacent. `withBandHead` marks the first group of every pillar so the
+ * sidebar can print the band label + blurb exactly once.
+ */
+function bandGroups(
+  surface: Surface,
+  hubs: ReadonlyArray<{
+    id: string;
+    label: string;
+    icon: LucideIcon;
+    pages: ReadonlyArray<{ label: string; path: string; desc?: string; badge?: SidebarItem['badge'] }>;
+  }>,
+  iconFor: (path: string, fallback: LucideIcon) => LucideIcon
+): SidebarGroup[] {
+  const decorated = hubs.map((hub) => {
+    const pillar = pillarFor(surface, hub.id);
+    return {
+      hub,
+      group: {
+        title: hub.label,
+        items: hub.pages.map((p) => ({
+          label: p.label,
+          href: p.path,
+          icon: iconFor(p.path, hub.icon),
+          description: p.desc,
+          badge: p.badge,
+        })),
+        pillar: pillar.label,
+        pillarBlurb: pillar.blurb,
+      } satisfies SidebarGroup,
+    };
+  });
+
+  // Stable sort on pillar order keeps each registry's own hub ordering
+  // inside a pillar, so the band reads top-to-bottom as authored.
+  decorated.sort((a, b) => pillarOrder(surface, a.hub.id) - pillarOrder(surface, b.hub.id));
+
+  let lastPillar: string | undefined;
+  return decorated.map(({ group }) => {
+    const head = group.pillar !== lastPillar;
+    lastPillar = group.pillar;
+    return head ? { ...group, pillarBlurb: group.pillarBlurb } : { ...group, pillarBlurb: undefined };
+  });
+}
+
 function buildThreatIntelSidebar(): SidebarConfig {
   // Top-level entry: Home + Catalog + a few key standalone pages
   const home: SidebarGroup = {
@@ -320,16 +377,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
   // Per-hub groups - list direct page URLs only (no hub landing page; the
   // catalog at /threatintel/catalog?cat=<id> is the single navigation
   // surface for browsing a category).
-  const hubGroups: SidebarGroup[] = HUB_META.map((hub) => ({
-    title: hub.label,
-    items: hub.pages.map((p) => ({
-      label: p.label,
-      href: p.path,
-      icon: PAGE_ICON_OVERRIDES[p.path] ?? hub.icon,
-      description: p.desc,
-      badge: p.badge,
-    })),
-  }));
+  const hubGroups = bandGroups('threatintel', HUB_META, (path, fallback) => PAGE_ICON_OVERRIDES[path] ?? fallback);
 
   return {
     sectionLabel: 'PANOPTICON',
@@ -345,15 +393,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
 function buildDfirSidebar(): SidebarConfig {
   // Per-hub groups, generated from the dfir-hubs registry so every catalog
   // page gets a sidebar entry automatically (mirrors buildThreatIntelSidebar).
-  const hubGroups: SidebarGroup[] = DFIR_HUB_META.map((hub) => ({
-    title: hub.label,
-    items: hub.pages.map((p) => ({
-      label: p.label,
-      href: p.path,
-      icon: hub.icon,
-      description: p.desc,
-    })),
-  }));
+  const hubGroups = bandGroups('dfir', DFIR_HUB_META, (_path, fallback) => fallback);
 
   // Prepend a Home entry to the first group (the registry's Overview hub) so
   // the sidebar opens with the landing page without a redundant extra group.

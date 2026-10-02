@@ -14,21 +14,12 @@ import {
   FileSearch,
   ListChecks,
 } from 'lucide-react';
+import { downloadText } from '../../lib/download';
 const CONFIDENCE_BADGE: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   low: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
 };
-
-function downloadBlob(content: string, filename: string, type: string) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
 
 export default function MalbriefAi(): JSX.Element {
   const [indicators, setIndicators] = useState('');
@@ -134,7 +125,7 @@ export default function MalbriefAi(): JSX.Element {
       lines.push(`## Detection Signatures\n\n${result.signatures.map((s) => `- \`${s}\``).join('\n')}\n`);
     if (result.huntingPivots?.length)
       lines.push(`## Hunting Pivots\n\n${result.huntingPivots.map((p) => `- ${p}`).join('\n')}\n`);
-    downloadBlob(lines.join('\n'), `malbrief-ai-${Date.now()}.md`, 'text/markdown');
+    downloadText(lines.join('\n'), `malbrief-ai-${Date.now()}.md`, 'text/markdown');
   };
 
   return (

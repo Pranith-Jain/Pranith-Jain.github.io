@@ -3,6 +3,8 @@
  * Export detections as CSV or JSON files.
  */
 
+import { downloadText } from './download';
+
 interface ExportDetection {
   id: string;
   source: string;
@@ -37,23 +39,11 @@ export function exportCsv(detections: ExportDetection[]) {
     (d.confidence * 100).toFixed(0) + '%',
   ]);
   const csv = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-  downloadFile(csv, 'tam-detections.csv', 'text/csv');
+  downloadText(csv, 'tam-detections.csv', 'text/csv');
 }
 
 /** Export detections as JSON */
 export function exportJson(detections: ExportDetection[]) {
   const json = JSON.stringify(detections, null, 2);
-  downloadFile(json, 'tam-detections.json', 'application/json');
-}
-
-function downloadFile(content: string, filename: string, mimeType: string) {
-  const blob = new Blob([content], { type: mimeType });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  downloadText(json, 'tam-detections.json', 'application/json');
 }

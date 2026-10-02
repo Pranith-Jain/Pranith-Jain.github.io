@@ -133,6 +133,20 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
           const hasActive = group.items.some((item) => isActive(location.pathname, item.href));
           return (
             <div key={group.title} className="mb-1 last:mb-0">
+              {/* Pillar band label. `pillarBlurb` is set only on the first
+                  group of a band, so the heading is printed exactly once
+                  while every group in the band still carries `pillar` for
+                  ordering. Decorative wrapper — the heading is a plain
+                  label, and the hub button beneath keeps its own
+                  aria-expanded/controls pairing untouched. */}
+              {group.pillar && group.pillarBlurb && (
+                <div className="px-2 pt-3 pb-1 first:pt-0">
+                  <div className="text-[11px] font-display font-semibold uppercase tracking-[0.16em] text-body">
+                    {group.pillar}
+                  </div>
+                  <div className="text-micro text-muted mt-0.5 leading-snug">{group.pillarBlurb}</div>
+                </div>
+              )}
               <button
                 type="button"
                 onClick={() => toggle(group.title)}

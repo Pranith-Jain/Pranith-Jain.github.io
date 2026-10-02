@@ -438,16 +438,12 @@ export async function exportAnalyzerPdf(data: AnalyzerOutput): Promise<Blob> {
   return doc.output('blob');
 }
 
-export function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
+/**
+ * Re-exported from `lib/download` so callers of this feature (including the
+ * dynamic `import()` in `ReportComposer.tsx`) get the single canonical
+ * implementation rather than a fourth copy of it.
+ */
+export { downloadBlob } from '../../download';
 
 export function pdfFilename(data: AnalyzerOutput): string {
   return `${slug(data.title || 'report')}.pdf`;
