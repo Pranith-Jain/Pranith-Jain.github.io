@@ -453,70 +453,69 @@ export async function shortestPath(
   endId: string,
   maxDepth: number = 4
 ): Promise<GraphPath | null> {
-  const visited = new Set<string>();
-  const queue: Array<{ nodeId: string; path: string[]; edges: GraphEdge[] }> = [
-    { nodeId: startId, path: [startId], edges: [] },
-  ];
+  // Level-synchronous BFS with parent pointers.
+  //
+  // The previous version dequeued one node at a time and issued a query per
+  // dequeue, so a well-connected start node expanded hundreds of nodes and
+  // blew past the 50-subrequest free-plan ceiling on a public route. It also
+  // carried a full `path` string[] and edge list on every queue entry and used
+  // `queue.shift()`, which is O(n) per pop.
+  //
+  // Tracking only the parent per discovered node makes reconstruction trivial
+  // and lets each level expand in batched queries. BFS still yields a
+  // shortest path in hops.
+  const parent = new Map<string, { prev: string; edge: GraphEdge } | null>([[startId, null]]);
+  let frontier = [startId];
 
-  while (queue.length > 0) {
-    const current = queue.shift()!;
+  const reconstruct = (): { nodeIds: string[]; edges: GraphEdge[] } => {
+    const nodeIds: string[] = [];
+    const pathEdges: GraphEdge[] = [];
+    let cursor: string | null = endId;
+    while (cursor !== null) {
+      nodeIds.push(cursor);
+      const step: { prev: string; edge: GraphEdge } | null = parent.get(cursor) ?? null;
+      if (!step) break;
+      pathEdges.push(step.edge);
+      cursor = step.prev;
+    }
+    nodeIds.reverse();
+    pathEdges.reverse();
+    return { nodeIds, edges: pathEdges };
+  };
 
-    if (current.nodeId === endId) {
-      // Found path - fetch full node data
-      const nodes = await Promise.all(
-        current.path.map((id) =>
-          db
-            .prepare(
-              'SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes WHERE id = ?'
-            )
-            .bind(id)
-            .first<GraphNode>()
-        )
-      );
+  for (let d = 0; d < maxDepth; d++) {
+    if (frontier.length === 0) break;
 
+    const frontierSet = new Set(frontier);
+    const nextFrontier: string[] = [];
+    let reached = false;
+
+    for (const edge of await fetchEdgesForNodes(db, frontier)) {
+      const from = frontierSet.has(edge.source_id) ? edge.source_id : edge.target_id;
+      const other = from === edge.source_id ? edge.target_id : edge.source_id;
+      if (parent.has(other)) continue;
+
+      parent.set(other, { prev: from, edge });
+      if (other === endId) {
+        reached = true;
+        break;
+      }
+      nextFrontier.push(other);
+    }
+
+    if (reached) {
+      const { nodeIds, edges: pathEdges } = reconstruct();
+      const hydrated = await hydrateNodes(db, nodeIds);
       return {
-        nodes: nodes.filter(Boolean) as GraphNode[],
-        edges: current.edges,
-        length: current.path.length - 1,
-        total_confidence: current.edges.reduce((min, e) => Math.min(min, e.confidence), 100),
+        // Preserve path order rather than the batch's row order.
+        nodes: nodeIds.map((id) => hydrated.find((n) => n.id === id)).filter((n): n is GraphNode => Boolean(n)),
+        edges: pathEdges,
+        length: pathEdges.length,
+        total_confidence: pathEdges.reduce((min, e) => Math.min(min, e.confidence), 100),
       };
     }
 
-    if (current.path.length > maxDepth) continue;
-    if (visited.has(current.nodeId)) continue;
-    visited.add(current.nodeId);
-
-    // Get neighbors
-    const neighbors = await db
-      .prepare(
-        `SELECT e.*, n.id as neighbor_id FROM graph_edges e
-       JOIN graph_nodes n ON (n.id = e.target_id AND e.source_id = ?)
-                         OR (n.id = e.source_id AND e.target_id = ?)`
-      )
-      .bind(current.nodeId, current.nodeId)
-      .all<GraphEdge & { neighbor_id: string }>();
-
-    for (const neighbor of neighbors.results ?? []) {
-      if (!visited.has(neighbor.neighbor_id)) {
-        queue.push({
-          nodeId: neighbor.neighbor_id,
-          path: [...current.path, neighbor.neighbor_id],
-          edges: [
-            ...current.edges,
-            {
-              id: neighbor.id,
-              source_id: neighbor.source_id,
-              target_id: neighbor.target_id,
-              relationship: neighbor.relationship,
-              confidence: neighbor.confidence,
-              evidence: JSON.parse((neighbor.evidence as unknown as string) ?? '[]'),
-              first_seen: neighbor.first_seen,
-              last_seen: neighbor.last_seen,
-            },
-          ],
-        });
-      }
-    }
+    frontier = nextFrontier;
   }
 
   return null; // No path found
@@ -525,54 +524,90 @@ export async function shortestPath(
 /**
  * Find all nodes within N hops of a starting node.
  */
+/** Id batches for the two-sided edge lookup (`source_id IN (…) OR target_id IN (…)`). */
+const EDGE_NODE_BATCH = 45;
+
+/**
+ * Fetch every edge incident to any node in `nodeIds`, in as few queries as
+ * possible.
+ *
+ * Each id is bound twice (once per side of the OR), and D1 caps a statement
+ * at 100 bound parameters, so batches are half the usual size.
+ */
+async function fetchEdgesForNodes(db: D1Database, nodeIds: string[]): Promise<GraphEdge[]> {
+  const out: GraphEdge[] = [];
+  for (let i = 0; i < nodeIds.length; i += EDGE_NODE_BATCH) {
+    const batch = nodeIds.slice(i, i + EDGE_NODE_BATCH);
+    const ph = batch.map(() => '?').join(',');
+    const res = await db
+      .prepare(
+        `SELECT id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen
+           FROM graph_edges
+          WHERE source_id IN (${ph}) OR target_id IN (${ph})`
+      )
+      .bind(...batch, ...batch)
+      .all<GraphEdge>();
+    for (const row of res.results ?? []) {
+      out.push({
+        ...row,
+        evidence: parseJsonArray(row.evidence) as GraphEdge['evidence'],
+      });
+    }
+  }
+  return out;
+}
+
+/**
+ * Every node and edge within `depth` hops of `startId` (undirected).
+ *
+ * Batched breadth-first: each level costs two queries regardless of how wide
+ * the frontier is, rather than two per node. The previous per-node version
+ * issued `2 × frontier` queries per level, so a node of degree 20 at depth 3
+ * cost ~800 D1 subrequests — far past the 50-subrequest free-plan ceiling,
+ * on a public unauthenticated route. Depth 3 now costs at most
+ * `2 × ceil(frontier / 45)` queries.
+ *
+ * Direction is not tracked per-edge: the neighbour is whichever endpoint is
+ * not in the current frontier, which is equivalent for an undirected walk and
+ * removes the need to know which node each row came from.
+ */
 export async function neighborhood(
   db: D1Database,
   startId: string,
   depth: number = 2
-): Promise<{ nodes: GraphNode[]; edges: GraphEdge[] }> {
+): Promise<{ nodes: GraphNode[]; edges: GraphEdge[]; truncated: boolean }> {
   const visitedNodes = new Set<string>();
   const visitedEdges = new Set<string>();
   const nodes: GraphNode[] = [];
   const edges: GraphEdge[] = [];
   let currentLevel = [startId];
+  let truncated = false;
 
   for (let d = 0; d < depth; d++) {
+    const frontier = currentLevel.filter((id) => !visitedNodes.has(id));
+    if (frontier.length === 0) break;
+    for (const id of frontier) visitedNodes.add(id);
+
+    const frontierSet = new Set(frontier);
+    nodes.push(...(await hydrateNodes(db, frontier)));
+
     const nextLevel: string[] = [];
-
-    for (const nodeId of currentLevel) {
-      if (visitedNodes.has(nodeId)) continue;
-      visitedNodes.add(nodeId);
-
-      // Fetch node
-      const node = await db
-        .prepare(
-          'SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes WHERE id = ?'
-        )
-        .bind(nodeId)
-        .first<GraphNode>();
-      if (node) nodes.push(node);
-
-      // Fetch edges
-      const edgeRows = await db
-        .prepare(
-          `SELECT id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen FROM graph_edges WHERE source_id = ? OR target_id = ?`
-        )
-        .bind(nodeId, nodeId)
-        .all<GraphEdge>();
-
-      for (const edge of edgeRows.results ?? []) {
-        if (!visitedEdges.has(edge.id)) {
-          visitedEdges.add(edge.id);
-          edges.push(edge);
-          nextLevel.push(edge.source_id === nodeId ? edge.target_id : edge.source_id);
-        }
-      }
+    for (const edge of await fetchEdgesForNodes(db, frontier)) {
+      if (visitedEdges.has(edge.id)) continue;
+      visitedEdges.add(edge.id);
+      edges.push(edge);
+      const other = frontierSet.has(edge.source_id) ? edge.target_id : edge.source_id;
+      if (!visitedNodes.has(other)) nextLevel.push(other);
     }
 
+    if (nodes.length >= NEIGHBORHOOD_MAX_NODES) {
+      truncated = true;
+      break;
+    }
     currentLevel = nextLevel;
   }
 
-  return { nodes, edges };
+  return { nodes, edges, truncated };
 }
 
 /** Rows pulled per keyset page while scanning the graph for components. */
@@ -592,6 +627,15 @@ const COMMUNITY_MAX_NODES = 5_000;
 
 /** D1 allows 100 bound parameters per statement; leave headroom. */
 const COMMUNITY_NODE_BATCH = 90;
+
+/**
+ * Ceiling on nodes returned by a `neighborhood()` walk.
+ *
+ * A hub node can have hundreds of neighbours, and each one contributes its own
+ * rows to the response. Capped so one request cannot return an unbounded
+ * payload; the flag is surfaced to the caller rather than silently trimming.
+ */
+const NEIGHBORHOOD_MAX_NODES = 1000;
 
 /**
  * Detect communities as connected components.
@@ -818,6 +862,10 @@ export async function graphNodeHandler(c: Context<{ Bindings: Env }>): Promise<R
       stats: {
         neighbor_count: hood.nodes.length - 1,
         edge_count: hood.edges.length,
+        // True when the walk hit the node cap — the neighbourhood below is a
+        // subset, so callers must not present it as the node's full context.
+        truncated: hood.truncated,
+        max_nodes: NEIGHBORHOOD_MAX_NODES,
       },
     },
     200,

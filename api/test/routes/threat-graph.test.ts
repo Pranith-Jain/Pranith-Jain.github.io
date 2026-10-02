@@ -5,6 +5,8 @@ import {
   ensureGraphTables,
   getNeighbors,
   detectCommunities,
+  neighborhood,
+  shortestPath,
   upsertNode,
   upsertEdge,
 } from '../../src/routes/threat-graph';
@@ -352,5 +354,197 @@ describe('upsert helpers still interop with the graph', () => {
       .first<Record<string, string | number>>();
     expect(edge!.confidence).toBe(60);
     expect(JSON.parse(edge!.evidence as unknown as string)).toHaveLength(2);
+  });
+});
+
+/**
+ * `neighborhood()` and `shortestPath()` both used to walk breadth-first one
+ * node at a time, issuing a D1 query per node per hop. On a public route with
+ * a well-connected node that ran to hundreds of subrequests, past the 50 the
+ * free plan allows. Both are now batched per level.
+ *
+ * These lock in that the results are unchanged — the batching must be a pure
+ * query-efficiency win, not a behaviour change.
+ */
+describe('neighborhood — batched BFS', () => {
+  /** Star: hub joined to `leaves`. */
+  async function seedStar(leaves: number) {
+    await seedNode('ip:hub', 'ip', 'hub', 50);
+    for (let i = 0; i < leaves; i++) await seedNode(`ip:l${i}`, 'ip', `l${i}`, 50);
+    for (let i = 0; i < leaves; i++) await seedEdge(`e-h${i}`, 'ip:hub', `ip:l${i}`, 'communicates', 50);
+  }
+
+  /*
+   * Depth semantics (pre-existing, preserved by the batching rewrite):
+   * `depth` counts BFS *expansions*. At depth=1 the walk expands the start
+   * node, so the result carries the start node plus the edges leaving it; the
+   * neighbour node ROWS are hydrated on the next expansion. That is why the
+   * route's `neighbors` array is empty at depth=1 while `edges` is populated.
+   * Changing this would alter the /api/v1/graph/node response shape.
+   */
+  it('returns the start node and its outgoing edges at depth 1', async () => {
+    await seedStar(3);
+    const res = await neighborhood(db(), 'ip:hub', 1);
+    expect(res.truncated).toBe(false);
+    expect(res.nodes.map((n) => n.id)).toEqual(['ip:hub']);
+    expect(res.edges.map((e) => e.id).sort()).toEqual(['e-h0', 'e-h1', 'e-h2']);
+  });
+
+  it('hydrates neighbour node rows one expansion further out', async () => {
+    await seedStar(3);
+    const res = await neighborhood(db(), 'ip:hub', 2);
+    expect(res.nodes.map((n) => n.id).sort()).toEqual(['ip:hub', 'ip:l0', 'ip:l1', 'ip:l2']);
+    expect(res.edges).toHaveLength(3);
+  });
+
+  it('is undirected — reaches a node whose only edge points at the hub', async () => {
+    await seedNode('ip:src', 'ip', 'src', 50);
+    await seedNode('ip:hub', 'ip', 'hub', 50);
+    // Edge points INTO the hub, so walking outward from hub must still find src.
+    await seedEdge('e1', 'ip:src', 'ip:hub', 'communicates', 50);
+    const res = await neighborhood(db(), 'ip:hub', 2);
+    expect(res.nodes.map((n) => n.id).sort()).toEqual(['ip:hub', 'ip:src']);
+    expect(res.edges.map((e) => e.id)).toEqual(['e1']);
+  });
+
+  it('grows one hop per depth and never re-emits a node or edge', async () => {
+    // chain: a - b - c - d - e
+    for (const id of ['a', 'b', 'c', 'd', 'e']) await seedNode(`ip:${id}`, 'ip', id, 50);
+    for (let i = 0; i < 4; i++) await seedEdge(`e${i}`, `ip:${'abcde'[i]}`, `ip:${'abcde'[i + 1]}`, 'communicates', 50);
+
+    const d1 = await neighborhood(db(), 'ip:a', 1);
+    expect(d1.nodes.map((n) => n.id)).toEqual(['ip:a']);
+
+    const d2 = await neighborhood(db(), 'ip:a', 2);
+    expect(d2.nodes.map((n) => n.id).sort()).toEqual(['ip:a', 'ip:b']);
+
+    const d6 = await neighborhood(db(), 'ip:a', 6);
+    expect(d6.nodes.map((n) => n.id).sort()).toEqual(['ip:a', 'ip:b', 'ip:c', 'ip:d', 'ip:e']);
+    // Each edge appears exactly once even though both ends are expanded.
+    expect(d6.edges).toHaveLength(4);
+    expect(new Set(d6.edges.map((e) => e.id)).size).toBe(4);
+  });
+
+  it('handles a hub wide enough to span multiple bind batches', async () => {
+    // 120 leaves exceeds EDGE_NODE_BATCH (45) and COMMUNITY_NODE_BATCH (90),
+    // so both batching paths run more than once.
+    await seedStar(120);
+    const res = await neighborhood(db(), 'ip:hub', 2);
+    expect(res.nodes).toHaveLength(121);
+    expect(res.edges).toHaveLength(120);
+    expect(new Set(res.edges.map((e) => e.id)).size).toBe(120);
+    expect(res.truncated).toBe(false);
+  });
+
+  it('hydrates full node rows, not bare ids', async () => {
+    await seedNode('ip:hub', 'ip', 'hub', 42);
+    await seedNode('ip:l0', 'ip', 'l0', 84);
+    await seedEdge('e1', 'ip:hub', 'ip:l0', 'communicates', 50);
+
+    const res = await neighborhood(db(), 'ip:hub', 2);
+    const hub = res.nodes.find((n) => n.id === 'ip:hub')!;
+    const leaf = res.nodes.find((n) => n.id === 'ip:l0')!;
+    expect(hub.confidence).toBe(42);
+    expect(leaf.confidence).toBe(84);
+    expect(hub.sources).toEqual(['src-ip:hub']);
+    expect(res.edges[0]!.evidence).toHaveLength(1);
+  });
+
+  it('returns an empty result for an unknown node', async () => {
+    await seedStar(2);
+    const res = await neighborhood(db(), 'ip:nope', 2);
+    expect(res.nodes).toHaveLength(0);
+    expect(res.edges).toHaveLength(0);
+    expect(res.truncated).toBe(false);
+  });
+
+  it('always reports a boolean truncated flag', async () => {
+    await seedStar(2);
+    const res = await neighborhood(db(), 'ip:hub', 3);
+    expect(typeof res.truncated).toBe('boolean');
+    expect(res.truncated).toBe(false);
+  });
+});
+
+describe('shortestPath — batched BFS', () => {
+  it('finds a direct path', async () => {
+    await seedNode('ip:a', 'ip', 'a', 50);
+    await seedNode('ip:b', 'ip', 'b', 50);
+    await seedEdge('e1', 'ip:a', 'ip:b', 'communicates', 70);
+
+    const path = await shortestPath(db(), 'ip:a', 'ip:b');
+    expect(path).not.toBeNull();
+    expect(path!.nodes.map((n) => n.id)).toEqual(['ip:a', 'ip:b']);
+    expect(path!.edges.map((e) => e.id)).toEqual(['e1']);
+    expect(path!.length).toBe(1);
+    expect(path!.total_confidence).toBe(70);
+  });
+
+  it('finds a multi-hop path and returns nodes in path order', async () => {
+    for (const id of ['a', 'b', 'c', 'd']) await seedNode(`ip:${id}`, 'ip', id, 50);
+    await seedEdge('e1', 'ip:a', 'ip:b', 'communicates', 90);
+    await seedEdge('e2', 'ip:b', 'ip:c', 'communicates', 80);
+    await seedEdge('e3', 'ip:c', 'ip:d', 'communicates', 30);
+
+    const path = await shortestPath(db(), 'ip:a', 'ip:d');
+    expect(path!.nodes.map((n) => n.id)).toEqual(['ip:a', 'ip:b', 'ip:c', 'ip:d']);
+    expect(path!.edges.map((e) => e.id)).toEqual(['e1', 'e2', 'e3']);
+    expect(path!.length).toBe(3);
+    // total_confidence is the weakest edge on the path.
+    expect(path!.total_confidence).toBe(30);
+  });
+
+  it('picks the shortest of several routes', async () => {
+    // a - b - d  (2 hops)   and   a - c - e - d  (3 hops)
+    for (const id of ['a', 'b', 'c', 'd', 'e']) await seedNode(`ip:${id}`, 'ip', id, 50);
+    await seedEdge('long1', 'ip:a', 'ip:c', 'communicates', 50);
+    await seedEdge('long2', 'ip:c', 'ip:e', 'communicates', 50);
+    await seedEdge('long3', 'ip:e', 'ip:d', 'communicates', 50);
+    await seedEdge('short1', 'ip:a', 'ip:b', 'communicates', 50);
+    await seedEdge('short2', 'ip:b', 'ip:d', 'communicates', 50);
+
+    const path = await shortestPath(db(), 'ip:a', 'ip:d');
+    expect(path!.length).toBe(2);
+    expect(path!.edges.map((e) => e.id).sort()).toEqual(['short1', 'short2']);
+  });
+
+  it('is undirected in both directions', async () => {
+    await seedNode('ip:a', 'ip', 'a', 50);
+    await seedNode('ip:b', 'ip', 'b', 50);
+    await seedEdge('e1', 'ip:a', 'ip:b', 'communicates', 50);
+
+    const forward = await shortestPath(db(), 'ip:a', 'ip:b');
+    const back = await shortestPath(db(), 'ip:b', 'ip:a');
+    expect(forward!.nodes.map((n) => n.id)).toEqual(['ip:a', 'ip:b']);
+    expect(back!.nodes.map((n) => n.id)).toEqual(['ip:b', 'ip:a']);
+  });
+
+  it('returns null when disconnected', async () => {
+    await seedNode('ip:a', 'ip', 'a', 50);
+    await seedNode('ip:b', 'ip', 'b', 50);
+    await seedNode('ip:c', 'ip', 'c', 50);
+    await seedEdge('e1', 'ip:a', 'ip:b', 'communicates', 50);
+
+    expect(await shortestPath(db(), 'ip:a', 'ip:c')).toBeNull();
+  });
+
+  it('respects maxDepth', async () => {
+    for (const id of ['a', 'b', 'c', 'd', 'e']) await seedNode(`ip:${id}`, 'ip', id, 50);
+    for (let i = 0; i < 4; i++) await seedEdge(`e${i}`, `ip:${'abcde'[i]}`, `ip:${'abcde'[i + 1]}`, 'communicates', 50);
+
+    expect(await shortestPath(db(), 'ip:a', 'ip:e', 2)).toBeNull();
+    expect((await shortestPath(db(), 'ip:a', 'ip:e', 4))!.length).toBe(4);
+  });
+
+  it('hydrates real node rows, not just ids', async () => {
+    await seedNode('ip:a', 'ip', 'a', 42);
+    await seedNode('ip:b', 'ip', 'b', 84);
+    await seedEdge('e1', 'ip:a', 'ip:b', 'communicates', 50);
+
+    const path = await shortestPath(db(), 'ip:a', 'ip:b');
+    expect(path!.nodes[0]!.confidence).toBe(42);
+    expect(path!.nodes[1]!.confidence).toBe(84);
+    expect(path!.nodes[0]!.sources).toEqual(['src-ip:a']);
+    expect(path!.edges[0]!.evidence).toHaveLength(1);
   });
 });
