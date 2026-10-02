@@ -1,1 +1,15 @@
-{"slug":"play-orth-automobile-2026-10-01","title":"Orth Automobile","group":"play","discovered":"2026-10-01T01:06:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://j75o7xvvsm4lpsjhkjvb4wl2q6ajegvabe6oswthuaubbykk4xkzgpid.onion/topic.php?id=X253l4VJZIrDic","groupAliases":["PlayCrypt"],"activity":null,"references":["CTI.FYI"]}
+{
+  "slug": "play-orth-automobile-2026-10-01",
+  "title": "Orth Automobile",
+  "group": "Play",
+  "discovered": "2026-10-01T03:00:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/c98fbdcd-3650-4eec-81da-96bf6a9fcfe7",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "akira-jampac-alimentos-2026-10-02",
+  "title": "Jampac Alimentos",
+  "group": "akira",
+  "discovered": "2026-10-02T17:38:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Jampac Alimentos is a leading producer and distributor of food products in Brazil, with over 20years of experience and a commitment to quality and efficiency. The company serves more than 6,500 clients, including restaurants, supermarkets, and industrial kitchens, delivering a wide range of products such as poultry, beef, pork, dairy, and fish.We will upload 35gb of corporate data soon. Personal information (passports, payment information and other information), financials, clients information and so on.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": ["Megazord"],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

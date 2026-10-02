@@ -1,1 +1,15 @@
-{"slug":"chaos-advantech-com-2026-09-29","title":"advantech.com","group":"chaos","discovered":"2026-09-29T17:55:38.000Z","category":"ransomware","severity":"high","country":"TW","sizeBytes":0,"description":"We are publishing 5% of the total data because the company's management is ignoring the situation and has not contacted us. The company's management has exactly 48 hours to contact us; otherwise, the entire dataset will be published.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "chaos-advantech-com-2026-09-29",
+  "title": "advantech.com",
+  "group": "chaos",
+  "discovered": "2026-09-29T17:55:38.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "TW",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/35bcfd10-2f9b-41ed-9e4a-03f3d9932488",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}
