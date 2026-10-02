@@ -50,6 +50,67 @@ repo's footguns so you don't rediscover them.
   deploying.
 - **MCP server** (`worker/mcp-server.ts`, `/api/mcp`) is mirrored to the standalone repo
   `dfir-mcp-server` via branch + PR.
+- **19 generators are manual-only** — no npm script, no workflow reference. Their output is
+  still live and served from `public/data/`, so editing generated JSON by hand works but the
+  next run silently reverts it. See the inventory below before hand-editing anything under
+  `public/data/`.
+
+## Data generators — which ones run on their own
+
+`public/data/**` is committed, not built (see the footgun above about `ci.yml` using
+`build:client`). That splits the generators into three groups:
+
+**Automatic — `prebuild` runs these on every build.** Safe to treat as derived; never
+hand-edit, because the next build overwrites you.
+
+    build-breach-watch  build-mcp-manifest  build-llms-full  build-sitemap
+    generate-og-png  generate-og-version  build-og-overrides  extract-wiki-meta
+    build-telegram-actor-catalog  sync-tesseract-assets
+
+**Automatic — CI-only.** A scheduled workflow fetches upstream and auto-merges the result
+back to `main`. Locally you have no generator; the committed JSON _is_ the deliverable.
+(`ai-security`, `ai-threats`, `anarchy`, `apt-actors`, `cairn`, `capec`, `car`, `cert-in`,
+`cti-bookmarks`, `daily-briefs`, `denali`, `detection-wiki`, `engage`, `hijacklibs`,
+`lots`, `malapi`, `nova`, `pcmedicalist`, `ransomware-groups`, `si`, `sigbase`, `veris`,
+`webamon-dtb`, `winreg`, and all of `threat-intel/*`.)
+
+**Manual — run the script yourself.** These have no npm alias; invoke by path. The first
+group reads curated input that _is_ committed, so they are offline and deterministic.
+
+| Script                                               | Reads                                                           | Writes                                    |
+| ---------------------------------------------------- | --------------------------------------------------------------- | ----------------------------------------- |
+| `build-cloak.mjs`                                    | `scripts/data-src/cloak/`                                       | `public/data/cloak/`                      |
+| `build-cloud-ref.mjs`                                | `scripts/data-src/cloud-ref/`                                   | `public/data/cloud-ref/`                  |
+| `build-dfir-ref.mjs`                                 | `scripts/data-src/dfir-ref/`                                    | `public/data/dfir-ref/`                   |
+| `build-grc-manifest.mjs`                             | `scripts/data-src/grc/`                                         | `public/data/grc/`                        |
+| `build-hunt-hypotheses.mjs`                          | `scripts/data-src/hunt-hypotheses/`                             | `public/data/hunt-hypotheses/`            |
+| `build-pqc.mjs`                                      | `scripts/data-src/pqc/`                                         | `public/data/pqc/`                        |
+| `build-siem-library.mjs`                             | `scripts/data-src/siem-library/`                                | `public/data/siem-library/`               |
+| `build-campaigns-manifest.mjs`                       | inlined in the script                                           | `public/data/campaigns/`                  |
+| `build-reports-manifest.mjs`                         | inlined in the script                                           | `public/data/reports/`                    |
+| `build-osint-manifest.mjs`                           | inlined in the script                                           | `public/data/osint/`                      |
+| `build-threat-monitor.mjs`                           | `src/data/threat-monitor/`                                      | `public/data/threat-monitor/`             |
+| `build-actor-kb.mjs`                                 | `src/data/dfir/`                                                | `src/data/dfir/actor-kb.ts`               |
+| `generate-mitre-matrix.mjs`                          | MITRE STIX (**network**)                                        | `src/data/dfir/mitre-matrix.ts`           |
+| `generate-osint-countries.mjs`                       | (**network**)                                                   | `src/data/threatintel/osint-countries.ts` |
+| `fetch-powershell-analyzer.mjs`                      | (**network**)                                                   | `src/lib/dfir/powershell-analyzer.ts`     |
+| `build-attack-index.mjs`                             | MITRE STIX (**network**)                                        | `public/data/attack-id-index.json`        |
+| `build-oss-feeds.mjs`                                | `threat-intel-staging/oss-feed-registry/` (**untracked input**) | `public/data/oss-feed-registry/`          |
+| `sync-frameworks.mjs`                                | (**network**)                                                   | `public/data/frameworks/tid-cmm/`         |
+| `sync-oss-feeds.mjs`                                 | (**network**)                                                   | `threat-intel-staging/oss-feed-registry/` |
+| `generate-avatar.mjs`, `generate-linkedin-cover.mjs` | design sources                                                  | profile assets                            |
+| `build-tools-manifest.mjs`                           | rewrites its own `index.json` in place                          | `public/data/tools/index.json`            |
+
+Two traps worth knowing: `build-oss-feeds.mjs` reads a **gitignored** staging dir, so the
+committed output is the only copy — run `sync-oss-feeds.mjs` first or you get an empty
+build. And `build-tools-manifest.mjs` is simultaneously source-of-truth and output, so it
+edits the file it reads.
+
+**Parked, not dead.** `scripts/codegen.mjs` (`npm run codegen`) is functional but cannot
+succeed: `api/src/lib/openapi.ts` builds a full spec that no route mounts, so the fetch
+returns 401. `src/lib/api-types.ts` does not exist and nothing imports it. Mounting
+`/api/v1/openapi.json` re-enables it — but that route enumerates the whole API surface, so
+treat exposing it as a deliberate decision.
 
 ## Runtime loop engine
 
