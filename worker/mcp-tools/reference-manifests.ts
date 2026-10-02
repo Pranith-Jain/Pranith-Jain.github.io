@@ -17,13 +17,31 @@ import { engageCacheStats, getEngage, listEngage, loadEngageIndex } from '../lib
 import { getHijacklib, hijacklibsCacheStats, listHijacklibs, loadHijacklibsIndex } from '../lib/hijacklibs-manifest';
 import { getLots, listLots, loadLotsIndex, lotsCacheStats } from '../lib/lots-manifest';
 import { getMalapi, listMalapi, loadMalapiIndex, malapiCacheStats } from '../lib/malapi-manifest';
-import { getPortal, listPortals, loadOsintIndex, osintCacheStats, OsintCategory } from '../lib/osint-manifest';
+import { getPortal, listPortals, loadOsintIndex, osintCacheStats } from '../lib/osint-manifest';
+import type { OsintCategory } from '../lib/osint-manifest';
 import { getVeris, listVeris, loadVerisIndex, verisCacheStats } from '../lib/veris-manifest';
 import { untrustedToolResult } from './core';
 import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import { campaignsCacheStats, getCampaign, listCampaigns, loadCampaignsIndex } from '../lib/campaigns-manifest';
+import {
+  ctiBookmarksCacheStats,
+  getBookmark,
+  listBookmarks,
+  loadCtiBookmarksIndex,
+} from '../lib/cti-bookmarks-manifest';
+import { getReport, listReports, loadReportsIndex, reportsCacheStats } from '../lib/reports-manifest';
+import type { CampaignCategory, CampaignStatus } from '../lib/campaigns-manifest';
+import type { CtiBookmarkStatus } from '../lib/cti-bookmarks-manifest';
+import type { ReportCategory } from '../lib/reports-manifest';
 export function registerReferenceManifestsTools(h: McpToolHost): void {
   // Was: `if (h.env.ASSETS) { const ASSETS = h.env.ASSETS; ... }`
   const ASSETS = h.env.ASSETS;

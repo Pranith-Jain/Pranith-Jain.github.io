@@ -16,6 +16,65 @@ import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import {
+  aiPlaybookStats,
+  filterAiPlaybookRiskIds,
+  getAiPlaybookCveRefs,
+  getAiPlaybookLayer,
+  getAiPlaybookRiskId,
+  listAiPlaybookLayers,
+  loadAiPlaybookIndex,
+  riskIdsForLayer,
+} from '../lib/ai-playbook-manifest';
+import {
+  anarchyCacheStats,
+  filterAnarchyCourses,
+  getAnarchyCourse,
+  loadAnarchyIndex,
+  recommendAnarchyCourses,
+  similarAnarchyCourses,
+} from '../lib/anarchy-manifest';
+import {
+  cairnCacheStats,
+  filterCairnFilters,
+  getCairnFamily,
+  getCairnRule,
+  listCairnFamilies,
+  listCairnRules,
+  loadCairnArchetypes,
+  loadCairnFilters,
+  loadCairnIndex,
+  scanCairnText,
+} from '../lib/cairn-manifest';
+import {
+  classifyConsent,
+  denaliCacheStats,
+  evaluateFailedSignins,
+  evaluateRiskySequences,
+  getDenaliDoc,
+  getDenaliRule,
+  listDenaliDocs,
+  listDenaliRules,
+  loadDenaliIndex,
+  loadDenaliRules,
+  loadDenaliTaxonomy,
+} from '../lib/denali-manifest';
+import {
+  getNovaRule,
+  listNovaRules,
+  loadNovaIndex,
+  loadNovaTaxonomy,
+  novaCacheStats,
+  scanNovaPrompt,
+} from '../lib/nova-manifest';
+import { filterArtifacts, getWinRegArtifact, loadWinRegIndex, winRegCacheStats } from '../lib/winreg-manifest';
+import type { DenaliActivity } from '../lib/denali-manifest';
 export function registerDfirManifestsTools(h: McpToolHost): void {
   // Was: `if (h.env.ASSETS) { const ASSETS = h.env.ASSETS; ... }`
   const ASSETS = h.env.ASSETS;

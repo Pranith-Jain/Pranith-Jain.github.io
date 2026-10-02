@@ -12,13 +12,15 @@
  */
 
 import { apiFetch, untrustedToolResult, computeConfidence, buildTags, buildDescription } from './core';
-import { buildStixBundle, StixIndicator } from '../lib/cti-ioc-export';
+import { buildStixBundle } from '../lib/cti-ioc-export';
+import type { StixIndicator } from '../lib/cti-ioc-export';
 import { cerastSearch } from '../lib/cerast';
 import { dehashLookup } from '../lib/dehash';
 import { enrichIp, enrichIpsBatch, isValidIp } from '../lib/si-enrich';
 import { fbiWantedList, fbiWantedSearch } from '../lib/fbi-wanted';
 import { fullhuntDomainDetails, fullhuntSubdomains } from '../lib/fullhunt';
-import { getTool, listTools, loadToolsIndex, ToolCategory } from '../lib/tools-manifest';
+import { getTool, listTools, loadToolsIndex } from '../lib/tools-manifest';
+import type { ToolCategory } from '../lib/tools-manifest';
 import { intelxPhonebook, intelxSearch } from '../lib/intelx';
 import { interpolNoticeDetail, interpolSearch } from '../lib/interpol';
 import { mozillaTlsScan } from '../lib/mozilla-tls';
@@ -33,6 +35,28 @@ import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import {
+  catalogSummary as nhiCatalog,
+  parseFleet as nhiParseFleet,
+  reportToJson as nhiReportJson,
+  reportToMarkdown as nhiReportMarkdown,
+  scan as nhiScanFleet,
+} from '../../api/src/lib/nhi-scan';
+import {
+  getCampaignIntel as webamonGetCampaignIntel,
+  getCampaignStats as webamonGetCampaignStats,
+  listCampaigns as webamonListCampaigns,
+  listChanges as webamonListChanges,
+  listClusters as webamonListClusters,
+} from '../../api/src/lib/webamon-campaigns';
+import { getDoc, getRef, getRoutingPrompt, getSiSkill, loadDocsIndex } from '../lib/si-manifest';
+import type { WebamonClusterSeverity } from '../lib/webamon-campaigns';
 export function registerRegistryRenderTools(h: McpToolHost): void {
   // Was: `if (h.env.ASSETS) { const ASSETS = h.env.ASSETS; ... }`
   const ASSETS = h.env.ASSETS;

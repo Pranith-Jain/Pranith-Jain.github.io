@@ -13,6 +13,23 @@ import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import {
+  btcAbuseCheck,
+  onionLookup,
+  torExitCheck,
+  torExitDetails,
+  torExitNodes,
+  torFetchOnion,
+  torScrapeOnion,
+  torSearchOnion,
+  torStatus,
+} from '../lib/darknet';
 export function registerTelegramDarknetAgentTools(h: McpToolHost): void {
   // ── Dark Web: Tor Network ──────────────────────────────────────────────
   h.tools(

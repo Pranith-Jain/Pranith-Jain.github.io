@@ -17,6 +17,57 @@ import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import {
+  dwCacheStats,
+  filterDwSecurityAuditingEvents,
+  filterDwTechniques,
+  filterDwWindowsProviders,
+  getDwAttackTechnique,
+  getDwLab,
+  loadDwAttackIndex,
+  loadDwIndex,
+  loadDwLabs,
+  loadDwPlatformDetail,
+  loadDwPlatforms,
+  loadDwRules,
+  loadDwSecurityAuditing,
+  loadDwTechniques,
+  loadDwWindows,
+} from '../lib/detection-wiki-manifest';
+import {
+  filterPcmDigests,
+  getPcmDigest,
+  getPcmLatest,
+  loadPcmIndex,
+  pcmCacheStats,
+  searchPcmItems,
+} from '../lib/pcmedicalist-manifest';
+import {
+  filterIocs as filterSigBaseIocs,
+  filterYara,
+  getSigBaseIoc,
+  getSigBaseYara,
+  loadSigBaseIndex,
+  searchIocEntries as searchSigBaseIocEntries,
+  sigBaseCacheStats,
+} from '../lib/sigbase-manifest';
+import {
+  filterTamGroups,
+  filterTamSources,
+  filterTamTechniques as filterTamTechniquesMcp,
+  getTamGroup,
+  loadTamGroups,
+  loadTamIndex,
+  loadTamSources,
+  loadTamTechniques,
+  tamCacheStats,
+} from '../lib/threat-monitor-manifest';
 export function registerDetectionManifestsTools(h: McpToolHost): void {
   // Was: `if (h.env.ASSETS) { const ASSETS = h.env.ASSETS; ... }`
   const ASSETS = h.env.ASSETS;

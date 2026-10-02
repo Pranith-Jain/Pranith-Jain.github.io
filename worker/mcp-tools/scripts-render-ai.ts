@@ -14,12 +14,35 @@
 import { getScript, loadScriptsIndex } from '../lib/si-manifest';
 import { heatwaveLookup, heatwaveVerdict, normalizeHeatwaveDomain } from '../lib/heatwave';
 import { isValidChannelHandle, tgLiveSearch } from '../lib/tg-live-search';
-import { renderDashboard, RenderManifest } from '../lib/si-svg-renderer';
+import { renderDashboard } from '../lib/si-svg-renderer';
+import type { RenderManifest } from '../lib/si-svg-renderer';
 import { untrustedToolResult } from './core';
 import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import {
+  escapeCacheStats,
+  escapeTimelineBuckets,
+  filterEscapes,
+  getEscapeIncident,
+  loadEscapeGuardrails,
+  loadEscapeIndex,
+  loadEscapeTrackers,
+} from '../lib/ai-escape-manifest';
+import { aiThreatsCacheStats, filterThreats, getAiThreat, loadAiThreatsIndex } from '../lib/ai-threats-manifest';
+import { filterFeeds, getOssFeedsByCategory, loadOssFeedsIndex, ossFeedsCacheStats } from '../lib/oss-feeds-manifest';
+import {
+  filterRansomwareGroups,
+  getRansomwareGroup,
+  loadRansomwareGroupsIndex,
+} from '../lib/ransomware-groups-manifest';
 export function registerScriptsRenderAiTools(h: McpToolHost): void {
   // Was: `if (h.env.ASSETS) { const ASSETS = h.env.ASSETS; ... }`
   const ASSETS = h.env.ASSETS;

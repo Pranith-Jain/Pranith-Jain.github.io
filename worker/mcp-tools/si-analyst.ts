@@ -7,7 +7,8 @@
  * against that host at call time.
  */
 
-import { ArtifactKind, siParseText } from '../lib/si-parse';
+import { siParseText } from '../lib/si-parse';
+import type { ArtifactKind } from '../lib/si-parse';
 import { siHyposGenerate } from '../lib/si-hypos';
 import { siParseEmailHeaders } from '../lib/si-mailscope';
 import { untrustedToolResult } from './core';
@@ -15,6 +16,22 @@ import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import {
+  promptVaultCategories,
+  promptVaultCreate,
+  promptVaultGet,
+  promptVaultList,
+  promptVaultRate,
+} from '../lib/si-promptvault';
+import { shiftlogClose, shiftlogCreate, shiftlogGet, shiftlogList, shiftlogUpdate } from '../lib/si-shiftlog';
+import type { CreatePromptInput } from '../lib/si-promptvault';
+import type { UpdateShiftLogInput } from '../lib/si-shiftlog';
 export function registerSiAnalystTools(h: McpToolHost): void {
   // ── si_parse_text (PARSE-X) ─────────────────────────────────────────
   h.tools(

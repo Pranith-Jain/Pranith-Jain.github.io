@@ -16,7 +16,8 @@
  * the tools/list response is served.
  */
 
-import { DbBriefType, dbCacheStats, filterBriefs, getDbBrief, loadDbIndex } from '../lib/daily-briefs-manifest';
+import { dbCacheStats, filterBriefs, getDbBrief, loadDbIndex } from '../lib/daily-briefs-manifest';
+import type { DbBriefType } from '../lib/daily-briefs-manifest';
 
 import { filterFlowvizTechniques, loadFlowvizTechniques } from '../lib/flowviz-manifest';
 import { loadProcedureRules, relevantRules } from '../lib/procedure-manifest';
@@ -26,6 +27,76 @@ import { z } from 'zod';
 
 import type { McpToolHost } from './host';
 
+// ── imports restored after the mcp-server split ──────────────
+// The tool bodies below were moved out of DfirMcpServer.init()
+// without carrying these dependencies, which left 221 dangling
+// names. esbuild does not typecheck free variables, so the Worker
+// still bundled and deployed while every tool that touched one threw
+// ReferenceError at call time. Fixed alongside the tsc (worker) gate.
+import {
+  actorsCacheStats,
+  filterActors,
+  getActor,
+  listAptmapDataFiles,
+  loadActorIndex,
+  loadAptmapDataFile,
+} from '../lib/etda-actors-manifest';
+import {
+  checkDestroylistDomain,
+  filterIocs,
+  filterCves,
+  filterDarknetSites,
+  filterDphishIndicators,
+  filterLists,
+  filterLivingThreatIncidents,
+  filterMaFeed,
+  filterTcClusters,
+  filterTcEntities,
+  filterTcExploits,
+  filterTcIocs,
+  filterTcVictims,
+  filterTcVulns,
+  filterThreaticonActors,
+  filterThreaticonCoverage,
+  getDarknetCategory,
+  getDarknetSite,
+  getDphishIndicator,
+  getLivingThreatIncident,
+  getMaFeed,
+  getTcCluster,
+  getTcEntity,
+  getTcExploit,
+  getTcVuln,
+  getThreaticonActor,
+  getTiCve,
+  getTiIoc,
+  getTiList,
+  getTiSector,
+  loadDarknetIndex,
+  loadDestroylistIndex,
+  loadDphishIndex,
+  loadKevSnapshot,
+  loadLivingThreatIndex,
+  loadMaIndex,
+  loadTcEntities,
+  loadTcIocs,
+  loadTcMispEvents,
+  loadThreatClusterIndex,
+  loadThreaticonCoverage,
+  loadThreaticonIndex,
+  loadTiIndex,
+  searchListEntries,
+  tiCacheStats,
+} from '../lib/threat-intel-manifest';
+import {
+  filterWdtbBriefs,
+  getWdtbBrief,
+  getWdtbLatest,
+  loadWdtbIndex,
+  wdtbCacheStats,
+} from '../lib/webamon-dtb-manifest';
+import type { ActorCategory } from '../lib/etda-actors-manifest';
+import type { TcEntityType, TiIocIndexEntry, TiSeverity } from '../lib/threat-intel-manifest';
 export async function registerTiManifestsTools(h: McpToolHost): Promise<void> {
   // Was: `if (h.env.ASSETS) { const ASSETS = h.env.ASSETS; ... }`
   const ASSETS = h.env.ASSETS;
