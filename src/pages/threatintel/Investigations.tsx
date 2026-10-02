@@ -421,7 +421,7 @@ function InvestigationsPage(): JSX.Element {
               key={s}
               type="button"
               onClick={() => updateSeverity(s)}
-              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-line-1 text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_TONE[s] : 'border-line-1 text-slate-500'}`}
             >
               {s}
             </button>

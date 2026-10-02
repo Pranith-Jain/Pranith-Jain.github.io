@@ -732,7 +732,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               view === 'table'
                 ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
-                : 'border-slate-200 dark:border-line-1 text-muted hover:text-slate-600'
+                : 'border-line-1 text-muted hover:text-slate-600'
             }`}
           >
             Table
@@ -743,7 +743,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               view === 'map'
                 ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
-                : 'border-slate-200 dark:border-line-1 text-muted hover:text-slate-600'
+                : 'border-line-1 text-muted hover:text-slate-600'
             }`}
           >
             Map
@@ -780,9 +780,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
               type="button"
               onClick={() => toggleType(t)}
               className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
-                active
-                  ? `${config.bgColor} ${config.color} border-current`
-                  : 'border-slate-200 dark:border-line-1 text-muted opacity-50'
+                active ? `${config.bgColor} ${config.color} border-current` : 'border-line-1 text-muted opacity-50'
               }`}
             >
               <config.icon size={12} />

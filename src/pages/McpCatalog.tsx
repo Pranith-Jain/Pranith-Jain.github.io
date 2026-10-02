@@ -395,7 +395,7 @@ function FilterPill({
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
         active
           ? `${accent} border-current bg-current/10`
-          : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 text-muted hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-slate-100'
+          : 'border-line-1 bg-white dark:bg-surface-200 text-muted hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-slate-100'
       }`}
     >
       {label}

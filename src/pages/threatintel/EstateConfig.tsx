@@ -281,7 +281,7 @@ export default function EstateConfig() {
                 className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${
                   config.data_types.includes(dt.id)
                     ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                    : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-amber-300'
+                    : 'border-line-1 text-slate-500 hover:border-amber-300'
                 }`}
               >
                 {dt.label}

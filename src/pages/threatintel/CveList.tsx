@@ -266,7 +266,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border ${
               kevOnly
                 ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-line-1 hover:border-rose-500/40'
+                : 'border-line-1 hover:border-rose-500/40'
             }`}
             title="Toggle CISA KEV-only (actively exploited CVEs)"
           >
@@ -342,7 +342,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                   ? 'border-emerald-500/50 bg-emerald-50/40 dark:bg-emerald-900/10 ring-1 ring-emerald-500/20'
                   : c.kev
                     ? 'border-rose-500/40 bg-rose-50/30 dark:bg-rose-900/10'
-                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
+                    : 'border-line-1 bg-white dark:bg-surface-200'
               }`}
             >
               <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">

@@ -70,7 +70,7 @@ export default function Tracerules(): JSX.Element {
               className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-colors ${
                 formatFilter === 'all'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 text-muted'
+                  : 'bg-white dark:bg-surface-200 border border-line-1 text-muted'
               }`}
             >
               All
@@ -83,7 +83,7 @@ export default function Tracerules(): JSX.Element {
                 className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-colors ${
                   formatFilter === f
                     ? 'bg-brand-600 text-white'
-                    : 'bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 text-muted'
+                    : 'bg-white dark:bg-surface-200 border border-line-1 text-muted'
                 }`}
               >
                 {f}

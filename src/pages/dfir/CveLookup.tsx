@@ -434,7 +434,7 @@ export default function CveLookup(): JSX.Element {
                   className={`px-3 py-2 rounded-xl text-xs font-mono border transition-colors ${
                     ruleFormat === f
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-200 dark:border-line-1 text-muted hover:border-slate-300 dark:hover:border-line-1'
+                      : 'border-line-1 text-muted hover:border-slate-300 dark:hover:border-line-1'
                   }`}
                 >
                   {f.toUpperCase()}

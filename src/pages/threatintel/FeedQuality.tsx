@@ -369,7 +369,7 @@ function FilterBar({
               key={g}
               type="button"
               onClick={() => toggleGrade(g)}
-              className={`text-mini font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-slate-200 dark:border-line-1 text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-line-1 text-slate-500'}`}
               title={`${active ? 'remove' : 'add'} grade ${g}`}
             >
               {g}

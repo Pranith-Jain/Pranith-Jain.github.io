@@ -480,7 +480,7 @@ function DraftPreviewPanel({
           </p>
           <div
             className={
-              'mb-4 bg-white dark:bg-surface-100 border border-slate-200 dark:border-line-1 rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-body ' +
+              'mb-4 bg-white dark:bg-surface-100 border border-line-1 rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-body ' +
               '[&_h1]:text-xl [&_h1]:font-bold [&_h1]:text-slate-900 dark:[&_h1]:text-slate-100 [&_h1]:mt-4 [&_h1]:mb-2 ' +
               '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
               '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-slate-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +

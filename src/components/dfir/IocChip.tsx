@@ -95,7 +95,7 @@ const IOC_TYPE_GLYPH: Record<IocType, LucideIcon> = {
 };
 
 const NEUTRAL_ACCENT = {
-  ring: 'border-slate-200 dark:border-line-1',
+  ring: 'border-line-1',
   glyph: 'text-muted',
 };
 

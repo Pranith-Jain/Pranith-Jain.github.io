@@ -1002,7 +1002,7 @@ export default function AIReportShowcase(): JSX.Element {
                 className={`text-left rounded-xl border p-3 transition-all ${
                   active
                     ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/30 shadow-e2'
-                    : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200 hover:border-rose-400/60'
+                    : 'border-line-1 bg-slate-50 dark:bg-input-200 hover:border-rose-400/60'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1">

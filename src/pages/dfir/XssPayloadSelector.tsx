@@ -666,7 +666,7 @@ export default function XssPayloadSelector(): JSX.Element {
               className={`rounded-xl border p-3 transition-colors ${
                 selectedPayloads.has(p.id)
                   ? 'border-purple-500/50 bg-purple-50 dark:bg-purple-500/5'
-                  : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-100'
+                  : 'border-line-1 bg-white dark:bg-surface-100'
               }`}
             >
               <div className="flex items-start gap-3">

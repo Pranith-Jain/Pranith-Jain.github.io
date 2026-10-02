@@ -153,9 +153,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
     <>
       <header
         className={`sticky top-0 z-50 transition-all duration-200 ${
-          isScrolled
-            ? 'border-b border-line-1 bg-surface-100 dark:border-line-1 dark:bg-surface-100'
-            : 'border-b border-transparent bg-surface-100'
+          isScrolled ? 'border-b border-line-1 bg-surface-100 ' : 'border-b border-transparent bg-surface-100'
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:py-3 sm:px-6">

@@ -257,19 +257,28 @@ export function HeroLiveSparkline(): JSX.Element {
                   ? 'fill-rose-500 dark:fill-rose-400'
                   : isLive
                     ? 'fill-brand-600/80 dark:fill-brand-400/80'
-                    : 'fill-slate-200 dark:fill-slate-800'
+                    : // Placeholder uses --track, the same token every other
+                      // loading surface uses. It was `fill-slate-200
+                      // dark:fill-slate-800`, a raw pair that bypassed the
+                      // token system and rendered at a value tuned for a card
+                      // background rather than hairline bars on the page
+                      // canvas, so the hero's own loading state was the one
+                      // thing on the page not reading as part of the palette.
+                      'fill-track'
               }
               style={{
                 // Stagger reveal: each bar fades + lifts on mount, 12ms
                 // apart, finishing in under half a second total. Honours
                 // prefers-reduced-motion via the media query below.
+                //
+                // The SMIL <animate> that used to sit inside each <rect> is
+                // gone: it animated `opacity`, the same property as this CSS
+                // rule, on the same element. CSS wins over SMIL, so the node
+                // was doing nothing except spin up a second animation engine
+                // per bar.
                 animation: isLive ? `hero-bar-rise 320ms ease-out ${i * 12}ms both` : undefined,
               }}
-            >
-              {isLive && (
-                <animate attributeName="opacity" from="0" to="1" begin={`${i * 12}ms`} dur="320ms" fill="freeze" />
-              )}
-            </rect>
+            ></rect>
           );
         })}
       </svg>
@@ -277,16 +286,20 @@ export function HeroLiveSparkline(): JSX.Element {
         <span className="truncate">
           {isLive ? (
             <>
-              ransomware claims · last 7d ·{' '}
-              <span className="text-brand-600 dark:text-brand-400">{display.total} total</span>
+              ransomware claims · last 7d · <span className="text-accent-text">{display.total} total</span>
               {fetchedAt && (
                 <span className="ml-2 normal-case tracking-normal text-muted">· {relativeAge(fetchedAt)}</span>
               )}
             </>
-          ) : failed ? (
-            'ransomware cadence · live data unavailable'
           ) : (
-            'ransomware cadence · loading'
+            // No "live data unavailable" / "loading" wording here. Both used
+            // to sit directly under the hero headline in 11px uppercase mono,
+            // so the most prominent thing below the fold was the hero
+            // apologising for itself. The bars are visibly placeholder-height,
+            // the refresh button is 2rem to the right as the retry, and the
+            // <title> already states the real state to assistive tech. A
+            // neutral label is honest without being an error banner.
+            'ransomware cadence'
           )}
         </span>
         <span className="inline-flex items-center gap-2 shrink-0">
@@ -296,13 +309,13 @@ export function HeroLiveSparkline(): JSX.Element {
             disabled={refreshing}
             aria-label="Refresh ransomware claim cadence"
             title="Refresh now"
-            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] -my-2 sm:my-0 sm:min-h-0 sm:min-w-0 text-muted hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
+            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] -my-2 sm:my-0 sm:min-h-0 sm:min-w-0 text-muted hover:text-accent-text transition disabled:opacity-50"
           >
             <RefreshCw size={11} aria-hidden="true" className={refreshing ? 'animate-spin' : undefined} />
           </button>
           <Link
             to="/threatintel/ransomware-hub"
-            className="text-brand-600 dark:text-brand-400 hover:underline normal-case tracking-normal"
+            className="text-accent-text hover:underline normal-case tracking-normal"
           >
             /threatintel ↗
           </Link>

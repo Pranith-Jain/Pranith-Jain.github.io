@@ -173,7 +173,7 @@ export default function CveDetail(): JSX.Element {
           </button>
           <Link
             to={`/dfir/cve?cve=${encodeURIComponent(data.cve_id)}`}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-100 dark:bg-surface-100 text-white dark:text-heading text-xs font-mono"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-100 text-white dark:text-heading text-xs font-mono"
           >
             <Search size={12} /> Open in DFIR CVE
           </Link>
@@ -405,7 +405,7 @@ export default function CveDetail(): JSX.Element {
             <div className="grid grid-cols-2 gap-2">
               <Link
                 to={`/dfir/cve?cve=${encodeURIComponent(data.cve_id)}`}
-                className="h-9 rounded-lg bg-surface-100 dark:bg-surface-100 text-white dark:text-heading text-xs font-mono grid place-items-center"
+                className="h-9 rounded-lg bg-surface-100 text-white dark:text-heading text-xs font-mono grid place-items-center"
               >
                 DFIR CVE
               </Link>

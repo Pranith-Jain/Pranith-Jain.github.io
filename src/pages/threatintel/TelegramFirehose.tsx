@@ -623,9 +623,7 @@ function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: 
   return (
     <li
       className={`rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-3 ${
-        item.severity === 'critical' || item.severity === 'high'
-          ? 'border-rose-500/30'
-          : 'border-slate-200 dark:border-line-1'
+        item.severity === 'critical' || item.severity === 'high' ? 'border-rose-500/30' : 'border-line-1'
       }`}
     >
       <div className="flex flex-wrap items-center gap-2 mb-1.5">

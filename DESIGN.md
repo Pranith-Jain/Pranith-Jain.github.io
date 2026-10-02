@@ -10,6 +10,18 @@ Scene: analysts in dim rooms on desktop (dark default) and daylight office skims
 Dark canvas `#070b1c` (deep navy); light canvas flat white — a brand-tinted glow was
 deliberately removed as AI-slop.
 
+**Light mode is now verifiably flat.** `Layout.tsx` used to render its own pair
+of blurred brand blobs on top of the one `BackgroundLayer` draws, and neither
+had a `dark:` guard on the light half, so light mode painted a 10%-opacity
+brand wash anyway (sampled at `rgb(241,243,254)` top-left and `rgb(236,237,252)`
+bottom-right; now `rgb(255,255,255)` at every sample point). Dark mode was
+getting three pools where the comment in `BackgroundLayer.tsx` calls for one.
+The blobs are gone; ambient depth is owned solely by `BackgroundLayer`,
+dark-only. If a glow ever comes back, scale the radius on mobile — never
+`filter: none` on a blurred coloured element, which turns a soft falloff into a
+hard-edged disc (that is how mobile ended up with a crisp 500px circle through
+the hero headline).
+
 ## Color tokens
 
 Channel triples consumed via `rgb(var(--token))`, so one definition serves both modes:
@@ -151,9 +163,39 @@ and 6.31:1 while staying in the same hue family. Canonical map:
 
 ## Elevation & radius
 
-Shadows `--shadow-e1/e2/e3` (soft, low-alpha slate). Radii `--radius-card` 8px,
-`--radius-panel` 10px, `--radius-hero` 14px. Borders do most separation work;
-shadows are accents, not defaults.
+Shadows `--shadow-e1/e2/e3` (soft, low-alpha slate). Borders do most separation
+work; shadows are accents, not defaults.
+
+Radius is **four** roles, not three. The fourth is `--radius-control`, and it
+exists because the container radii alone left controls ungoverned:
+
+| Token              | Value | Use                                                   |
+| ------------------ | ----- | ----------------------------------------------------- |
+| `--radius-control` | 6px   | every interactive element: button, input, select, tab |
+| `--radius-card`    | 8px   | standard panel / data tile                            |
+| `--radius-panel`   | 10px  | surface containing internal rows or tables            |
+| `--radius-hero`    | 14px  | hero CTAs and contact panels                          |
+
+The nesting rule is control-inside-surface, so `--radius-control` must stay
+tighter than every container it can sit in. Before this token existed, controls
+split: `Button` sat at 4px (`rounded`) while `Input`/`Select`/`Textarea` sat
+at 12px (`rounded-xl`), so a primary button sitting beside a text field in the
+same row was 8px apart in radius and read as two design languages. Shared
+primitives (`Button`, `Input`, `Card`, `Skeleton`, `StatCards`) now spell
+`rounded-control` / `rounded-card`.
+
+`rounded-xl` is still the most-used radius in call sites (~1,600) where it
+means "card". That is four px off `--radius-card` and is the largest remaining
+inconsistency; aligning it is a mechanical sweep, not a redesign, and is
+deliberately not bundled into unrelated work.
+
+### Surface recipes in components
+
+`.surface-card` and friends hardcode `border: 1px solid #e2e8f0` for the light
+half. That is a raw palette step sitting next to the `border-line-1` token and
+it disagrees with it by a few levels (`#e2e8f0` opaque vs black@8% ≈ `#ebebeb`
+on white). Page-level cards were swept onto `border-line-1`; these component
+classes still carry the raw half.
 
 ## Component conventions
 
@@ -161,6 +203,29 @@ shadows are accents, not defaults.
 - Data tables: sticky headers, font-mono cells, zebra-free, hairline row borders.
 - Chips/pills: rounded-full, tinted bg at low alpha, mono text-xs.
 - Buttons: brand-600 solid primary; ghost/bordered secondary; no gradients.
+- Text fields: `border-line-input` (not the decorative ladder), `rounded-control`,
+  `bg-input-200`. Ink on a saturated fill is `text-on-fill`, never
+  `text-heading`.
+- Accent-as-text is `text-accent-text`, focus is `ring-focus-ring`. Both are
+  channels because no single brand step clears contrast in both modes.
+
+### Unstyled form controls are a bug class, not a style choice
+
+A bare `<input>` with no `className` renders with zero border, zero fill and
+zero radius, so it does not read as a control at all. Three tool pages had
+exactly this on their primary field (`dfir/ioc-check`, `dfir/asn-lookup`,
+`dfir/url-preview`), so the flagship IOC tool's main input was an invisible
+175x24 box next to a fully styled button. `scripts/.find-bare-controls.mjs`
+enumerates them; it skips checkbox/radio/range (different vocabulary) and
+`CsrfPocGenerator`'s occurrences, which live inside a template literal that
+generates CSRF PoC HTML and must never carry app styling.
+
+Prefer the `Input` / `Select` / `Textarea` components. `INPUT_CLASS` is exported
+for the case where the element must stay a native tag.
+`npm run check:unstyled-controls` enumerates offenders; it is a reporting
+guard, not a hard failure, because the `CsrfPocGenerator` occurrences are
+legitimate (template-literal PoC HTML) and are skipped by rule rather than by
+allowlist.
 
 ## Known debt → resolved + waivers
 

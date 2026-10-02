@@ -128,7 +128,7 @@ const SEV: Record<string, string> = {
   critical: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   high: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   medium: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
-  low: 'bg-slate-100 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1',
+  low: 'bg-slate-100 dark:bg-surface-300 text-muted border-line-1',
 };
 
 const LEAK_CLR: Record<string, string> = {

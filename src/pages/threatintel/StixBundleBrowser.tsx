@@ -99,7 +99,7 @@ export default function StixBundleBrowser(): JSX.Element {
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
               ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-              : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
+              : 'border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
           }`}
         >
           All ({STIX_BUNDLES.length})
@@ -112,7 +112,7 @@ export default function StixBundleBrowser(): JSX.Element {
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeSev === sev
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
+                : 'border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
             }`}
           >
             {sev.toUpperCase()} ({sevCounts[sev] || 0})

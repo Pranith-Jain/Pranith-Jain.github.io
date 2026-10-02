@@ -93,7 +93,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
   }
 
   const inputCls =
-    'w-28 px-2 py-1 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded text-sm text-heading disabled:opacity-50';
+    'w-28 px-2 py-1 bg-white dark:bg-surface-200 border border-line-1 rounded text-sm text-heading disabled:opacity-50';
 
   return (
     <section aria-labelledby="manual-metrics-heading" className="rounded border border-line-1 p-4">

@@ -472,7 +472,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
           ? 'border-rose-500/40'
           : pivot.searchActors.length > 0
             ? 'border-orange-500/30'
-            : 'border-slate-200 dark:border-line-1'
+            : 'border-line-1'
       }`}
     >
       <div className="flex flex-wrap items-start justify-between gap-3 mb-2">

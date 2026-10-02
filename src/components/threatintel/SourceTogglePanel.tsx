@@ -81,7 +81,7 @@ export function SourceTogglePanel({
                   onClick={() => onToggle(fid)}
                   className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
                     isEnabled
-                      ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
+                      ? 'border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
                       : 'border-slate-200/40 dark:border-line-1 bg-slate-100/40 dark:bg-input-200/40 opacity-60'
                   }`}
                 >

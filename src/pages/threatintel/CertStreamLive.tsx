@@ -303,7 +303,7 @@ export default function CertStreamLive(): JSX.Element {
                     className={`rounded-xl border p-3 transition-colors ${
                       sus
                         ? 'border-rose-300 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/40'
-                        : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
+                        : 'border-line-1 bg-slate-50 dark:bg-input-200'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">

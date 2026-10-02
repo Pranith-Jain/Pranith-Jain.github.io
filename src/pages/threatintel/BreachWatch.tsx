@@ -115,7 +115,7 @@ function BreachCard({
       type="button"
       onClick={onSelect}
       className={`w-full text-left rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-4 hover:border-rose-500/40 transition-colors [content-visibility:auto] [contain-intrinsic-size:auto_120px] ${
-        selected ? 'border-rose-500/60 ring-1 ring-rose-500/30' : 'border-slate-200 dark:border-line-1'
+        selected ? 'border-rose-500/60 ring-1 ring-rose-500/30' : 'border-line-1'
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -532,7 +532,7 @@ export default function BreachWatch(): JSX.Element {
                   className={`text-micro font-mono px-2.5 py-1 rounded-full border transition-colors ${
                     filterCategory === c.key
                       ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/40'
-                      : 'bg-white dark:bg-surface-200 text-slate-500 border-slate-200 dark:border-line-1 hover:border-rose-500/40'
+                      : 'bg-white dark:bg-surface-200 text-slate-500 border-line-1 hover:border-rose-500/40'
                   }`}
                 >
                   {c.label} ({c.count})

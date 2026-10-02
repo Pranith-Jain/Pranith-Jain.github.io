@@ -385,7 +385,7 @@ export function McpSearchWorkbench(props: {
                     className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                       timeRange === tr
                         ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 font-medium'
-                        : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-400/50 hover:text-brand-600 dark:hover:text-brand-400'
+                        : 'border-line-1 text-muted hover:border-brand-400/50 hover:text-brand-600 dark:hover:text-brand-400'
                     }`}
                   >
                     {TIME_RANGE_LABELS[tr]}
@@ -416,9 +416,7 @@ export function McpSearchWorkbench(props: {
                         });
                       }}
                       className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
-                        active
-                          ? SEVERITY_PILL[sev] + ' font-medium'
-                          : 'border-slate-200 dark:border-line-1 text-muted hover:border-slate-300'
+                        active ? SEVERITY_PILL[sev] + ' font-medium' : 'border-line-1 text-muted hover:border-slate-300'
                       }`}
                     >
                       {sev}
@@ -925,7 +923,7 @@ function ReportRow({
       className={`rounded border cursor-pointer px-2.5 py-1.5 transition-colors ${
         selected
           ? 'border-brand-400 dark:border-brand-600 bg-brand-50/60 dark:bg-brand-950/20'
-          : 'border-slate-200 dark:border-line-1 hover:border-brand-400/50 hover:bg-white dark:hover:bg-surface-200'
+          : 'border-line-1 hover:border-brand-400/50 hover:bg-white dark:hover:bg-surface-200'
       }`}
     >
       <div className="flex items-start justify-between gap-2">

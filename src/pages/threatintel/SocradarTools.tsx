@@ -353,7 +353,7 @@ function FortiBleedPanel() {
       return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
     if (s === 'INFO')
       return 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800';
-    return 'bg-slate-100 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1';
+    return 'bg-slate-100 dark:bg-surface-300 text-muted border-line-1';
   };
 
   return (
@@ -701,7 +701,7 @@ function ThreatReportsPanel() {
               className={`px-3 py-1.5 rounded text-mini font-mono font-semibold border transition-colors ${
                 reportType === t
                   ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
-                  : 'bg-slate-50 dark:bg-surface-100 border-slate-200 dark:border-line-1 text-muted'
+                  : 'bg-slate-50 dark:bg-surface-100 border-line-1 text-muted'
               }`}
             >
               {label}

@@ -137,7 +137,7 @@ export default function ThreatGraph(): JSX.Element {
             <button
               key={t}
               onClick={() => setSearchType(t)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${searchType === t ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-brand-500/30'}`}
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${searchType === t ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-line-1 text-slate-500 hover:border-brand-500/30'}`}
             >
               {TAB_LABEL[t]}
             </button>

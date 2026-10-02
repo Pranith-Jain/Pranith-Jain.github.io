@@ -1665,7 +1665,7 @@ function TimelineTab() {
                             className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-mono ${
                               isShared
                                 ? 'border border-amber-400 dark:border-amber-600 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 font-semibold'
-                                : 'border border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 text-muted'
+                                : 'border border-line-1 bg-white dark:bg-surface-200 text-muted'
                             }`}
                             title={isShared ? 'Shared across reports' : ioc.kind}
                           >

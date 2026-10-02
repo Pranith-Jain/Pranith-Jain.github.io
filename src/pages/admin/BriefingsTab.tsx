@@ -334,7 +334,7 @@ export default function BriefingsTab() {
             className={`px-4 py-1.5 rounded text-sm disabled:opacity-50 ${
               force
                 ? 'border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 hover:bg-rose-50 dark:hover:bg-rose-900/30'
-                : 'border border-slate-200 dark:border-line-1 text-heading hover:bg-slate-100 dark:hover:bg-surface-300'
+                : 'border border-line-1 text-heading hover:bg-slate-100 dark:hover:bg-surface-300'
             } transition-colors`}
           >
             {backfilling ? 'Backfilling…' : 'Run backfill'}

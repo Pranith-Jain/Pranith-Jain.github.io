@@ -225,7 +225,7 @@ export default function InsightAi(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                     selectedModes.has(m.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
+                      : 'border-line-1 text-muted hover:border-brand-500/30'
                   }`}
                 >
                   {m.icon} {m.label}
@@ -244,7 +244,7 @@ export default function InsightAi(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                     selectedSiems.has(s.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
+                      : 'border-line-1 text-muted hover:border-brand-500/30'
                   }`}
                 >
                   <Terminal size={12} /> {s.label}
@@ -304,7 +304,7 @@ export default function InsightAi(): JSX.Element {
                         className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
                           activeTab === m
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                            : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
+                            : 'border-line-1 text-muted hover:border-brand-500/30'
                         }`}
                       >
                         {mode.icon} {mode.label}

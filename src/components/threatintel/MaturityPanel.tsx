@@ -118,7 +118,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
                   className={`text-micro font-mono px-1.5 py-0.5 rounded border ${
                     s.present
                       ? 'border-emerald-300 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20'
-                      : 'border-slate-200 dark:border-line-1 text-muted bg-slate-50 dark:bg-surface-300/40 line-through'
+                      : 'border-line-1 text-muted bg-slate-50 dark:bg-surface-300/40 line-through'
                   }`}
                   title={s.detail}
                 >

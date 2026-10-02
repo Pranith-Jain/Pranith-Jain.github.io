@@ -175,7 +175,7 @@ export default function AggregatedFeeds() {
               key={feed.id}
               className={`rounded-xl border p-5 transition-colors ${
                 feed.fetch_ok
-                  ? 'bg-white dark:bg-surface-200/60 border-slate-200 dark:border-line-1 hover:border-slate-300 dark:hover:border-line-1'
+                  ? 'bg-white dark:bg-surface-200/60 border-line-1 hover:border-slate-300 dark:hover:border-line-1'
                   : 'bg-slate-50 dark:bg-surface-200/30 border-rose-200 dark:border-rose-900/30 opacity-60'
               }`}
             >

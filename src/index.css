@@ -91,6 +91,23 @@
   --shadow-e2: 0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08);
   --shadow-e3: 0 12px 32px rgba(15, 23, 42, 0.1), 0 24px 64px rgba(15, 23, 42, 0.12);
 
+  /* Radius scale. Four roles, not three: the fourth is `control`, which is
+     what every interactive element (button, input, select, textarea, tab)
+     shares.
+
+     Why it was needed: the three container radii alone left controls
+     ungoverned, and they had split two ways at once. `Button` sat at 4px
+     (`rounded`) while `Input`/`Select`/`Textarea` sat at 12px (`rounded-xl`),
+     so a primary button and the text field beside it in the same row were
+     8px apart in radius, which reads as two different design languages. And
+     1610 call sites use `rounded-xl` (12px) as the de-facto card radius,
+     four px off the 8px this file declares for `--radius-card`.
+
+     6px is the tie: tighter than every container it can sit inside, which is
+     the nesting rule (control inside surface), and closer to the 8px card
+     than the old 12px input was, so pulling inputs down from 12px to 6px is
+     the smaller visual move of the two options. */
+  --radius-control: 6px;
   --radius-card: 8px;
   --radius-panel: 10px;
   --radius-hero: 14px;
@@ -813,10 +830,17 @@
   .backdrop-blur-xl {
     backdrop-filter: blur(8px);
   }
-  .blur-\[120px\],
-  .blur-\[100px\] {
-    filter: none;
-  }
+
+  /* NOTE: a `.blur-[Npx] { filter: none }` mobile override used to live here.
+     Removing the filter does not make a large blur cheaper in a way that looks
+     acceptable - it exposes the element's hard geometry. On the 500px
+     `bg-brand-500/10` discs that used to sit in `Layout`, mobile rendered a
+     crisp-edged pale circle through the hero instead of a soft falloff. The
+     blobs are gone (see `Layout.tsx`); the override went with them.
+
+     If a decorative glow is ever reintroduced, scale the radius on mobile
+     (`filter: blur(48px)`) rather than deleting it. Never `filter: none` on a
+     blurred, coloured element: the blur IS what hides the shape. */
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {

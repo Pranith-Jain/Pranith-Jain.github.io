@@ -355,14 +355,14 @@ export default function PublishedTab() {
                           <button
                             onClick={() => generateTwitter(p.slug)}
                             disabled={s?.loadingTwitter}
-                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
                           >
                             {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
                           </button>
                           <button
                             onClick={() => generateLinkedin(p.slug)}
                             disabled={s?.loadingLinkedin}
-                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
                           >
                             {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
                           </button>
@@ -452,7 +452,7 @@ function SocialQueueAgenda() {
           className={`px-2 py-0.5 rounded text-micro font-semibold border ${
             autopostEnabled
               ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700/50'
-              : 'bg-slate-100 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1'
+              : 'bg-slate-100 dark:bg-surface-300 text-muted border-line-1'
           }`}
           aria-label={autopostEnabled ? 'Auto-post is ON' : 'Auto-post is OFF - review only'}
         >
@@ -1077,7 +1077,7 @@ function HookSelector({
             className={`flex items-start gap-2 p-2 rounded text-xs border cursor-pointer transition-colors ${
               selected === i
                 ? 'bg-amber-100 dark:bg-amber-900/30 border-amber-400 dark:border-amber-600'
-                : 'bg-white dark:bg-surface-100 border-slate-200 dark:border-line-1 hover:border-amber-300 dark:hover:border-amber-700'
+                : 'bg-white dark:bg-surface-100 border-line-1 hover:border-amber-300 dark:hover:border-amber-700'
             }`}
             onClick={() => void applyHook(i)}
           >
@@ -1098,7 +1098,7 @@ function HookSelector({
               className={`px-2 py-0.5 rounded text-micro border whitespace-nowrap ${
                 selected === i
                   ? 'bg-amber-500 text-white border-amber-500'
-                  : 'border-slate-200 dark:border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300'
+                  : 'border-line-1 hover:bg-slate-100 dark:hover:bg-surface-300'
               } disabled:opacity-50`}
             >
               {regenerating === i ? '…' : selected === i ? 'Active' : 'Use'}

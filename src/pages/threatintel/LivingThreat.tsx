@@ -511,7 +511,7 @@ export default function LivingThreat(): JSX.Element {
                   className={`px-2 py-1 rounded-lg text-micro font-mono border transition ${
                     tactic === t
                       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
+                      : 'border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   {t} · {n}

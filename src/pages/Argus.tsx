@@ -34,7 +34,7 @@ const GROUP_TYPES: { value: GroupType; label: string }[] = [
 ];
 
 const selectCls =
-  'h-9 px-2.5 rounded-lg border border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 text-mini font-mono uppercase tracking-wider text-muted outline-none hover:border-slate-300 dark:hover:border-line-2 focus:border-brand-500 dark:focus:border-brand-400 cursor-pointer transition-colors';
+  'h-9 px-2.5 rounded-lg border border-line-1 bg-white dark:bg-surface-200 text-mini font-mono uppercase tracking-wider text-muted outline-none hover:border-slate-300 dark:hover:border-line-2 focus:border-brand-500 dark:focus:border-brand-400 cursor-pointer transition-colors';
 
 export default function ArgusPage() {
   const [view, setView] = useState<ViewKey>('globe');

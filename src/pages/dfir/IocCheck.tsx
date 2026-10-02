@@ -680,6 +680,7 @@ export default function IocCheck(): JSX.Element {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="paste an IP, domain, URL, or hash"
+                className="w-full bg-input-200 border border-line-input rounded-control px-4 py-3 text-tool text-heading placeholder:text-muted focus:outline-none focus:border-accent-text transition-colors"
                 aria-label="Indicator of compromise"
               />
               {input && detectedType !== 'unknown' && (
@@ -699,7 +700,7 @@ export default function IocCheck(): JSX.Element {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-on-fill font-mono font-semibold rounded-control disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <Search size={16} className="inline mr-2" />
               Check
@@ -812,7 +813,7 @@ export default function IocCheck(): JSX.Element {
                       className={`px-3 py-2 rounded-xl text-xs font-mono border transition-colors ${
                         ruleFormat === f
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-200 dark:border-line-1 text-muted hover:border-slate-300 dark:hover:border-line-1'
+                          : 'border-line-1 text-muted hover:border-slate-300 dark:hover:border-line-1'
                       }`}
                     >
                       {f.toUpperCase()}

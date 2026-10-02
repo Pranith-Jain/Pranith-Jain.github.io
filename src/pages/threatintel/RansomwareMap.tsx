@@ -463,7 +463,7 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
                         className={`w-full flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 rounded border transition-colors ${
                           isSelected
                             ? 'border-rose-400/60 bg-rose-400/10 text-heading'
-                            : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
+                            : 'border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
                         }`}
                         aria-pressed={isSelected}
                       >

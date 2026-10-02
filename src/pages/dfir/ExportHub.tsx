@@ -115,7 +115,7 @@ export default function ExportHub(): JSX.Element {
                 <button
                   key={f.id}
                   onClick={() => setSelected(f.id)}
-                  className={`text-left p-3 rounded-xl border text-sm ${selected === f.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'}`}
+                  className={`text-left p-3 rounded-xl border text-sm ${selected === f.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-line-1 bg-white dark:bg-surface-200'}`}
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <Icon size={14} /> <span className="font-medium">{f.label}</span>

@@ -332,7 +332,7 @@ export default function Analyze(): JSX.Element {
                   className={`text-mini font-mono px-2.5 py-1 rounded border transition-colors ${
                     filterVerdict === f.key
                       ? 'bg-rose-500/15 border-rose-500/40 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                      : 'border-line-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                   }`}
                 >
                   {f.label}

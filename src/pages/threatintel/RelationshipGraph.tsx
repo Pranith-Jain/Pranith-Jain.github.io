@@ -303,7 +303,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-xl font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 layoutMode === 'force'
                   ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-300 dark:border-rose-500/40 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
+                  : 'border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
               }`}
               title="Toggle between hierarchical (dagre) and force-directed layout"
             >
@@ -316,7 +316,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-xl font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 pathFinder.phase !== 'idle'
                   ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                  : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
+                  : 'border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
               }`}
               title="Find shortest path between two nodes"
             >

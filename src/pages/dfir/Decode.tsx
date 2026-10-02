@@ -141,7 +141,7 @@ export default function Decode(): JSX.Element {
             className={`px-4 py-2 rounded-xl font-mono text-sm font-semibold transition-colors border ${
               mode === m
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'bg-white dark:bg-surface-200 text-body border-slate-200 dark:border-line-1 hover:border-brand-400'
+                : 'bg-white dark:bg-surface-200 text-body border-line-1 hover:border-brand-400'
             }`}
           >
             {m === 'auto' ? 'Auto-Detect' : m === 'base64' ? 'Base64 Decode' : 'URL Decode'}

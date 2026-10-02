@@ -138,7 +138,7 @@ export default function TaxiiServer(): JSX.Element {
                   className={`w-full text-left p-3 rounded-xl border transition-colors ${
                     selectedCollection === col.id
                       ? 'border-brand-500/60 bg-brand-500/5'
-                      : 'border-slate-200 dark:border-line-1 hover:border-brand-500/30'
+                      : 'border-line-1 hover:border-brand-500/30'
                   }`}
                 >
                   <div className="text-sm font-medium">{col.title}</div>

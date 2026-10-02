@@ -266,7 +266,7 @@ export default function Punycode(): JSX.Element {
                 {result.charInfo.map((c, i) => (
                   <div
                     key={i}
-                    className={`rounded border px-2 py-1 ${c.ascii ? 'border-slate-200 dark:border-line-1 text-muted' : 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'}`}
+                    className={`rounded border px-2 py-1 ${c.ascii ? 'border-line-1 text-muted' : 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'}`}
                   >
                     <span className="text-base">{c.char}</span> · U+
                     {c.codePoint.toString(16).toUpperCase().padStart(4, '0')} · {c.script}

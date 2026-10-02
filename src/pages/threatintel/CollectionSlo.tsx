@@ -162,7 +162,7 @@ export default function CollectionSlo(): JSX.Element {
                   key={k.label}
                   type="button"
                   onClick={k.onClick}
-                  className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-rose-500/50 bg-rose-500/5' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/30'}`}
+                  className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-rose-500/50 bg-rose-500/5' : 'border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/30'}`}
                 >
                   <div className="flex items-center gap-1.5 text-mini font-mono text-muted mb-1">
                     <Icon size={12} className={k.color} /> {k.label}

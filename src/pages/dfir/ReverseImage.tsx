@@ -173,7 +173,7 @@ export default function ReverseImage(): JSX.Element {
                     className={`block rounded border px-3 py-2 hover:border-brand-500/60 transition-colors ${
                       engine.recommended
                         ? 'border-brand-500/30 bg-brand-500/5'
-                        : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
+                        : 'border-line-1 bg-slate-50 dark:bg-input-200'
                     }`}
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-0.5">

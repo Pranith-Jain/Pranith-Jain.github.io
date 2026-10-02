@@ -366,7 +366,7 @@ export default function StixViewer(): JSX.Element {
                       className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                         active
                           ? 'border-brand-500/50 text-heading bg-brand-50 dark:bg-brand-900/20'
-                          : 'border-slate-200 dark:border-line-1 text-slate-500'
+                          : 'border-line-1 text-slate-500'
                       }`}
                     >
                       {t} <span className="text-muted">{stats[t]}</span>

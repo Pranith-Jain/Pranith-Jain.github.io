@@ -265,7 +265,7 @@ export default function RansomwareQuant(): JSX.Element {
               key={s.id}
               type="button"
               onClick={() => setSelectedId(selectedId === s.id ? null : s.id)}
-              className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedId === s.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300'}`}
+              className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedId === s.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300'}`}
             >
               <div className="font-mono text-xs font-semibold truncate">{s.name}</div>
               <div className="flex items-center justify-between mt-1">

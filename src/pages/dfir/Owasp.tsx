@@ -173,7 +173,7 @@ export default function Owasp(): JSX.Element {
               className={`px-4 py-2 rounded-xl border text-sm font-mono transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-900/20 text-heading'
-                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-brand-500/30'
+                  : 'border-line-1 text-slate-500 hover:border-brand-500/30'
               }`}
             >
               <span className="font-display font-semibold">{l.label}</span>

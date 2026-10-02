@@ -207,7 +207,7 @@ export default function ThreatPulse(): JSX.Element {
                 className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-colors ${
                   kindFilter === k
                     ? 'border-rose-500/60 bg-rose-500/10'
-                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
+                    : 'border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
                 }`}
               >
                 <Icon size={18} className="shrink-0 text-rose-600 dark:text-rose-400" />
@@ -256,7 +256,7 @@ export default function ThreatPulse(): JSX.Element {
               className={`px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors ${
                 kindFilter === f.id
                   ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-500/40'
-                  : 'bg-white dark:bg-surface-200 text-muted border-slate-200 dark:border-line-1 hover:border-rose-500/40'
+                  : 'bg-white dark:bg-surface-200 text-muted border-line-1 hover:border-rose-500/40'
               }`}
             >
               {f.label}

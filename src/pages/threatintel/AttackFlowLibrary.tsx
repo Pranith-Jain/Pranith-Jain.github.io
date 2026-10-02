@@ -259,9 +259,7 @@ export default function AttackFlowLibrary(): JSX.Element {
             <div
               key={flow.sha || flow.name}
               className={`rounded-xl border p-3 transition-colors ${
-                isActive
-                  ? 'border-rose-500/60 bg-rose-500/5'
-                  : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
+                isActive ? 'border-rose-500/60 bg-rose-500/5' : 'border-line-1 bg-slate-50 dark:bg-input-200'
               }`}
             >
               <div className="flex items-start justify-between gap-2">

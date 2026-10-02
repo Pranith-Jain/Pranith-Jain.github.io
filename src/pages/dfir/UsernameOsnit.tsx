@@ -138,7 +138,7 @@ export default function UsernameOsnit(): JSX.Element {
                   className={`px-2.5 py-1 text-xs font-mono rounded-xl border ${
                     filter === f
                       ? 'bg-brand-600 text-white border-brand-600'
-                      : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
+                      : 'border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
                   }`}
                 >
                   {f === 'all' ? 'All' : 'Found'}

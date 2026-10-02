@@ -199,7 +199,7 @@ export default function CtMonitor(): JSX.Element {
                       setSelectedDomain(w.domain);
                     }
                   }}
-                  className={`w-full text-left p-3 rounded-xl border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-line-1 hover:border-brand-500/30'}`}
+                  className={`w-full text-left p-3 rounded-xl border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-line-1 hover:border-brand-500/30'}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-mono">{w.domain}</span>
@@ -276,7 +276,7 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      className={`rounded-xl p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-line-1 hover:border-brand-500/30'}`}
+      className={`rounded-xl p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-line-1 hover:border-brand-500/30'}`}
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {

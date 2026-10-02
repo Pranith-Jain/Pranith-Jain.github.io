@@ -222,7 +222,7 @@ export default function WifiInvestigation(): JSX.Element {
   const FLAG_STYLES: Record<string, string> = {
     danger: 'border-red-500/40 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300',
     warning: 'border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300',
-    info: 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-surface-200 text-body',
+    info: 'border-line-1 bg-slate-50 dark:bg-surface-200 text-body',
   };
 
   return (

@@ -225,7 +225,7 @@ export default function AdminApp() {
               className={`px-2 py-1 rounded text-micro font-mono border ${
                 inferenceStats.overCap
                   ? 'bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 border-rose-200 dark:border-rose-700/50'
-                  : 'bg-slate-50 dark:bg-surface-200 text-muted border-slate-200 dark:border-line-1'
+                  : 'bg-slate-50 dark:bg-surface-200 text-muted border-line-1'
               }`}
               title={`${inferenceStats.calls ?? 0} calls · ${(inferenceStats.totalTokens ?? 0).toLocaleString()} tokens`}
             >

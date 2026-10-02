@@ -1085,7 +1085,7 @@ export default function Metrics(): JSX.Element {
                       ? 'border-rose-500/40 text-rose-600 dark:text-rose-300'
                       : headlineRead.trendLabel === 'cooling'
                         ? 'border-emerald-500/40 text-emerald-600 dark:text-emerald-300'
-                        : 'border-slate-200 dark:border-line-1 text-body'
+                        : 'border-line-1 text-body'
                   }`}
                 >
                   <div className="opacity-70">trend</div>

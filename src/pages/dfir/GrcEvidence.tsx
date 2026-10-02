@@ -249,7 +249,7 @@ export default function GrcEvidence(): JSX.Element {
                 key={fw.id}
                 type="button"
                 onClick={() => handleSelectFramework(fw.id)}
-                className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedFw === fw.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300'}`}
+                className={`w-full text-left rounded-xl border p-3 transition-colors ${selectedFw === fw.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300'}`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-semibold text-sm font-mono">{fw.name}</span>

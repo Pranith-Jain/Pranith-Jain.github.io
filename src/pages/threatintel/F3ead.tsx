@@ -556,7 +556,7 @@ export default function F3ead(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-mini font-mono transition-colors ${
                     active
                       ? 'border-rose-400 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200 text-muted hover:border-slate-300 dark:hover:border-line-1'
+                      : 'border-line-1 bg-slate-50 dark:bg-input-200 text-muted hover:border-slate-300 dark:hover:border-line-1'
                   }`}
                 >
                   <span className="opacity-70">{phase.number}</span>

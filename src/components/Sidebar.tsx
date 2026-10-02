@@ -99,6 +99,17 @@ function useExpandedGroups(
 export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Element {
   const location = useLocation();
   const totalItems = useMemo(() => config.groups.reduce((n, g) => n + g.items.length, 0), [config]);
+  // Footer count. Prefers an explicit `config.toolCount` so a surface can
+  // publish its own headline figure, and falls back to counting the nav items
+  // so this stays generic for surfaces that have no separate headline number.
+  //
+  // Note for whoever wires up DFIR's: the raw item count (149) and the hub's
+  // `MAIN_TOOL_COUNT` (115) are different quantities on purpose, because the
+  // hub excludes `utility: true` routes. Setting `toolCount` from
+  // `tool-sections` inside `sidebar-nav.ts` looks like the obvious fix but
+  // costs ~34KB of eager bundle, since `AppShell` pulls this module in for
+  // every tool route. Pass the number in from the route that already has it.
+  const toolCountLabel = config.toolCount ?? `${totalItems} tools`;
   const { activeBg, activeIcon, activeDot, focusRing } = toneClasses(config.tone);
   const [expanded, toggle] = useExpandedGroups(location.pathname, config.groups);
 
@@ -206,7 +217,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
       </nav>
 
       <div className="border-t border-line-1 px-3 py-2">
-        <span className="text-micro font-mono text-muted">{totalItems} tools</span>
+        <span className="text-micro font-mono text-muted">{toolCountLabel}</span>
       </div>
     </>
   );

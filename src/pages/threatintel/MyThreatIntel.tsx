@@ -502,7 +502,7 @@ export default function MyThreatIntel(): JSX.Element {
               className={`text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
                 view === 'records' && source === s
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-line-1 text-muted hover:border-rose-500/40'
+                  : 'border-line-1 text-muted hover:border-rose-500/40'
               }`}
             >
               {SOURCE_LABEL[s]}
@@ -514,7 +514,7 @@ export default function MyThreatIntel(): JSX.Element {
             className={`inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
               view === 'dns'
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-line-1 text-muted hover:border-rose-500/40'
+                : 'border-line-1 text-muted hover:border-rose-500/40'
             }`}
           >
             <Globe size={12} /> DNS typosquat

@@ -399,7 +399,7 @@ export default function OsintCountryMap(): JSX.Element {
                           className={`text-xs px-2 py-0.5 rounded-full border transition-colors ${
                             active
                               ? 'bg-slate-200 dark:bg-slate-700 border-slate-400 dark:border-slate-500 text-heading'
-                              : 'bg-white dark:bg-surface-300/50 border-slate-200 dark:border-line-1 text-muted hover:border-slate-400 dark:hover:border-slate-500'
+                              : 'bg-white dark:bg-surface-300/50 border-line-1 text-muted hover:border-slate-400 dark:hover:border-slate-500'
                           }`}
                         >
                           {CATEGORY_LABELS[cat] ?? cat} ({count})

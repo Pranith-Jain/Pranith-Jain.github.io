@@ -335,7 +335,7 @@ export default function ChronoAi(): JSX.Element {
                     return (
                       <div
                         key={i}
-                        className={`rounded-xl border ${phase?.borderColor ?? 'border-slate-200 dark:border-line-1'} ${phase?.bgColor ?? 'bg-slate-50/50 dark:bg-input-200/30'} p-3 flex items-start gap-3`}
+                        className={`rounded-xl border ${phase?.borderColor ?? 'border-line-1'} ${phase?.bgColor ?? 'bg-slate-50/50 dark:bg-input-200/30'} p-3 flex items-start gap-3`}
                       >
                         <div
                           className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${phase?.color ?? 'bg-slate-400'}`}

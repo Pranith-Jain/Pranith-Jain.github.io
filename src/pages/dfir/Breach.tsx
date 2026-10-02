@@ -1110,7 +1110,7 @@ export default function BreachPage(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
                 mode === m.id
                   ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-700 dark:text-brand-300 border-brand-500/40'
-                  : 'bg-white dark:bg-surface-200 text-muted border-slate-200 dark:border-line-1 hover:border-brand-500/40'
+                  : 'bg-white dark:bg-surface-200 text-muted border-line-1 hover:border-brand-500/40'
               }`}
             >
               <Icon size={12} />

@@ -133,7 +133,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
       className={`rounded-xl border p-4 transition hover:shadow-e1 ${
         site.status === 'down'
           ? 'border-rose-200 dark:border-rose-800/40 bg-rose-50/30 dark:bg-rose-900/5'
-          : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/50'
+          : 'border-line-1 bg-white dark:bg-surface-200/50'
       }`}
     >
       <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -360,7 +360,7 @@ export default function DarknetList(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border flex items-center gap-1.5 transition ${
                 recommendedOnly
                   ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-amber-500/30'
+                  : 'border-line-1 text-slate-500 hover:border-amber-500/30'
               }`}
             >
               <Star className="w-3.5 h-3.5" />

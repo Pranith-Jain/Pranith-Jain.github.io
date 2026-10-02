@@ -96,7 +96,7 @@ const SEV: Record<string, string> = {
   Elevated:
     'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   Critical: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
-  Unknown: 'bg-slate-50 dark:bg-surface-300 text-muted border-slate-200 dark:border-line-1',
+  Unknown: 'bg-slate-50 dark:bg-surface-300 text-muted border-line-1',
 };
 
 export default function Workspaces() {
@@ -384,7 +384,7 @@ export default function Workspaces() {
                   className={`flex items-center gap-1 px-2 py-1 rounded text-mini font-mono border transition-colors ${
                     formType === t.value
                       ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
-                      : 'bg-slate-50 dark:bg-surface-100 border-slate-200 dark:border-line-1 text-muted hover:border-slate-300'
+                      : 'bg-slate-50 dark:bg-surface-100 border-line-1 text-muted hover:border-slate-300'
                   }`}
                 >
                   <t.icon className="w-3 h-3" /> {t.label}

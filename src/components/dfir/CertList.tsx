@@ -25,7 +25,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'list'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/40'
+                : 'border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             List
@@ -37,7 +37,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'timeline'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/40'
+                : 'border-line-1 text-muted hover:border-brand-500/40'
             }`}
           >
             Timeline

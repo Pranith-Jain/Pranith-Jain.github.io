@@ -562,7 +562,7 @@ function KpiTile({
   const accent =
     tone === 'rose'
       ? 'border-rose-500/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
-      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/40 text-body';
+      : 'border-line-1 bg-white dark:bg-surface-200/40 text-body';
   return (
     <div className={`rounded border p-3 ${accent}`}>
       <div className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider opacity-80">

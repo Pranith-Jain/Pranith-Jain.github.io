@@ -332,7 +332,7 @@ export default function Pivex(): JSX.Element {
                   setHighlightMode(!highlightMode);
                   if (!highlightMode) setHighlightNode(null);
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'}`}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-line-1 text-muted hover:border-brand-500/30'}`}
               >
                 {highlightMode ? <Eye size={12} /> : <EyeOff size={12} />}
                 {highlightMode ? 'Highlight On' : 'Highlight Mode'}

@@ -146,7 +146,7 @@ const ALL_FILTERS = [
 
 // Shared input styling — identical to the threat-intel pages.
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-400';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-line-1 rounded-xl text-sm text-heading placeholder:text-slate-400 focus:outline-none focus:border-brand-400';
 
 function sanitizeUrl(url: string): string {
   try {
@@ -612,7 +612,7 @@ export default function Anarchy() {
                           className={`w-7 h-7 rounded-full border flex items-center justify-center transition-colors ${
                             saved
                               ? 'bg-brand-500/10 border-brand-400 text-brand-400'
-                              : 'border-slate-200 dark:border-line-1 text-muted hover:text-heading'
+                              : 'border-line-1 text-muted hover:text-heading'
                           }`}
                         >
                           <Bookmark className="w-3.5 h-3.5" fill={saved ? 'currentColor' : 'none'} />
@@ -858,7 +858,7 @@ export default function Anarchy() {
                             className={`w-7 h-7 rounded-full backdrop-blur border flex items-center justify-center transition-colors ${
                               saved
                                 ? 'bg-brand-500/20 border-brand-400 text-brand-400'
-                                : 'bg-white/80 dark:bg-black/50 border-slate-200 dark:border-line-1 text-muted hover:text-heading'
+                                : 'bg-white/80 dark:bg-black/50 border-line-1 text-muted hover:text-heading'
                             }`}
                           >
                             <Bookmark className="w-3.5 h-3.5" fill={saved ? 'currentColor' : 'none'} />
@@ -982,7 +982,7 @@ export default function Anarchy() {
                       className={`h-8 px-3 rounded-full backdrop-blur border flex items-center gap-1.5 text-xs font-medium transition-colors ${
                         modalSaved
                           ? 'bg-brand-500/20 border-brand-400 text-brand-400'
-                          : 'bg-white/80 dark:bg-black/60 border-slate-200 dark:border-line-1 text-heading'
+                          : 'bg-white/80 dark:bg-black/60 border-line-1 text-heading'
                       }`}
                     >
                       <Bookmark className="w-3.5 h-3.5" fill={modalSaved ? 'currentColor' : 'none'} />

@@ -514,7 +514,7 @@ export default function ThreatCluster(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition ${
                     active
                       ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
+                      : 'border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -596,7 +596,7 @@ export default function ThreatCluster(): JSX.Element {
                   className={`px-3 py-2 rounded-xl text-sm font-mono border transition ${
                     kevOnly
                       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                      : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
+                      : 'border-line-1 text-slate-500 hover:border-rose-500/30'
                   }`}
                 >
                   KEV only

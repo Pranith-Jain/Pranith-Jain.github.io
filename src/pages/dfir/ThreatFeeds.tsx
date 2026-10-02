@@ -575,7 +575,7 @@ export default function ThreatFeeds(): JSX.Element {
                         }
                         className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
                           isEnabled
-                            ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
+                            ? 'border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
                             : 'border-slate-200/40 dark:border-line-1/40 bg-slate-100/40 dark:bg-input-200/40 opacity-60'
                         }`}
                       >
@@ -660,7 +660,7 @@ export default function ThreatFeeds(): JSX.Element {
             className={`inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-xl border transition-colors ${
               showDigest
                 ? 'border-brand-500/50 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-surface-300'
+                : 'border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-surface-300'
             }`}
           >
             <BarChart3 size={14} />

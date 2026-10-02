@@ -265,7 +265,7 @@ export default function PhishFeed(): JSX.Element {
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-mono ${
                   risky
                     ? 'border-amber-300/50 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-900/5'
-                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/30'
+                    : 'border-line-1 bg-white dark:bg-surface-200/30'
                 } hover:bg-surface-200 dark:hover:bg-surface-200/40 transition`}
               >
                 <a

@@ -82,7 +82,7 @@ export default function Assessments(): JSX.Element {
               className={`text-mini font-mono px-3 py-1.5 rounded-xl border transition-colors ${
                 statusFilter === s || (s === 'all' && !statusFilter)
                   ? 'border-rose-500 bg-rose-500/10 text-rose-700 dark:border-rose-400 dark:bg-rose-400/10 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
+                  : 'border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
               }`}
             >
               {s.charAt(0).toUpperCase() + s.slice(1)}

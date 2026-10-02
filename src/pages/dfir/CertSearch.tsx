@@ -277,9 +277,7 @@ export default function CertSearch(): JSX.Element {
                 <li
                   key={`${it.id ?? 'cert'}-${ri}`}
                   className={`rounded border p-2 ${
-                    it.revoked
-                      ? 'border-rose-500/40 bg-rose-500/5'
-                      : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
+                    it.revoked ? 'border-rose-500/40 bg-rose-500/5' : 'border-line-1 bg-slate-50 dark:bg-input-200'
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">

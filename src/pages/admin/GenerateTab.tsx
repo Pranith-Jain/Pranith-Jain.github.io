@@ -35,7 +35,7 @@ interface GenerateResponse {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-line-1 rounded text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 const labelCls = 'block text-xs uppercase tracking-wider text-muted mb-1';
 
 export default function GenerateTab() {
@@ -276,7 +276,7 @@ export default function GenerateTab() {
                 className={`p-4 rounded-xl border ${
                   r.rejected
                     ? 'border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-900/20'
-                    : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
+                    : 'border-line-1 bg-white dark:bg-surface-200'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">

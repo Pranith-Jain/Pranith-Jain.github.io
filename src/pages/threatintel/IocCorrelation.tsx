@@ -286,7 +286,7 @@ export default function IocCorrelation(): JSX.Element {
                   key={s.id}
                   className={`flex items-center gap-2 text-mini font-mono px-2 py-1 rounded border ${
                     s.ok
-                      ? 'border-slate-200 dark:border-line-1 bg-slate-50/60 dark:bg-input-200'
+                      ? 'border-line-1 bg-slate-50/60 dark:bg-input-200'
                       : 'border-rose-400/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
                   }`}
                   title={s.ok ? `${s.id}: ${s.count} indicators` : `${s.id}: offline`}

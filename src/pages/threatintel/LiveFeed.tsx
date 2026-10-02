@@ -528,8 +528,8 @@ export default function LiveFeed(): JSX.Element {
               </div>
             </div>
             <p className="text-xs text-muted mt-3 leading-relaxed">
-              Consolidated across Hacker News, SecurityWeek, BleepingComputer, CISA, SANS, Cisco Talos + 21 more.
-              No paywall.
+              Consolidated across Hacker News, SecurityWeek, BleepingComputer, CISA, SANS, Cisco Talos + 21 more. No
+              paywall.
             </p>
             <Link
               to="/threatintel/source-health"
@@ -921,7 +921,7 @@ export default function LiveFeed(): JSX.Element {
                     <div className="pt-2 border-t border-line-1">
                       <Link
                         to={`/dfir/ioc-investigate?indicator=${encodeURIComponent(iocModal.value)}`}
-                        className="w-full h-8 rounded-lg bg-surface-100 dark:bg-surface-100 text-white dark:text-heading text-xs font-mono grid place-items-center"
+                        className="w-full h-8 rounded-lg bg-surface-100 text-white dark:text-heading text-xs font-mono grid place-items-center"
                       >
                         Open in IOC Investigate →
                       </Link>

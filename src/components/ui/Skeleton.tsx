@@ -20,11 +20,16 @@ interface SkeletonProps {
   label?: string;
 }
 
+// `bg-track` alone: it already resolves to --surface-300 in dark mode via the
+// token channel, so the old `dark:bg-surface-300` was a second source of
+// truth for the same value.
+const BASE_SKELETON = 'animate-pulse bg-track';
+
 const VARIANT_STYLES: Record<SkeletonVariant, string> = {
-  text: 'rounded',
+  text: 'rounded-sm',
   circular: 'rounded-full',
-  rectangular: 'rounded',
-  card: 'rounded-xl',
+  rectangular: 'rounded-sm',
+  card: 'rounded-card',
 };
 
 /**
@@ -44,11 +49,7 @@ export const Skeleton = memo(function Skeleton({
   className = '',
   label = 'Loading...',
 }: SkeletonProps) {
-  const baseStyle = `
-    animate-pulse bg-track dark:bg-surface-300
-    ${VARIANT_STYLES[variant]}
-    ${className}
-  `;
+  const baseStyle = `${BASE_SKELETON} ${VARIANT_STYLES[variant]} ${className}`;
 
   if (variant === 'text' && lines > 1) {
     return (
@@ -82,7 +83,7 @@ export const Skeleton = memo(function Skeleton({
 export const SkeletonCard = memo(function SkeletonCard({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`rounded-xl border border-line-1 p-4 space-y-3 ${className}`}
+      className={`rounded-card border border-line-1 p-4 space-y-3 ${className}`}
       role="status"
       aria-label="Loading card"
     >
@@ -108,7 +109,7 @@ export const SkeletonTable = memo(function SkeletonTable({
 }) {
   return (
     <div
-      className={`rounded-xl border border-line-1 overflow-hidden ${className}`}
+      className={`rounded-card border border-line-1 overflow-hidden ${className}`}
       role="status"
       aria-label={`Loading table with ${rows} rows and ${columns} columns`}
     >

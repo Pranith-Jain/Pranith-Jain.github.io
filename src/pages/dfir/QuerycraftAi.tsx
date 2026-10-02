@@ -241,7 +241,7 @@ export default function QuerycraftAi(): JSX.Element {
               className={`rounded-xl border p-3 text-left transition-colors ${
                 siem === s.id
                   ? 'border-brand-500/60 bg-brand-500/10'
-                  : 'border-slate-200 dark:border-line-1 hover:border-brand-500/30 bg-white dark:bg-surface-200/20'
+                  : 'border-line-1 hover:border-brand-500/30 bg-white dark:bg-surface-200/20'
               }`}
             >
               <div
@@ -261,7 +261,7 @@ export default function QuerycraftAi(): JSX.Element {
             className={`flex-1 px-4 py-2 rounded-xl text-xs font-mono border transition-colors ${
               track === 'detect'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
+                : 'border-line-1 text-muted hover:border-brand-500/30'
             }`}
           >
             <Shield size={12} className="inline mr-1" /> DETECT
@@ -271,7 +271,7 @@ export default function QuerycraftAi(): JSX.Element {
             className={`flex-1 px-4 py-2 rounded-xl text-xs font-mono border transition-colors ${
               track === 'hunt'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
+                : 'border-line-1 text-muted hover:border-brand-500/30'
             }`}
           >
             <Search size={12} className="inline mr-1" /> HUNT

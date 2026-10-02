@@ -467,9 +467,7 @@ export default function FeedScheduler(): JSX.Element {
             <div
               key={job.id}
               className={`rounded-xl border bg-surface-100 dark:bg-surface-200 p-4 transition-colors ${
-                job.enabled
-                  ? 'border-slate-200 dark:border-line-1'
-                  : 'border-slate-200/50 dark:border-line-1/50 opacity-60'
+                job.enabled ? 'border-line-1' : 'border-slate-200/50 dark:border-line-1/50 opacity-60'
               }`}
             >
               {isEditing ? (

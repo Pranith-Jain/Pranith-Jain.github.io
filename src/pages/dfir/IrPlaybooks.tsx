@@ -147,7 +147,7 @@ export default function IrPlaybooks(): JSX.Element {
               <button
                 key={t.id}
                 onClick={() => setIncidentType(t.id)}
-                className={`p-3 rounded-xl border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-line-1 hover:border-brand-500/30'}`}
+                className={`p-3 rounded-xl border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-line-1 hover:border-brand-500/30'}`}
               >
                 <Icon size={20} className="text-brand-600 dark:text-brand-400 mb-1" />
                 <div className="text-xs font-medium">{t.label}</div>

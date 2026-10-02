@@ -8,8 +8,8 @@ describe('Input', () => {
     render(<Input placeholder="Enter IOC" />);
     const input = screen.getByPlaceholderText('Enter IOC');
     expect(input.tagName).toBe('INPUT');
-    expect(input.className).toContain('rounded-xl');
-    expect(input.className).toContain('focus:border-brand-500');
+    expect(input.className).toContain('rounded-control');
+    expect(input.className).toContain('focus:border-accent-text');
   });
 
   it('applies monospace font by default', () => {
@@ -45,7 +45,7 @@ describe('Textarea', () => {
     render(<Textarea rows={5} placeholder="Bulk IOCs" />);
     const ta = screen.getByPlaceholderText('Bulk IOCs');
     expect(ta.tagName).toBe('TEXTAREA');
-    expect(ta.className).toContain('rounded-xl');
+    expect(ta.className).toContain('rounded-control');
   });
 
   it('applies monospace by default', () => {

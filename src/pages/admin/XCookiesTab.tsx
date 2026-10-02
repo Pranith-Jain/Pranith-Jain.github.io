@@ -208,7 +208,7 @@ export default function XCookiesTab() {
   }
 
   const inputCls =
-    'w-full px-3 py-2 bg-white dark:bg-input-200 border border-slate-200 dark:border-line-1 rounded text-sm text-heading font-mono focus:outline-none focus:border-brand-500';
+    'w-full px-3 py-2 bg-white dark:bg-input-200 border border-line-1 rounded text-sm text-heading font-mono focus:outline-none focus:border-brand-500';
 
   return (
     <div className="space-y-8">

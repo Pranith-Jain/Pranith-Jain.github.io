@@ -269,7 +269,7 @@ export default function Orkl(): JSX.Element {
                   className={`w-full text-left rounded-xl border p-3 transition-colors ${
                     selected?.id === entry.id
                       ? 'border-brand-500/50 bg-brand-500/10'
-                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-slate-300 dark:hover:border-slate-600'
+                      : 'border-line-1 bg-white dark:bg-surface-200 hover:border-slate-300 dark:hover:border-slate-600'
                   }`}
                 >
                   <div className="text-sm font-semibold text-heading leading-snug line-clamp-2">

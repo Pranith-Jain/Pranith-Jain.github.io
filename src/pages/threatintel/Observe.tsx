@@ -189,8 +189,7 @@ export default function Observe(): JSX.Element {
   const entityType = data?.entity_type ?? (submittedQuery ? detectIoc(submittedQuery)?.type : null) ?? '';
   const EntityIcon = ENTITY_ICONS[entityType] ?? Search;
   const entityColor =
-    ENTITY_COLORS[entityType] ??
-    'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300 border-slate-200 dark:border-line-1';
+    ENTITY_COLORS[entityType] ?? 'bg-slate-100 text-slate-700 dark:bg-surface-300 dark:text-slate-300 border-line-1';
 
   return (
     <DataPageLayout

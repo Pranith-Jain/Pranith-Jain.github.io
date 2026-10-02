@@ -399,8 +399,7 @@ export default function WhoisHistory(): JSX.Element {
                 history.changes.map((change) => {
                   const Icon = CHANGE_ICONS[change.change_type] ?? AlertTriangle;
                   const colorClass =
-                    CHANGE_COLORS[change.change_type] ??
-                    'text-slate-600 bg-slate-50 dark:bg-surface-300 border-slate-200 dark:border-line-1';
+                    CHANGE_COLORS[change.change_type] ?? 'text-slate-600 bg-slate-50 dark:bg-surface-300 border-line-1';
                   return (
                     <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                       <div className="flex items-center gap-2 mb-2">

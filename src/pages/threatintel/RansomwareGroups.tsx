@@ -325,7 +325,7 @@ export default function RansomwareGroups(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border flex items-center gap-1.5 transition ${
                 activeOnly
                   ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-rose-500/30'
+                  : 'border-line-1 text-slate-500 hover:border-rose-500/30'
               }`}
             >
               <Activity className="w-3.5 h-3.5" />
@@ -336,7 +336,7 @@ export default function RansomwareGroups(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border transition ${
                 profileOnly
                   ? 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300'
-                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-violet-500/30'
+                  : 'border-line-1 text-slate-500 hover:border-violet-500/30'
               }`}
             >
               Profiles

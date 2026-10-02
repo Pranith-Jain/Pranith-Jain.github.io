@@ -6,32 +6,44 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   /**
-   * Two siblings instead of nested. The decorative blobs are positioned
-   * `absolute` with translate values that push past the viewport's right
-   * edge, so they need clipping to stop them from creating document-level
-   * horizontal scroll. The actual page content should NOT be clipped -
-   * if a child (a wide table, a long URL, a code block) overflows the
-   * viewport on mobile, the user must be able to scroll horizontally to
-   * see it.
+   * No decorative background layer here, on purpose.
    *
-   * Previous version put both blobs and content inside one wrapper with
-   * `overflow-x-clip`. That clipped the blobs (correct) AND silently
-   * clipped any legitimately-wide content (bug - user reported "can't
-   * see right side of the page on mobile"). Now the clip is scoped to
-   * just the blob layer, and the content sits as a sibling without
-   * any horizontal-overflow rule, so the document's natural scrolling
-   * applies if needed.
+   * This used to render its own pair of blurred brand blobs (a 500px pool
+   * off the top-left, a 400px pool off the right edge) inside an
+   * `overflow-x-clip` wrapper, and that was wrong three ways:
+   *
+   * 1. LIGHT MODE WAS NOT FLAT WHITE. `DESIGN.md` states the light canvas
+   *    is deliberately flat white because a brand-tinted radial "read as an
+   *    AI-slop ambient spotlight", and `BackgroundLayer` returns `null`
+   *    when `!isDark` for exactly that reason. These two blobs had no
+   *    `dark:` guard on the light half, so they painted a 10%-opacity
+   *    brand wash over white anyway - a 500px pool bleeding in from the
+   *    left edge and a 400px one from the right. The documented decision
+   *    had been silently undone by a second component.
+   *
+   * 2. IT WAS THE THIRD POOL. `BackgroundLayer` already renders one
+   *    dark-only pool at the top-left for the portfolio path, and the
+   *    comment in that file is explicit: "One pool, one color, one corner.
+   *    No second indigo pool, no noise overlay, no mesh." Between the two
+   *    components the portfolio was painting three, which is the
+   *    stage-light mesh the remove-ai-slop audit banned.
+   *
+   * 3. THE BLUR WAS NUKED ON MOBILE, turning a soft wash into a hard disc.
+   *    `index.css` drops `filter` for `.blur-[120px]` / `.blur-[100px]`
+   *    under 640px to save compositor time - a sensible intent, but on a
+   *    500px `bg-brand-500/10` disc it means mobile renders a crisp-edged
+   *    pale-blue circle straight through the hero headline instead of a
+   *    soft falloff. Removing the blobs fixes the cause rather than
+   *    pretending the disc is intentional.
+   *
+   * Ambient depth is now owned in one place: `BackgroundLayer`, dark mode
+   * only, single pool. Nothing here needs clipping, so the `overflow-x-clip`
+   * wrapper went with it and the document keeps its natural horizontal
+   * scrolling for legitimately wide children (wide tables, long URLs, code
+   * blocks).
    */
   return (
     <div className="min-h-screen relative" style={{ zIndex: 2 }}>
-      {/* Blob layer - its own overflow-x-clip so the absolutely-positioned
-          blobs that translate past the viewport don't trigger document
-          scroll. Pointer-events-none so this layer never catches input. */}
-      <div className="pointer-events-none absolute inset-0 overflow-x-clip">
-        <div className="pointer-events-none absolute left-0 top-0 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/10 blur-[120px] dark:bg-brand-500/5"></div>
-        <div className="pointer-events-none absolute right-0 top-1/4 -z-10 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-brand-600/10 blur-[100px] dark:bg-brand-600/5"></div>
-      </div>
-
       {/* Content layer - no overflow rule, no per-layout page fill.
           The page bg comes from the html.dark body, so every Layout instance
           inherits the same navy page surface (--bg-base #070b1c + top glow)

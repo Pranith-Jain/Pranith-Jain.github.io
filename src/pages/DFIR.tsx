@@ -5,6 +5,7 @@ import {
   Bug,
   Compass,
   Crosshair,
+  ChevronDown,
   Clock,
   FileSearch,
   FileText,
@@ -522,7 +523,7 @@ export default function DFIRPage(): JSX.Element {
                   <h2 className="font-display font-bold text-lg text-heading">Explore by topic</h2>
                   <p className="text-xs text-muted mt-0.5">8 categories · {MAIN_TOOL_COUNT}+ tools</p>
                 </div>
-                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
+                <ChevronDown size={16} aria-hidden="true" className="shrink-0 text-muted" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -562,7 +563,7 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-heading">New here?</h2>
-                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
+                <ChevronDown size={16} aria-hidden="true" className="shrink-0 text-muted" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-4 sm:grid-cols-3">
@@ -604,7 +605,7 @@ export default function DFIRPage(): JSX.Element {
                   <h2 className="font-display font-bold text-lg text-heading">Used in real cases</h2>
                   <p className="text-xs text-muted mt-0.5">{TOOL_CASES.length} case studies · real incidents</p>
                 </div>
-                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
+                <ChevronDown size={16} aria-hidden="true" className="shrink-0 text-muted" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -637,7 +638,7 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-heading">Common questions</h2>
-                <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
+                <ChevronDown size={16} aria-hidden="true" className="shrink-0 text-muted" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5 space-y-4">
                 {DFIR_FAQ.map((f) => (

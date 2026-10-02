@@ -211,7 +211,7 @@ export default function AptTracker(): JSX.Element {
               key={r.name}
               type="button"
               onClick={() => setSelectedRegion(r.name)}
-              className={`text-left rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-6 hover:shadow-e2 transition-all ${SEVERITY_COLORS[r.name] ?? 'border-slate-200 dark:border-line-1'}`}
+              className={`text-left rounded-xl border bg-surface-100 dark:bg-surface-200 shadow-e1 p-6 hover:shadow-e2 transition-all ${SEVERITY_COLORS[r.name] ?? 'border-line-1'}`}
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-xl leading-none" aria-hidden>

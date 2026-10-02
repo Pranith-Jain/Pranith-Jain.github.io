@@ -188,7 +188,7 @@ export default function CalendarTab() {
             <div
               key={day.date}
               className={`rounded-lg border p-2 min-h-[80px] ${
-                hasContent ? 'border-slate-300 dark:border-line-2' : 'border-slate-200 dark:border-line-1 opacity-60'
+                hasContent ? 'border-slate-300 dark:border-line-2' : 'border-line-1 opacity-60'
               }`}
             >
               <div className="flex items-center justify-between mb-1">

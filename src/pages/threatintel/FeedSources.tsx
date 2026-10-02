@@ -125,7 +125,7 @@ export default function FeedSources(): JSX.Element {
                       key={f.id}
                       className={`rounded-xl border p-3 transition-opacity ${
                         enabled
-                          ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
+                          ? 'border-line-1 bg-white dark:bg-surface-200'
                           : 'border-slate-200/50 dark:border-line-1/50 bg-slate-50/50 dark:bg-input-200/50 opacity-50'
                       }`}
                     >

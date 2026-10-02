@@ -376,7 +376,7 @@ export default function Dphish(): JSX.Element {
               className={`px-3 py-2 rounded-xl text-sm font-mono border flex items-center gap-1.5 transition ${
                 activeOnly
                   ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                  : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-emerald-500/30'
+                  : 'border-line-1 text-slate-500 hover:border-emerald-500/30'
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5" />

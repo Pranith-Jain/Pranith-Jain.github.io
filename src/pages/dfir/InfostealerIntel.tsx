@@ -248,7 +248,7 @@ export default function InfostealerIntel(): JSX.Element {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors ${
                 tab === t.id
                   ? 'bg-brand-600/10 text-brand-600 dark:text-brand-400 border border-brand-600/30'
-                  : 'border border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-slate-100'
+                  : 'border border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300 hover:text-slate-900 dark:hover:text-slate-100'
               }`}
             >
               <TIcon className="w-3.5 h-3.5" />

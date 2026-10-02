@@ -455,8 +455,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
           <div className="space-y-2">
             {data.changes.map((change) => {
               const colorClass =
-                CHANGE_COLORS[change.change_type] ??
-                'text-slate-600 bg-slate-50 dark:bg-surface-300 border-slate-200 dark:border-line-1';
+                CHANGE_COLORS[change.change_type] ?? 'text-slate-600 bg-slate-50 dark:bg-surface-300 border-line-1';
               return (
                 <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                   <div className="flex items-center gap-2 mb-1">

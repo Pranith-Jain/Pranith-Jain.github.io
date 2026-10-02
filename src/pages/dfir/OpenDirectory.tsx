@@ -154,7 +154,7 @@ export default function OpenDirectory(): JSX.Element {
                 ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300'
                 : result.isOpen
                   ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50 text-amber-700 dark:text-amber-300'
-                  : 'bg-slate-50 dark:bg-surface-300 border-slate-200 dark:border-line-1 text-muted'
+                  : 'bg-slate-50 dark:bg-surface-300 border-line-1 text-muted'
             }`}
           >
             {result.isOpen && result.isDirectoryListing ? (

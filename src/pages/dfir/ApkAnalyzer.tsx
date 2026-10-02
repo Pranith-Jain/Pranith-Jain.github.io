@@ -239,7 +239,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 {result.analysis.permissions.map((p) => (
                   <span
                     key={p.name}
-                    className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-0.5 rounded border ${p.dangerous ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-line-1 text-muted'}`}
+                    className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-0.5 rounded border ${p.dangerous ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-line-1 text-muted'}`}
                   >
                     {p.dangerous ? (
                       <AlertTriangle size={10} aria-hidden="true" />

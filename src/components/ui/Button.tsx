@@ -32,9 +32,12 @@ const VARIANT: Record<ButtonVariant, string> = {
   // Brand variant: only when the action is the literal "primary" of an
   // in-app surface (DFIR tool open, IOC check). Pass via className if
   // the caller wants brand blue; we keep the default neutral so the
-  // portfolio landing chrome doesn't shout.
+  // portfolio landing chrome doesn't shout. `text-on-fill` (not
+  // `text-white`) because --ink-heading's dark value is a blue-tinted
+  // near-white that goes muddy on brand-600; the fill sets the contrast,
+  // so the ink must not flip with the theme. See DESIGN.md.
   'primary-brand':
-    'bg-brand-600 text-white hover:bg-brand-500 dark:bg-brand-500 dark:hover:bg-brand-400 disabled:opacity-40 disabled:cursor-not-allowed',
+    'bg-brand-600 text-on-fill hover:bg-brand-500 dark:bg-brand-500 dark:hover:bg-brand-400 disabled:opacity-40 disabled:cursor-not-allowed',
   // Geist secondary: background-100 fill, translucent gray-alpha-400
   // border. Hover steps the border to gray-alpha-500 and the fill to
   // gray-alpha-100 (so the "100 → 200 → 300" intent is honoured).
@@ -43,7 +46,7 @@ const VARIANT: Record<ButtonVariant, string> = {
   ghost:
     'bg-transparent text-slate-700 hover:bg-black/5 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed',
   danger:
-    'bg-rose-700 text-white hover:bg-rose-800 dark:bg-rose-700 dark:hover:bg-rose-800 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-rose-700 text-on-fill hover:bg-rose-800 dark:bg-rose-700 dark:hover:bg-rose-800 disabled:opacity-50 disabled:cursor-not-allowed',
   'danger-secondary':
     'bg-white text-rose-700 border border-black/15 hover:bg-rose-50 hover:border-rose-300 dark:bg-transparent dark:text-rose-400 dark:border-white/10 dark:hover:bg-rose-500/10 dark:hover:border-rose-500/30 disabled:opacity-50 disabled:cursor-not-allowed',
 };
@@ -74,17 +77,17 @@ export function Button({
   onClick,
 }: ButtonProps) {
   const classes = [
-    // Geist button: 6px radius, no monospace (default UI), medium weight
-    // (500 - the spec's button-14 fontWeight). Monospace is only
-    // appropriate for terminal-style controls; the rest of the app
-    // uses it because the previous Button passed font-mono unconditionally.
-    'inline-flex items-center justify-center gap-2 rounded font-sans transition-colors',
-    // Visible keyboard focus ring (brand, with a surface-colored offset gap
-    // so it reads on any background in both themes). Must live here: the
-    // global :focus-visible outline in index.css is overridden by Tailwind's
-    // higher-specificity outline-none utility, so without this ring keyboard
-    // focus on the canonical button would be invisible.
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950',
+    // Shared control vocabulary: 6px (`--radius-control`) matches
+    // Input/Select/Textarea, so a button sitting next to a field in the
+    // same row no longer reads as a different component. It was 4px
+    // (`rounded`) before, which put an 8px gap between the button and the
+    // 12px input it sits beside.
+    'inline-flex items-center justify-center gap-2 rounded-control font-sans transition-colors',
+    // Visible keyboard focus ring. Uses `--color-focus-ring` rather than a
+    // hardcoded brand step: brand-400 only reaches 2.88:1 on --surface-300,
+    // so a fixed brand step fails SC 1.4.11 wherever the ring lands on the
+    // highest-elevation surface. The channel flips the step per mode.
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950',
     VARIANT[variant],
     SIZE[size],
     fullWidth ? 'w-full' : '',

@@ -100,8 +100,8 @@ export function Tabs({
                       isActive
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                         : tab.disabled
-                          ? 'border-slate-200 dark:border-line-1 text-slate-300 dark:text-muted cursor-not-allowed'
-                          : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/30'
+                          ? 'border-line-1 text-slate-300 dark:text-muted cursor-not-allowed'
+                          : 'border-line-1 text-muted hover:border-brand-500/30'
                     }`
               }
             >

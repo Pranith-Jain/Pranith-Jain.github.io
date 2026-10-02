@@ -137,7 +137,7 @@ export default function GrcChecklists() {
                   className={`text-left rounded-xl border p-3 transition-colors ${
                     selectedKey === fw.key
                       ? 'border-brand-500/60 bg-brand-500/5'
-                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
+                      : 'border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
                   }`}
                 >
                   <div className="text-xs font-mono uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 mb-0.5">

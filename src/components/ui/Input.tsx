@@ -22,9 +22,29 @@ import type { InputHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes,
  * as an interactive control, so WCAG 1.4.11 requires >=3:1; the hairline ladder
  * tops out at ~1.7:1 on white, which cannot do that job. See the token
  * definition in src/index.css for the measured values in both themes.
+ *
+ * Radius is `rounded-control` (6px), not `rounded-xl`. It was 12px, which
+ * made every text field visibly rounder than the 8px `--radius-card` panels it
+ * sits inside - and 8px wider than the Button that frequently sits directly
+ * beside it in the same row. See the radius scale in index.css.
+ *
+ * The focus border uses `--color-accent-text` rather than a hardcoded brand
+ * step: no single brand step clears SC 1.4.11 against --input-200 in both
+ * modes, so the channel flips the step per mode.
  */
 const BASE_INPUT =
-  'w-full px-4 py-3 bg-white dark:bg-surface-200 border border-line-input rounded-xl text-tool text-heading placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 transition-colors';
+  'w-full px-4 py-3 bg-input-200 border border-line-input rounded-control text-tool text-heading placeholder:text-muted focus:outline-none focus:border-accent-text transition-colors';
+
+/**
+ * The canonical field recipe, exported for controls that cannot use the
+ * `Input` / `Select` components because they need a forwarded ref or a
+ * multi-line tag (`CsrfPocGenerator` aside, three tool pages render a bare
+ * `<input>` with no className at all, which is why they were invisible).
+ *
+ * Prefer the component. Reach for this only when the element itself has to
+ * stay a native tag.
+ */
+export const INPUT_CLASS = BASE_INPUT;
 
 const MONO = 'font-mono';
 

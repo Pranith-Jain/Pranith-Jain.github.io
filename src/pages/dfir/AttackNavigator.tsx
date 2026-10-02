@@ -540,7 +540,7 @@ export default function AttackNavigator(): JSX.Element {
                             isDimmed ? 'opacity-25' : '',
                             isObserved
                               ? 'border-2 border-slate-900 dark:border-slate-100 cursor-pointer hover:brightness-95'
-                              : 'border border-slate-200 dark:border-line-1 cursor-default',
+                              : 'border border-line-1 cursor-default',
                           ].join(' ')}
                           style={{ backgroundColor: bg, color: fg }}
                           title={technique.name}

@@ -289,7 +289,7 @@ export default function InfraSearch(): JSX.Element {
                     className={`text-mini font-mono px-2 py-0.5 rounded border transition ${
                       catFilter === 'All'
                         ? 'bg-rose-600 text-white border-rose-600'
-                        : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
+                        : 'border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
                     }`}
                   >
                     All ({result.results.length})
@@ -305,7 +305,7 @@ export default function InfraSearch(): JSX.Element {
                         className={`text-mini font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${
                           catFilter === cat
                             ? 'bg-rose-600 text-white border-rose-600'
-                            : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
+                            : 'border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
                         }`}
                       >
                         <span

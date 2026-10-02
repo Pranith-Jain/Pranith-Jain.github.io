@@ -34,17 +34,27 @@ const RADIUS: Record<CardRadius, string> = {
   hero: 'rounded-hero',
 };
 
+// `focus-visible:ring-focus-ring` rather than a hardcoded brand step: the
+// ring can land on --surface-300 where brand-400 only reaches 2.88:1 and
+// fails SC 1.4.11. The channel flips the step per mode.
 const TONE_CLASSES: Record<'brand' | 'rose', string> = {
-  brand: 'hover:border-brand-500/30 focus-visible:ring-brand-500',
+  brand: 'hover:border-brand-500/30 focus-visible:ring-focus-ring',
   rose: 'hover:border-rose-500/30 focus-visible:ring-rose-500',
 };
 
 // Single source of truth for the surface recipe - replaces the
-// hand-rolled `border-slate-200 dark:border-line-1`
+// hand-rolled `border-line-1`
 // + `bg-white dark:bg-surface-200` pair that was duplicated
 // across ~60 page files.
+//
+// `border-line-1` is a channel token: it already resolves to black@8% on
+// white and white@8% on navy, so the old `dark:border-line-1` was a second
+// spelling of the same value. The background keeps its `dark:` half because
+// the light step is #fff while the dark step is --surface-200; those are
+// genuinely different values, and `--surface-100` would flip the dark side
+// to #0c1124 rather than #12192e.
 function surfaceBase(): string {
-  return 'border border-line-1 bg-white ' + 'dark:border-line-1 dark:bg-surface-200';
+  return 'border border-line-1 bg-white dark:bg-surface-200';
 }
 
 const CARD_VARIANT: Record<'default' | 'glass' | 'surface' | 'interactive', string> = {
@@ -99,7 +109,7 @@ export function CardBody({ children, className = '' }: { children: ReactNode; cl
 // Footer divider uses the same --border-400 token as the card border
 // (light: white-alpha 8, dark: white-alpha 8) so the divider sits in the
 // same hairline family as the surrounding surfaces. The previous
-// `border-slate-200 dark:border-line-1` was the full-opacity, sharp
+// `border-line-1` was the full-opacity, sharp
 // hairline that read as too loud against the new token-driven borders.
 export function CardFooter({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <div className={`mt-4 flex items-center gap-3 border-t border-line-1 pt-4 ${className}`}>{children}</div>;

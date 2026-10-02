@@ -492,7 +492,7 @@ function DNACard({ title, items, color }: { title: string; items: string[]; colo
   // 10-colour rainbow was arbitrary, off-palette, and a generic-AI tell -
   // collapsed to one neutral on-brand surface. `color` is kept for call-site
   // compatibility but no longer themes.
-  const surface = 'border-slate-200 dark:border-line-1 bg-slate-50/70 dark:bg-surface-200/40';
+  const surface = 'border-line-1 bg-slate-50/70 dark:bg-surface-200/40';
   const colorMap: Record<string, string> = {
     red: surface,
     orange: surface,

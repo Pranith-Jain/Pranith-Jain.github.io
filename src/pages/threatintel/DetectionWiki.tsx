@@ -474,7 +474,7 @@ export default function DetectionWiki(): JSX.Element {
                 className={`text-micro font-mono px-2 py-0.5 rounded-full border transition-colors ${
                   active
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-brand-500/40'
+                    : 'border-line-1 text-slate-500 hover:border-brand-500/40'
                 }`}
               >
                 {TACTIC_SHORT[t] ?? t}

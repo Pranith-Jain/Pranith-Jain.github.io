@@ -415,7 +415,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                     ? 'border-rose-200 dark:border-rose-800/40 bg-rose-50/30 dark:bg-rose-900/5'
                     : m.status === 'exit-scam'
                       ? 'border-amber-200 dark:border-amber-800/40 bg-amber-50/30 dark:bg-amber-900/5'
-                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/50'
+                      : 'border-line-1 bg-white dark:bg-surface-200/50'
               }`}
             >
               <div className="flex items-start gap-3">

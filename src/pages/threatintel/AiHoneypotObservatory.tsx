@@ -321,7 +321,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                   className={`p-3 rounded-xl border text-left transition-colors ${
                     categoryFilter === cat
                       ? 'border-brand-500/50 bg-brand-500/10'
-                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-slate-300 dark:hover:border-line-2'
+                      : 'border-line-1 bg-white dark:bg-surface-200 hover:border-slate-300 dark:hover:border-line-2'
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1">

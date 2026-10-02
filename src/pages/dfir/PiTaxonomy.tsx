@@ -182,7 +182,7 @@ export default function PiTaxonomy() {
         <div className="flex gap-1.5 flex-wrap">
           <button
             onClick={() => setActiveCat('all')}
-            className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors ${activeCat === 'all' ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+            className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors ${activeCat === 'all' ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
           >
             All ({stats.total})
           </button>
@@ -190,7 +190,7 @@ export default function PiTaxonomy() {
             <button
               key={c}
               onClick={() => setActiveCat(c)}
-              className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors flex items-center gap-1.5 ${activeCat === c ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+              className={`px-3 py-2 text-xs font-mono rounded-xl border transition-colors flex items-center gap-1.5 ${activeCat === c ? 'bg-brand-500/15 border-brand-500/40 text-brand-600 dark:text-brand-400' : 'border-line-1 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
             >
               <span className={`w-2 h-2 rounded-full ${CAT[c].dot}`} />
               {CAT[c].label} ({stats[c]})

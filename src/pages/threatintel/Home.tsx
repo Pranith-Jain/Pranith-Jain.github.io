@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, Flame, Globe, Radio, Search, Shield, Users, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, Compass, Flame, Globe, Radio, Search, Shield, Users, X } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
@@ -254,7 +254,7 @@ export default function ThreatIntelHome(): JSX.Element {
               {[
                 {
                   label: 'Live Threat Feed',
-                  desc: 'Unified 30+ sources — threatintel.dk style',
+                  desc: 'Unified 30+ sources, threatintel.dk style',
                   href: '/threatintel/live-feed',
                   icon: Radio,
                   badge: 'live',
@@ -317,7 +317,7 @@ export default function ThreatIntelHome(): JSX.Element {
                 <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <h2 className="font-display font-bold text-lg text-heading">Live Intelligence</h2>
               </div>
-              <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
+              <ChevronDown size={16} aria-hidden="true" className="shrink-0 text-muted" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
               <LiveSnapshotPanel
@@ -342,7 +342,7 @@ export default function ThreatIntelHome(): JSX.Element {
           <details className="group surface-card mt-8 sm:mt-10">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <h2 className="font-display font-bold text-lg text-heading">New here?</h2>
-              <ArrowRight size={16} className="text-muted group-open:rotate-90 transition-transform" />
+              <ChevronDown size={16} aria-hidden="true" className="shrink-0 text-muted" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
               <div className="grid gap-4 sm:grid-cols-3">

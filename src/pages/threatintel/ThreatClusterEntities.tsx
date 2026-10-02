@@ -228,7 +228,7 @@ export default function ThreatClusterEntities() {
                     className={`rounded-lg border p-2 text-left transition-colors ${
                       (typeFilter === 'all' ? false : typeFilter === t)
                         ? 'border-rose-500/50 bg-rose-500/10'
-                        : 'border-slate-200 dark:border-line-1 hover:border-rose-500/40'
+                        : 'border-line-1 hover:border-rose-500/40'
                     }`}
                     title={`${TYPE_META[t].label}s`}
                   >
@@ -258,7 +258,7 @@ export default function ThreatClusterEntities() {
                     className={`px-2 py-0.5 rounded-lg text-micro font-mono border transition-colors ${
                       minMentions === m
                         ? 'border-rose-500/50 bg-rose-500/10 text-rose-600 dark:text-rose-300'
-                        : 'border-slate-200 dark:border-line-1 text-slate-500'
+                        : 'border-line-1 text-slate-500'
                     }`}
                   >
                     {m}

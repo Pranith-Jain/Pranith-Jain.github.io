@@ -255,7 +255,7 @@ export default function DarkWeb(): JSX.Element {
                   className={`px-2 py-0.5 rounded border transition-colors ${
                     on
                       ? 'border-brand-500/50 text-heading bg-brand-50 dark:bg-brand-900/20'
-                      : 'border-slate-200 dark:border-line-1 text-slate-500'
+                      : 'border-line-1 text-slate-500'
                   }`}
                 >
                   {f.label}
@@ -275,7 +275,7 @@ export default function DarkWeb(): JSX.Element {
                 className={`px-2 py-0.5 rounded border transition-colors ${
                   dateWindow === w
                     ? 'border-brand-500/50 text-heading bg-brand-50 dark:bg-brand-900/20'
-                    : 'border-slate-200 dark:border-line-1 text-slate-500'
+                    : 'border-line-1 text-slate-500'
                 }`}
               >
                 last {w}
@@ -408,7 +408,7 @@ export default function DarkWeb(): JSX.Element {
                   className={`rounded-xl border p-4 transition-colors mb-3 ${
                     hit
                       ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-900/15 dark:border-amber-700'
-                      : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
+                      : 'border-line-1 bg-white dark:bg-surface-200'
                   }`}
                 >
                   <a
@@ -1339,7 +1339,7 @@ export function TelegramFeedPanel(): JSX.Element {
                       ? 'border-sky-500/60 bg-sky-500/15 text-sky-700 dark:text-sky-300'
                       : ch.ok
                         ? 'border-slate-300 dark:border-line-1 text-muted hover:border-sky-500/40'
-                        : 'border-slate-200 dark:border-line-1 text-slate-400 cursor-not-allowed opacity-50'
+                        : 'border-line-1 text-slate-400 cursor-not-allowed opacity-50'
                   }`}
                   title={tip}
                 >
@@ -1375,9 +1375,7 @@ export function TelegramFeedPanel(): JSX.Element {
               <li
                 key={it.permalink}
                 className={`rounded border p-2.5 ${
-                  hasMatch
-                    ? 'border-amber-500/40 bg-amber-500/5'
-                    : 'border-slate-200 dark:border-line-1 bg-slate-50 dark:bg-input-200'
+                  hasMatch ? 'border-amber-500/40 bg-amber-500/5' : 'border-line-1 bg-slate-50 dark:bg-input-200'
                 }`}
               >
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">

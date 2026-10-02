@@ -545,7 +545,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     <div
                       key={t}
                       className={[
-                        'px-3 py-2.5 border-b border-slate-200 dark:border-line-1 border-r last:border-r-0 transition-opacity',
+                        'px-3 py-2.5 border-b border-line-1 border-r last:border-r-0 transition-opacity',
                         dimmed ? 'opacity-30' : '',
                       ].join(' ')}
                     >
@@ -606,7 +606,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                             <div
                               key={t}
                               className={[
-                                'px-3 py-2.5 border-r border-slate-200 dark:border-line-1 last:border-r-0 relative transition-opacity',
+                                'px-3 py-2.5 border-r border-line-1 last:border-r-0 relative transition-opacity',
                                 dimmed ? 'opacity-30' : '',
                               ].join(' ')}
                             >

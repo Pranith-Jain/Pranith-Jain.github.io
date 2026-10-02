@@ -32,36 +32,47 @@ export function Hero({ personalInfo }: HeroProps) {
 
           <HeroLiveSparkline />
 
-          {/* Geist-style key-value list: 2-column grid, key in `eyebrow`
-              mono, value in `label-14` sans. The previous 4-pill row
-              used identical brand pills (which signals "same importance"
-              to the eye) and one of the values was a sentence fragment
-              (`edge-hosted on Cloudflare`) that no pill could carry
-              cleanly. The new layout reads as a true stat block. */}
-          <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4">
+          {/* Two real numbers, not four slots. The previous block read
+              `60+ tools / 30+ feeds / 0 login required / 0 data egress`, and
+              the two zeros were the problem: at `text-3xl` display size a
+              literal "0" reads as an empty metric or a broken widget rather
+              than a reassurance, and on mobile it stacked into a 2x2 where
+              the entire second row was `0` and `0`. PRODUCT.md names "rows of
+              identical stat cards, gradient hero-metric blocks" as an
+              anti-reference; a 4-across grid where half the cells are zero
+              is that template with the numbers removed.
+
+              The privacy claims are real and worth keeping, so they moved
+              from display type into one quiet mono line under the numbers.
+              Same information, no dead headline weight. */}
+          <dl className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-2">
             {[
               ['60+', 'tools'],
-              ['30+', 'feeds'],
-              ['0', 'login required'],
-              ['0', 'data egress'],
+              ['30+', 'live feeds'],
             ].map(([k, v]) => (
-              <div key={v} className="flex flex-col">
+              <div key={v} className="flex items-baseline gap-1.5">
                 <dt className="font-display text-2xl font-semibold tracking-[-0.4px] text-heading tabular-nums sm:text-3xl">
                   {k}
                 </dt>
-                <dd className="mt-0.5 font-mono text-mini uppercase tracking-[0.12em] text-muted">{v}</dd>
+                <dd className="font-mono text-mini uppercase tracking-[0.12em] text-muted">{v}</dd>
               </div>
             ))}
+            <div className="flex items-baseline gap-1.5">
+              <dt className="sr-only">Privacy</dt>
+              <dd className="flex items-center gap-1.5 font-mono text-mini uppercase tracking-[0.12em] text-muted">
+                <span aria-hidden="true" className="inline-block h-1 w-1 rounded-full bg-brand-500/60" />
+                no signup, runs in your browser
+              </dd>
+            </div>
           </dl>
 
           <p className="mt-7 max-w-2xl text-base sm:text-lg leading-relaxed text-muted">{personalInfo.description}</p>
 
-          {/* CTAs - Geist h-40 (40px) height, 6px radius. The primary
-              is brand-blue (this is one of the few surfaces that
-              justifies the accent for a CTA - "Try IOC Check" is the
-              single most important action on the home page). The
-              secondary uses a translucent gray-alpha border with a
-              black/5 hover wash (the 100→200 step from the spec). */}
+          {/* CTAs - 40px height, 6px radius (--radius-control, set on Button).
+              The primary is brand-blue: this is one of the few surfaces
+              that justifies the accent for a CTA, since "Try IOC Check" is
+              the single most important action on the home page. The
+              secondary is a bordered outline with a wash on hover. */}
           <div className="mt-6 flex flex-wrap gap-2.5">
             <Button href="/dfir/ioc-investigate" variant="primary-brand" size="md">
               Try IOC Check

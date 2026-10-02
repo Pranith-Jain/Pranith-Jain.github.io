@@ -38,24 +38,27 @@ export function StatCards({ cards, cols = 'grid-cols-2 sm:grid-cols-4' }: StatCa
     <div className={`grid ${cols} gap-3`}>
       {cards.map((card) => {
         const Tag = card.onClick ? 'button' : 'div';
+        // Interactive cards need a visible focus ring for parity with hover;
+        // the global :focus-visible outline is overridden by Tailwind's
+        // outline-none utility, so without this keyboard users get nothing.
         return (
           <Tag
             key={card.label}
             onClick={card.onClick}
             type={card.onClick ? 'button' : undefined}
-            className={`rounded-xl border p-4 text-left transition-colors ${
+            className={`rounded-card border border-line-1 bg-surface-100 p-4 text-left transition-colors ${
               card.onClick
                 ? card.selected
                   ? 'border-brand-500/60 bg-brand-500/5'
-                  : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/40 hover:border-brand-500/30'
-                : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200/40'
+                  : 'bg-surface-100 hover:border-brand-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring'
+                : ''
             }`}
           >
-            <div className="flex items-center gap-2 mb-1.5">
+            <div className="mb-1.5 flex items-center gap-2">
               {card.icon && <span className={card.color ?? 'text-muted'}>{card.icon}</span>}
-              <span className="text-micro font-mono uppercase tracking-wider text-muted">{card.label}</span>
+              <span className="font-mono text-micro uppercase tracking-wider text-muted">{card.label}</span>
             </div>
-            <div className={`text-2xl font-display font-bold ${card.color ?? 'text-slate-900 dark:text-white'}`}>
+            <div className={`font-display text-2xl font-bold ${card.color ?? 'text-heading'}`}>
               {typeof card.value === 'number' ? card.value.toLocaleString() : card.value}
             </div>
           </Tag>

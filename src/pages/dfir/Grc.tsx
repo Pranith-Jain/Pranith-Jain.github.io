@@ -159,7 +159,7 @@ export default function Grc(): JSX.Element {
               className={`text-left rounded-xl border p-3 transition-colors ${
                 tab === fid
                   ? 'border-brand-500/60 bg-brand-500/5'
-                  : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
+                  : 'border-line-1 bg-white dark:bg-surface-200 hover:border-brand-500/40'
               }`}
             >
               <div className="flex items-baseline justify-between gap-2 mb-1">

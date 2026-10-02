@@ -417,9 +417,7 @@ export default function ObservableDb(): JSX.Element {
                   }}
                   onClick={() => setSelected(entry)}
                   className={`rounded-xl border bg-surface-100 dark:bg-surface-200 p-3 cursor-pointer transition-all hover:border-rose-400 ${
-                    selected?.id === entry.id
-                      ? 'border-rose-500 ring-1 ring-rose-500'
-                      : 'border-slate-200 dark:border-line-1'
+                    selected?.id === entry.id ? 'border-rose-500 ring-1 ring-rose-500' : 'border-line-1'
                   }`}
                 >
                   <div className="flex items-start gap-3">

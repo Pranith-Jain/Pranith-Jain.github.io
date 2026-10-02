@@ -177,7 +177,7 @@ export default function ScheduleTab() {
           className={`px-3 py-1 text-xs rounded border ${
             viewMode === 'list'
               ? 'bg-brand-500 text-white border-brand-500'
-              : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
+              : 'border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
           }`}
         >
           List
@@ -187,7 +187,7 @@ export default function ScheduleTab() {
           className={`px-3 py-1 text-xs rounded border ${
             viewMode === 'calendar'
               ? 'bg-brand-500 text-white border-brand-500'
-              : 'border-slate-200 dark:border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
+              : 'border-line-1 text-muted hover:bg-slate-100 dark:hover:bg-surface-300'
           }`}
         >
           Calendar

@@ -102,6 +102,29 @@ export interface SidebarConfig {
    *  Pass "rose" for threat-intel so the active sidebar item matches the
    *  page accent. */
   tone?: 'brand' | 'rose';
+  /**
+   * Footer count label, e.g. "115+ tools". Omit it to fall back to the raw
+   * number of nav items.
+   *
+   * This exists because the two counts are not the same quantity. The nav list
+   * includes every routable entry, while a surface's headline figure
+   * (`MAIN_TOOL_COUNT` on the DFIR hub) deliberately excludes `utility: true`
+   * entries so the front door does not read as padded. So the sidebar and the
+   * DFIR hero legitimately disagree today ("149 tools" vs "115+ tools" on one
+   * screen).
+   *
+   * It is deliberately NOT populated from `tool-sections` even though that is
+   * where `MAIN_TOOL_COUNT` comes from. This module is reachable from
+   * `AppShell`, which sits on the eager entry path for every tool route, so
+   * importing the 1238-line `tool-sections` module here pulled it (and its
+   * whole lucide icon set) into the initial bundle and added ~34KB to the
+   * entry chunk - enough to fail `npm run check:budgets` on three budgets.
+   * A 34KB regression to align a sidebar footer label is the wrong trade.
+   *
+   * To populate it later, pass the number in from the route that already has
+   * it in scope, rather than reaching across into the heavy module from here.
+   */
+  toolCount?: string;
 }
 
 /* ------------------------------------------------------------------ */

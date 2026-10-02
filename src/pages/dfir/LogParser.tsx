@@ -189,7 +189,7 @@ export default function LogParser(): JSX.Element {
                   type="button"
                   onClick={() => toggleSeverity(s)}
                   disabled={count === 0}
-                  className={`text-mini font-mono px-2 py-1 rounded border ${active ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-line-1 text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
+                  className={`text-mini font-mono px-2 py-1 rounded border ${active ? SEVERITY_TONE[s] : 'border-line-1 text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
                 >
                   {s} · {count}
                 </button>

@@ -258,7 +258,7 @@ export default function Socmint(): JSX.Element {
                 type="button"
                 onClick={() => toggleCategory(c)}
                 className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1 ${
-                  active ? meta.pillCls : 'border-slate-200 dark:border-line-1 text-slate-500'
+                  active ? meta.pillCls : 'border-line-1 text-slate-500'
                 }`}
                 title={meta.blurb}
               >

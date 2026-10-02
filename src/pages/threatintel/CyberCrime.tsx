@@ -343,7 +343,7 @@ export default function CyberCrime(): JSX.Element {
                   onClick={() => toggleSource(s.label)}
                   className={`flex items-baseline justify-between gap-2 rounded px-2 py-1 text-left transition-colors border ${
                     enabled
-                      ? 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
+                      ? 'border-line-1 bg-white dark:bg-surface-200 hover:border-rose-500/40'
                       : 'border-slate-200/40 dark:border-line-1/40 bg-slate-100/40 dark:bg-input-200/40 opacity-60'
                   }`}
                 >

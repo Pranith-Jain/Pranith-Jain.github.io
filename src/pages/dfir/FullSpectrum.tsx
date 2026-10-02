@@ -419,11 +419,7 @@ function ResultCard({
     }
   })();
 
-  const borderCls = state.error
-    ? 'border-rose-500/50'
-    : state.data
-      ? 'border-slate-200 dark:border-line-1'
-      : 'border-slate-200 dark:border-line-1/50';
+  const borderCls = state.error ? 'border-rose-500/50' : state.data ? 'border-line-1' : 'border-line-1/50';
 
   return (
     <div className={`rounded-xl border ${borderCls} bg-surface-100 dark:bg-surface-200 p-4 flex flex-col gap-2`}>

@@ -346,7 +346,7 @@ export default function Notebooks() {
                     className={`p-4 rounded-xl cursor-pointer transition-all border ${
                       selectedNotebook === nb.id
                         ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10 dark:border-brand-500/40'
-                        : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300 dark:hover:border-brand-500/30'
+                        : 'border-line-1 bg-white dark:bg-surface-200 hover:border-brand-300 dark:hover:border-brand-500/30'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
@@ -514,7 +514,7 @@ export default function Notebooks() {
                             className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono transition-colors ${
                               entryType === t
                                 ? 'bg-brand-600 text-white'
-                                : 'bg-white dark:bg-surface-200 text-muted border border-slate-200 dark:border-line-1'
+                                : 'bg-white dark:bg-surface-200 text-muted border border-line-1'
                             }`}
                           >
                             <Icon size={12} />
@@ -581,7 +581,7 @@ export default function Notebooks() {
                         className={`p-4 rounded-xl border ${
                           entry.pinned
                             ? 'border-brand-200 dark:border-brand-500/30 bg-brand-50/50 dark:bg-brand-500/5'
-                            : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
+                            : 'border-line-1 bg-white dark:bg-surface-200'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -673,7 +673,7 @@ export default function Notebooks() {
                       className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-colors ${
                         newSeverity === s
                           ? `${SEVERITY_COLORS[s]} ring-1 ring-current`
-                          : 'bg-slate-100 dark:bg-surface-300 text-muted border border-slate-200 dark:border-line-1'
+                          : 'bg-slate-100 dark:bg-surface-300 text-muted border border-line-1'
                       }`}
                     >
                       {s}

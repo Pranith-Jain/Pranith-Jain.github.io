@@ -356,9 +356,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
   return (
     <div
       className={`rounded-xl border p-3 ${
-        good
-          ? 'border-emerald-500/30 bg-emerald-500/5'
-          : 'border-slate-200 dark:border-line-1 bg-white dark:bg-surface-200'
+        good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-line-1 bg-white dark:bg-surface-200'
       }`}
     >
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-muted mb-1">{label}</div>

@@ -80,7 +80,7 @@ interface EvalResult {
 }
 
 const inputCls =
-  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-slate-200 dark:border-line-1 rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
+  'w-full px-3 py-2 bg-white dark:bg-surface-200 border border-line-1 rounded-xl text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
 
 const KIND_STYLES: Record<string, string> = {
   issue:

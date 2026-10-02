@@ -393,7 +393,7 @@ export default function AttackPathGraph(): JSX.Element {
                     className={`w-full text-left px-2.5 py-2 rounded-xl border transition-colors text-micro font-mono ${
                       selectedPath === i
                         ? 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                        : 'border-slate-200 dark:border-line-1 text-muted hover:border-brand-500/40'
+                        : 'border-line-1 text-muted hover:border-brand-500/40'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-0.5">

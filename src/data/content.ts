@@ -17,10 +17,15 @@ export const personalInfo = {
   shortTitle: 'Associate Cyber Security Analyst · Capgemini CERT',
   headline: 'Building at the intersection of AI, threat intelligence, and edge-native security tooling.',
   // Plain-text bio. Used as-is by StructuredData (SEO schema). The Hero
-  // renders a JSX version with inline links on "DFIR toolkit" and
-  // "threat-intel platform" - see Hero.tsx. Keep both copies in sync:
-  // any rewording here should be mirrored over there.
-  description: `a cyber security analyst on the Capgemini CERT Threat and Vulnerability Intelligence group, working AI automation, autonomous workflows, and AI threat intelligence: hunting and researching AI-driven threats. The rest of the time I ship the tools I wished I'd had on shift: a 60+ tool DFIR toolkit and a live, self-updating threat-intel platform, both edge-hosted on Cloudflare and free to use.`,
+  // renders this same string. Keep it short enough to read: this is the
+  // hero's only prose block, and the previous 62-word single-sentence
+  // version set as 7 lines on desktop and 9 on mobile, started mid-sentence
+  // in lowercase, and stacked two clauses behind a colon splice. It also
+  // restated "60+ tools" and "free to use", both of which the stat block
+  // directly above and the toolkit section directly below already carry.
+  // Three short sentences, no em dashes, no numbers to repeat.
+  description:
+    'Cyber security analyst on the Capgemini CERT Threat and Vulnerability Intelligence group. I research AI-driven threats: the models, the agents, and the infrastructure that carries them. The rest of my time goes into the tooling I wished I had on shift.',
   currentFocus: 'AI threats, AI threat intelligence, and autonomous SOC workflows',
   currentlyLearning: 'AI red-teaming & autonomous threat hunting',
   availability: 'Open for Consultations & Strategy Calls',

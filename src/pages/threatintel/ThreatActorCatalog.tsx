@@ -79,7 +79,7 @@ export default function ThreatActorCatalog(): JSX.Element {
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeType
               ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-              : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
+              : 'border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
           }`}
         >
           All ({THREAT_ACTORS.length})
@@ -92,7 +92,7 @@ export default function ThreatActorCatalog(): JSX.Element {
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeType === t
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
+                : 'border-line-1 text-slate-500 hover:border-slate-300 dark:hover:border-line-1'
             }`}
           >
             {TYPE_LABELS[t]} ({typeCounts[t] || 0})
