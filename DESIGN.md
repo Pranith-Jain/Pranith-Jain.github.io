@@ -166,36 +166,51 @@ and 6.31:1 while staying in the same hue family. Canonical map:
 Shadows `--shadow-e1/e2/e3` (soft, low-alpha slate). Borders do most separation
 work; shadows are accents, not defaults.
 
-Radius is **four** roles, not three. The fourth is `--radius-control`, and it
-exists because the container radii alone left controls ungoverned:
+Radius is **three** roles. `control` governs every interactive element, `card`
+is the standard surface, `hero` steps up for top-of-page callouts:
 
 | Token              | Value | Use                                                   |
 | ------------------ | ----- | ----------------------------------------------------- |
 | `--radius-control` | 6px   | every interactive element: button, input, select, tab |
-| `--radius-card`    | 8px   | standard panel / data tile                            |
-| `--radius-panel`   | 10px  | surface containing internal rows or tables            |
-| `--radius-hero`    | 14px  | hero CTAs and contact panels                          |
+| `--radius-card`    | 12px  | standard panel / data tile                            |
+| `--radius-panel`   | 12px  | surface containing internal rows or tables            |
+| `--radius-hero`    | 16px  | hero CTAs and contact panels                          |
 
 The nesting rule is control-inside-surface, so `--radius-control` must stay
-tighter than every container it can sit in. Before this token existed, controls
+tighter than every container it can sit in. Before `control` existed, controls
 split: `Button` sat at 4px (`rounded`) while `Input`/`Select`/`Textarea` sat
-at 12px (`rounded-xl`), so a primary button sitting beside a text field in the
-same row was 8px apart in radius and read as two design languages. Shared
-primitives (`Button`, `Input`, `Card`, `Skeleton`, `StatCards`) now spell
-`rounded-control` / `rounded-card`.
+at 12px (`rounded-xl`), so a primary button beside a text field in the same row
+was 8px apart in radius and read as two design languages.
 
-`rounded-xl` is still the most-used radius in call sites (~1,600) where it
-means "card". That is four px off `--radius-card` and is the largest remaining
-inconsistency; aligning it is a mechanical sweep, not a redesign, and is
-deliberately not bundled into unrelated work.
+**`--radius-card` is 12px, not 8px.** An earlier draft of this file declared 8px
+and that was aspirational rather than descriptive: ~1,400 call sites already use
+`rounded-xl` for card-like surfaces, so an 8px token made `<Card>` the odd one
+out against the rest of the app by 4px. The token now matches the de-facto
+standard, which removes the mismatch rather than creating one. Because
+`rounded-xl` and `rounded-card` are now visually identical, renaming the call
+sites becomes a zero-visual-change edit whenever the team wants it — left alone
+here rather than landing 1,400 files of diff churn for no visual gain.
+
+`--radius-panel` is kept as a name because call sites use it, but at this size
+it equals `card`: a surface containing internal rows is not a visually different
+shape from one that does not, and a 10px step preserving a distinction nobody
+can perceive would be decoration.
 
 ### Surface recipes in components
 
-`.surface-card` and friends hardcode `border: 1px solid #e2e8f0` for the light
-half. That is a raw palette step sitting next to the `border-line-1` token and
-it disagrees with it by a few levels (`#e2e8f0` opaque vs black@8% ≈ `#ebebeb`
-on white). Page-level cards were swept onto `border-line-1`; these component
-classes still carry the raw half.
+`.surface-card`, `.surface-base`, `.surface-card-faint` and `.surface-elevated`
+now take their border from the `border-400` channel rather than a hardcoded
+`#e2e8f0` on the light half. That raw step sat one shade darker than the
+declared `border-line-1` hairline, so the component-library surfaces and the
+page-level ones that spell `border-line-1` were drawing visibly different
+borders for the same role. With the base rule on the channel, the four
+`.dark` overrides that only restated `border-color` became no-ops and were
+removed, leaving one source of truth per surface.
+
+Three `#e2e8f0` uses remain in `index.css` and are correct: the scrollbar track
+(chrome, paired with its own dark rule), `.prose-hunt pre` text (deliberately
+light-on-dark regardless of theme), and the print media block (print forces the
+light scheme).
 
 ## Component conventions
 

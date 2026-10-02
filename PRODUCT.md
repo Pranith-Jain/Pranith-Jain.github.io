@@ -36,8 +36,38 @@ hex workbench, and console lean into it deliberately) but never at the cost of r
 
 - Generic SaaS-dashboard look: rows of identical stat cards, gradient hero-metric blocks.
 - AI-slop tells: ambient glows (one was already removed from light mode), glassmorphism
-  everywhere, em dashes in UI copy.
+  everywhere, and **em dashes used as sentence connectors in prose**.
 - Enterprise-security cliché: dark-blue-everything with red "THREAT" badges shouting.
+
+### The em-dash rule, stated precisely
+
+An earlier version of this file banned em dashes in UI copy outright. That was
+too blunt and was producing bad outcomes, so the exception is written down here.
+
+An em dash is an AI tell when it is doing a **sentence connector's** job in
+running prose: "Aggregates results in one pass — a single query can surface 900+
+hits." That is the thing to avoid; use a period, a comma, a colon, or parentheses.
+
+An em dash is **not** a tell when it is doing structural work, and these must be
+left alone:
+
+- **Null-value placeholder in a table.** `dfir/TidCmm` renders `'—'` for a
+  missing measurement. That is a data glyph, not punctuation; a comma there
+  would read as a value.
+- **Term–definition pairs in structured data.** `data/frameworks.ts`,
+  `dfir/Utiom`, `threatintel/UnifiedKillChain` use `Label — definition` and
+  `0: 'Not started — no documented intent.'` These are parallel constructions
+  where the dash is the delimiter, and replacing it with a comma changes the
+  structure the reader is parsing.
+- **Feed titles quoted from a source.** `pages/argus/data/feed.ts` and similar
+  mirror upstream headlines verbatim; editing them misquotes the source.
+
+`npm run check:em-dashes` reports the split (comment vs copy, and by shape) so
+the debt is measurable and cannot quietly grow. It deliberately proposes no
+replacement: the right punctuation is a per-string judgement, and a blanket
+`—` → `,` codemod would corrupt the structural uses above. As of this writing
+the landing surfaces are already clean (hero, all home sections, header, footer,
+the DFIR hub) and the remainder sits in long-tail tool pages.
 
 ## Strategic principles
 
