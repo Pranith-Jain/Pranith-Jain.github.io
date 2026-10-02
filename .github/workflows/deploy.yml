@@ -96,7 +96,6 @@ jobs:
             exit 1
           fi
       - name: Deploy to Cloudflare Workers
-        needs: creds
         run: npx wrangler deploy
       - name: Gate only (no token; manual dispatch)
         if: ${{ github.event_name == 'workflow_dispatch' && env.CLOUDFLARE_API_TOKEN == '' }}
