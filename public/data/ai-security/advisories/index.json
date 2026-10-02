@@ -1,28 +1,28 @@
 {
-  "updatedAt": "2026-10-01T13:07:10.770Z",
-  "total": 122,
+  "updatedAt": "2026-10-02T12:27:56.161Z",
+  "total": 126,
   "bySource": {
-    "cvelistV5": 1,
+    "cvelistV5": 2,
     "ghsa": 60,
     "garak": 5,
     "pyrit": 5,
     "promptfoo": 5,
     "litellm": 5,
+    "vllm": 5,
     "ollama": 5,
     "langchain": 5,
     "mcp-sdk": 5,
     "mitre-atlas": 5,
     "owasp-llm-top10": 8,
     "owasp-threat-intel": 3,
-    "owasp-acs": 8,
-    "exploitdb": 2
+    "owasp-acs": 8
   },
   "items": [
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "Bump anyio from 4.10.0 to 4.14.2 (#3547)",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/6a0fe02a033c973c89055daee9855af59b418e6d",
-      "updated": "2026-10-01T12:56:20Z",
+      "title": "Validate an explicit null structuredContent against the output schema…",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/08095791f0c8b8e6a0e8a137ca5ab4a511259ec7",
+      "updated": "2026-10-02T12:22:05Z",
       "source": "mcp-sdk",
       "kind": "release",
       "cves": [],
@@ -30,11 +30,111 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "3 changes (1 new | 2 updated):",
-      "link": "https://github.com/CVEProject/cvelistV5/commit/904ed426ec02d710eb404d7c16a2a983ebdea3b1",
-      "updated": "2026-10-01T12:22:33Z",
+      "title": "Reject a tool with an invalid x-mcp-header annotation at registration…",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/3d0c40d8aafb37304635d75dbcafc2379b38b975",
+      "updated": "2026-10-02T12:03:16Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "4 changes (4 new | 0 updated):",
+      "link": "https://github.com/CVEProject/cvelistV5/commit/95dc6ea2a39907f49a8a6876c9afe71c0440ea26",
+      "updated": "2026-10-02T11:58:10Z",
       "source": "cvelistV5",
       "kind": "cve",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Document the timeout a hand-built httpx2 client needs (#3618)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/ebf6e5a726518d661977df27b96ebb6b1c8cc10a",
+      "updated": "2026-10-02T11:18:41Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Document when a caller-supplied request id can be minted again (#3619)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/c8fcfc8d7faad87f90649ab1ebed90a4c8c1abe7",
+      "updated": "2026-10-02T11:05:30Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "Omit an unset experimental capability from the initialize result (#3614)",
+      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/449070c15656a8d8c0fe75e2790e71f1033689a5",
+      "updated": "2026-10-02T10:46:15Z",
+      "source": "mcp-sdk",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "8 changes (6 new | 2 updated):",
+      "link": "https://github.com/CVEProject/cvelistV5/commit/677e7b88d6277fa076f630a2afdf0e0f6c694bf1",
+      "updated": "2026-10-02T09:06:36Z",
+      "source": "cvelistV5",
+      "kind": "cve",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v1.105.0-dev.2",
+      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.105.0-dev.2",
+      "updated": "2026-10-02T08:33:03Z",
+      "source": "litellm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.31.0rc4",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc4",
+      "updated": "2026-10-02T06:06:56Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.35.1",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.35.1-rc2",
+      "updated": "2026-10-02T03:23:32Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.35.1-rc1",
+      "link": "https://github.com/ollama/ollama/releases/tag/v0.35.1-rc1",
+      "updated": "2026-10-01T22:52:04Z",
+      "source": "ollama",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
+      "title": "v0.31.0rc3: [Model Runner V2] Support randomized dummy inputs (#58411)",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc3",
+      "updated": "2026-10-01T07:54:39Z",
+      "source": "vllm",
+      "kind": "release",
       "cves": [],
       "description": ""
     },
@@ -54,16 +154,6 @@
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.101.4",
       "updated": "2026-10-01T05:10:19Z",
       "source": "litellm",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "docs: remove v2 notice from top of README (#3604)",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/d639cf7f97f77388fa7da60c0f9b04f8837b77fd",
-      "updated": "2026-09-30T21:15:12Z",
-      "source": "mcp-sdk",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -90,6 +180,16 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
+      "title": "proto-v0.4.0",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/proto-v0.4.0",
+      "updated": "2026-09-30T12:52:24Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
       "title": "v1.105.0-dev.1",
       "link": "https://github.com/BerriAI/litellm/releases/tag/v1.105.0-dev.1",
       "updated": "2026-09-30T08:44:29Z",
@@ -110,10 +210,10 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v1.103.1",
-      "link": "https://github.com/BerriAI/litellm/releases/tag/v1.103.1",
-      "updated": "2026-09-30T00:59:43Z",
-      "source": "litellm",
+      "title": "v0.31.0rc2",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc2",
+      "updated": "2026-09-30T00:33:58Z",
+      "source": "vllm",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -130,20 +230,10 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v0.35.1",
+      "title": "v0.35.1-rc0: create: support explicit model capabilities (#18708)",
       "link": "https://github.com/ollama/ollama/releases/tag/v0.35.1-rc0",
-      "updated": "2026-09-29T20:14:22Z",
+      "updated": "2026-09-29T18:10:25Z",
       "source": "ollama",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "Ask cubic for a review when the intake gate lets a PR back in (#3489)",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/06d1d1e4d2106ef14a8c21d29e6cdafb39f66889",
-      "updated": "2026-09-29T19:11:23Z",
-      "source": "mcp-sdk",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -170,6 +260,16 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
+      "title": "v0.31.0rc1: [CI/Build] Skip the snapshot runtime on CUDA 12.x images (#59118)",
+      "link": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0rc1",
+      "updated": "2026-09-29T03:18:39Z",
+      "source": "vllm",
+      "kind": "release",
+      "cves": [],
+      "description": ""
+    },
+    {
+      "id": "aHR0cHM6Ly9n",
       "title": "langchain-fireworks==1.7.0",
       "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.7.0",
       "updated": "2026-09-28T20:46:52Z",
@@ -190,40 +290,10 @@
     },
     {
       "id": "aHR0cHM6Ly9n",
-      "title": "v0.35.0-rc0",
-      "link": "https://github.com/ollama/ollama/releases/tag/v0.35.0-rc0",
-      "updated": "2026-09-28T20:21:01Z",
-      "source": "ollama",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
       "title": "langchain==1.4.3",
       "link": "https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.3",
       "updated": "2026-09-28T20:17:45Z",
       "source": "langchain",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "v0.40.0",
-      "link": "https://github.com/ollama/ollama/releases/tag/v0.40.0-rc0",
-      "updated": "2026-09-25T15:22:00Z",
-      "source": "ollama",
-      "kind": "release",
-      "cves": [],
-      "description": ""
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "Bump httpcore2 from 2.5.0 to 2.10.0 (#3482)",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/f1b6589088534632fef92238ee9750951e3c0185",
-      "updated": "2026-09-23T08:50:55Z",
-      "source": "mcp-sdk",
       "kind": "release",
       "cves": [],
       "description": ""
@@ -267,16 +337,6 @@
       "kind": "advisory",
       "cves": ["CVE-2026-57173"],
       "description": "### Summary The audio decode-duration guard (`max_duration_s`, env `VLLM_MAX_AUDIO_DECODE_DURATION_S`, default 600s) that protects against audio decompression-bomb DoS is wired into **only** the speech-to-text path (`/v1/audio/transcriptions`). The **chat** audio path (`/v1/chat/completions`, `input_audio` content parts) calls the same decoder with **no** limit, so an **unauthenticated** client can submit a few-KB compressed audio file that expands to multiple GB of float32 PCM at decode time, O"
-    },
-    {
-      "id": "aHR0cHM6Ly9n",
-      "title": "Detect event-loop blocking in tests (#3510)",
-      "link": "https://github.com/modelcontextprotocol/python-sdk/commit/6affe5c0d3588fd1705713b3703dc68015cfe3eb",
-      "updated": "2026-09-16T10:12:27Z",
-      "source": "mcp-sdk",
-      "kind": "release",
-      "cves": [],
-      "description": ""
     },
     {
       "id": "aHR0cHM6Ly9n",
@@ -537,26 +597,6 @@
       "kind": "advisory",
       "cves": ["CVE-2026-73559"],
       "description": "## Summary The `/v1/completions` request model accepts `prompt` as a list of text prompts or a list of token-id prompts without any outer prompt-count bound. The serving path turns each element into a separate engine input, creates one engine generator per element, merges all generators, and allocates a response slot per prompt. An authenticated API client can therefore turn one request into an attacker-chosen number of backend subrequests before any aggregate request-count budget is enforced. #"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "[remote] PraisonAI praisonaiagents 1.6.77 - Remote Code Execution",
-      "link": "https://www.exploit-db.com/exploits/52639",
-      "updated": "Tue, 11 Aug 2026 00:00:00 +0000",
-      "source": "exploitdb",
-      "kind": "exploit",
-      "cves": [],
-      "description": "PraisonAI praisonaiagents 1.6.77 - Remote Code Execution"
-    },
-    {
-      "id": "aHR0cHM6Ly93",
-      "title": "[remote] mcp-server-kubernetes 3.8.x - Argument Injection",
-      "link": "https://www.exploit-db.com/exploits/52638",
-      "updated": "Tue, 11 Aug 2026 00:00:00 +0000",
-      "source": "exploitdb",
-      "kind": "exploit",
-      "cves": [],
-      "description": "mcp-server-kubernetes 3.8.x - Argument Injection"
     },
     {
       "id": "aHR0cHM6Ly9n",

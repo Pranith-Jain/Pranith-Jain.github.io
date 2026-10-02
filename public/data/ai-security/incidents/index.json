@@ -1,8 +1,116 @@
 {
-  "updatedAt": "2026-10-01T13:07:10.677Z",
+  "updatedAt": "2026-10-02T12:27:56.091Z",
   "source": "https://incidentdatabase.ai/rss.xml",
   "total": 100,
   "reports": [
+    {
+      "id": "YTQ3NjBhN2Yt",
+      "guid": "a4760a7f-1917-5f0d-b523-f52df364ae7e",
+      "title": "There's no law to ticket the Waymo that drove through a Denver farmers market",
+      "link": "https://www.9news.com/article/news/community/transportation/waymo-drives-denver-farmers-market-no-law/73-a55cac7b-9c76-4003-896b-1dd5ad162dea",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": null,
+      "reportNum": null
+    },
+    {
+      "id": "8011",
+      "guid": "cb101a58-29a7-5a62-be4a-df1f2fe96e05",
+      "title": "Alleged victim speaks out after former Coffee Co. deputy accused of tracking her is released on bond",
+      "link": "https://www.walb.com/2026/05/08/former-coffee-co-deputy-accused-tracking-woman-through-law-enforcement-systems/",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1716",
+      "reportNum": "8011"
+    },
+    {
+      "id": "8012",
+      "guid": "1545de71-cf17-5ae3-8bc1-45ecb1ed4ced",
+      "title": "Body cam of TPD officers releasing K-9 on man during traffic stop",
+      "link": "https://www.13abc.com/2024/04/15/body-cam-tpd-officers-releasing-k-9-man-during-traffic-stop/",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1717",
+      "reportNum": "8012"
+    },
+    {
+      "id": "8013",
+      "guid": "fc2e9e2d-1602-50f1-8579-f62311e6f753",
+      "title": "Man speaks out after police release K-9 on him during traffic stop: 'Traumatized'",
+      "link": "https://abcnews.com/US/man-speaks-after-police-release-9-traffic-stop/story?id=109463145",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1717",
+      "reportNum": "8013"
+    },
+    {
+      "id": "8014",
+      "guid": "20e4cefb-5883-551b-8af1-84665af9ae23",
+      "title": "TPD investigation finds no wrongdoing in use of K-9 on man during traffic stop",
+      "link": "https://www.13abc.com/2024/05/31/tpd-investigation-finds-no-wrongdoing-use-k-9-man-during-traffic-stop/",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1717",
+      "reportNum": "8014"
+    },
+    {
+      "id": "8015",
+      "guid": "565e2d21-e8af-504f-8943-0fce96757277",
+      "title": "Charges dropped against man Toledo Police released K-9 on during traffic stop, lawyer says",
+      "link": "https://www.13abc.com/2024/08/19/charges-dropped-against-man-toledo-police-released-k-9-during-traffic-stop-lawyer-says/",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1717",
+      "reportNum": "8015"
+    },
+    {
+      "id": "8016",
+      "guid": "d12e7ce6-d4e7-5d4e-bbb5-1397df3aabd1",
+      "title": "'Flock Flocked up'",
+      "link": "https://www.businessinsider.com/flock-safety-alpr-cameras-misreads-2026-3",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1717",
+      "reportNum": "8016"
+    },
+    {
+      "id": "8017",
+      "guid": "4ec8b2b1-f0bf-5ea4-9db3-480256420dd8",
+      "title": "Viper Image That Caused Alarm in California Was A.I.-Generated",
+      "link": "https://www.nytimes.com/2026/09/30/us/santa-ana-viper-snake-ai-fake.html",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1718",
+      "reportNum": "8017"
+    },
+    {
+      "id": "8018",
+      "guid": "6e914008-930f-5ce0-9bba-34a75db63998",
+      "title": "I broke something': A Claude Code AI agent deleted 48,000 files in just over 100 seconds — then apologized for doing so",
+      "link": "https://www.techradar.com/pro/security/i-broke-something-a-claude-code-ai-agent-deleted-48-000-files-in-just-over-100-seconds-then-apologized-for-doing-so",
+      "pubDate": "Wed, 30 Sep 2026 00:00:00 GMT",
+      "citeId": "1719",
+      "reportNum": "8018"
+    },
+    {
+      "id": "NzRiNjA2NTMt",
+      "guid": "74b60653-6b5f-57f4-8245-c93b818c4dfb",
+      "title": "Hacking OpenAI",
+      "link": "https://www.hacktron.ai/blog/hacking-openai",
+      "pubDate": "Tue, 29 Sep 2026 00:00:00 GMT",
+      "citeId": null,
+      "reportNum": null
+    },
+    {
+      "id": "8008",
+      "guid": "357c7547-637f-5541-bb90-3928859baf72",
+      "title": "OpenAI Ignored Employees Who Warned It Wasn’t Doing Enough About Security",
+      "link": "https://www.nytimes.com/2026/09/29/technology/openai-warnings-security.html",
+      "pubDate": "Tue, 29 Sep 2026 00:00:00 GMT",
+      "citeId": "1604",
+      "reportNum": "8008"
+    },
+    {
+      "id": "8009",
+      "guid": "88160705-b519-5e2e-a184-ec3e731b2239",
+      "title": "How Russia Is Attacking the Midterms with a Mother Jones Deepfake",
+      "link": "https://www.motherjones.com/politics/2026/09/how-a-russian-attack-on-the-midterms-deepfaked-mother-jones-matryoshka-putin-trump/",
+      "pubDate": "Tue, 29 Sep 2026 00:00:00 GMT",
+      "citeId": "1715",
+      "reportNum": "8009"
+    },
     {
       "id": "8005",
       "guid": "9b675fca-a30b-5ec4-94c2-29285ba12995",
@@ -794,114 +902,6 @@
       "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
       "citeId": "1677",
       "reportNum": "7900"
-    },
-    {
-      "id": "7901",
-      "guid": "fdcc4706-cba6-55cb-b703-db82fddf9c13",
-      "title": "A self-driving car in Texas hit and killed a mother duck, sparking neighborhood outrage",
-      "link": "https://techcrunch.com/2026/04/08/avride-self-driving-car-austin-kills-duck-mueller/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1678",
-      "reportNum": "7901"
-    },
-    {
-      "id": "7902",
-      "guid": "6e67b23f-f08a-579a-9f25-7767ad799a5f",
-      "title": "Residents say self-driving car killed duck in Mueller",
-      "link": "https://www.axios.com/local/austin/2026/04/02/autonomous-vehicle-avride-duck-mueller",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1678",
-      "reportNum": "7902"
-    },
-    {
-      "id": "7903",
-      "guid": "a9893e9c-d3a4-507c-a208-571df2038623",
-      "title": "Self-driving car runs over Mueller Lake Park duck, raising safety concerns",
-      "link": "https://www.kxan.com/news/local/austin/self-driving-car-runs-over-mueller-lake-park-duck-raising-safety-concerns/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1678",
-      "reportNum": "7903"
-    },
-    {
-      "id": "7904",
-      "guid": "352b8eaa-f77a-5e84-bfeb-48797d5515ac",
-      "title": "Mueller residents upset after self-driving car runs over, kills duck",
-      "link": "https://www.fox7austin.com/news/mueller-residents-upset-after-self-driving-car-runs-over-kills-duck",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1678",
-      "reportNum": "7904"
-    },
-    {
-      "id": "NzM4NDA2MDgt",
-      "guid": "73840608-545f-512d-8553-755b3301789d",
-      "title": "The mystery behind an audio clip that helped upend a Senate race",
-      "link": "https://www.washingtonpost.com/politics/2026/09/05/mystery-behind-an-audio-clip-that-helped-upend-senate-race/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": null,
-      "reportNum": null
-    },
-    {
-      "id": "7906",
-      "guid": "e068275e-3e16-5dee-b115-fe8e76fb7fa7",
-      "title": "LYFT DRIVER SCAM: Boca Raton Area Driver Uses AI To Accuse Rider",
-      "link": "https://bocanewsnow.com/2026/05/18/lyft-driver-scam-boca-raton-area-driver-uses-ai-to-accuse-rider/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1679",
-      "reportNum": "7906"
-    },
-    {
-      "id": "7907",
-      "guid": "cc70688d-14b3-56b1-a077-4ff153c2b864",
-      "title": "Lyft driver uses AI to falsely accuse Boca Raton man's daughters of damaging car",
-      "link": "https://www.wpbf.com/article/lyft-driver-ai-falsely-accuse-damaging-car/71341981",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1679",
-      "reportNum": "7907"
-    },
-    {
-      "id": "7908",
-      "guid": "f7d01652-c2b8-5226-87d4-9244631fd857",
-      "title": "Father, daughter speak after Lyft driver is accused of using AI-generated image for damage claim",
-      "link": "https://abcnews.com/GMA/News/father-daughter-speak-after-lyft-driver-accused-ai/story?id=133144373",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1679",
-      "reportNum": "7908"
-    },
-    {
-      "id": "ZDA4NzljOGUt",
-      "guid": "d0879c8e-423d-5b81-82f5-9529af791a5c",
-      "title": "ChatGPT Operator: Prompt Injection Exploits & Defenses",
-      "link": "https://embracethered.com/blog/posts/2025/chatgpt-operator-prompt-injection-exploits/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": null,
-      "reportNum": null
-    },
-    {
-      "id": "7910",
-      "guid": "abdadedf-a40f-5bb1-ab1d-54af015f8786",
-      "title": "Clinejection — Compromising Cline's Production Releases just by Prompting an Issue Triager",
-      "link": "https://adnanthekhan.com/posts/clinejection/",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1680",
-      "reportNum": "7910"
-    },
-    {
-      "id": "7911",
-      "guid": "3f2ac7d9-6789-5e24-9aa2-d89248d211ce",
-      "title": "Post-mortem: Unauthorized Cline CLI npm publish on February 17, 2026",
-      "link": "https://cline.bot/blog/post-mortem-unauthorized-cline-cli-npm",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1680",
-      "reportNum": "7911"
-    },
-    {
-      "id": "7912",
-      "guid": "873aecd1-6240-5e48-86ac-127949c2f815",
-      "title": "Unauthorized npm publish of Cline CLI cline@2.3.0 with modified postinstall script to install openclaw",
-      "link": "https://github.com/cline/cline/security/advisories/GHSA-9ppg-jx86-fqw7",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1680",
-      "reportNum": "7912"
     }
   ]
 }
