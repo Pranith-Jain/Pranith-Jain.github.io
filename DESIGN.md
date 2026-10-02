@@ -209,6 +209,28 @@ classes still carry the raw half.
 - Accent-as-text is `text-accent-text`, focus is `ring-focus-ring`. Both are
   channels because no single brand step clears contrast in both modes.
 
+### One number per statistic: the DFIR tool count
+
+The DFIR sidebar footer and the DFIR hub both render a figure labelled
+"tools", and they used to disagree on a single screen: sidebar 149, hero and
+search box 115+. Neither was a miscount. `MAIN_TOOL_COUNT` (121 tools minus 6
+`utility: true` = 115) is a deliberate marketing figure that keeps the front
+door from reading as padded; the sidebar's 149 counts every routable entry in
+the `dfir-hubs` registry, which is genuinely larger. Two different statistics
+sharing one label is what made one of them look broken.
+
+The hub figure is the deliberate one, so the sidebar adopts it via
+`config.toolCount`. It is sourced from `src/components/dfir/tool-count.ts`, an
+**import-free mirror**, not from `tool-sections.ts` where the value is derived:
+`tool-sections` pulls ~40 lucide icons and `sidebar-nav.ts` is reachable from
+`AppShell` on the eager entry path, so importing it directly added **~34KB** to
+the entry chunk and failed three `check:budgets` limits.
+
+`tool-count.test.ts` pins the mirror against the real derivation, so editing
+`SECTIONS` without updating the literal fails CI. When it fails, update the
+literal; never edit `SECTIONS` to match it. That test was verified to fail with
+an actionable message rather than passing silently.
+
 ### Unstyled form controls are a bug class, not a style choice
 
 A bare `<input>` with no `className` renders with zero border, zero fill and

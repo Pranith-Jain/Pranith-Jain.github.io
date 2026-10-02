@@ -82,6 +82,7 @@ import {
 } from 'lucide-react';
 import { HUB_META } from './threatintel-hubs';
 import { HUB_META as DFIR_HUB_META } from './dfir-hubs';
+import { MAIN_TOOL_COUNT } from '../components/dfir/tool-count';
 
 export interface SidebarItem {
   label: string;
@@ -106,23 +107,17 @@ export interface SidebarConfig {
    * Footer count label, e.g. "115+ tools". Omit it to fall back to the raw
    * number of nav items.
    *
-   * This exists because the two counts are not the same quantity. The nav list
-   * includes every routable entry, while a surface's headline figure
-   * (`MAIN_TOOL_COUNT` on the DFIR hub) deliberately excludes `utility: true`
-   * entries so the front door does not read as padded. So the sidebar and the
-   * DFIR hero legitimately disagree today ("149 tools" vs "115+ tools" on one
-   * screen).
+   * Exists because the nav-item count and a surface's headline figure are
+   * different quantities: the nav list holds every routable entry, while the
+   * DFIR headline (`MAIN_TOOL_COUNT`) deliberately excludes `utility: true`
+   * entries so the front door does not read as padded. Rendering both under
+   * one label put "149 tools" beside "115+ tools" on a single screen.
    *
-   * It is deliberately NOT populated from `tool-sections` even though that is
-   * where `MAIN_TOOL_COUNT` comes from. This module is reachable from
-   * `AppShell`, which sits on the eager entry path for every tool route, so
-   * importing the 1238-line `tool-sections` module here pulled it (and its
-   * whole lucide icon set) into the initial bundle and added ~34KB to the
-   * entry chunk - enough to fail `npm run check:budgets` on three budgets.
-   * A 34KB regression to align a sidebar footer label is the wrong trade.
-   *
-   * To populate it later, pass the number in from the route that already has
-   * it in scope, rather than reaching across into the heavy module from here.
+   * DFIR sets this from `tool-count.ts`, an import-free mirror of the value
+   * derived in `tool-sections.ts`. Import `tool-sections` here instead and the
+   * eager entry chunk grows ~34KB (it pulls ~40 lucide icons and is reachable
+   * from `AppShell`), failing three `check:budgets` limits. See
+   * `tool-count.ts` and `tool-count.test.ts`.
    */
   toolCount?: string;
 }
@@ -375,6 +370,15 @@ function buildDfirSidebar(): SidebarConfig {
     sectionLabel: 'CRUCIBLE',
     groups: hubGroups,
     tone: 'brand',
+    // Match the hub headline so the sidebar does not print a second, larger
+    // "tools" figure on a screen whose hero already says "115+ tools".
+    //
+    // Imported from `tool-count`, NOT from `tool-sections` where the value is
+    // derived: `tool-sections` pulls in ~40 lucide icons and this module is
+    // reachable from `AppShell` on the eager path, so importing it directly
+    // added ~34KB to the entry chunk and failed three `check:budgets` limits.
+    // `tool-count.test.ts` pins the mirror against SECTIONS so it cannot drift.
+    toolCount: `${MAIN_TOOL_COUNT}+ tools`,
   };
 }
 

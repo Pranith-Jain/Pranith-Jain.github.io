@@ -103,12 +103,9 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
   // publish its own headline figure, and falls back to counting the nav items
   // so this stays generic for surfaces that have no separate headline number.
   //
-  // Note for whoever wires up DFIR's: the raw item count (149) and the hub's
-  // `MAIN_TOOL_COUNT` (115) are different quantities on purpose, because the
-  // hub excludes `utility: true` routes. Setting `toolCount` from
-  // `tool-sections` inside `sidebar-nav.ts` looks like the obvious fix but
-  // costs ~34KB of eager bundle, since `AppShell` pulls this module in for
-  // every tool route. Pass the number in from the route that already has it.
+  // DFIR supplies `toolCount` because its nav list (149 entries) and its hub
+  // headline (115, excluding `utility: true` routes) are different
+  // quantities; printing both under one label made one look broken.
   const toolCountLabel = config.toolCount ?? `${totalItems} tools`;
   const { activeBg, activeIcon, activeDot, focusRing } = toneClasses(config.tone);
   const [expanded, toggle] = useExpandedGroups(location.pathname, config.groups);
