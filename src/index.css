@@ -733,11 +733,23 @@
 }
 
 .animate-fade-in-up {
-  animation: dfir-fade-in-up 0.4s ease-out both;
+  /* cubic-bezier(0.22, 1, 0.36, 1) — an "easeOutQuint"-style curve: fast
+     departure, long gentle settle. The previous `ease-out` reached 80% of the
+     distance in the first ~40% of the duration, which reads as a snap followed
+     by a slow crawl; this front-loads the movement so the perceived start is
+     immediate and the tail settles without a visible stop.
+
+     Deliberately NOT adding `will-change: transform, opacity`. Both properties
+     are already composited, so the hint buys little, and `.animate-fade-in-up`
+     is used across 122 files — including long lists — so promoting every match
+     would trade a small first-frame saving for a large number of retained
+     compositor layers. If a specific heavy list ever needs it, promote that
+     list, not the utility. */
+  animation: dfir-fade-in-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-pop-in {
-  animation: pop-in 0.15s ease-out both;
+  animation: pop-in 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* SEO prerender content — injected by the edge OG rewriter for pages that

@@ -159,6 +159,27 @@
     <link rel="stylesheet" href="/fonts/fonts.css" media="all" />
     <noscript><link rel="stylesheet" href="/fonts/fonts.css" /></noscript>
 
+    <!-- Preload the `latin` font subsets. These are the only files English copy
+         actually requests; the rest of the subsets sit behind unicode-range and
+         are never fetched on a latin page. fonts.css is itself render-blocking,
+         so without a preload the browser only discovers these woff2 files
+         *after* it has already blocked on that stylesheet — a full RTT later
+         than needed. With font-display: swap, that late arrival is what reflows
+         text and costs CLS.
+
+         `crossorigin` is required even though the fonts are same-origin: font
+         fetches are always made in CORS mode, and an anonymous mismatch makes
+         the browser fetch the file a second time and throw the preload away.
+         Preloading a subset the browser then never selects is harmless — the
+         extra response is discarded unused. latin-ext is included because
+         accented Latin and IOC domains make it common enough to be worth it. -->
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin-a79fdb52.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/hanken-grotesk-latin-e9201edd.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/jetbrains-mono-latin-83c005d4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin-ext-776f6dca.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/hanken-grotesk-latin-ext-768af292.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/jetbrains-mono-latin-ext-db5ff4db.woff2" as="font" type="font/woff2" crossorigin>
+
     <!-- Theme detection script - runs before page render to prevent flash -->
     <script>
       (function () {
