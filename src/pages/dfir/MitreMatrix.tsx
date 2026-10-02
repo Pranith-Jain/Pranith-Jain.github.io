@@ -3,8 +3,6 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ExternalLink, Search, X } from 'lucide-react';
-// MitreModal available for future rich modal — drawer now enhanced inline (see threatintel.dk parity)
-// import { MitreModal } from '../../components/dfir/MitreModal';
 import type { MitreTactic } from '../../data/dfir/mitre-matrix';
 import { threatActors } from '../../data/dfir/threat-actors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';

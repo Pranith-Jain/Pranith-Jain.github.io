@@ -1,0 +1,22 @@
+{
+  "slug": "apt-actor-profiling",
+  "name": "APT Actor Profiling",
+  "category": "Investigation Methodology",
+  "description": "Profile a nation-state/APT actor (APT28, Lazarus, Sandworm, etc.): aliases, sponsorship, motivation, TTPs, malware arsenal, target sectors, campaign history, MITRE mapping. Produces a NamrataSonii-style actor intelligence report.",
+  "triggerKeywords": [
+    "apt",
+    "nation-state",
+    "lazarus",
+    "sandworm",
+    "fancy bear",
+    "cozy bear",
+    "turla",
+    "equation",
+    "chinese",
+    "russian",
+    "iranian",
+    "north korean",
+    "espionage"
+  ],
+  "bodyMarkdown": "# APT Actor Profiling Skill\n\n## When to Use\n- Query names a nation-state/APT actor\n- Goal is a full actor profile (sponsorship, motivation, TTPs, malware, targets)\n- Need MITRE mapping + campaign history + defensive recommendations\n\n## Investigation Steps\n\n### 1. Actor Profile\n- `enrich_actor` — aliases, roles, sponsor, motivation, target sectors/regions, active period\n- `actor_timeline` — campaign history, first seen, last active\n- `actor_cves` — CVEs the actor exploits\n- `search_malpedia` — malware families used by the actor\n\n### 2. TTP + Infrastructure Mapping\n- `get_relationships` — IOC graph linked to the actor (malware, campaigns, CVEs, infrastructure)\n- From enrich_actor: extract known C2 domains/IPs, malware hashes, TTPs\n- Map TTPs to MITRE ATT&CK tactics (initial access, execution, persistence, C2, exfiltration)\n\n### 3. Campaign + Victim Context\n- `actor_timeline` — named campaigns, victims, sectors targeted\n- `get_ransomware_activity` — if the actor also runs ransomware ops (e.g. Sandworm → NotPetya)\n- Cross-reference with `ti_list_cves` / `ti_list_iocs` for the actor's known IOCs\n\n### 4. Report Sections to Populate\n- **Actor Snapshot** (section 2): aliases, sponsor, motivation, active period, target sectors/regions, tradecraft summary\n- **Activity Overview** (section 4): victim profile (sectors, regions, named victims), activity date range, related reporting\n- **Representative Adversary Techniques** (section 5): MITRE table (tactic, technique ID, name, procedure observed)\n- **Indicators of Compromise** (section 6): C2 IPs/domains, malware hashes, exploit URLs — from enrich_actor + get_relationships\n- **Attribution Analysis** (section 8): Diamond Model (adversary, victim, capability, infrastructure), confidence in attribution\n- **Defensive Checklist** (section 7): block IOCs, hunt for TTPs, monitor for actor's malware, patch exploited CVEs\n\n## Anti-Patterns to Avoid\n- Do NOT state attribution as certain unless multiple sources confirm — use ICD-203 confidence levels\n- Do NOT list the actor's name as an IOC\n- DO surface the actor's malware arsenal (from search_malpedia) as capability indicators\n- DO map every TTP to a MITRE technique ID with the procedure observed"
+}

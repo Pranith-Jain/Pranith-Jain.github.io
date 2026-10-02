@@ -1,0 +1,22 @@
+{
+  "slug": "ransomware-actor-deep-dive",
+  "name": "Ransomware Actor Deep-Dive",
+  "category": "Investigation Methodology",
+  "description": "Profile a ransomware group (Qilin, LockBit, Clop, etc.): group profile, TTPs, victimology, leak-site infrastructure, payment addresses, re-leak analysis. Produces a NamrataSonii-style actor report with MITRE mapping and defensive recommendations.",
+  "triggerKeywords": [
+    "ransomware",
+    "lockbit",
+    "qilin",
+    "clop",
+    "blackbasta",
+    "akira",
+    "play",
+    "alphv",
+    "blackcat",
+    "cont",
+    "affiliate",
+    "leak site",
+    "double extortion"
+  ],
+  "bodyMarkdown": "# Ransomware Actor Deep-Dive Skill\n\n## When to Use\n- Query names a ransomware group or actor\n- Goal is a full actor profile (TTPs, victims, infrastructure, payment)\n- Need MITRE mapping + defensive recommendations\n\n## Investigation Steps\n\n### 1. Actor Profile + TTPs\n- `enrich_actor` — aliases, roles, sponsor, motivation, target sectors/regions\n- `get_ransomware_group_profile` — description, locations, tools, exploited CVEs, MITRE TTPs, CSIRT notes, YARA rules\n- `actor_timeline` — activity timeline (first seen, last active, campaigns)\n- `actor_cves` — CVEs the actor exploits\n\n### 2. Victimology + Leak-Site Activity\n- `get_ransomware_activity` — recent leak-site posts + victim disclosures for the group\n- `get_victim_releaks` — victims appearing on 2+ group leak sites (affiliate disputes, re-publishing)\n- `get_ransomware_negotiations` — ransom demands, discounts, settlement patterns\n\n### 3. Infrastructure Extraction\n- From the group profile: extract leak-site .onion URLs, payment addresses (bitcoin/monero), C2 domains\n- From victim posts: extract victim domains (these are VICTIMS, not attacker IOCs — list in Victimology, NOT IOC table)\n- `search_malpedia` — malware families used by the group\n\n### 4. Report Sections to Populate\n- **Actor Snapshot** (section 2): aliases, sponsor, motivation, active period, target sectors/regions, tradecraft summary\n- **Activity Overview** (section 4): victim table (sector, region, first-claim date), activity date range\n- **Representative Adversary Techniques** (section 5): MITRE table from group profile\n- **Indicators of Compromise** (section 6): leak-site .onion, payment addresses, C2 IPs/domains, malware hashes — NOT victim domains\n- **Defensive Checklist** (section 7): block IOCs, monitor leak site for new victims, patch exploited CVEs, hunt for TTPs\n\n## Anti-Patterns to Avoid\n- Do NOT list victim domains (elumax.com, integer.net) as IOCs — they are VICTIMS, not attacker infrastructure\n- Do NOT list citation URLs (ransomlook.io, ransomware.live) as IOCs\n- Do NOT list ransomlook blog-post hashes as malware hashes\n- Do NOT confuse the group's payment address with victim payment addresses\n- DO surface the leak-site .onion URL and the group's bitcoin/monero address as real infrastructure"
+}

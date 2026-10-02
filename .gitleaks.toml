@@ -24,7 +24,6 @@ title = "pranith-jain-portfolio secret scan"
 description = "Allowlist files that contain key names or upstream data, not real secrets"
 paths = [
   '''\.env\.example$''',
-  '''\.env\.example\.bak$''',
   '''docs/API_KEYS\.md$''',
   '''docs/ENVIRONMENT_VARIABLES\.md$''',
   '''docs/free/.*''',
