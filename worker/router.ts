@@ -74,7 +74,13 @@ const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
   // unknown sub-slugs in any hub render the catalog so the user can
   // browse to the correct page.
   [/^\/threatintel\/iocs\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
-  [/^\/threatintel\/cves\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  // NOTE: /threatintel/cves/<id> is deliberately absent, though its sibling
+  // hub tabs are above. `App.tsx` routes `/threatintel/cves/:cveId` to
+  // CveDetail — a per-CVE *detail* page — so serving it the catalog prerender
+  // returned catalog HTML at a CVE URL, and the client then hydrated
+  // CveDetail over it. Its twin `/threatintel/cve/:id` never had a fallback
+  // and correctly fell through to the SPA shell; the two paths rendering the
+  // same component were getting different SSR. Both now take the shell.
   [/^\/threatintel\/malware\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
   [/^\/threatintel\/feeds\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
   [/^\/threatintel\/social\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
