@@ -1,15 +1,1 @@
-{
-  "slug": "settra-baltimorefreightliner-com-2026-10-02",
-  "title": "baltimorefreightliner.com",
-  "group": "settra",
-  "discovered": "2026-10-02T09:04:38.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/4903e36f-8d0c-4cbf-b975-8ac7034a9235",
-  "groupAliases": [],
-  "activity": "Transportation",
-  "references": ["Darkfield"]
-}
+{"slug":"settra-baltimorefreightliner-com-2026-10-02","title":"baltimorefreightliner.com","group":"Settra","discovered":"2026-10-02T00:00:00.000Z","category":"data_breach","severity":"high","country":"United States","sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/baltimorefreightliner-com-settra-2026-09","groupAliases":[],"activity":"Transportation","references":["RecentBreaches.com"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "gammax-aheadstart-tutoring-2026-09-29",
-  "title": "AHeadStart Tutoring",
-  "group": "Gammax",
-  "discovered": "2026-09-29T16:22:45.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "NZ",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/8d407ea7-0531-4d90-a58b-cb4cbd9a51cd",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["Darkfield"]
-}
+{"slug":"gammax-aheadstart-tutoring-2026-09-29","title":"AHeadStart Tutoring","group":"Gammax","discovered":"2026-09-29T16:22:45.000Z","category":"data_breach","severity":"high","country":"NZ","sizeBytes":0,"description":"AHeadStart is a Christchurch-based tutoring company in New Zealand that provides personalized instruction for primary, secondary, and adult learners. ...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}
