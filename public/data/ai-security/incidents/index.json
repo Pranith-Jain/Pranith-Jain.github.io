@@ -1,8 +1,26 @@
 {
-  "updatedAt": "2026-10-02T12:27:56.091Z",
+  "updatedAt": "2026-10-03T11:36:13.711Z",
   "source": "https://incidentdatabase.ai/rss.xml",
   "total": 100,
   "reports": [
+    {
+      "id": "8019",
+      "guid": "9aa64383-b07f-56a1-a7d4-88fead687378",
+      "title": "Stow police officer accused of misusing Flock system to track former partner",
+      "link": "https://www.boston25news.com/news/local/stow-police-officer-accused-misusing-flock-system-track-former-partner/RJI4V5NGRNGPLK5SKNFKHSBSCY/",
+      "pubDate": "Thu, 01 Oct 2026 00:00:00 GMT",
+      "citeId": "1720",
+      "reportNum": "8019"
+    },
+    {
+      "id": "8020",
+      "guid": "08fb4020-5ab0-5441-81f8-3f855f189abb",
+      "title": "Cooke campaign sends cease-and-desist to Congressman Van Orden over AI deepfakes",
+      "link": "https://www.wpr.org/news/cooke-cease-and-desist-letter-van-orden-ai-deepfakes",
+      "pubDate": "Thu, 01 Oct 2026 00:00:00 GMT",
+      "citeId": "1721",
+      "reportNum": "8020"
+    },
     {
       "id": "YTQ3NjBhN2Yt",
       "guid": "a4760a7f-1917-5f0d-b523-f52df364ae7e",
@@ -884,24 +902,6 @@
       "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
       "citeId": "1677",
       "reportNum": "7898"
-    },
-    {
-      "id": "7899",
-      "guid": "b56f7320-1996-5b0d-ad29-995e0386a249",
-      "title": "Complaint: National Association for the Advancement of Colored People et al. v. X.AI Corp. and MZX Tech LLC",
-      "link": "https://naacp.org/sites/default/files/documents/1%20-%20Complaint.pdf",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1677",
-      "reportNum": "7899"
-    },
-    {
-      "id": "7900",
-      "guid": "d1c16a9d-e151-5d2f-8846-82f0ae2794bb",
-      "title": "Justice Department Files to Intervene and Dismiss Lawsuit that Would Hamper America’s AI Innovation and Security",
-      "link": "https://www.justice.gov/opa/pr/justice-department-files-intervene-and-dismiss-lawsuit-would-hamper-americas-ai-innovation",
-      "pubDate": "Tue, 08 Sep 2026 00:00:00 GMT",
-      "citeId": "1677",
-      "reportNum": "7900"
     }
   ]
 }
