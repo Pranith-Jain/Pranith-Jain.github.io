@@ -1,6 +1,7 @@
 import type { CaseStudyType, PostIOC, QualityScore, QaVerdict } from '../types';
 import { requiredSections } from './templates';
 import { EGREGIOUS_SLOP } from './copywriting';
+import { stripConnectorEmDashes } from '../../lib/prose-style';
 
 // Preamble before the first ## heading is an intentional hook intro.
 // No longer stripped. The system prompt explicitly instructs a hook paragraph.
@@ -603,11 +604,14 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   // Step 6: Ensure closing bold paragraph has a blank line before it (after list)
   body = fixClosingBoldParagraph(body);
 
-  // Step 7: Deterministic AI-tell sanitisation. The model keeps emitting
-  // em/en dashes despite the prompt; auto-replace (not between digits, so
-  // numeric ranges survive) instead of failing the publish over it.
-  body = body
-    .replace(/(?<!\d)\s*[—–]\s*(?!\d)/g, ', ')
+  // Step 7: Deterministic AI-tell sanitisation.
+  //
+  // Em/en dashes are handled by `stripConnectorEmDashes`, which only rewrites
+  // the unambiguous connector shape. The previous blanket
+  // `(?<!\d)\s*[—–]\s*(?!\d)` -> ", " also rewrote a table cell's
+  // missing-value glyph `'—'` into `', '`, which PRODUCT.md calls out as a
+  // corruption rather than a cleanup.
+  body = stripConnectorEmDashes(body)
     .replace(/[“”]/g, '"')
     .replace(/[‘’]/g, "'")
     .replace(/\s*…\s*/g, '... ')

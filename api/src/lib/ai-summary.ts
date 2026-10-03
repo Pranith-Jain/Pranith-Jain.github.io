@@ -19,6 +19,7 @@ import type { Env } from '../env';
 import { runCompletion, runWorkersAI, isWorkersAi } from '../case-study/generation/ai-client';
 import { findUngroundedCves, extractCves, detectSlop } from './ai-output-validator';
 import { fenceUntrusted, neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
+import { NO_EM_DASH_RULE, stripConnectorEmDashes } from './prose-style';
 import { logError } from './logger';
 
 export interface SummaryInput {
@@ -76,8 +77,8 @@ Rules (all outputs):
 - If the items are thin or low-signal, say so honestly in one line rather than padding.
 - Do not use markdown headers (#). Use bold (**) only in the full summary.
 - The tweet must stand alone and make sense without the full summary.
-- The LinkedIn post must read differently from the tweet — same substance, platform-native structure.
-
+- The LinkedIn post must read differently from the tweet, same substance but platform-native structure.
+${NO_EM_DASH_RULE}
 ${UNTRUSTED_DATA_SYSTEM_NOTE}`;
 
 const MAX_BODY_CHARS = 14000;
@@ -280,13 +281,20 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
 
   try {
     const tweetSplit = text.split('---TWEET---');
-    const summary = tweetSplit[0]!.trim();
+    // Style pass before truncation so a connector dash near the 280/3000
+    // boundary cannot be cut in half into a stray comma.
+    const summary = stripConnectorEmDashes(tweetSplit[0]!).trim();
     const linkedinSplit = (tweetSplit[1] ?? '').split('---LINKEDIN---');
-    const tweet = (linkedinSplit[0] ?? '').trim().slice(0, 280) || summary.split('\n')[0]!.slice(0, 280);
+    const tweet =
+      stripConnectorEmDashes(linkedinSplit[0] ?? '')
+        .trim()
+        .slice(0, 280) || summary.split('\n')[0]!.slice(0, 280);
     // LinkedIn fallback: if the model skipped the block (e.g. low-signal items),
     // reuse the summary stripped of markdown rather than leaving the field empty.
     const linkedin =
-      (linkedinSplit[1] ?? '').trim().slice(0, 3000) || summary.replace(/\*\*/g, '').trim().slice(0, 900);
+      stripConnectorEmDashes(linkedinSplit[1] ?? '')
+        .trim()
+        .slice(0, 3000) || summary.replace(/\*\*/g, '').trim().slice(0, 900);
 
     // Validate grounding against source items
     const sourceText = input.items.map((i) => `${i.title} ${i.body}`).join(' ');

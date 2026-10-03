@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
+import { NO_EM_DASH_RULE, stripConnectorEmDashes } from '../lib/prose-style';
 
 const RESEARCH_SYSTEM = `You are a senior threat intelligence researcher producing a weekly research digest. Given a list of research articles/posts, produce a curated weekly report.
 Return ONLY valid JSON:
@@ -24,7 +25,8 @@ Return ONLY valid JSON:
   "defensive_recommendations": ["rec1", "rec2", "rec3"],
   "research_gaps": ["gap1", "gap2"]
 }
-Select 5-8 top research items. Be specific and cite real findings.`;
+Select 5-8 top research items. Be specific and cite real findings.
+${NO_EM_DASH_RULE}`;
 
 interface ResearchDigestRequest {
   articles: Array<{ title: string; description?: string; source: string; url?: string }>;
@@ -54,6 +56,37 @@ export async function researchDigestHandler(c: Context<{ Bindings: Env }>): Prom
     );
 
     const digest = parseJson(text);
+
+    // Style pass over the prose-bearing fields only. Identifiers
+    // (`week_of`, `novelty`, `actionability`, source names, URLs) are left
+    // untouched: an em dash in a headline is quoted from the source and must
+    // survive verbatim.
+    if (digest && typeof digest === 'object') {
+      const d = digest as Record<string, unknown>;
+      if (typeof d.executive_summary === 'string') {
+        d.executive_summary = stripConnectorEmDashes(d.executive_summary);
+      }
+      if (Array.isArray(d.top_research)) {
+        d.top_research = d.top_research.map((r: Record<string, unknown>) =>
+          typeof r?.summary === 'string'
+            ? { ...r, summary: stripConnectorEmDashes(r.summary) }
+            : typeof r?.key_finding === 'string'
+              ? { ...r, key_finding: stripConnectorEmDashes(r.key_finding) }
+              : r
+        );
+      }
+      for (const key of [
+        'trending_techniques',
+        'emerging_threats',
+        'defensive_recommendations',
+        'research_gaps',
+      ] as const) {
+        if (Array.isArray(d[key])) {
+          d[key] = d[key].map((v) => (typeof v === 'string' ? stripConnectorEmDashes(v) : v));
+        }
+      }
+    }
+
     return c.json({ digest, model, generated_at: new Date().toISOString() });
   } catch (e) {
     logError('research-digest error:', e);

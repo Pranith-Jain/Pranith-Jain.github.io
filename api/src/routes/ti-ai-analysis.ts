@@ -18,6 +18,7 @@ import { safeJsonBody } from '../lib/safe-body';
 import type { D1Database, KVNamespace, Ai } from '@cloudflare/workers-types';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { NO_EM_DASH_RULE, stripConnectorEmDashes } from '../lib/prose-style';
 
 interface AiEnv {
   BRIEFINGS_DB: D1Database;
@@ -146,7 +147,7 @@ Respond in JSON format:
   "recommendations": ["string", "string", "string"],
   "mitre_techniques": ["T1234", "T5678"],
   "related_threats": ["string"]
-}`;
+}${NO_EM_DASH_RULE}`;
 
   const aiResponse = await runAiPrompt(prompt, c.env);
 
@@ -178,9 +179,14 @@ Respond in JSON format:
       risk_score: parsed.risk_score || 50,
       risk_level: parsed.risk_level || 'medium',
       confidence: parsed.confidence || 0.5,
-      summary: parsed.summary || 'Analysis pending',
-      recommendations: parsed.recommendations || [],
-      related_threats: parsed.related_threats || [],
+      summary: typeof parsed.summary === 'string' ? stripConnectorEmDashes(parsed.summary) : 'Analysis pending',
+      recommendations: Array.isArray(parsed.recommendations)
+        ? parsed.recommendations.map((r: unknown) => (typeof r === 'string' ? stripConnectorEmDashes(r) : r))
+        : [],
+      related_threats: Array.isArray(parsed.related_threats)
+        ? parsed.related_threats.map((r: unknown) => (typeof r === 'string' ? stripConnectorEmDashes(r) : r))
+        : [],
+      // `mitre_techniques` is a list of T-codes, not prose: left untouched.
       mitre_techniques: parsed.mitre_techniques || [],
       first_seen: context.first_seen || new Date().toISOString(),
       last_seen: context.last_seen || new Date().toISOString(),
@@ -194,7 +200,7 @@ Respond in JSON format:
       risk_score: 50,
       risk_level: 'medium',
       confidence: 0.3,
-      summary: aiResponse.slice(0, 500),
+      summary: stripConnectorEmDashes(aiResponse.slice(0, 500)),
       recommendations: ['Manual review recommended'],
       related_threats: [],
       mitre_techniques: [],
@@ -231,7 +237,7 @@ Provide a structured summary in JSON:
   "severity": "critical"|"high"|"medium"|"low",
   "recommended_actions": ["action1", "action2"],
   "timeline": [{"event": "string", "date": "string"}]
-}`;
+}${NO_EM_DASH_RULE}`;
 
   const response = await runAiPrompt(prompt, c.env);
 
@@ -246,10 +252,18 @@ Provide a structured summary in JSON:
   }
 
   try {
-    return c.json(JSON.parse(response));
+    const parsed = JSON.parse(response) as Record<string, unknown>;
+    // Prose fields only; `severity` is an enum and must not be touched.
+    if (typeof parsed.summary === 'string') parsed.summary = stripConnectorEmDashes(parsed.summary);
+    for (const key of ['key_threats', 'recommended_actions'] as const) {
+      if (Array.isArray(parsed[key])) {
+        parsed[key] = parsed[key].map((v) => (typeof v === 'string' ? stripConnectorEmDashes(v) : v));
+      }
+    }
+    return c.json(parsed);
   } catch (_catchErr) {
     logError('handler failed', _catchErr);
-    return c.json({ summary: response.slice(0, 1000), severity: 'medium' });
+    return c.json({ summary: stripConnectorEmDashes(response.slice(0, 1000)), severity: 'medium' });
   }
 });
 

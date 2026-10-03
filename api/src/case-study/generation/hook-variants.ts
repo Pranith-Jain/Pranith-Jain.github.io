@@ -58,7 +58,7 @@ export async function generateHookVariants(
       {
         system: HOOK_SYSTEM,
         user:
-          `Write 3 DISTINCT opening hooks for this story — each a different angle: ` +
+          `Write 3 DISTINCT opening hooks for this story, each a different angle: ` +
           `(1) a hard-number data shock, (2) a contrarian read, (3) a curiosity gap. ` +
           `Each <= 200 chars, grounded in the facts below, no hashtags or emoji.\n\n` +
           `Title: ${src.title}\n\nFacts:\n${src.body.slice(0, 3000)}` +
