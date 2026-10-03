@@ -67,16 +67,29 @@ the debt is measurable and cannot quietly grow. It deliberately proposes no
 replacement: the right punctuation is a per-string judgement, and a blanket
 `—` → `,` codemod would corrupt the structural uses above.
 
-**As of this writing the connector form is gone from hand-written copy.** The
-residual is structural only: null glyphs (`value ?? '—'`), labels and tool
-titles (`T1 — Primitive`, `CLOAK — Anonymity Framework`), `ID — title` rows in
-result tables, scored `Level N — Name` strings, and framework cross-references
-(`GV.PO — Clause 5`). Do not "finish" those; they are the cases the rule
-carves out.
+**Current state: the connector form is still largely present** (~640 sites
+across ~110 files). A full hand-sweep was written and then reverted by
+concurrent branch activity before it landed, so the tree is back near its
+starting count. Do not read this paragraph as "done".
+
+What is true and worth keeping:
+
+- The landing surfaces are clean (hero, all home sections, header, footer, the
+  DFIR hub). The bulk of the residue sits in long-tail tool pages and data
+  registries.
+- The three constructions that recur, and their correct replacements:
+  `Statement — elaboration` becomes a colon, `X — and/or Y?` becomes a comma,
+  and `X — insert — Y` becomes parentheses around the insert (the insert
+  usually contains commas, which is why a comma swap is wrong there).
+- `api/src/lib/prose-style.ts` encodes exactly this carve-out for generated
+  prose, with `countConnectorEmDashes` so the rule and the post-processor
+  cannot drift. That guard also keeps the stripper off null glyphs
+  (`?? '—'`), quoted labels, and `return '—'`, which a naive rewrite would
+  corrupt.
 
 Side comments (`// Phase 3 — persist library`, `{/* Sidebar — actor list */}`)
-were normalised to a colon too, for consistency with the rule. Code comments
-are not user-facing copy, so this is a style preference, not a PRODUCT.md
+were normalised to a colon in the same pass. Code comments are not user-facing
+copy, so this is a style preference, not a PRODUCT.md requirement.
 requirement.
 
 ## Strategic principles
