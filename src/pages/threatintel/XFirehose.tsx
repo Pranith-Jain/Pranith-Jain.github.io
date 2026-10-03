@@ -252,7 +252,7 @@ export default function XFirehose(): JSX.Element {
             keyless RSS. Click any post to open the original.
           </span>
           <span className="block text-xs text-muted font-mono mt-2">
-            {data ? `${data.handles.length} accounts indexed.` : '~16 accounts indexed.'}
+            {data ? `${data.handles.length} accounts indexed.` : '~19 accounts indexed.'}
           </span>
         </>
       }

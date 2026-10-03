@@ -65,9 +65,19 @@ left alone:
 `npm run check:em-dashes` reports the split (comment vs copy, and by shape) so
 the debt is measurable and cannot quietly grow. It deliberately proposes no
 replacement: the right punctuation is a per-string judgement, and a blanket
-`—` → `,` codemod would corrupt the structural uses above. As of this writing
-the landing surfaces are already clean (hero, all home sections, header, footer,
-the DFIR hub) and the remainder sits in long-tail tool pages.
+`—` → `,` codemod would corrupt the structural uses above.
+
+**As of this writing the connector form is gone from hand-written copy.** The
+residual is structural only: null glyphs (`value ?? '—'`), labels and tool
+titles (`T1 — Primitive`, `CLOAK — Anonymity Framework`), `ID — title` rows in
+result tables, scored `Level N — Name` strings, and framework cross-references
+(`GV.PO — Clause 5`). Do not "finish" those; they are the cases the rule
+carves out.
+
+Side comments (`// Phase 3 — persist library`, `{/* Sidebar — actor list */}`)
+were normalised to a colon too, for consistency with the rule. Code comments
+are not user-facing copy, so this is a style preference, not a PRODUCT.md
+requirement.
 
 ## Strategic principles
 
