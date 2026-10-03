@@ -4,59 +4,85 @@
   "name": "booba project",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-10-01T14:50:46.000Z",
-  "lastSeen": "2026-10-01T14:50:50.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-10-02T12:50:25.000Z",
+  "lastSeen": "2026-10-02T12:51:06.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
-      "date": "2026-10-01",
-      "count": 2
+      "date": "2026-10-02",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "funap-funda-o-prof-dr-manoel-pedro-pimentel-d056",
-      "title": "FUNAP - Fundação \"Prof. Dr. Manoel Pedro Pimentel\" — claimed by booba project",
-      "pubDate": "2026-10-01T14:50:50.000Z"
+      "slug": "raleigh-family-medicine-d2ed",
+      "title": "Raleigh Family Medicine — claimed by booba project",
+      "pubDate": "2026-10-02T12:51:06.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "associated-gastroenterologists-of-central-new-york-p-c-2a01",
-      "title": "ASSOCIATED GASTROENTEROLOGISTS OF CENTRAL NEW YORK, P.C — claimed by booba project",
-      "pubDate": "2026-10-01T14:50:46.000Z"
+      "slug": "edgeendo-usa-f127",
+      "title": "EdgeEndo® USA — claimed by booba project",
+      "pubDate": "2026-10-02T12:50:51.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "soni-medical-centre-a8d5",
+      "title": "Soni Medical Centre — claimed by booba project",
+      "pubDate": "2026-10-02T12:50:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "university-of-illinois-chicago-256d",
+      "title": "University of Illinois Chicago — claimed by booba project",
+      "pubDate": "2026-10-02T12:50:25.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
-      "weight": 1
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 3
     },
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "education",
+      "name": "Education",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "funap-funda-o-prof-dr-manoel-pedro-pimentel-d056",
-      "victim": "FUNAP - Fundação \"Prof. Dr. Manoel Pedro Pimentel\" — claimed by booba project",
-      "sector": "Government & Defense",
-      "country": "BR",
-      "pubDate": "2026-10-01T14:50:50.000Z"
-    },
-    {
-      "id": "associated-gastroenterologists-of-central-new-york-p-c-2a01",
-      "victim": "ASSOCIATED GASTROENTEROLOGISTS OF CENTRAL NEW YORK, P.C — claimed by booba project",
+      "id": "raleigh-family-medicine-d2ed",
+      "victim": "Raleigh Family Medicine — claimed by booba project",
       "sector": "Healthcare",
       "country": "US",
-      "pubDate": "2026-10-01T14:50:46.000Z"
+      "pubDate": "2026-10-02T12:51:06.000Z"
+    },
+    {
+      "id": "edgeendo-usa-f127",
+      "victim": "EdgeEndo® USA — claimed by booba project",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-10-02T12:50:51.000Z"
+    },
+    {
+      "id": "soni-medical-centre-a8d5",
+      "victim": "Soni Medical Centre — claimed by booba project",
+      "sector": "Healthcare",
+      "country": "CA",
+      "pubDate": "2026-10-02T12:50:38.000Z"
+    },
+    {
+      "id": "university-of-illinois-chicago-256d",
+      "victim": "University of Illinois Chicago — claimed by booba project",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-10-02T12:50:25.000Z"
     }
   ]
 }

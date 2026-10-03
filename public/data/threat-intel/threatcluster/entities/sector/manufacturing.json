@@ -5,24 +5,66 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 10,
-  "firstSeen": "2026-09-30T17:36:17.000Z",
-  "lastSeen": "2026-10-02T09:03:48.000Z",
-  "summary": "Sector hit by 10 leak-site victims across 9 ransomware groups and 3 countries.",
+  "firstSeen": "2026-10-01T15:20:36.000Z",
+  "lastSeen": "2026-10-03T06:27:57.000Z",
+  "summary": "Sector hit by 10 leak-site victims across 7 ransomware groups and 6 countries.",
   "frequency": [
     {
-      "date": "2026-09-30",
+      "date": "2026-10-01",
       "count": 1
     },
     {
-      "date": "2026-10-01",
-      "count": 7
+      "date": "2026-10-02",
+      "count": 4
     },
     {
-      "date": "2026-10-02",
-      "count": 2
+      "date": "2026-10-03",
+      "count": 5
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "states-industries-7968",
+      "title": "States Industries — claimed by storm",
+      "pubDate": "2026-10-03T06:27:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "allied-machine-amp-engineering-6e6a",
+      "title": "Allied Machine &amp; Engineering — claimed by storm",
+      "pubDate": "2026-10-03T06:27:26.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "wooshin-safety-systems-co-ltd-882e",
+      "title": "WOOSHIN SAFETY SYSTEMS CO LTD — claimed by thegentlemen",
+      "pubDate": "2026-10-03T06:27:14.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "rotamac-59ca",
+      "title": "Rotamac — claimed by thegentlemen",
+      "pubDate": "2026-10-03T06:26:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gerrity-stone-f63a",
+      "title": "Gerrity Stone — claimed by thegentlemen",
+      "pubDate": "2026-10-03T06:25:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "inova-semiconductors-gmbh-5da3",
+      "title": "Inova Semiconductors GmbH — claimed by qilin",
+      "pubDate": "2026-10-02T14:04:15.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tronex-a-s-29b6",
+      "title": "Tronex A/S — claimed by wallstreet",
+      "pubDate": "2026-10-02T11:55:03.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "mcpolymers-com-8ea2",
@@ -40,56 +82,32 @@
       "slug": "steelco-9b09",
       "title": "steelco — claimed by auditteam",
       "pubDate": "2026-10-01T15:20:36.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "disk-precision-group-diskprecision-com-290f",
-      "title": "DISK PRECISION GROUP - diskprecision.com — claimed by krybit",
-      "pubDate": "2026-10-01T14:59:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "superior-plating-technology-co-9f35",
-      "title": "Superior Plating Technology CO — claimed by morpheus",
-      "pubDate": "2026-10-01T14:30:01.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "wesmar-b834",
-      "title": "Wesmar — claimed by akira",
-      "pubDate": "2026-10-01T13:27:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "graybar-electric-company-inc-515d",
-      "title": "Graybar Electric Company, Inc. — claimed by redact",
-      "pubDate": "2026-10-01T12:55:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "den-hartog-industries-45ca",
-      "title": "Den Hartog Industries — claimed by incransom",
-      "pubDate": "2026-10-01T11:29:48.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "post-metal-recycling-50a5",
-      "title": "Post Metal Recycling — claimed by incransom",
-      "pubDate": "2026-10-01T11:29:12.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "orth-automobile-528e",
-      "title": "Orth Automobile — claimed by play",
-      "pubDate": "2026-09-30T17:36:17.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "storm",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "wallstreet",
+      "name": "wallstreet",
+      "weight": 1
     },
     {
       "type": "group",
@@ -107,36 +125,6 @@
       "type": "group",
       "slug": "auditteam",
       "name": "auditteam",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "krybit",
-      "name": "krybit",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "morpheus",
-      "name": "morpheus",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "akira",
-      "name": "akira",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "redact",
-      "name": "redact",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "play",
-      "name": "play",
       "weight": 1
     }
   ],

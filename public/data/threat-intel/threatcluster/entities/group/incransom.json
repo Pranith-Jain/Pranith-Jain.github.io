@@ -4,15 +4,11 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-10-01T11:29:12.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-10-02T01:33:07.000Z",
   "lastSeen": "2026-10-02T01:33:07.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 1 country.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
-    {
-      "date": "2026-10-01",
-      "count": 5
-    },
     {
       "date": "2026-10-02",
       "count": 1
@@ -24,61 +20,13 @@
       "slug": "sangre-de-cristo-electric-association-9a17",
       "title": "Sangre de Cristo Electric Association — claimed by incransom",
       "pubDate": "2026-10-02T01:33:07.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "rimrock-foundation-b601",
-      "title": "Rimrock Foundation — claimed by incransom",
-      "pubDate": "2026-10-01T12:31:18.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "guardian-pharmacy-llc-b1ef",
-      "title": "Guardian Pharmacy LLC — claimed by incransom",
-      "pubDate": "2026-10-01T11:30:04.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "den-hartog-industries-45ca",
-      "title": "Den Hartog Industries — claimed by incransom",
-      "pubDate": "2026-10-01T11:29:48.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "northern-counties-health-care-3b70",
-      "title": "Northern Counties Health Care — claimed by incransom",
-      "pubDate": "2026-10-01T11:29:32.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "post-metal-recycling-50a5",
-      "title": "Post Metal Recycling — claimed by incransom",
-      "pubDate": "2026-10-01T11:29:12.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 2
-    },
-    {
-      "type": "sector",
       "slug": "energy-utilities",
       "name": "Energy & Utilities",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
       "weight": 1
     }
   ],
@@ -90,41 +38,6 @@
       "sector": "Energy & Utilities",
       "country": "US",
       "pubDate": "2026-10-02T01:33:07.000Z"
-    },
-    {
-      "id": "rimrock-foundation-b601",
-      "victim": "Rimrock Foundation — claimed by incransom",
-      "sector": "Other",
-      "country": "US",
-      "pubDate": "2026-10-01T12:31:18.000Z"
-    },
-    {
-      "id": "guardian-pharmacy-llc-b1ef",
-      "victim": "Guardian Pharmacy LLC — claimed by incransom",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-10-01T11:30:04.000Z"
-    },
-    {
-      "id": "den-hartog-industries-45ca",
-      "victim": "Den Hartog Industries — claimed by incransom",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-10-01T11:29:48.000Z"
-    },
-    {
-      "id": "northern-counties-health-care-3b70",
-      "victim": "Northern Counties Health Care — claimed by incransom",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-10-01T11:29:32.000Z"
-    },
-    {
-      "id": "post-metal-recycling-50a5",
-      "victim": "Post Metal Recycling — claimed by incransom",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-10-01T11:29:12.000Z"
     }
   ]
 }

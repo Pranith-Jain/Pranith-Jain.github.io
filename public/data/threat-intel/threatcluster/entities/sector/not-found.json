@@ -5,60 +5,56 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 3,
-  "firstSeen": "2026-09-30T20:11:02.000Z",
-  "lastSeen": "2026-10-02T09:31:56.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 2 countries.",
+  "firstSeen": "2026-10-02T09:31:56.000Z",
+  "lastSeen": "2026-10-03T06:26:53.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-30",
-      "count": 1
-    },
-    {
-      "date": "2026-10-01",
-      "count": 1
-    },
-    {
       "date": "2026-10-02",
+      "count": 2
+    },
+    {
+      "date": "2026-10-03",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "zelham-ced7",
+      "title": "Zelham — claimed by thegentlemen",
+      "pubDate": "2026-10-03T06:26:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "www-windor-com-0992",
+      "title": "www.windor.com — claimed by settra",
+      "pubDate": "2026-10-02T17:37:52.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "www-kres-cz-7114",
       "title": "www.kres.cz — claimed by krybit",
       "pubDate": "2026-10-02T09:31:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "c-ro-nty-es-674c",
-      "title": "C*ro *nty *es — claimed by nightspire",
-      "pubDate": "2026-10-01T13:35:58.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "wolfusofsky-de-2210",
-      "title": "wolfusofsky.de — claimed by safepay",
-      "pubDate": "2026-09-30T20:11:02.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "settra",
+      "name": "settra",
+      "weight": 1
+    },
+    {
+      "type": "group",
       "slug": "krybit",
       "name": "krybit",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "nightspire",
-      "name": "nightspire",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
       "weight": 1
     }
   ],
