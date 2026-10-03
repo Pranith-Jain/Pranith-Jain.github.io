@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-hospital-de-la-santa-creu-i-sant-pau-2026-10-03",
+  "title": "Hospital de la Santa Creu i Sant Pau",
+  "group": "thegentlemen",
+  "discovered": "2026-10-03T06:26:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a0620156-d0a1-4f3b-a830-03ca3c2ddc72",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

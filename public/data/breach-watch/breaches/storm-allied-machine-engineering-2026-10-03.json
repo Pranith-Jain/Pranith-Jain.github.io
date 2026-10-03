@@ -1,0 +1,15 @@
+{
+  "slug": "storm-allied-machine-engineering-2026-10-03",
+  "title": "Allied Machine & Engineering",
+  "group": "Storm",
+  "discovered": "2026-10-03T06:27:26.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/755afc6e-3cb4-4356-a73c-05dc983ec1c8",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

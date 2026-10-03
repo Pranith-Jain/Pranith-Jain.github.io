@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-wooshin-safety-systems-co-ltd-2026-10-03",
+  "title": "WOOSHIN SAFETY SYSTEMS CO LTD",
+  "group": "thegentlemen",
+  "discovered": "2026-10-03T06:27:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "KR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ab707f7e-6399-47b7-92af-daafcbe5e9b8",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

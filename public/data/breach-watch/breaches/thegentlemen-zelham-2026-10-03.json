@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-zelham-2026-10-03",
+  "title": "Zelham",
+  "group": "thegentlemen",
+  "discovered": "2026-10-03T06:26:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/5dd78e35-61f5-4826-b71c-5735581afb77",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

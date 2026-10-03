@@ -1,0 +1,15 @@
+{
+  "slug": "storm-states-industries-2026-10-03",
+  "title": "States Industries",
+  "group": "Storm",
+  "discovered": "2026-10-03T06:27:57.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b16f631f-3762-4b95-85c3-c05081bb7dea",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

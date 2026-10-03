@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-westrop-primary-nursery-school-2026-10-03",
+  "title": "Westrop Primary & Nursery School",
+  "group": "thegentlemen",
+  "discovered": "2026-10-03T06:25:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/6407ea93-67d0-4076-b663-71e91f67e7c1",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-aware-2026-10-03",
+  "title": "Aware",
+  "group": "thegentlemen",
+  "discovered": "2026-10-03T06:27:35.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/4bd4ef68-8af9-4e16-8d9b-4727d64cca38",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

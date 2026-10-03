@@ -1,0 +1,15 @@
+{
+  "slug": "akira-the-official-collegeof-architects-of-le-n-coal-2026-10-03",
+  "title": "The Official Collegeof Architects of León (COAL)",
+  "group": "akira",
+  "discovered": "2026-10-03T05:54:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a33198a6-ddc3-4a9d-8aaa-bdcc28210da3",
+  "groupAliases": ["Megazord"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

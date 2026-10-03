@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-mandurah-state-emergency-service-2026-10-03",
+  "title": "Mandurah State Emergency Service",
+  "group": "thegentlemen",
+  "discovered": "2026-10-03T06:25:51.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/e8410eaf-4838-414a-a3da-054f15425f53",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Government & Defense",
+  "references": ["Darkfield"]
+}

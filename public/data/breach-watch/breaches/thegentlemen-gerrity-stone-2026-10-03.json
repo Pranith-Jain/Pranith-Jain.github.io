@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-gerrity-stone-2026-10-03",
+  "title": "Gerrity Stone",
+  "group": "thegentlemen",
+  "discovered": "2026-10-03T06:25:10.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/3d761db8-29b5-48a2-ae04-1d5ac2a46611",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}
