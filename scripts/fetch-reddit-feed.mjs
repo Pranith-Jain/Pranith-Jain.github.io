@@ -39,13 +39,18 @@ const FETCH_TIMEOUT_MS = 15_000;
 // "time budget reached - publishing partial feed". r/Scams, r/phishing,
 // r/scambait and the r/* forensics set were never reaching the feed at all.
 //
-// 12s keeps deliberate spacing while fitting the list inside the budget with
-// room for slow responses. The 429 defences below are unchanged and still
-// carry the load if Reddit does throttle: per-sub Retry-After honouring, one
-// retry with exponential backoff, a 90s cooldown, and MASS_THROTTLE_ABORT_AFTER
-// which bails out and leaves the last-good feed on the branch rather than
-// overwriting it with a truncated one.
-const DELAY_BETWEEN_MS = 12_000;
+// 20s keeps deliberate spacing while fitting the whole list inside the budget
+// with room for slow responses: 15 gaps x 20s = 5 min of pacing, leaving ample
+// time inside the 20-min ceiling even with 429 cooldowns. Deliberately not
+// lower — measured while adding subreddits, Reddit returned 429 within a few
+// requests at 18s spacing from a single host, so the aggressive end of the
+// range trades completeness for throttling.
+//
+// The 429 defences below are unchanged and still carry the load if Reddit does
+// throttle: per-sub Retry-After honouring, one retry with exponential backoff,
+// a 90s cooldown, and MASS_THROTTLE_ABORT_AFTER which bails out and leaves the
+// last-good feed on the branch rather than overwriting it with a truncated one.
+const DELAY_BETWEEN_MS = 20_000;
 const MAX_RETRIES = 1;
 const RETRY_BASE_MS = 90_000;
 const COOLDOWN_MS = 90_000;

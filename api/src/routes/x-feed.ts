@@ -136,6 +136,38 @@ const HANDLES: HandleSpec[] = [
     blurb: 'Threat-intel commentary + tooling notes',
     topic: 'research',
   },
+  // Added 2026-10-03 (batch 2) — discovered via Bluesky's own actor search,
+  // then each verified live via the AT Protocol API for post count AND
+  // newest-post date. The "APT"/"CVE" searches return heavy false positives
+  // (apartment, apt-cache, …) so every candidate was checked by hand.
+  {
+    platform: 'bluesky',
+    handle: 'mindthegaap.bsky.social',
+    name: 'Matthew Gardner',
+    blurb: 'Threat hunting + detection write-ups',
+    topic: 'research',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'righto.com',
+    name: 'Ken Shirriff',
+    blurb: 'Reverse engineering — disassembly, firmware, x86',
+    topic: 'research',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'hexacorn.bsky.social',
+    name: 'Hexacorn',
+    blurb: 'Co-author of the CISA malware analysis catalog',
+    topic: 'research',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'richinseattle.bsky.social',
+    name: 'Richard Johnson',
+    blurb: 'Malwarebytes — commodity malware + tooling',
+    topic: 'research',
+  },
 
   // Mastodon — infosec.exchange (the de-facto cybersec instance)
   {
@@ -195,6 +227,106 @@ const HANDLES: HandleSpec[] = [
     name: 'vx-underground (Mastodon)',
     blurb: 'Sample drops + research commentary',
     topic: 'research',
+  },
+
+  // Added 2026-10-03 (batch 2) — Mastodon's account-search API requires auth
+  // on infosec.exchange and cyberplace.social, so these were discovered by
+  // walking Kevin Beaumont's federated follow graph (a public endpoint on
+  // cyberplace.social, which returns accounts across every instance) and then
+  // verifying each one's RSS for item count and newest-post date. Every entry
+  // below returned 20 live items on 2026-10-03.
+  {
+    platform: 'mastodon',
+    handle: 'watchTowr',
+    name: 'watchTowr Labs',
+    blurb: 'Vulnerability research + offensive tooling releases',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'dotdotslash_bot',
+    name: 'dotdotslash_bot',
+    blurb: 'Bot — new directory-traversal CVEs as they land',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'hardcoded_bot',
+    name: 'hardcoded_bot',
+    blurb: 'Bot — newly disclosed hardcoded credentials',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'rebane2001',
+    name: 'rebane2001',
+    blurb: 'Browser sandbox internals — Chrome CVEs, exploitation research',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'gadi',
+    name: 'Gadi Evron',
+    blurb: 'CISO-in-residence — AI threat landscape, incident response',
+    topic: 'news',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'cert_eu',
+    name: 'CERT-EU',
+    blurb: 'EU institutional CERT advisories',
+    topic: 'gov',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'kev_Stalker',
+    name: 'KEV Ransomware Flip Monitor',
+    blurb: 'Bot — watches the CISA KEV JSON for silent flips',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'hacksilon',
+    name: 'Max Maass',
+    blurb: 'Security research — exploitation + tooling',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'realhackhistory',
+    instance: 'chaos.social',
+    name: 'hack.history',
+    blurb: 'History of phreaking and intrusion culture',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'mayahustle',
+    name: 'Jimmy Wylie',
+    blurb: 'Malware analyst — commodity loaders, botnets',
+    topic: 'malware',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'gayint',
+    name: 'GAYINT',
+    blurb: 'Threat-intel tooling and technique write-ups',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'DailyCyberSecurity',
+    name: 'Daily CyberSecurity',
+    blurb: 'Aggregated daily cyber headlines',
+    topic: 'news',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'David_Hollingworth',
+    instance: 'mastodon.social',
+    name: 'David Hollingworth',
+    blurb: 'Security commentary + advisory coverage',
+    topic: 'news',
   },
 ];
 

@@ -21,7 +21,7 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
     desc: 'Live X tweets + ransomware/breach claims from 70+ cybersec accounts (TweetFeed + fxtwitter, no auth needed)',
   },
   { id: 'x-watch', label: 'X (Profiles)', desc: 'Per-handle profile view (requires X cookies — often down)' },
-  { id: 'bluesky', label: 'Bluesky & Mastodon', desc: '19 researchers across Bluesky and Mastodon' },
+  { id: 'bluesky', label: 'Bluesky & Mastodon', desc: '36 researchers across Bluesky and Mastodon' },
 ];
 
 const VALID_TABS = new Set<TabId>(['telegram', 'reddit', 'x-live', 'x-watch', 'bluesky']);
