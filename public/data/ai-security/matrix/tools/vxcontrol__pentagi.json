@@ -3,13 +3,13 @@
   "repo": "vxcontrol/pentagi",
   "category": "agent",
   "scope": ["webapp", "network", "recon"],
-  "stars": 25181,
+  "stars": 25204,
   "description": "Fully autonomous AI Agents system capable of performing complex penetration testing tasks",
   "homepage": "https://pentagi.com",
   "added": "2026-09-12",
-  "checkedAt": "2026-10-02T03:17:13Z",
-  "pushedAt": "2026-09-30",
-  "daysIdle": 2,
+  "checkedAt": "2026-10-03T03:17:17Z",
+  "pushedAt": "2026-10-02",
+  "daysIdle": 1,
   "archived": false,
   "license": "MIT",
   "upstream": {
@@ -23,28 +23,28 @@
       "description": "Runs autonomous pentest agents from a self-hosted web console, each inside its own Docker container rather than on the host. You start a task in the browser and watch the agents work it."
     },
     "derived": {
-      "checked_at": "2026-10-02T03:17:13Z",
+      "checked_at": "2026-10-03T03:17:17Z",
       "cloned": true,
       "alive": {
         "archived": false,
-        "pushed_at": "2026-09-30",
-        "days_since_push": 2,
-        "total_commits": 945,
-        "last100_span_days": 71,
+        "pushed_at": "2026-10-02",
+        "days_since_push": 1,
+        "total_commits": 949,
+        "last100_span_days": 73,
         "last100_authors": 5,
-        "last_commit_sha": "01acdda",
-        "last_commit_message": "fix: failover on flow creation, minio image, stable build revisions\n\n- Failover: when the primary provider is down, flow and assistant creation now falls back for the tool call ID template.\n- Prompts: a stored custom prompt that no longer validates is ignored in favor of the default, with a warning, instead of rendering \"<no value>\".\n- Security: PUT /users/{hash} refuses a password change without users.edit, so a stolen session cookie can no longer reset the account password.\n- Langfuse: minio/minio is gone from Docker Hub, so the stack runs cgr.dev/chainguard/minio:latest as root to keep existing volumes readable.\n- Installer: the main menu highlights Maintenance while a worker, stack or installer update is waiting.\n- Versions: the build revision is the first 7 characters of the commit SHA instead of git rev-parse --short, which depends on the size of the clone.\n- Tests: the docker pids-limit test sets its limit after the probes start, so the setup execs no longer exhaust it on slow CI runners.\n- Docs: README covers Azure OpenAI through the custom provider and the Neo4j/APOC files a manual Graphiti install needs.\n- Reports: added the Azure OpenAI ctester report and regenerated vllm-mixed for Qwen3.8.",
-        "last_commit_at": "2026-09-30",
+        "last_commit_sha": "55a063e",
+        "last_commit_message": "feat(provider): add Bedrock provider configuration and update related documentation\n\n- Introduced a new example configuration file for the Bedrock provider, ensuring compatibility with the existing stack.\n- Updated Docker and docker-compose configurations to include the new Bedrock provider, enhancing the overall functionality of the application.\n- Revised README and other documentation to reflect the addition of the Bedrock provider, including environment variable descriptions and usage instructions.\n- Improved installer logic to handle the new provider configuration seamlessly, ensuring a smooth user experience during setup.",
+        "last_commit_at": "2026-10-02",
         "releases": 9,
         "latest_release_at": "2026-05-29",
-        "days_since_release": 126,
-        "days_idle": 2,
+        "days_since_release": 127,
+        "days_idle": 1,
         "relocated": false
       },
       "identity": {
         "canonical_repo": "vxcontrol/pentagi",
-        "stars": 25181,
-        "forks": 3241,
+        "stars": 25204,
+        "forks": 3239,
         "created_at": "2025-01-06",
         "is_fork": false,
         "contributors": 17,
@@ -74,9 +74,9 @@
       },
       "licence": { "file": "MIT", "api_spdx": "MIT", "readme_claim": "MIT", "conflict": null },
       "shape": {
-        "loc": 430733,
-        "code_files": 1302,
-        "files": 1718,
+        "loc": 437059,
+        "code_files": 1305,
+        "files": 1723,
         "has_ci": true,
         "has_tests": true,
         "has_dockerfile": true,
@@ -93,7 +93,8 @@
       },
       "substrate": { "bundled": ["masscan", "sqlmap"], "manifests": ["examples/guides/worker_node/policy-tests.sh"] },
       "rebadge": [],
-      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": true }
+      "risk": { "licence": false, "install": false, "phones_home": false, "opaque": false, "host_access": true },
+      "risk_where": { "host_access": "docker-compose.yml:203" }
     }
   }
 }
