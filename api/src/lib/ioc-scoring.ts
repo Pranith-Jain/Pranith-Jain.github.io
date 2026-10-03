@@ -30,6 +30,7 @@
  */
 
 import { reliabilityWeight, resolveSourceReliability } from './confidence';
+import { bandScore, type BandedScore } from './score-band';
 
 // ── Decay Configuration ──────────────────────────────────────────
 
@@ -63,6 +64,8 @@ export interface IocObservation {
 export interface IocScore {
   /** Final composite score (0-100). */
   score: number;
+  /** Visual band for `score`, risk-polarity. A high band means high risk. */
+  band: BandedScore;
   /** Base score before decay (0-100). */
   baseScore: number;
   /** Time decay multiplier applied (0-1). */
@@ -136,6 +139,7 @@ export function scoreIoc(
   if (observations.length === 0) {
     return {
       score: 0,
+      band: bandScore(null, { sourceCount: 0 }),
       baseScore: 0,
       decayFactor: 0,
       correlationBoost: 1.0,
@@ -163,6 +167,7 @@ export function scoreIoc(
   if (unique.length === 0) {
     return {
       score: 0,
+      band: bandScore(null, { sourceCount: 0 }),
       baseScore: 0,
       decayFactor: 0,
       correlationBoost: 1.0,
@@ -219,6 +224,7 @@ export function scoreIoc(
   if (!mostRecent || !oldest) {
     return {
       score: 0,
+      band: bandScore(null, { sourceCount: 0 }),
       baseScore: 0,
       decayFactor: 0,
       correlationBoost: 1.0,
@@ -241,6 +247,9 @@ export function scoreIoc(
 
   return {
     score: Math.min(100, Math.max(0, finalScore)),
+    // Visual band for the same number. Polarity is `risk`: a high score here
+    // means "more likely malicious", which is alarming, not reassuring.
+    band: bandScore(Math.min(100, Math.max(0, finalScore)), { sourceCount }),
     baseScore: Math.round(baseScore),
     decayFactor: Math.round(recentDecay * 100) / 100,
     correlationBoost: Math.round(cBoost * 100) / 100,

@@ -457,6 +457,13 @@ export const HUB_META: readonly HubMeta[] = [
     tone: 'text-sky-700 dark:text-sky-300 border-sky-500/30 bg-sky-500/10',
     pages: [
       {
+        path: '/dfir/estate',
+        tabId: 'estate',
+        label: 'External Estate',
+        desc: 'ASN ownership and announced address space - the internet-facing footprint.',
+        compVar: 'EstateWatch',
+      },
+      {
         path: '/dfir/asset-intel',
         tabId: 'asset-intel',
         label: 'Asset Intelligence',

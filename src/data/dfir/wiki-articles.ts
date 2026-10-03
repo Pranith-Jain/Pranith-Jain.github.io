@@ -301,6 +301,59 @@ Phishing analysis tools parse the raw HTML source and compare \`href\` attribute
 
   // ── Threat Intelligence ──────────────────────────────────────────────────────
   {
+    slug: 'threat-led-defence',
+    title: 'Threat Led Defence (BS5055)',
+    category: 'Threat Intelligence',
+    description:
+      "The UK NCSC's cyber resilience standard. Three principles (understand the threats, design the controls, validate the controls) over a five-pillar defence model. Distinct from the other frameworks here because it is certifiable: an assessor asks for evidence, not documentation.",
+    body: `## What BS5055 is
+
+BS5055:2020, published by BSI under the UK National Cyber Security Centre's Cyber Security Toolkit, sets out how to build cyber security **around threat led defence** rather than around compliance.
+
+Most of the frameworks on this wiki answer "how do we work". BS5055 answers "can you evidence that your controls were chosen against threats, and that they were then tested against them". That is why it is a certification standard rather than a methodology.
+
+## The three principles
+
+| # | Principle | The question it answers |
+|---|---|---|
+| 1 | **Understand the threats** | What is actually trying to get in? |
+| 2 | **Design the controls** | What stops them, and where does it fail? |
+| 3 | **Validate the controls** | Do they work, and can you prove it? |
+
+They are sequential. Skipping principle 1 is the most common failure and it invalidates the other two: a control chosen before a threat model exists cannot be traced to anything, so when an incident lands you learn which gap it exploited at the same moment as the intrusion.
+
+## The five build blocks
+
+**Understand. Prevent. Detect. Respond. Recover.**
+
+A layered defence, and the blocks do not substitute for one another. A strong Prevent posture with no Detect is silent, which is worse than having no posture at all because it produces confidence without warning.
+
+## Maturity
+
+1. **Initial** - controls exist but are not chosen against a threat model
+2. **Repeatable** - controls are documented and consistently applied
+3. **Threat-informed** - controls trace to a maintained threat profile
+4. **Assured** - controls are exercised and purple-teamed; gaps are declared
+5. **Adaptive** - validation is continuous and feeds back into the threat model
+
+Levels 3 and above are where the standard stops being documentation.
+
+## Relationship to the other frameworks
+
+- **MITRE ATT&CK** is the vocabulary the threat profile in principle 1 is written in
+- **F3EAD** and **OODA** describe how an investigation actually runs, which is what principle 3 exercises
+- **TID-CMM** and **UTIOM** measure how mature a capability is; BS5055 measures whether it is evidenced
+
+## Where to start
+
+Run principle 1 against your own estate before looking at any control list. The [External Estate](/dfir/estate) view gives you the address space an outsider can see, and [Asset Intelligence](/dfir/asset-intel) the hosts behind it. A threat model written against those is worth more than any framework mapping done without them.
+
+- [Full Threat Led Defence reference](/threatintel/wiki/threat-led-defence) - principles, build blocks, and the platform surfaces that produce each evidence artefact
+- [TID-CMM](/dfir/frameworks/tid-cmm) - capability maturity per domain
+- [UTIOM](/dfir/frameworks/utiom) - lifecycle and sequencing
+`,
+  },
+  {
     slug: 'f3ead',
     title: 'F3EAD (Find, Fix, Finish, Exploit, Analyze, Disseminate)',
     category: 'Threat Intelligence',

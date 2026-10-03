@@ -1042,6 +1042,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'F3ead',
       },
       {
+        path: '/threatintel/wiki/threat-led-defence',
+        tabId: 'threat-led-defence',
+        label: 'Threat Led Defence',
+        desc: 'BS5055 cyber resilience standard: understand threats, design controls, validate controls.',
+        compVar: 'ThreatLedDefence',
+      },
+      {
         path: '/threatintel/wiki/f2t2ea',
         tabId: 'f2t2ea',
         label: 'F2T2EA',

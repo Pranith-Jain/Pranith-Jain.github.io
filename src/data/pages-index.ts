@@ -717,6 +717,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
 
   // Investigate / enrich
   {
+    path: '/dfir/estate',
+    label: 'External Estate',
+    description: 'ASN ownership and announced address space - the internet-facing footprint.',
+    sectionLabel: 'CRUCIBLE · Asset & Attack Surface',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/asset-intel',
     label: 'Asset Intel',
     description: 'Per-asset intelligence - owner, exposure score, recent events.',
@@ -4136,6 +4143,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/wiki/mitre',
     label: 'MITRE',
     description: 'MITRE ATT&CK matrix.',
+    sectionLabel: 'Threat Intel · Knowledge',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/wiki/threat-led-defence',
+    label: 'Threat Led Defence (BS5055)',
+    description: 'UK NCSC cyber resilience standard: understand threats, design controls, validate controls.',
     sectionLabel: 'Threat Intel · Knowledge',
     group: 'threatintel',
   },

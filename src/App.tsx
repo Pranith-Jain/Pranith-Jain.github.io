@@ -124,6 +124,7 @@ const SecurityGroupAnalyzer = lazy(() => import('./pages/dfir/SecurityGroupAnaly
 const CloudTrailTriage = lazy(() => import('./pages/dfir/CloudTrailTriage'));
 const CvePrioritizer = lazy(() => import('./pages/dfir/CvePrioritizer'));
 const FusionExposure = lazy(() => import('./pages/dfir/FusionExposure'));
+const EstateWatch = lazy(() => import('./pages/dfir/EstateWatch'));
 const RiskRegister = lazy(() => import('./pages/dfir/RiskRegister'));
 const AttackPathGraph = lazy(() => import('./pages/dfir/AttackPathGraph'));
 const GrcEvidence = lazy(() => import('./pages/dfir/GrcEvidence'));
@@ -273,6 +274,7 @@ const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResourc
 const F3ead = lazy(() => import('./pages/threatintel/F3ead'));
 const F2t2ea = lazy(() => import('./pages/threatintel/F2t2ea'));
 const Ooda = lazy(() => import('./pages/threatintel/Ooda'));
+const ThreatLedDefence = lazy(() => import('./pages/threatintel/ThreatLedDefence'));
 const KillChainV2 = lazy(() => import('./pages/threatintel/KillChainV2'));
 const UnifiedKillChain = lazy(() => import('./pages/threatintel/UnifiedKillChain'));
 const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
@@ -494,6 +496,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/open-directory', Component: OpenDirectory },
   { path: '/dfir/exposure', Component: Exposure },
   { path: '/dfir/exposed-host', Component: ExposedHostPage },
+  { path: '/dfir/estate', Component: EstateWatch },
   { path: '/dfir/asset-intel', Component: AssetIntel },
   { path: '/dfir/file', Component: DfirFileRedirect, eager: true },
   { path: '/threatintel/wiki/:slug', Component: WikiArticle },
@@ -734,6 +737,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/wiki/f3ead', Component: F3ead },
   { path: '/threatintel/wiki/f2t2ea', Component: F2t2ea },
   { path: '/threatintel/wiki/ooda', Component: Ooda },
+  { path: '/threatintel/wiki/threat-led-defence', Component: ThreatLedDefence },
   { path: '/threatintel/wiki/kill-chain-v2', Component: KillChainV2 },
   { path: '/threatintel/wiki/unified-kill-chain', Component: UnifiedKillChain },
   { path: '/threatintel/wiki/insider', Component: InsiderThreatMatrix },

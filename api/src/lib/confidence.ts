@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { bandConfidence, type BandedScore } from './score-band';
 
 /**
  * NATO Admiralty Code — source reliability (A–F) and information credibility (1–6).
@@ -19,6 +20,8 @@ export type Confidence = 'very_high' | 'high' | 'moderate' | 'low' | 'very_low' 
 export interface ConfidenceScore {
   level: Confidence;
   score: number; // 0–100
+  /** Visual band for `score`, trust-polarity. Never render this red. */
+  band: BandedScore;
   admiralty?: AdmiraltyGrade;
   sources_contributing: number;
   contradictory_sources: number;
@@ -826,6 +829,10 @@ export function computeConfidence(params: {
   return {
     level,
     score,
+    // Visual band for the same number. Polarity is `confidence`: a high score
+    // here means "we are sure", which is reassuring, not dangerous. Previously
+    // every consumer re-derived its own colour ramp from `score`.
+    band: bandConfidence(score, { sourceCount }),
     admiralty,
     sources_contributing: sourceCount,
     contradictory_sources: contradictoryCount,
