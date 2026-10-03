@@ -4,78 +4,95 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-10-01T12:56:13.000Z",
-  "lastSeen": "2026-10-01T13:27:59.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "mentionCount": 4,
+  "firstSeen": "2026-10-02T14:24:13.000Z",
+  "lastSeen": "2026-10-03T05:54:28.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 3 countries.",
   "frequency": [
     {
-      "date": "2026-10-01",
+      "date": "2026-10-02",
       "count": 3
+    },
+    {
+      "date": "2026-10-03",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "wesmar-b834",
-      "title": "Wesmar — claimed by akira",
-      "pubDate": "2026-10-01T13:27:59.000Z"
+      "slug": "the-official-collegeof-architects-of-le-n-coal-fab1",
+      "title": "The Official Collegeof Architects of León (COAL) — claimed by akira",
+      "pubDate": "2026-10-03T05:54:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "dpl-group-01a8",
-      "title": "DPL Group — claimed by akira",
-      "pubDate": "2026-10-01T13:27:57.000Z"
+      "slug": "the-official-college-of-architects-of-le-n-coal-f083",
+      "title": "The Official College of Architects of León (COAL) — claimed by akira",
+      "pubDate": "2026-10-02T14:59:23.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "krycler-ervin-taubman-amp-kaminsky-9310",
-      "title": "Krycler, Ervin, Taubman &amp; Kaminsky — claimed by akira",
-      "pubDate": "2026-10-01T12:56:13.000Z"
+      "slug": "jampac-alimentos-5210",
+      "title": "Jampac Alimentos — claimed by akira",
+      "pubDate": "2026-10-02T14:59:03.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "pacific-tank-lines-34c9",
+      "title": "Pacific Tank Lines — claimed by akira",
+      "pubDate": "2026-10-02T14:24:13.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
       "slug": "professional-services",
       "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "wesmar-b834",
-      "victim": "Wesmar — claimed by akira",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-10-01T13:27:59.000Z"
-    },
-    {
-      "id": "dpl-group-01a8",
-      "victim": "DPL Group — claimed by akira",
-      "sector": "Other",
-      "country": null,
-      "pubDate": "2026-10-01T13:27:57.000Z"
-    },
-    {
-      "id": "krycler-ervin-taubman-amp-kaminsky-9310",
-      "victim": "Krycler, Ervin, Taubman &amp; Kaminsky — claimed by akira",
+      "id": "the-official-collegeof-architects-of-le-n-coal-fab1",
+      "victim": "The Official Collegeof Architects of León (COAL) — claimed by akira",
       "sector": "Professional Services",
-      "country": null,
-      "pubDate": "2026-10-01T12:56:13.000Z"
+      "country": "MX",
+      "pubDate": "2026-10-03T05:54:28.000Z"
+    },
+    {
+      "id": "the-official-college-of-architects-of-le-n-coal-f083",
+      "victim": "The Official College of Architects of León (COAL) — claimed by akira",
+      "sector": "Professional Services",
+      "country": "MX",
+      "pubDate": "2026-10-02T14:59:23.000Z"
+    },
+    {
+      "id": "jampac-alimentos-5210",
+      "victim": "Jampac Alimentos — claimed by akira",
+      "sector": "Agriculture and Food Production",
+      "country": "BR",
+      "pubDate": "2026-10-02T14:59:03.000Z"
+    },
+    {
+      "id": "pacific-tank-lines-34c9",
+      "victim": "Pacific Tank Lines — claimed by akira",
+      "sector": "Transportation",
+      "country": "US",
+      "pubDate": "2026-10-02T14:24:13.000Z"
     }
   ]
 }

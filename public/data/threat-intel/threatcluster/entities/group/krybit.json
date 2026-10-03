@@ -4,14 +4,14 @@
   "name": "krybit",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 6,
-  "firstSeen": "2026-10-01T14:59:58.000Z",
+  "mentionCount": 5,
+  "firstSeen": "2026-10-01T21:33:33.000Z",
   "lastSeen": "2026-10-02T09:31:56.000Z",
-  "summary": "Ransomware group with 6 leak-site victims across 6 sectors and 4 countries.",
+  "summary": "Ransomware group with 5 leak-site victims across 5 sectors and 3 countries.",
   "frequency": [
     {
       "date": "2026-10-01",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2026-10-02",
@@ -48,12 +48,6 @@
       "slug": "euroditel-resotelecom-1644",
       "title": "EURODITEL/RESOTELECOM — claimed by krybit",
       "pubDate": "2026-10-01T21:33:33.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "disk-precision-group-diskprecision-com-290f",
-      "title": "DISK PRECISION GROUP - diskprecision.com — claimed by krybit",
-      "pubDate": "2026-10-01T14:59:58.000Z"
     }
   ],
   "relatedEntities": [
@@ -85,12 +79,6 @@
       "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
       "weight": 1
     }
   ],
@@ -130,13 +118,6 @@
       "sector": "Technology",
       "country": "FR",
       "pubDate": "2026-10-01T21:33:33.000Z"
-    },
-    {
-      "id": "disk-precision-group-diskprecision-com-290f",
-      "victim": "DISK PRECISION GROUP - diskprecision.com — claimed by krybit",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-10-01T14:59:58.000Z"
     }
   ]
 }

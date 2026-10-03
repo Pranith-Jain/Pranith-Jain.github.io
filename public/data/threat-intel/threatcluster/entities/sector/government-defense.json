@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-10-01T14:50:50.000Z",
-  "lastSeen": "2026-10-01T14:50:50.000Z",
+  "firstSeen": "2026-10-03T06:25:51.000Z",
+  "lastSeen": "2026-10-03T06:25:51.000Z",
   "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-10-01",
+      "date": "2026-10-03",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "funap-funda-o-prof-dr-manoel-pedro-pimentel-d056",
-      "title": "FUNAP - Fundação \"Prof. Dr. Manoel Pedro Pimentel\" — claimed by booba project",
-      "pubDate": "2026-10-01T14:50:50.000Z"
+      "slug": "mandurah-state-emergency-service-99b6",
+      "title": "Mandurah State Emergency Service — claimed by thegentlemen",
+      "pubDate": "2026-10-03T06:25:51.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "booba-project",
-      "name": "booba project",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],
