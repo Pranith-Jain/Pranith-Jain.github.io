@@ -4,29 +4,41 @@
   "name": "Agriculture and Food Production",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-10-01T09:51:43.000Z",
-  "lastSeen": "2026-10-01T09:51:43.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-10-02T14:59:03.000Z",
+  "lastSeen": "2026-10-02T17:38:25.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-10-01",
-      "count": 1
+      "date": "2026-10-02",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "la-ponderosa-aa11",
-      "title": "LA PONDEROSA — claimed by emperador",
-      "pubDate": "2026-10-01T09:51:43.000Z"
+      "slug": "hollypoultry-com-d048",
+      "title": "hollypoultry.com — claimed by settra",
+      "pubDate": "2026-10-02T17:38:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "jampac-alimentos-5210",
+      "title": "Jampac Alimentos — claimed by akira",
+      "pubDate": "2026-10-02T14:59:03.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "emperador",
-      "name": "emperador",
+      "slug": "settra",
+      "name": "settra",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     }
   ],

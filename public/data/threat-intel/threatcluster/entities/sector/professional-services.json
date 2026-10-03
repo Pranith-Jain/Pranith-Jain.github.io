@@ -4,44 +4,32 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-09-30T17:00:59.000Z",
-  "lastSeen": "2026-10-01T12:56:13.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-10-02T14:59:23.000Z",
+  "lastSeen": "2026-10-03T05:54:28.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-09-30",
-      "count": 2
+      "date": "2026-10-02",
+      "count": 1
     },
     {
-      "date": "2026-10-01",
-      "count": 2
+      "date": "2026-10-03",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "krycler-ervin-taubman-amp-kaminsky-9310",
-      "title": "Krycler, Ervin, Taubman &amp; Kaminsky — claimed by akira",
-      "pubDate": "2026-10-01T12:56:13.000Z"
+      "slug": "the-official-collegeof-architects-of-le-n-coal-fab1",
+      "title": "The Official Collegeof Architects of León (COAL) — claimed by akira",
+      "pubDate": "2026-10-03T05:54:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "dynamic-office-solutions-6241",
-      "title": "Dynamic Office Solutions — claimed by qilin",
-      "pubDate": "2026-10-01T09:04:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "airtech-mechanical-services-a3fd",
-      "title": "Airtech Mechanical Services — claimed by play",
-      "pubDate": "2026-09-30T17:36:51.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "blaise-c-bender-pc-cf2d",
-      "title": "Blaise C. Bender, PC — claimed by interlock",
-      "pubDate": "2026-09-30T17:00:59.000Z"
+      "slug": "the-official-college-of-architects-of-le-n-coal-f083",
+      "title": "The Official College of Architects of León (COAL) — claimed by akira",
+      "pubDate": "2026-10-02T14:59:23.000Z"
     }
   ],
   "relatedEntities": [
@@ -49,25 +37,7 @@
       "type": "group",
       "slug": "akira",
       "name": "akira",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "play",
-      "name": "play",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "interlock",
-      "name": "interlock",
-      "weight": 1
+      "weight": 2
     }
   ],
   "mitreTechniques": []

@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-10-02T11:14:53.783Z",
-  "eventCount": 3,
+  "syncedAt": "2026-10-03T10:31:18.200Z",
+  "eventCount": 4,
   "events": [
     {
       "uuid": "558ee81f-5e54-52c5-a042-49b937c93432",
@@ -12,6 +12,16 @@
       "threat_level_id": "1",
       "timestamp": "1790619539",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:high", "type:malware", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "30c26383-64df-5869-9a77-0628a3113ddb",
+      "info": "Critical FortiMail Vulnerability Actively Exploited in the Wild",
+      "date": "2026-10-01",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1790896513",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
     {
@@ -25,13 +35,20 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "30c26383-64df-5869-9a77-0628a3113ddb",
-      "info": "Critical FortiMail Vulnerability Actively Exploited in the Wild",
+      "uuid": "99c9e258-3b42-5d0e-9512-85d738bd7ad4",
+      "info": "Warlock Ransomware Targets Critical Infrastructure in Spanish and Portuguese Regions",
       "date": "2026-10-01",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1790896513",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "timestamp": "1790874279",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "type:vulnerability"
+      ],
       "orgc": "ThreatCluster"
     }
   ]

@@ -4,40 +4,78 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-10-01T09:04:21.000Z",
-  "lastSeen": "2026-10-01T09:04:21.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 3,
+  "firstSeen": "2026-10-02T14:04:15.000Z",
+  "lastSeen": "2026-10-02T21:04:55.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
   "frequency": [
     {
-      "date": "2026-10-01",
-      "count": 1
+      "date": "2026-10-02",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "dynamic-office-solutions-6241",
-      "title": "Dynamic Office Solutions — claimed by qilin",
-      "pubDate": "2026-10-01T09:04:21.000Z"
+      "slug": "thai-lion-air-5c7d",
+      "title": "Thai Lion Air — claimed by qilin",
+      "pubDate": "2026-10-02T21:04:55.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sports-events365-06cc",
+      "title": "Sports Events365 — claimed by qilin",
+      "pubDate": "2026-10-02T18:03:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "inova-semiconductors-gmbh-5da3",
+      "title": "Inova Semiconductors GmbH — claimed by qilin",
+      "pubDate": "2026-10-02T14:04:15.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "dynamic-office-solutions-6241",
-      "victim": "Dynamic Office Solutions — claimed by qilin",
-      "sector": "Professional Services",
+      "id": "thai-lion-air-5c7d",
+      "victim": "Thai Lion Air — claimed by qilin",
+      "sector": "Transportation",
+      "country": "TH",
+      "pubDate": "2026-10-02T21:04:55.000Z"
+    },
+    {
+      "id": "sports-events365-06cc",
+      "victim": "Sports Events365 — claimed by qilin",
+      "sector": "Hospitality",
       "country": "GB",
-      "pubDate": "2026-10-01T09:04:21.000Z"
+      "pubDate": "2026-10-02T18:03:08.000Z"
+    },
+    {
+      "id": "inova-semiconductors-gmbh-5da3",
+      "victim": "Inova Semiconductors GmbH — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-10-02T14:04:15.000Z"
     }
   ]
 }

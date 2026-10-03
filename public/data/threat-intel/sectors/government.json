@@ -1,15 +1,29 @@
 {
   "sector": "government",
   "title": "Government sector brief",
-  "generatedAt": "2026-10-02",
+  "generatedAt": "2026-10-03",
   "topCount": 8,
-  "preview": "CVE-2025-59374 (critical) leads with priority 91.",
+  "preview": "CVE-2026-41940 (critical) leads with priority 95.",
   "sizeBytes": 2822,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
     {
-      "cveId": "CVE-2025-59374",
-      "title": "\"UNSUPPORTED WHEN ASSIGNED\" Certain versions of the ASUS Live Update client were distributed with unauthorized modificat",
+      "cveId": "CVE-2026-41940",
+      "title": "cPanel and WHM versions after 11.40 contain an authentication bypass vulnerability in the login flow that allows unauthe",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-8037",
+      "title": "OS Command Injection Remote Code Execution Vulnerability in API in Progress ADC Products allows an un-authenticated atta",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.6; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-24061",
+      "title": "telnetd in GNU Inetutils through 2.7 allows remote authentication bypass via a \"-f root\" value for the USER environment ",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
@@ -19,13 +33,6 @@
       "title": "A remote code execution vulnerability exists in the way that the Microsoft Server Message Block 3.1.1 (SMBv3) protocol h",
       "relevance": "broadly-critical",
       "risk": "CVSS 10; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2025-57819",
-      "title": "FreePBX is an open-source web-based graphical user interface. FreePBX 15, 16, and 17 endpoints are vulnerable due to ins",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
@@ -52,13 +59,6 @@
     {
       "cveId": "CVE-2018-19323",
       "title": "The GDrv low-level driver in GIGABYTE APP Center v1.05.21 and earlier, AORUS GRAPHICS ENGINE before 1.57, XTREME GAMING ",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2018-7602",
-      "title": "A remote code execution vulnerability exists within multiple subsystems of Drupal 7.x and 8.x. This potentially allows a",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
