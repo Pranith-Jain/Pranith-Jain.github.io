@@ -30,7 +30,22 @@ const MAX_POSTS_PER_SUB = 100;
 const MAX_POST_AGE_DAYS = 7;
 const MAX_TEXT_LEN = 400;
 const FETCH_TIMEOUT_MS = 15_000;
-const DELAY_BETWEEN_MS = 45_000;
+// Pacing between subreddits.
+//
+// Was 45s, which made a full pass arithmetically impossible: 15 gaps x 45s
+// = 11.25 min of sleeping against a 14 min MAX_RUN_MS, leaving 10.3s per sub
+// while FETCH_TIMEOUT_MS alone is 15s. Any single slow response or 429 blew the
+// budget, so runs stopped at 8 of 16 subs and published
+// "time budget reached - publishing partial feed". r/Scams, r/phishing,
+// r/scambait and the r/* forensics set were never reaching the feed at all.
+//
+// 12s keeps deliberate spacing while fitting the list inside the budget with
+// room for slow responses. The 429 defences below are unchanged and still
+// carry the load if Reddit does throttle: per-sub Retry-After honouring, one
+// retry with exponential backoff, a 90s cooldown, and MASS_THROTTLE_ABORT_AFTER
+// which bails out and leaves the last-good feed on the branch rather than
+// overwriting it with a truncated one.
+const DELAY_BETWEEN_MS = 12_000;
 const MAX_RETRIES = 1;
 const RETRY_BASE_MS = 90_000;
 const COOLDOWN_MS = 90_000;
@@ -40,7 +55,11 @@ const COOLDOWN_MS = 90_000;
 const MASS_THROTTLE_ABORT_AFTER = 3;
 // Hard ceiling for a run. A partially-throttled IP (some subs 429 with long
 // cooldowns) can grind past every sane window; publish what we have instead.
-const MAX_RUN_MS = 14 * 60_000;
+// Raised 14 -> 20 min. The workflow runs every 30 min on a GitHub runner with
+// a 6h default timeout, so there is ample headroom — at 12s pacing the full 16
+// subs take ~4 min of wall clock, leaving the ceiling as a real backstop for a
+// throttled IP rather than a constraint that truncates a healthy run.
+const MAX_RUN_MS = 20 * 60_000;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

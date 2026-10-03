@@ -106,6 +106,36 @@ const HANDLES: HandleSpec[] = [
     blurb: 'Security tradecraft + commentary',
     topic: 'research',
   },
+  // Added 2026-10-03 — each verified live via the AT Protocol API (post count
+  // + newest post date) rather than guessed from a name.
+  {
+    platform: 'bluesky',
+    handle: 'threatintel.microsoft.com',
+    name: 'Microsoft Threat Intelligence',
+    blurb: 'MSTI — nation-state campaigns + advisories',
+    topic: 'vendor',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'kosh38.bsky.social',
+    name: 'Shane Huntley',
+    blurb: 'Google TAG — nation-state research, counter-intel',
+    topic: 'research',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'pulsedive.com',
+    name: 'Pulsedive',
+    blurb: 'IOC enrichment + community threat scoring',
+    topic: 'vendor',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'hegel.bsky.social',
+    name: 'Tom Hegel',
+    blurb: 'Threat-intel commentary + tooling notes',
+    topic: 'research',
+  },
 
   // Mastodon — infosec.exchange (the de-facto cybersec instance)
   {
